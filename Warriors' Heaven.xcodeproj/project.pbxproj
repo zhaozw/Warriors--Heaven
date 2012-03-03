@@ -1,0 +1,340 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5AFD8D641500E6ED0066ECBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D631500E6ED0066ECBA /* UIKit.framework */; };
+		5AFD8D661500E6ED0066ECBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D651500E6ED0066ECBA /* Foundation.framework */; };
+		5AFD8D681500E6ED0066ECBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D671500E6ED0066ECBA /* CoreGraphics.framework */; };
+		5AFD8D6A1500E6ED0066ECBA /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D691500E6ED0066ECBA /* CoreData.framework */; };
+		5AFD8D701500E6ED0066ECBA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8D6E1500E6ED0066ECBA /* InfoPlist.strings */; };
+		5AFD8D721500E6ED0066ECBA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8D711500E6ED0066ECBA /* main.m */; };
+		5AFD8D761500E6ED0066ECBA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8D751500E6ED0066ECBA /* AppDelegate.m */; };
+		5AFD8D791500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8D771500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld */; };
+		5AFD8DE61500EAEE0066ECBA /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DE51500EAEE0066ECBA /* main.xib */; };
+		5AFD8DEA150233600066ECBA /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8DE8150233600066ECBA /* HomeViewController.m */; };
+		5AFD8DEB150233600066ECBA /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DE9150233600066ECBA /* HomeViewController.xib */; };
+		5AFD8DF015023C590066ECBA /* DHTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8DED15023C590066ECBA /* DHTabBar.m */; };
+		5AFD8DF115023C590066ECBA /* DotHide_TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFD8DEF15023C590066ECBA /* DotHide_TabBarController.m */; };
+		5AFD8DF4150241170066ECBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8DF3150241170066ECBA /* QuartzCore.framework */; };
+		5AFD8DF91502A2EA0066ECBA /* slide.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF51502A2E90066ECBA /* slide.png */; };
+		5AFD8DFA1502A2EA0066ECBA /* slide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF61502A2EA0066ECBA /* slide@2x.png */; };
+		5AFD8DFB1502A2EA0066ECBA /* TabBarGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF71502A2EA0066ECBA /* TabBarGradient.png */; };
+		5AFD8DFC1502A2EA0066ECBA /* TabBarGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5AFD8D5F1500E6ED0066ECBA /* Warriors' Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Warriors' Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AFD8D631500E6ED0066ECBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5AFD8D651500E6ED0066ECBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5AFD8D671500E6ED0066ECBA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5AFD8D691500E6ED0066ECBA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5AFD8D6D1500E6ED0066ECBA /* Warriors' Heaven-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Warriors' Heaven-Info.plist"; sourceTree = "<group>"; };
+		5AFD8D6F1500E6ED0066ECBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5AFD8D711500E6ED0066ECBA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5AFD8D731500E6ED0066ECBA /* Warriors' Heaven-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Warriors' Heaven-Prefix.pch"; sourceTree = "<group>"; };
+		5AFD8D741500E6ED0066ECBA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5AFD8D751500E6ED0066ECBA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5AFD8D781500E6ED0066ECBA /* Warriors__Heaven.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Warriors__Heaven.xcdatamodel; sourceTree = "<group>"; };
+		5AFD8DE51500EAEE0066ECBA /* main.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = main.xib; sourceTree = "<group>"; };
+		5AFD8DE7150233600066ECBA /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		5AFD8DE8150233600066ECBA /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		5AFD8DE9150233600066ECBA /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		5AFD8DEC15023C580066ECBA /* DHTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHTabBar.h; sourceTree = "<group>"; };
+		5AFD8DED15023C590066ECBA /* DHTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHTabBar.m; sourceTree = "<group>"; };
+		5AFD8DEE15023C590066ECBA /* DotHide_TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotHide_TabBarController.h; sourceTree = "<group>"; };
+		5AFD8DEF15023C590066ECBA /* DotHide_TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DotHide_TabBarController.m; sourceTree = "<group>"; };
+		5AFD8DF3150241170066ECBA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5AFD8DF51502A2E90066ECBA /* slide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slide.png; sourceTree = "<group>"; };
+		5AFD8DF61502A2EA0066ECBA /* slide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slide@2x.png"; sourceTree = "<group>"; };
+		5AFD8DF71502A2EA0066ECBA /* TabBarGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGradient.png; sourceTree = "<group>"; };
+		5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGradient@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5AFD8D5C1500E6ED0066ECBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AFD8DF4150241170066ECBA /* QuartzCore.framework in Frameworks */,
+				5AFD8D641500E6ED0066ECBA /* UIKit.framework in Frameworks */,
+				5AFD8D661500E6ED0066ECBA /* Foundation.framework in Frameworks */,
+				5AFD8D681500E6ED0066ECBA /* CoreGraphics.framework in Frameworks */,
+				5AFD8D6A1500E6ED0066ECBA /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5AFD8D541500E6ED0066ECBA = {
+			isa = PBXGroup;
+			children = (
+				5AFD8DF3150241170066ECBA /* QuartzCore.framework */,
+				5AFD8D6B1500E6ED0066ECBA /* Warriors' Heaven */,
+				5AFD8D621500E6ED0066ECBA /* Frameworks */,
+				5AFD8D601500E6ED0066ECBA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5AFD8D601500E6ED0066ECBA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8D5F1500E6ED0066ECBA /* Warriors' Heaven.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AFD8D621500E6ED0066ECBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8D631500E6ED0066ECBA /* UIKit.framework */,
+				5AFD8D651500E6ED0066ECBA /* Foundation.framework */,
+				5AFD8D671500E6ED0066ECBA /* CoreGraphics.framework */,
+				5AFD8D691500E6ED0066ECBA /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5AFD8D6B1500E6ED0066ECBA /* Warriors' Heaven */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8DF215023C6E0066ECBA /* classes */,
+				5AFD8D741500E6ED0066ECBA /* AppDelegate.h */,
+				5AFD8D751500E6ED0066ECBA /* AppDelegate.m */,
+				5AFD8D711500E6ED0066ECBA /* main.m */,
+				5AFD8D771500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld */,
+				5AFD8D6C1500E6ED0066ECBA /* Supporting Files */,
+			);
+			path = "Warriors' Heaven";
+			sourceTree = "<group>";
+		};
+		5AFD8D6C1500E6ED0066ECBA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8D6D1500E6ED0066ECBA /* Warriors' Heaven-Info.plist */,
+				5AFD8DE51500EAEE0066ECBA /* main.xib */,
+				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
+				5AFD8D6E1500E6ED0066ECBA /* InfoPlist.strings */,
+				5AFD8D731500E6ED0066ECBA /* Warriors' Heaven-Prefix.pch */,
+				5AFD8DF51502A2E90066ECBA /* slide.png */,
+				5AFD8DF61502A2EA0066ECBA /* slide@2x.png */,
+				5AFD8DF71502A2EA0066ECBA /* TabBarGradient.png */,
+				5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5AFD8DF215023C6E0066ECBA /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8DEC15023C580066ECBA /* DHTabBar.h */,
+				5AFD8DED15023C590066ECBA /* DHTabBar.m */,
+				5AFD8DEE15023C590066ECBA /* DotHide_TabBarController.h */,
+				5AFD8DEF15023C590066ECBA /* DotHide_TabBarController.m */,
+				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
+				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
+			);
+			name = classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5AFD8D5E1500E6ED0066ECBA /* Warriors' Heaven */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5AFD8D7C1500E6ED0066ECBA /* Build configuration list for PBXNativeTarget "Warriors' Heaven" */;
+			buildPhases = (
+				5AFD8D5B1500E6ED0066ECBA /* Sources */,
+				5AFD8D5C1500E6ED0066ECBA /* Frameworks */,
+				5AFD8D5D1500E6ED0066ECBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Warriors' Heaven";
+			productName = "Warriors' Heaven";
+			productReference = 5AFD8D5F1500E6ED0066ECBA /* Warriors' Heaven.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5AFD8D561500E6ED0066ECBA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 5AFD8D591500E6ED0066ECBA /* Build configuration list for PBXProject "Warriors' Heaven" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5AFD8D541500E6ED0066ECBA;
+			productRefGroup = 5AFD8D601500E6ED0066ECBA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5AFD8D5E1500E6ED0066ECBA /* Warriors' Heaven */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5AFD8D5D1500E6ED0066ECBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AFD8D701500E6ED0066ECBA /* InfoPlist.strings in Resources */,
+				5AFD8DE61500EAEE0066ECBA /* main.xib in Resources */,
+				5AFD8DEB150233600066ECBA /* HomeViewController.xib in Resources */,
+				5AFD8DF91502A2EA0066ECBA /* slide.png in Resources */,
+				5AFD8DFA1502A2EA0066ECBA /* slide@2x.png in Resources */,
+				5AFD8DFB1502A2EA0066ECBA /* TabBarGradient.png in Resources */,
+				5AFD8DFC1502A2EA0066ECBA /* TabBarGradient@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5AFD8D5B1500E6ED0066ECBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AFD8D721500E6ED0066ECBA /* main.m in Sources */,
+				5AFD8D761500E6ED0066ECBA /* AppDelegate.m in Sources */,
+				5AFD8D791500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld in Sources */,
+				5AFD8DEA150233600066ECBA /* HomeViewController.m in Sources */,
+				5AFD8DF015023C590066ECBA /* DHTabBar.m in Sources */,
+				5AFD8DF115023C590066ECBA /* DotHide_TabBarController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5AFD8D6E1500E6ED0066ECBA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AFD8D6F1500E6ED0066ECBA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5AFD8D7A1500E6ED0066ECBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5AFD8D7B1500E6ED0066ECBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5AFD8D7D1500E6ED0066ECBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
+				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5AFD8D7E1500E6ED0066ECBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
+				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5AFD8D591500E6ED0066ECBA /* Build configuration list for PBXProject "Warriors' Heaven" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AFD8D7A1500E6ED0066ECBA /* Debug */,
+				5AFD8D7B1500E6ED0066ECBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5AFD8D7C1500E6ED0066ECBA /* Build configuration list for PBXNativeTarget "Warriors' Heaven" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AFD8D7D1500E6ED0066ECBA /* Debug */,
+				5AFD8D7E1500E6ED0066ECBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5AFD8D771500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5AFD8D781500E6ED0066ECBA /* Warriors__Heaven.xcdatamodel */,
+			);
+			currentVersion = 5AFD8D781500E6ED0066ECBA /* Warriors__Heaven.xcdatamodel */;
+			path = Warriors__Heaven.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5AFD8D561500E6ED0066ECBA /* Project object */;
+}
