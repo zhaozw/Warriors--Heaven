@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface HomeViewController : UIViewController{
-    
+    UIImageView * bgView;
+    __unsafe_unretained IBOutlet UILabel *lbGold;
+    __unsafe_unretained IBOutlet UIButton *btGold;
+    __unsafe_unretained IBOutlet UIImageView *viewReport;
 }
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lb_status;
 
+@property (strong, nonatomic) IBOutlet UIImageView *playerProfile;
+@property (nonatomic, retain) UIImageView *bgView;
 
 @end

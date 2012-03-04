@@ -9,8 +9,9 @@
 #import "HomeViewController.h"
 
 @implementation HomeViewController
-@synthesize lb_status;
 
+@synthesize playerProfile;
+@synthesize bgView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,13 +36,26 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+//    bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
+//    
+//    [bgView setImage:[UIImage imageNamed:@"background.png"]];
+//    [self.view addSubview:bgView];
+    UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
+    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:39];
+    //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
+    [self->viewReport setImage:stretchableImageNormal  ];
+	
+    // set player profile
+    [playerProfile setImage:[UIImage imageNamed:@"default_player_m.png"]];
+   // [playerProfile setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidUnload
 {
-    [self setLb_status:nil];
-    lb_status = nil;
-    [self setLb_status:nil];
+    lbGold = nil;
+    btGold = nil;
+    viewReport = nil;
+    [self setPlayerProfile:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

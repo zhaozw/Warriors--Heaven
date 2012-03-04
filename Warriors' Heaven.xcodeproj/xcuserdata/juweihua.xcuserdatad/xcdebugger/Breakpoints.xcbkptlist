@@ -9,27 +9,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.h"
-         timestampString = "352495843.038638"
+         timestampString = "352503947.734475"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "17"
-         endingLineNumber = "17"
+         startingLineNumber = "18"
+         endingLineNumber = "18"
          landmarkName = "@interface AppDelegate"
          landmarkType = "2">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "352500875.82045"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "48"
-         endingLineNumber = "48"
-         landmarkName = "-applicationDidEnterBackground:"
-         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -51,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "352500875.82045"
+         timestampString = "352514037.466793"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "27"
-         endingLineNumber = "27"
+         startingLineNumber = "37"
+         endingLineNumber = "37"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -93,11 +79,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/DHTabBar.m"
-         timestampString = "352494018.817793"
+         timestampString = "352520660.822938"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
          landmarkName = "-initWithBackgroundImage:ViewCount:ViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -121,11 +107,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/DHTabBar.m"
-         timestampString = "352494761.814731"
+         timestampString = "352520660.822938"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-initWithBackgroundImage:ViewCount:ViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -135,26 +121,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/DHTabBar.m"
-         timestampString = "352494776.308151"
+         timestampString = "352520660.822938"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
+         startingLineNumber = "98"
+         endingLineNumber = "98"
          landmarkName = "-initWithBackgroundImage:ViewCount:ViewController:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "352500875.82045"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "50"
-         endingLineNumber = "50"
-         landmarkName = "-applicationDidEnterBackground:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -189,11 +161,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/DHTabBar.m"
-         timestampString = "352498192.683919"
+         timestampString = "352520660.822938"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "98"
-         endingLineNumber = "98"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
          landmarkName = "-selectedTab:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,12 +175,40 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/DHTabBar.m"
-         timestampString = "352498202.653958"
+         timestampString = "352520660.822938"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "106"
-         endingLineNumber = "106"
+         startingLineNumber = "117"
+         endingLineNumber = "117"
          landmarkName = "-slideTabBg:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/DotHide_TabBarController.m"
+         timestampString = "352502296.571415"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "25"
+         endingLineNumber = "25"
+         landmarkName = "-viewWillAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/AppDelegate.m"
+         timestampString = "352514037.466793"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "31"
+         endingLineNumber = "31"
+         landmarkName = "-application:didFinishLaunchingWithOptions:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

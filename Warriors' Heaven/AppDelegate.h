@@ -12,6 +12,7 @@
     UITabBarController *tabBarController;
     UIViewController *viewcontroller;
     UIWindow *window;
+    UIImageView *bgView;
 }
 
 
@@ -21,7 +22,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-
+@property (nonatomic, retain) UIImageView *bgView;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @property (nonatomic, retain) IBOutlet UIViewController *viewcontroller;

@@ -45,5 +45,7 @@
 	</array>
 	<key>NSMainNibFile~iphone</key>
 	<string>main</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>

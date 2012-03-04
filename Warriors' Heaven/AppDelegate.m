@@ -11,7 +11,7 @@
 @implementation AppDelegate
 
 @synthesize window;
-
+@synthesize bgView;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
@@ -22,9 +22,19 @@
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // full screen
+    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
     //self.window.backgroundColor = [UIColor whiteColor];
-
-  [self.window addSubview:tabBarController.view];
+ 
+   // CGRect rect = [[UIScreen mainScreen] bounds];
+    UIImageView* bgView1 = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
+    //[bgView1 setBackgroundColor:[UIColor redColor]];
+    [bgView1 setImage:[UIImage imageNamed:@"background.PNG"]];
+    //[bgView setHidden:FALSE];
+    
+    [self.window addSubview:bgView1];
+    [self.window addSubview:tabBarController.view];
   //  [self.window setRootViewController:viewcontroller];
    // self.window.rootViewController = viewcontroller;
    // [self.window addSubview:viewcontroller.view];

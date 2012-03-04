@@ -67,22 +67,33 @@
 			UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 			btn.frame = CGRectMake(i * btnWidth, 0, btnWidth, btnHeight);
 			btn.tag = i;
+            
 			//设定btn的响应方法
 			[btn addTarget:self action:@selector(selectedTab:) forControlEvents:UIControlEventTouchUpInside];
-			UIImage *btnImage = [self tabBarImage:v.tabBarItem.image 
-											 size:btn.frame.size 
-								  backgroundImage:nil];
-			[btn setImage:btnImage forState:UIControlStateNormal];
+//			UIImage *btnImage = [self tabBarImage:v.tabBarItem.image 
+//											 size:btn.frame.size 
+//								  backgroundImage:nil];
+            UIImage *btnImage;
+            if (i == 0)
+                btnImage = [UIImage imageNamed:@"home.jpg"];
+            else 
+                btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
+           // [btn setImage:btnImage forState:UIControlStateNormal];
+            [btn setBackgroundImage:btnImage forState:UIControlStateNormal];
 			btn.imageEdgeInsets = UIEdgeInsetsMake(-5, 0, 5, 0);
+            [btn.imageView setContentMode:UIViewContentModeScaleAspectFit];
+            [btn setContentMode:UIViewContentModeScaleAspectFit];
+            btn.adjustsImageWhenHighlighted = NO;
+            
 			//NSLog(@"%@",[btn.imageView.superview description]);
-			UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, btnHeight - 18, btnWidth, btnHeight - 30)];
+	/*		UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, btnHeight - 18, btnWidth, btnHeight - 30)];
 			title.font = [UIFont systemFontOfSize:10];
 			title.textColor = [UIColor whiteColor];
 			title.backgroundColor = [UIColor clearColor];
 			title.text = v.tabBarItem.title;
 			title.textAlignment = UITextAlignmentCenter;
 			[btn addSubview:title];
-//			[title release];
+//			[title release];*/
 			[buttons addObject:btn];
 			[tabBarScrollView addSubview:btn];
 			[tabBarScrollView addSubview:slideBg];
