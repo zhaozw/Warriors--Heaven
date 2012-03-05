@@ -1,18 +1,15 @@
 //
-//  HomeViewController.m
+//  CharacterViewController.m
 //  Warriors' Heaven
 //
-//  Created by juweihua on 3/3/12.
+//  Created by juweihua on 3/5/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "CharacterViewController.h"
 
-@implementation HomeViewController
-
+@implementation CharacterViewController
 @synthesize vcStatus;
-@synthesize playerProfile;
-@synthesize bgView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,33 +34,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
-//    
-//    [bgView setImage:[UIImage imageNamed:@"background.png"]];
-//    [self.view addSubview:bgView];
-    
-    // set strechable image for report view
-    UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
-    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:39];
-    //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
-    [self->viewReport setImage:stretchableImageNormal  ];
-	
-    // set player profile
-    [playerProfile setImage:[UIImage imageNamed:@"default_player_m.png"]];
-   // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
     // add status view
     [self addChildViewController:vcStatus];
     [self.view addSubview:vcStatus.view];
-     
 }
 
 - (void)viewDidUnload
 {
-    lbGold = nil;
-    btGold = nil;
-    viewReport = nil;
-    [self setPlayerProfile:nil];
     [self setVcStatus:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.

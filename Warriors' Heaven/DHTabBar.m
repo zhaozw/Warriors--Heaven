@@ -76,7 +76,9 @@
             UIImage *btnImage;
             if (i == 0)
                 btnImage = [UIImage imageNamed:@"home.jpg"];
-            else 
+            else if (i == 1)
+                btnImage = [UIImage imageNamed:@"tab_character.jpg"];
+            else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];
             [btn setBackgroundImage:btnImage forState:UIControlStateNormal];

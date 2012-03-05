@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A25E2811504CBB20046C67D /* tab_character.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2801504CBB20046C67D /* tab_character.jpg */; };
+		5A25E2861504CC260046C67D /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E2841504CC260046C67D /* CharacterViewController.m */; };
+		5A25E2871504CC260046C67D /* CharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2851504CC260046C67D /* CharacterViewController.xib */; };
+		5A25E28B1504CC9A0046C67D /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E2891504CC9A0046C67D /* StatusViewController.m */; };
+		5A25E28C1504CC9A0046C67D /* StatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E28A1504CC9A0046C67D /* StatusViewController.xib */; };
+		5A25E2901504D2530046C67D /* BattleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E28E1504D2530046C67D /* BattleViewController.m */; };
+		5A25E2911504D2530046C67D /* BattleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E28F1504D2530046C67D /* BattleViewController.xib */; };
 		5AD0E5C5150309CA009106D2 /* home.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AD0E5C4150309CA009106D2 /* home.jpg */; };
 		5AD0E5C7150312D9009106D2 /* default_player_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD0E5C6150312D9009106D2 /* default_player_m.png */; };
 		5AFD8D641500E6ED0066ECBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D631500E6ED0066ECBA /* UIKit.framework */; };
@@ -34,6 +41,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A25E2801504CBB20046C67D /* tab_character.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tab_character.jpg; sourceTree = "<group>"; };
+		5A25E2831504CC260046C67D /* CharacterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterViewController.h; sourceTree = "<group>"; };
+		5A25E2841504CC260046C67D /* CharacterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterViewController.m; sourceTree = "<group>"; };
+		5A25E2851504CC260046C67D /* CharacterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacterViewController.xib; sourceTree = "<group>"; };
+		5A25E2881504CC9A0046C67D /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
+		5A25E2891504CC9A0046C67D /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
+		5A25E28A1504CC9A0046C67D /* StatusViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusViewController.xib; sourceTree = "<group>"; };
+		5A25E28D1504D2520046C67D /* BattleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleViewController.h; sourceTree = "<group>"; };
+		5A25E28E1504D2530046C67D /* BattleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleViewController.m; sourceTree = "<group>"; };
+		5A25E28F1504D2530046C67D /* BattleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BattleViewController.xib; sourceTree = "<group>"; };
 		5AD0E5C4150309CA009106D2 /* home.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = home.jpg; sourceTree = "<group>"; };
 		5AD0E5C6150312D9009106D2 /* default_player_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_player_m.png; sourceTree = "<group>"; };
 		5AFD8D5F1500E6ED0066ECBA /* Warriors' Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Warriors' Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +100,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A25E2921504D2770046C67D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				5A25E28F1504D2530046C67D /* BattleViewController.xib */,
+				5A25E2851504CC260046C67D /* CharacterViewController.xib */,
+				5A25E28A1504CC9A0046C67D /* StatusViewController.xib */,
+				5AFD8DE51500EAEE0066ECBA /* main.xib */,
+				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		5A25E2971504D4800046C67D /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
+				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
+				5A25E28D1504D2520046C67D /* BattleViewController.h */,
+				5A25E28E1504D2530046C67D /* BattleViewController.m */,
+				5A25E2831504CC260046C67D /* CharacterViewController.h */,
+				5A25E2841504CC260046C67D /* CharacterViewController.m */,
+				5A25E2881504CC9A0046C67D /* StatusViewController.h */,
+				5A25E2891504CC9A0046C67D /* StatusViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
 		5AFD8D541500E6ED0066ECBA = {
 			isa = PBXGroup;
 			children = (
@@ -115,10 +159,10 @@
 		5AFD8D6B1500E6ED0066ECBA /* Warriors' Heaven */ = {
 			isa = PBXGroup;
 			children = (
+				5A25E2921504D2770046C67D /* view */,
+				5A25E2971504D4800046C67D /* controller */,
 				5AFD8E031502CFC20066ECBA /* resources */,
 				5AFD8DF215023C6E0066ECBA /* classes */,
-				5AFD8D741500E6ED0066ECBA /* AppDelegate.h */,
-				5AFD8D751500E6ED0066ECBA /* AppDelegate.m */,
 				5AFD8D711500E6ED0066ECBA /* main.m */,
 				5AFD8D771500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld */,
 				5AFD8D6C1500E6ED0066ECBA /* Supporting Files */,
@@ -130,8 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				5AFD8D6D1500E6ED0066ECBA /* Warriors' Heaven-Info.plist */,
-				5AFD8DE51500EAEE0066ECBA /* main.xib */,
-				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
 				5AFD8D6E1500E6ED0066ECBA /* InfoPlist.strings */,
 				5AFD8D731500E6ED0066ECBA /* Warriors' Heaven-Prefix.pch */,
 			);
@@ -141,12 +183,12 @@
 		5AFD8DF215023C6E0066ECBA /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				5AFD8D741500E6ED0066ECBA /* AppDelegate.h */,
+				5AFD8D751500E6ED0066ECBA /* AppDelegate.m */,
 				5AFD8DEC15023C580066ECBA /* DHTabBar.h */,
 				5AFD8DED15023C590066ECBA /* DHTabBar.m */,
 				5AFD8DEE15023C590066ECBA /* DotHide_TabBarController.h */,
 				5AFD8DEF15023C590066ECBA /* DotHide_TabBarController.m */,
-				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
-				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
 			);
 			name = classes;
 			sourceTree = "<group>";
@@ -162,6 +204,7 @@
 				5AFD8E081502DFAB0066ECBA /* reportboard.png */,
 				5AFD8E041502D2A70066ECBA /* gold.png */,
 				5AD0E5C4150309CA009106D2 /* home.jpg */,
+				5A25E2801504CBB20046C67D /* tab_character.jpg */,
 				5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */,
 				5AD0E5C6150312D9009106D2 /* default_player_m.png */,
 			);
@@ -231,6 +274,10 @@
 				5AFD8E0B1502ED420066ECBA /* board.jpg in Resources */,
 				5AD0E5C5150309CA009106D2 /* home.jpg in Resources */,
 				5AD0E5C7150312D9009106D2 /* default_player_m.png in Resources */,
+				5A25E2811504CBB20046C67D /* tab_character.jpg in Resources */,
+				5A25E2871504CC260046C67D /* CharacterViewController.xib in Resources */,
+				5A25E28C1504CC9A0046C67D /* StatusViewController.xib in Resources */,
+				5A25E2911504D2530046C67D /* BattleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +294,9 @@
 				5AFD8DEA150233600066ECBA /* HomeViewController.m in Sources */,
 				5AFD8DF015023C590066ECBA /* DHTabBar.m in Sources */,
 				5AFD8DF115023C590066ECBA /* DotHide_TabBarController.m in Sources */,
+				5A25E2861504CC260046C67D /* CharacterViewController.m in Sources */,
+				5A25E28B1504CC9A0046C67D /* StatusViewController.m in Sources */,
+				5A25E2901504D2530046C67D /* BattleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

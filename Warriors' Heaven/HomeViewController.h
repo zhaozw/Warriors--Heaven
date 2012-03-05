@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StatusViewController.h"
 
 @interface HomeViewController : UIViewController{
     UIImageView * bgView;
@@ -14,6 +15,7 @@
     __unsafe_unretained IBOutlet UIButton *btGold;
     __unsafe_unretained IBOutlet UIImageView *viewReport;
 }
+@property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
 @property (strong, nonatomic) IBOutlet UIImageView *playerProfile;
 @property (nonatomic, retain) UIImageView *bgView;
