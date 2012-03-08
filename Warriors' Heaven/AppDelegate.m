@@ -88,7 +88,7 @@
 }
 
 - (BOOL) isWaiting{
-    return waiting != nil;
+    return waiting.hidden  == FALSE;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

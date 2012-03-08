@@ -19,17 +19,18 @@
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait{
     selector = s;
      AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    if([ad isWaiting]){
-        NSMethodSignature *signature  = [self methodSignatureForSelector:@selector(sendHttpRequest:::)];
+    if(bWait && [ad isWaiting]){
+        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
         NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
         
         [invocation setTarget:self];                    // index 0 (hidden)
-        [invocation setSelector:@selector(sendHttpRequest:::)];                  // index 1 (hidden)
+        [invocation setSelector:@selector(sendHttpRequest:selector:showWaiting:)];                  // index 1 (hidden)
         [invocation setArgument:&cmd atIndex:2];      // index 2
         [invocation setArgument:&s atIndex:3];      // index 3
         [invocation setArgument:&bWait atIndex:4];      // index 3
        // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
         [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
+        return;
     }
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
@@ -128,6 +129,11 @@
         [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
     else 
         NSLog(@"data is not json string");
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    if([ad isWaiting])
+ 
+        [ad showWaiting:FALSE];
+
     /*
     NSString * v;
     if (v = [json valueForKey:@"user"])
