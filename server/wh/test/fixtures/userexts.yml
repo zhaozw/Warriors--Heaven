@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  uid: 1
+  gold: 1
+  exp: 1
+  level: 1
+  prop: MyString
+
+two:
+  uid: 1
+  gold: 1
+  exp: 1
+  level: 1
+  prop: MyString

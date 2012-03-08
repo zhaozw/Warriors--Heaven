@@ -54,4 +54,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    NSLog(@"character view update");
+}
+
 @end

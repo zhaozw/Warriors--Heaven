@@ -11,5 +11,5 @@
 
 @interface CharacterViewController : UIViewController
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
-
+-(void)viewWillAppear:(BOOL)animated ;
 @end

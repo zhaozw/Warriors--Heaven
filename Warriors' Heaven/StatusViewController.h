@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface StatusViewController : UIViewController
-
+- (void) onReceiveStatus:(NSObject*) json;
 @end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: MyString
+  uid: 1
+  sid: MyString
+  age: 1
+  race: 1
+  sex: 1
+
+two:
+  user: MyString
+  uid: 1
+  sid: MyString
+  age: 1
+  race: 1
+  sex: 1

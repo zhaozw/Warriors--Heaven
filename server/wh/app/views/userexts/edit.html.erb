@@ -1,0 +1,32 @@
+<h1>Editing userext</h1>
+
+<% form_for(@userext) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :uid %><br />
+    <%= f.text_field :uid %>
+  </p>
+  <p>
+    <%= f.label :gold %><br />
+    <%= f.text_field :gold %>
+  </p>
+  <p>
+    <%= f.label :exp %><br />
+    <%= f.text_field :exp %>
+  </p>
+  <p>
+    <%= f.label :level %><br />
+    <%= f.text_field :level %>
+  </p>
+  <p>
+    <%= f.label :prop %><br />
+    <%= f.text_field :prop %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userext %> |
+<%= link_to 'Back', userexts_path %>

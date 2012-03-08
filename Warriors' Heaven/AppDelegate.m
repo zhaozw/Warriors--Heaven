@@ -17,11 +17,19 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize viewcontroller;
 @synthesize tabBarController;
+@synthesize session_id;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // load session id
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray * Array = [SaveDefaults objectForKey:@"sessionid"];
+   
+    session_id = [Array objectAtIndex:0];
+    NSLog(@"load session id %@", session_id);
     
     // full screen
     self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
@@ -39,9 +47,48 @@
    // self.window.rootViewController = viewcontroller;
    // [self.window addSubview:viewcontroller.view];
  //   [viewcontroller viewWillAppear:FALSE];
+    
+    // create waiting view
+    self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
+    [self->waiting setBackgroundColor:[UIColor blackColor]];
+    [self->waiting setAlpha:0.5f]; 
+    //  [self->waiting setUserInteractionEnabled:false];
+    //[self->waiting setOpaque:TRUE];
+    
+    
+    // Create and add the activity indicator  
+    //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(120, 200, 50, 50 )];
+    //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
+    [aiv setBackgroundColor:[UIColor clearColor]];
+    [aiv setOpaque:NO];
+    
+    //  [aiv setAlpha:0.0f];
+    NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
+    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+    //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
+    //   [aiv startAnimating];  
+    [self->waiting addSubview:aiv];  
+    //[aiv release];  
+    
+    // Auto dismiss after 3 seconds  
+    //  [self performSelector:@selector(performDismiss) withObject:nil afterDelay:3.0f];  
+    [window addSubview:self->waiting];
+    [window bringSubviewToFront:self->waiting];
+    waiting.hidden = YES;
+    
     [self.window makeKeyAndVisible];
     NSLog(@"TESTESTTE");
     return YES;
+}
+- (void) showWaiting:(BOOL)bShow{
+    waiting.hidden = !bShow;
+    if (bShow)
+        [window bringSubviewToFront:waiting];
+}
+
+- (BOOL) isWaiting{
+    return waiting != nil;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

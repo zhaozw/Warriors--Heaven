@@ -1,0 +1,28 @@
+<h1>Listing userexts</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Gold</th>
+    <th>Exp</th>
+    <th>Level</th>
+    <th>Prop</th>
+  </tr>
+
+<% @userexts.each do |userext| %>
+  <tr>
+    <td><%=h userext.uid %></td>
+    <td><%=h userext.gold %></td>
+    <td><%=h userext.exp %></td>
+    <td><%=h userext.level %></td>
+    <td><%=h userext.prop %></td>
+    <td><%= link_to 'Show', userext %></td>
+    <td><%= link_to 'Edit', edit_userext_path(userext) %></td>
+    <td><%= link_to 'Destroy', userext, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New userext', new_userext_path %>

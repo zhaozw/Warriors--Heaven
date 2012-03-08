@@ -13,11 +13,13 @@
     UIViewController *viewcontroller;
     UIWindow *window;
     UIImageView *bgView;
+    NSString* session_id;
+    UIView *waiting;
 }
 
 
 
-
+@property (nonatomic, copy) NSString* session_id;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -30,5 +32,6 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
+- (void) showWaiting:(BOOL)bShow;
+- (BOOL) isWaiting;
 @end

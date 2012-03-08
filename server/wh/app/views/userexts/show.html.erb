@@ -1,0 +1,28 @@
+<p>
+  <b>Uid:</b>
+  <%=h @userext.uid %>
+</p>
+
+<p>
+  <b>Gold:</b>
+  <%=h @userext.gold %>
+</p>
+
+<p>
+  <b>Exp:</b>
+  <%=h @userext.exp %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%=h @userext.level %>
+</p>
+
+<p>
+  <b>Prop:</b>
+  <%=h @userext.prop %>
+</p>
+
+
+<%= link_to 'Edit', edit_userext_path(@userext) %> |
+<%= link_to 'Back', userexts_path %>

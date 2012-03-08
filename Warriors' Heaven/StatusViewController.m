@@ -7,6 +7,7 @@
 //
 
 #import "StatusViewController.h"
+#import "WHHttpClient.h"
 
 @implementation StatusViewController
 
@@ -34,6 +35,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setFrame:CGRectMake(0,0,320,100)];
+   
+}
+
+- (void) viewDidAppear:(BOOL) animated{
+     WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:NO];
+
+}
+- (void) onReceiveStatus:(NSObject*) json{
+    NSLog(@"StatusViewController receive data:%@", json);
 }
 
 - (void)viewDidUnload
