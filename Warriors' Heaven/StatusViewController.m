@@ -8,6 +8,7 @@
 
 #import "StatusViewController.h"
 #import "WHHttpClient.h"
+#import "AppDelegate.h"
 
 @implementation StatusViewController
 @synthesize lbGold;
@@ -42,28 +43,42 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.view setFrame:CGRectMake(0,0,320,100)];
+    
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:@"/wh/userext" selector:@selector(onReceiveStatus:) showWaiting:NO];
    
 }
-
+- (void) viewWillAppear:(BOOL) animated{
+    NSLog(@"Status view will appear");
+}
 - (void) viewDidAppear:(BOOL) animated{
-     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/wh/userext" selector:@selector(onReceiveStatus:) showWaiting:NO];
+       NSLog(@"Status view did appear");
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    NSObject* json = ad.data_userext;
+    
+    if (json){
+        json = [json valueForKey:@"userext"];
+        // NSNumber* exp = [json  valueForKey:@"exp"];
+        lbExp.text = [[json  valueForKey:@"exp"] stringValue];
+        lbGold.text = [[json  valueForKey:@"gold"] stringValue];
+        //lbAmbition = [json  valueForKey:@"exp"];
+        lbLevel.text = [[json  valueForKey:@"level"] stringValue];
+        NSString* strHp = [[json  valueForKey:@"hp"] stringValue];
+        int hp = [strHp intValue];
+        NSString* strMaxHp = [[json  valueForKey:@"maxhp"] stringValue];
+        int maxhp = [strMaxHp intValue];
+        lbHP.text = [[NSString alloc] initWithFormat:@"%@/%@", strHp, strMaxHp] ;
+        [pvHP setProgress:((float)hp ) / ((float)maxhp) ];
+    }
 
 }
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"StatusViewController receive data:%@", json);
-    json = [json valueForKey:@"userext"];
-   // NSNumber* exp = [json  valueForKey:@"exp"];
-    lbExp.text = [[json  valueForKey:@"exp"] stringValue];
-    lbGold.text = [[json  valueForKey:@"gold"] stringValue];
-    //lbAmbition = [json  valueForKey:@"exp"];
-    lbLevel.text = [[json  valueForKey:@"level"] stringValue];
-    NSString* strHp = [[json  valueForKey:@"hp"] stringValue];
-    int hp = [strHp intValue];
-        NSString* strMaxHp = [[json  valueForKey:@"maxhp"] stringValue];
-    int maxhp = [strMaxHp intValue];
-    lbHP.text = [[NSString alloc] initWithFormat:@"%@/%@", strHp, strMaxHp] ;
-    [pvHP setProgress:((float)hp ) / ((float)maxhp) ];
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    ad.data_userext = json;
+    
+    [self viewDidAppear:NO];
 }
 
 - (void)viewDidUnload

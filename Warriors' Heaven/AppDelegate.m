@@ -15,16 +15,26 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize vcStatus;
 @synthesize viewcontroller;
 @synthesize tabBarController;
 @synthesize session_id;
+@synthesize data_userext;
+@synthesize data_user;
+
+@synthesize host;
+@synthesize port;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    // load session id
+    // init const
+    host = @"192.168.0.24";
+    port = @"3006";
+    
+    // load session id from local
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     NSArray * Array = [SaveDefaults objectForKey:@"sessionid"];
    
@@ -41,8 +51,12 @@
     [bgView1 setImage:[UIImage imageNamed:@"background.PNG"]];
     //[bgView setHidden:FALSE];
     
-    [self.window addSubview:bgView1];
-    [self.window addSubview:tabBarController.view];
+    [window addSubview:bgView1];
+    [window addSubview:tabBarController.view];
+    
+    // add create status view
+//    [window addChildViewController:vcStatus];
+   // [window addSubview:self.vcStatus.view];
   //  [self.window setRootViewController:viewcontroller];
    // self.window.rootViewController = viewcontroller;
    // [self.window addSubview:viewcontroller.view];

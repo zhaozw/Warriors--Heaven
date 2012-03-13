@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307214737) do
+ActiveRecord::Schema.define(:version => 20120313201630) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -21,24 +21,50 @@ ActiveRecord::Schema.define(:version => 20120307214737) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "skills", :force => true do |t|
+    t.string   "name"
+    t.string   "dname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "userexts", :force => true do |t|
     t.integer  "uid"
+    t.string   "name"
     t.integer  "gold"
     t.integer  "exp"
     t.integer  "level"
     t.string   "prop"
     t.string   "sid"
+    t.integer  "hp"
+    t.integer  "maxhp"
+    t.integer  "str"
+    t.integer  "Dext"
+    t.integer  "luck"
+    t.integer  "fame"
+    t.string   "race"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
     t.string   "user"
-    t.integer  "uid"
     t.string   "sid"
     t.integer  "age"
     t.integer  "race"
     t.integer  "sex"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "userskills", :force => true do |t|
+    t.integer  "uid"
+    t.string   "sid"
+    t.integer  "skid"
+    t.string   "skname"
+    t.string   "skdname"
+    t.integer  "level"
+    t.integer  "tp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -56,4 +56,11 @@
 //	[super dealloc];
 }
 
+- (void)selectTab:(int)tag{
+    UIButton* btn = [tabBarView viewWithTag:tag];
+    if (btn)
+        [tabBarView selectedTab:btn];
+    else
+        NSLog(@"button not found, tag=%d", tag);
+}
 @end

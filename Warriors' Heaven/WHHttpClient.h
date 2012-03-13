@@ -14,6 +14,10 @@
     NSMutableData* buf;
     NSString * cookie;
     SEL selector; // callback for msg arrive
+    
+    
+
+    
 }
 - (id) init:(UIView*)_view;
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait;

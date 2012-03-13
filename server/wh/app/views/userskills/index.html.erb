@@ -1,0 +1,28 @@
+<h1>Listing userskills</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Sid</th>
+    <th>Skname</th>
+    <th>Level</th>
+    <th>Tp</th>
+  </tr>
+
+<% @userskills.each do |userskill| %>
+  <tr>
+    <td><%=h userskill.uid %></td>
+    <td><%=h userskill.sid %></td>
+    <td><%=h userskill.skname %></td>
+    <td><%=h userskill.level %></td>
+    <td><%=h userskill.tp %></td>
+    <td><%= link_to 'Show', userskill %></td>
+    <td><%= link_to 'Edit', edit_userskill_path(userskill) %></td>
+    <td><%= link_to 'Destroy', userskill, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New userskill', new_userskill_path %>

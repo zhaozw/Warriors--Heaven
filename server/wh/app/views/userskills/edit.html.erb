@@ -1,0 +1,32 @@
+<h1>Editing userskill</h1>
+
+<% form_for(@userskill) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :uid %><br />
+    <%= f.text_field :uid %>
+  </p>
+  <p>
+    <%= f.label :sid %><br />
+    <%= f.text_field :sid %>
+  </p>
+  <p>
+    <%= f.label :skname %><br />
+    <%= f.text_field :skname %>
+  </p>
+  <p>
+    <%= f.label :level %><br />
+    <%= f.text_field :level %>
+  </p>
+  <p>
+    <%= f.label :tp %><br />
+    <%= f.text_field :tp %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userskill %> |
+<%= link_to 'Back', userskills_path %>

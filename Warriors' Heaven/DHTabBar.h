@@ -25,5 +25,5 @@
 - (id)initWithBackgroundImage:(UIImage *)bgImage 
 					ViewCount:(NSUInteger)count 
 			   ViewController:(DotHide_TabBarController *)vc;
-
+- (void)selectedTab:(UIButton *)button;
 @end

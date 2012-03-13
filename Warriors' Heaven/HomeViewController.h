@@ -29,6 +29,7 @@
 -(void)viewWillAppear:(BOOL)animated;
 @property (strong, nonatomic) IBOutlet UILabel *lbUserName;
 
+- (IBAction)onClickStatus:(id)sender;
 // handle network
 // 收到响应时, 会触发
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse;

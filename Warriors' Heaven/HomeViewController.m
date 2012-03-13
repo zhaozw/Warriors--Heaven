@@ -37,7 +37,9 @@
     // Release any cached data, images, etc that aren't in use.
 }
 -(void)viewWillAppear:(BOOL)animated {
- 
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    NSObject* json = [ad.data_user valueForKey:@"user"];
+    lbUserName.text = [json valueForKey:@"user"];
        
 /*
     NSURL* url = [NSURL URLWithString:@"http://192.168.0.24:3000/test1"];
@@ -55,10 +57,10 @@
     */
 }
 - (void) viewDidAppear:(BOOL) animated{
-       NSLog(@"viewDidAppear");
-    [self sendHttpRequest:@"/"];
+    NSLog(@"viewDidAppear");
+ 
   
-    [vcStatus viewDidAppear:NO];
+    //[vcStatus viewDidAppear:NO];
 }
 #pragma mark - View lifecycle
 - (void)sendHttpRequest:(NSString*)cmd{
@@ -146,7 +148,18 @@
     
     // test http
 //    [self sendHttpRequest:@"/editor?fdaf"];
-
+    
+    //[self sendHttpRequest:@"/"];
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
+}
+- (void) onReceiveStatus:(NSObject*) json{
+    NSLog(@"HomeViewController receive data:%@", json);
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    ad.data_user = json;
+    
+    [self viewDidAppear:NO];
 }
 - (void)viewDidUnload
 {
@@ -167,7 +180,7 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+/*
 /// http request event /////
 // 收到响应时, 会触发
 // 你可以在里面判断返回结果, 或者处理返回的http头中的信息
@@ -247,6 +260,10 @@
     //[self.view setNeedsDisplay];
 }
 
+*/
 
-
+- (IBAction)onClickStatus:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:1];
+}
 @end

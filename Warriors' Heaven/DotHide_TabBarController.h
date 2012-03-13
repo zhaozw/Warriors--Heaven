@@ -18,5 +18,6 @@
 @property (nonatomic, assign) BOOL firstTime;
 
 - (void)hideRealTabBar;
+- (void)selectTab:(int)tag;
 
 @end
