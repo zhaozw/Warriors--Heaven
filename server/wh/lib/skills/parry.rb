@@ -1,4 +1,4 @@
-class Parry
+class Parry < Skill
   #  "基本招架" 
     def for
        "parry" 
@@ -12,14 +12,16 @@ class Parry
       "基本招架" 
    end
    
-   def damage(userext, userskill)
-        0
-      
+   def power(context)
+        
+      context[:user].ext[:str] * @skill[:level]
    end
     
    def defense(context)
-       return context[:userext][:str] + context[:thisskill][:level]
+       return context[:user].ext[:str] +  @skill[:level]
    end 
     
-    
+   def doParry(context)
+        context[:msg] += "被$N挡开"
+   end
 end

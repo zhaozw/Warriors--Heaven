@@ -59,33 +59,7 @@ class WhController < ApplicationController
         
     end
     
-    def load_skill (skillname)
-             # eval skill class
-                eval "require 'skills/"+ skillname+".rb'"
-               
-                target_class = skillname.at(0).upcase+skillname.from(1)
-                targetObj=eval target_class+'.new()'
-    end
-    
-    def query_skill(skillname, method, context)
-         targetObj = load_skill(skillname)
-         m = targetObj.method(method);
-        if (method == "for" or method=="type")
-             return m.call()
-         else
-             return m.call(context)
-         end
-    end
-    
-    def query_obj(objname, method, context)
-        eval "require 'objects/"+ objname+".rb'"         
-        target_class = objname.at(0).upcase+objname.from(1)
-        targetObj=eval target_class+'.new()'
-         m = targetObj.method(method);
-  
-             return m.call(context)
-         
-    end
+ 
     
     def chooseBestSkill(context, pur, weapon_type, prop)
             attacker_skills = context[:skills]
@@ -101,14 +75,19 @@ class WhController < ApplicationController
                 reg = /./i
             end
             for skill in attacker_skills
+                if (!skill)
+                    next
+                end
                 skillname = skill[:skname]
-                context[:thisskill] = skill
-                purpose = query_skill(skillname, "for", context)
-                type = query_skill(skillname, "type", context)
+                p "===>skill = #{skill}"
+                p "===>skill name =#{skillname}"
+                #context[:thisskill] = skill
+                purpose = query_skill(skillname, "for", skill, context)
+                type = query_skill(skillname, "type", skill, context)
                 
                 # if skill is for attacking and has correct type with weapon
                 if type=~ reg and purpose=~reg2 
-                    ret = query_skill(skillname, prop, context)
+                    ret = query_skill(skillname, prop, skill, context)
                     p "===>#{prop} of #{skillname}: #{ret} \n"
                     if (ret.to_i > attack_skill[prop])
                         attack_skill[prop] = ret
@@ -121,18 +100,27 @@ class WhController < ApplicationController
             end
             if ( attack_skill[:skill] == nil)
                 #if not found, add basic skill for this type of skill
-                Userskill us = {
+                _skname = weapon_type
+                if (pur == 'dodge')
+                    _skname = 'dodge'
+                elsif (pur == 'parry')
+                    _skname = 'parry'
+                end
+                if _skname == nil or _skname==""
+                    raise "skill name is nil"
+                end
+                 us = Userskill.new({
                     :uid        =>  session[:uid],
-                    :sid        =>  sid,
+                    :sid        =>  context[:user][:sid],
                     :skid       =>  0,
-                    :skname     =>  weapon_type,
+                    :skname     =>  _skname,
                     :skdname    =>  "basic #{weapon_type}",
                     :level      =>  0,
                     :tp         =>  0,
                     :enabled    =>  1   
-                }
-                us.Save!
-                attacker_skills.append(us)
+                })
+                us.save!
+                attacker_skills.push(us)
                 attack_skill[:skill] = us
             end
             return attack_skill
@@ -150,7 +138,7 @@ class WhController < ApplicationController
     def choosBestDodgeSkill(context)
         attack_skill = chooseBestSkill(context, "dodge", nil, "speed")
     
-            p "==>#{context[:userext][:name]} speed of #{attack_skill[:skill][:skname]}: #{attack_skill['speed']}"
+            p "==>#{context[:user].ext[:name]} speed of #{attack_skill[:skill][:skname]}: #{attack_skill['speed']}"
             return attack_skill
     end
     
@@ -167,37 +155,84 @@ class WhController < ApplicationController
     end
     
     def translate_msg(msg, context)
-        attacker = context[:userext]
+        attacker = context[:user]
       #  p attacker[:name] 
       #  p msg
         defenser = context[:target]
-           if (attacker[:uid] == session[:uid])
-                m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser[:name])
+        p "player uid #{attacker.ext[:uid]}, your uid #{session[:uid]}, msg=#{msg}"
+           if (attacker.ext[:uid] == session[:uid])
+                m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.ext[:name])
             else
-                m = msg.gsub(/\$N/, attacker[:name]).gsub(/\$n/, "你")
+                m = msg.gsub(/\$N/, attacker.ext[:name]).gsub(/\$n/, "你")
             end
     end
+    
+    def damage_msg(d, weapon_type)
+        if d == 0
+            return "结果没有对$n造成任何伤害"
+        end
+        case weapon_type
+        when "unarmed"
+            if (d < 10)
+                return "把$N打的退了半步，毫发无损!(Hp-#{d})"
+            elsif (d < 20)
+                return "[砰]的一声把N$N击退了好几步，差点摔倒!(Hp-#{d})"
+            elsif (d < 20)
+                return "结果一击命中，$N闷哼了一声显然吃了不小的亏!(Hp-#{d})"
+            elsif (d < 50)
+                return "重重的击中了, $N【哇】的吐出了一口鲜血!(Hp-#{d})"
+            else
+                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"
+  
+                
+            end
+        else
+        end
+    end
+    
+    def doDamage(attacker_attack_skill, context)
+        skill = context[:user].query_skill(attacker_attack_skill[:skill][:skname])
+        d = skill.damage(context)                
+        return "\n"+translate_msg(damage_msg(d, skill.type), context)
+    end
+    
+    def doParry(defenser_dense_skill, context)
+        skill = context[:user].query_skill(defenser_dense_skill[:skill][:skname])
+        skill.doParry(context)
+        return "\n"+translate_msg(context[:msg], context)
+    end
+    
     def fight
-        
-      
+
         enemy_id= params[:enemy]
-        r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where uid='#{enemy_id}'")
-        enemy = r[0]
+     #   r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where uid='#{enemy_id}'")
+       # enemy = r[0]
+        enemy = User.find(enemy_id)
         
         sid = cookies[:_wh_session]
         p "session uid = #{session[:uid]}"
         if session[:uid]
-            r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where uid=#{session[:uid]}")
-            player = r[0]
+          #  r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where uid=#{session[:uid]}")
+            r = User.find(session[:uid])
+            player = r
         else
-             r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}'")
+         #    r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}'")
+             r = User.find_by_sql("select * from users where sid='#{sid}'")
              player = r[0]
              session[:uid] = player[:uid]
         end
     
+        p "session id #{sid}"
+        if player[:sid] != sid
+            p "=>>>> uid not correct"
+              r = User.find_by_sql("select * from users where sid='#{sid}'")
+             player = r[0]
+             session[:uid] = player[:uid]
+        end
         msg = ""
+        p player.ext
         # calculate who attach first
-        if (player[:dext] > enemy[:dext])
+        if (player.ext[:dext] > enemy.ext[:dext])
             attacker = player
             defenser = enemy
         else
@@ -205,12 +240,12 @@ class WhController < ApplicationController
             defenser = player
         end
         
-        msg += "#{attacker[:name]} attach first\n"
+        msg += "#{attacker.ext[:name]} 抢先发动了进攻!\n"
         
-        attacker_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{attacker[:uid]}' and enabled=1")
-        defenser_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{defenser[:uid]}' and enabled=1")
-        attacker_prop = JSON.parse(attacker[:prop])
-        defenser_prop = JSON.parse(defenser[:prop])
+        attacker_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{attacker.ext[:uid]}' and enabled=1")
+        defenser_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{defenser.ext[:uid]}' and enabled=1")
+        attacker_prop = JSON.parse(attacker.ext[:prop])
+        defenser_prop = JSON.parse(defenser.ext[:prop])
         
         # what weapon attacker is wielding
         hand_weapon = attacker_prop[:hand_weapon]
@@ -222,67 +257,109 @@ class WhController < ApplicationController
             reg = Regexp.new("#{weapon_type}", true)
         end
 
-       context = {
-                    :userext => attacker,
+       context_a = {
+                    :user => attacker,
                     :thisskill => nil,
                     :skills=>   attacker_skills,
                     :target => defenser
         }
         # attacker choose the best dodge skill
-        attacker_dodge_skill = choosBestDodgeSkill(context)
+        attacker[:dodge_skill] = choosBestDodgeSkill(context_a)
         # attacker choose the skill have best damage
-        attacker_attack_skill = choosBestAttackSkill(context, weapon_type)
+        attacker[:attack_skill] = choosBestAttackSkill(context_a, weapon_type)
         # attacker choose best defense skill
-        attacker_defense_skill = choosBestDefenseSkill(context, weapon_type)
+        attacker[:defense_skill] = choosBestDefenseSkill(context_a, weapon_type)
         
-        context = {
-                    :userext => defenser,
+        context_d = {
+                    :user => defenser,
                     :thisskill => nil,
                     :skills=>   defenser_skills,
                     :target => attacker
         }
         # defenser choose the best dodge skill
-        defenser_dodge_skill = choosBestDodgeSkill(context)
+        defenser[:dodge_skill] = choosBestDodgeSkill(context_d)
         # defenser choose the skill have best damage
-        defenser_attack_skill = choosBestAttackSkill(context, weapon_type)
+        defenser[:attack_skill] = choosBestAttackSkill(context_d, weapon_type)
         # defenser choose best defense skill
-        defenser_defense_skill = choosBestDefenseSkill(context, weapon_type)      
+        defenser[:defense_skill] = choosBestDefenseSkill(context_d, weapon_type)      
         
-        
-        while (true)
+        srand(Time.now.tv_usec.to_i)
+        i = 0;
+        while (i < 10)
+            i = i+1
             # do attack
-            context = {
-                    :userext => attacker,
-                    :thisskill => attacker_attack_skill[:skill],
-                    :skills=>   attacker_skills,
+            context_a = {
+                    :user => attacker,
+                    :skills=> attacker_skills,
                     :target => defenser,
                     :msg => ""
             }
-            query_skill(attacker_attack_skill[:skill][:skname], "render", context)
+            context_d = {
+                    :user => defenser,
+                   # :thisskill => defenser[:dodge_skill][:skill],
+                    :skills=>   defenser_skills,
+                    :target => attacker,
+                    :msg => ""
+            }
+            query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attacker[:attack_skill][:skill], context_a)
                 
          
-             msg += "\n"+translate_msg(context[:msg], context)
+             msg += "\n"+translate_msg(context_a[:msg], context_a)
              
              # hit ?
+             p "attack skill #{attacker[:attack_skill][:skill][:skname]} level=#{attacker[:attack_skill][:skill][:level]}\n"
+             p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
              attacker_load = 0 # TODO should be calculated
-             attack_speed = query_skill(attacker_attack_skill[:skill][:skname], "speed", context) - attacker_load
+             attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "speed", attacker[:attack_skill][:skill], context_a) - attacker_load
              
              defenser_load = 0
-             defenser_speed = query_skill(defenser_dodge_skill[:skill][:skname], "speed", context) - defenser_load
+             defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "speed", defenser[:dodge_skill][:skill], context_d) - defenser_load
         
-             srand(Time.now.to_i)
-             p "attacker speed=#{attack_speed}\n"
-             p "defenser speed=#{defenser_speed}\n"
+          
+             p "attacker(#{attacker[:user]}) speed=#{attack_speed}\n"
+             p "defenser(#{defenser[:user]}) speed=#{defenser_speed}\n"
              if rand(attack_speed+defenser_speed) < defenser_speed # miss
-                 context[:msg] = "";
-                 query_skill(defenser_dodge_skill[:skill][:skname], "render", context)
-                 msg += "\n"+translate_msg(context[:msg], context)
-                 # TODO should lose energy and first-attack
-             else # hit
-                 #check whether parry take effect
-                
+                 context_a[:msg] = "";
+                 query_skill(defenser[:dodge_skill][:skill][:skname], "doDodge", defenser[:dodge_skill][:skill], context_d)
+                 msg += "\n"+translate_msg(context_d[:msg], context_d)
+                 # TODO should lose energy and first-attackdefenser[:defense_skill]
+             else # hit, check parry
+                 #check whether parry take effect pow(parry)+pow(weapon)>=pow(attack)+pow(weapon)
+                 if (!defenser[:defense_skill])
+                     msg += doDamage(attacker[:attack_skill],context_a)
+                 else
+                     context_d[:thisskill] = defenser[:defense_skill][:skill]
+                     power_parry = query_skill(defenser[:defense_skill][:skill][:skname], "power", defenser[:defense_skill][:skill], context_d)
+                     power_weapon_def = 0
+                    # TODO get power of weapon
+                   #  query_obj(objname, method, obj, context)
+                     power_attack = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_d)
+                      power_weapon_att = 0
+                    # TODO get power of weapon
+                   #  query_obj(objname, method, obj, context)
+  
+                    p "power_parry=#{power_parry} + power_weapon_def=#{power_weapon_def}"
+                    p "power_attack=#{power_attack} + power_weapon_att=#{power_weapon_att}"
+                     if (power_parry + power_weapon_def >= power_attack + power_weapon_att) # can parry
+                           msg += doParry(defenser[:defense_skill], context_d)
+                     else # fail in parrying
+                         # do damage
+                        msg += doDamage(attacker[:attack_skill], context_a)
+                     end
+                 end
+                 
              end
-            break;
+             
+             # swap
+             t = defenser
+              defenser =  attacker
+             attacker = t
+             
+             t = attacker_skills
+             attacker_skills = defenser_skills
+             defenser_skills = t
+            
+       #     break;
         end
       
         render :text=>msg

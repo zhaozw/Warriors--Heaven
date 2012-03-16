@@ -1,7 +1,7 @@
-class Sword
+class Sword < Skill 
 #基本剑法
    def for
-       return "attack defense"
+       return "attack parry"
    end
    
    def type 
@@ -9,15 +9,15 @@ class Sword
    end
    
    def damage(context)
-       userext = context[:userext]
-       thisskill = context[:thisskill]
+       userext = context[:user].ext
+       thisskill =  @skill
        
        d = thisskill[:level] * userext[:str] + userext[:str]
       
    end
     
    def speed(context)
-       thisskill = context[:thisskill]
+       thisskill =  @skill
        thisskill[:level] * 2
    end
 

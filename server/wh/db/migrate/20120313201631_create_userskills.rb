@@ -2,10 +2,10 @@ class CreateUserskills < ActiveRecord::Migration
   def self.up
     create_table :userskills do |t|
       t.integer :uid
-      t.string :sid
+      t.string  :sid
       t.integer :skid
-      t.string :skname
-      t.string :skdname
+      t.string  :skname
+      t.string  :skdname
       t.integer :level
       t.integer :tp
       t.integer :enabled

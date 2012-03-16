@@ -1,4 +1,4 @@
-class Dodge
+class Dodge < Skill
     
    def type
        return "unarmed"
@@ -15,20 +15,20 @@ class Dodge
     
     
     def speed (context)
-        context[:userext][:dext].to_i+1
+        context[:user].ext[:dext].to_i+@skill[:level]
     end
     
     def dodge_actions
         [
-            "但是和$n身体偏了几寸。\n",
-            "但是被$n机灵地躲开了。\n",
-            "但是$n身子一侧，闪了开去。\n",
-            "但是被$n及时避开。\n",
-            "但是$n已有准备，不慌不忙的躲开。\n",
+            "但是和$N身体偏了几寸。\n",
+            "但是被$N机灵地躲开了。\n",
+            "但是$N身子一侧，闪了开去。\n",
+            "但是被$N及时避开。\n",
+            "但是$N已有准备，不慌不忙的躲开。\n",
         ]
     end
-    def render(context)
-        srand Time.now.to_i
+    def doDodge(context)
+        srand Time.now.tv_usec.to_i
         a = dodge_actions
         context[:msg] += a[rand(a.length)]
         
