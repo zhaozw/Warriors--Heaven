@@ -1,5 +1,23 @@
 require 'utility.rb'
 class User < ActiveRecord::Base
+    def initialize
+        p "====>init user\n"
+        ext
+     init_tmp
+
+    end
+    
+    def init_tmp
+        self[:usertmp] = {};
+        
+         self[:usertmp][:exp] = ext[:exp]
+         self[:usertmp][:str] = ext[:str]
+         self[:usertmp][:hp] = ext[:maxhp]
+         self[:usertmp][:maxhp] = ext[:maxhp]
+         self[:usertmp][:dext] = ext[:dext]
+         self[:usertmp][:stam] = ext[:stam]
+         self[:usertmp][:maxst] = ext[:maxst]
+    end
     def setUserext(ext)
         self[:userext] = ext
     end
@@ -31,7 +49,20 @@ class User < ActiveRecord::Base
 
        return self[:userskill]
     end
+    
+    def tmp
+        if (!self[:userext]) 
+            ext
+        end
+        if (self[:usertmp] == nil)
+            init_tmp
+        end
+         return self[:usertmp]
+    end
+    
     def query_skill(skillname)
+       # p "==> skill name #{skillname}\n"
+        
        if !self[:userskill]
            self[:userskill] = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{self[:id]}'")
        end 
@@ -40,12 +71,15 @@ class User < ActiveRecord::Base
             self[:skills] ={}
        end
        
+
        if (self[:skills][skillname])
+         #  p  "=====>return skill #{self[:skills][skillname]}"
            return self[:skills][skillname]
        else
            # find
            target_skill = nil
            for skill in self[:userskill]
+            #    p "==> compare skill name #{skill[:skname]}\n"
                if skill[:skname] == skillname
                    target_skill = skill
                    break
@@ -57,6 +91,7 @@ class User < ActiveRecord::Base
                 targetObj = load_skill(skillname)
                 m = targetObj.method("set")
                 m.call(target_skill)
+                self[:skills][skillname]= targetObj
                 return targetObj
             end
        end

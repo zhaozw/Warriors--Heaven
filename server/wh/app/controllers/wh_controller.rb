@@ -192,16 +192,32 @@ class WhController < ApplicationController
     
     def doDamage(attacker_attack_skill, context)
         skill = context[:user].query_skill(attacker_attack_skill[:skill][:skname])
-        d = skill.damage(context)                
-        return "\n"+translate_msg(damage_msg(d, skill.type), context)
+       # p "freturn skill #{skill}"
+       # d = skill.damage(context)                
+        #context[:target].tmp[:hp] -= d
+        m = skill.doDamage(context)
+        return "<br/>\n"+translate_msg(m, context)
     end
     
     def doParry(defenser_dense_skill, context)
         skill = context[:user].query_skill(defenser_dense_skill[:skill][:skname])
         skill.doParry(context)
-        return "\n"+translate_msg(context[:msg], context)
+        return "<br/>\n"+translate_msg(context[:msg], context)
     end
     
+    def skill_power(skillname, context)
+       skill =  context[:user].query_skill(skillname)
+       if (skill == nil)
+           logger.info("user #{context[:user][:id]}-#{context[:user].ext[:name]} doesn't have skill '#{skillname}'")
+           return 1
+       end
+       p = skill.power(context)
+       if p <= 0
+           return 1
+       else
+           return p
+       end
+    end
     def fight
 
         enemy_id= params[:enemy]
@@ -304,28 +320,27 @@ class WhController < ApplicationController
             query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attacker[:attack_skill][:skill], context_a)
                 
          
-             msg += "\n"+translate_msg(context_a[:msg], context_a)
+             msg += "<br/>\n"+translate_msg(context_a[:msg], context_a)
              
              # hit ?
              p "attack skill #{attacker[:attack_skill][:skill][:skname]} level=#{attacker[:attack_skill][:skill][:level]}\n"
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
-             attacker_load = 0 # TODO should be calculated
-             attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "speed", attacker[:attack_skill][:skill], context_a) - attacker_load
-             
-             defenser_load = 0
-             defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "speed", defenser[:dodge_skill][:skill], context_d) - defenser_load
-        
+    
+           #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
+                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a)
+           #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
+                defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d)
           
-             p "attacker(#{attacker[:user]}) speed=#{attack_speed}\n"
-             p "defenser(#{defenser[:user]}) speed=#{defenser_speed}\n"
-             if rand(attack_speed+defenser_speed) < defenser_speed # miss
+             p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
+             p "attack_power(#{defenser[:user]}) speed=#{defense_power}\n"
+             if rand(attack_power+defense_power) < defense_power # miss
                  context_a[:msg] = "";
                  query_skill(defenser[:dodge_skill][:skill][:skname], "doDodge", defenser[:dodge_skill][:skill], context_d)
-                 msg += "\n"+translate_msg(context_d[:msg], context_d)
+                 msg += "<br/>\n"+translate_msg(context_d[:msg], context_d)
                  # TODO should lose energy and first-attackdefenser[:defense_skill]
              else # hit, check parry
                  #check whether parry take effect pow(parry)+pow(weapon)>=pow(attack)+pow(weapon)
-                 if (!defenser[:defense_skill])
+                 if (!defenser[:defense_skill]) # no parry
                      msg += doDamage(attacker[:attack_skill],context_a)
                  else
                      context_d[:thisskill] = defenser[:defense_skill][:skill]
@@ -340,7 +355,15 @@ class WhController < ApplicationController
   
                     p "power_parry=#{power_parry} + power_weapon_def=#{power_weapon_def}"
                     p "power_attack=#{power_attack} + power_weapon_att=#{power_weapon_att}"
-                     if (power_parry + power_weapon_def >= power_attack + power_weapon_att) # can parry
+                    if (power_attack == 0 && power_weapon_att == 0)
+                        power_attack = 1
+                    end
+                    if (power_parry==0 && power_weapon_def == 0)
+                        power_parry = 1
+                    end
+                   p "rand #{rand(power_parry + power_weapon_def + power_attack + power_weapon_att)}"
+                    p power_attack + power_weapon_att
+                     if (rand(power_parry + power_weapon_def + power_attack + power_weapon_att) >= power_attack + power_weapon_att) # can parry
                            msg += doParry(defenser[:defense_skill], context_d)
                      else # fail in parrying
                          # do damage
@@ -350,6 +373,9 @@ class WhController < ApplicationController
                  
              end
              
+             # show status
+             msg += "<br/>\n#{attacker[:user]} - hp:#{attacker.tmp[:hp]} st:#{attacker.tmp[:stam]}\n<br/>"
+             msg += "#{defenser[:user]} - hp:#{defenser.tmp[:hp]} st:#{defenser.tmp[:stam]}\n<br/>"
              # swap
              t = defenser
               defenser =  attacker

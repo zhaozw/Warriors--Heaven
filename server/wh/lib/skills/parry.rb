@@ -13,15 +13,35 @@ class Parry < Skill
    end
    
    def power(context)
-        
-      context[:user].ext[:str] * @skill[:level]
+       p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
+      return  (p + context[:user].ext[:exp]+1) / 30 *      ( (context[:user].ext[:str]+1)/10)
    end
     
    def defense(context)
        return context[:user].ext[:str] +  @skill[:level]
    end 
     
+   def cost_stam(context)
+       p = power(context)
+       if (p == 0)
+           return 10
+        end
+       stam_cost = 10/(power(context)**(1.0/3.0))
+      
+        if stam_cost == 0 
+            stam_cost = 1
+        elsif stam_cost == Infinity
+            stam_cost = 10
+        end
+        return stam_cost
+   end
+   
    def doParry(context)
-        context[:msg] += "被$N挡开"
+        # cost stamina
+            cs = cost_stam(context)
+        context[:user].tmp[:stam] -= cs
+        
+        
+        context[:msg] += "被$N挡开(体力-#{cs})"
    end
 end
