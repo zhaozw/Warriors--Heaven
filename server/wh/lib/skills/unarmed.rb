@@ -69,16 +69,17 @@ class Unarmed < Skill
    def cost_stam(context)
        p ("power #{power(context)}")
        p ("power^1/3 #{power(context)**(1.0/3.0)}")
-       p = power(context)
+       p = power(context)**(1.0/3.0)
        if (p == 0)
            return 10
         end
-       stam_cost = 10/(power(context)**(1.0/3.0))
+       stam_cost = 10/(p)
+       stam_cost  = stam_cost.to_i
       
         if stam_cost == 0 
             stam_cost = 1
-        elsif stam_cost == Infinity
-            stam_cost = 10
+        #elsif stam_cost == Infinity
+        #    stam_cost = 10
         end
         
         return stam_cost
@@ -92,13 +93,13 @@ class Unarmed < Skill
         case weapon_type
         when "unarmed"
             if (d < 10)
-                return "把$N打的退了半步，毫发无损!(Hp-#{d})"
+                return "只把$n打的退了半步，毫发无损!(Hp-#{d})"
             elsif (d < 20)
-                return "[砰]的一声把N$N击退了好几步，差点摔倒!(Hp-#{d})"
+                return "[砰]的一声把$n击退了好几步，差点摔倒!(Hp-#{d})"
             elsif (d < 20)
-                return "结果一击命中，$N闷哼了一声显然吃了不小的亏!(Hp-#{d})"
+                return "结果一击命中，$n闷哼了一声显然吃了不小的亏!(Hp-#{d})"
             elsif (d < 50)
-                return "重重的击中了, $N【哇】的吐出了一口鲜血!(Hp-#{d})"
+                return "重重的击中了$n, $n【哇】的吐出了一口鲜血!(Hp-#{d})"
             else
                 return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"
   
@@ -118,7 +119,7 @@ class Unarmed < Skill
         cs = cost_stam(context)
         context[:user].tmp[:stam] -= cs
        
-        context[:msg] += damage_msg(d, type) + "(体力-#{cs})"
+        context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
    end
    
    def doAttack(context)

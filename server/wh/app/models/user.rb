@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
         if (self[:userext])
             return self[:userext]
         else
-            r = Userext.find_by_sql("select * from userexts where sid='#{sid}'")
+            r = Userext.find_by_sql("select * from userexts where uid='#{self[:id]}'")
             if (r.size > 0)
                 setUserext(r[0])
             end
@@ -60,11 +60,12 @@ class User < ActiveRecord::Base
          return self[:usertmp]
     end
     
+    # return skills/skill object
     def query_skill(skillname)
        # p "==> skill name #{skillname}\n"
         
        if !self[:userskill]
-           self[:userskill] = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{self[:id]}'")
+           self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
        end 
     
        if (!self[:skills])

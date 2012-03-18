@@ -289,10 +289,10 @@
 		5AFD8D6B1500E6ED0066ECBA /* Warriors' Heaven */ = {
 			isa = PBXGroup;
 			children = (
+				5AFD8DF215023C6E0066ECBA /* classes */,
 				5A25E2921504D2770046C67D /* view */,
 				5A25E2971504D4800046C67D /* controller */,
 				5AFD8E031502CFC20066ECBA /* resources */,
-				5AFD8DF215023C6E0066ECBA /* classes */,
 				5AFD8D711500E6ED0066ECBA /* main.m */,
 				5AFD8D771500E6ED0066ECBA /* Warriors__Heaven.xcdatamodeld */,
 				5AFD8D6C1500E6ED0066ECBA /* Supporting Files */,

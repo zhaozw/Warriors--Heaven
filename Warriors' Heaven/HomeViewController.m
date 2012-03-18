@@ -17,6 +17,7 @@
 
 @synthesize lbStatus;
 @synthesize vcStatus;
+@synthesize lbTitle;
 @synthesize playerProfile;
 @synthesize bgView;
 
@@ -37,10 +38,7 @@
     // Release any cached data, images, etc that aren't in use.
 }
 -(void)viewWillAppear:(BOOL)animated {
-    AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    NSObject* json = [ad.data_user valueForKey:@"user"];
-    lbUserName.text = [json valueForKey:@"user"];
-       
+
 /*
     NSURL* url = [NSURL URLWithString:@"http://192.168.0.24:3000/test1"];
   //  [NSString stringWithContentsOfURL:(NSURL *)url];  
@@ -59,10 +57,14 @@
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
  
-  
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    NSObject* json = [ad.data_user valueForKey:@"user"];
+    lbUserName.text = [json valueForKey:@"user"];
+    lbTitle.text = [json valueForKey:@"title"];
     //[vcStatus viewDidAppear:NO];
 }
 #pragma mark - View lifecycle
+/*
 - (void)sendHttpRequest:(NSString*)cmd{
     
     if (self->waiting)
@@ -121,7 +123,7 @@
     [[[UIApplication sharedApplication].delegate window] addSubview:self->waiting];
     [[[UIApplication sharedApplication].delegate window] bringSubviewToFront:self->waiting];
 }
-
+*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -170,6 +172,7 @@
     [self setVcStatus:nil];
     [self setLbStatus:nil];
     [self setLbUserName:nil];
+    [self setLbTitle:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

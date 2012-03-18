@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120313201632) do
+ActiveRecord::Schema.define(:version => 201203072147536) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(:version => 20120313201632) do
     t.integer  "luck"
     t.integer  "fame"
     t.string   "race"
+    t.integer  "pot"
+    t.integer  "it"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20120313201632) do
     t.integer  "age"
     t.integer  "race"
     t.integer  "sex"
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

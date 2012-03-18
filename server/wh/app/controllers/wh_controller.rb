@@ -8,7 +8,7 @@ class WhController < ApplicationController
     #    ret = {
      #       "uid" => "ju"
       #  }
-        r = User.find_by_sql("select id, user, sid, sex, race, age from users where sid='#{cookies[:_wh_session]}'")
+        r = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{cookies[:_wh_session]}'")
    #     r = User.find_by_sql("select user, uid, sid, sex, race, age from users where sid='d434740f4ff4a5e758d4f340d7a5f467'")
         
         js = '{"error":"user not found"}'
@@ -62,12 +62,14 @@ class WhController < ApplicationController
  
     
     def chooseBestSkill(context, pur, weapon_type, prop)
+            p "choose best skill for #{pur}/#{weapon_type} by #{prop}"
+            p "skills #{context[:skills]}(size=#{context[:skills].size})}"
             attacker_skills = context[:skills]
      
-            attack_skill = {
+            best_skill = {
                 :skill => nil
             }
-            attack_skill[prop] = 0
+            best_skill[prop] = 0
             reg2  = Regexp.new("#{pur}", true)
             if (weapon_type and weapon_type.length >0)
                 reg = Regexp.new("#{weapon_type}", true)
@@ -89,16 +91,16 @@ class WhController < ApplicationController
                 if type=~ reg and purpose=~reg2 
                     ret = query_skill(skillname, prop, skill, context)
                     p "===>#{prop} of #{skillname}: #{ret} \n"
-                    if (ret.to_i > attack_skill[prop])
-                        attack_skill[prop] = ret
-                        attack_skill[:skill] = skill
+                    if (ret.to_i > best_skill[prop])
+                        best_skill[prop] = ret
+                        best_skill[:skill] = skill
                     end
                 end
 
                 
                 #p "target:"+@target_class+", cmd:"+@cmd+", param:"+@cparam
             end
-            if ( attack_skill[:skill] == nil)
+            if ( best_skill[:skill] == nil)
                 #if not found, add basic skill for this type of skill
                 _skname = weapon_type
                 if (pur == 'dodge')
@@ -110,7 +112,7 @@ class WhController < ApplicationController
                     raise "skill name is nil"
                 end
                  us = Userskill.new({
-                    :uid        =>  session[:uid],
+                    :uid        =>  context[:user][:id],
                     :sid        =>  context[:user][:sid],
                     :skid       =>  0,
                     :skname     =>  _skname,
@@ -121,9 +123,9 @@ class WhController < ApplicationController
                 })
                 us.save!
                 attacker_skills.push(us)
-                attack_skill[:skill] = us
+                best_skill[:skill] = us
             end
-            return attack_skill
+            return best_skill
     end
     
     def choosBestAttackSkill(context, weapon_type)
@@ -154,6 +156,7 @@ class WhController < ApplicationController
         
     end
     
+    # $N=>attacker $n=>defenser
     def translate_msg(msg, context)
         attacker = context[:user]
       #  p attacker[:name] 
@@ -195,6 +198,7 @@ class WhController < ApplicationController
        # p "freturn skill #{skill}"
        # d = skill.damage(context)                
         #context[:target].tmp[:hp] -= d
+
         m = skill.doDamage(context)
         return "<br/>\n"+translate_msg(m, context)
     end
@@ -218,12 +222,27 @@ class WhController < ApplicationController
            return p
        end
     end
+    
+    # return true if level up
+    def improve_skill(player, skillname, point)
+        p  player.query_skill(skillname)
+        skill = player.query_skill(skillname).data
+        skill[:tp] += point
+        if ( (skill[:level]+1)*(skill[:level]+1) <= skill[:tp] )
+            skill[:level] += 1
+            skill[:tp] = 0
+            return true
+        end
+        # save to db after fight finished
+        return false
+    end
     def fight
 
         enemy_id= params[:enemy]
      #   r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where uid='#{enemy_id}'")
        # enemy = r[0]
         enemy = User.find(enemy_id)
+        p enemy.inspect
         
         sid = cookies[:_wh_session]
         p "session uid = #{session[:uid]}"
@@ -247,6 +266,8 @@ class WhController < ApplicationController
         end
         msg = ""
         p player.ext
+        player[:isUser] = true
+        enemy[:isUser] = false
         # calculate who attach first
         if (player.ext[:dext] > enemy.ext[:dext])
             attacker = player
@@ -257,11 +278,14 @@ class WhController < ApplicationController
         end
         
         msg += "#{attacker.ext[:name]} 抢先发动了进攻!\n"
-        
-        attacker_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{attacker.ext[:uid]}' and enabled=1")
-        defenser_skills = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{defenser.ext[:uid]}' and enabled=1")
+        p attacker.inspect
+        attacker_skills = Userskill.find_by_sql("select * from userskills where uid='#{attacker.ext[:uid]}' and enabled=1")
+        defenser_skills = Userskill.find_by_sql("select * from userskills where uid='#{defenser.ext[:uid]}' and enabled=1")
         attacker_prop = JSON.parse(attacker.ext[:prop])
         defenser_prop = JSON.parse(defenser.ext[:prop])
+        
+        p attacker_skills.inspect
+          p defenser_skills.inspect
         
         # what weapon attacker is wielding
         hand_weapon = attacker_prop[:hand_weapon]
@@ -276,7 +300,7 @@ class WhController < ApplicationController
        context_a = {
                     :user => attacker,
                     :thisskill => nil,
-                    :skills=>   attacker_skills,
+                    :skills=>attacker_skills,
                     :target => defenser
         }
         # attacker choose the best dodge skill
@@ -299,15 +323,44 @@ class WhController < ApplicationController
         # defenser choose best defense skill
         defenser[:defense_skill] = choosBestDefenseSkill(context_d, weapon_type)      
         
+        
         srand(Time.now.tv_usec.to_i)
+        gain = {
+            :exp =>0,
+           # :hp =>0,
+           # :stam =>0,
+            :pot => 1,
+            :level =>0,
+            :skills =>{
+                attacker[:dodge_skill][:skill][:skname] =>
+                {
+                    :skill => attacker[:dodge_skill][:skill][:skname],
+                    :point => 0,
+                    :level => 0
+                },
+                attacker[:attack_skill][:skill][:skname] =>
+                {
+                    :skill => attacker[:attack_skill][:skill][:skname],
+                    :point => 0,
+                    :level => 0
+                },
+                attacker[:defense_skill][:skill][:skname]=>
+                {
+                    :skill => attacker[:defense_skill][:skill][:skname],
+                    :point => 0,
+                    :level => 0
+                }
+            }
+        }
         i = 0;
-        while (i < 10)
+        while (i < 100 )
             i = i+1
             # do attack
             context_a = {
                     :user => attacker,
                     :skills=> attacker_skills,
                     :target => defenser,
+                    :gain => gain,
                     :msg => ""
             }
             context_d = {
@@ -315,14 +368,19 @@ class WhController < ApplicationController
                    # :thisskill => defenser[:dodge_skill][:skill],
                     :skills=>   defenser_skills,
                     :target => attacker,
+                    :gain => gain,
                     :msg => ""
             }
             query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attacker[:attack_skill][:skill], context_a)
                 
          
-             msg += "<br/>\n"+translate_msg(context_a[:msg], context_a)
+             msg += "<br/>\n【#{attacker[:attack_skill][:skill][:skname]}】"+translate_msg(context_a[:msg], context_a)
              
+             
+             #
              # hit ?
+             #
+             
              p "attack skill #{attacker[:attack_skill][:skill][:skname]} level=#{attacker[:attack_skill][:skill][:level]}\n"
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
@@ -332,16 +390,59 @@ class WhController < ApplicationController
                 defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d)
           
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
-             p "attack_power(#{defenser[:user]}) speed=#{defense_power}\n"
+             p "defense_power(#{defenser[:user]}) speed=#{defense_power}\n"
              if rand(attack_power+defense_power) < defense_power # miss
+                 #
+                 # attack missed
+                 #
                  context_a[:msg] = "";
                  query_skill(defenser[:dodge_skill][:skill][:skname], "doDodge", defenser[:dodge_skill][:skill], context_d)
                  msg += "<br/>\n"+translate_msg(context_d[:msg], context_d)
+                 
+                 # improve dodge skill
+                 if (player[:id] == defenser[:id] && rand(player.ext[:it]+1) > 10)
+                    
+                    gain[:exp] += 1
+                    player.ext[:exp] += 1
+                    
+                    gain[:pot] += 1
+                    player.ext[:pot] += 1
+                    
+                    
+                    gain_point = 1
+                    gain[:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
+                    msg += "<br/> exp+1 pot+1 #{defenser[:dodge_skill][:skill][:skname]}+#{gain_point}"
+                    if (improve_skill(player, defenser[:dodge_skill][:skill][:skname], gain_point) )
+                         gain[:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
+                         msg +="<br/> #{defenser[:dodge_skill][:skill][:skname]} level up !"
+                     end
+                   
+                 end
                  # TODO should lose energy and first-attackdefenser[:defense_skill]
-             else # hit, check parry
+             else
+                 
+                 # 
+                 # hit, check parry
+                 #
+                 
                  #check whether parry take effect pow(parry)+pow(weapon)>=pow(attack)+pow(weapon)
+       
                  if (!defenser[:defense_skill]) # no parry
-                     msg += doDamage(attacker[:attack_skill],context_a)
+                    msg += doDamage(attacker[:attack_skill],context_a)
+                    # gain exp and skill point
+                    if (attacker[:user][:isUser]&& rand(player.ext[:it]+1) > 10)        
+                        gain[:exp] += 1
+                        player.ext[:exp] += 1
+                        gain[:pot] += 1
+                        player.ext[:pot] += 1
+                        gain_point = 1
+                        gain[:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
+                        msg += "<br/> exp+1 pot+1 #{attacker[:attack_skill][:skill][:skname]}+#{gain_point}"
+                        if (improve_skill(player, attacker[:attack_skill][:skill][:skname], gain_point) )
+                             gain[:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
+                            msg +="<br/> #{attacker[:attack_skill][:skill][:skname]} level up !"
+                         end
+                    end
                  else
                      context_d[:thisskill] = defenser[:defense_skill][:skill]
                      power_parry = query_skill(defenser[:defense_skill][:skill][:skname], "power", defenser[:defense_skill][:skill], context_d)
@@ -364,10 +465,42 @@ class WhController < ApplicationController
                    p "rand #{rand(power_parry + power_weapon_def + power_attack + power_weapon_att)}"
                     p power_attack + power_weapon_att
                      if (rand(power_parry + power_weapon_def + power_attack + power_weapon_att) >= power_attack + power_weapon_att) # can parry
+                           #
+                           # parry succeeded
+                           #
                            msg += doParry(defenser[:defense_skill], context_d)
-                     else # fail in parrying
+                            if (player[:id] = defenser[:id]&& rand(player.ext[:it]+1) > 10)
+                                 gain[:exp] += 1
+                                 player.ext[:exp] += 1
+                                gain[:pot] += 1
+                                player.ext[:pot] += 1
+                                 gain_point = 1
+                                 gain[:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
+                                 msg += "<br/> exp+1 pot+1 #{defenser[:defense_skill][:skill][:skname]}+#{gain_point}"
+                                 if (improve_skill(player, defenser[:defense_skill][:skill][:skname], gain_point) )
+                                     gain[:skills][defenser[:defense_skill][:skill][:skname]][:level] +=1
+                                     msg +="<br/> #{defenser[:defense_skill][:skill][:skname]} level up !"
+                                 end
+                            end
+                     else
+                         #
+                         # failed in parrying
+                         #
                          # do damage
                         msg += doDamage(attacker[:attack_skill], context_a)
+                                if (attacker[:user][:isUser] && rand(player.ext[:it]+1) > 10)
+                                    gain[:exp] += 1
+                                    player.ext[:exp] += 1
+                                    gain[:pot] += 1
+                                    player.ext[:pot] += 1
+                                    gain_point = 1
+                                    gain[:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
+                                    msg += "<br/> exp+1 pot+1 #{attacker[:attack_skill][:skill][:skname]}+#{gain_point}"
+                                    if (improve_skill(player, attacker[:attack_skill][:skill][:skname], gain_point) )
+                                        gain[:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
+                                        msg +="<br/> #{attacker[:attack_skill][:skill][:skname]} level up !"
+                                    end
+                                end
                      end
                  end
                  
@@ -376,6 +509,13 @@ class WhController < ApplicationController
              # show status
              msg += "<br/>\n#{attacker[:user]} - hp:#{attacker.tmp[:hp]} st:#{attacker.tmp[:stam]}\n<br/>"
              msg += "#{defenser[:user]} - hp:#{defenser.tmp[:hp]} st:#{defenser.tmp[:stam]}\n<br/>"
+             
+       
+            
+             if (defenser.tmp[:hp] <=0 )
+                 msg += "<br/>#{defenser[:user]}战斗不能"
+                 break;
+             end
              # swap
              t = defenser
               defenser =  attacker
@@ -385,9 +525,41 @@ class WhController < ApplicationController
              attacker_skills = defenser_skills
              defenser_skills = t
             
-       #     break;
-        end
       
-        render :text=>msg
+        end
+      p "==> #{i} round"
+      # save to db
+        if (gain[:exp] != 0 )
+            if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.ext[:exp])
+                gain[:level] = 1
+                player.ext[:level] += 1
+                player.ext[:exp] = 0
+            end
+            player.ext.save!
+        elsif (gain[:pot] != 0 )
+            player.ext.save!
+        end
+        gain[:skills].each {|k, v|
+            p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
+            if v[:point] != 0 || v[:level] != 0
+          
+                skill = player.query_skill(k).data
+                p skill.inspect
+                skill.save!
+                p "save #{player.query_skill(k).data}"
+            end
+        }
+        if (attacker[:isUser])
+            msg +="<br>\nYou(#{attacker[:user]}) Win !"
+        else
+            msg += "<br>\nYou(#{defenser[:user]}) Lose !"
+        end
+        msg += "(#{i}) rounds"
+        ret = {
+            "win" => attacker[:isUser],
+            "gain" => gain,
+            "msg"  => msg
+        }
+        render :text=>msg + gain.to_json
     end
 end

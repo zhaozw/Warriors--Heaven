@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
+@property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UIImageView *playerProfile;
 @property (nonatomic, retain) UIImageView *bgView;
 - (void)sendHttpRequest:(NSString*)cmd;

@@ -35,16 +35,14 @@ class Dodge < Skill
     end
 
     def cost_stam(context)
-       p = power(context)
+       p = power(context)**(1.0/3.0)
        if (p == 0)
            return 10
         end
-       stam_cost = 10/(power(context)**(1.0/3.0))
-      
+       stam_cost = 10/(p)
+           stam_cost  = stam_cost.to_i
         if stam_cost == 0 
             stam_cost = 1
-        elsif stam_cost == Infinity
-            stam_cost = 10
         end
         return stam_cost
    end
