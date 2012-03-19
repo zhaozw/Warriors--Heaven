@@ -11,6 +11,10 @@ class Unarmed < Skill
        return "unarmed"
    end
    
+   def dname #display name
+     "基本拳脚"
+   end
+   
    def damage(context)   # only for calculation, "render" function will make real damage
        userext = context[:user].ext
        a = getAction
@@ -63,6 +67,7 @@ class Unarmed < Skill
          end
          i += 1
       end
+      actions[i-1][:index] = i
      a = actions[i-1]
    end
    
@@ -131,7 +136,8 @@ class Unarmed < Skill
         
         # generate msg
         #context[:msg] += translate_msg(a[:action], context)
-        context[:msg] += a[:action] 
+        # TODO translate arabic number to Chinse e.g.“第三十六式”
+        context[:msg] += "【#{dname} 第#{a[:index]}式】#{a[:action]}" 
    end
     
 end

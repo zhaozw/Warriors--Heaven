@@ -373,9 +373,9 @@ class WhController < ApplicationController
             }
             query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attacker[:attack_skill][:skill], context_a)
                 
-         
-             msg += "<br/>\n【#{attacker[:attack_skill][:skill][:skname]}】"+translate_msg(context_a[:msg], context_a)
-             
+          #  dname = attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname
+          #   msg += "<br/>\n【#{dname}】"+translate_msg(context_a[:msg], context_a)
+               msg += "<br/>\n"+translate_msg(context_a[:msg], context_a)
              
              #
              # hit ?
@@ -411,7 +411,7 @@ class WhController < ApplicationController
                     
                     gain_point = 1
                     gain[:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
-                    msg += "<br/> exp+1 pot+1 #{defenser[:dodge_skill][:skill][:skname]}+#{gain_point}"
+                    msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}+#{gain_point}"
                     if (improve_skill(player, defenser[:dodge_skill][:skill][:skname], gain_point) )
                          gain[:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
                          msg +="<br/> #{defenser[:dodge_skill][:skill][:skname]} level up !"
@@ -437,7 +437,7 @@ class WhController < ApplicationController
                         player.ext[:pot] += 1
                         gain_point = 1
                         gain[:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
-                        msg += "<br/> exp+1 pot+1 #{attacker[:attack_skill][:skill][:skname]}+#{gain_point}"
+                        msg += "<br/> 战斗经验+1 潜能+1 #{attack.query_skill(attacker[:attack_skill][:skill][:skname]).dname}+#{gain_point}"
                         if (improve_skill(player, attacker[:attack_skill][:skill][:skname], gain_point) )
                              gain[:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
                             msg +="<br/> #{attacker[:attack_skill][:skill][:skname]} level up !"
@@ -476,7 +476,7 @@ class WhController < ApplicationController
                                 player.ext[:pot] += 1
                                  gain_point = 1
                                  gain[:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
-                                 msg += "<br/> exp+1 pot+1 #{defenser[:defense_skill][:skill][:skname]}+#{gain_point}"
+                                 msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}+#{gain_point}"
                                  if (improve_skill(player, defenser[:defense_skill][:skill][:skname], gain_point) )
                                      gain[:skills][defenser[:defense_skill][:skill][:skname]][:level] +=1
                                      msg +="<br/> #{defenser[:defense_skill][:skill][:skname]} level up !"
@@ -488,14 +488,14 @@ class WhController < ApplicationController
                          #
                          # do damage
                         msg += doDamage(attacker[:attack_skill], context_a)
-                                if (attacker[:user][:isUser] && rand(player.ext[:it]+1) > 10)
+                                if (attacker[:isUser] && rand(player.ext[:it]+1) > 10)
                                     gain[:exp] += 1
                                     player.ext[:exp] += 1
                                     gain[:pot] += 1
                                     player.ext[:pot] += 1
                                     gain_point = 1
                                     gain[:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
-                                    msg += "<br/> exp+1 pot+1 #{attacker[:attack_skill][:skill][:skname]}+#{gain_point}"
+                                    msg += "<br/> 战斗经验+1 潜能+1 #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}+#{gain_point}"
                                     if (improve_skill(player, attacker[:attack_skill][:skill][:skname], gain_point) )
                                         gain[:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
                                         msg +="<br/> #{attacker[:attack_skill][:skill][:skname]} level up !"
@@ -507,8 +507,8 @@ class WhController < ApplicationController
              end
              
              # show status
-             msg += "<br/>\n#{attacker[:user]} - hp:#{attacker.tmp[:hp]} st:#{attacker.tmp[:stam]}\n<br/>"
-             msg += "#{defenser[:user]} - hp:#{defenser.tmp[:hp]} st:#{defenser.tmp[:stam]}\n<br/>"
+             msg += "<br/>\n#{attacker[:user]}  hp:#{attacker.tmp[:hp]} 体力:#{attacker.tmp[:stam]}\n<br/>"
+             msg += "#{defenser[:user]}  hp:#{defenser.tmp[:hp]} 体力:#{defenser.tmp[:stam]}\n<br/>"
              
        
             
@@ -527,7 +527,7 @@ class WhController < ApplicationController
             
       
         end
-      p "==> #{i} round"
+    
       # save to db
         if (gain[:exp] != 0 )
             if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.ext[:exp])
@@ -554,12 +554,13 @@ class WhController < ApplicationController
         else
             msg += "<br>\nYou(#{defenser[:user]}) Lose !"
         end
-        msg += "(#{i}) rounds"
+        msg += "(in #{i} rounds)<br/>\n"
         ret = {
             "win" => attacker[:isUser],
             "gain" => gain,
             "msg"  => msg
         }
+       # p msg
         render :text=>msg + gain.to_json
     end
 end

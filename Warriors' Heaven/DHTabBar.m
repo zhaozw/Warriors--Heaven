@@ -80,6 +80,10 @@
                 btnImage = [UIImage imageNamed:@"tab_character.jpg"];
             else if (i == 2)
                 btnImage = [UIImage imageNamed:@"tab_fight.jpg"];
+            else if (i == 3)
+                btnImage = [UIImage imageNamed:@"tab_train.jpg"];
+            else if (i == 4)
+                btnImage = [UIImage imageNamed:@"tab_team.png"];
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];

@@ -198,4 +198,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+}
+
 @end

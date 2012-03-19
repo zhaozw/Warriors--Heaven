@@ -7,6 +7,7 @@
 //
 
 #import "CharacterViewController.h"
+#import "AppDelegate.h"
 
 @implementation CharacterViewController
 @synthesize vcStatus;
@@ -56,6 +57,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"character view update");
+
+        AppDelegate * ad = [UIApplication sharedApplication].delegate;
+        [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    
 }
 
 @end

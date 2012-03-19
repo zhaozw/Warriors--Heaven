@@ -21,7 +21,6 @@
 @synthesize session_id;
 @synthesize data_userext;
 @synthesize data_user;
-
 @synthesize host;
 @synthesize port;
 
@@ -46,12 +45,12 @@
     //self.window.backgroundColor = [UIColor whiteColor];
  
    // CGRect rect = [[UIScreen mainScreen] bounds];
-    UIImageView* bgView1 = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
+    bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
     //[bgView1 setBackgroundColor:[UIColor redColor]];
-    [bgView1 setImage:[UIImage imageNamed:@"background.PNG"]];
+    [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
     //[bgView setHidden:FALSE];
     
-    [window addSubview:bgView1];
+    [window addSubview:bgView];
     [window addSubview:tabBarController.view];
     
     // add create status view
@@ -94,6 +93,10 @@
     [self.window makeKeyAndVisible];
     NSLog(@"TESTESTTE");
     return YES;
+}
+
+- (void) setBgImg:(UIImage*) img{
+    [bgView setImage:img];
 }
 - (void) showWaiting:(BOOL)bShow{
     waiting.hidden = !bShow;

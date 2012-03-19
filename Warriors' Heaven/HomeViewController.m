@@ -53,14 +53,18 @@
      NSLog(@"%@", strRet);  
     //[strRet release];  
     */
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
  
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    NSObject* json = [ad.data_user valueForKey:@"user"];
-    lbUserName.text = [json valueForKey:@"user"];
-    lbTitle.text = [json valueForKey:@"title"];
+    if (ad.data_user){
+        NSObject* json = [ad.data_user valueForKey:@"user"];
+        lbUserName.text = [json valueForKey:@"user"];
+        lbTitle.text = [json valueForKey:@"title"];
+    }
     //[vcStatus viewDidAppear:NO];
 }
 #pragma mark - View lifecycle
@@ -159,6 +163,7 @@
     NSLog(@"HomeViewController receive data:%@", json);
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    
     ad.data_user = json;
     
     [self viewDidAppear:NO];

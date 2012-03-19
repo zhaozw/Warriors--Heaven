@@ -34,14 +34,18 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
-@property (nonatomic, retain) UIImageView *bgView;
+//@property (nonatomic, retain) UIImageView *bgView;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @property (nonatomic, retain) IBOutlet UIViewController *viewcontroller;
 @property (nonatomic, retain) IBOutlet DotHide_TabBarController *tabBarController;
 
+@property (strong, nonatomic) IBOutlet UIImageView* bgView;
+
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void) showWaiting:(BOOL)bShow;
 - (BOOL) isWaiting;
+- (void) setBgImg:(UIImage*) img;
 @end

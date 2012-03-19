@@ -8,7 +8,7 @@ class Parry < Skill
        return "unarmed"
    end
    
-   def desc
+   def dname
       "基本招架" 
    end
    

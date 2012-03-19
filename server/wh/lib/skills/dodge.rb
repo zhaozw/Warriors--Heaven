@@ -9,6 +9,10 @@ class Dodge < Skill
        "dodge"
    end
    
+   def dname
+       "基本闪躲"
+   end
+   
    def damage(context)
        0
       
