@@ -6,7 +6,9 @@ class Unarmed < Skill
    def for
        return "attack parry"
    end
-   
+   def category
+       "basic"
+   end
    def type 
        return "unarmed"
    end

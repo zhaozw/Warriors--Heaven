@@ -16,9 +16,22 @@
     self->view = _view;
     return self;
 }
+
+//- (void) checkNetworkStatus{
+//    
+//}
+
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait{
     selector = s;
-     AppDelegate * ad = [UIApplication sharedApplication].delegate;
+      AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    if (ad.networkStatus == 0){
+        [ad checkNetworkStatus];
+        if (ad.networkStatus == 0){
+            [ad showNetworkDown];
+//        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            return;
+        }
+    }
     if(bWait && [ad isWaiting]){
         NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
         NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];

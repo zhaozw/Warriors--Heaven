@@ -4,6 +4,10 @@ class Parry < Skill
        "parry" 
    end
    
+   def category
+       "basic"
+   end
+   
    def type
        return "unarmed"
    end

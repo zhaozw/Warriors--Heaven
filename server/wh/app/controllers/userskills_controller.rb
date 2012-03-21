@@ -1,7 +1,28 @@
+require "utility.rb"
 class UserskillsController < ApplicationController
-  # GET /userskills
+    
+    def index
+      uid = params[:uid]
+        sid = cookies[:_wh_session]
+        if uid
+            ret = Userskill.find_by_sql("select * from userskills where uid=#{uid}")
+        else
+            ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
+        end
+        
+        for r in ret
+            s = load_skill(r[:skname])
+            r[:dname] = s.dname
+            r[:category] = s.category
+        end
+        render :text=>ret.to_json
+    end
+=begin  
+    # GET /userskills
   # GET /userskills.xml
+
   def index
+
     @userskills = Userskill.all
 
     respond_to do |format|
@@ -82,4 +103,5 @@ class UserskillsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+=end
 end

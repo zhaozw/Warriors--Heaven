@@ -4,7 +4,9 @@ class Dodge < Skill
    def type
        return "unarmed"
    end
-   
+     def category
+       "basic"
+   end
    def for
        "dodge"
    end

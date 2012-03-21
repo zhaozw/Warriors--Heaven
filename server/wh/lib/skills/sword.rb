@@ -3,9 +3,15 @@ class Sword < Skill
    def for
        return "attack parry"
    end
-   
+     def category
+       "basic"
+   end
    def type 
        return "sword"
+   end
+   
+   def dname
+       "基本剑法"
    end
    
    def damage(context)

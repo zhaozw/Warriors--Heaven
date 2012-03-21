@@ -17,18 +17,25 @@
     UIImageView *bgView;
     NSString* session_id;
     UIView *waiting;
+
     
     NSObject* data_user;
     NSObject* data_userext;
     NSString* host;
     NSString* port;
-}
 
+    int networkStatus;
+    BOOL bUserSkillNeedUpdate;
+}
+@property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
+
+@property (nonatomic, assign) int networkStatus;
+@property (nonatomic, assign)  BOOL bUserSkillNeedUpdate;
 @property (nonatomic, copy) NSString* host;
 @property (nonatomic, copy) NSString* port;
 @property (nonatomic, copy) NSString* session_id;
-@property (nonatomic, copy) NSObject* data_userext;
-@property (nonatomic, copy) NSObject* data_user;
+@property (nonatomic, retain) NSObject* data_userext;
+@property (nonatomic, retain) NSObject* data_user;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -48,4 +55,6 @@
 - (void) showWaiting:(BOOL)bShow;
 - (BOOL) isWaiting;
 - (void) setBgImg:(UIImage*) img;
+- (void) showNetworkDown;
+- (void) checkNetworkStatus;
 @end

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A0B7F731519966500FC0898 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0B7F721519966500FC0898 /* Reachability.m */; };
+		5A0B7F76151998AB00FC0898 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */; };
+		5A0B7F7C1519A42400FC0898 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0B7F7B1519A42400FC0898 /* warning.png */; };
 		5A25E2811504CBB20046C67D /* tab_character.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2801504CBB20046C67D /* tab_character.jpg */; };
 		5A25E2861504CC260046C67D /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E2841504CC260046C67D /* CharacterViewController.m */; };
 		5A25E2871504CC260046C67D /* CharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2851504CC260046C67D /* CharacterViewController.xib */; };
@@ -84,6 +87,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A0B7F711519966500FC0898 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		5A0B7F721519966500FC0898 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5A0B7F7B1519A42400FC0898 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = warning.png; path = res/warning.png; sourceTree = SOURCE_ROOT; };
 		5A25E2801504CBB20046C67D /* tab_character.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tab_character.jpg; sourceTree = "<group>"; };
 		5A25E2831504CC260046C67D /* CharacterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterViewController.h; sourceTree = "<group>"; };
 		5A25E2841504CC260046C67D /* CharacterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterViewController.m; sourceTree = "<group>"; };
@@ -190,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A0B7F76151998AB00FC0898 /* SystemConfiguration.framework in Frameworks */,
 				5AFD8DF4150241170066ECBA /* QuartzCore.framework in Frameworks */,
 				5AFD8D641500E6ED0066ECBA /* UIKit.framework in Frameworks */,
 				5AFD8D661500E6ED0066ECBA /* Foundation.framework in Frameworks */,
@@ -295,6 +303,7 @@
 		5AFD8D621500E6ED0066ECBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */,
 				5AFD8DF3150241170066ECBA /* QuartzCore.framework */,
 				5AFD8D631500E6ED0066ECBA /* UIKit.framework */,
 				5AFD8D651500E6ED0066ECBA /* Foundation.framework */,
@@ -331,6 +340,8 @@
 		5AFD8DF215023C6E0066ECBA /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				5A0B7F711519966500FC0898 /* Reachability.h */,
+				5A0B7F721519966500FC0898 /* Reachability.m */,
 				5AA8C2D8150814DB001C5BD3 /* WHHttpClient.h */,
 				5AA8C2D9150814DB001C5BD3 /* WHHttpClient.m */,
 				5AA8C2B11508047C001C5BD3 /* json */,
@@ -347,6 +358,7 @@
 		5AFD8E031502CFC20066ECBA /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A0B7F7B1519A42400FC0898 /* warning.png */,
 				5A47AC5E15170A0B00C050FB /* btn_skill.png */,
 				5AD2154D150EB9D3008CD181 /* fight_result.png */,
 				5AD2154F150EBD65008CD181 /* fight_result_fail.png */,
@@ -482,6 +494,7 @@
 				5A47AC561516F08200C050FB /* traininggrd2.jpg in Resources */,
 				5A47AC581516F7D700C050FB /* tab_team.png in Resources */,
 				5A47AC5F15170A0C00C050FB /* btn_skill.png in Resources */,
+				5A0B7F7C1519A42400FC0898 /* warning.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +528,7 @@
 				5AA8C2D71508048D001C5BD3 /* SBJsonWriter.m in Sources */,
 				5AA8C2DA150814DB001C5BD3 /* WHHttpClient.m in Sources */,
 				5A47AC4D1516C44500C050FB /* TrainingGround.m in Sources */,
+				5A0B7F731519966500FC0898 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

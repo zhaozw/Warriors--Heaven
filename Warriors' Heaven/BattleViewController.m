@@ -41,8 +41,7 @@
     [self addChildViewController:vcStatus];
     [self.view addSubview:vcStatus.view];
     
-    WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) showWaiting:YES];
+  
     
         
 }
@@ -201,6 +200,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) showWaiting:YES];
 }
 
 @end

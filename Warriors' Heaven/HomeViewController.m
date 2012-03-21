@@ -152,6 +152,9 @@
     [self.view addSubview:vcStatus.view];
     
     
+    [[self lbTitle ] setText:@""];
+    [lbUserName setText:@""];
+    
     // test http
 //    [self sendHttpRequest:@"/editor?fdaf"];
     
@@ -165,7 +168,7 @@
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     
     ad.data_user = json;
-    
+//    [ad.data_user setValue:@"fdsfa" forKey:@"userskills"];
     [self viewDidAppear:NO];
 }
 - (void)viewDidUnload

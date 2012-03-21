@@ -8,12 +8,22 @@ class WhController < ApplicationController
     #    ret = {
      #       "uid" => "ju"
       #  }
-        r = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{cookies[:_wh_session]}'")
+      sid = cookies[:_wh_session]
+        r = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
    #     r = User.find_by_sql("select user, uid, sid, sex, race, age from users where sid='d434740f4ff4a5e758d4f340d7a5f467'")
         
         js = '{"error":"user not found"}'
         p r
         if (r.size >0)
+            ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
+             
+        
+            for rr in ret
+                 s = load_skill(rr[:skname])
+                 rr[:dname] = s.dname
+                 rr[:category] = s.category
+             end
+            r[0][:userskills] = ret
             js = r[0].to_json
             session[:uid] = r[0][:id]
         end

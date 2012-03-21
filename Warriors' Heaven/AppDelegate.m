@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Reachability.h"
 
 @implementation AppDelegate
 
@@ -23,6 +24,9 @@
 @synthesize data_user;
 @synthesize host;
 @synthesize port;
+@synthesize vNetworkStatus;
+@synthesize networkStatus;
+@synthesize bUserSkillNeedUpdate;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -31,7 +35,10 @@
     
     // init const
     host = @"192.168.0.24";
+//    host = @"127.0.0.1";
     port = @"3006";
+    
+    bUserSkillNeedUpdate = TRUE;
     
     // load session id from local
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
@@ -108,6 +115,40 @@
     return waiting.hidden  == FALSE;
 }
 
+- (void) showNetworkDown{
+    // create waiting view
+    vNetworkStatus.hidden = NO;
+    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
+    [window bringSubviewToFront:vNetworkStatus];
+}
+- (void) hideNetworkStatus{
+    vNetworkStatus.hidden = YES;
+
+}
+- (void) checkNetworkStatus{
+    Reachability *r = [Reachability reachabilityWithHostName:host];
+    switch ([r currentReachabilityStatus]) {
+        case ReachableViaWWAN:
+            // 你的设备使用3G网络
+            NSLog(@"使用3G网络");
+            networkStatus = 1;
+            break;
+        case ReachableViaWiFi:
+            // 你的设备使用WiFi网络
+            NSLog(@"使用wifi网络");        
+            networkStatus = 2;
+            break;
+        case NotReachable:
+            // 你的设备没有网络连接
+            NSLog(@"没有网络");
+//            if (networkStatus != 0){
+//                networkStatus = 0;
+//                [self showNetworkDown];
+//            }
+            break;
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
@@ -127,9 +168,16 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+
+//    [self checkNetworkStatus];
+//    if (networkStatus == 0){
+//        [self showNetworkDown];
+//        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];
+//    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

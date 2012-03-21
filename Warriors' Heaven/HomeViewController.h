@@ -48,4 +48,6 @@
 // 全部数据接收完毕时触发
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConn;
 
+- (void) onReceiveStatus:(NSObject*) json;
+
 @end
