@@ -19,7 +19,7 @@ class CreateUsers < ActiveRecord::Migration
     insert into users values(NULL, "燕北天",       "40d2e044df294a37a604a9458e621018", 30, 0, 1, "剑侠", NULL, NULL);
     insert into users values(NULL, "一灯",        "8800a9ef2d3c91569eff59ed68349e46", 30, 0, 1, "大师", NULL, NULL);
     insert into users values(NULL, "张三疯",       "c630a00633734cf4f5ff4c0de5e6e8b2", 30, 0, 1, "一代宗师", NULL, NULL);
-    insert into users values(NULL, "monkey",    "d434740f4ff4a5e758d4f340d7a5f467", 30, 0, 1, "新人", NULL, NULL);
+    insert into users values(NULL, "monkey",    "b88f4175ebdee8be89f50d12d7ddb5f3", 30, 0, 1, "新人", NULL, NULL);
     insert into users values(NULL, "king",      "f0a28ae6cc681d3f50ae4f281cab9218", 30, 0, 1, "大侠", NULL, NULL);
     insert into users values(NULL, "queen",     "1320346951bf2bc6293fb70cc2a71a05", 30, 0, 1, "女侠", NULL, NULL);
     insert into users values(NULL, "Linsanity", "dce21c64f8788afce3960cf88734048b", 30, 0, 1, "少侠", NULL, NULL);

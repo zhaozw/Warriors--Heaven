@@ -35,9 +35,9 @@ class CreateUserskills < ActiveRecord::Migration
     insert into userskills values(null, 4, '40d2e044df294a37a604a9458e621018', 2, 'dodge',    'dodge',    100, 0, 1, null, null);
     insert into userskills values(null, 4, '40d2e044df294a37a604a9458e621018', 3, 'parry',    'parry',    100, 0, 1, null, null);     
                                                                                               
-    insert into userskills values(null, 7, 'd434740f4ff4a5e758d4f340d7a5f467', 1, 'unarmed',   'unarmed', 10, 0, 1, null, null);
-    insert into userskills values(null, 7, 'd434740f4ff4a5e758d4f340d7a5f467', 2, 'dodge',     'dodge',   50, 0, 1, null, null);
-    insert into userskills values(null, 7, 'd434740f4ff4a5e758d4f340d7a5f467', 3, 'parry',     'parry',   10, 0, 1, null, null);  
+    insert into userskills values(null, 7, 'b88f4175ebdee8be89f50d12d7ddb5f3', 1, 'unarmed',   'unarmed', 10, 0, 1, null, null);
+    insert into userskills values(null, 7, 'b88f4175ebdee8be89f50d12d7ddb5f3', 2, 'dodge',     'dodge',   50, 0, 1, null, null);
+    insert into userskills values(null, 7, 'b88f4175ebdee8be89f50d12d7ddb5f3', 3, 'parry',     'parry',   10, 0, 1, null, null);  
                                                                                               
     insert into userskills values(null, 11, '507c5283c26d277878c622da8252ab03', 1, 'unarmed', 'unarmed',  0, 0, 1, null, null);
     insert into userskills values(null, 11, '507c5283c26d277878c622da8252ab03', 2, 'dodge',   'dodge',    0, 0, 1, null, null);

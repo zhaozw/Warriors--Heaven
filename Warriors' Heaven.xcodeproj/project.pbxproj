@@ -10,6 +10,7 @@
 		5A0B7F731519966500FC0898 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0B7F721519966500FC0898 /* Reachability.m */; };
 		5A0B7F76151998AB00FC0898 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */; };
 		5A0B7F7C1519A42400FC0898 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0B7F7B1519A42400FC0898 /* warning.png */; };
+		5A0B7F80151A678400FC0898 /* btn_green_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0B7F7F151A678200FC0898 /* btn_green_light.png */; };
 		5A25E2811504CBB20046C67D /* tab_character.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2801504CBB20046C67D /* tab_character.jpg */; };
 		5A25E2861504CC260046C67D /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E2841504CC260046C67D /* CharacterViewController.m */; };
 		5A25E2871504CC260046C67D /* CharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2851504CC260046C67D /* CharacterViewController.xib */; };
@@ -91,6 +92,7 @@
 		5A0B7F721519966500FC0898 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5A0B7F7B1519A42400FC0898 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = warning.png; path = res/warning.png; sourceTree = SOURCE_ROOT; };
+		5A0B7F7F151A678200FC0898 /* btn_green_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_green_light.png; sourceTree = "<group>"; };
 		5A25E2801504CBB20046C67D /* tab_character.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tab_character.jpg; sourceTree = "<group>"; };
 		5A25E2831504CC260046C67D /* CharacterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterViewController.h; sourceTree = "<group>"; };
 		5A25E2841504CC260046C67D /* CharacterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterViewController.m; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 		5AFD8E031502CFC20066ECBA /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A0B7F7F151A678200FC0898 /* btn_green_light.png */,
 				5A0B7F7B1519A42400FC0898 /* warning.png */,
 				5A47AC5E15170A0B00C050FB /* btn_skill.png */,
 				5AD2154D150EB9D3008CD181 /* fight_result.png */,
@@ -495,6 +498,7 @@
 				5A47AC581516F7D700C050FB /* tab_team.png in Resources */,
 				5A47AC5F15170A0C00C050FB /* btn_skill.png in Resources */,
 				5A0B7F7C1519A42400FC0898 /* warning.png in Resources */,
+				5A0B7F80151A678400FC0898 /* btn_green_light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
