@@ -1,0 +1,28 @@
+<h1>Editing usereq</h1>
+
+<% form_for(@usereq) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :uid %><br />
+    <%= f.text_field :uid %>
+  </p>
+  <p>
+    <%= f.label :sid %><br />
+    <%= f.text_field :sid %>
+  </p>
+  <p>
+    <%= f.label :eqid %><br />
+    <%= f.text_field :eqid %>
+  </p>
+  <p>
+    <%= f.label :eqname %><br />
+    <%= f.text_field :eqname %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @usereq %> |
+<%= link_to 'Back', usereqs_path %>

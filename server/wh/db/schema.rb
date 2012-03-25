@@ -11,6 +11,13 @@
 
 ActiveRecord::Schema.define(:version => 201203072147536) do
 
+  create_table "equipment", :force => true do |t|
+    t.string   "eqname"
+    t.string   "prop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -24,6 +31,15 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
   create_table "skills", :force => true do |t|
     t.string   "name"
     t.string   "dname"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usereqs", :force => true do |t|
+    t.integer  "uid"
+    t.string   "sid"
+    t.integer  "eqid"
+    t.string   "eqname"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

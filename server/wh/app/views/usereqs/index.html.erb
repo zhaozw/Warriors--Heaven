@@ -1,0 +1,26 @@
+<h1>Listing usereqs</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Sid</th>
+    <th>Eqid</th>
+    <th>Eqname</th>
+  </tr>
+
+<% @usereqs.each do |usereq| %>
+  <tr>
+    <td><%=h usereq.uid %></td>
+    <td><%=h usereq.sid %></td>
+    <td><%=h usereq.eqid %></td>
+    <td><%=h usereq.eqname %></td>
+    <td><%= link_to 'Show', usereq %></td>
+    <td><%= link_to 'Edit', edit_usereq_path(usereq) %></td>
+    <td><%= link_to 'Destroy', usereq, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New usereq', new_usereq_path %>
