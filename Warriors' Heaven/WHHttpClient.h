@@ -14,13 +14,13 @@
     NSMutableData* buf;
     NSString * cookie;
     SEL selector; // callback for msg arrive
-    
-    
+    BOOL _bJSON;
+    NSString* _cmd;
 
     
 }
 - (id) init:(UIView*)_view;
-- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait;
+- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON showWaiting:(BOOL)bWait;
 // handle network
 // 收到响应时, 会触发
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse;

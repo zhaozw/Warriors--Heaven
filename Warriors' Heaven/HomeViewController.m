@@ -64,6 +64,8 @@
         NSObject* json = [ad.data_user valueForKey:@"user"];
         lbUserName.text = [json valueForKey:@"user"];
         lbTitle.text = [json valueForKey:@"title"];
+    }else{
+        [ad updateUserData];
     }
     //[vcStatus viewDidAppear:NO];
 }
@@ -148,8 +150,8 @@
    // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
     // add status view
-    [self addChildViewController:vcStatus];
-    [self.view addSubview:vcStatus.view];
+//    [self addChildViewController:vcStatus];
+//    [self.view addSubview:vcStatus.view];
     
     
     [[self lbTitle ] setText:@""];
@@ -159,8 +161,8 @@
 //    [self sendHttpRequest:@"/editor?fdaf"];
     
     //[self sendHttpRequest:@"/"];
-    WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
+    //WHHttpClient* client = [[WHHttpClient alloc] init:self];
+  //  [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
 }
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"HomeViewController receive data:%@", json);
@@ -273,8 +275,19 @@
 
 */
 
+- (IBAction)onTouchFight:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:2];
+}
+
 - (IBAction)onClickStatus:(id)sender {
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [[ad tabBarController] selectTab:1];
 }
+
+- (IBAction)onTouchSkill:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:3];
+}
+
 @end

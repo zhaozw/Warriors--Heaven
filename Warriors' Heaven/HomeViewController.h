@@ -29,8 +29,10 @@
 - (void)sendHttpRequest:(NSString*)cmd;
 -(void)viewWillAppear:(BOOL)animated;
 @property (strong, nonatomic) IBOutlet UILabel *lbUserName;
+- (IBAction)onTouchFight:(id)sender;
 
 - (IBAction)onClickStatus:(id)sender;
+- (IBAction)onTouchSkill:(id)sender;
 // handle network
 // 收到响应时, 会触发
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse;

@@ -13,4 +13,7 @@
 @interface BattleViewController : UIViewController
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
+@property (nonatomic, retain) NSObject* fight_result;
+
+
 @end

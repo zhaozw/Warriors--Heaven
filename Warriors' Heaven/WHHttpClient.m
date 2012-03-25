@@ -21,9 +21,20 @@
 //    
 //}
 
-- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait{
+- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
+    
     selector = s;
-      AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    _bJSON= bJSON;
+    self->_cmd = cmd;
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    NSString* o = [[ad requests] valueForKey:cmd];
+    if (!o || [o isEqualToString:@"0"])
+        [[ad requests] setValue:@"1" forKey:cmd];
+    else
+        return;
+
+       
+    
     if (ad.networkStatus == 0){
         [ad checkNetworkStatus];
         if (ad.networkStatus == 0){
@@ -48,8 +59,9 @@
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];         
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"http://192.168.0.24:3006",cmd]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];   
+    NSLog([NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]);
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]]];
     [request setHTTPMethod:@"GET"];
    
     //if (ad.session_id != nil)
@@ -127,6 +139,11 @@
 // 网络错误时触发
 - (void)connection:(NSURLConnection *)aConn didFailWithError:(NSError *)error{
     NSLog(@"http receive error:%d", error.code);
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    if([ad isWaiting])
+        [ad showWaiting:FALSE];
+    [ad showNetworkDown];
+    [[ad requests] setValue:@"0" forKey:self->_cmd];
 }
 
 // 全部数据接收完毕时触发
@@ -137,16 +154,20 @@
     
     // parse json
     //NSString* JSONString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];
-    NSObject *json = [text JSONValue] ;
-    if (json)
-        [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
-    else 
-        NSLog(@"data is not json string");
+    if (_bJSON){
+        NSObject *json = [text JSONValue] ;
+        if (json)
+            [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
+        else 
+            NSLog(@"data is not json string");
+    }else{
+        [view performSelectorOnMainThread:selector withObject:text waitUntilDone:NO];
+    }
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     if([ad isWaiting])
- 
         [ad showWaiting:FALSE];
 
+    [[ad requests] setValue:@"0" forKey:self->_cmd];
     /*
     NSString * v;
     if (v = [json valueForKey:@"user"])

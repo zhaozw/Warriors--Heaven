@@ -8,26 +8,42 @@ class WhController < ApplicationController
     #    ret = {
      #       "uid" => "ju"
       #  }
+
+
+      
       sid = cookies[:_wh_session]
-        r = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
+      
+      # for test
+      if (params[:sid])
+          sid = params[:sid]
+      end
+        user = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
    #     r = User.find_by_sql("select user, uid, sid, sex, race, age from users where sid='d434740f4ff4a5e758d4f340d7a5f467'")
         
-        js = '{"error":"user not found"}'
-        p r
-        if (r.size >0)
-            ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
-             
+        p sid
+        if (user == 0 || user.size==0)
+        #js = '{"error":"user not found"}'
+            error "user not found"
+            return
+        end
         
+        if (user.size >0)
+            ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
             for rr in ret
                  s = load_skill(rr[:skname])
                  rr[:dname] = s.dname
                  rr[:category] = s.category
              end
-            r[0][:userskills] = ret
-            js = r[0].to_json
-            session[:uid] = r[0][:id]
+            user[0][:userskills] = ret 
+      
+            session[:uid] = user[0][:id]
         end
-        render :text=>js
+        
+        r = Userext.find_by_sql("select * from userexts where sid='#{sid}'")
+        if (r.size>0)
+            user[0][:userext] = r[0]
+        end
+        render :text=>user[0].to_json
     end
     
     def error(msg)
@@ -362,8 +378,16 @@ class WhController < ApplicationController
                 }
             }
         }
-        i = 0;
+        i = 0
+        style_c = "user"
         while (i < 100 )
+            if  style_c == "user"
+               style_c = "enemy"
+            else
+                style_c = "user"
+            end
+            
+             msg += "<div class=\"#{style_c}\">\n";
             i = i+1
             # do attack
             context_a = {
@@ -385,8 +409,9 @@ class WhController < ApplicationController
                 
           #  dname = attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname
           #   msg += "<br/>\n【#{dname}】"+translate_msg(context_a[:msg], context_a)
+               
                msg += "<br/>\n"+translate_msg(context_a[:msg], context_a)
-             
+              
              #
              # hit ?
              #
@@ -520,7 +545,7 @@ class WhController < ApplicationController
              msg += "<br/>\n#{attacker[:user]}  hp:#{attacker.tmp[:hp]} 体力:#{attacker.tmp[:stam]}\n<br/>"
              msg += "#{defenser[:user]}  hp:#{defenser.tmp[:hp]} 体力:#{defenser.tmp[:stam]}\n<br/>"
              
-       
+             msg += "</div>\n";
             
              if (defenser.tmp[:hp] <=0 )
                  msg += "<br/>#{defenser[:user]}战斗不能"
@@ -568,9 +593,13 @@ class WhController < ApplicationController
         ret = {
             "win" => attacker[:isUser],
             "gain" => gain,
-            "msg"  => msg
+            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>"
         }
        # p msg
-        render :text=>msg + gain.to_json
+       if (params[:debug])
+        render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>" + gain.to_json
+    else
+        render :text=>ret.to_json
+    end
     end
 end

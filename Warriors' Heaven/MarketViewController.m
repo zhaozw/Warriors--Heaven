@@ -1,16 +1,15 @@
 //
-//  CharacterViewController.m
+//  MarketViewController.m
 //  Warriors' Heaven
 //
-//  Created by juweihua on 3/5/12.
+//  Created by juweihua on 3/25/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CharacterViewController.h"
+#import "MarketViewController.h"
 #import "AppDelegate.h"
 
-@implementation CharacterViewController
-@synthesize vcStatus;
+@implementation MarketViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,15 +34,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    // add status view
-//    [self addChildViewController:vcStatus];
-//    [self.view addSubview:vcStatus.view];
 }
 
 - (void)viewDidUnload
 {
-    [self setVcStatus:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -55,12 +49,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"character view update");
-
-        AppDelegate * ad = [UIApplication sharedApplication].delegate;
-        [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
-    
+- (void)viewWillAppear:(BOOL)animated {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [ad setBgImg:[UIImage imageNamed:@"bg_market.jpg"] ];
 }
 
 @end

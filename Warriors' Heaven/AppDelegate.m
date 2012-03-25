@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "Reachability.h"
+#import "WHHttpClient.h"
+#import "SBJson.h"
+
 
 @implementation AppDelegate
 
@@ -20,32 +23,65 @@
 @synthesize viewcontroller;
 @synthesize tabBarController;
 @synthesize session_id;
-@synthesize data_userext;
+//@synthesize data_userext;
 @synthesize data_user;
 @synthesize host;
 @synthesize port;
+@synthesize vcHome;
 @synthesize vNetworkStatus;
 @synthesize networkStatus;
 @synthesize bUserSkillNeedUpdate;
+@synthesize vBattleMsg;
+@synthesize vBattleMsgBg;
+@synthesize requests;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
+    /////////////////
+    // init data
+    /////////////////
+    
     // init const
     host = @"192.168.0.24";
 //    host = @"127.0.0.1";
+    //    host = @"wh.joyqom.com";
+//    host = @"192.168.1.119";
     port = @"3006";
     
-    bUserSkillNeedUpdate = TRUE;
+    requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     
+    bUserSkillNeedUpdate = TRUE;
     // load session id from local
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     NSArray * Array = [SaveDefaults objectForKey:@"sessionid"];
-   
+    
     session_id = [Array objectAtIndex:0];
     NSLog(@"load session id %@", session_id);
+    
+    
+    //    [self checkNetworkStatus];
+    
+    // load user data
+    
+    Array = [SaveDefaults objectForKey:@"data_user"];
+    NSString* userdata = [Array objectAtIndex:0];
+    NSLog(@"datauser: %@", data_user);
+    
+//    if (userdata == NULL){
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
+//    }else{
+//        data_user = [userdata JSONValue];
+//    }
+
+    
+ 
+    /////////////////
+    // init UI
+    /////////////////
     
     // full screen
     self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
@@ -67,6 +103,12 @@
    // self.window.rootViewController = viewcontroller;
    // [self.window addSubview:viewcontroller.view];
  //   [viewcontroller viewWillAppear:FALSE];
+    
+    // add status view
+//    [window addChildViewController:vcStatus];
+    [window addSubview:vcStatus.view];
+    [vcStatus.view setBackgroundColor:[UIColor clearColor]];
+    
     
     // create waiting view
     self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
@@ -97,11 +139,35 @@
     [window bringSubviewToFront:self->waiting];
     waiting.hidden = YES;
     
+    
+    [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
+    [vBattleMsg setBackgroundColor:[UIColor blackColor]];
+
+ 
+    
     [self.window makeKeyAndVisible];
-    NSLog(@"TESTESTTE");
+    
     return YES;
 }
 
+-(void) updateUserData{
+    
+    if (data_user == NULL){
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
+    }
+    
+}
+- (void) onReceiveStatus:(NSString *) data{
+    data_user = [data JSONValue];
+    NSLog(@"data_user %@", [data_user JSONRepresentation]);
+    NSArray *Array = [NSArray arrayWithObjects:data, nil];
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    [SaveDefaults setObject:Array forKey:@"data_user"];
+    
+    [vcHome viewDidAppear:NO];
+    [vcStatus viewDidAppear:NO];
+}
 - (void) setBgImg:(UIImage*) img{
     [bgView setImage:img];
 }
@@ -192,6 +258,13 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+
+- (IBAction)closeFightMsg:(id)sender {
+    vBattleMsgBg.hidden = YES;
+    [vBattleMsg loadHTMLString:@"" baseURL:nil];
+      tabBarController.view.hidden = NO;
+}
+
 
 - (void)saveContext
 {
@@ -305,5 +378,24 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+- (void) showFightMsg:(NSString*) msg{
+    [window bringSubviewToFront:vBattleMsgBg];
+    vBattleMsgBg.hidden = NO;
+    
+    NSString* m = [NSString stringWithFormat:@"<html><body style=\"background-color: transparent\"><div style=\"background-color: #000;color:#cccccc\">%@</div></body></html>", msg];
+    [vBattleMsg loadHTMLString:m baseURL:nil];
+    [vBattleMsg becomeFirstResponder];
+    tabBarController.view.hidden = TRUE;
+}
+
+- (NSObject*) getDataUser{
+    return [data_user valueForKey:@"user"];
+}
+
+- (NSObject*) getDataUserext{
+    return [[[data_user valueForKey:@"user"] valueForKey:@"userext"] valueForKey:@"userext"];
+}
+
 
 @end
