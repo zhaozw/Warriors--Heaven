@@ -19,7 +19,8 @@ class UsereqsController < ApplicationController
             eq[:dname] = _eq.dname
             eq[:desc] = _eq.desc
             eq[:weight] = _eq.desc
-            eq[:wearOn] = _eq.wearOn
+            eq[:pos] = _eq.wearOn
+            eq[:file] = _eq.file
         end
         
         render :text=>eqs.to_json

@@ -17,4 +17,7 @@ class Cap  < Weapon
 def weight
       5
   end
+  def file
+      "cap.jpg"
+  end
 end

@@ -17,4 +17,7 @@ class Sword  < Weapon
   def weight
       7
   end
+    def file
+      "sword.jpg"
+  end
 end

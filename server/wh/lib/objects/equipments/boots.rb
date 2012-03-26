@@ -16,4 +16,7 @@ class Boots  < Weapon
   def weight
       2
   end
+    def file
+      "boots.jpg"
+  end
 end

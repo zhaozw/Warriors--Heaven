@@ -16,4 +16,7 @@ class Necklace  < Weapon
 def weight
       0
   end
+    def file
+      "necklace.jpg"
+  end
 end

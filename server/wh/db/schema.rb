@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.string   "sid"
     t.integer  "eqid"
     t.string   "eqname"
+    t.integer  "eqslotnum"
+    t.string   "wearon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

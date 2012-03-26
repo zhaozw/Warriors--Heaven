@@ -17,4 +17,7 @@ class Ring  < Weapon
 def weight
       0
   end
+    def file
+      "ring.jpg"
+  end
 end

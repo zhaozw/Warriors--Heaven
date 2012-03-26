@@ -16,4 +16,8 @@ class Blade  < Weapon
   def weight
       5
   end
+  
+  def file
+      "blade.jpg"
+  end
 end

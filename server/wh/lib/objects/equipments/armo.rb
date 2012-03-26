@@ -16,4 +16,8 @@ class Armo  < Weapon
   def weight
       20
   end
+  
+  def file
+      "armo.jpg"
+  end
 end

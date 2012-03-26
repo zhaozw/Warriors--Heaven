@@ -26,7 +26,19 @@
     selector = s;
     _bJSON= bJSON;
     self->_cmd = cmd;
+    
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    // check network status
+    if (ad.networkStatus == 0){
+        [ad checkNetworkStatus];
+        if (ad.networkStatus == 0){
+            [ad showNetworkDown];
+            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            return;
+        }
+    }
+    
+    // set flag
     NSString* o = [[ad requests] valueForKey:cmd];
     if (!o || [o isEqualToString:@"0"])
         [[ad requests] setValue:@"1" forKey:cmd];
@@ -35,14 +47,7 @@
 
        
     
-    if (ad.networkStatus == 0){
-        [ad checkNetworkStatus];
-        if (ad.networkStatus == 0){
-            [ad showNetworkDown];
-//        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
-            return;
-        }
-    }
+
     if(bWait && [ad isWaiting]){
         NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
         NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -156,7 +161,8 @@
     //NSString* JSONString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];
     if (_bJSON){
         NSObject *json = [text JSONValue] ;
-        if (json)
+        if (json && ([json isKindOfClass:[NSDictionary class]] ||
+                     [json isKindOfClass:[NSArray class]]))
             [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
         else 
             NSLog(@"data is not json string");
