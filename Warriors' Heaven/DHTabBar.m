@@ -84,6 +84,10 @@
                 btnImage = [UIImage imageNamed:@"tab_train.jpg"];
             else if (i == 4)
                 btnImage = [UIImage imageNamed:@"tab_team.png"];
+            else if (i == 5)
+                btnImage = [UIImage imageNamed:@"tab_shop.png"];
+            else if (i == 6)
+                btnImage = [UIImage imageNamed:@"tab_quest.jpg"];
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];

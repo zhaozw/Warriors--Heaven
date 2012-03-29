@@ -1,0 +1,32 @@
+<h1>Listing tradables</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Price</th>
+    <th>Number</th>
+    <th>Soldnum</th>
+    <th>Owner</th>
+    <th>Ownername</th>
+  </tr>
+
+<% @tradables.each do |tradable| %>
+  <tr>
+    <td><%=h tradable.name %></td>
+    <td><%=h tradable.type %></td>
+    <td><%=h tradable.price %></td>
+    <td><%=h tradable.number %></td>
+    <td><%=h tradable.soldnum %></td>
+    <td><%=h tradable.owner %></td>
+    <td><%=h tradable.ownername %></td>
+    <td><%= link_to 'Show', tradable %></td>
+    <td><%= link_to 'Edit', edit_tradable_path(tradable) %></td>
+    <td><%= link_to 'Destroy', tradable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tradable', new_tradable_path %>

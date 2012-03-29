@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%=h @tradable.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%=h @tradable.type %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%=h @tradable.price %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%=h @tradable.number %>
+</p>
+
+<p>
+  <b>Soldnum:</b>
+  <%=h @tradable.soldnum %>
+</p>
+
+<p>
+  <b>Owner:</b>
+  <%=h @tradable.owner %>
+</p>
+
+<p>
+  <b>Ownername:</b>
+  <%=h @tradable.ownername %>
+</p>
+
+
+<%= link_to 'Edit', edit_tradable_path(@tradable) %> |
+<%= link_to 'Back', tradables_path %>
