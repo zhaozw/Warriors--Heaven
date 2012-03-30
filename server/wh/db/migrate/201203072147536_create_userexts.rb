@@ -24,7 +24,7 @@ class CreateUserexts < ActiveRecord::Migration
     end
   end
 =begin
-insert into userexts values(null, 1, "ju",          100, 0,  0, '{}', 'd434740f4ff4a5e758d4f340d7a5f467', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, null, null);
+insert into userexts values(null, 1, "ju",          100, 0,  0, '{"max_eq":"5", "max_item":10}', 'd434740f4ff4a5e758d4f340d7a5f467', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, null, null);
 insert into userexts values(null, 2, "海青天",         100, 0,  0, '{}', '032730df4eb17eaa9b6b83f798b76602', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, null, null);
 insert into userexts values(null, 3, "taiseng",     100, 0, 10, '{}', '9d4a4051baf9d1c4ab7ffa9f6e9ad7b4', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, null, null);
 insert into userexts values(null, 4, "燕北天",         100, 0, 20, '{}', '40d2e044df294a37a604a9458e621018', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, null, null);

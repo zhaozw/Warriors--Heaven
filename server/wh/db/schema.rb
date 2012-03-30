@@ -13,6 +13,7 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
 
   create_table "equipment", :force => true do |t|
     t.string   "eqname"
+    t.string   "eqtype"
     t.string   "prop"
     t.datetime "created_at"
     t.datetime "updated_at"

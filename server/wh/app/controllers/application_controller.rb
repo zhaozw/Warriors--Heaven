@@ -7,4 +7,11 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  def error(msg)
+        render :text=>"{\"error\":\"#{msg}\"}"
+    end
+    def success(msg)
+        render :text=>"{\"OK\":\"#{msg}\"}"
+    end
 end

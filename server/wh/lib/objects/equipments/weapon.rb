@@ -1,6 +1,6 @@
 require 'objects/equipments/equipment.rb'
 
-class Weapon  < Equipment
+class Weapon  < Game::Equipment
     
     
 end

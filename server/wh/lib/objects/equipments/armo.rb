@@ -20,4 +20,8 @@ class Armo  < Weapon
   def file
       "armo.jpg"
   end
+  
+    def rank
+      5
+  end
 end

@@ -19,4 +19,7 @@ def weight
     def file
       "necklace.jpg"
   end
+    def rank
+      3
+  end
 end

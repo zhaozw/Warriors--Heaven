@@ -19,4 +19,8 @@ class Boots  < Weapon
     def file
       "boots.jpg"
   end
+  
+    def rank
+      1
+  end
 end

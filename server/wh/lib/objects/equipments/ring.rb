@@ -20,4 +20,7 @@ def weight
     def file
       "ring.jpg"
   end
+    def rank
+      4
+  end
 end

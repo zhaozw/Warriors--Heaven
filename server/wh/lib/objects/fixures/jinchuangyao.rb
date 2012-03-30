@@ -1,13 +1,8 @@
-module Game
-class Object
-   def set(obj) 
-       @obj = obj
-    end
+require 'objects/object.rb'
+
+
+class Jinchuangyao < Game::Object
     
-    def method_missing(method)
-        nil
-    end
-=begin    
     def dname
         "金疮药"
     end
@@ -31,6 +26,6 @@ class Object
     def file
         "jinchuangyao.jpg"
     end
-=end
-end
+    
+    
 end

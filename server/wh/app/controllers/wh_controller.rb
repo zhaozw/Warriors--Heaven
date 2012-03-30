@@ -42,13 +42,12 @@ class WhController < ApplicationController
         r = Userext.find_by_sql("select * from userexts where sid='#{sid}'")
         if (r.size>0)
             user[0][:userext] = r[0]
+            session[:userdata] = user[0]
         end
         render :text=>user[0].to_json
     end
     
-    def error(msg)
-        render :text=>"{\"error\":#{msg}}"
-    end
+    
     def userext
         sid = cookies[:_wh_session]
         if !sid

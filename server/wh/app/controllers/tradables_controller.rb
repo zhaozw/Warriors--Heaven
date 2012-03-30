@@ -1,4 +1,4 @@
-require "objects/equipments/equipment.rb"
+#require "objects/equipments/equipment.rb"
 class TradablesController < ApplicationController
     
     
@@ -9,7 +9,10 @@ class TradablesController < ApplicationController
           sid = params[:sid]
       end
       type = params[:type]
-        
+        if (!type)
+            error("You didn't specify item type")
+            return 
+        end
         ts = Tradable.find_by_sql("select * from tradables where objtype=#{type}")
         if !ts || ts.size == 0
             render :text=>"{}"
@@ -21,12 +24,95 @@ class TradablesController < ApplicationController
             t[:dname] = _t.dname
             t[:desc] = _t.desc
             t[:weight] = _t.desc
-            t[:pos] = _t.wearOn
+            if t[:objtype] == 1
+                t[:pos] = _t.wearOn
+            end
+            t[:intro] = _t.intro
             t[:file] = _t.file
+            t[:rank] = _t.rank
         end
         
         render :text=>ts.to_json
+    end
+    
+    def buy
+        uid = session[:uid]
+        item_id = params[:id]
+        item = Tradable.find(item_id)
         
+        if (item[:number] < 1)
+            error("There is not enough number of item in stock. Please buy later.")
+            return
+        end
+        
+        # check user has enough vacancy
+        if item[:objtype] == 1 or item[:objtype] == 3
+            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.eqid=equipment.id and equipment.eqtype=1")
+            count = r.fetch_row[0].to_i
+            if (count+1 > session[:userdata][:userext][:max_eq])
+                error("There is not availabe slot for new equipment. You can buy more slot.")
+                return
+            end
+        else item[:objtype] == 2
+            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.eqid=equipment.id and equipment.eqtype=2")
+            count = r.fetch_row[0].to_i
+            p session[:userdata]
+            if (count+1 > session[:userdata][:userext][:max_item])
+                error("There is not availabe slot for new item. You can buy more slot.")
+                return
+            end
+        end
+        
+  
+        # check if user has enough gold
+        gold = session[:userdata][:userext][:gold]
+        price = item[:price]
+        if (gold -price <0)
+            error("Sorry, you don't have enough gold.")
+            return
+        end
+        # create instance
+        e = Equipment.new({
+            :eqname  => item[:name],
+            :eqtype  => item[:objtype], 
+            :prop    => "{}"
+        })
+        e.save!
+        
+        # get available slot number
+        r =  ActiveRecord::Base.connection.execute("select eqslotnum from usereqs where uid=#{uid}")
+         p r.inspect
+        slots = []
+        for _r in r 
+            if _r[0].to_i >=0
+                slots[_r[0].to_i] = 1
+            end
+        end
+        a_slot= -1
+        for s in slots
+            a_slot += 1
+            if (slots[a_slot] == nil)
+                break
+            end
+        end
+        
+
+        ueq = Usereq.new({                        
+                :uid        => uid                ,
+                :sid        => session[:sid]      ,
+                :eqid       => e[:id]             ,
+                :eqname     => item[:name]        ,
+                :eqslotnum  => a_slot             ,
+                :wearon     => nil
+               
+            })
+        ueq.save!
+        item[:soldnum] -= 1
+        item.save!
+        
+       # eq = Equipment.load_equipment(item[:name], item)
+      success("You bought #{item[:dname]} successfully !")
+
     end
 =begin
   # GET /tradables

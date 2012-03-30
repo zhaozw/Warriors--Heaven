@@ -29,6 +29,9 @@
 @synthesize port;
 @synthesize vcHome;
 @synthesize vNetworkStatus;
+@synthesize vAlertImg;
+@synthesize btClose;
+@synthesize lbAlertMsg;
 @synthesize networkStatus;
 @synthesize bUserSkillNeedUpdate;
 @synthesize vBattleMsg;
@@ -45,8 +48,8 @@
     /////////////////
     
     // init const
-    host = @"192.168.0.24";
-//    host = @"127.0.0.1";
+//    host = @"192.168.0.24";
+    host = @"127.0.0.1";
     //    host = @"wh.joyqom.com";
 //    host = @"192.168.1.119";
     port = @"3006";
@@ -143,7 +146,7 @@
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
 
- 
+    
     
     [self.window makeKeyAndVisible];
     
@@ -183,14 +186,33 @@
 
 - (void) showNetworkDown{
     // create waiting view
-    vNetworkStatus.hidden = NO;
-    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
-    [window bringSubviewToFront:vNetworkStatus];
+//    vNetworkStatus.hidden = NO;
+//    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
+//    [window bringSubviewToFront:vNetworkStatus];
+    [self showMsg:@"No Network Connection" type:1 hasCloseButton:FALSE];
 }
 - (void) hideNetworkStatus{
     vNetworkStatus.hidden = YES;
-
 }
+
+- (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt{
+    if (type == 0)
+        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
+    else if (type == 1)
+        [vAlertImg setImage:[UIImage imageNamed:@"warning.png"]];
+        
+    lbAlertMsg.text = msg;
+    
+    if (bCloseBt){
+        btClose.hidden = NO;
+    }else
+        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
+      vNetworkStatus.hidden = NO;
+    
+    [window bringSubviewToFront:vNetworkStatus];
+        
+}
+
 - (void) checkNetworkStatus{
     Reachability *r = [Reachability reachabilityWithHostName:host];
     switch ([r currentReachabilityStatus]) {

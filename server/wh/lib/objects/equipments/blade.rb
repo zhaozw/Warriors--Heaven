@@ -20,4 +20,8 @@ class Blade  < Weapon
   def file
       "blade.jpg"
   end
+  
+  def rank
+      2
+  end
 end

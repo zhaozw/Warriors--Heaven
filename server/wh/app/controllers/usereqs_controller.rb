@@ -1,4 +1,4 @@
-require "objects/equipments/equipment.rb"
+#require "objects/equipments/equipment.rb"
 
 class UsereqsController < ApplicationController
     def index

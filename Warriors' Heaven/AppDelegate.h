@@ -33,6 +33,9 @@
 }
 @property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbAlertMsg;
 @property (nonatomic, retain) NSObject* requests;
 @property (nonatomic, assign) int networkStatus;
 @property (nonatomic, assign)  BOOL bUserSkillNeedUpdate;
@@ -70,4 +73,5 @@
 - (void) updateUserData;
 - (NSObject*) getDataUser;
 - (NSObject*) getDataUserext;
+- (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
 @end

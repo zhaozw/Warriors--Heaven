@@ -20,4 +20,7 @@ def weight
   def file
       "cap.jpg"
   end
+    def rank
+      1
+  end
 end

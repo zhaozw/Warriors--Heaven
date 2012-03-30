@@ -5,7 +5,7 @@ class CreateUsereqs < ActiveRecord::Migration
       t.string :sid
       t.integer :eqid
       t.string :eqname
-      t.integer :eqslotnum
+      t.integer :eqslotnum # < 0: woren  =0: not fixed slot >0 fixed slot
       t.string :wearon
 
       t.timestamps

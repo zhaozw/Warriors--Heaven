@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StatusViewController.h"
 #import "EGOImageButton.h"
+#import "AppDelegate.h"
 
 @interface CharacterViewController : UIViewController{
     NSMutableArray* eq_slots;
@@ -37,12 +38,14 @@
     EGOImageButton *vEqbtn_trousers;
     EGOImageButton *vEqbtn_armo;
 }
+@property (strong, nonatomic) IBOutlet UIImageView *vItemBg;
 @property (nonatomic, retain) NSMutableArray* eq_slots;
 @property (nonatomic, retain) NSMutableArray* eq_buttons; 
 @property (nonatomic, retain) EGOImageButton * eq_selected; 
 @property (nonatomic, retain) EGOImageButton * eqbtn_selected; 
 @property (nonatomic, retain) NSMutableArray* pos_list; // map from uiimageview to string representing pos
-@property (nonatomic, retain) NSMutableArray* eq_list;  // map from uibutton to usereq object
+@property (nonatomic, retain) NSMutableArray* eq_list;  // map from uibutton to usereq(type=1) object
+@property (nonatomic, retain) NSMutableArray* item_list;  // map from uibutton to usereq (type=2) object
 @property (nonatomic, retain) NSMutableArray* woren_eq_list;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 @property (strong, nonatomic) IBOutlet UIImageView *vEquipment;
@@ -66,6 +69,9 @@
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_boots;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_trousers;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_armo;
+@property (strong, nonatomic) IBOutlet UIView *vEqInfoView;
+@property (strong, nonatomic) UIView *vItemInfoView;
 
+@property (strong, retain) AppDelegate * ad;
 -(void)viewWillAppear:(BOOL)animated ;
 @end
