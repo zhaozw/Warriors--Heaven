@@ -43,6 +43,9 @@
 @property (nonatomic, copy) NSString* port;
 @property (nonatomic, copy) NSString* session_id;
 //@property (nonatomic, retain) NSObject* data_userext;
+
+// sample data:
+// {"user":{"userext":{"userext":{"level":10,"max_eq":"5","fame":0,"race":"","max_item":10,"str":20,"name":"queen","created_at":null,"updated_at":"2012-03-24T21:16:48Z","dext":20,"s
 @property (nonatomic, retain) NSObject* data_user;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -73,5 +76,7 @@
 - (void) updateUserData;
 - (NSObject*) getDataUser;
 - (NSObject*) getDataUserext;
+- (NSObject*) getDataUserskills;
+// type: 0: success 1: warning
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
 @end

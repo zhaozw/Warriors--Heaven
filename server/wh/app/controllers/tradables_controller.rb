@@ -36,6 +36,9 @@ class TradablesController < ApplicationController
     end
     
     def buy
+        if !session[:userdata] 
+            error("session 不存在， 请重新启动游戏")
+        end
         uid = session[:uid]
         item_id = params[:id]
         item = Tradable.find(item_id)
@@ -58,7 +61,7 @@ class TradablesController < ApplicationController
             count = r.fetch_row[0].to_i
             p session[:userdata]
             if (count+1 > session[:userdata][:userext][:max_item])
-                error("There is not availabe slot for new item. You can buy more slot.")
+                error("There is not availabe slots for new item. You can buy more slot.")
                 return
             end
         end

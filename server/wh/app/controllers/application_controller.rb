@@ -8,10 +8,47 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  def error(msg)
+    def error(msg)
         render :text=>"{\"error\":\"#{msg}\"}"
     end
     def success(msg)
         render :text=>"{\"OK\":\"#{msg}\"}"
+    end
+    
+    def check_session
+
+        # 
+        # after uesr first register, the _wh_session will be set in user's cookie
+        # which will send by all afteraward quest
+        #
+        if !session[:sid]
+            sid = cookies[:_wh_session]
+            if sid ==nil
+                sid = params[:sid] # for dev
+                if !sid
+                    error("session not exist, please reinstall app or login again")
+                    return false
+                end
+            end  
+        end
+        if !session[:uid]
+             r = User.find_by_sql("select * from users where sid='#{sid}'")
+             player = r[0]
+             session[:uid] = player[:uid]
+        end
+        
+        return true
+    end
+    
+    def user_data
+        if session[:userdata]
+            return session[:userdata]
+        else
+            user = User.find(session[:uid])
+            userexts = Userext.find_by_sql("select * from userexts where uid=#{session[:uid]}")
+            user[:userext] = userexts[0]
+            session[:userdata] = user
+            return user
+        end
     end
 end

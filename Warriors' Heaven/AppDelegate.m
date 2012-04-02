@@ -48,8 +48,8 @@
     /////////////////
     
     // init const
-//    host = @"192.168.0.24";
-    host = @"127.0.0.1";
+    host = @"192.168.0.24";
+//    host = @"127.0.0.1";
     //    host = @"wh.joyqom.com";
 //    host = @"192.168.1.119";
     port = @"3006";
@@ -95,6 +95,7 @@
     //[bgView1 setBackgroundColor:[UIColor redColor]];
     [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
     //[bgView setHidden:FALSE];
+//    [bgView setAlpha:0.5f];
     
     [window addSubview:bgView];
     [window addSubview:tabBarController.view];
@@ -145,7 +146,12 @@
     
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
-
+    
+    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+    [lbAlertMsg setMinimumFontSize:0.1f];
+    [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
+    [lbAlertMsg setNumberOfLines:3];
+    [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.window makeKeyAndVisible];
@@ -411,6 +417,22 @@
     tabBarController.view.hidden = TRUE;
 }
 
+/*
+ * return example:
+ {
+ age = 30;
+ id = 9;
+ race = 0;
+ sex = 1;
+ sid = 1320346951bf2bc6293fb70cc2a71a05;
+ title = "\U5973\U4fa0";
+ user = queen;
+ userext = {..
+ }
+ userskills ={..
+ }
+ */
+
 - (NSObject*) getDataUser{
     return [data_user valueForKey:@"user"];
 }
@@ -419,5 +441,13 @@
     return [[[data_user valueForKey:@"user"] valueForKey:@"userext"] valueForKey:@"userext"];
 }
 
+- (void) closeAlert:(UIButton*) btn{
+    vNetworkStatus.hidden = YES;
+}
+
+- (NSObject*) getDataUserskills{
+    NSObject * v = [self getDataUser];
+    return [v valueForKey:@"userskills"];
+}
 
 @end

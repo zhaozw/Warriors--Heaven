@@ -24,4 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIButton * bt_premier_skill;
 @property (strong, nonatomic) IBOutlet UIButton * bt_basic_skill;
 @property (strong, retain) AppDelegate * ad;
+//@property (nonatomic, retain) NSMutableArray* userskills;
+@property (nonatomic, retain) NSMutableArray* pv_tp; // list of progress view of tp
+@property (nonatomic, retain) NSMutableArray* lb_level_list; // list of progress view of tp
 @end

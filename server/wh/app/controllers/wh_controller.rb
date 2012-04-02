@@ -354,7 +354,7 @@ class WhController < ApplicationController
             :exp =>0,
            # :hp =>0,
            # :stam =>0,
-            :pot => 1,
+            :pot => 0,
             :level =>0,
             :skills =>{
                 attacker[:dodge_skill][:skill][:skname] =>
@@ -573,6 +573,7 @@ class WhController < ApplicationController
         elsif (gain[:pot] != 0 )
             player.ext.save!
         end
+        session[:userdata][:userext] = player.ext
         gain[:skills].each {|k, v|
             p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
             if v[:point] != 0 || v[:level] != 0
@@ -600,5 +601,55 @@ class WhController < ApplicationController
     else
         render :text=>ret.to_json
     end
+    end
+    
+    def practise
+        return if !check_session
+        use_pot = params[:pot] # use how much potential
+        skill_name = params[:skill]
+        
+        ud = user_data
+        ext = user_data[:userext]
+        pot = ext[:pot]
+        if pot <= 0
+            error ("You don't have enough potential")
+            return
+        end
+        
+        # get skill
+      #  User user = session[:userdata]
+       # skill = user.query_skill(skill_name)
+        rs = Userskill.find_by_sql("select * from userskills where skname='#{skill_name}' and uid=#{session[:uid]}")
+        if (rs.size <0 || rs[0] == nil)
+            error("User doesn't has this skill")
+            return
+        end
+        
+        # calculate skillpoint
+        gain = use_pot # maybe need change algorithm
+        skill = rs[0]
+        if (rs[0][:tp] + 1 >= rs[0][:level]*rs[0][:level])
+            rs[0][:level] += 1
+            rs[0][:tp] = 0
+        else
+            rs[0][:tp] +=1
+        end
+        rs[0].save!
+        
+        ext[:pot] -= 1
+        ext.save!
+        
+    
+
+        p ext.inspect
+            p ud[:userext].inspect
+        ret = {
+            :userskill=>rs[0],
+            :user => ud
+        }
+        p ret.to_json
+       # ret = ud.join(rs[0])
+        render :text=>ret.to_json
+        
     end
 end
