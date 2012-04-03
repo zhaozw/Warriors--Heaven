@@ -70,6 +70,9 @@
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_trousers;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_armo;
 @property (strong, nonatomic) IBOutlet UIView *vEqInfoView;
+@property (nonatomic, retain) UIScrollView* vLongDescContainer;
+@property (nonatomic, retain) UILabel* lbLongDesc; 
+@property (nonatomic, retain) UILabel* lbName;
 @property (strong, nonatomic) UIView *vItemInfoView;
 
 @property (strong, retain) AppDelegate * ad;

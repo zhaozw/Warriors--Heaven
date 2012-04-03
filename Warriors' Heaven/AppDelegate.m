@@ -27,6 +27,7 @@
 @synthesize data_user;
 @synthesize host;
 @synthesize port;
+@synthesize vWelcome;
 @synthesize vHelp;
 @synthesize vHelpWebView;
 @synthesize btCloseHelpView;
@@ -60,8 +61,10 @@
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-   
     
+    // full screen
+    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
+    //self.window.backgroundColor = [UIColor whiteColor];
     
     requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     
@@ -94,10 +97,9 @@
     /////////////////
     // init UI
     /////////////////
+
     
-    // full screen
-    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
-    //self.window.backgroundColor = [UIColor whiteColor];
+
  
    // CGRect rect = [[UIScreen mainScreen] bounds];
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
@@ -149,7 +151,7 @@
     // Auto dismiss after 3 seconds  
     //  [self performSelector:@selector(performDismiss) withObject:nil afterDelay:3.0f];  
     [window addSubview:self->waiting];
-    [window bringSubviewToFront:self->waiting];
+//    [window bringSubviewToFront:self->waiting];
     waiting.hidden = YES;
     
     
@@ -163,7 +165,7 @@
     [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
     // init help view
-    vHelp.frame = CGRectMake(20, 50, 250, 300);
+    vHelp.frame = CGRectMake(20, 60, 250, 300);
     vHelp.backgroundColor = [UIColor redColor];
     vHelpWebView.frame = CGRectMake(0, 0, 250, 300);
     vHelpWebView.backgroundColor = [UIColor clearColor];
@@ -172,9 +174,20 @@
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
     
+    
+    // show welcome view
+    vWelcome.backgroundColor = [UIColor whiteColor];
+    [window bringSubviewToFront:vWelcome];
+    [NSTimer scheduledTimerWithTimeInterval:(5.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+    
+    
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+- (void) hideWelcomeView{
+    vWelcome.hidden = YES;
 }
 
 - (void) showHelpView:(NSString*) url{

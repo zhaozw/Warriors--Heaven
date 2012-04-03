@@ -49,7 +49,13 @@
 @synthesize ad;
 @synthesize item_list;
 
+@synthesize lbLongDesc;
+
 @synthesize vItemInfoView;
+
+@synthesize lbName;
+
+@synthesize vLongDescContainer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -236,6 +242,29 @@
         [vEq_armo setTag:10];
     [vEqbtn_armo setTag:10];
     
+
+    
+    UIScrollView* vLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
+    [vLongDescContainer setContentSize:CGSizeMake(500, 0)];
+    [vLongDescContainer setBackgroundColor:[UIColor clearColor]];
+    lbName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 18)];
+    [vEqInfoView addSubview:lbName];
+    [lbName setOpaque:NO];
+    [lbName setAdjustsFontSizeToFitWidth:YES];
+    [lbName setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    [lbName setTextColor:[UIColor whiteColor]];
+    [lbName setBackgroundColor:[UIColor clearColor]];
+    
+    lbLongDesc = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 600, 20)];
+    [lbLongDesc setOpaque:NO];
+    [lbLongDesc setAdjustsFontSizeToFitWidth:YES];
+    [lbLongDesc setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    [lbLongDesc setTextColor:[UIColor whiteColor]];
+    [lbLongDesc setBackgroundColor:[UIColor clearColor]];
+    [vLongDescContainer addSubview:lbLongDesc];
+    [vEqInfoView addSubview:vLongDescContainer];
+    
+    [vEqInfoView setBackgroundColor:[UIColor clearColor]];
     // add status view
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
@@ -491,29 +520,18 @@
              [_btn setBackgroundColor:[UIColor yellowColor]];
         [self performSelector:@selector(highlightButton:) withObject:btn afterDelay:0.0];
         // show info
-        NSArray * subviewsArr = [vEqInfoView subviews];
-        for(UIView *v in subviewsArr )
-        {
-            [v removeFromSuperview];
-        }
+//        NSArray * subviewsArr = [vEqInfoView subviews];
+//        for(UIView *v in subviewsArr )
+//        {
+//            [v removeFromSuperview];
+//        }
         NSDictionary* eq = [eq_list objectAtIndex:btn.tag];
-        UILabel* lbName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 18)];
-        [vEqInfoView addSubview:lbName];
-        [lbName setOpaque:NO];
-        [lbName setAdjustsFontSizeToFitWidth:YES];
-        [lbName setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-        [lbName setTextColor:[UIColor whiteColor]];
-        [lbName setBackgroundColor:[UIColor clearColor]];
+
         [lbName setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"dname"]]];
         
-        UILabel* lbLongDesc = [[UILabel alloc]initWithFrame:CGRectMake(0, 18, 200, 20)];
-        [lbLongDesc setOpaque:NO];
-        [lbLongDesc setAdjustsFontSizeToFitWidth:YES];
-        [lbLongDesc setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-        [lbLongDesc setTextColor:[UIColor whiteColor]];
-        [lbLongDesc setBackgroundColor:[UIColor clearColor]];
+
         [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
-        [vEqInfoView addSubview:lbLongDesc];
+        [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
     }
     
     

@@ -31,6 +31,7 @@
     
     NSObject* requests;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
