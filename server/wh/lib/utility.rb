@@ -5,7 +5,20 @@ def translate_msg msg, context
     msg.gsub(/\$N/m, "你").gsub("/\$n/m", target[:name])
 end
 
-   def load_skill (skillname)
+    def loadGameObject(path)
+        eval "require '"+ path+".rb'"      
+        b = path.split('/')
+        name = b[b.size-1]
+        target_class = name.at(0).upcase+name.from(1)
+        targetObj=eval target_class+'.new()'
+    end
+    
+    def queryGameObject(targetObj, method, params)
+         m = targetObj.method(method)
+         return m.call(params)
+    end
+    
+    def load_skill (skillname)
              # eval skill class
                 eval "require 'skills/"+ skillname+".rb'"
                

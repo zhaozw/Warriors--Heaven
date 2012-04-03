@@ -31,6 +31,9 @@
     
     NSObject* requests;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
+@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
 @property (strong, nonatomic) IBOutlet UIViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
@@ -79,4 +82,5 @@
 - (NSObject*) getDataUserskills;
 // type: 0: success 1: warning
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
+- (void) showHelpView:(NSString*) url;
 @end

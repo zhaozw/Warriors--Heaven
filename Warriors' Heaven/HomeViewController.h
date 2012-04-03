@@ -21,6 +21,7 @@
     UIView *waiting;
     NSString * cookie;
 }
+@property (strong, nonatomic) IBOutlet UIScrollView *vBadge;
 @property (strong, retain) AppDelegate *ad;
 @property (strong, nonatomic) IBOutlet UIWebView *vSummary;
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;

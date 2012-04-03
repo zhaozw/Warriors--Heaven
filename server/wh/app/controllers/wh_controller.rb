@@ -261,6 +261,7 @@ class WhController < ApplicationController
         # save to db after fight finished
         return false
     end
+    
     def fight
 
         enemy_id= params[:enemy]

@@ -27,6 +27,9 @@
 @synthesize data_user;
 @synthesize host;
 @synthesize port;
+@synthesize vHelp;
+@synthesize vHelpWebView;
+@synthesize btCloseHelpView;
 @synthesize vcHome;
 @synthesize vNetworkStatus;
 @synthesize vAlertImg;
@@ -159,12 +162,31 @@
     [lbAlertMsg setNumberOfLines:3];
     [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
+    // init help view
+    vHelp.frame = CGRectMake(20, 50, 250, 300);
+    vHelp.backgroundColor = [UIColor redColor];
+    vHelpWebView.frame = CGRectMake(0, 0, 250, 300);
+    vHelpWebView.backgroundColor = [UIColor clearColor];
+    [vHelpWebView setOpaque:NO];
+    btCloseHelpView.frame = CGRectMake(230, 0, 20, 20);
+    [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
+    vHelp.hidden = YES;
     
     [self.window makeKeyAndVisible];
     
     return YES;
 }
 
+- (void) showHelpView:(NSString*) url{
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
+    [vHelpWebView loadRequest:req];
+    vHelp.hidden = NO;
+    [window bringSubviewToFront:vHelp];
+}
+
+- (void) closeHelpView:(UIButton*) btn{
+    vHelp.hidden = YES;
+}
 -(void) updateUserData{
     
     if (data_user == NULL){

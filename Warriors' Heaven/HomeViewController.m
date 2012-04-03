@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "SBJson.h"
 #import "WHHttpClient.h"
+#import "EGOImageButton.h"
 
 @implementation HomeViewController
 @synthesize lbUserName;
@@ -22,6 +23,7 @@
 @synthesize lbTitle;
 @synthesize playerProfile;
 @synthesize bgView;
+@synthesize vBadge;
 @synthesize ad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,10 +69,34 @@
         NSObject* json = [ad.data_user valueForKey:@"user"];
         lbUserName.text = [json valueForKey:@"user"];
         lbTitle.text = [json valueForKey:@"title"];
+        
+        // show badges
+        vBadge.frame = CGRectMake(20, 200, 250, 35);
+        [vBadge setBackgroundColor:[UIColor clearColor]];
+        NSArray* badges = [[ad getDataUserext] valueForKey:@"badges"];
+        for (int i = 0; i < [badges count]; i++){
+            NSObject* b = [badges objectAtIndex:i];
+            NSString * image = [b valueForKey:@"image"];
+            EGOImageButton * btn_badge = [[EGOImageButton alloc] initWithFrame:CGRectMake(35*i,0, 35, 35)];
+            [btn_badge setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, image]]];
+            [btn_badge addTarget:self action:@selector(showHelpForBadge:) forControlEvents:UIControlEventTouchUpInside];
+            btn_badge.tag = i;
+            [vBadge addSubview:btn_badge];
+        }
+        
     }else{
         [ad updateUserData];
     }
     //[vcStatus viewDidAppear:NO];
+}
+
+- (void) showHelpForBadge:(UIButton*) btn{
+    int i = btn.tag;      
+    NSArray* badges = [[ad getDataUserext] valueForKey:@"badges"];
+    NSObject* b = [badges objectAtIndex:i];
+    NSString * name = [b valueForKey:@"name"];
+    NSString* helpUrl = [NSString stringWithFormat:@"http://%@:%@/help?cat=badge&name=%@", ad.host, ad.port, name];
+    [ad showHelpView:helpUrl];
 }
 #pragma mark - View lifecycle
 /*
@@ -197,6 +223,7 @@
     [self setLbTitle:nil];
 //    [self setVStatus:nil];
     [self setVSummary:nil];
+    [self setVBadge:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
