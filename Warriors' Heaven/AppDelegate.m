@@ -38,21 +38,27 @@
 @synthesize vBattleMsgBg;
 @synthesize requests;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
+- (id) init{
     /////////////////
     // init data
     /////////////////
     
     // init const
     host = @"192.168.0.24";
-//    host = @"127.0.0.1";
+    //    host = @"127.0.0.1";
     //    host = @"wh.joyqom.com";
-//    host = @"192.168.1.119";
+    //    host = @"192.168.1.119";
     port = @"3006";
+    return self;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    
+   
+    
     
     requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     

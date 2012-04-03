@@ -628,7 +628,16 @@ class WhController < ApplicationController
         # calculate skillpoint
         gain = use_pot # maybe need change algorithm
         skill = rs[0]
+        e = ext[:exp]
+        for i in 1..ext[:level]
+            e+= i*i*i
+        end
+        p "total exp #{e}, level #{ext[:level]} tempexp:#{ext[:exp]}"
         if (rs[0][:tp] + 1 >= rs[0][:level]*rs[0][:level])
+            if (rs[0][:level] +1) * (rs[0][:level] +1) *(rs[0][:level] +1)/10>e
+                error "You need more battle experience"
+                return
+            end
             rs[0][:level] += 1
             rs[0][:tp] = 0
         else
@@ -650,6 +659,11 @@ class WhController < ApplicationController
         p ret.to_json
        # ret = ud.join(rs[0])
         render :text=>ret.to_json
+        
+    end
+    
+    def summary
+        sid = params[:sid]
         
     end
 end

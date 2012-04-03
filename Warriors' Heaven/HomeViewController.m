@@ -15,11 +15,14 @@
 @implementation HomeViewController
 @synthesize lbUserName;
 
+//@synthesize vStatus;
+@synthesize vSummary;
 @synthesize lbStatus;
 @synthesize vcStatus;
 @synthesize lbTitle;
 @synthesize playerProfile;
 @synthesize bgView;
+@synthesize ad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -139,6 +142,7 @@
 //    [bgView setImage:[UIImage imageNamed:@"background.png"]];
 //    [self.view addSubview:bgView];
     
+    ad = [UIApplication sharedApplication].delegate;
     // set strechable image for report view
     UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:39];
@@ -157,7 +161,15 @@
     [[self lbTitle ] setText:@""];
     [lbUserName setText:@""];
     
+    [vSummary setBackgroundColor:[UIColor clearColor]];
+    [vSummary setOpaque:NO];
+    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+    NSLog(url);
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [vSummary loadRequest:req];
+    
     // test http
+    
 //    [self sendHttpRequest:@"/editor?fdaf"];
     
     //[self sendHttpRequest:@"/"];
@@ -183,6 +195,8 @@
     [self setLbStatus:nil];
     [self setLbUserName:nil];
     [self setLbTitle:nil];
+//    [self setVStatus:nil];
+    [self setVSummary:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

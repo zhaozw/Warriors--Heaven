@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StatusViewController.h"
+#import "AppDelegate.h"
 
 @interface HomeViewController : UIViewController{
     UIImageView * bgView;
@@ -20,6 +21,8 @@
     UIView *waiting;
     NSString * cookie;
 }
+@property (strong, retain) AppDelegate *ad;
+@property (strong, nonatomic) IBOutlet UIWebView *vSummary;
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
@@ -29,6 +32,9 @@
 - (void)sendHttpRequest:(NSString*)cmd;
 -(void)viewWillAppear:(BOOL)animated;
 @property (strong, nonatomic) IBOutlet UILabel *lbUserName;
+
+
+
 - (IBAction)onTouchFight:(id)sender;
 
 - (IBAction)onClickStatus:(id)sender;

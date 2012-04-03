@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DotHide_TabBarController.h"
 #import "StatusViewController.h"
-#import "HomeViewController.h"
+//#import "HomeViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     DotHide_TabBarController *tabBarController;
@@ -18,7 +18,7 @@
     UIImageView *bgView;
     NSString* session_id;
     UIView *waiting;
-    HomeViewController *vcHome;
+    UIViewController *vcHome;
 
     
     NSObject* data_user;
@@ -31,7 +31,7 @@
     
     NSObject* requests;
 }
-@property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
+@property (strong, nonatomic) IBOutlet UIViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
