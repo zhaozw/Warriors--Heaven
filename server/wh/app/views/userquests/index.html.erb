@@ -1,0 +1,22 @@
+<h1>Listing userquests</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Progress</th>
+  </tr>
+
+<% @userquests.each do |userquest| %>
+  <tr>
+    <td><%=h userquest.name %></td>
+    <td><%=h userquest.progress %></td>
+    <td><%= link_to 'Show', userquest %></td>
+    <td><%= link_to 'Edit', edit_userquest_path(userquest) %></td>
+    <td><%= link_to 'Destroy', userquest, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New userquest', new_userquest_path %>

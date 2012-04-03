@@ -6,6 +6,7 @@ def translate_msg msg, context
 end
 
     def loadGameObject(path)
+        p "require '"+ path+".rb'"
         eval "require '"+ path+".rb'"      
         b = path.split('/')
         name = b[b.size-1]

@@ -1,0 +1,53 @@
+<html>
+<head>
+</head>
+<script src="/javascripts/jquery-1.3.2.js"></script>
+<script>
+function doAction(action_name){
+//	alert(action_name);
+	$.ajax({
+			type: "post",
+			url: "/quest/doAction"+"?t="+ new Date().getTime(),
+			data: {
+				quest: '<%=@quest_name %>',
+				action1: action_name,
+				sid: '<%=@sid%>',
+				authenticity_token:window._token
+			}, 
+			success: function(data, textStatus){
+			//	 alert( "Data Saved: " + data +","+ textStatus);
+			//	$("#memopad").css("display", "block");
+			    $("#result").html( $("#result").html()+data);
+			$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+			//hasMemo=1;
+			},
+			error: function(xhr, textStatus, errorThrow){
+				alert("error"+errorThrow+","+textStatus+","+xhr.responseText);
+			}
+	});
+}
+
+</script>
+<body style="background-image:url('<%=@quest.bgimage%>');width:300px">
+<div id="main">
+	<div id="title">
+		<img src="<%=@quest.logo %>" style="border:0px;width:60px;" />
+		<span><%=@quest.dname %></span>
+		<div id="desc"><%=@quest.desc%></div>
+	</div>
+	
+	<div id="room">
+		<%=@quest.room%>
+	</div>
+	
+	<div id="action_list">
+		<% for action in @quest.action_list %>
+		<button type='button' onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
+		<% end %>
+	</div>
+	<div id="result" style="height:100px;overflow-y:auto;">
+	</div>
+</div>
+
+</body>
+</html>

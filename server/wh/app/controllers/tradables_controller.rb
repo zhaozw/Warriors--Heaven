@@ -52,7 +52,7 @@ class TradablesController < ApplicationController
         if item[:objtype] == 1 or item[:objtype] == 3
             r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.eqid=equipment.id and equipment.eqtype=1")
             count = r.fetch_row[0].to_i
-            if (count+1 > session[:userdata][:userext][:max_eq])
+            if (count+1 > session[:userdata][:userext][:max_eq].to_i)
                 error("There is not availabe slot for new equipment. You can buy more slot.")
                 return
             end

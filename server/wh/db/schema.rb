@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.datetime "updated_at"
   end
 
+  create_table "userquests", :force => true do |t|
+    t.string   "sid"
+    t.integer  "uid"
+    t.string   "name"
+    t.integer  "progress"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "user"
     t.string   "sid"
