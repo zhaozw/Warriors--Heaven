@@ -16,7 +16,7 @@ class Caiyao < Quest
     end
     
     def logo
-       "/game/quests/logo.png" 
+       "/game/quests/caiyao.png" 
     end
     
     def action_list

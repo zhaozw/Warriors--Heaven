@@ -190,6 +190,10 @@
     vWelcome.hidden = YES;
 }
 
+- (void) showStatusView:(BOOL)bShow{
+    vcStatus.view.hidden = !bShow;
+}
+
 - (void) showHelpView:(NSString*) url{
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     [vHelpWebView loadRequest:req];

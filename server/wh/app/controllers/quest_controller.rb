@@ -13,15 +13,18 @@ class QuestController < ApplicationController
         
         i =0 
         for q in list
+            p q.inspect
             quest = load_quest(q)
             row = {
                "name"=> q,
                "dname"=> quest.dname,
-               "desc"=> quest.desc
+               "desc"=> quest.desc,
+               "image"=> quest.logo
            }
             bfound = false
             for uq in userquests
                 if q == uq[:name]
+                    row[:progress] = uq[:progress]
                     asked.push(row)
                     bfound = true
                     break
@@ -58,7 +61,8 @@ class QuestController < ApplicationController
             :progress=>0
         })
         r.save!
-        render :text=>"您成功领取任务"
+       # render :text=>"您成功领取任务"
+       index
     end
     
     

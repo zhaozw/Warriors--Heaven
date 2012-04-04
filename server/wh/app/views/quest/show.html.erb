@@ -28,15 +28,33 @@ function doAction(action_name){
 }
 
 </script>
-<body style="background-image:url('<%=@quest.bgimage%>');width:300px">
-<div id="main">
-	<div id="title">
-		<img src="<%=@quest.logo %>" style="border:0px;width:60px;" />
-		<span><%=@quest.dname %></span>
-		<div id="desc"><%=@quest.desc%></div>
+<body style="background:transparent;background-color:transparent;width:320px;margin:0;padding:0;border:0px solid red;">
+<div id="bg" style="z-index:-1;position:absolute;left:0;top:0;width:320px;height: 430px;">
+	<img id="bg" src="<%=@quest.bgimage%>" style="margin:10 0;height:480px;"/>
+</div>
+<div id="main" style="display:none;background:transparent;background-color: transparent;margin:25px;">
+	<div >
+		<span style="font-weight:bold;font-size:18pt;">
+			Quest
+		</span>
+		<img src="/images/line1.png">
+	</div>
+	<div id="title" style="margin-top:10px;">
+		<img src="<%=@quest.logo %>" style="border:0px;width:60px;float:left;" />
+		
+		<div id="desc" style="margin-left:65px;padding-top:5px;border:0px solid red;">
+			<span><%=@quest.dname %></span><br/>
+			<span style="font-color:yellow; font-size:9pt;height:10px;">
+				<%=@quest.desc%>
+			</span>
+		</div>
+	</div>
+	<div style="border:1px solid #333333;width:100px;background:#999999;">
+		<div id="pro_left" style="float:left;background:green;height:6px;width:50px;"></div>
+		<div id="pro_right" style="background:transparent;height:6px;width:50px;"></div>
 	</div>
 	
-	<div id="room">
+	<div id="room" style="background:transparent;background-color: transparent;">
 		<%=@quest.room%>
 	</div>
 	
@@ -51,3 +69,21 @@ function doAction(action_name){
 
 </body>
 </html>
+
+<script>
+proccess();
+var v = setInterval('proccess();',1000);
+function proccess(){
+	//alert($("img#bg")[0].width);
+	if ($("img#bg")[0].width>300){
+		$("div#main").css("display", "block");
+		clearInterval(v);
+		// alert("load complete");
+	}
+//	else
+//		setInterval('proccess();',100);
+		
+}
+
+// alert("dfs");
+</script>
