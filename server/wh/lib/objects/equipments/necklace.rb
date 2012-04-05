@@ -16,8 +16,8 @@ class Necklace  < Weapon
 def weight
       0
   end
-    def file
-      "necklace.jpg"
+    def image
+      "obj/equipments/necklace.jpg"
   end
     def rank
       3

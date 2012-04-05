@@ -20,7 +20,84 @@
 //- (void) checkNetworkStatus{
 //    
 //}
+- (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
+    selector = s;
+    _bJSON= bJSON;
+    self->_cmd = cmd;
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    // check network status
+    if (ad.networkStatus == 0){
+        [ad checkNetworkStatus];
+        if (ad.networkStatus == 0){
+            [ad showNetworkDown];
+            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            return;
+        }
+    }
+    
+    // set flag
+    NSString* o = [[ad requests] valueForKey:cmd];
+    if (!o || [o isEqualToString:@"0"])
+        [[ad requests] setValue:@"1" forKey:cmd];
+    else
+        return;
+    
+    
+    
+    
+    if(bWait && [ad isWaiting]){
+        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
+        NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        
+        [invocation setTarget:self];                    // index 0 (hidden)
+        [invocation setSelector:@selector(sendHttpRequest:selector:showWaiting:)];                  // index 1 (hidden)
+        [invocation setArgument:&cmd atIndex:2];      // index 2
+        [invocation setArgument:&s atIndex:3];      // index 3
+        [invocation setArgument:&bWait atIndex:4];      // index 3
+        // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
+        [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
+        return;
+    }
+    // send request
+    self->buf = [[NSMutableData alloc] initWithLength:0];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];   
+    NSLog([NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]);
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]]];
+    [request setHTTPMethod:@"POST"];
+   // if (bJSON)
+     //   [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];  
+    NSData *postData = [data dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]; 
+    [request setValue:[[NSNumber numberWithInt:[postData length]]stringValue] forHTTPHeaderField:@"Content-Length"]; 
+    [request setHTTPBody:postData];  
+    
+    if (ad.session_id != nil)
+    [request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
+    if (cookie)
+        [request addValue:cookie forHTTPHeaderField:@"Cookie"];
+    else{ // first request
+        if (ad.session_id != nil){
+            NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;", ad.session_id];
+            NSLog(@"First request cookie:%@", c);
+            [request addValue:c forHTTPHeaderField:@"Cookie"];
+        }
+    }
+    //  NSMutableData* buf = [[NSMutableData alloc] initWithLength:0];
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSLog(@"send cmd to http server: %@", cmd);
+    //    NSString * s = [[NSString alloc] initWithString:statusView.text];
+    //  lbStatus.text = [NSString stringWithFormat:@"%@ send cmd to http server: %@", lbStatus.text, cmd];
+    //  [connection release];
+    
+    //[request release];
+    
+    // display waiting dialog
+    if (bWait)
+        [ad showWaiting:YES];
 
+
+}
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
     
     selector = s;

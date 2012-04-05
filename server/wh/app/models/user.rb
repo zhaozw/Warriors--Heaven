@@ -96,7 +96,16 @@ class User < ActiveRecord::Base
                 return targetObj
             end
        end
-      
-         
+    end
+    
+    def get_object(o)
+        Usereq.new({
+            :uid=>self[:id],
+            :sid=>self[:sid],
+            :eqid=>o.data[:id],
+            :eqname=>o.data[:eqname],
+            :eqslotnum=>0,
+            :wearon=>nil
+        }).save!
     end
 end

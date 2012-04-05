@@ -20,6 +20,7 @@
     
 }
 - (id) init:(UIView*)_view;
+- (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait;
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON showWaiting:(BOOL)bWait;
 // handle network
 // 收到响应时, 会触发

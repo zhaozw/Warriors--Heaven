@@ -17,8 +17,8 @@ class Armo  < Weapon
       20
   end
   
-  def file
-      "armo.jpg"
+  def image
+      "obj/equipments/armo.jpg"
   end
   
     def rank

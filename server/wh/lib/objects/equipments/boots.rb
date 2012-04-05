@@ -16,8 +16,8 @@ class Boots  < Weapon
   def weight
       2
   end
-    def file
-      "boots.jpg"
+    def image
+      "obj/equipments/boots.jpg"
   end
   
     def rank

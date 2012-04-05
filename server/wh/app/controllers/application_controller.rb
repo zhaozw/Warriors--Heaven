@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
                     return false
                 end
             end  
+            session[:sid] = sid
         end
         if !session[:uid]
              r = User.find_by_sql("select * from users where sid='#{sid}'")

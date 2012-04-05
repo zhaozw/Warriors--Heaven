@@ -177,6 +177,7 @@
     
     // show welcome view
     vWelcome.backgroundColor = [UIColor whiteColor];
+    vWelcome.opaque = YES;
     [window bringSubviewToFront:vWelcome];
     [NSTimer scheduledTimerWithTimeInterval:(5.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     

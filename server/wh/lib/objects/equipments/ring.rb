@@ -17,8 +17,8 @@ class Ring  < Weapon
 def weight
       0
   end
-    def file
-      "ring.jpg"
+    def image
+      "obj/equipments/ring.jpg"
   end
     def rank
       4

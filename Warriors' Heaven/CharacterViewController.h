@@ -74,7 +74,8 @@
 @property (nonatomic, retain) UILabel* lbLongDesc; 
 @property (nonatomic, retain) UILabel* lbName;
 @property (strong, nonatomic) UIView *vItemInfoView;
-
+@property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
+- (IBAction)onSave:(id)sender;
 -(void)viewWillAppear:(BOOL)animated ;
 @end

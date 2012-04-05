@@ -17,8 +17,8 @@ class Cap  < Weapon
 def weight
       5
   end
-  def file
-      "cap.jpg"
+  def image
+      "obj/equipments/cap.jpg"
   end
     def rank
       1

@@ -27,14 +27,37 @@ class Caiyao < Quest
             }
         ]
     end
-        
+    
+    def caoyao_list
+        [
+            "objects/fixures/ginseng",
+            "objects/fixures/heshouwu",
+            "objects/fixures/dihuang",
+            "objects/fixures/fuling",
+            "objects/fixures/shanzhuyu",
+            "objects/fixures/zexie",
+            "objects/fixures/shanyao",
+        ]
+    end
     def onAction(context)
         user = context[:user]
         action = context[:action]
-        msg = "ddd"
+  
         p action
+        srand(Time.now.tv_usec.to_i)
         if (action=="dig")
-            msg = "你很用力的挖"
+            luck = user.ext[:luck]
+            if (rand(100)<luck) # get caiyao
+                ar = caoyao_list
+                r = caoyao_list[rand(caoyao_list.size)]
+                o = create_fixure(r)
+                
+                user.get_object(o)
+                msg = "你挖到了一株#{o.dname} !"
+            else
+            #msg = "你很用力的挖"
+                msg = "用药锄拨动着四周的灌木杂草，仔细地看有没有草药"
+            end
         else
             msg = "???"
         end

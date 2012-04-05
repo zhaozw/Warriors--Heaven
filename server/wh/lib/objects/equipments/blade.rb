@@ -17,8 +17,8 @@ class Blade  < Weapon
       5
   end
   
-  def file
-      "blade.jpg"
+  def image
+      "obj/equipments/blade.jpg"
   end
   
   def rank

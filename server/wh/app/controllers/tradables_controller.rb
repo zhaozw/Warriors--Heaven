@@ -28,7 +28,7 @@ class TradablesController < ApplicationController
                 t[:pos] = _t.wearOn
             end
             t[:intro] = _t.intro
-            t[:file] = _t.file
+            t[:image] = _t.image
             t[:rank] = _t.rank
         end
         
@@ -36,6 +36,7 @@ class TradablesController < ApplicationController
     end
     
     def buy
+        check_session
         if !session[:userdata] 
             error("session 不存在， 请重新启动游戏")
         end

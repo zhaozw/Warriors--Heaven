@@ -7,6 +7,10 @@ class Object
     def method_missing(method)
         nil
     end
+    
+    def data
+        return @obj
+    end
 =begin    
     def dname
         "金疮药"

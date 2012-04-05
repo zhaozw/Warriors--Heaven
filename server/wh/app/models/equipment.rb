@@ -1,5 +1,5 @@
 class Equipment < ActiveRecord::Base
-      def self.load_equipment(name, obj)
+    def self.load_equipment(name, obj)
         p obj.inspect
         if obj[:objtype] == 2 or obj[:eqtype] == 2 
             eval "require 'objects/fixures/"+ name+".rb'"  
@@ -14,5 +14,6 @@ class Equipment < ActiveRecord::Base
         end        
         return targetObj
     
-  end
+    end
+    
 end

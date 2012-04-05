@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "EGOImageButton.h"
 #import "WHHttpClient.h"
+#import "SBJson.h"
 
 @implementation CharacterViewController
 @synthesize vcStatus;
@@ -27,7 +28,7 @@
 
 @synthesize vItemBg;
 @synthesize eq_slots;
-//@synthesize eq_buttons;
+@synthesize eq_buttons;
 @synthesize eq_selected;
 @synthesize eqbtn_selected;
 
@@ -57,6 +58,8 @@
 
 @synthesize vLongDescContainer;
 
+@synthesize item_buttons;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -80,7 +83,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    ad = [UIApplication sharedApplication].delegate;
     UIImage *imageNormal = [UIImage imageNamed:@"bg_12.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:30];
     [vEquipment setImage:stretchableImageNormal];
@@ -110,7 +113,7 @@
         item_row_count = (max_item-1)/5 + 1;
     vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60);
     
-//    eq_buttons = [[NSMutableArray alloc] initWithCapacity:10];
+    eq_buttons = [[NSMutableArray alloc] initWithCapacity:10];
     eq_slots = [[NSMutableArray alloc] initWithCapacity:10];
     woren_eq_list = [[NSMutableArray alloc] initWithObjects:
                     [NSNull null],
@@ -149,7 +152,7 @@
         [slot setTag:i+1];
         
         EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-//        [eq_buttons addObject:v];
+        [eq_buttons addObject:v];
         [v setTag:i+1];
         [v addTarget:self action:@selector(selectEq:) forControlEvents:UIControlEventTouchUpInside];
 //        [v setTintColor:[UIColor redColor]];
@@ -159,6 +162,7 @@
     
     item_list = [[NSMutableArray alloc] initWithCapacity:max_item+1];
     [item_list addObject:[NSNull null]];
+    item_buttons = [[NSMutableArray alloc] init];
     for (int i = 0; i< max_item; i++){
         UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
         slot.frame = CGRectMake(10+i*60, 10, 60, 60);
@@ -172,6 +176,7 @@
         [v setTag:i+1];
         [v addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
         //        [v setTintColor:[UIColor redColor]];
+        [item_buttons addObject:v];
         [slot addSubview:v];
         [item_list addObject:[NSNull null]];
     }
@@ -323,22 +328,23 @@
     [vEqbtn_armo  setBackgroundColor:[UIColor clearColor]];
     
     int j = 0;
-    
+    int item_index = 0;
     // load equipment
 //    [eq_buttons removeAllObjects];
     for (int i = 0; i< [data count]; i++){
         NSObject *o = [data objectAtIndex:i];
         NSObject* eq = [o valueForKey:@"usereq"];
         int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
+        int eqtype = [[eq valueForKey:@"eqtype"] intValue];
         
-        NSString* filepath = [eq valueForKey:@"file"];
+        NSString* filepath = [eq valueForKey:@"image"];
         if (filepath == NULL || filepath.length == 0)
             filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
-        filepath = [NSString stringWithFormat:@"http://%@:%@/game/obj/equipments/%@", ad.host, ad.port, filepath];
+        filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
         NSLog(@"filepath=%@", filepath);
-
+        
+        if (eqtype == 1){
         if (slotNumber < 0 ){ //  equiped
-            
             NSString* wearon = [o valueForKey:@"wearon"];
             if (wearon != NULL){
                 if ([wearon isEqualToString:@"head"]){
@@ -425,7 +431,79 @@
 //        [vEquipment addSubview:v];
 //               [slot addSubview:v];
 //        [eq_buttons addObject:v];
+        }
+        if (eqtype == 2){
+          //  UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
+            EGOImageButton* btn = [item_buttons objectAtIndex:item_index];
+            [btn setImageURL:filepath];
+            item_index++;
+        }
     }
+    
+}
+
+- (IBAction)onSave:(id)sender {
+    NSDictionary* data = [[NSMutableDictionary alloc] init ];
+    
+    NSObject* o = [woren_eq_list objectAtIndex:vEqbtn_cap.tag];
+    NSObject* eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"head"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_neck.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"neck"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_handright.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"hand"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_arm.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"arm"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_fingersRight.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"finger"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_handleft.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"hand"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_fingersleft.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"finger"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_boots.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"foot"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_trousers.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"leg"];
+    
+    o =  [woren_eq_list objectAtIndex:vEqbtn_armo.tag];
+    eqid = [o valueForKey:@"id"];
+    [data setValue:eqid forKey:@"body"];
+    
+    NSDictionary* ext = [ad getDataUserext];
+    int max_eq = [[ext valueForKey:@"max_eq"] intValue];
+    for ( int i = 0; i<max_eq; i++){
+        EGOImageButton* btn = [eq_buttons objectAtIndex:i];
+        o =  [eq_list objectAtIndex:btn.tag];
+        eqid = [o valueForKey:@"id"];
+        [data setValue:eqid forKey:[[NSNumber numberWithInt:i] stringValue]];
+    }
+    
+    NSString * s = [NSString stringWithFormat:@"data=%@", [data JSONRepresentation]];
+    NSLog(@"Post data %@", s);
+    
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client postHttpRequest:@"/usereqs/save" data:s selector:@selector(onSaveEq:) json:YES showWaiting:YES];
+
+
+    
+}
+- (void) onSaveEq:(UIButton*) btn{
     
 }
 
@@ -435,7 +513,7 @@
 
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/usereqs" selector:@selector(onLoadEq:) json:YES showWaiting:YES];
-    }
+}
 
 - (void) highlightButton:(UIButton*)btn{
 //    [btn drawRect:CGRectMake(0, 0, 50, 50)];
@@ -511,6 +589,8 @@
                 NSObject* eq2 = [woren_eq_list objectAtIndex:eq_selected.tag];
                 [woren_eq_list replaceObjectAtIndex:eq_selected.tag withObject:eq];
                 [eq_list replaceObjectAtIndex:btn.tag withObject:eq2];
+            }else{
+                [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
             }
         }
         eq_selected = NULL;
@@ -593,6 +673,8 @@
             NSLog(@"woren_eqlist[%d]=eq%@", btn.tag, eq);
         eq_selected = NULL;
         eqbtn_selected = NULL;
+        }else{
+            [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
         }
         
     }else{

@@ -1,4 +1,20 @@
-
+    def create_fixure(path)
+        o = Equipment.new({
+                    :eqname=>path,
+                    :eqtype=>2,
+                    :prop=>"{}"
+                })
+        o.save!
+      
+        r = loadGameObject(path)
+        r.set(o)
+        return r
+    end
+    def load_obj(path, o)
+        r = loadGameObject(path)
+        r.set(o)
+        return r
+    end
 def translate_msg msg, context
     userext = context[:user].ext
     target = context[:target]
@@ -12,6 +28,10 @@ end
         name = b[b.size-1]
         target_class = name.at(0).upcase+name.from(1)
         targetObj=eval target_class+'.new()'
+        
+    #    targetObj.set(o) if o
+        return targetObj
+        
     end
     
     def queryGameObject(targetObj, method, params)

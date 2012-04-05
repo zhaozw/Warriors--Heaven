@@ -1,5 +1,5 @@
 #require "objects/equipments/equipment.rb"
-
+require 'utility.rb'
 class UsereqsController < ApplicationController
     def index
         sid = cookies[:_wh_session]    
@@ -15,16 +15,33 @@ class UsereqsController < ApplicationController
         end
         
         for eq in eqs
-            _eq = Equipment.load_equipment(eq[:eqname], eq)
+            _eq = nil
+            p "eqtype=#{eq[:eqtype]}"
+            if eq[:eqtype].to_i == 1
+                _eq = Equipment.load_equipment(eq[:eqname], eq)
+            else
+                p "jjjjjjjjj"
+                _eq = load_obj(eq[:eqname], eq)
+            end
             eq[:dname] = _eq.dname
             eq[:desc] = _eq.desc
             eq[:weight] = _eq.desc
             eq[:pos] = _eq.wearOn
-            eq[:file] = _eq.file
+            eq[:image] = _eq.image
         end
         
         render :text=>eqs.to_json
         
+    end
+    
+    def save
+        #p request
+      p "===>"+request.body.read
+        p "--->"+request.raw_post
+        p request.content_type
+     #   p params[:data]
+      #  p request_origin
+        success("OK")
     end
 =begin
   # GET /usereqs

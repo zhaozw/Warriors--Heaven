@@ -181,13 +181,16 @@
          //        UIImage * img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1/images/home.jpg"] options:NSDataReadingMappedIfSafe error:&error]];
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
-        NSString* filepath = [json valueForKey:@"file"];
+        NSString* filepath = [json valueForKey:@"iamge"];
         if (filepath == NULL || filepath.length == 0)
             filepath = [NSString stringWithFormat:@"%@.png", name];
-        if (_type == 1)
+        
+            
+      /*  if (_type == 1)
             filepath = [NSString stringWithFormat:@"http://%@:%@/game/obj/equipments/%@", ad.host, ad.port, filepath];
         else
-            filepath = [NSString stringWithFormat:@"http://%@:%@/game/obj/fixures/%@", ad.host, ad.port, filepath];
+            filepath = [NSString stringWithFormat:@"http://%@:%@/game/obj/fixures/%@", ad.host, ad.port, filepath];*/
+        filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
         NSLog(@"filepath=%@", filepath);
 //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.jpg", i] ] ];
         EGOImageButton* logo = [[EGOImageButton alloc] init];
