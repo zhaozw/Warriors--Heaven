@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201203072147536) do
+ActiveRecord::Schema.define(:version => 201203072147538) do
 
   create_table "equipment", :force => true do |t|
     t.string   "eqname"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.integer  "gold"
     t.integer  "exp"
     t.integer  "level"
-    t.string   "prop"
+    t.text     "prop"
     t.string   "sid"
     t.integer  "hp"
     t.integer  "maxhp"

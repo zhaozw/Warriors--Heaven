@@ -38,11 +38,13 @@
     EGOImageButton *vEqbtn_trousers;
     EGOImageButton *vEqbtn_armo;
 }
+@property (nonatomic, retain) NSMutableArray* positions;
+@property (nonatomic, retain) NSDictionary* pos_map;
 @property (strong, nonatomic) IBOutlet UIImageView *vItemBg;
 @property (nonatomic, retain) NSMutableArray* eq_slots;
 @property (nonatomic, retain) NSMutableArray* eq_buttons; 
-@property (nonatomic, retain) EGOImageButton * eq_selected; 
-@property (nonatomic, retain) EGOImageButton * eqbtn_selected; 
+@property (nonatomic, retain) EGOImageButton * eq_selected; // current selected worn position
+@property (nonatomic, retain) EGOImageButton * eqbtn_selected; // current select unworen slot
 @property (nonatomic, retain) NSMutableArray* pos_list; // map from uiimageview to string representing pos
 @property (nonatomic, retain) NSMutableArray* eq_list;  // map from uibutton to usereq(type=1) object
 @property (nonatomic, retain) NSMutableArray* item_list;  // map from uibutton to usereq (type=2) object
@@ -77,5 +79,6 @@
 @property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
 - (IBAction)onSave:(id)sender;
+- (int) findEpById:(int)epid;
 -(void)viewWillAppear:(BOOL)animated ;
 @end

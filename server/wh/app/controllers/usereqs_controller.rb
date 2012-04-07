@@ -1,6 +1,7 @@
 #require "objects/equipments/equipment.rb"
 require 'utility.rb'
 class UsereqsController < ApplicationController
+    self.allow_forgery_protection = false
     def index
         sid = cookies[:_wh_session]    
       # for test
@@ -36,12 +37,17 @@ class UsereqsController < ApplicationController
     
     def save
         #p request
-      p "===>"+request.body.read
-        p "--->"+request.raw_post
-        p request.content_type
-     #   p params[:data]
+     # p "===>"+request.body.read
+      #  p "--->"+request.raw_post
+       # p request.content_type
+        p params[:data]
+        check_session
+        prop = JSON.parse(user_data[:userext][:prop])
+        prop["eqslot"] = JSON.parse(params[:data])
+        user_data[:userext][:prop]= prop.to_json
+        user_data[:userext].save!
       #  p request_origin
-        success("OK")
+        render :text=>user_data[:userext].to_json
     end
 =begin
   # GET /usereqs

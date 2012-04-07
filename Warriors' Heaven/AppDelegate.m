@@ -486,7 +486,11 @@
 - (NSObject*) getDataUserext{
     return [[[data_user valueForKey:@"user"] valueForKey:@"userext"] valueForKey:@"userext"];
 }
-
+- (void) setDataUserExt:(NSArray*)data{
+    //    NSObject * v = [self getDataUser];
+    //    [v setValue:eqs forKey:@"userskills"];
+    [[data_user valueForKey:@"user"] setValue:data forKey:@"userext"];
+}
 - (void) closeAlert:(UIButton*) btn{
     vNetworkStatus.hidden = YES;
 }
@@ -496,4 +500,13 @@
     return [v valueForKey:@"userskills"];
 }
 
+- (NSObject*) getDataUserEqs{
+    NSObject * v = [self getDataUser];
+    return [v valueForKey:@"usereqs"];
+}
+- (void) setDataUserEqs:(NSArray*)eqs{
+//    NSObject * v = [self getDataUser];
+//    [v setValue:eqs forKey:@"userskills"];
+      [[data_user valueForKey:@"user"] setValue:eqs forKey:@"usereqs"];
+}
 @end
