@@ -23,11 +23,11 @@ class Dodge < Skill
     def power( context)
         #dext = dext - context[:user].query_load() 
         p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      return  (p + context[:user].ext[:exp]+1) / 30 *      ( (context[:user].ext[:dext]+1)/10)
+      return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:dext]+1)/10)
     end
     
     def speed (context)
-        context[:user].ext[:dext].to_i+@skill[:level]
+        context[:user].tmp[:dext].to_i+@skill[:level]
     end
     
     def dodge_actions

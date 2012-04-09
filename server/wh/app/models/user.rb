@@ -1,12 +1,13 @@
 require 'utility.rb'
 class User < ActiveRecord::Base
-    def initialize
+=begin 
+   def initialize
         p "====>init user\n"
         ext
      init_tmp
 
     end
-    
+
     def init_tmp
         self[:usertmp] = {};
         
@@ -18,6 +19,20 @@ class User < ActiveRecord::Base
          self[:usertmp][:stam] = ext[:stam]
          self[:usertmp][:maxst] = ext[:maxst]
     end
+        def tmp
+        if (!self[:userext]) 
+            ext
+        end
+        if (self[:usertmp] == nil)
+            init_tmp
+        end
+         return self[:usertmp]
+    end
+    
+    def query_temp(vname)
+        return tmp[vname]
+    end
+=end
     def setUserext(ext)
         self[:userext] = ext
     end
@@ -50,16 +65,21 @@ class User < ActiveRecord::Base
        return self[:userskill]
     end
     
-    def tmp
-        if (!self[:userext]) 
-            ext
-        end
-        if (self[:usertmp] == nil)
-            init_tmp
-        end
-         return self[:usertmp]
-    end
+
     
+    def query_all_skills
+        if (!self[:skills])
+            self[:skills] = {}
+            s = userskills
+            for ss in s
+                name = ss[:skname]
+                r = load_skill(name)
+                r.set(ss)
+                self[:skills][name] = r
+            end
+       end
+       return self[:skills].values
+    end
     # return skills/skill object
     def query_skill(skillname)
        # p "==> skill name #{skillname}\n"
@@ -68,11 +88,10 @@ class User < ActiveRecord::Base
            self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
        end 
     
-       if (!self[:skills])
-            self[:skills] ={}
-       end
+  
        
-
+       return self[:skills][skillname]
+=begin
        if (self[:skills][skillname])
          #  p  "=====>return skill #{self[:skills][skillname]}"
            return self[:skills][skillname]
@@ -96,6 +115,7 @@ class User < ActiveRecord::Base
                 return targetObj
             end
        end
+=end
     end
     
     def get_object(o)
@@ -108,4 +128,5 @@ class User < ActiveRecord::Base
             :wearon=>nil
         }).save!
     end
+
 end

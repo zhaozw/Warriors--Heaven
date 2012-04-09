@@ -56,7 +56,14 @@ class Caiyao < Quest
                 msg = "你挖到了一株#{o.dname} !"
             else
             #msg = "你很用力的挖"
-                msg = "用药锄拨动着四周的灌木杂草，仔细地看有没有草药"
+     
+                if (rand(100)> luck)
+                    npc = create_npc("objects/npc/shanzei")
+                    npc.set_temp("level", user.ext("level"))
+                    fight(user, npc)
+                else
+                    msg = "你用药锄拨动着四周的灌木杂草，仔细地看有没有草药"
+                end
             end
         else
             msg = "???"

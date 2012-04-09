@@ -2,14 +2,34 @@ module Game
 class Object
    def set(obj) 
        @obj = obj
+       after_setdata
     end
     
-    def method_missing(method)
-        nil
+    def after_setdata
+        
     end
+     
+    def self.method_missing(name, *args, &block) # :nodoc:
+#      (delegate || superclass.delegate).send(name, *args, &block)
+        m = @obj.method(name)
+         if m
+             return m.call(args)
+         else
+             return nil
+         end
+    end
+    
     
     def data
         return @obj
+    end
+    
+    def [](n)
+        @obj[n]
+    end
+    
+    def []=(n, v)
+        @obj[n] = v
     end
 =begin    
     def dname

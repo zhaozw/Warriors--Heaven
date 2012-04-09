@@ -21,21 +21,27 @@ class ApplicationController < ActionController::Base
         # after uesr first register, the _wh_session will be set in user's cookie
         # which will send by all afteraward quest
         #
-        if !session[:sid]
-            sid = cookies[:_wh_session]
-            if sid ==nil
-                sid = params[:sid] # for dev
-                if !sid
-                    error("session not exist, please reinstall app or login again")
-                    return false
-                end
-            end  
-            session[:sid] = sid
+        if (params[:sid])
+            reset_session
+            session[:sid] = params[:sid]
+        else
+            if !session[:sid]
+                sid = cookies[:_wh_session]
+                if sid ==nil
+                    sid = params[:sid] # for dev
+                    if !sid
+                        error("session not exist, please reinstall app or login again")
+                        return false
+                    end
+                end  
+                session[:sid] = sid
+            end
         end
+        
         if !session[:uid]
-             r = User.find_by_sql("select * from users where sid='#{sid}'")
+             r = User.find_by_sql("select * from users where sid='#{session[:sid]}'")
              player = r[0]
-             session[:uid] = player[:uid]
+             session[:uid] = player[:id]
         end
         
         return true

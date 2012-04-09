@@ -70,6 +70,10 @@ class QuestController < ApplicationController
         @sid = params[:sid]
         @quest_name = params[:name]
         @quest = load_quest(@quest_name)
+        if !@quest
+            error("load quest failed")
+            return
+        end
         room = @quest.room
         if @quest.room.end_with?(".rb") or @quest.room.end_with?(".erb")
             render :template=>"quest/#{room}"
@@ -84,12 +88,21 @@ class QuestController < ApplicationController
         quest_name  = params[:quest]
         #action_name = params[:action]
         @q = load_quest(quest_name)
+        if !@q
+            error("load quest failed")
+            return
+        end
         @user = User.find_by_sql("select * from  users where sid='#{sid}'")
         @user[0].ext
         @action_context = {:action=>params[:action1], :user=>@user[0]}
         @q.onAction(@action_context)
     end
     def load_quest(name)
+        if (!name or name == '')
+            return nil
+        end
+        
         r = loadGameObject("quests/#{name}")
+        return r
     end
 end
