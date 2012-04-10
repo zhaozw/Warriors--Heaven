@@ -14,11 +14,17 @@ function doAction(action_name){
 				sid: '<%=@sid%>',
 				authenticity_token:window._token
 			}, 
+			dataType: 'json',
 			success: function(data, textStatus){
 			//	 alert( "Data Saved: " + data +","+ textStatus);
 			//	$("#memopad").css("display", "block");
-			    $("#result").html( $("#result").html()+data);
-			$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+			 //  $("#result").html( $("#result").html()+data);
+			 //$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+			showTextWithTimer(data.msg);
+			//alert(data.progress);
+			//alert($("#pro_left"));
+			$("#pro_left").css("width", data.progress+"px");
+		
 			//hasMemo=1;
 			},
 			error: function(xhr, textStatus, errorThrow){
@@ -26,6 +32,44 @@ function doAction(action_name){
 			}
 	});
 }
+	var line_number = 0;
+	var TextArray=[];
+	var timer;
+	var container;
+	function showTextWithTimer(msg){
+		if (!msg || msg.length==0)
+			return;
+		// alert(msg);
+	//	container = ele;
+		line_number = 0;
+		TextArray = [];
+		reg = /<div([\s\S])*?div>/ig;
+		while ((res = reg.exec(msg)) != null)  
+		{  
+  			// alert(res[0]);
+			TextArray.push(res[0]);
+		}  
+	//	res = reg.exec(msg);
+	//	alert(res);
+		
+		
+	 //	TextArray = msg.split("<div");
+	//	alert("====>"+TextArray);
+		if (timer)
+			clearInterval(timer);
+		timer = setInterval('onTimer();', 1000);
+	}
+	
+	function onTimer(){
+		if (line_number >= TextArray.length){
+			clearInterval(timer);
+			line_number = 0;
+			return;
+		}
+	 	$("#result").html( $("#result").html()+TextArray[line_number]);
+		line_number +=1;
+		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+	}
 
 </script>
 <body style="background:transparent;background-color:transparent;width:320px;margin:0;padding:0;border:0px solid red;">
@@ -53,9 +97,9 @@ function doAction(action_name){
 	<!-- progress -->
 	<div>
 	<div style="float:left;font-size:9pt;">达成度:</div>
-	<div style="margin-top:6;float:left;border:1px solid #333333;width:100px;background:#999999;">
-		<div id="pro_left" style="float:left;background:green;height:6px;width:50px;"></div>
-		<div id="pro_right" style="background:transparent;height:6px;width:50px;"></div>
+	<div style="overflow:hidde;margin-top:6;float:left;border:1px solid #333333;width:100px;background:#999999;">
+		<div id="pro_left" style="float:left;background:green;height:6px;width:0px;"></div>
+		<div id="pro_right" style="background:transparent;height:6px;width:100px;"></div>
 	</div>
 	</div>
 	<div style="clear:both"></div>
@@ -71,7 +115,7 @@ function doAction(action_name){
 	<div style="border:0px solid green;margin-left:-10;"> 
 		<p><img src="/images/line1.png"></p>
 	</div>
-	<div id="result" style="height:100px;overflow-y:auto;font-size:10pt;">
+	<div id="result" style="height:200px;overflow-y:auto;font-size:10pt;">
 	</div>
 </div>
 
@@ -80,7 +124,7 @@ function doAction(action_name){
 
 <script>
 proccess();
-var v = setInterval('proccess();',1000);
+var v = setInterval('proccess();',500);
 function proccess(){
 	//alert($("img#bg")[0].width);
 	if ($("img#bg")[0].width>300){

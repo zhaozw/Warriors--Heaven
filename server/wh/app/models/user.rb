@@ -128,5 +128,23 @@ class User < ActiveRecord::Base
             :wearon=>nil
         }).save!
     end
+    
+    def query_quest(quest)
+        if (!self[:userquests])
+           self[:userquests] = {}; 
+       end
+       if (!self[:userquests][quest])
+
+      
+           rs = Userquest.find_by_sql("select * from userquests where name='#{quest}'") 
+            if (rs[0])
+                  self[:userquests][quest] = rs[0]
+              end
+        end
+        
+     
+       return self[:userquests][quest]
+       
+    end
 
 end

@@ -1,3 +1,8 @@
-<div>
-	<%=@action_context[:msg]%>
+<div id="ff">
+	<script>
+	alert($(document.scripts[document.scripts.length-1]).html);
+	showTextWithTimer($(this), "<%=@action_context[:msg]%>")
+
+	</script>
+	<!--<%=@action_context[:msg]%>-->
 </div>

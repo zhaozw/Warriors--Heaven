@@ -84,6 +84,7 @@ class QuestController < ApplicationController
     end
     
     def doAction
+        check_session
         sid = params[:sid]
         quest_name  = params[:quest]
         #action_name = params[:action]
@@ -92,10 +93,17 @@ class QuestController < ApplicationController
             error("load quest failed")
             return
         end
-        @user = User.find_by_sql("select * from  users where sid='#{sid}'")
-        @user[0].ext
-        @action_context = {:action=>params[:action1], :user=>@user[0]}
+  #      @user = User.find_by_sql("select * from  users where sid='#{sid}'")
+        @user = user_data
+        @user.ext
+        @action_context = {:action=>params[:action1], :user=>@user}
         @q.onAction(@action_context)
+        p @action_context.inspect
+        ret = {
+            :msg=>@action_context[:msg],
+            :progress=>@user.query_quest(quest_name)[:progress]
+        }
+        render :text=>ret.to_json
     end
     def load_quest(name)
         if (!name or name == '')

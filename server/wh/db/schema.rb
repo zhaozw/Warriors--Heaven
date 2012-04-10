@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.integer  "uid"
     t.string   "name"
     t.integer  "progress"
+    t.text     "prop"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -48,7 +48,8 @@
     /////////////////
     
     // init const
-    host = @"192.168.0.24";
+//host = @"192.168.0.24";
+    host = @"localhost";
     //    host = @"127.0.0.1";
     //    host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";

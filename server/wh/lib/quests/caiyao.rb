@@ -1,4 +1,7 @@
 require 'quests/quest.rb'
+require 'fight.rb'
+require 'objects/player.rb'
+
 class Caiyao < Quest 
     def dname
        "采药" 
@@ -29,11 +32,11 @@ class Caiyao < Quest
     end
     
     def caoyao_list
-        [
+        [ # from expensive to cheap
             "objects/fixures/ginseng",
             "objects/fixures/heshouwu",
-            "objects/fixures/dihuang",
             "objects/fixures/fuling",
+            "objects/fixures/dihuang",
             "objects/fixures/shanzhuyu",
             "objects/fixures/zexie",
             "objects/fixures/shanyao",
@@ -48,27 +51,45 @@ class Caiyao < Quest
         if (action=="dig")
             luck = user.ext[:luck]
             if (rand(100)<luck) # get caiyao
+        #  if (false)
                 ar = caoyao_list
-                r = caoyao_list[rand(caoyao_list.size)]
+                
+                r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
                 o = create_fixure(r)
                 
                 user.get_object(o)
-                msg = "你挖到了一株#{o.dname} !"
+                msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
+                r = user.query_quest("caiyao")
+                r[:progress] += 10
+       #         r.save!
             else
             #msg = "你很用力的挖"
      
                 if (rand(100)> luck)
+                    msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
-                    npc.set_temp("level", user.ext("level"))
-                    fight(user, npc)
+                    npc.set_temp("level", user.ext[:level])
+                    player = Player.new
+                    player.set(user)
+                    _context = {:msg=>msg}
+                    _fight(player, npc, _context)
+                    msg =  _context[:msg]
+                    if (player[:gain][:exp] >0)
+                        msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
+                    end
+                    if (player[:gain][:level] > 0)
+                        msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
+                    end
+                    p "===>msg=#{msg}"
                 else
-                    msg = "你用药锄拨动着四周的灌木杂草，仔细地看有没有草药"
+                    msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药</div>"
                 end
             end
         else
             msg = "???"
         end
         context[:msg] = msg
+        p context.inspect
     end
         
     

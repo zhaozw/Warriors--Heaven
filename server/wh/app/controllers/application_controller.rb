@@ -16,14 +16,24 @@ class ApplicationController < ActionController::Base
     end
     
     def check_session
-
+        p "===>session=#{session}"
         # 
         # after uesr first register, the _wh_session will be set in user's cookie
         # which will send by all afteraward quest
         #
         if (params[:sid])
-            reset_session
+       #     reset_session
+       
+       p request.host
+       # set cookie first, because this is used to generate sid when write memcached
+           cookies[:_wh_session] = {
+               :value => params[:sid],
+               :expires => 1.year.from_now,
+               :domain => request.host
+           }
             session[:sid] = params[:sid]
+           # cookies[:_wh_session] = params[:sid]
+           
         else
             if !session[:sid]
                 sid = cookies[:_wh_session]
@@ -48,6 +58,7 @@ class ApplicationController < ActionController::Base
     end
     
     def user_data
+        p "===>session[:userdata]=#{session[:userdata]}"
         if session[:userdata]
             return session[:userdata]
         else

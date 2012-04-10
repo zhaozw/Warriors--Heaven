@@ -17,10 +17,13 @@ class Sword  < Weapon
   def weight
       7
   end
-    def image
+
+  def image
       "obj/equipments/sword.jpg"
   end
+  
   def rank
       1
   end
+  
 end
