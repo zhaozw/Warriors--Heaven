@@ -548,12 +548,15 @@
             }
         }
     }
-    
+     NSLog(@"DATA count %d", [data count]);
     // proceed remaining item and eq
     for ( int i = 0; i< [data count]; i++){
         
+        NSLog(@"DATA %d", i);
         // check if it's already arranged
         BOOL found = FALSE;
+       
+        NSLog(@"arranged count %d", [arranged count]);
         for (int j=0; j < [arranged count]; j++){
             if (i == [[arranged objectAtIndex:j] intValue]) {
                 found = TRUE;
@@ -562,8 +565,9 @@
         }
         if (found)
              continue;
-
+        NSLog(@"DATA %d not found in arraged", i);
         NSObject *o = [data objectAtIndex:i];
+             NSLog(@"DATA %d %@", i, o);
         NSObject* eq = [o valueForKey:@"usereq"];
         int eqtype = [[eq valueForKey:@"eqtype"] intValue];
         int eqid = [[eq valueForKey:@"id"] intValue];
@@ -602,10 +606,13 @@
         
         if (eqtype == 2){ // item
             //  UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
-            EGOImageButton* btn = [item_buttons objectAtIndex:item_index];
-            [btn setImageURL:[NSURL URLWithString:filepath]];
-            btn.tag = eqid;
-            item_index++;
+            NSLog(@"item_buttons count %d, index %d", [item_buttons count], item_index);
+            if (item_index < [item_buttons count]) {// has room for item ?
+                EGOImageButton* btn = [item_buttons objectAtIndex:item_index];
+                [btn setImageURL:[NSURL URLWithString:filepath]];
+                btn.tag = eqid;
+                item_index++;
+            }
         }
         
     }
