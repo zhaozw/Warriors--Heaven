@@ -22,7 +22,6 @@ class UsereqsController < ApplicationController
                 _eq = Equipment.load_equipment(eq[:eqname], eq)
                 eq[:pos] = _eq.wearOn
             else
-                p "jjjjjjjjj"
                 _eq = load_obj(eq[:eqname], eq)
             end
             eq[:dname] = _eq.dname
