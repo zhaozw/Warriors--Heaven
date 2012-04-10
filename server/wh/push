@@ -1,0 +1,6 @@
+git add lib
+git add app
+git add db
+git commit -am $1
+git push
+
