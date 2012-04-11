@@ -11,4 +11,17 @@ class Userext < ActiveRecord::Base
         p e
      end
   end
+  
+  
+    def set_prop(n,v)
+      if (self[:prop])
+          j = JSON.parse(self[:prop])
+      else
+          j = {}
+    end
+        j[n] = v
+        self[:prop] = j.to_json
+        #save!
+        after_initialize
+  end
 end

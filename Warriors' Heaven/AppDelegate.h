@@ -62,6 +62,7 @@
 @property (nonatomic, retain) IBOutlet UIViewController *viewcontroller;
 @property (nonatomic, retain) IBOutlet DotHide_TabBarController *tabBarController;
 
+@property (unsafe_unretained, nonatomic) IBOutlet UIViewController *vReg;
 @property (strong, nonatomic) IBOutlet UIImageView* bgView;
 
 @property (strong, nonatomic) IBOutlet UIWebView *vBattleMsg;
@@ -88,4 +89,6 @@
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
 - (void) showHelpView:(NSString*) url;
 - (void) showStatusView:(BOOL)bShow;
+- (void) setSessionId:(NSString *)session_id;
+- (void) initUI;
 @end

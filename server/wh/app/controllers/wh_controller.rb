@@ -5,7 +5,25 @@ require 'objects/npc/npc.rb'
 
 class WhController < ApplicationController
     
+    def test
+  
+   #cookies[:_wh_session]=""
+ #  destroy_session
+ #   reset_session
+   # session[:fdsf]="fsfs"
+   #     cookies["sid"] = ActiveSupport::SecureRandom.hex(16)
+      #     session[:a] = "b"
+      if session[:a]
+        session[:a] = "b" 
+        else
+             session[:a] ="not exist"
+         end
+        
+        #render :text=>cookies.to_json+session.to_json#+env[ENV_SESSION_KEY]
+        render :text=>"fdsf"
+    end
     def index
+
         p "cookie=#{cookies}"
        # session[:name]="ju"
     #    ret = {
@@ -15,14 +33,17 @@ class WhController < ApplicationController
 
       
       sid = cookies[:_wh_session]
-      
+
       # for test
       if (params[:sid])
           sid = params[:sid]
       end
         user = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
    #     r = User.find_by_sql("select user, uid, sid, sex, race, age from users where sid='d434740f4ff4a5e758d4f340d7a5f467'")
-        
+        if (!sid)
+            error "session not exist"
+            return
+        end
         p sid
         if (user == 0 || user.size==0)
         #js = '{"error":"user not found"}'
@@ -50,7 +71,109 @@ class WhController < ApplicationController
         render :text=>user[0].to_json
     end
     
-    
+    def reg
+        sid = ActiveSupport::SecureRandom.hex(16)
+        cookies[:_wh_session] = {
+               :value => sid,
+               :expires => 1.year.from_now,
+               :domain => request.host
+           }
+        session[:username] = params[:name]
+        p "=====>>>#{session['_wh_session']}"
+        r = User.new({
+            :user=>params[:name],
+            :sid=>sid,
+             :age=>16,
+             :race=> 0,
+             :sex=> params[:sex],
+             :title=> "新人",
+            
+        })
+        begin
+            r.save!
+        rescue  Exception=>e
+            p e
+            if /Mysql::Error: Duplicate entry/.match(e)
+                error ("名字已被使用")
+            else
+                error("Cannot create user with name #{params[:name]}")
+            end
+            return 
+        end
+        
+        # init userext
+        ext = Userext.new({
+            :uid  => r[:id],
+            :name => r[:user],
+            :gold => 100,
+            :exp  =>    0,
+            :level=>    0,
+            :prop => '{"max_eq":"5", "max_item":10}',
+            :sid  => sid,
+            :hp   => 100,
+            :maxhp=> 100,
+            :stam => 100, 
+            :maxst=>  100,
+            :str  =>  20,
+            :dext =>  20,
+            :luck =>  50,
+            :fame => 0,
+            :race => "human",
+            :pot  =>  100,
+            :it   =>  20,
+            :max_jl => 100,
+            :jingli => 100
+        })
+        ext.save!
+        r[:userext] = ext
+        
+        # init skill
+             r[:userskills]  = []
+        skill = r[:userskills].push(skill)
+                skill = Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "unarmed",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+     r[:userskills].push(skill)
+     
+       skill =  Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "parry",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+
+                r[:userskills].push(skill)
+                
+                skill = Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "dodge",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+        r[:userskills].push(skill)
+        
+        render :text=>r.to_json
+        
+        
+    end
     def userext
         sid = cookies[:_wh_session]
         if !sid

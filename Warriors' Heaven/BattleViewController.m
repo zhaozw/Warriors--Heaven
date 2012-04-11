@@ -104,7 +104,7 @@
         [lbLevel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbLevel setTextColor:[UIColor yellowColor]];
         [lbLevel setBackgroundColor:[UIColor clearColor]];
-        [lbLevel setText:[[NSString alloc] initWithFormat:@"Level %@", level]];
+        [lbLevel setText:[[NSString alloc] initWithFormat:@"Level +%@", level]];
         [row addSubview:lbLevel];
         
         
@@ -285,7 +285,7 @@
     
     // send request
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    NSString* url = [[NSString alloc] initWithFormat:@"/wh/fight?enemy=%@", [button tag]];
+    NSString* url = [[NSString alloc] initWithFormat:@"/wh/fight2?enemy=%@", [button tag]];
     [client sendHttpRequest:url selector:@selector(onFightResult:) json:YES showWaiting:YES];
     
 

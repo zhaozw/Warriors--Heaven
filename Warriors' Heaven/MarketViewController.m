@@ -181,7 +181,7 @@
          //        UIImage * img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1/images/home.jpg"] options:NSDataReadingMappedIfSafe error:&error]];
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
-        NSString* filepath = [json valueForKey:@"iamge"];
+        NSString* filepath = [json valueForKey:@"image"];
         if (filepath == NULL || filepath.length == 0)
             filepath = [NSString stringWithFormat:@"%@.png", name];
         

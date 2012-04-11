@@ -48,6 +48,8 @@
 		5A61E7BD15078DF9008DE591 /* wait2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7BC15078DF9008DE591 /* wait2.gif */; };
 		5A61E7C11507922E008DE591 /* wait3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7C01507922E008DE591 /* wait3.gif */; };
 		5A61E7C3150799E3008DE591 /* wait_transparent.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7C2150799E3008DE591 /* wait_transparent.gif */; };
+		5A97D4E11535D36800F44EC0 /* RegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A97D4DF1535D36800F44EC0 /* RegViewController.m */; };
+		5A97D4E21535D36800F44EC0 /* RegViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A97D4E01535D36800F44EC0 /* RegViewController.xib */; };
 		5AA8C2CC1508048D001C5BD3 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B41508048D001C5BD3 /* NSObject+SBJson.m */; };
 		5AA8C2CD1508048D001C5BD3 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B71508048D001C5BD3 /* SBJsonParser.m */; };
 		5AA8C2CE1508048D001C5BD3 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B91508048D001C5BD3 /* SBJsonStreamParser.m */; };
@@ -164,6 +166,9 @@
 		5A61E7BC15078DF9008DE591 /* wait2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait2.gif; sourceTree = "<group>"; };
 		5A61E7C01507922E008DE591 /* wait3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait3.gif; sourceTree = "<group>"; };
 		5A61E7C2150799E3008DE591 /* wait_transparent.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait_transparent.gif; sourceTree = "<group>"; };
+		5A97D4DE1535D36800F44EC0 /* RegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegViewController.h; path = ../RegViewController.h; sourceTree = "<group>"; };
+		5A97D4DF1535D36800F44EC0 /* RegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegViewController.m; path = ../RegViewController.m; sourceTree = "<group>"; };
+		5A97D4E01535D36800F44EC0 /* RegViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RegViewController.xib; path = ../RegViewController.xib; sourceTree = "<group>"; };
 		5AA8C2B31508048D001C5BD3 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		5AA8C2B41508048D001C5BD3 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		5AA8C2B51508048D001C5BD3 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -280,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				5AFD8DE51500EAEE0066ECBA /* main.xib */,
+				5A97D4E01535D36800F44EC0 /* RegViewController.xib */,
 				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
 				5A25E28F1504D2530046C67D /* BattleViewController.xib */,
 				5A25E2851504CC260046C67D /* CharacterViewController.xib */,
@@ -294,6 +300,8 @@
 		5A25E2971504D4800046C67D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				5A97D4DE1535D36800F44EC0 /* RegViewController.h */,
+				5A97D4DF1535D36800F44EC0 /* RegViewController.m */,
 				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
 				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
 				5A25E28D1504D2520046C67D /* BattleViewController.h */,
@@ -670,6 +678,7 @@
 				5AAA2FF1152C5FE7002E6FCF /* bg_quest1.jpg in Resources */,
 				5AAA2FF3152C637E002E6FCF /* bg_task_title.png in Resources */,
 				5AAA2FF7152CD491002E6FCF /* btn_close.png in Resources */,
+				5A97D4E21535D36800F44EC0 /* RegViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +720,7 @@
 				5ACC6C06151EB84900C83551 /* EGOImageView.m in Sources */,
 				5ACC6C0A151EB85B00C83551 /* EGOCache.m in Sources */,
 				5AAA2FEC152C58D6002E6FCF /* QuestViewController.m in Sources */,
+				5A97D4E11535D36800F44EC0 /* RegViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

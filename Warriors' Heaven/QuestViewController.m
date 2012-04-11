@@ -115,7 +115,7 @@
         
         UIImageView* row = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_quest1.png"]];
         row.frame = CGRectMake(0, i*(row_height+margin), 320, row_height);
-        row.backgroundColor = [UIColor redColor];
+        row.backgroundColor = [UIColor clearColor];
         [row setUserInteractionEnabled:YES];
         EGOImageButton* bt_logo = [[EGOImageButton alloc] initWithFrame:CGRectMake(2, 1, 60, 60)];
         [row addSubview:bt_logo];

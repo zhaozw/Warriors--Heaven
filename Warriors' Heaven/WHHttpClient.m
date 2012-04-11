@@ -17,6 +17,10 @@
     return self;
 }
 
+- (void) setResponseHandler:(SEL )callback{
+    self->response = callback;
+}
+
 //- (void) checkNetworkStatus{
 //    
 //}
@@ -76,7 +80,7 @@
     [request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
     if (cookie)
         [request addValue:cookie forHTTPHeaderField:@"Cookie"];
-    else{ // first request
+    else{ // first request, set session id in cookie
         if (ad.session_id != nil){
             NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;", ad.session_id];
             NSLog(@"First request cookie:%@", c);
@@ -111,33 +115,39 @@
         if (ad.networkStatus == 0){
             [ad showNetworkDown];
             //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            NSLog(@"Network down");
             return;
         }
+    }
+
+       
+    
+
+    if(bWait && [ad isWaiting]){
+        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:json:showWaiting:)];
+        NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        
+        [invocation setTarget:self];                    // index 0 (hidden)
+        [invocation setSelector:@selector(sendHttpRequest:selector:json:showWaiting:)];                  // index 1 (hidden)
+        [invocation setArgument:&cmd atIndex:2];      // index 2
+        [invocation setArgument:&s atIndex:3];      // index 3
+        [invocation setArgument:&bJSON atIndex:4];
+        [invocation setArgument:&bWait atIndex:5];      // index 3
+       // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
+        [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
+        NSLog(@"busy, will retry in 1 second, quest=%@", cmd);
+        return;
     }
     
     // set flag
     NSString* o = [[ad requests] valueForKey:cmd];
     if (!o || [o isEqualToString:@"0"])
         [[ad requests] setValue:@"1" forKey:cmd];
-    else
-        return;
-
-       
-    
-
-    if(bWait && [ad isWaiting]){
-        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
-        NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        
-        [invocation setTarget:self];                    // index 0 (hidden)
-        [invocation setSelector:@selector(sendHttpRequest:selector:showWaiting:)];                  // index 1 (hidden)
-        [invocation setArgument:&cmd atIndex:2];      // index 2
-        [invocation setArgument:&s atIndex:3];      // index 3
-        [invocation setArgument:&bWait atIndex:4];      // index 3
-       // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
-        [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
+    else{
+        NSLog(@"Duplicate quest not responding");
         return;
     }
+
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
     
@@ -175,13 +185,15 @@
 // 收到响应时, 会触发
 // 你可以在里面判断返回结果, 或者处理返回的http头中的信息
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse{
+
     NSLog(@"Recieve http respnse %@", aResponse.MIMEType);
+/* 
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];
     NSString *_cookie = [fields valueForKey:@"Set-Cookie"]; 
     NSLog(@"set-cookie:%@", _cookie);
     
-    if (_cookie){
+  if (_cookie){
         self->cookie = _cookie;
         AppDelegate * ad = [UIApplication sharedApplication].delegate;
         if (ad.session_id == nil){
@@ -204,10 +216,11 @@
                 
             }];
         }
-    }
+    }*/
+    if (self->response)
+        [self->view performSelector:response withObject:aConnection withObject:aResponse ];
+
 }
-
-
 // 每收到一次数据, 会调用一次
 // 因此一般来说,是
 - (void)connection:(NSURLConnection *)aConn didReceiveData:(NSData *)data

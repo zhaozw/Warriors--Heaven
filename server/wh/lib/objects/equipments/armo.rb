@@ -8,7 +8,8 @@ class Armo  < Weapon
   def desc
       "这是一副铁质的甲胄，上面似乎还有斑斑血迹，不知是它的主人的血，还是敌人的。"
   end
-  
+
+    
   def wearOn
       "body"
   end
@@ -21,7 +22,7 @@ class Armo  < Weapon
       "obj/equipments/armo.jpg"
   end
   
-    def rank
+  def rank
       5
   end
 end

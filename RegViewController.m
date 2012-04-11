@@ -1,0 +1,159 @@
+//
+//  RegViewController.m
+//  Warriors' Heaven
+//
+//  Created by juweihua on 4/11/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "RegViewController.h"
+#import "AppDelegate.h"
+#import "WHHttpClient.h"
+
+@implementation RegViewController
+
+@synthesize lbError;
+@synthesize tName;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Do any additional setup after loading the view from its nib.
+    
+    currentSelectedSex = -1;
+}
+
+- (void)viewDidUnload
+{
+    [self setTName:nil];
+    [self setLbError:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)onCreate:(id)sender {
+    NSString * name = tName.text;
+    if (name == NULL || name.length == 0){
+        lbError.text = @"Name cannot be empty";
+        return;
+    }
+        
+    name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ( name.length == 0){
+        lbError.text = @"Name cannot be empty";
+        return;
+    }
+    
+    if (currentSelectedSex <0){
+        lbError.text = @"Please choose sex for your character.";
+        return;
+    }
+   
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+//    [client setResponseHandler:@selector(onResponse::)];
+    NSString* url = [NSString stringWithFormat:@"/wh/reg?name=%@&sex=%d", name, currentSelectedSex];
+    
+    [client sendHttpRequest:url selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
+    
+}
+/* 
+- (void) onResponse:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse{
+    
+   AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    // record session id
+    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
+    NSDictionary *fields = [HTTPResponse allHeaderFields];
+    NSString *_cookie = [fields valueForKey:@"Set-Cookie"]; 
+    NSLog(@"set-cookie:%@", _cookie);
+    
+    if (_cookie){
+  //      self->cookie = _cookie;
+        AppDelegate * ad = [UIApplication sharedApplication].delegate;
+        if (ad.session_id == nil){
+            NSString *regExStr = @"_wh_session=(.*?);";
+            NSError *error = NULL;
+            
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExStr
+                                                                                   options:NSRegularExpressionCaseInsensitive
+                                                                                     error:&error];
+            
+            [regex enumerateMatchesInString:_cookie options:0 range:NSMakeRange(0, [_cookie length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+                NSLog(@"session id=%@",[_cookie substringWithRange:[result rangeAtIndex:1]]);
+                
+                ad.session_id = [_cookie substringWithRange:[result rangeAtIndex:1]];
+                NSLog(@"session id=%@", ad.session_id);
+                // persist
+                NSArray *Array = [NSArray arrayWithObjects:ad.session_id, nil];
+                NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+                [SaveDefaults setObject:Array forKey:@"sessionid"];
+                
+            }];
+        }
+}
+ */
+- (void) onReceiveStatus:(NSObject*) data{
+    if ([data valueForKey:@"user"]){
+        AppDelegate * ad = [UIApplication sharedApplication].delegate;
+        NSObject *d = [data valueForKey:@"user"];
+        [ad setData_user:data];
+        NSString* sid = [d valueForKey:@"sid"];
+        [ad setSessionId:sid];
+        self.view.hidden = YES;
+        [ad initUI];
+    }else{
+        lbError.text = [data valueForKey:@"error"];
+        return;
+    }
+
+}
+
+// hide system keyboard when user click "return"
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void) highlightButton:(UIButton*)bt{
+    bt.backgroundColor = [UIColor redColor];
+    [bt setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
+    if (btSelectedSex){
+        btSelectedSex.backgroundColor = [UIColor clearColor];
+        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    btSelectedSex = bt;
+}
+- (IBAction)onSelectSex:(id)sender {
+    UIButton* bt = sender;
+    currentSelectedSex = bt.tag;
+    [self performSelector:@selector(highlightButton:) withObject:bt afterDelay:0.0];
+
+}
+
+@end

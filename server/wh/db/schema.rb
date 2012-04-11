@@ -103,6 +103,9 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.datetime "updated_at"
   end
 
+  add_index "users", ["sid"], :name => "index_users_on_sid", :unique => true
+  add_index "users", ["user"], :name => "index_users_on_user", :unique => true
+
   create_table "userskills", :force => true do |t|
     t.integer  "uid"
     t.string   "sid"

@@ -24,7 +24,7 @@ class Jinchuangyao < Game::Object
     end
     
     def image
-        "jinchuangyao.jpg"
+        "obj/fixures/jinchuangyao.jpg"
     end
     
     

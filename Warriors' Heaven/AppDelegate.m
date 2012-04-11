@@ -22,6 +22,7 @@
 @synthesize vcStatus;
 @synthesize viewcontroller;
 @synthesize tabBarController;
+@synthesize vReg;
 @synthesize session_id;
 //@synthesize data_userext;
 @synthesize data_user;
@@ -48,91 +49,82 @@
     /////////////////
     
     // init const
+//    host = @"localhost.joyqom.com";
 //host = @"192.168.0.24";
-    host = @"localhost";
+//    host = @"localhost";
     //    host = @"127.0.0.1";
     //    host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
+    host = @"homeserver.joyqom.com";
     port = @"3006";
     return self;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-    
-    // full screen
-    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
-    //self.window.backgroundColor = [UIColor whiteColor];
-    
-    requests = [[NSString stringWithFormat:@"{}"] JSONValue];
-    
-    bUserSkillNeedUpdate = TRUE;
-    // load session id from local
+- (NSString *) readSessionId{
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    if (! SaveDefaults) 
+        return NULL;
+    
     NSArray * Array = [SaveDefaults objectForKey:@"sessionid"];
     
-    session_id = [Array objectAtIndex:0];
-    NSLog(@"load session id %@", session_id);
+    if (!Array || [Array count] == 0)
+        return NULL;
     
     
-    //    [self checkNetworkStatus];
-    
-    // load user data
-    
-    Array = [SaveDefaults objectForKey:@"data_user"];
+    return  [Array objectAtIndex:0];
+
+}
+- (void) setSessionId:(NSString *)sid{
+    if (!sid)
+        return;
+    session_id = sid;
+    NSArray *Array = [NSArray arrayWithObjects:sid, nil];
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    [SaveDefaults setObject:Array forKey:@"sessionid"];
+}
+
+- (NSObject*) readUserObject{
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    NSArray* Array = [SaveDefaults objectForKey:@"data_user"];
     NSString* userdata = [Array objectAtIndex:0];
     NSLog(@"datauser: %@", data_user);
-    
-//    if (userdata == NULL){
-        WHHttpClient* client = [[WHHttpClient alloc] init:self];
-        [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
-//    }else{
-//        data_user = [userdata JSONValue];
-//    }
+    return userdata;
+}
 
-    
- 
+
+- (void) initUI{
     /////////////////
     // init UI
     /////////////////
-
     
-
- 
-   // CGRect rect = [[UIScreen mainScreen] bounds];
+    
+    
+    
+    // CGRect rect = [[UIScreen mainScreen] bounds];
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
     //[bgView1 setBackgroundColor:[UIColor redColor]];
     [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
     //[bgView setHidden:FALSE];
-//    [bgView setAlpha:0.5f];
+    //    [bgView setAlpha:0.5f];
     
     [window addSubview:bgView];
     [window addSubview:tabBarController.view];
     
     // add create status view
-//    [window addChildViewController:vcStatus];
-   // [window addSubview:self.vcStatus.view];
-  //  [self.window setRootViewController:viewcontroller];
-   // self.window.rootViewController = viewcontroller;
-   // [self.window addSubview:viewcontroller.view];
- //   [viewcontroller viewWillAppear:FALSE];
+    //    [window addChildViewController:vcStatus];
+    // [window addSubview:self.vcStatus.view];
+    //  [self.window setRootViewController:viewcontroller];
+    // self.window.rootViewController = viewcontroller;
+    // [self.window addSubview:viewcontroller.view];
+    //   [viewcontroller viewWillAppear:FALSE];
     
     // add status view
-//    [window addChildViewController:vcStatus];
+    //    [window addChildViewController:vcStatus];
     [window addSubview:vcStatus.view];
     [vcStatus.view setBackgroundColor:[UIColor clearColor]];
     
     
-    // create waiting view
-    self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
-    [self->waiting setBackgroundColor:[UIColor blackColor]];
-    [self->waiting setAlpha:0.5f]; 
-    //  [self->waiting setUserInteractionEnabled:false];
-    //[self->waiting setOpaque:TRUE];
-    
+     
     
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
@@ -148,18 +140,13 @@
     //   [aiv startAnimating];  
     [self->waiting addSubview:aiv];  
     //[aiv release];  
-    
-    // Auto dismiss after 3 seconds  
-    //  [self performSelector:@selector(performDismiss) withObject:nil afterDelay:3.0f];  
-    [window addSubview:self->waiting];
-//    [window bringSubviewToFront:self->waiting];
-    waiting.hidden = YES;
-    
+
     
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
     
-    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+//    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     [lbAlertMsg setMinimumFontSize:0.1f];
     [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
     [lbAlertMsg setNumberOfLines:3];
@@ -182,7 +169,71 @@
     [window bringSubviewToFront:vWelcome];
     [NSTimer scheduledTimerWithTimeInterval:(5.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     
+}
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
     
+    
+    // full screen
+    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
+    //self.window.backgroundColor = [UIColor whiteColor];
+    
+    requests = [[NSString stringWithFormat:@"{}"] JSONValue];
+    
+    bUserSkillNeedUpdate = TRUE;
+
+    
+    // set waiting must be here, because isWaiting() depend on the value of waiting.hidden
+    // create waiting view
+    self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
+    [self->waiting setBackgroundColor:[UIColor blackColor]];
+    [self->waiting setAlpha:0.5f]; 
+    //  [self->waiting setUserInteractionEnabled:false];
+    //[self->waiting setOpaque:TRUE];
+
+    // Auto dismiss after 3 seconds  
+    //  [self performSelector:@selector(performDismiss) withObject:nil afterDelay:3.0f];  
+    [window addSubview:self->waiting];
+    //    [window bringSubviewToFront:self->waiting];
+    waiting.hidden = YES;
+    
+    
+    session_id = [self readSessionId];
+    NSLog(@"load session id %@", session_id);
+    
+    if (true){
+  //  if (!session_id){
+/*        // show registeration
+        UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
+        [vReg setUserInteractionEnabled:YES];
+        [window addSubview:vReg];
+        
+        UILabel* vTitle = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, 100, 20)];
+        [vTitle setText:@"Please choose name and sex for your character"];
+        [vReg addSubview:vTitle];
+ */
+        [window addSubview:vReg.view];
+        
+    }else{
+        //}
+        
+        //    [self checkNetworkStatus];
+        
+        // load user data
+        NSString* userdata = [self readUserObject];
+
+        if (userdata == NULL){
+            WHHttpClient* client = [[WHHttpClient alloc] init:self];
+            [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
+        }else{
+            self.data_user = [userdata JSONValue];
+        }
+
+        
+        [self initUI];
+    }
     [self.window makeKeyAndVisible];
     
     return YES;

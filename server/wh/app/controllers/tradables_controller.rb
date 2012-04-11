@@ -48,17 +48,43 @@ class TradablesController < ApplicationController
             error("There is not enough number of item in stock. Please buy later.")
             return
         end
-        
+        max_eq = user_data[:userext][:max_eq].to_i
+        eqslot = user_data[:userext][:eqslot]
+                     
+        found_available = -1
+        if eqslot
+            eqslots = JSON.parse(eqslot)
+        else
+            eqslots ={}
+        end
         # check user has enough vacancy
         if item[:objtype] == 1 or item[:objtype] == 3
-            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.eqid=equipment.id and equipment.eqtype=1")
-            count = r.fetch_row[0].to_i
-            if (count+1 > session[:userdata][:userext][:max_eq].to_i)
-                error("There is not availabe slot for new equipment. You can buy more slot.")
-                return
-            end
+            # find available slot
+           # r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and  usereqs.eqid=equipment.id and equipment.eqtype=1")
+           # count = r.fetch_row[0].to_i
+            #if (count+1 > session[:userdata][:userext][:max_eq].to_i)
+            #    error("There is not availabe slot for new equipment. You can buy more slot.")
+            #    return
+           # end
+   
+           if (eqslot)
+
+               for i in 0..max_eq-1
+                   p "slot[#{i}] #{eqslots[i.to_s]}"
+                   if !eqslots[i.to_s]
+                       found_available = i
+                       break
+                    end
+               end
+               if found_available < 0
+                   error("There is not availabe slot for new equipment. You can buy more slot.")
+                   return
+               end
+           else
+                 found_available =0
+           end
         else item[:objtype] == 2
-            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.eqid=equipment.id and equipment.eqtype=2")
+            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and usereqs.eqid=equipment.id and equipment.eqtype=2")
             count = r.fetch_row[0].to_i
             p session[:userdata]
             if (count+1 > session[:userdata][:userext][:max_item])
@@ -82,7 +108,13 @@ class TradablesController < ApplicationController
             :prop    => "{}"
         })
         e.save!
-        
+ 
+ 
+        eqslots[found_available.to_s] = e[:id]
+        #user_data[:userext][:eqslot] = eqslots.to_json
+        user_data[:userext].set_prop("eqslot", eqslots.to_json)
+        user_data[:userext].save!
+=begin     
         # get available slot number
         r =  ActiveRecord::Base.connection.execute("select eqslotnum from usereqs where uid=#{uid}")
          p r.inspect
@@ -99,14 +131,14 @@ class TradablesController < ApplicationController
                 break
             end
         end
-        
+=end
 
         ueq = Usereq.new({                        
                 :uid        => uid                ,
                 :sid        => session[:sid]      ,
                 :eqid       => e[:id]             ,
                 :eqname     => item[:name]        ,
-                :eqslotnum  => a_slot             ,
+                :eqslotnum  => found_available.to_s             ,
                 :wearon     => nil
                
             })

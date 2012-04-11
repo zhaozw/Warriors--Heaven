@@ -12,6 +12,8 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
+        add_index(:users, ["user"], {:unique=>true})
+        add_index(:users, ["sid"], {:unique=>true})
 =begin
     insert into users values(NULL, "ju",        "d434740f4ff4a5e758d4f340d7a5f467", 30, 0, 1, "新人",NULL, NULL);
     insert into users values(NULL, "海青天",       "032730df4eb17eaa9b6b83f798b76602", 30, 0, 1, "新人", NULL, NULL);

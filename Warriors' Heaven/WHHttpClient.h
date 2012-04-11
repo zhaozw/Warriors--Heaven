@@ -13,7 +13,8 @@
     // handle http request
     NSMutableData* buf;
     NSString * cookie;
-    SEL selector; // callback for msg arrive
+    SEL selector; // callback after finishing receive data
+    SEL response; // callback to handle response 
     BOOL _bJSON;
     NSString* _cmd;
 
@@ -38,4 +39,6 @@
 
 // 全部数据接收完毕时触发
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConn;
+
+- (void) setResponseHandler:(SEL )callback;
 @end
