@@ -42,7 +42,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
-			<object class="IBUIViewController" id="29807210">
+			<object class="IBUIViewController" id="352450348">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">1</int>
@@ -174,7 +174,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Ju Weihua</string>
+						<string key="IBUIText"/>
 						<object class="NSColor" key="IBUITextColor" id="1060469605">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -327,9 +327,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vcResearch</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="29807210"/>
+						<reference key="destination" ref="352450348"/>
 					</object>
 					<int key="connectionID">28</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbUsername</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="378282613"/>
+					</object>
+					<int key="connectionID">31</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -437,7 +445,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">27</int>
-						<reference key="object" ref="29807210"/>
+						<reference key="object" ref="352450348"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -466,7 +474,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">30</int>
+			<int key="maxID">31</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -547,6 +555,7 @@
 						<string key="bt_common_skill">UIButton</string>
 						<string key="bt_premier_skill">UIButton</string>
 						<string key="lbPotential">UILabel</string>
+						<string key="lbUsername">UILabel</string>
 						<string key="skillsView">UIView</string>
 						<string key="vBasicSkill">UIView</string>
 						<string key="vBasicSkillsList">UIView</string>
@@ -571,6 +580,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="lbPotential">
 							<string key="name">lbPotential</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbUsername">
+							<string key="name">lbUsername</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="skillsView">

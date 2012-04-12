@@ -13,7 +13,7 @@ class TradablesController < ApplicationController
             error("You didn't specify item type")
             return 
         end
-        ts = Tradable.find_by_sql("select * from tradables where objtype=#{type}")
+        ts = Tradable.find_by_sql("select * from tradables where obtype=#{type}")
         if !ts || ts.size == 0
             render :text=>"{}"
             return
@@ -24,7 +24,7 @@ class TradablesController < ApplicationController
             t[:dname] = _t.dname
             t[:desc] = _t.desc
             t[:weight] = _t.desc
-            if t[:objtype] == 1
+            if t[:obtype] == 1
                 t[:pos] = _t.wearOn
             end
             t[:intro] = _t.intro
@@ -63,7 +63,7 @@ class TradablesController < ApplicationController
             eqslots ={}
         end
         # check user has enough vacancy
-        if item[:objtype] == 1 or item[:objtype] == 3
+        if item[:obtype] == 1 or item[:obtype] == 3
             # find available slot
            # r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and  usereqs.eqid=equipment.id and equipment.eqtype=1")
            # count = r.fetch_row[0].to_i
@@ -88,7 +88,7 @@ class TradablesController < ApplicationController
            else
                  found_available =0
            end
-        else item[:objtype] == 2
+        else item[:obtype] == 2
             r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and usereqs.eqid=equipment.id and equipment.eqtype=2")
             count = r.fetch_row[0].to_i
             p session[:userdata]
@@ -109,7 +109,7 @@ class TradablesController < ApplicationController
         # create instance
         e = Equipment.new({
             :eqname  => item[:name],
-            :eqtype  => item[:objtype], 
+            :eqtype  => item[:obtype], 
             :prop    => "{}"
         })
         e.save!

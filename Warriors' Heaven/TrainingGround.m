@@ -17,6 +17,7 @@
 //@synthesize vcStatus;
 @synthesize skillsView;
 @synthesize vBasicSkill;
+@synthesize lbUsername;
 @synthesize vCommonSkill;
 @synthesize vPremierSkill;
 @synthesize ad;
@@ -55,6 +56,9 @@
     // Do any additional setup after loading the view from its nib.
     // add status view
      ad = [UIApplication sharedApplication].delegate;
+    
+    lbUsername.text = [[ad getDataUser] valueForKey:@"user"];
+    
     pv_tp = [[NSMutableArray alloc] init];
     lb_level_list = [[NSMutableArray alloc] init];
 //    userskills = [[NSMutableArray alloc] init];
@@ -234,6 +238,7 @@
 //    [self setVcStatus:nil];
     [self setLbPotential:nil];
     [self setVcResearch:nil];
+    [self setLbUsername:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

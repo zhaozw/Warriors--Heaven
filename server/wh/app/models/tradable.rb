@@ -5,7 +5,7 @@ class Tradable < ActiveRecord::Base
             t[:dname] = _t.dname
             t[:desc] = _t.desc
             t[:weight] = _t.weight
-            if t[:objtype] == 1
+            if t[:obtype] == 1
                 t[:pos] = _t.wearOn
             end
             t[:intro] = _t.intro

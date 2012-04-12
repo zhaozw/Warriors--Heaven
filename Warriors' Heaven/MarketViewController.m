@@ -158,7 +158,7 @@
         NSString* price = [[json valueForKey:@"price"] stringValue];
         NSString* number = [[json valueForKey:@"number"] stringValue];
         NSString* soldnum = [[json valueForKey:@"soldnum"] stringValue];
-        int _type = [[json valueForKey:@"objtype"] intValue];
+        int _type = [[json valueForKey:@"obtype"] intValue];
         int rank = [[json valueForKey:@"rank"] intValue];
         y = 10+ i*(row_height+row_margin);
         UIView * row = [[UIView alloc] initWithFrame:CGRectMake(0,y, 320, row_height)];

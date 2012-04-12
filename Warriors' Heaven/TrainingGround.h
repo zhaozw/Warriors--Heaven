@@ -16,6 +16,7 @@
 //@property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 @property (strong, nonatomic) IBOutlet UIView* skillsView;
 @property (strong, nonatomic) IBOutlet UIView* vBasicSkill;
+@property (strong, nonatomic) IBOutlet UILabel *lbUsername;
 
 @property (strong, nonatomic) IBOutlet UIView* vCommonSkill;
 @property (strong, nonatomic) IBOutlet UIView* vPremierSkill;

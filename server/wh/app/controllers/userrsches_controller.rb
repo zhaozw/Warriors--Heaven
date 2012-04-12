@@ -87,7 +87,7 @@ class UserrschesController < ApplicationController
 
     def index
         list = [
-            "taidaoliu"
+            "taidaoliu",
             "kaishanzhang"
             ]
         
