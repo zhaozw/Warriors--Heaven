@@ -1,0 +1,26 @@
+<h1>Listing userrsches</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Sid</th>
+    <th>Skname</th>
+    <th>Progress</th>
+  </tr>
+
+<% @userrsches.each do |userrsch| %>
+  <tr>
+    <td><%=h userrsch.uid %></td>
+    <td><%=h userrsch.sid %></td>
+    <td><%=h userrsch.skname %></td>
+    <td><%=h userrsch.progress %></td>
+    <td><%= link_to 'Show', userrsch %></td>
+    <td><%= link_to 'Edit', edit_userrsch_path(userrsch) %></td>
+    <td><%= link_to 'Destroy', userrsch, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New userrsch', new_userrsch_path %>

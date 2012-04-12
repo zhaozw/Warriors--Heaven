@@ -1,0 +1,2 @@
+module UsereqsHelper
+end

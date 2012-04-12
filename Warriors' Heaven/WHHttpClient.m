@@ -17,21 +17,39 @@
     return self;
 }
 
+- (void) setResponseHandler:(SEL )callback{
+    self->response = callback;
+}
+
 //- (void) checkNetworkStatus{
 //    
 //}
-
-- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s showWaiting:(BOOL)bWait{
+- (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
     selector = s;
-      AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    _bJSON= bJSON;
+    self->_cmd = cmd;
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    // check network status
     if (ad.networkStatus == 0){
         [ad checkNetworkStatus];
         if (ad.networkStatus == 0){
             [ad showNetworkDown];
-//        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
             return;
         }
     }
+    
+    // set flag
+    NSString* o = [[ad requests] valueForKey:cmd];
+    if (!o || [o isEqualToString:@"0"])
+        [[ad requests] setValue:@"1" forKey:cmd];
+    else
+        return;
+    
+    
+    
+    
     if(bWait && [ad isWaiting]){
         NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
         NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -41,15 +59,101 @@
         [invocation setArgument:&cmd atIndex:2];      // index 2
         [invocation setArgument:&s atIndex:3];      // index 3
         [invocation setArgument:&bWait atIndex:4];      // index 3
-       // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
+        // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
         [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
         return;
     }
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];         
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"http://192.168.0.24:3006",cmd]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];   
+    NSLog([NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]);
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]]];
+    [request setHTTPMethod:@"POST"];
+   // if (bJSON)
+     //   [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];  
+    NSData *postData = [data dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]; 
+    [request setValue:[[NSNumber numberWithInt:[postData length]]stringValue] forHTTPHeaderField:@"Content-Length"]; 
+    [request setHTTPBody:postData];  
+    
+    if (ad.session_id != nil)
+    [request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
+    if (cookie)
+        [request addValue:cookie forHTTPHeaderField:@"Cookie"];
+    else{ // first request, set session id in cookie
+        if (ad.session_id != nil){
+            NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;", ad.session_id];
+            NSLog(@"First request cookie:%@", c);
+            [request addValue:c forHTTPHeaderField:@"Cookie"];
+        }
+    }
+    //  NSMutableData* buf = [[NSMutableData alloc] initWithLength:0];
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSLog(@"send cmd to http server: %@", cmd);
+    //    NSString * s = [[NSString alloc] initWithString:statusView.text];
+    //  lbStatus.text = [NSString stringWithFormat:@"%@ send cmd to http server: %@", lbStatus.text, cmd];
+    //  [connection release];
+    
+    //[request release];
+    
+    // display waiting dialog
+    if (bWait)
+        [ad showWaiting:YES];
+
+
+}
+- (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
+    
+    selector = s;
+    _bJSON= bJSON;
+    self->_cmd = cmd;
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    // check network status
+    if (ad.networkStatus == 0){
+        [ad checkNetworkStatus];
+        if (ad.networkStatus == 0){
+            [ad showNetworkDown];
+            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            NSLog(@"Network down");
+            return;
+        }
+    }
+
+       
+    
+
+    if(bWait && [ad isWaiting]){
+        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:json:showWaiting:)];
+        NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        
+        [invocation setTarget:self];                    // index 0 (hidden)
+        [invocation setSelector:@selector(sendHttpRequest:selector:json:showWaiting:)];                  // index 1 (hidden)
+        [invocation setArgument:&cmd atIndex:2];      // index 2
+        [invocation setArgument:&s atIndex:3];      // index 3
+        [invocation setArgument:&bJSON atIndex:4];
+        [invocation setArgument:&bWait atIndex:5];      // index 3
+       // [self performSelector:@selector(sendHttpRequest:::) withObject:cmd withObject:s withObject:bWait afterDelay:1];
+        [NSTimer scheduledTimerWithTimeInterval:1 invocation:invocation repeats:NO];
+        NSLog(@"busy, will retry in 1 second, quest=%@", cmd);
+        return;
+    }
+    
+    // set flag
+    NSString* o = [[ad requests] valueForKey:cmd];
+    if (!o || [o isEqualToString:@"0"])
+        [[ad requests] setValue:@"1" forKey:cmd];
+    else{
+        NSLog(@"Duplicate quest not responding");
+        return;
+    }
+
+    // send request
+    self->buf = [[NSMutableData alloc] initWithLength:0];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];   
+    NSLog([NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]);
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]]];
     [request setHTTPMethod:@"GET"];
    
     //if (ad.session_id != nil)
@@ -81,13 +185,15 @@
 // 收到响应时, 会触发
 // 你可以在里面判断返回结果, 或者处理返回的http头中的信息
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse{
+
     NSLog(@"Recieve http respnse %@", aResponse.MIMEType);
+/* 
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];
     NSString *_cookie = [fields valueForKey:@"Set-Cookie"]; 
     NSLog(@"set-cookie:%@", _cookie);
     
-    if (_cookie){
+  if (_cookie){
         self->cookie = _cookie;
         AppDelegate * ad = [UIApplication sharedApplication].delegate;
         if (ad.session_id == nil){
@@ -110,10 +216,11 @@
                 
             }];
         }
-    }
+    }*/
+    if (self->response)
+        [self->view performSelector:response withObject:aConnection withObject:aResponse ];
+
 }
-
-
 // 每收到一次数据, 会调用一次
 // 因此一般来说,是
 - (void)connection:(NSURLConnection *)aConn didReceiveData:(NSData *)data
@@ -127,6 +234,11 @@
 // 网络错误时触发
 - (void)connection:(NSURLConnection *)aConn didFailWithError:(NSError *)error{
     NSLog(@"http receive error:%d", error.code);
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    if([ad isWaiting])
+        [ad showWaiting:FALSE];
+    [ad showNetworkDown];
+    [[ad requests] setValue:@"0" forKey:self->_cmd];
 }
 
 // 全部数据接收完毕时触发
@@ -137,16 +249,21 @@
     
     // parse json
     //NSString* JSONString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];
-    NSObject *json = [text JSONValue] ;
-    if (json)
-        [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
-    else 
-        NSLog(@"data is not json string");
+    if (_bJSON){
+        NSObject *json = [text JSONValue] ;
+        if (json && ([json isKindOfClass:[NSDictionary class]] ||
+                     [json isKindOfClass:[NSArray class]]))
+            [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
+        else 
+            NSLog(@"data is not json string");
+    }else{
+        [view performSelectorOnMainThread:selector withObject:text waitUntilDone:NO];
+    }
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     if([ad isWaiting])
- 
         [ad showWaiting:FALSE];
 
+    [[ad requests] setValue:@"0" forKey:self->_cmd];
     /*
     NSString * v;
     if (v = [json valueForKey:@"user"])

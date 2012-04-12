@@ -9,6 +9,7 @@
 #import "StatusViewController.h"
 #import "WHHttpClient.h"
 #import "AppDelegate.h"
+#import "SBJson.h"
 
 @implementation StatusViewController
 @synthesize lbGold;
@@ -44,8 +45,8 @@
     // Do any additional setup after loading the view from its nib.
     [self.view setFrame:CGRectMake(0,0,320,100)];
     
-    WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/wh/userext" selector:@selector(onReceiveStatus:) showWaiting:NO];
+//    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+//    [client sendHttpRequest:@"/wh/userext" selector:@selector(onReceiveStatus:) json:YES showWaiting:NO];
    
 }
 - (void) viewWillAppear:(BOOL) animated{
@@ -54,10 +55,10 @@
 - (void) viewDidAppear:(BOOL) animated{
        NSLog(@"Status view did appear");
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    NSObject* json = ad.data_userext;
-    
+    NSObject* json = [ad getDataUserext];
+    NSLog(@"USEREXT: %@", [json JSONRepresentation]);
     if (json){
-        json = [json valueForKey:@"userext"];
+//        json = [json valueForKey:@"userext"];
         // NSNumber* exp = [json  valueForKey:@"exp"];
         lbExp.text = [[json  valueForKey:@"exp"] stringValue];
         lbGold.text = [[json  valueForKey:@"gold"] stringValue];
@@ -76,7 +77,9 @@
     NSLog(@"StatusViewController receive data:%@", json);
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    ad.data_userext = json;
+    NSObject* user = [ad.data_user valueForKey:@"user"] ;
+    NSObject* ext = [json valueForKey:@"userext"];
+    [user setValue:ext forKey:@"userext"];
     
     [self viewDidAppear:NO];
 }

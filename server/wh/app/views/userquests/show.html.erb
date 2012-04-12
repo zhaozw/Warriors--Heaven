@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @userquest.name %>
+</p>
+
+<p>
+  <b>Progress:</b>
+  <%=h @userquest.progress %>
+</p>
+
+
+<%= link_to 'Edit', edit_userquest_path(@userquest) %> |
+<%= link_to 'Back', userquests_path %>

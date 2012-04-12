@@ -1,4 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :userrsches
+
+  map.resources :userquests
+
+  map.resources :tradables
+
+  map.resources :equipment
+
+  map.resources :usereqs
+
   map.resources :userskills
 
   map.resources :skills

@@ -12,7 +12,9 @@
 #import "WHHttpClient.h"
 
 @implementation TrainingGround
-@synthesize vcStatus;
+@synthesize vcResearch;
+@synthesize lbPotential;
+//@synthesize vcStatus;
 @synthesize skillsView;
 @synthesize vBasicSkill;
 @synthesize vCommonSkill;
@@ -21,6 +23,12 @@
 @synthesize vBasicSkillsList;
 @synthesize vCommonSkillsList;
 @synthesize vPremierSkillsList;
+@synthesize bt_basic_skill;
+@synthesize bt_common_skill;
+@synthesize bt_premier_skill;
+//@synthesize userskills;
+@synthesize pv_tp;
+@synthesize lb_level_list;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,29 +55,33 @@
     // Do any additional setup after loading the view from its nib.
     // add status view
      ad = [UIApplication sharedApplication].delegate;
+    pv_tp = [[NSMutableArray alloc] init];
+    lb_level_list = [[NSMutableArray alloc] init];
+//    userskills = [[NSMutableArray alloc] init];
+//    [self addChildViewController:vcStatus];
+//    [self.view addSubview:vcStatus.view];
     
-    
-    [self addChildViewController:vcStatus];
-    [self.view addSubview:vcStatus.view];
-    
-    
+    vcResearch.view.hidden = YES;
+    [self.view addSubview:vcResearch.view];
     
     //  UIImageView skillsView = [[UIImageView alloc] initWithImage:UIImage imageNamed:@"skillview.png")];
     skillsView = [[UIView alloc] initWithFrame:CGRectMake(-200, 200, 300, 300)];
-    [skillsView setBackgroundColor:[UIColor redColor]];
 //    [skillsView setAlpha:0.5f];
     [skillsView setOpaque:NO];
     [skillsView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:skillsView];
     
     vBasicSkill = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    [vBasicSkill setBackgroundColor:[UIColor redColor]];
+    [vBasicSkill setBackgroundColor:[UIColor clearColor]];
     [vBasicSkill setOpaque:FALSE];
     
     [skillsView addSubview:vBasicSkill];
-    UIButton * bt_basic_skill = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     UIImage *imageNormal = [UIImage imageNamed:@"btn_skill.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:0];
+
+    
+    bt_basic_skill = [UIButton buttonWithType:UIButtonTypeCustom];
     [bt_basic_skill setBackgroundImage:stretchableImageNormal  forState:UIControlStateNormal];
     [bt_basic_skill setFrame:CGRectMake(0, 0, 200, 20)];
     [bt_basic_skill setBackgroundColor:[UIColor clearColor]];
@@ -81,8 +93,13 @@
     [bt_basic_skill addTarget:self action:@selector(selectedSkillBt:) forControlEvents:UIControlEventTouchUpInside];
     [vBasicSkill addSubview:bt_basic_skill];
     
+ 
+
+  
+
+    
     vBasicSkillsList  = [[UIView alloc]initWithFrame:CGRectMake(0, 20, 320, 20)];
-    [vBasicSkillsList setBackgroundColor:[UIColor blueColor]];
+    [vBasicSkillsList setBackgroundColor:[UIColor clearColor]];
     vBasicSkillsList.hidden = YES;
     [vBasicSkill setUserInteractionEnabled:TRUE];
     [vBasicSkillsList setUserInteractionEnabled:TRUE];
@@ -93,7 +110,8 @@
     [vCommonSkill setBackgroundColor:[UIColor clearColor]];
     [vCommonSkill setOpaque:FALSE];
     [skillsView addSubview:vCommonSkill];
-    UIButton * bt_common_skill = [UIButton buttonWithType:UIButtonTypeCustom];
+   
+    bt_common_skill = [UIButton buttonWithType:UIButtonTypeCustom];
     [bt_common_skill setBackgroundImage:stretchableImageNormal  forState:UIControlStateNormal];
     [bt_common_skill setFrame:CGRectMake(0, 0, 200, 20)];
     [bt_common_skill setBackgroundColor:[UIColor clearColor]];
@@ -112,7 +130,8 @@
     [vPremierSkill setBackgroundColor:[UIColor clearColor]];
     [vPremierSkill setOpaque:FALSE];
     [skillsView addSubview:vPremierSkill];
-    UIButton * bt_premier_skill = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    bt_premier_skill = [UIButton buttonWithType:UIButtonTypeCustom];
     [bt_premier_skill setBackgroundImage:stretchableImageNormal  forState:UIControlStateNormal];
     [bt_premier_skill setFrame:CGRectMake(0, 0, 200, 20)];
     [bt_premier_skill setBackgroundColor:[UIColor clearColor]];
@@ -212,7 +231,9 @@
 
 - (void)viewDidUnload
 {
-    [self setVcStatus:nil];
+//    [self setVcStatus:nil];
+    [self setLbPotential:nil];
+    [self setVcResearch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -228,19 +249,45 @@
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [ad setBgImg:[UIImage imageNamed:@"traininggrd.jpg"] ];
     
+    NSObject* userext = [ad getDataUserext];
+    lbPotential.text = [[userext valueForKey:@"pot"] stringValue];
     if (ad.bUserSkillNeedUpdate){
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
-        [client sendHttpRequest:@"/userskills" selector:@selector(onReceiveStatus:) showWaiting:YES];
+        [client sendHttpRequest:@"/userskills" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
     }
     
 }
 
+- (void) foldAll{
+    vBasicSkillsList.hidden = YES;
+    vCommonSkillsList.hidden = YES;
+    vPremierSkillsList.hidden = YES;
+//    CGRect rect = vBasicSkill.frame;
+//    int h = rect.size.height;
+//    rect.size.height = 20;
+//    [vBasicSkill setFrame: rect];
+//    rect = vCommonSkill.frame;
+//    h = rect.size.height;
+//    rect.size.height = 20;
+//    [vCommonSkill setFrame: rect];
+//    rect = vPremierSkill.frame;
+//    h = rect.size.height;
+//    rect.size.height = 20;
+//    [vPremierSkill setFrame: rect];
+    [vBasicSkill setFrame:CGRectMake(0, 0, 320, 20)];
+    [vCommonSkill setFrame:CGRectMake(0, 30, 320, 20)];
+    [vPremierSkill setFrame:CGRectMake(0, 60, 320, 20)];
+}
+
 - (void) onReceiveStatus:(NSArray*) data{
-    [ad.data_user setValue:data forKey:@"userskills"];
+    [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"userskills"];
     ad.bUserSkillNeedUpdate = NO;
     // e.g. 
     //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
    
+    // reset status
+    [self foldAll];
+    
     // remove all existing row
     NSArray * subviewsArr = [vBasicSkillsList subviews];
     for(UIView *v in subviewsArr )
@@ -257,17 +304,25 @@
     {
         [v removeFromSuperview];
     }
+    
+    [pv_tp removeAllObjects];
+    [lb_level_list removeAllObjects];
     // build new rows
-    NSArray* ar = data;
+    NSArray* userskills = data;
     int height = 50;
     int y_b = 0;
     int y_c = 0;
-     int y_p = 0;
-    for (int i = 0; i< [ar count];  i++){
+    int y_p = 0;
+    int count_b = 0;
+    int count_c = 0;
+    int count_p = 0;
+    for (int i = 0; i< [userskills count];  i++){
         
-        NSObject *o = [ar objectAtIndex:i];
+        NSObject *o = [userskills objectAtIndex:i];
         o = [o valueForKey:@"userskill"];
         NSLog(@"skill %@", [o valueForKey:@"dname"]);
+        int tp = [[o valueForKey:@"tp"] intValue];
+        int level = [[o valueForKey:@"level"] intValue];
         
         UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
         [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:13.0f]];
@@ -276,12 +331,19 @@
         [lbSkillTitle setOpaque:NO];
         [lbSkillTitle setText:[o valueForKey:@"dname"]];
 
-        UILabel* lbSkillStatus = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 50, 30)];
-        [lbSkillStatus setFont:[UIFont fontWithName:@"Helvetica" size:10.0f]];
+        UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        pvTP.frame = CGRectMake(100, 20, 50, 30);
+        float process = ((float)tp)/((level+1)*(level+1));
+        [pvTP setProgress:process];
+        [pv_tp addObject:pvTP];
+        
+        UILabel* lbSkillStatus = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 50, 30)];
+        [lbSkillStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbSkillStatus setTextColor:[UIColor yellowColor]];
         [lbSkillStatus setBackgroundColor:[UIColor clearColor]];
         [lbSkillStatus setOpaque:NO];
-        [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/%d", [[o valueForKey:@"tp"] stringValue], [o valueForKey:@"Level"]]];
+        [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
+        [lb_level_list addObject:lbSkillStatus];
 
         
         UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -295,40 +357,51 @@
         [btPractise setShowsTouchWhenHighlighted:YES];
        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
 
+  
         NSString* cat = [o valueForKey:@"category"];
         if ([cat isEqualToString:@"basic"]){
+            count_b ++;
             [lbSkillTitle setFrame:CGRectMake(0, y_b, 80, height-10)];
             [vBasicSkillsList addSubview:lbSkillTitle];
-          
+            
+            [vBasicSkillsList addSubview:pvTP];
+            [pvTP setFrame:CGRectMake(90, y_b+10, 80, 10)];
+            
             [vBasicSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(90, y_b, 80, height-10)];
+            [lbSkillStatus setFrame:CGRectMake(120, y_b+5, 80, height-10)];
             
             [vBasicSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(220, y_b, 70, height-17)];
             
-            [skillsView setUserInteractionEnabled:YES];
-            [vBasicSkill setUserInteractionEnabled:YES];
-            [vBasicSkillsList setUserInteractionEnabled:YES];
-            [btPractise setUserInteractionEnabled: YES];
-            [vBasicSkillsList bringSubviewToFront:btPractise];
+//            [skillsView setUserInteractionEnabled:YES];
+//            [vBasicSkill setUserInteractionEnabled:YES];
+//            [vBasicSkillsList setUserInteractionEnabled:YES];
+//            [btPractise setUserInteractionEnabled: YES];
+//            [vBasicSkillsList bringSubviewToFront:btPractise];
             
             
             y_b += height;
         }else if ([cat isEqualToString:@"common"]){
+            count_c ++;
             [vCommonSkillsList addSubview:lbSkillTitle];
             [lbSkillTitle setFrame:CGRectMake(0, y_c, 80, height)];
+            [vCommonSkillsList addSubview:pvTP];
+            [pvTP setFrame:CGRectMake(90, y_c+10, 80, height-10)];
             [vCommonSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(90, y_c, 80, height)];
+            [lbSkillStatus setFrame:CGRectMake(120, y_c+5, 80, height)];
             [vCommonSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(300, y_c, 70, height)];
   
   
             y_c += height;
         }else if ([cat isEqualToString:@"premier"]){
+            count_p ++;
             [vPremierSkillsList addSubview:lbSkillTitle];
             [lbSkillTitle setFrame:CGRectMake(0, y_p, 80, height)];
+            [vPremierSkillsList addSubview:pvTP];
+            [pvTP setFrame:CGRectMake(90, y_p+10, 80, height-10)];
             [vPremierSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(90, y_p, 80, height)];
+            [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height)];
             [vPremierSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(300, y_p, 70, height)];
       
@@ -346,14 +419,75 @@
     rect = vPremierSkillsList.frame;
     rect.size.height = y_p;
     [vPremierSkillsList setFrame:rect];
-    
 
+    vBasicSkillsList.hidden = YES;
+    vCommonSkillsList.hidden = YES;
+    vPremierSkillsList.hidden = YES;
+    
+    [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基础技 (%d)", count_b] forState:UIControlStateNormal];
+    [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高级技 (%d)", count_c] forState:UIControlStateNormal];
+    [bt_premier_skill setTitle:[[NSString alloc] initWithFormat:@"必杀技 (%d)", count_p] forState:UIControlStateNormal];
 }
 
 - (void)practiseSkill:(UIButton*)btn{
     NSLog(@"train skill");
+    int i = btn.tag;
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
+    NSLog(@"%@", skill);
+    NSString* name = [skill valueForKey:@"skname"];
+        NSLog(@"skillname is %@", name);
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    NSString* url = [[NSString alloc] initWithFormat:@"/wh/practise?pot=1&skill=%@", name];
+    [client sendHttpRequest:url selector:@selector(onPractiseReturn:) json:YES showWaiting:YES];
+
 }
 
+- (void) onPractiseReturn:(NSObject*) data{
+    if ([data valueForKey:@"error"]){
+        [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES]; 
+        return;
+    }
+    NSObject* userskill = [[data valueForKey:@"userskill"] valueForKey:@"userskill"];
+    NSLog(@"%@", userskill);
+    NSMutableArray* userskills = [ad getDataUserskills];
+    NSString *name = [userskill valueForKey:@"skname"];
+    int i = 0;
+    for ( i = 0; i< [userskills count]; i++){
+        NSObject* us = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
+        NSString* skname = [us valueForKey:@"skname"];
+        if ([skname isEqualToString:name]){
+            int level = [[us valueForKey:@"level"] intValue];
+            int level2 = [[userskill valueForKey:@"level"] intValue];
+            if (level2 > level)
+                [ad showMsg:[NSString stringWithFormat:@"你的\"%@\"提升了!", skname] type:0 hasCloseButton:NO];
+            [userskills replaceObjectAtIndex:i withObject: [data valueForKey:@"userskill"]];
+            break;
+        }
+    }
+    
+    UIProgressView *pv = [pv_tp objectAtIndex:i];
+    int tp = [[userskill valueForKey:@"tp"] intValue];
+    int level = [[userskill valueForKey:@"level"] intValue];
+
+    float process = ((float)tp)/((level+1)*(level+1));
+    [pv setProgress:process];
+    
+    UILabel* lb = [lb_level_list objectAtIndex:i];
+    NSString* stp = [[userskill valueForKey:@"tp"] stringValue];
+    [lb setText:[[NSString alloc] initWithFormat:@"%@/%@", stp, [[userskill valueForKey:@"level"] stringValue]]];
+
+    // update potential
+    NSObject* userext = [[[data valueForKey:@"user"] valueForKey:@"user"] valueForKey:@"userext"];
+    
+    [[ad.data_user valueForKey:@"user"] setValue:userext forKey:@"userext"];
+    NSLog(@"%@", ad.data_user);
+    int pot = [[[ad getDataUserext] valueForKey:@"pot"] intValue];
+    lbPotential.text = [NSString stringWithFormat:@"%d", pot];
+    
+    
+        
+}
 - (void)viewDidAppear:(BOOL)animated{
     
 //    [UIView setAnimationsEnabled:YES];
@@ -399,8 +533,16 @@
 {
     NSLog(@"ANIMATION stopped");
     [skillsView setTransform:CGAffineTransformIdentity]; 
-    [skillsView setFrame:CGRectMake(0, 200, 200, 300)];
+    [skillsView setFrame:CGRectMake(0, 200, 320, 300)];
   
 }
 
+- (IBAction)onSelectLibrary:(id)sender {
+    vcResearch.view.hidden = NO;
+    skillsView.hidden = YES;
+}
+- (IBAction)onSelectTrainingGround:(id)sender {
+    skillsView.hidden = NO;
+    vcResearch.view.hidden = YES;
+}
 @end

@@ -18,11 +18,11 @@ class Parry < Skill
    
    def power(context)
        p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      return  (p + context[:user].ext[:exp]+1) / 30 *      ( (context[:user].ext[:str]+1)/10)
+      return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:str]+1)/10)
    end
     
    def defense(context)
-       return context[:user].ext[:str] +  @skill[:level]
+       return context[:user].tmp[:str] +  @skill[:level]
    end 
     
    def cost_stam(context)

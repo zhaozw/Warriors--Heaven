@@ -1,0 +1,2 @@
+module UserquestsHelper
+end

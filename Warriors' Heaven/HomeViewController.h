@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StatusViewController.h"
+#import "AppDelegate.h"
 
 @interface HomeViewController : UIViewController{
     UIImageView * bgView;
@@ -20,6 +21,9 @@
     UIView *waiting;
     NSString * cookie;
 }
+@property (strong, nonatomic) IBOutlet UIScrollView *vBadge;
+@property (strong, retain) AppDelegate *ad;
+@property (strong, nonatomic) IBOutlet UIWebView *vSummary;
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
@@ -30,7 +34,12 @@
 -(void)viewWillAppear:(BOOL)animated;
 @property (strong, nonatomic) IBOutlet UILabel *lbUserName;
 
+
+
+- (IBAction)onTouchFight:(id)sender;
+
 - (IBAction)onClickStatus:(id)sender;
+- (IBAction)onTouchSkill:(id)sender;
 // handle network
 // 收到响应时, 会触发
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse;

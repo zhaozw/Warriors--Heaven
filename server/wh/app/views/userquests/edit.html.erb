@@ -1,0 +1,20 @@
+<h1>Editing userquest</h1>
+
+<% form_for(@userquest) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :progress %><br />
+    <%= f.text_field :progress %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userquest %> |
+<%= link_to 'Back', userquests_path %>

@@ -35,13 +35,70 @@ Rails::Initializer.run do |config|
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'UTC'
 
+
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
-  config.action_controller.session_store = :active_record_store
+  #config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :mem_cache_store
   config.action_controller.session = {
     :key => '_wh_session',
     :secret=>'4a9e7a59871177d8cfc7798c2ffb24c6a9f1a066ebd8fcc6a96e7827b3f36fcdf17907512e52b8259ae36af2f89cbf858b48421a33842b6f686ccb80e816412f',
-    :expire_after => 86400*30*100
+  #  :expire_after => 86400*30*100
+  :expire_after => 0
     }
-end
+=begin
+require 'memcache'
+require 'memcache_util'
+#require 'cgi/session.rb'
+require 'action_controller/session/mem_cache_store.rb'
+require 'active_support/cache/mem_cache_store.rb'
+require 'memcache'
+    # memcache defaults, environments may override these settings
+    unless defined? MEMCACHE_OPTIONS then
+        MEMCACHE_OPTIONS = {
+            :debug => false,
+            :namespace => 'my_memcache',
+            :readonly => false
+        }
+    end
+    # memcache configuration
+    unless defined? MEMCACHE_CONFIG then
+    File.open "#{RAILS_ROOT}/config/memcache.yml" do |memcache|
+    MEMCACHE_CONFIG = YAML::load memcache
+    end
+    end
+    # Connect to memcache
+    unless defined? CACHE then
+    CACHE = MemCache.new MEMCACHE_OPTIONS
+    CACHE.servers = MEMCACHE_CONFIG[RAILS_ENV]
+    end
+    # Configure the session manager to use memcache data store
+    ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS.update(
+    :database_manager => CGI::Session::MemCacheStore,
+    :cache => CACHE, :expires => 3600 * 12)
+=end
+=begin 
+require 'memcache' 
+memcache_options = { 
+   :compression => true, 
+   :debug => true, 
+   :namespace => "_wh_session", 
+   :readonly => false, 
+   :urlencode => true 
+} 
+
+memcache_servers = ['localhost:11211'] 
+cache_params = *([memcache_servers, memcache_options].flatten) 
+# 
+SESSION_CACHE = MemCache.new *cache_params 
+=end
+=begin
+config.session_store = { 
+  :key         => '_wh_session', 
+  :secret     =>'4a9e7a59871177d8cfc7798c2ffb24c6a9f1a066ebd8fcc6a96e7827b3f36fcdf17907512e52b8259ae36af2f89cbf858b48421a33842b6f686ccb80e816412f', 
+  :cache       => SESSION_CACHE, 
+  :expires     => 3600*24*7 
+} 
+=end
+   end

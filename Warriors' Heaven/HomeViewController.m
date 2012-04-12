@@ -11,15 +11,20 @@
 #import "AppDelegate.h"
 #import "SBJson.h"
 #import "WHHttpClient.h"
+#import "EGOImageButton.h"
 
 @implementation HomeViewController
 @synthesize lbUserName;
 
+//@synthesize vStatus;
+@synthesize vSummary;
 @synthesize lbStatus;
 @synthesize vcStatus;
 @synthesize lbTitle;
 @synthesize playerProfile;
 @synthesize bgView;
+@synthesize vBadge;
+@synthesize ad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,8 +69,34 @@
         NSObject* json = [ad.data_user valueForKey:@"user"];
         lbUserName.text = [json valueForKey:@"user"];
         lbTitle.text = [json valueForKey:@"title"];
+        
+        // show badges
+        vBadge.frame = CGRectMake(20, 200, 250, 35);
+        [vBadge setBackgroundColor:[UIColor clearColor]];
+        NSArray* badges = [[ad getDataUserext] valueForKey:@"badges"];
+        for (int i = 0; i < [badges count]; i++){
+            NSObject* b = [badges objectAtIndex:i];
+            NSString * image = [b valueForKey:@"image"];
+            EGOImageButton * btn_badge = [[EGOImageButton alloc] initWithFrame:CGRectMake(35*i,0, 35, 35)];
+            [btn_badge setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, image]]];
+            [btn_badge addTarget:self action:@selector(showHelpForBadge:) forControlEvents:UIControlEventTouchUpInside];
+            btn_badge.tag = i;
+            [vBadge addSubview:btn_badge];
+        }
+        
+    }else{
+        [ad updateUserData];
     }
     //[vcStatus viewDidAppear:NO];
+}
+
+- (void) showHelpForBadge:(UIButton*) btn{
+    int i = btn.tag;      
+    NSArray* badges = [[ad getDataUserext] valueForKey:@"badges"];
+    NSObject* b = [badges objectAtIndex:i];
+    NSString * name = [b valueForKey:@"name"];
+    NSString* helpUrl = [NSString stringWithFormat:@"http://%@:%@/help?cat=badge&name=%@", ad.host, ad.port, name];
+    [ad showHelpView:helpUrl];
 }
 #pragma mark - View lifecycle
 /*
@@ -137,6 +168,7 @@
 //    [bgView setImage:[UIImage imageNamed:@"background.png"]];
 //    [self.view addSubview:bgView];
     
+    ad = [UIApplication sharedApplication].delegate;
     // set strechable image for report view
     UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:39];
@@ -148,19 +180,27 @@
    // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
     // add status view
-    [self addChildViewController:vcStatus];
-    [self.view addSubview:vcStatus.view];
+//    [self addChildViewController:vcStatus];
+//    [self.view addSubview:vcStatus.view];
     
     
     [[self lbTitle ] setText:@""];
     [lbUserName setText:@""];
     
+    [vSummary setBackgroundColor:[UIColor clearColor]];
+    [vSummary setOpaque:NO];
+    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+    NSLog(url);
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [vSummary loadRequest:req];
+    
     // test http
+    
 //    [self sendHttpRequest:@"/editor?fdaf"];
     
     //[self sendHttpRequest:@"/"];
-    WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
+    //WHHttpClient* client = [[WHHttpClient alloc] init:self];
+  //  [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
 }
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"HomeViewController receive data:%@", json);
@@ -181,6 +221,9 @@
     [self setLbStatus:nil];
     [self setLbUserName:nil];
     [self setLbTitle:nil];
+//    [self setVStatus:nil];
+    [self setVSummary:nil];
+    [self setVBadge:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -273,8 +316,19 @@
 
 */
 
+- (IBAction)onTouchFight:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:2];
+}
+
 - (IBAction)onClickStatus:(id)sender {
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [[ad tabBarController] selectTab:1];
 }
+
+- (IBAction)onTouchSkill:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:3];
+}
+
 @end

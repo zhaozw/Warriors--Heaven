@@ -1,0 +1,23 @@
+<p>
+  <b>Uid:</b>
+  <%=h @usereq.uid %>
+</p>
+
+<p>
+  <b>Sid:</b>
+  <%=h @usereq.sid %>
+</p>
+
+<p>
+  <b>Eqid:</b>
+  <%=h @usereq.eqid %>
+</p>
+
+<p>
+  <b>Eqname:</b>
+  <%=h @usereq.eqname %>
+</p>
+
+
+<%= link_to 'Edit', edit_usereq_path(@usereq) %> |
+<%= link_to 'Back', usereqs_path %>

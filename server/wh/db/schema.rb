@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201203072147536) do
+ActiveRecord::Schema.define(:version => 201203072147538) do
+
+  create_table "equipment", :force => true do |t|
+    t.string   "eqname"
+    t.string   "eqtype"
+    t.string   "prop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :default => "", :null => false
@@ -28,13 +36,36 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.datetime "updated_at"
   end
 
+  create_table "tradables", :force => true do |t|
+    t.string   "name"
+    t.integer  "objtype"
+    t.integer  "price"
+    t.integer  "number"
+    t.integer  "soldnum"
+    t.integer  "owner"
+    t.string   "ownername"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usereqs", :force => true do |t|
+    t.integer  "uid"
+    t.string   "sid"
+    t.integer  "eqid"
+    t.string   "eqname"
+    t.integer  "eqslotnum"
+    t.string   "wearon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "userexts", :force => true do |t|
     t.integer  "uid"
     t.string   "name"
     t.integer  "gold"
     t.integer  "exp"
     t.integer  "level"
-    t.string   "prop"
+    t.text     "prop"
     t.string   "sid"
     t.integer  "hp"
     t.integer  "maxhp"
@@ -51,6 +82,16 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.datetime "updated_at"
   end
 
+  create_table "userquests", :force => true do |t|
+    t.string   "sid"
+    t.integer  "uid"
+    t.string   "name"
+    t.integer  "progress"
+    t.text     "prop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "user"
     t.string   "sid"
@@ -61,6 +102,9 @@ ActiveRecord::Schema.define(:version => 201203072147536) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["sid"], :name => "index_users_on_sid", :unique => true
+  add_index "users", ["user"], :name => "index_users_on_user", :unique => true
 
   create_table "userskills", :force => true do |t|
     t.integer  "uid"

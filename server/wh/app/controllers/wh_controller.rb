@@ -1,37 +1,178 @@
 require 'json'
+require 'objects/player.rb'
+require 'objects/npc/npc.rb'
+#require 'objects/skills/skill.rb'
 
 class WhController < ApplicationController
     
+    def test
+  
+   #cookies[:_wh_session]=""
+ #  destroy_session
+ #   reset_session
+   # session[:fdsf]="fsfs"
+   #     cookies["sid"] = ActiveSupport::SecureRandom.hex(16)
+      #     session[:a] = "b"
+      if session[:a]
+        session[:a] = "b" 
+        else
+             session[:a] ="not exist"
+         end
+        
+        #render :text=>cookies.to_json+session.to_json#+env[ENV_SESSION_KEY]
+        render :text=>"fdsf"
+    end
     def index
+
         p "cookie=#{cookies}"
        # session[:name]="ju"
     #    ret = {
      #       "uid" => "ju"
       #  }
+
+
+      
       sid = cookies[:_wh_session]
-        r = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
+
+      # for test
+      if (params[:sid])
+          sid = params[:sid]
+      end
+        user = User.find_by_sql("select id, user, sid, sex, race, age, title from users where sid='#{sid}'")
    #     r = User.find_by_sql("select user, uid, sid, sex, race, age from users where sid='d434740f4ff4a5e758d4f340d7a5f467'")
+        if (!sid)
+            error "session not exist"
+            return
+        end
+        p sid
+        if (user == 0 || user.size==0)
+        #js = '{"error":"user not found"}'
+            error "user not found"
+            return
+        end
         
-        js = '{"error":"user not found"}'
-        p r
-        if (r.size >0)
+        if (user.size >0)
             ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
-             
-        
             for rr in ret
                  s = load_skill(rr[:skname])
                  rr[:dname] = s.dname
                  rr[:category] = s.category
              end
-            r[0][:userskills] = ret
-            js = r[0].to_json
-            session[:uid] = r[0][:id]
+            user[0][:userskills] = ret 
+      
+            session[:uid] = user[0][:id]
         end
-        render :text=>js
+        
+        r = Userext.find_by_sql("select * from userexts where sid='#{sid}'")
+        if (r.size>0)
+            user[0][:userext] = r[0]
+            session[:userdata] = user[0]
+        end
+        render :text=>user[0].to_json
     end
     
-    def error(msg)
-        render :text=>"{\"error\":#{msg}}"
+    def reg
+        sid = ActiveSupport::SecureRandom.hex(16)
+        cookies[:_wh_session] = {
+               :value => sid,
+               :expires => 1.year.from_now,
+               :domain => request.host
+           }
+        session[:username] = params[:name]
+        p "=====>>>#{session['_wh_session']}"
+        r = User.new({
+            :user=>params[:name],
+            :sid=>sid,
+             :age=>16,
+             :race=> 0,
+             :sex=> params[:sex],
+             :title=> "新人",
+            
+        })
+        begin
+            r.save!
+        rescue  Exception=>e
+            p e
+            if /Mysql::Error: Duplicate entry/.match(e)
+                error ("名字已被使用")
+            else
+                error("Cannot create user with name #{params[:name]}")
+            end
+            return 
+        end
+        
+        # init userext
+        ext = Userext.new({
+            :uid  => r[:id],
+            :name => r[:user],
+            :gold => 100,
+            :exp  =>    0,
+            :level=>    0,
+            :prop => '{"max_eq":"5", "max_item":10}',
+            :sid  => sid,
+            :hp   => 100,
+            :maxhp=> 100,
+            :stam => 100, 
+            :maxst=>  100,
+            :str  =>  20,
+            :dext =>  20,
+            :luck =>  50,
+            :fame => 0,
+            :race => "human",
+            :pot  =>  100,
+            :it   =>  20,
+            :max_jl => 100,
+            :jingli => 100
+        })
+        ext.save!
+        r[:userext] = ext
+        
+        # init skill
+             r[:userskills]  = []
+        skill = r[:userskills].push(skill)
+                skill = Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "unarmed",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+     r[:userskills].push(skill)
+     
+       skill =  Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "parry",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+
+                r[:userskills].push(skill)
+                
+                skill = Userskill.new({
+            :uid    =>  r[:id],
+            :sid     => sid,
+            :skid    => 0,
+            :skname  => "dodge",
+            :skdname => "",
+            :level   => 0,
+            :tp      => 0,
+            :enabled => 1
+        })
+        skill.save!
+        r[:userskills].push(skill)
+        
+        render :text=>r.to_json
+        
+        
     end
     def userext
         sid = cookies[:_wh_session]
@@ -71,181 +212,87 @@ class WhController < ApplicationController
     
  
     
-    def chooseBestSkill(context, pur, weapon_type, prop)
-            p "choose best skill for #{pur}/#{weapon_type} by #{prop}"
-            p "skills #{context[:skills]}(size=#{context[:skills].size})}"
-            attacker_skills = context[:skills]
-     
-            best_skill = {
-                :skill => nil
-            }
-            best_skill[prop] = 0
-            reg2  = Regexp.new("#{pur}", true)
-            if (weapon_type and weapon_type.length >0)
-                reg = Regexp.new("#{weapon_type}", true)
-            else
-                reg = /./i
-            end
-            for skill in attacker_skills
-                if (!skill)
-                    next
-                end
-                skillname = skill[:skname]
-                p "===>skill = #{skill}"
-                p "===>skill name =#{skillname}"
-                #context[:thisskill] = skill
-                purpose = query_skill(skillname, "for", skill, context)
-                type = query_skill(skillname, "type", skill, context)
-                
-                # if skill is for attacking and has correct type with weapon
-                if type=~ reg and purpose=~reg2 
-                    ret = query_skill(skillname, prop, skill, context)
-                    p "===>#{prop} of #{skillname}: #{ret} \n"
-                    if (ret.to_i > best_skill[prop])
-                        best_skill[prop] = ret
-                        best_skill[:skill] = skill
-                    end
-                end
 
-                
-                #p "target:"+@target_class+", cmd:"+@cmd+", param:"+@cparam
-            end
-            if ( best_skill[:skill] == nil)
-                #if not found, add basic skill for this type of skill
-                _skname = weapon_type
-                if (pur == 'dodge')
-                    _skname = 'dodge'
-                elsif (pur == 'parry')
-                    _skname = 'parry'
-                end
-                if _skname == nil or _skname==""
-                    raise "skill name is nil"
-                end
-                 us = Userskill.new({
-                    :uid        =>  context[:user][:id],
-                    :sid        =>  context[:user][:sid],
-                    :skid       =>  0,
-                    :skname     =>  _skname,
-                    :skdname    =>  "basic #{weapon_type}",
-                    :level      =>  0,
-                    :tp         =>  0,
-                    :enabled    =>  1   
-                })
-                us.save!
-                attacker_skills.push(us)
-                best_skill[:skill] = us
-            end
-            return best_skill
-    end
-    
-    def choosBestAttackSkill(context, weapon_type)
-            attack_skill = chooseBestSkill(context, "attack", weapon_type, "damage")
-          #  context[:thisskill] = attack_skill[:skill]
-          #  ret = query_skill(attack_skill[:skill][:skname], "speed", context)
-          #  attack_skill["speed"] = ret
-            p "==> damage of #{attack_skill[:skill][:skname]}: #{attack_skill['damage']}"
-            return attack_skill
-    end
-    
-    def choosBestDodgeSkill(context)
-        attack_skill = chooseBestSkill(context, "dodge", nil, "speed")
-    
-            p "==>#{context[:user].ext[:name]} speed of #{attack_skill[:skill][:skname]}: #{attack_skill['speed']}"
-            return attack_skill
-    end
-    
-    def choosBestDefenseSkill(context, weapon_type)
-        attack_skill = chooseBestSkill(context, "parry", nil, "defense")
-    
-        p "==> defense of #{attack_skill[:skill][:skname]}: #{attack_skill['defense']}"
-        return attack_skill
-    end
-    
     
     def render_skill (context)
         
     end
     
-    # $N=>attacker $n=>defenser
-    def translate_msg(msg, context)
-        attacker = context[:user]
-      #  p attacker[:name] 
-      #  p msg
-        defenser = context[:target]
-        p "player uid #{attacker.ext[:uid]}, your uid #{session[:uid]}, msg=#{msg}"
-           if (attacker.ext[:uid] == session[:uid])
-                m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.ext[:name])
-            else
-                m = msg.gsub(/\$N/, attacker.ext[:name]).gsub(/\$n/, "你")
-            end
-    end
-    
-    def damage_msg(d, weapon_type)
-        if d == 0
-            return "结果没有对$n造成任何伤害"
-        end
-        case weapon_type
-        when "unarmed"
-            if (d < 10)
-                return "把$N打的退了半步，毫发无损!(Hp-#{d})"
-            elsif (d < 20)
-                return "[砰]的一声把N$N击退了好几步，差点摔倒!(Hp-#{d})"
-            elsif (d < 20)
-                return "结果一击命中，$N闷哼了一声显然吃了不小的亏!(Hp-#{d})"
-            elsif (d < 50)
-                return "重重的击中了, $N【哇】的吐出了一口鲜血!(Hp-#{d})"
-            else
-                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"
+ 
   
-                
-            end
+    
+ 
+    # /wh/fight?:enemy=<user id>    
+    def fight2
+        
+        check_session
+        
+        enemy_id = params[:enemy]
+        enemy = User.find(enemy_id)
+        p enemy.inspect
+        
+        sid = cookies[:_wh_session]
+        p "session uid = #{session[:uid]}"
+        if session[:uid]
+             r = User.find(session[:uid])
+            player = r
         else
+             r = User.find_by_sql("select * from users where sid='#{sid}'")
+             player = r[0]
+             session[:uid] = player[:id]
         end
-    end
-    
-    def doDamage(attacker_attack_skill, context)
-        skill = context[:user].query_skill(attacker_attack_skill[:skill][:skname])
-       # p "freturn skill #{skill}"
-       # d = skill.damage(context)                
-        #context[:target].tmp[:hp] -= d
+        
+        # indicate who is the client, here isUser not same meaning with .isUser 
+        player[:isUser] = true
+        enemy[:isUser] = false
+        
+        p1 = Player.new
+        p p1.class
+        p1.set(player)
+        p2 = Player.new
+        p2.set(enemy)
+        context = {
+            :msg => ""
+        }
+        
+        result = _fight(p1, p2, context)
+        
+        user_data[:userext] = player.ext
 
-        m = skill.doDamage(context)
-        return "<br/>\n"+translate_msg(m, context)
-    end
-    
-    def doParry(defenser_dense_skill, context)
-        skill = context[:user].query_skill(defenser_dense_skill[:skill][:skname])
-        skill.doParry(context)
-        return "<br/>\n"+translate_msg(context[:msg], context)
-    end
-    
-    def skill_power(skillname, context)
-       skill =  context[:user].query_skill(skillname)
-       if (skill == nil)
-           logger.info("user #{context[:user][:id]}-#{context[:user].ext[:name]} doesn't have skill '#{skillname}'")
-           return 1
-       end
-       p = skill.power(context)
-       if p <= 0
-           return 1
-       else
-           return p
-       end
-    end
-    
-    # return true if level up
-    def improve_skill(player, skillname, point)
-        p  player.query_skill(skillname)
-        skill = player.query_skill(skillname).data
-        skill[:tp] += point
-        if ( (skill[:level]+1)*(skill[:level]+1) <= skill[:tp] )
-            skill[:level] += 1
-            skill[:tp] = 0
-            return true
+        ret = {
+            "win" => result,
+            "gain" => player[:gain],
+            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>"
+        }
+         # p msg
+        if (params[:debug])
+           render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>" + player[:gain].to_json
+        else
+            render :text=>ret.to_json
         end
-        # save to db after fight finished
-        return false
+      #  render :text=>context[:msg]
     end
+    
+    
+    
+    def fight3
+       # reset_session
+        check_session
+        
+         user =   Player.new
+
+        user.set(user_data)
+           npc = create_npc("objects/npc/shanzei")
+            npc.set_temp("level", user.ext[:level])
+           
+        context={:msg=>""}
+            _fight(user, npc, context)
+             render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>" + user[:gain].to_json
+   
+    end
+    
+    
+    # /wh/fight?:enemy=<user id>
     def fight
 
         enemy_id= params[:enemy]
@@ -278,8 +325,9 @@ class WhController < ApplicationController
         p player.ext
         player[:isUser] = true
         enemy[:isUser] = false
+        
         # calculate who attach first
-        if (player.ext[:dext] > enemy.ext[:dext])
+        if (player.tmp[:dext] > enemy.tmp[:dext])
             attacker = player
             defenser = enemy
         else
@@ -287,7 +335,7 @@ class WhController < ApplicationController
             defenser = player
         end
         
-        msg += "#{attacker.ext[:name]} 抢先发动了进攻!\n"
+        msg += "#{attacker.name} 抢先发动了进攻!\n"
         p attacker.inspect
         attacker_skills = Userskill.find_by_sql("select * from userskills where uid='#{attacker.ext[:uid]}' and enabled=1")
         defenser_skills = Userskill.find_by_sql("select * from userskills where uid='#{defenser.ext[:uid]}' and enabled=1")
@@ -339,7 +387,7 @@ class WhController < ApplicationController
             :exp =>0,
            # :hp =>0,
            # :stam =>0,
-            :pot => 1,
+            :pot => 0,
             :level =>0,
             :skills =>{
                 attacker[:dodge_skill][:skill][:skname] =>
@@ -362,8 +410,16 @@ class WhController < ApplicationController
                 }
             }
         }
-        i = 0;
+        i = 0
+        style_c = "user"
         while (i < 100 )
+            if  style_c == "user"
+               style_c = "enemy"
+            else
+                style_c = "user"
+            end
+            
+             msg += "<div class=\"#{style_c}\">\n";
             i = i+1
             # do attack
             context_a = {
@@ -381,12 +437,14 @@ class WhController < ApplicationController
                     :gain => gain,
                     :msg => ""
             }
-            query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attacker[:attack_skill][:skill], context_a)
+            attacker_attack_skill.doAttack(context_a)
+           # query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attackerattack_skill][:skill], context_a)
                 
           #  dname = attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname
           #   msg += "<br/>\n【#{dname}】"+translate_msg(context_a[:msg], context_a)
+               
                msg += "<br/>\n"+translate_msg(context_a[:msg], context_a)
-             
+              
              #
              # hit ?
              #
@@ -520,7 +578,7 @@ class WhController < ApplicationController
              msg += "<br/>\n#{attacker[:user]}  hp:#{attacker.tmp[:hp]} 体力:#{attacker.tmp[:stam]}\n<br/>"
              msg += "#{defenser[:user]}  hp:#{defenser.tmp[:hp]} 体力:#{defenser.tmp[:stam]}\n<br/>"
              
-       
+             msg += "</div>\n";
             
              if (defenser.tmp[:hp] <=0 )
                  msg += "<br/>#{defenser[:user]}战斗不能"
@@ -549,6 +607,7 @@ class WhController < ApplicationController
         elsif (gain[:pot] != 0 )
             player.ext.save!
         end
+        session[:userdata][:userext] = player.ext
         gain[:skills].each {|k, v|
             p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
             if v[:point] != 0 || v[:level] != 0
@@ -568,9 +627,77 @@ class WhController < ApplicationController
         ret = {
             "win" => attacker[:isUser],
             "gain" => gain,
-            "msg"  => msg
+            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>"
         }
        # p msg
-        render :text=>msg + gain.to_json
+       if (params[:debug])
+        render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>" + gain.to_json
+    else
+        render :text=>ret.to_json
+    end
+    end
+    
+    def practise
+        return if !check_session
+        use_pot = params[:pot] # use how much potential
+        skill_name = params[:skill]
+        
+        ud = user_data
+        ext = user_data[:userext]
+        pot = ext[:pot]
+        if pot <= 0
+            error ("You don't have enough potential")
+            return
+        end
+        
+        # get skill
+      #  User user = session[:userdata]
+       # skill = user.query_skill(skill_name)
+        rs = Userskill.find_by_sql("select * from userskills where skname='#{skill_name}' and uid=#{session[:uid]}")
+        if (rs.size <0 || rs[0] == nil)
+            error("User doesn't has this skill")
+            return
+        end
+        
+        # calculate skillpoint
+        gain = use_pot # maybe need change algorithm
+        skill = rs[0]
+        e = ext[:exp]
+        for i in 1..ext[:level]
+            e+= i*i*i
+        end
+        p "total exp #{e}, level #{ext[:level]} tempexp:#{ext[:exp]}"
+        if (rs[0][:tp] + 1 >= rs[0][:level]*rs[0][:level])
+            if (rs[0][:level] +1) * (rs[0][:level] +1) *(rs[0][:level] +1)/10>e
+                error "You need more battle experience"
+                return
+            end
+            rs[0][:level] += 1
+            rs[0][:tp] = 0
+        else
+            rs[0][:tp] +=1
+        end
+        rs[0].save!
+        
+        ext[:pot] -= 1
+        ext.save!
+        
+    
+
+        p ext.inspect
+            p ud[:userext].inspect
+        ret = {
+            :userskill=>rs[0],
+            :user => ud
+        }
+        p ret.to_json
+       # ret = ud.join(rs[0])
+        render :text=>ret.to_json
+        
+    end
+    
+    def summary
+        sid = params[:sid]
+        
     end
 end

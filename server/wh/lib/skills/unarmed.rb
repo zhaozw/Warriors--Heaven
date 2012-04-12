@@ -16,11 +16,11 @@ class Unarmed < Skill
    def dname #display name
      "基本拳脚"
    end
-   
+
    def damage(context)   # only for calculation, "render" function will make real damage
-       userext = context[:user].ext
+       user = context[:user]
        a = getAction
-       d = a[:damage] + userext[:str]
+       d = a[:damage] + user.tmp[:str]
       
    end
     
@@ -28,19 +28,20 @@ class Unarmed < Skill
      # context[:user].ext[:str] * @skill[:level]
     # damage(context)
       p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      return  (p + context[:user].ext[:exp]+1) / 30 *      ( (context[:user].ext[:str]+1)/10)
+      str  = context[:user].tmp[:str]
+      return  (p + context[:user].tmp[:str]+1) / 30 *      (( str+1)/10)
    end
     
    def speed(context)
        thisskill = @skill
-       thisskill[:level] * 2 + context[:user].ext[:dext].to_i
+       thisskill[:level] * 2 + context[:user].tmp[:dext].to_i
    end
    
    def defense(context)
        thisskill = @skill
        return thisskill[:level]
    end
-   
+
    def attack_actions
        [
            {
@@ -58,9 +59,9 @@ class Unarmed < Skill
            }
           ]
    end
-   
+
    def getAction
-       level = @skill[:level]
+      level = @skill[:level]
       actions = attack_actions
       i = 0;
       for a in actions    
@@ -108,9 +109,7 @@ class Unarmed < Skill
             elsif (d < 50)
                 return "重重的击中了$n, $n【哇】的吐出了一口鲜血!(Hp-#{d})"
             else
-                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"
-  
-                
+                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"   
             end
         else
             return "对$n造成#{d}点伤害"
@@ -119,13 +118,13 @@ class Unarmed < Skill
     
    def doDamage(context)
         # damage
-         d = damage(context)                
+        d = damage(context)                
+     #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
         context[:target].tmp[:hp] -= d
-        
         # cost stamina
         cs = cost_stam(context)
+        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
         context[:user].tmp[:stam] -= cs
-       
         context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
    end
    
@@ -141,5 +140,5 @@ class Unarmed < Skill
         # TODO translate arabic number to Chinse e.g.“第三十六式”
         context[:msg] += "【#{dname} 第#{a[:index]}式】#{a[:action]}" 
    end
-    
+
 end

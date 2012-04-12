@@ -12,7 +12,9 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
-=begin
+        add_index(:users, ["user"], {:unique=>true})
+        add_index(:users, ["sid"], {:unique=>true})
+ActiveRecord::Base.connection.execute('
     insert into users values(NULL, "ju",        "d434740f4ff4a5e758d4f340d7a5f467", 30, 0, 1, "新人",NULL, NULL);
     insert into users values(NULL, "海青天",       "032730df4eb17eaa9b6b83f798b76602", 30, 0, 1, "新人", NULL, NULL);
     insert into users values(NULL, "taiseng",   "9d4a4051baf9d1c4ab7ffa9f6e9ad7b4", 30, 0, 1, "拳术世家",NULL, NULL);
@@ -24,7 +26,7 @@ class CreateUsers < ActiveRecord::Migration
     insert into users values(NULL, "queen",     "1320346951bf2bc6293fb70cc2a71a05", 30, 0, 1, "女侠", NULL, NULL);
     insert into users values(NULL, "Linsanity", "dce21c64f8788afce3960cf88734048b", 30, 0, 1, "少侠", NULL, NULL);
     insert into users values(NULL, "Shelton",   "507c5283c26d277878c622da8252ab03", 30, 0, 1, "新人",NULL, NULL);
-=end
+')
   end
 
   def self.down

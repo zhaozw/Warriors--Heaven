@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DotHide_TabBarController.h"
 #import "StatusViewController.h"
+//#import "HomeViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     DotHide_TabBarController *tabBarController;
@@ -17,24 +18,38 @@
     UIImageView *bgView;
     NSString* session_id;
     UIView *waiting;
+    UIViewController *vcHome;
 
     
     NSObject* data_user;
-    NSObject* data_userext;
+//    NSObject* data_userext;
     NSString* host;
     NSString* port;
 
     int networkStatus;
     BOOL bUserSkillNeedUpdate;
+    
+    NSObject* requests;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
+@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
+@property (strong, nonatomic) IBOutlet UIViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
-
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbAlertMsg;
+@property (nonatomic, retain) NSObject* requests;
 @property (nonatomic, assign) int networkStatus;
 @property (nonatomic, assign)  BOOL bUserSkillNeedUpdate;
 @property (nonatomic, copy) NSString* host;
 @property (nonatomic, copy) NSString* port;
 @property (nonatomic, copy) NSString* session_id;
-@property (nonatomic, retain) NSObject* data_userext;
+//@property (nonatomic, retain) NSObject* data_userext;
+
+// sample data:
+// {"user":{"userext":{"userext":{"level":10,"max_eq":"5","fame":0,"race":"","max_item":10,"str":20,"name":"queen","created_at":null,"updated_at":"2012-03-24T21:16:48Z","dext":20,"s
 @property (nonatomic, retain) NSObject* data_user;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -47,8 +62,13 @@
 @property (nonatomic, retain) IBOutlet UIViewController *viewcontroller;
 @property (nonatomic, retain) IBOutlet DotHide_TabBarController *tabBarController;
 
+@property (unsafe_unretained, nonatomic) IBOutlet UIViewController *vReg;
 @property (strong, nonatomic) IBOutlet UIImageView* bgView;
 
+@property (strong, nonatomic) IBOutlet UIWebView *vBattleMsg;
+@property (strong, nonatomic) IBOutlet UIView *vBattleMsgBg;
+
+- (IBAction)closeFightMsg:(id)sender;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
@@ -57,4 +77,20 @@
 - (void) setBgImg:(UIImage*) img;
 - (void) showNetworkDown;
 - (void) checkNetworkStatus;
+- (void) showFightMsg:(NSString*) msg;
+- (void) updateUserData;
+- (NSObject*) getDataUser;
+- (NSObject*) getDataUserext;
+- (void) setDataUserExt:(NSArray*)data;
+- (NSObject*) getDataUserskills;
+- (NSObject*) getDataUserEqs;
+- (void) setDataUserEqs:(NSArray*)eqs;
+// type: 0: success 1: warning
+- (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
+- (void) showHelpView:(NSString*) url;
+- (void) showStatusView:(BOOL)bShow;
+- (void) setSessionId:(NSString *)session_id;
+- (void) initUI;
+- (void) saveDataUser;
+
 @end
