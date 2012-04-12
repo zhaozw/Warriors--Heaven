@@ -12,7 +12,7 @@ class CreateTradables < ActiveRecord::Migration
       t.timestamps
     end
   end
-ActiveRecord::Base.connection.execute("
+=begin
     insert into tradables values (null, 'sword', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'blade', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'ring', 1, 10, 100, 0, 0, null, null, null);
@@ -20,7 +20,7 @@ ActiveRecord::Base.connection.execute("
     insert into tradables values (null, 'necklace', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'armo', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
-")
+=end
   def self.down
     drop_table :tradables
   end
