@@ -78,7 +78,7 @@ require 'memcache'
     :database_manager => CGI::Session::MemCacheStore,
     :cache => CACHE, :expires => 3600 * 12)
 =end
- 
+=begin 
 require 'memcache' 
 memcache_options = { 
    :compression => true, 
@@ -92,6 +92,7 @@ memcache_servers = ['localhost:11211']
 cache_params = *([memcache_servers, memcache_options].flatten) 
 # 
 SESSION_CACHE = MemCache.new *cache_params 
+=end
 =begin
 config.session_store = { 
   :key         => '_wh_session', 

@@ -18,10 +18,10 @@ class Userext < ActiveRecord::Base
           j = JSON.parse(self[:prop])
       else
           j = {}
-    end
-        j[n] = v
-        self[:prop] = j.to_json
-        #save!
-        after_initialize
+      end
+      j[n] = v
+      self[:prop] = j.to_json
+      #save!
+      after_initialize
   end
 end

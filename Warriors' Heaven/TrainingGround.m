@@ -12,8 +12,9 @@
 #import "WHHttpClient.h"
 
 @implementation TrainingGround
+@synthesize vcResearch;
 @synthesize lbPotential;
-@synthesize vcStatus;
+//@synthesize vcStatus;
 @synthesize skillsView;
 @synthesize vBasicSkill;
 @synthesize vCommonSkill;
@@ -60,7 +61,8 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
     
-    
+    vcResearch.view.hidden = YES;
+    [self.view addSubview:vcResearch.view];
     
     //  UIImageView skillsView = [[UIImageView alloc] initWithImage:UIImage imageNamed:@"skillview.png")];
     skillsView = [[UIView alloc] initWithFrame:CGRectMake(-200, 200, 300, 300)];
@@ -229,8 +231,9 @@
 
 - (void)viewDidUnload
 {
-    [self setVcStatus:nil];
+//    [self setVcStatus:nil];
     [self setLbPotential:nil];
+    [self setVcResearch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -534,4 +537,12 @@
   
 }
 
+- (IBAction)onSelectLibrary:(id)sender {
+    vcResearch.view.hidden = NO;
+    skillsView.hidden = YES;
+}
+- (IBAction)onSelectTrainingGround:(id)sender {
+    skillsView.hidden = NO;
+    vcResearch.view.hidden = YES;
+}
 @end

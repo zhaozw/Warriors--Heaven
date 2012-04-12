@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :userrsches
+
   map.resources :userquests
 
   map.resources :tradables

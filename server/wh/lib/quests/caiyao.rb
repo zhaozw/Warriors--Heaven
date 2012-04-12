@@ -61,7 +61,7 @@ class Caiyao < Quest
                 msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
                 r = user.query_quest("caiyao")
                 r[:progress] += 10
-       #         r.save!
+                r.save!
             else
             #msg = "你很用力的挖"
      

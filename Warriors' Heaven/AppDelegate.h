@@ -91,4 +91,6 @@
 - (void) showStatusView:(BOOL)bShow;
 - (void) setSessionId:(NSString *)session_id;
 - (void) initUI;
+- (void) saveDataUser;
+
 @end

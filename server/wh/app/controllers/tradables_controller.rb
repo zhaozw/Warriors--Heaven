@@ -52,8 +52,13 @@ class TradablesController < ApplicationController
         eqslot = user_data[:userext][:eqslot]
                      
         found_available = -1
+        p eqslot
         if eqslot
-            eqslots = JSON.parse(eqslot)
+            if (eqslot.class == String)
+                eqslots = JSON.parse(eqslot)
+            else
+                eqslots = eqslot
+            end
         else
             eqslots ={}
         end

@@ -125,6 +125,7 @@
         [ad setData_user:data];
         NSString* sid = [d valueForKey:@"sid"];
         [ad setSessionId:sid];
+        [ad saveDataUser];
         self.view.hidden = YES;
         [ad initUI];
     }else{

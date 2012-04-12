@@ -57,6 +57,9 @@ class ApplicationController < ActionController::Base
         return true
     end
     
+    def update_session_data(data)
+        session[:userdata] = data
+    end
     def user_data
         p "===>session[:userdata]=#{session[:userdata]}"
         if session[:userdata]

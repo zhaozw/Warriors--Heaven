@@ -1,0 +1,28 @@
+<h1>Editing userrsch</h1>
+
+<% form_for(@userrsch) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :uid %><br />
+    <%= f.text_field :uid %>
+  </p>
+  <p>
+    <%= f.label :sid %><br />
+    <%= f.text_field :sid %>
+  </p>
+  <p>
+    <%= f.label :skname %><br />
+    <%= f.text_field :skname %>
+  </p>
+  <p>
+    <%= f.label :progress %><br />
+    <%= f.text_field :progress %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userrsch %> |
+<%= link_to 'Back', userrsches_path %>

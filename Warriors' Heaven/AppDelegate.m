@@ -53,9 +53,9 @@
 //host = @"192.168.0.24";
 //    host = @"localhost";
     //    host = @"127.0.0.1";
-    //    host = @"wh.joyqom.com";
+  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
     port = @"3006";
     return self;
 }
@@ -81,12 +81,18 @@
     NSArray *Array = [NSArray arrayWithObjects:sid, nil];
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     [SaveDefaults setObject:Array forKey:@"sessionid"];
+    
+  
+//    Array = [NSArray arrayWithObjects:nil];
+//    [SaveDefaults setObject:NULL forKey:@"data_user"];
 }
 
 - (NSObject*) readUserObject{
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     NSArray* Array = [SaveDefaults objectForKey:@"data_user"];
-    NSString* userdata = [Array objectAtIndex:0];
+    NSString* userdata = NULL;
+    if ([Array count] > 0)
+        userdata = [Array objectAtIndex:0];
     NSLog(@"datauser: %@", data_user);
     return userdata;
 }
@@ -203,8 +209,8 @@
     session_id = [self readSessionId];
     NSLog(@"load session id %@", session_id);
     
-    if (true){
-  //  if (!session_id){
+//    if (true){
+    if (!session_id){
 /*        // show registeration
         UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
         [vReg setUserInteractionEnabled:YES];
@@ -228,7 +234,7 @@
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
         }else{
-            self.data_user = [userdata JSONValue];
+//            self.data_user = [userdata JSONValue];
         }
 
         
@@ -560,5 +566,12 @@
 //    NSObject * v = [self getDataUser];
 //    [v setValue:eqs forKey:@"userskills"];
       [[data_user valueForKey:@"user"] setValue:eqs forKey:@"usereqs"];
+}
+- (void) saveDataUser{
+   
+    NSLog(@"save data_user %@", [data_user JSONRepresentation]);
+    NSArray *Array = [NSArray arrayWithObjects:data_user, nil];
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    [SaveDefaults setObject:Array forKey:@"data_user"];
 }
 @end
