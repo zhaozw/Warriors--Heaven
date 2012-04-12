@@ -90,10 +90,10 @@
 - (NSObject*) readUserObject{
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     NSArray* Array = [SaveDefaults objectForKey:@"data_user"];
-    NSString* userdata = NULL;
+    NSObject* userdata = NULL;
     if ([Array count] > 0)
         userdata = [Array objectAtIndex:0];
-    NSLog(@"datauser: %@", data_user);
+    NSLog(@"datauser: %@", userdata);
     return userdata;
 }
 
@@ -228,9 +228,9 @@
         //    [self checkNetworkStatus];
         
         // load user data
-        NSString* userdata = [self readUserObject];
+        data_user = [self readUserObject];
 
-        if (userdata == NULL){
+        if (data_user == NULL){
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
         }else{

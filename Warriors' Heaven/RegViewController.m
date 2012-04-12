@@ -122,7 +122,7 @@
     if ([data valueForKey:@"user"]){
         AppDelegate * ad = [UIApplication sharedApplication].delegate;
         NSObject *d = [data valueForKey:@"user"];
-        [ad setData_user:data];
+        ad.data_user = data;
         NSString* sid = [d valueForKey:@"sid"];
         [ad setSessionId:sid];
         [ad saveDataUser];
