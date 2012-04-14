@@ -25,9 +25,14 @@ def create_fixure(path)
         return r
     end
 def translate_msg msg, context
+    if (!msg)
+        return
+    end
     userext = context[:user].ext
     target = context[:target]
-    msg.gsub(/\$N/m, "你").gsub("/\$n/m", target[:name])
+    p "=>msg = #{msg}"
+    p "=>target = #{target.inspect}"
+    msg.gsub(/\$N/m, "你").gsub("/\$n/m", target.name)
 end
 
     def loadGameObject(path)
@@ -48,6 +53,8 @@ end
          return m.call(params)
     end
     
+   
+   # load skill object, without user data
     def load_skill (skillname)
              # eval skill class
                 eval "require 'skills/"+ skillname+".rb'"

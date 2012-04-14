@@ -66,10 +66,9 @@ class User < ActiveRecord::Base
     end
     
 
-    
-    def query_all_skills
-        if (!self[:skills])
-            self[:skills] = {}
+    def loadAllSkills
+        p "==>load all skills"
+         self[:skills] = {}
             s = userskills
             for ss in s
                 name = ss[:skname]
@@ -77,6 +76,10 @@ class User < ActiveRecord::Base
                 r.set(ss)
                 self[:skills][name] = r
             end
+    end
+    def query_all_skills
+        if (!self[:skills])
+           loadAllSkills
        end
        return self[:skills].values
     end
@@ -84,12 +87,17 @@ class User < ActiveRecord::Base
     def query_skill(skillname)
        # p "==> skill name #{skillname}\n"
         
-       if !self[:userskill]
-           self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
-       end 
-    
-  
-       
+     #  if !self[:userskill]
+       #    self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
+     #  end 
+        userskills
+    #p "==>userskills=#{self[:userskill]}"
+#          p "==>skills=#{self[:skills].count}"
+       if (!self[:skills] || self[:skills].count == 0)
+           loadAllSkills
+       end
+
+       # p "==>skills=#{self[:skills]}"
        return self[:skills][skillname]
 =begin
        if (self[:skills][skillname])

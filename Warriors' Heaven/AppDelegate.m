@@ -51,9 +51,9 @@
     // init const
 //    host = @"localhost.joyqom.com";
 //host = @"192.168.0.24";
-//    host = @"localhost";
+    host = @"localhost";
     //    host = @"127.0.0.1";
-  host = @"wh.joyqom.com";
+//  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
 //    host = @"homeserver.joyqom.com";
     port = @"3006";

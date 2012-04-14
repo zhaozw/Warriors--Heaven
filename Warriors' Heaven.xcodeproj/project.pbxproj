@@ -41,6 +41,7 @@
 		5A388C49153647E2008395BB /* ResearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A388C47153647E2008395BB /* ResearchViewController.xib */; };
 		5A388C4C15366D93008395BB /* RegViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A388C4B15366D93008395BB /* RegViewController.xib */; };
 		5A388C4F15366DA4008395BB /* RegViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A388C4E15366DA3008395BB /* RegViewController.m */; };
+		5A388C521538D1A8008395BB /* LightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A388C511538D1A7008395BB /* LightView.m */; };
 		5A47AC4D1516C44500C050FB /* TrainingGround.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A47AC4B1516C44400C050FB /* TrainingGround.m */; };
 		5A47AC4E1516C44500C050FB /* TrainingGround.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A47AC4C1516C44400C050FB /* TrainingGround.xib */; };
 		5A47AC501516C72D00C050FB /* tab_train.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A47AC4F1516C72D00C050FB /* tab_train.jpg */; };
@@ -162,6 +163,8 @@
 		5A388C4B15366D93008395BB /* RegViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegViewController.xib; sourceTree = "<group>"; };
 		5A388C4D15366DA3008395BB /* RegViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegViewController.h; sourceTree = "<group>"; };
 		5A388C4E15366DA3008395BB /* RegViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegViewController.m; sourceTree = "<group>"; };
+		5A388C501538D1A5008395BB /* LightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightView.h; sourceTree = "<group>"; };
+		5A388C511538D1A7008395BB /* LightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightView.m; sourceTree = "<group>"; };
 		5A47AC4A1516C44400C050FB /* TrainingGround.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingGround.h; sourceTree = "<group>"; };
 		5A47AC4B1516C44400C050FB /* TrainingGround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingGround.m; sourceTree = "<group>"; };
 		5A47AC4C1516C44400C050FB /* TrainingGround.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainingGround.xib; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 				5AFD8DED15023C590066ECBA /* DHTabBar.m */,
 				5AFD8DEE15023C590066ECBA /* DotHide_TabBarController.h */,
 				5AFD8DEF15023C590066ECBA /* DotHide_TabBarController.m */,
+				5A388C501538D1A5008395BB /* LightView.h */,
+				5A388C511538D1A7008395BB /* LightView.m */,
 			);
 			name = classes;
 			sourceTree = "<group>";
@@ -731,6 +736,7 @@
 				5AAA2FEC152C58D6002E6FCF /* QuestViewController.m in Sources */,
 				5A388C48153647E2008395BB /* ResearchViewController.m in Sources */,
 				5A388C4F15366DA4008395BB /* RegViewController.m in Sources */,
+				5A388C521538D1A8008395BB /* LightView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

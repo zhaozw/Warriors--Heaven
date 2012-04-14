@@ -1,4 +1,4 @@
-class Parry < Skill
+class Parry < Game::Skill
   #  "基本招架" 
     def for
        "parry" 

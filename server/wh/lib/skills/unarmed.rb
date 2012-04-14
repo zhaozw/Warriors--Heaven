@@ -1,7 +1,7 @@
 #require 'utility.rb'
 require 'skills/skill.rb'
 
-class Unarmed < Skill
+class Unarmed < Game::Skill
     # 基本拳脚
    def for
        return "attack parry"

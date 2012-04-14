@@ -2,6 +2,7 @@ require 'json'
 require 'objects/player.rb'
 require 'objects/npc/npc.rb'
 #require 'objects/skills/skill.rb'
+require 'fight.rb'
 
 class WhController < ApplicationController
     
@@ -667,7 +668,7 @@ class WhController < ApplicationController
             e+= i*i*i
         end
         p "total exp #{e}, level #{ext[:level]} tempexp:#{ext[:exp]}"
-        if (rs[0][:tp] + 1 >= rs[0][:level]*rs[0][:level])
+        if (rs[0][:tp] + 1 >= (rs[0][:level]+1)*(rs[0][:level]+1))
             if (rs[0][:level] +1) * (rs[0][:level] +1) *(rs[0][:level] +1)/10>e
                 error "You need more battle experience"
                 return

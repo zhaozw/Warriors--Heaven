@@ -104,7 +104,7 @@
         [lbLevel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbLevel setTextColor:[UIColor yellowColor]];
         [lbLevel setBackgroundColor:[UIColor clearColor]];
-        [lbLevel setText:[[NSString alloc] initWithFormat:@"Level +%@", level]];
+        [lbLevel setText:[[NSString alloc] initWithFormat:@"Level %@", level]];
         [row addSubview:lbLevel];
         
         

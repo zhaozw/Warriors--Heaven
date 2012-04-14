@@ -1,4 +1,181 @@
 class UserrschesController < ApplicationController
+    
+    def list
+        list = [
+            "huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan",
+            "qishangquan"
+            ]
+        
+        
+
+        unread_list = []
+        read_list = []
+        if (!user_data[:userrsch])
+            rs = Userrsch.find_by_sql("select * from userrsches where uid=#{session[:uid]}")
+            user_data[:userrsch] = rs
+        end
+        for r in user_data[:userrsch]
+            skill = load_skill(r[:skname])
+            skill.set(r)
+            r[:dname] = skill.dname
+            r[:desc] = skill.desc
+            for l in list
+                if l == r[:skname]
+                    list.delete(l)
+                 
+                    break
+                end
+            end
+        end
+        p "==>userskills:#{user_data.userskills}"
+        p user_data.userskills.size
+        for  r in user_data.userskills
+            p "==>r1=#{r.inspect}"
+            for l in list
+                if l == r[:skname]
+                    list.delete(l)        
+                    break
+                end
+            end
+        end
+        for r in list
+            skill = load_skill(r)
+            rr = {
+                :skname=>r,
+                :dname=>skill.dname,
+                :desc=>skill.desc
+            }
+            unread_list.push(rr)
+        end
+        
+        ret = {
+            :unread=>unread_list,
+            :read=>user_data[:userrsch]
+        }
+        return ret
+    end
+
+    def index
+  
+        check_session
+        ret = list
+        render :text=>ret.to_json
+    end
+=begin    
+    def test0
+                check_session
+        
+        user_data[:a] = {:b=>"c"}
+        p "===>a=#{user_data[:a][:b]}"
+         render :text=>""     
+    end
+    def test
+        check_session
+        p "===>atest=#{user_data[:a][:b]}"
+        t = user_data[:a]
+         t[:b] = "d"
+         render :text=>""        
+    end
+    
+    def test2
+        check_session
+         p "===>atest=#{user_data[:a][:b]}"
+         user_data[:a][:b] = "f"
+         render :text=>"" 
+    end
+=end
+    def research
+           
+        use_pot = params[:pot] # use how much potential
+        if (!use_pot)
+            use_pot = 1
+        end
+        skill_name = params[:skname]
+        
+        check_session
+           
+
+        context ={
+            :user => user_data,
+            :msg => ""
+        }
+      
+        skill = load_skill(skill_name)
+        b = skill.checkResearchCondition(context)
+        if (!b)
+            error(context[:msg])
+            return
+        end
+        
+        ext = user_data[:userext]
+        pot = ext[:pot]
+        if pot <= 0
+            error ("You don't have enough potential")
+            return
+        end
+        # calculate skillpoint
+      #  gain = use_pot # maybe need change algorithm 
+     
+
+        
+        point = use_pot*user_data.ext[:it].to_f*100/skill.needResearchPoint().to_f
+        r = ActiveRecord::Base.connection.execute("insert into userrsches value (null, #{session[:uid]}, '#{session[:sid]}', '#{skill_name}', #{point}, NULL, NULL) on duplicate key update progress=progress+#{point}")
+      #  p"===>raaaa=#{r}"
+        
+ 
+        rs = Userrsch.find_by_sql("select * from userrsches where uid=#{session[:uid]}")
+  
+        bFinish = false
+        for r in rs
+            if r[:skname] == skill_name
+                if r[:progress] >= 100
+                    bFinish = true
+                    r.delete
+                    rs.delete(r)
+                    begin
+                    s = Userskill.new({
+                        :uid    =>  session[:uid],
+                        :sid     => session[:sid],
+                        :skid    => 0,
+                        :skname  => skill_name,
+                        :skdname => "",
+                        :level   => 0,
+                        :tp      => 0,
+                        :enabled => 1
+                    }).save!
+                    p "===>s=#{s}"
+                    rescue Exception=>e
+                        p e
+                    end
+                    if (user_data.userskills)
+                        user_data.userskills.push(s)
+                    end
+                end
+                break
+            end
+        end
+        user_data[:userrsch] = rs
+        
+            
+        ext[:pot] -= 1
+        ext.save!
+        
+      #  ret = {
+       #     :msg => "你对书中的内容有所领悟",
+      #      :progress=>point
+       # }
+       # p "=====>>>>"+ret.to_json
+        #render :text=>ret.to_json
+        ret = list
+        dname = load_skill(skill_name).dname
+        if bFinish
+            ret[:msg] = "恭喜你参透了武功秘笈“#{dname}”!"
+        else
+            ret[:msg] = "你对书中的内容有所领悟"
+        end
+        render :text=>ret.to_json
+    end
+end
 =begin
   # GET /userrsches
   # GET /userrsches.xml
@@ -84,29 +261,3 @@ class UserrschesController < ApplicationController
     end
   end
 =end
-
-    def index
-        list = [
-            "taidaoliu",
-            "kaishanzhang"
-            ]
-        
-        check_session
-        unread_list = []
-        rs = Userrsches.find_by_sql("select * from userrsches where uid=#{session[:uid]}")
-        for r in rs
-            for l in list
-                if l == r[:skname]
-                    list.delete(l)
-                    break
-                end
-            end
-        end
-        
-        ret = {
-            :unread=>list
-            
-        }
-        
-    end
-end

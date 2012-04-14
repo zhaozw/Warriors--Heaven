@@ -25,16 +25,20 @@ class ApplicationController < ActionController::Base
        #     reset_session
        
        p request.host
+       p "====>>>>dda29"
        # set cookie first, because this is used to generate sid when write memcached
            cookies[:_wh_session] = {
                :value => params[:sid],
                :expires => 1.year.from_now,
                :domain => request.host
            }
+           p "====>>>>dda69"+params[:sid]
+       #    p "====>>>>dda79"+session[:sid]
             session[:sid] = params[:sid]
            # cookies[:_wh_session] = params[:sid]
-           
+           p "====>>>>dda39"
         else
+            p "====>>>>dda19"
             if !session[:sid]
                 sid = cookies[:_wh_session]
                 if sid ==nil
@@ -47,7 +51,7 @@ class ApplicationController < ActionController::Base
                 session[:sid] = sid
             end
         end
-        
+        p "====>>>>dda9"
         if !session[:uid]
              r = User.find_by_sql("select * from users where sid='#{session[:sid]}'")
              player = r[0]
@@ -60,6 +64,7 @@ class ApplicationController < ActionController::Base
     def update_session_data(data)
         session[:userdata] = data
     end
+
     def user_data
         p "===>session[:userdata]=#{session[:userdata]}"
         if session[:userdata]

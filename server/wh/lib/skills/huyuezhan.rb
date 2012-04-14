@@ -1,4 +1,5 @@
-class Huyuezhan < Skill 
+require 'skills/skill.rb'
+class Huyuezhan < Game::Skill 
 #基本剑法
    def for
        return "attack blade"
@@ -13,6 +14,29 @@ class Huyuezhan < Skill
    
    def dname
        "弧月斩"
+   end
+   
+   def desc
+       "霸王丸曾用的弧月斩"
+   end
+    
+   def needResearchPoint
+       100
+   end
+   
+   def researchConditionDesc
+       "基本刀法>10级"
+   end
+   
+   def checkResearchCondition(context)
+       user = context[:user]
+       skill = user.query_skill("blade")
+      return true
+       if (!skill or skill.data[:level] <= 10 )
+           context[:msg] += "你的基本刀法功夫还不够，无法参悟书中奥义"
+           return false
+       end
+       return true
    end
    
    def image

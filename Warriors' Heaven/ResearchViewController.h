@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "LightView.h"
 
 @interface ResearchViewController : UIViewController
-
+@property (strong, nonatomic) IBOutlet LightView *vUnRead;
+@property (strong, nonatomic) IBOutlet LightView *vRead;
+@property (strong, retain) AppDelegate *ad;
+- (void) buildRearchList;
 @end

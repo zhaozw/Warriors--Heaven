@@ -1,5 +1,5 @@
 require 'skills/skill.rb'
-class Dodge < Skill
+class Dodge < Game::Skill
     
    def type
        return "unarmed"

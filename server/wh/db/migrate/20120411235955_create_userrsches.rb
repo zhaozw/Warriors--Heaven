@@ -9,6 +9,8 @@ class CreateUserrsches < ActiveRecord::Migration
       t.timestamps
     end
   end
+       add_index(:users, ["uid", "sid", "skname"], {:unique=>true})
+       # create unique index idx1 on userrsches (uid,sid,skname);
 
   def self.down
     drop_table :userrsches

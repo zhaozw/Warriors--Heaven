@@ -149,6 +149,8 @@
     vPremierSkillsList  = [[UIView alloc]initWithFrame:CGRectMake(0, 20, 300, 20)];
     [vPremierSkill addSubview:vPremierSkillsList];
     vPremierSkillsList.hidden = YES;
+    
+
 }
 
 - (void)selectedSkillBt:(UIButton*) bt{
@@ -395,7 +397,7 @@
             [vCommonSkillsList addSubview:lbSkillStatus];
             [lbSkillStatus setFrame:CGRectMake(120, y_c+5, 80, height)];
             [vCommonSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(300, y_c, 70, height)];
+            [btPractise setFrame:CGRectMake(220, y_c, 70, height-17)];
   
   
             y_c += height;
@@ -408,7 +410,7 @@
             [vPremierSkillsList addSubview:lbSkillStatus];
             [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height)];
             [vPremierSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(300, y_p, 70, height)];
+            [btPractise setFrame:CGRectMake(220, y_p, 70, height-17)];
       
             y_p += height;
         }
@@ -545,6 +547,8 @@
 - (IBAction)onSelectLibrary:(id)sender {
     vcResearch.view.hidden = NO;
     skillsView.hidden = YES;
+    UIScrollView* v = (UIScrollView*)[self view] ;
+    [v setContentSize:CGSizeMake(0, 200+vcResearch.view.frame.size.height-480)];
 }
 - (IBAction)onSelectTrainingGround:(id)sender {
     skillsView.hidden = NO;
