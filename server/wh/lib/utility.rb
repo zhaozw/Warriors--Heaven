@@ -26,13 +26,13 @@ def create_fixure(path)
     end
 def translate_msg msg, context
     if (!msg)
-        return
+        return ""
     end
-    userext = context[:user].ext
+#    userext = context[:user].ext
     target = context[:target]
     p "=>msg = #{msg}"
     p "=>target = #{target.inspect}"
-    msg.gsub(/\$N/m, "你").gsub("/\$n/m", target.name)
+    return msg.gsub(/\$N/m, "你").gsub("/\$n/m", target.name)
 end
 
     def loadGameObject(path)
