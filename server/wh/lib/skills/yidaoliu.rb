@@ -40,7 +40,7 @@ class Yidaoliu < Game::Skill
    end
    
    def image
-       ""other/zhujian.png"
+       "other/zhujian.png"
    end
    def damage(context)
        userext = context[:user].ext

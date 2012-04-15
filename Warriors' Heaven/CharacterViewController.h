@@ -14,8 +14,8 @@
 @interface CharacterViewController : UIViewController{
     NSMutableArray* eq_slots;
     NSMutableArray* eq_buttons; 
-    EGOImageButton * eqbtn_selected; // selected equipment in equipments list
-    EGOImageButton * eq_selected;       // selected equipments on play's body
+    EGOImageButton * sloteq_selected; // selected equipment in equipments list
+    EGOImageButton * worneq_selected;       // selected equipments on play's body
     
     UIImageView *vEq_cap;
     UIImageView *vEq_neck;
@@ -43,8 +43,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *vItemBg;
 @property (nonatomic, retain) NSMutableArray* eq_slots;
 @property (nonatomic, retain) NSMutableArray* eq_buttons; 
-@property (nonatomic, retain) EGOImageButton * eq_selected; // current selected worn position
-@property (nonatomic, retain) EGOImageButton * eqbtn_selected; // current select unworen slot
+@property (nonatomic, retain) EGOImageButton * worneq_selected; // current selected worn position
+@property (nonatomic, retain) EGOImageButton * sloteq_selected; // current select unworen slot
 @property (nonatomic, retain) NSMutableArray* pos_list; // map from uiimageview to string representing pos
 @property (nonatomic, retain) NSMutableArray* eq_list;  // map from uibutton to usereq(type=1) object
 @property (nonatomic, retain) NSMutableArray* item_list;  // map from uibutton to usereq (type=2) object
@@ -75,9 +75,19 @@
 @property (nonatomic, retain) UIScrollView* vLongDescContainer;
 @property (nonatomic, retain) UILabel* lbLongDesc; 
 @property (nonatomic, retain) UILabel* lbName;
+@property (nonatomic, retain) UILabel* lbEffect;
 @property (strong, nonatomic) UIView *vItemInfoView;
 @property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
+
+
+@property (nonatomic, retain)    UIImageView* vProp;
+@property (nonatomic, retain)   UILabel* lbStrength;
+@property (nonatomic, retain)   UILabel* lbDext;
+@property (nonatomic, retain)   UILabel* lbIntellegence;
+@property (nonatomic, retain)   UILabel* lbWeight;
+@property (nonatomic, retain)   UILabel* lbDamage;
+@property (nonatomic, retain)   UILabel* lbDeffencce;
 - (IBAction)onSave:(id)sender;
 - (int) findEpById:(int)epid;
 -(void)viewWillAppear:(BOOL)animated ;

@@ -67,6 +67,10 @@ class Skill
             return "对$n造成#{d}点伤害"
         end
     end
+    
+      def image
+       "other/zhujian.png"
+   end
 end
 end
 

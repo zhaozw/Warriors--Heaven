@@ -136,6 +136,8 @@
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     ad.bUserSkillNeedUpdate = YES;
     
+    [ad setDataUser:[data valueForKey:@"user"] save:YES];
+    
     self.fight_result = data;
     
     BOOL win = [[data valueForKey:@"win"] boolValue];

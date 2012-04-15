@@ -173,7 +173,7 @@
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
     [window bringSubviewToFront:vWelcome];
-    [NSTimer scheduledTimerWithTimeInterval:(5.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -230,9 +230,10 @@
         // load user data
         data_user = [self readUserObject];
 
-        if (data_user == NULL){
+        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
+            data_user = NULL;
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
-            [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
+            [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
         }else{
 //            self.data_user = [userdata JSONValue];
         }
@@ -267,16 +268,14 @@
     
     if (data_user == NULL){
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
-        [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:NO showWaiting:NO];
+        [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:NO];
     }
     
 }
-- (void) onReceiveStatus:(NSString *) data{
-    data_user = [data JSONValue];
+- (void) onReceiveStatus:(NSObject *) data{
+    [self setDataUser:data save:YES];
     NSLog(@"data_user %@", [data_user JSONRepresentation]);
-    NSArray *Array = [NSArray arrayWithObjects:data, nil];
-    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
-    [SaveDefaults setObject:Array forKey:@"data_user"];
+ 
     
     [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];
@@ -542,7 +541,10 @@
 }
 
 - (NSObject*) getDataUserext{
-    return [[[data_user valueForKey:@"user"] valueForKey:@"userext"] valueForKey:@"userext"];
+    NSObject* t = [self getDataUser];
+    t = [t valueForKey:@"userext"];
+    t = [t valueForKey:@"userext"];
+    return t;
 }
 - (void) setDataUserExt:(NSArray*)data{
     //    NSObject * v = [self getDataUser];
@@ -566,6 +568,14 @@
 //    NSObject * v = [self getDataUser];
 //    [v setValue:eqs forKey:@"userskills"];
       [[data_user valueForKey:@"user"] setValue:eqs forKey:@"usereqs"];
+}
+- (void) setDataUser:(NSObject *)data save:(BOOL)save{
+
+    data_user = data;
+    if (save)
+        [self saveDataUser];
+    return;
+    
 }
 - (void) saveDataUser{
    

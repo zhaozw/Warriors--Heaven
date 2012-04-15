@@ -29,8 +29,8 @@
 @synthesize vItemBg;
 @synthesize eq_slots;
 @synthesize eq_buttons;
-@synthesize eq_selected;
-@synthesize eqbtn_selected;
+@synthesize worneq_selected;
+@synthesize sloteq_selected;
 
 @synthesize vEqbtn_cap;
 @synthesize vEqbtn_neck;
@@ -43,6 +43,13 @@
 @synthesize vEqbtn_trousers;
 @synthesize vEqbtn_armo;
 @synthesize vEqInfoView;
+
+@synthesize lbStrength;
+@synthesize lbDext;
+@synthesize lbIntellegence;
+@synthesize lbWeight;
+@synthesize lbDamage;
+@synthesize lbDeffencce;
 
 //@synthesize eq_list;
 @synthesize pos_list;
@@ -61,6 +68,10 @@
 @synthesize item_buttons;
 
 @synthesize pos_map;
+
+@synthesize lbEffect;
+
+@synthesize vProp;
 //@synthesize positions;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -81,12 +92,80 @@
 }
 
 #pragma mark - View lifecycle
+UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textColor){
+    UILabel *c = [[UILabel alloc]initWithFrame:frame];
+    [parent addSubview:c];
+    [c setOpaque:NO];
+    [c setAdjustsFontSizeToFitWidth:YES];
+    [c setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
 
+    [c setBackgroundColor:[UIColor clearColor]];
+    if (textColor)
+        [c setTextColor:textColor];
+    else
+        [c setTextColor:[UIColor whiteColor]];
+    c.text = text;
+    return c;
+}
+
+- (int) calcWeight{
+    NSArray* eqs = [ad getDataUserEqs];
+    NSDictionary* data = [[NSMutableDictionary alloc] init ];
+    NSArray* keys = [pos_map allKeys];
+    int total_weight = 0;
+    for (int i = 0; i< [keys count]; i++) {
+        NSString* pos = [keys objectAtIndex:i];
+        UIButton* btn = [pos_map valueForKey:pos];
+        int index = [self findEpById:btn.tag];
+        if (index < 0)
+            continue;
+        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"usereq"];
+        int weight = [[o valueForKey:@"weight"] intValue];
+        total_weight += weight;
+    }
+    return total_weight;
+}
+
+- (void) initPropView{
+    vProp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_prop.png"]];
+    vProp.backgroundColor = [UIColor clearColor];
+    vProp.opaque = NO;
+    vProp.frame = CGRectMake(0, 70, 320, 90);
+    
+    [[self view] addSubview:vProp];
+    int margin_left = 5;
+    int margin_top=20;
+    int height = 18;
+    int row_margin =5;
+    UIColor *tColor = [UIColor yellowColor];
+    createLabel(CGRectMake(margin_left+0, margin_top+0, 30, height), vProp, @"力量", tColor);
+    lbStrength = createLabel(CGRectMake(margin_left+40, margin_top+0, 30, height), vProp, @"0", NULL);
+    
+    createLabel(CGRectMake(margin_left+110, margin_top+0, 30, height), vProp, @"敏捷", tColor);
+    lbDext = createLabel(CGRectMake(margin_left+150, margin_top+0, 30, height), vProp, @"0", NULL);
+    
+    createLabel(CGRectMake(margin_left+220, margin_top+0, 30, height), vProp, @"悟性", tColor);
+    lbIntellegence = createLabel(CGRectMake(margin_left+260, margin_top+0, 30, height), vProp, @"0", NULL);
+    
+    createLabel(CGRectMake(margin_left+0, margin_top+row_margin*1+20, 30, height), vProp, @"负荷", tColor);
+    lbWeight = createLabel(CGRectMake(margin_left+40, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
+    
+    createLabel(CGRectMake(margin_left+110, margin_top+row_margin*1+20, 30, height), vProp, @"攻击", tColor);
+    lbDamage = createLabel(CGRectMake(margin_left+150, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
+    
+    
+    createLabel(CGRectMake(margin_left+220, margin_top+row_margin*1+20, 30, 18), vProp, @"防御", tColor);
+    lbDeffencce = createLabel(CGRectMake(margin_left+260, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
+    
+    [self initPropView];
+    
+    
     UIImage *imageNormal = [UIImage imageNamed:@"bg_12.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:30];
     [vEquipment setImage:stretchableImageNormal];
@@ -315,6 +394,13 @@
     [lbName setTextColor:[UIColor whiteColor]];
     [lbName setBackgroundColor:[UIColor clearColor]];
     
+    lbEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, 18)];
+    [vEqInfoView addSubview:lbEffect];
+    [lbEffect setOpaque:NO];
+    [lbEffect setAdjustsFontSizeToFitWidth:YES];
+    [lbEffect setFont:[UIFont fontWithName:@"Helvetica" size:11.0f]];
+    [lbEffect setTextColor:[UIColor yellowColor]];
+    [lbEffect setBackgroundColor:[UIColor clearColor]];
     
     lbLongDesc = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 600, 20)];
     [lbLongDesc setOpaque:NO];
@@ -392,7 +478,7 @@
         btn.imageURL = NULL;
         btn.backgroundColor = [UIColor clearColor];
     }
-    eq_selected = eqbtn_selected = NULL;
+    worneq_selected = sloteq_selected = NULL;
     
     if (data == NULL || [data count]==0)
         return;
@@ -616,6 +702,7 @@
         }
         
     }
+    lbWeight.text = [NSString stringWithFormat:@"%d" ,[self calcWeight]];
 }
 
 - (int) findEpById:(int)epid{
@@ -714,9 +801,18 @@
         return;
     }
     [ad setDataUserExt:data];
+    [ad saveDataUser];
     
 }
 
+
+- (void) viewDidAppear:(BOOL)animated{
+    NSObject* ext = [ad getDataUserext];
+    lbDext.text = [[ext valueForKey:@"dext"] stringValue];
+    lbStrength.text = [[ext valueForKey:@"str"] stringValue];
+    lbIntellegence.text = [[ext valueForKey:@"it"] stringValue];
+    
+}
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"character view update");
     
@@ -731,9 +827,9 @@
 //    [btn setHighlighted:YES];
      [btn setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
     
-    if (eqbtn_selected != btn){
-        [eqbtn_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-        eqbtn_selected = btn;
+    if (sloteq_selected != btn){
+        [sloteq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+        sloteq_selected = btn;
     }
 //    for (int i= 0; i < [eq_buttons count]; i++){
 //        UIButton* b = [eq_buttons objectAtIndex:i];
@@ -745,7 +841,7 @@
 //    }
 //    EGOImageButton* _btn = btn;
 //    if (_btn.imageURL != NULL) {
-//        eqbtn_selected = btn;
+//        sloteq_selected = btn;
 //    }
 }
 
@@ -756,33 +852,34 @@
 //    [btn setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
     NSArray* eqs = [ad getDataUserEqs];
     EGOImageButton* _btn = btn; 
-    if (eq_selected != NULL){ // put equipment on position
+    if (worneq_selected != NULL){ // put equipment on position
         if (_btn.imageURL == NULL){
             // exchange equipment (set eqslotnum and wearon)
-            NSURL * url = eq_selected.imageURL;
+            NSURL * url = worneq_selected.imageURL;
            
-            NSURL  * url2 = _btn.imageURL;
-            [eq_selected setImageURL:url2];
+            
+            [worneq_selected setImageURL:NULL];
             [_btn setImageURL:url];
             
-    //        if (eq_selected.imageURL == NULL){
-                [eq_selected setBackgroundColor:[UIColor clearColor]];
+    //        if (worneq_selected.imageURL == NULL){
+                [worneq_selected setBackgroundColor:[UIColor clearColor]];
     //        }else
-    //            [eq_selected setBackgroundColor:[UIColor yellowColor]];
+    //            [worneq_selected setBackgroundColor:[UIColor yellowColor]];
     //        if (_btn.imageURL == NULL){
                 [_btn setBackgroundColor:[UIColor clearColor]];
+            worneq_selected.tag = 0;
     //        }else
     //            [_btn setBackgroundColor:[UIColor yellowColor]];
-//            NSLog(@"eq_selected.tag=%d)", eq_selected.tag);
-//            NSObject* eq = [woren_eq_list objectAtIndex:eq_selected.tag];
-//            NSObject* eq = [eqs indexOfObject:[self findEpById:eq_selected.tag]];
+//            NSLog(@"worneq_selected.tag=%d)", worneq_selected.tag);
+//            NSObject* eq = [woren_eq_list objectAtIndex:worneq_selected.tag];
+//            NSObject* eq = [eqs indexOfObject:[self findEpById:worneq_selected.tag]];
 //            [eq_list replaceObjectAtIndex:btn.tag withObject:eq];
 //            NSLog(@"eq_list %d = eq(%@)", btn.tag, eq);
-//            [woren_eq_list replaceObjectAtIndex:eq_selected.tag withObject:[NSNull null]];
+//            [woren_eq_list replaceObjectAtIndex:worneq_selected.tag withObject:[NSNull null]];
 
         }else{
-            NSString* pos = [pos_list objectAtIndex:eq_selected.superview.tag];
-            NSLog(@"eq_selected.superview.tag=%d", eq_selected.superview.tag);
+            NSString* pos = [pos_list objectAtIndex:worneq_selected.superview.tag];
+            NSLog(@"worneq_selected.superview.tag=%d", worneq_selected.superview.tag);
 //            NSObject* eq = [eq_list objectAtIndex:btn.tag];
             NSObject* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]]  valueForKey:@"usereq"];
 //            NSLog(@"eq=%@", eq);
@@ -794,23 +891,23 @@
             
             if ([test evaluateWithObject:pos]){ 
                 // exchange image
-                NSURL * url = eq_selected.imageURL;
+                NSURL * url = worneq_selected.imageURL;
                 NSURL  * url2 = _btn.imageURL;
-                [eq_selected setImageURL:url2];
+                [worneq_selected setImageURL:url2];
                 [_btn setImageURL:url];
                 
-//                NSObject* eq2 = [woren_eq_list objectAtIndex:eq_selected.tag];
-//                [woren_eq_list replaceObjectAtIndex:eq_selected.tag withObject:eq];
+//                NSObject* eq2 = [woren_eq_list objectAtIndex:worneq_selected.tag];
+//                [woren_eq_list replaceObjectAtIndex:worneq_selected.tag withObject:eq];
 //                [eq_list replaceObjectAtIndex:btn.tag withObject:eq2];
             }else{
                 [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
             }
         }
-        int t = eq_selected.tag;
-        eq_selected.tag = _btn.tag;
+        int t = worneq_selected.tag;
+        worneq_selected.tag = _btn.tag;
         _btn.tag = t;
-        eq_selected = NULL;
-        eqbtn_selected = NULL;
+        worneq_selected = NULL;
+        sloteq_selected = NULL;
     }else{ // do not need put object on position
          if (_btn.imageURL != NULL)
              [_btn setBackgroundColor:[UIColor yellowColor]];
@@ -824,10 +921,12 @@
 //        NSDictionary* eq = [eq_list objectAtIndex:btn.tag];
         if (btn.tag != 0){
             NSDictionary* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
-
-            [lbName setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"dname"]]];
-            
-
+            NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
+            [lbName setText:str];
+            CGSize size = [str sizeWithFont:lbName.font];
+            lbName.frame = CGRectMake(0, 0, size.width, 18);
+            lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
+            [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
             [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
             [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
         }
@@ -838,32 +937,32 @@
 
 - (void) highlightButton2:(UIButton*)btn{
     [btn setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
-    if (eq_selected && eq_selected != btn)
-        [eq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    if (worneq_selected && worneq_selected != btn)
+        [worneq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
     EGOImageButton* _btn = (EGOImageButton*)btn;
     if (_btn.imageURL)
-        eq_selected = btn;
+        worneq_selected = btn;
     else
-        eq_selected = NULL;
+        worneq_selected = NULL;
 }
 
 - (void) selectWorenEq:(UIButton*) btn{
     NSArray* eqs = [ad getDataUserEqs];
     EGOImageButton* _btn = btn;
-    if (eqbtn_selected != NULL && eqbtn_selected.imageURL != NULL){
+    if (sloteq_selected != NULL && sloteq_selected.imageURL != NULL){
 //        id a = [NSNumber numberWithInt:btn.superview.tag] intValue];
 //        NSString* pos = a;
 //       
 //        
 //
-//        id b =[NSNumber numberWithInt:eqbtn_selected.tag];
+//        id b =[NSNumber numberWithInt:sloteq_selected.tag];
 //         NSObject* eq = b;
 
         
         NSString* pos = [pos_list objectAtIndex:btn.superview.tag];
-        NSLog(@"eqbtn_selected.tag=%d", eqbtn_selected.tag);
-//        NSObject* eq = [eq_list objectAtIndex:eqbtn_selected.tag];
-        NSObject* eq = [[eqs objectAtIndex:[self findEpById:eqbtn_selected.tag]] valueForKey:@"usereq"];
+        NSLog(@"sloteq_selected.tag=%d", sloteq_selected.tag);
+//        NSObject* eq = [eq_list objectAtIndex:sloteq_selected.tag];
+        NSObject* eq = [[eqs objectAtIndex:[self findEpById:sloteq_selected.tag]] valueForKey:@"usereq"];
         NSLog(@"eq=%@", eq);
         NSString* wearon = [eq valueForKey:@"pos"];
         
@@ -875,45 +974,60 @@
             
         
         // exchange equipment (set eqslotnum and wearon)
-        NSURL * url = eqbtn_selected.imageURL;
+        NSURL * url = sloteq_selected.imageURL;
         
         NSURL  * url2 = _btn.imageURL;
-        [eqbtn_selected setImageURL:url2];
+        [sloteq_selected setImageURL:url2];
         [_btn setImageURL:url];
         
-//        if (eqbtn_selected.imageURL == NULL){
-            [eqbtn_selected setBackgroundColor:[UIColor clearColor]];
+//        if (sloteq_selected.imageURL == NULL){
+            [sloteq_selected setBackgroundColor:[UIColor clearColor]];
 //        }else
-//            [eqbtn_selected setBackgroundColor:[UIColor yellowColor]];
+//            [sloteq_selected setBackgroundColor:[UIColor yellowColor]];
 //        
 //        if (_btn.imageURL == NULL){
             [_btn setBackgroundColor:[UIColor clearColor]];
 //        }else
 //            [_btn setBackgroundColor:[UIColor yellowColor]];
             
-//        [eq_list replaceObjectAtIndex:eqbtn_selected.tag withObject:[NSNull null]];
+//        [eq_list replaceObjectAtIndex:sloteq_selected.tag withObject:[NSNull null]];
 //        [woren_eq_list replaceObjectAtIndex:btn.tag withObject:eq];
-//            NSLog(@"eq_selected=%@", btn);
+//            NSLog(@"worneq_selected=%@", btn);
 //            NSLog(@"woren_eqlist[%d]=eq%@", btn.tag, eq);
-        int t = eqbtn_selected.tag;
-        eqbtn_selected.tag = _btn.tag;
+        int t = sloteq_selected.tag;
+        sloteq_selected.tag = _btn.tag;
         _btn.tag = t;
-        eq_selected = NULL;
-        eqbtn_selected = NULL;
+        worneq_selected = NULL;
+        sloteq_selected = NULL;
         }else{
             [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
-            eq_selected = NULL;
-//            eqbtn_selected = NULL;
+            worneq_selected = NULL;
+//            sloteq_selected = NULL;
         }
         
         
     }else{
         if (_btn.imageURL != NULL)
           [_btn setBackgroundColor:[UIColor yellowColor]];
-        if (_btn != eq_selected)
+        if (_btn != worneq_selected)
             [self performSelector:@selector(highlightButton2:) withObject:btn afterDelay:0.0];
 //        else
-//            eq_selected = NULL;
+//            worneq_selected = NULL;
+        if (btn.tag != 0){
+            NSDictionary* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
+            
+            NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
+            [lbName setText:str];
+            CGSize size = [str sizeWithFont:lbName.font];
+            lbName.frame = CGRectMake(0, 0, size.width, 18);
+            lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
+            [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
+           
+            
+            [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+            [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
+        }
+
     }
     
 }

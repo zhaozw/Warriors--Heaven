@@ -26,8 +26,8 @@ class UsereqsController < ApplicationController
             end
             eq[:dname] = _eq.dname
             eq[:desc] = _eq.desc
-            eq[:weight] = _eq.desc
-        
+            eq[:weight] = _eq.weight
+            eq[:effect] = _eq.effect
             eq[:image] = _eq.image
         end
         

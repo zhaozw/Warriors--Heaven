@@ -261,6 +261,7 @@ class WhController < ApplicationController
         user_data[:userext] = player.ext
 
         ret = {
+            "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
             "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>"

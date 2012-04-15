@@ -92,5 +92,6 @@
 - (void) setSessionId:(NSString *)session_id;
 - (void) initUI;
 - (void) saveDataUser;
+- (void) setDataUser:(NSObject *)data save:(BOOL)save;
 
 @end

@@ -14,13 +14,19 @@ class Cap  < Weapon
       "head"
   end
   
-def weight
+  def weight
       5
   end
+  
   def image
       "obj/equipments/cap.jpg"
   end
-    def rank
+
+  def rank
       1
+  end
+  
+  def effect
+      "deffence +5"
   end
 end

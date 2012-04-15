@@ -22,8 +22,15 @@ class Sword  < Weapon
       "obj/equipments/sword.jpg"
   end
   
+  def effect
+      "Damage +10"
+  end
   def rank
       1
+  end
+  
+  def damage
+      10
   end
   
 end
