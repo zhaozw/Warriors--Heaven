@@ -2,8 +2,7 @@ class UserrschesController < ApplicationController
     
     def list
         list = [
-            "huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan","huyuezhan",
-            "qishangquan"
+            "huyuezhan","yidaoliu","qishangquan"
             ]
         
         
@@ -31,6 +30,9 @@ class UserrschesController < ApplicationController
         p user_data.userskills.size
         for  r in user_data.userskills
             p "==>r1=#{r.inspect}"
+            if (!r)
+                continue
+            end
             for l in list
                 if l == r[:skname]
                     list.delete(l)        
@@ -142,7 +144,8 @@ class UserrschesController < ApplicationController
                         :level   => 0,
                         :tp      => 0,
                         :enabled => 1
-                    }).save!
+                    })
+                    s.save!
                     p "===>s=#{s}"
                     rescue Exception=>e
                         p e

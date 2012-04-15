@@ -46,12 +46,19 @@
     vRead.frame = CGRectMake(0, 0, 320, 100);
     vUnRead.frame = CGRectMake(0, 100, 320, 100);
 //    [[self view] setBackgroundColor:[UIColor redColor]];
+//    vRead.backgroundColor = [UIColor greenColor];
+//    vUnRead.backgroundColor = [UIColor yellowColor];
     [vRead setController:self];
     [vUnRead setController:self];
+    
+   
+
+ }
+- (void)viewWillAppear:(BOOL)animated {
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/Userrsches" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
-}
 
+}
 - (void) buildRearchList{
     
     [vRead removeAllRow];
@@ -89,7 +96,7 @@
          */
             [row setValue:@"bg_quest1.png" forKey:@"bgImage"];
             
-            NSString* imageUrl = [NSString stringWithFormat:@"http://%@:%@/game/badges/badge1.png", [ad host], [ad port]];
+            NSString* imageUrl = [NSString stringWithFormat:@"http://%@:%@/game/other/zhujian.png", [ad host], [ad port]];
             [row setValue:imageUrl forKey:@"titleImage"];
 //            [row setValue:@"" forKey:@"bgColor"];
 //            [row setValue:@"" forKey:@"height"];
@@ -169,14 +176,20 @@
     CGRect rect1 = vRead.frame;
     CGRect rect2 = vUnRead.frame;
     
-    rect2.origin.y = rect1.origin.y+rect1.size.height +35;
-    rect2.size.height = 30;
+    rect2.origin.y = rect1.origin.y+rect1.size.height +5;
+//    rect2.size.height = 30;
     vUnRead.frame = rect2;
     
     CGRect rect3 = [self view].frame;
-    rect3.size.height = rect1.size.height + 15 + rect2.size.height;
+    rect3.size.height = rect1.size.height + 5 + rect2.size.height;
     [self view].frame = rect3;
     [self view].backgroundColor = [UIColor redColor];
+    
+    int scrollSize = rect3.size.height+200 - 480;
+    if (scrollSize > 0 ){
+        UIScrollView* sv = [self view ].superview;
+        [sv setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];
+    }
     
 }
 - (void) onResearchUnread:(UIButton*)btn{

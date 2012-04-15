@@ -15,4 +15,5 @@
 @property (strong, nonatomic) IBOutlet LightView *vRead;
 @property (strong, retain) AppDelegate *ad;
 - (void) buildRearchList;
+-(void)viewWillAppear:(BOOL)animated;
 @end

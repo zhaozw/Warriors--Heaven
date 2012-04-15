@@ -49,7 +49,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
-			<object class="IBUIViewController" id="171248597">
+			<object class="IBUIViewController" id="854323528">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">1</int>
@@ -593,7 +593,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vReg</string>
 						<reference key="source" ref="405405863"/>
-						<reference key="destination" ref="171248597"/>
+						<reference key="destination" ref="854323528"/>
 					</object>
 					<int key="connectionID">77</int>
 				</object>
@@ -849,7 +849,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">76</int>
-						<reference key="object" ref="171248597"/>
+						<reference key="object" ref="854323528"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>

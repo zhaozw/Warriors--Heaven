@@ -31,17 +31,18 @@
 }
 
 - (void) removeAllRow{
+    
     for (int i = 0; i< [rows count];i++){
         UIView * v = [rows objectAtIndex:i];
         [v removeFromSuperview];
-        currentX = 0;
-        currentY = 0;
-        margin_top = 10;
     }
+    currentX = 0;
+    currentY = 0;
+    margin_top = 10;
     [rows removeAllObjects];
-    CGRect r = self .frame ;
-    r.size.height = margin_top;
-    self.frame = r;
+  //  CGRect r = self .frame ;
+    //r.size.height = 50;
+    //self.frame = r;
 }
 - (void) setController:(UIViewController*) c{
     vc = c;

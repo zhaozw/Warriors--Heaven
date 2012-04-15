@@ -1,6 +1,6 @@
 require 'skills/skill.rb'
-class Huyuezhan < Game::Skill 
-#基本剑法
+class Yidaoliu < Game::Skill 
+
    def for
        return "attack blade"
    end
@@ -13,11 +13,11 @@ class Huyuezhan < Game::Skill
    end
    
    def dname
-       "弧月斩"
+       "长平一刀流"
    end
    
    def desc
-       "霸王丸曾用的弧月斩"
+       "长平家的一刀流"
    end
     
    def needResearchPoint
@@ -40,7 +40,7 @@ class Huyuezhan < Game::Skill
    end
    
    def image
-       "other/zhujian.png"
+       ""other/zhujian.png"
    end
    def damage(context)
        userext = context[:user].ext

@@ -65,6 +65,7 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
     
+    [self addChildViewController:vcResearch];
     vcResearch.view.hidden = YES;
     [self.view addSubview:vcResearch.view];
     
@@ -100,7 +101,7 @@
  
 
   
-
+    // create view contain skill list. height=20, margin 10, row height is 30
     
     vBasicSkillsList  = [[UIView alloc]initWithFrame:CGRectMake(0, 20, 320, 20)];
     [vBasicSkillsList setBackgroundColor:[UIColor clearColor]];
@@ -378,7 +379,7 @@
             [lbSkillStatus setFrame:CGRectMake(120, y_b+5, 80, height-10)];
             
             [vBasicSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(220, y_b, 70, height-17)];
+            [btPractise setFrame:CGRectMake(250, y_b, 70, height-17)];
             
 //            [skillsView setUserInteractionEnabled:YES];
 //            [vBasicSkill setUserInteractionEnabled:YES];
@@ -397,7 +398,7 @@
             [vCommonSkillsList addSubview:lbSkillStatus];
             [lbSkillStatus setFrame:CGRectMake(120, y_c+5, 80, height)];
             [vCommonSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(220, y_c, 70, height-17)];
+            [btPractise setFrame:CGRectMake(250, y_c, 70, height-17)];
   
   
             y_c += height;
@@ -410,7 +411,7 @@
             [vPremierSkillsList addSubview:lbSkillStatus];
             [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height)];
             [vPremierSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(220, y_p, 70, height-17)];
+            [btPractise setFrame:CGRectMake(250, y_p, 70, height-17)];
       
             y_p += height;
         }
@@ -426,6 +427,17 @@
     rect = vPremierSkillsList.frame;
     rect.size.height = y_p;
     [vPremierSkillsList setFrame:rect];
+    
+    vBasicSkillsList.backgroundColor = [UIColor greenColor];
+    
+   
+//    int h = vBasicSkillsList.frame.size.height + vCommonSkillsList.frame.size.height + vPremierSkill.frame.size.height+30;
+    rect =  skillsView.frame;
+    rect.size.height = height*(count_b+count_c+count_p)+90;
+    skillsView.frame = rect;
+    if (rect.size.height+200-480 >0)
+    [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
+    
 
     vBasicSkillsList.hidden = YES;
     vCommonSkillsList.hidden = YES;
@@ -547,11 +559,20 @@
 - (IBAction)onSelectLibrary:(id)sender {
     vcResearch.view.hidden = NO;
     skillsView.hidden = YES;
-    UIScrollView* v = (UIScrollView*)[self view] ;
-    [v setContentSize:CGSizeMake(0, 200+vcResearch.view.frame.size.height-480)];
+//    UIScrollView* v = (UIScrollView*)[self view] ;
+    [vcResearch viewWillAppear:NO];
+
+    
 }
 - (IBAction)onSelectTrainingGround:(id)sender {
     skillsView.hidden = NO;
     vcResearch.view.hidden = YES;
+    CGRect rect3 = skillsView.frame;
+    int scrollSize = rect3.size.height+200 - 480;
+    skillsView.backgroundColor = [UIColor redColor];
+    if (scrollSize > 0 ){
+//        UIScrollView* sv = [self view ].superview;
+        [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];
+    }
 }
 @end
