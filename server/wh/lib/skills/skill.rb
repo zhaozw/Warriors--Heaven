@@ -56,7 +56,7 @@ class Skill
                 return "只把$n打的退了半步，毫发无损!(Hp-#{d})"
             elsif (d < 20)
                 return "[砰]的一声把$n击退了好几步，差点摔倒!(Hp-#{d})"
-            elsif (d < 20)
+            elsif (d < 20)  
                 return "结果一击命中，$n闷哼了一声显然吃了不小的亏!(Hp-#{d})"
             elsif (d < 50)
                 return "重重的击中了$n, $n【哇】的吐出了一口鲜血!(Hp-#{d})"

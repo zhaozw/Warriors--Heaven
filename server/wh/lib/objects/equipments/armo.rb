@@ -25,4 +25,8 @@ class Armo  < Weapon
   def rank
       5
   end
+    
+  def defense
+      30
+  end
 end

@@ -77,6 +77,11 @@
 @property (nonatomic, retain) UILabel* lbName;
 @property (nonatomic, retain) UILabel* lbEffect;
 @property (strong, nonatomic) UIView *vItemInfoView;
+@property (strong, nonatomic) UIScrollView* vItemContainer;
+@property (nonatomic, retain) UILabel* lbItemLongDesc; 
+@property (nonatomic, retain) UILabel* lbItemName;
+@property (nonatomic, retain) UILabel* lbItemEffect;
+@property (nonatomic, retain) UIScrollView* vItemLongDescContainer;
 @property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
 

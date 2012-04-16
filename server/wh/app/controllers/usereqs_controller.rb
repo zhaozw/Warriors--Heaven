@@ -21,13 +21,16 @@ class UsereqsController < ApplicationController
             if eq[:eqtype].to_i == 1
                 _eq = Equipment.load_equipment(eq[:eqname], eq)
                 eq[:pos] = _eq.wearOn
+                eq[:effect] = _eq.effect
+                eq[:damage] = _eq.damage
+                eq[:defense] = _eq.defense
             else
                 _eq = load_obj(eq[:eqname], eq)
             end
             eq[:dname] = _eq.dname
             eq[:desc] = _eq.desc
             eq[:weight] = _eq.weight
-            eq[:effect] = _eq.effect
+           
             eq[:image] = _eq.image
         end
         

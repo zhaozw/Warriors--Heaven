@@ -428,7 +428,7 @@
     rect.size.height = y_p;
     [vPremierSkillsList setFrame:rect];
     
-    vBasicSkillsList.backgroundColor = [UIColor greenColor];
+//    vBasicSkillsList.backgroundColor = [UIColor greenColor];
     
    
 //    int h = vBasicSkillsList.frame.size.height + vCommonSkillsList.frame.size.height + vPremierSkill.frame.size.height+30;

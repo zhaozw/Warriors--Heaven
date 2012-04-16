@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StatusViewController.h"
 #import "AppDelegate.h"
+#import "EGOImageView.h"
 
 @interface HomeViewController : UIViewController{
     UIImageView * bgView;
@@ -33,8 +34,12 @@
 - (void)sendHttpRequest:(NSString*)cmd;
 -(void)viewWillAppear:(BOOL)animated;
 @property (strong, nonatomic) IBOutlet UILabel *lbUserName;
-
-
+@property (strong, nonatomic) EGOImageView* vSeasonImag;
+@property (strong, nonatomic)  UILabel *lbDate;
+@property (strong, nonatomic)  UILabel *lbMonth;
+@property (strong, nonatomic)  UILabel *lbTiming;
+@property (strong, nonatomic)  UILabel *lbTimingInfo;
+@property (strong, nonatomic) IBOutlet UIImageView *vProfileBg;
 
 - (IBAction)onTouchFight:(id)sender;
 

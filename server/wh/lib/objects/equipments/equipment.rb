@@ -8,7 +8,13 @@ class Equipment  < Game::Object
         desc
  end
   
-
+  def damage
+      0
+  end
+  
+  def defense
+      0
+  end
     
 end
 end

@@ -12,6 +12,8 @@
 #import "SBJson.h"
 #import "WHHttpClient.h"
 #import "EGOImageButton.h"
+#import "EGOImageView.h"
+#import "LightView.h"
 
 @implementation HomeViewController
 @synthesize lbUserName;
@@ -25,6 +27,12 @@
 @synthesize bgView;
 @synthesize vBadge;
 @synthesize ad;
+@synthesize vSeasonImag;
+@synthesize vProfileBg;
+@synthesize lbDate;
+@synthesize lbMonth;
+@synthesize lbTiming;
+@synthesize lbTimingInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +72,9 @@
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
  
+    // setup season image and date time
+    vSeasonImag.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/other/spring.png", ad.host, ad.port]];
+    
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     if (ad.data_user){
         NSObject* json = [ad.data_user valueForKey:@"user"];
@@ -194,6 +205,18 @@
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [vSummary loadRequest:req];
     
+    vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
+    vSeasonImag.alpha = 0.3f;
+    [vProfileBg addSubview:vSeasonImag];
+    
+    lbMonth = [LightView createLabel:CGRectMake(5, 60, 30, 20) parent:vProfileBg text:@"二月" textColor: [UIColor yellowColor]];
+    lbMonth.alpha = 0.6f;
+    lbDate = [LightView createLabel:CGRectMake(35, 60, 30, 20) parent:vProfileBg text:@"初六" textColor: [UIColor colorWithRed:1.0f green:0.8f blue:0.8f alpha:1.0f]];
+    lbDate.alpha = 0.6f;
+    lbTiming = [LightView createLabel:CGRectMake(5, 80, 30, 20) parent:vProfileBg text:@"谷雨" textColor: [UIColor colorWithRed:0.8f green:1.0f blue:0.8f alpha:1.0f]];
+    lbTiming.alpha = 0.6f;
+    lbTimingInfo = [LightView createLabel:CGRectMake(35, 80, 30, 20) parent:vProfileBg text:@"晴" textColor: [UIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f]];
+    lbTimingInfo.alpha = 0.6f;
     // test http
     
 //    [self sendHttpRequest:@"/editor?fdaf"];
@@ -224,6 +247,7 @@
 //    [self setVStatus:nil];
     [self setVSummary:nil];
     [self setVBadge:nil];
+    [self setVProfileBg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

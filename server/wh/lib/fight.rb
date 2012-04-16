@@ -173,26 +173,26 @@ end
         return  m
     end
       
-    def damage_msg(d, weapon_type)
+      def damage_msg(d, weapon_type)
         if d == 0
             return "结果没有对$n造成任何伤害"
         end
+        p "==>weapon type #{weapon_type}"
         case weapon_type
         when "unarmed"
             if (d < 10)
-                return "把$N打的退了半步，毫发无损!(Hp-#{d})"
+                return "只把$n打的退了半步，毫发无损!(Hp-#{d})"
             elsif (d < 20)
-                return "[砰]的一声把N$N击退了好几步，差点摔倒!(Hp-#{d})"
+                return "[砰]的一声把$n击退了好几步，差点摔倒!(Hp-#{d})"
             elsif (d < 20)
-                return "结果一击命中，$N闷哼了一声显然吃了不小的亏!(Hp-#{d})"
+                return "结果一击命中，$n闷哼了一声显然吃了不小的亏!(Hp-#{d})"
             elsif (d < 50)
-                return "重重的击中了, $N【哇】的吐出了一口鲜血!(Hp-#{d})"
+                return "重重的击中了$n, $n【哇】的吐出了一口鲜血!(Hp-#{d})"
             else
-                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"
-  
-                
+                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"   
             end
         else
+            return "对$n造成#{d}点伤害"
         end
     end
     
@@ -201,8 +201,16 @@ end
        # p "freturn skill #{skill}"
        # d = skill.damage(context)                
         #context[:target].tmp[:hp] -= d
-
-        m = skill.doDamage(context)
+        p "===>1#{context[:user][:combat_damage].inspect}\r\n#{context[:target][[:combat_defense]].inspect}"
+        d = skill.damage(context) + context[:user].tmp[:combat_damage]/10 - context[:target].tmp[:combat_defense]/10
+        p "===>damage=#{d}"
+        d = 0 if d <0
+        context[:target].tmp[:hp] -= d
+         cs = skill.cost_stam(context)
+        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
+        context[:user].tmp[:stam] -= cs
+        m = damage_msg(d, skill.type) + "(体力-#{cs})"
+        # m = skill.doDamage(context)
         return "<br/>\n"+translate_msg(m, context)
     end
     
@@ -275,7 +283,7 @@ end
            #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
                 attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a)
            #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
-                defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d)
+                defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d) - defenser.tmp[:combat_load]/10
           
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{defense_power}\n"
@@ -409,12 +417,96 @@ end
              
     end
     
+    def calcPlayerLoad(p1)
+        weight = 0
+        p p1.ext.inspect
+        prop =  p1.ext[:prop]
+        if (prop)
+               p "===>2.0#{prop}"
+            j_prop = JSON.parse(prop)
+            p "===>2#{j_prop}"
+            eqslot = j_prop["eqslot"]
+            p "===>2.1#{eqslot.inspect}"
+            if eqslot
+              #  eqslot = JSON.parse(eqslot)
+               #      p "===>2.2#{eqslot}"
+                 eqslot.each {|k,v|
+                     if k[0] < 48 or k[0] > 57
+                        p "===>2.3#{k}=#{v}"
+                         r = Equipment.find(v)
+                         if r 
+                             eq = load_obj(r[:eqname], r)
+                             weight += eq.weight
+                         end
+                     end
+                     
+                 }
+            end
+            
+        end
+        p "===>2.5 leave"
+        return weight
+    end
+    
+    def calcPlayerDamage(p1)
+        damage = 0
+        prop =  p1.ext[:prop]
+        if (prop)
+            j_prop = JSON.parse(prop)
+            eqslot = j_prop["eqslot"]
+            if eqslot
+                 eqslot.each {|k,v|
+                       if k[0] < 48 or k[0] > 57
+                         r = Equipment.find(v)
+                         if r
+                                    eq = load_obj(r[:eqname], r)
+                             damage += eq.damage
+                         end
+                     end
+                     
+                 }
+            end
+            
+        end
+        return damage
+    end
+    def calcPlayerDefense(p1)
+        defense = 0
+        prop =  p1.ext[:prop]
+        if (prop)
+            j_prop = JSON.parse(prop)
+            eqslot = j_prop["eqslot"]
+            if eqslot
+                 eqslot.each {|k,v|
+                          if k[0] < 48 or k[0] > 57
+                         r = Equipment.find(v)
+                         if r 
+                                   eq = load_obj(r[:eqname], r)
+                             defense += eq.defense
+                         end
+                     end
+                     
+                 }
+            end
+            
+        end
+        return defense
+    end
     # p1,p2: Objects/Player
     # context = {:msg=>""}
     def _fight(p1, p2, context)
         msg = context[:msg]
  
-        
+        # calculate temporary fight prop
+
+        p1.tmp[:combat_load] = calcPlayerLoad(p1)
+        p1.tmp[:combat_damage] = calcPlayerDamage(p1)
+        p1.tmp[:combat_defense] = calcPlayerDefense(p1)
+        p "====>p1 load: #{p1.tmp[:combat_load]} damage:#{p1.tmp[:combat_damage]} defense:#{p1.tmp[:combat_defense]  }"
+        p2.tmp[:combat_load] = calcPlayerLoad(p2)
+        p2.tmp[:combat_damage] = calcPlayerDamage(p2)
+        p2.tmp[:combat_defense] = calcPlayerDefense(p2)
+            p "====>p2 load: #{p2.tmp[:combat_load]} damage:#{p2.tmp[:combat_damage]} defense:#{p2.tmp[:combat_defense]  }"
         # calculate who attach first  
         # TODO need improve
         if (p1.query_temp("dext") > p1.query_temp("dext"))

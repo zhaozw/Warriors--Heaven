@@ -19,6 +19,6 @@
 - (void) addRow:(NSObject*) data;
 - (void) setController:(UIViewController*) c;
 - (void) init1;
-
++ (UILabel*) createLabel:(CGRect)frame parent:(UIView*)parent text:(NSString*) text textColor:(UIColor*) textColor;
 - (void) removeAllRow;
 @end

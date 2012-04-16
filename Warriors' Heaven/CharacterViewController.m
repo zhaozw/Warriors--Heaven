@@ -65,6 +65,11 @@
 
 @synthesize vLongDescContainer;
 
+@synthesize vItemLongDescContainer;
+@synthesize lbItemName;
+@synthesize lbItemEffect;
+@synthesize lbItemLongDesc;
+
 @synthesize item_buttons;
 
 @synthesize pos_map;
@@ -73,6 +78,8 @@
 
 @synthesize vProp;
 //@synthesize positions;
+
+@synthesize vItemContainer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -115,6 +122,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     int total_weight = 0;
     for (int i = 0; i< [keys count]; i++) {
         NSString* pos = [keys objectAtIndex:i];
+        if ([pos characterAtIndex:0] >=48 && [pos characterAtIndex:0] <=57)
+            continue;
         UIButton* btn = [pos_map valueForKey:pos];
         int index = [self findEpById:btn.tag];
         if (index < 0)
@@ -126,11 +135,50 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     return total_weight;
 }
 
+- (int) calcAttack{
+    NSArray* eqs = [ad getDataUserEqs];
+    NSDictionary* data = [[NSMutableDictionary alloc] init ];
+    NSArray* keys = [pos_map allKeys];
+    int t_damage = 0;
+    for (int i = 0; i< [keys count]; i++) {
+        NSString* pos = [keys objectAtIndex:i];
+        if ([pos characterAtIndex:0] >=48 && [pos characterAtIndex:0] <=57)
+            continue;
+        UIButton* btn = [pos_map valueForKey:pos];
+        int index = [self findEpById:btn.tag];
+        if (index < 0)
+            continue;
+        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"usereq"];
+        int damage = [[o valueForKey:@"damage"] intValue];
+        t_damage += damage;
+    }
+    return t_damage;
+}
+- (int) calcDefense{
+    NSArray* eqs = [ad getDataUserEqs];
+    NSDictionary* data = [[NSMutableDictionary alloc] init ];
+    NSArray* keys = [pos_map allKeys];
+    int t_damage = 0;
+    for (int i = 0; i< [keys count]; i++) {
+        NSString* pos = [keys objectAtIndex:i];
+        if ([pos characterAtIndex:0] >=48 && [pos characterAtIndex:0] <=57)
+            continue;
+        UIButton* btn = [pos_map valueForKey:pos];
+        int index = [self findEpById:btn.tag];
+        if (index < 0)
+            continue;
+        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"usereq"];
+        int damage = [[o valueForKey:@"defense"] intValue];
+        t_damage += damage;
+    }
+    return t_damage;
+}
+
 - (void) initPropView{
     vProp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_prop.png"]];
     vProp.backgroundColor = [UIColor clearColor];
     vProp.opaque = NO;
-    vProp.frame = CGRectMake(0, 70, 320, 90);
+    vProp.frame = CGRectMake(0, 80, 320, 80);
     
     [[self view] addSubview:vProp];
     int margin_left = 5;
@@ -170,8 +218,11 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:30];
     [vEquipment setImage:stretchableImageNormal];
     [vEquipment addSubview:vEqInfoView];
+    
     vItemInfoView = [[UIView alloc] init];
+    [vItemInfoView setBackgroundColor:[UIColor clearColor]];
     [vItemBg addSubview:vItemInfoView];
+    
     
 /*    positions = [[NSMutableArray alloc] initWithObjects:
                  @"head", 
@@ -220,7 +271,17 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     }
     else
         item_row_count = (max_item-1)/5 + 1;
-    vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60);
+    item_row_count = 1;
+    vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60+50);
+    vItemContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 10, rect.size.width -20,item_row_count*60)];
+//    vItemContainer.backgroundColor = [UIColor redColor];
+    vItemContainer.opaque = NO;
+    [vItemContainer setScrollEnabled:YES];
+    [vItemBg addSubview:vItemContainer];
+    vItemInfoView.frame = CGRectMake(10, 10+item_row_count*60, 300, 80);
+    
+    
+    
     
     eq_buttons = [[NSMutableArray alloc] initWithCapacity:10];
     eq_slots = [[NSMutableArray alloc] initWithCapacity:10];
@@ -274,11 +335,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     item_list = [[NSMutableArray alloc] initWithCapacity:max_item+1];
     [item_list addObject:[NSNull null]];
     item_buttons = [[NSMutableArray alloc] init];
+    
     for (int i = 0; i< max_item; i++){
         UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
-        slot.frame = CGRectMake(10+i*60, 10, 60, 60);
+        slot.frame = CGRectMake(i*60, 0, 60, 60);
         [slot setUserInteractionEnabled:YES];
-        [vItemBg addSubview:slot];
+        [vItemContainer addSubview:slot];
 //        [eq_slots addObject:slot];
         [slot setTag:i+1];
         
@@ -291,6 +353,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         [slot addSubview:v];
         [item_list addObject:[NSNull null]];
     }
+    
+    
+    //int offset = 60*max_item -vItemContainer.frame.size.width;
+  //  if (offset > 0)
+        vItemContainer.contentSize = CGSizeMake(60*max_item, 0);
+    [vItemContainer scrollRectToVisible:CGRectMake(400, 0, 10, 10) animated:YES];
+
     
     
     // initialize posistion
@@ -382,8 +451,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     k++;
     
 
-    
-    UIScrollView* vLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
+    // init info view for eq
+    vLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
     [vLongDescContainer setContentSize:CGSizeMake(500, 0)];
     [vLongDescContainer setBackgroundColor:[UIColor clearColor]];
     lbName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 18)];
@@ -415,6 +484,35 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     // add status view
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
+    
+    // init infoview for items
+    vItemLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
+    [vItemLongDescContainer setContentSize:CGSizeMake(500, 0)];
+    [vItemLongDescContainer setBackgroundColor:[UIColor clearColor]];
+    lbItemName = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 18)];
+    [vItemInfoView addSubview:lbItemName];
+    [lbItemName setOpaque:NO];
+    [lbItemName setAdjustsFontSizeToFitWidth:YES];
+    [lbItemName setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    [lbItemName setTextColor:[UIColor whiteColor]];
+    [lbItemName setBackgroundColor:[UIColor clearColor]];
+    
+    lbItemEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, 18)];
+    [vItemInfoView addSubview:lbItemEffect];
+    [lbItemEffect setOpaque:NO];
+    [lbItemEffect setAdjustsFontSizeToFitWidth:YES];
+    [lbItemEffect setFont:[UIFont fontWithName:@"Helvetica" size:11.0f]];
+    [lbItemEffect setTextColor:[UIColor yellowColor]];
+    [lbItemEffect setBackgroundColor:[UIColor clearColor]];
+    
+    lbItemLongDesc = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 600, 20)];
+    [lbItemLongDesc setOpaque:NO];
+    [lbItemLongDesc setAdjustsFontSizeToFitWidth:YES];
+    [lbItemLongDesc setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    [lbItemLongDesc setTextColor:[UIColor whiteColor]];
+    [lbItemLongDesc setBackgroundColor:[UIColor clearColor]];
+    [vItemLongDescContainer addSubview:lbItemLongDesc];
+    [vItemInfoView addSubview:vItemLongDescContainer];
     
     // set scrollview frame
     CGRect r_last = vItemBg.frame;
@@ -602,15 +700,19 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSString* prop = [[ad getDataUserext] valueForKey:@"prop"];
     NSObject* js = [prop JSONValue];
     NSMutableArray* arranged = [[NSMutableArray alloc] init];
-    NSObject* epslot = [js valueForKey:@"eqslot"];
-    if (epslot){
+    NSObject* es = [js valueForKey:@"eqslot"];
+    NSObject* eqslot = es;
+    if ([es isKindOfClass:[NSString class]])
+        eqslot = [(NSString*)es JSONValue];
+
+    if (eqslot){
 //        NSObject* epslot = [sepslot JSONValue];
         int epid = -1;
         NSArray* keys = [pos_map allKeys];
         for (int i = 0; i< [keys count]; i++) {
      
             NSString* pos = [keys objectAtIndex:i];
-            epid = [[epslot valueForKey:pos] intValue];
+            epid = [[eqslot valueForKey:pos] intValue];
             if (epid <=0)
                 continue;
             EGOImageButton* btn = [pos_map valueForKey:pos];
@@ -703,6 +805,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         
     }
     lbWeight.text = [NSString stringWithFormat:@"%d" ,[self calcWeight]];
+    lbDamage.text = [NSString stringWithFormat:@"%d" ,[self calcAttack]];
+    lbDeffencce.text = [NSString stringWithFormat:@"%d" ,[self calcDefense]];
 }
 
 - (int) findEpById:(int)epid{
@@ -867,7 +971,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     //            [worneq_selected setBackgroundColor:[UIColor yellowColor]];
     //        if (_btn.imageURL == NULL){
                 [_btn setBackgroundColor:[UIColor clearColor]];
-            worneq_selected.tag = 0;
+              
+            _btn.tag = worneq_selected.tag;
+              worneq_selected.tag = 0;
     //        }else
     //            [_btn setBackgroundColor:[UIColor yellowColor]];
 //            NSLog(@"worneq_selected.tag=%d)", worneq_selected.tag);
@@ -895,7 +1001,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
                 NSURL  * url2 = _btn.imageURL;
                 [worneq_selected setImageURL:url2];
                 [_btn setImageURL:url];
-                
+                int t = worneq_selected.tag;
+                worneq_selected.tag = _btn.tag;
+                _btn.tag = t;
 //                NSObject* eq2 = [woren_eq_list objectAtIndex:worneq_selected.tag];
 //                [woren_eq_list replaceObjectAtIndex:worneq_selected.tag withObject:eq];
 //                [eq_list replaceObjectAtIndex:btn.tag withObject:eq2];
@@ -903,11 +1011,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
                 [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
             }
         }
-        int t = worneq_selected.tag;
-        worneq_selected.tag = _btn.tag;
-        _btn.tag = t;
+  
         worneq_selected = NULL;
         sloteq_selected = NULL;
+        
+        lbWeight.text = [NSString stringWithFormat:@"%d" ,[self calcWeight]];
+        lbDamage.text = [NSString stringWithFormat:@"%d" ,[self calcAttack]];
+        lbDeffencce.text = [NSString stringWithFormat:@"%d" ,[self calcDefense]];
     }else{ // do not need put object on position
          if (_btn.imageURL != NULL)
              [_btn setBackgroundColor:[UIColor yellowColor]];
@@ -1005,7 +1115,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //            sloteq_selected = NULL;
         }
         
-        
+        lbWeight.text = [NSString stringWithFormat:@"%d" ,[self calcWeight]];
+        lbDamage.text = [NSString stringWithFormat:@"%d" ,[self calcAttack]];
+        lbDeffencce.text = [NSString stringWithFormat:@"%d" ,[self calcDefense]];
     }else{
         if (_btn.imageURL != NULL)
           [_btn setBackgroundColor:[UIColor yellowColor]];
@@ -1033,8 +1145,26 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 
 - (void) selectItem:(UIButton*)btn{
+      NSArray* eqs = [ad getDataUserEqs];
     
-    
+    if (btn.tag != 0){
+        NSDictionary* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
+        
+        NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
+        [lbItemName setText:str];
+        CGSize size = [str sizeWithFont:lbName.font];
+        lbItemName.frame = CGRectMake(0, 0, size.width, 18);
+        NSString* effect = [eq valueForKey:@"effect"];
+        if (effect)
+            [lbItemEffect setText:[NSString stringWithFormat:@"%@", effect]];
+        
+        
+        [lbItemLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+        [vItemLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
+        CGRect r = btn.superview.frame;
+        r.origin.x += 60;
+    //    [vItemContainer scrollRectToVisible:btn.superview.frame animated:YES];
+    }
 }
 
 @end

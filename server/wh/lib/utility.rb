@@ -24,6 +24,7 @@ def create_fixure(path)
         r.set(o)
         return r
     end
+=begin
 def translate_msg msg, context
     if (!msg)
         return ""
@@ -34,7 +35,7 @@ def translate_msg msg, context
     p "=>target = #{target.inspect}"
     return msg.gsub(/\$N/m, "你").gsub("/\$n/m", target.name)
 end
-
+=end
     def loadGameObject(path)
         p "require '"+ path+".rb'"
         eval "require '"+ path+".rb'"      

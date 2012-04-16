@@ -44,7 +44,7 @@ class Player < LivingObject
               :race    =>@obj[:userext][:race],
               :pot     =>@obj[:userext][:pot]
           }
-          prop = @obj[:userext][:prop]
+          prop =  JSON.parse(@obj[:userext][:prop])
           prop.each {|k,v|
              @temp[k] = v   
          }

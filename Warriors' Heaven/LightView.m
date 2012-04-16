@@ -261,6 +261,21 @@
     
    
 }
++(UILabel*) createLabel:(CGRect)frame parent:(UIView*)parent text:(NSString*) text textColor:(UIColor*) textColor{
+    UILabel *c = [[UILabel alloc]initWithFrame:frame];
+    [parent addSubview:c];
+    [c setOpaque:NO];
+    [c setAdjustsFontSizeToFitWidth:YES];
+    [c setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    
+    [c setBackgroundColor:[UIColor clearColor]];
+    if (textColor)
+        [c setTextColor:textColor];
+    else
+        [c setTextColor:[UIColor whiteColor]];
+    c.text = text;
+    return c;
+}
 
 
 /*

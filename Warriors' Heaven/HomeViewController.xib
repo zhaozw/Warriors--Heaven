@@ -50,10 +50,10 @@
 					<object class="IBUIImageView" id="767946291">
 						<reference key="NSNextResponder" ref="842291567"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{5, 219}, {304, 271}}</string>
+						<string key="NSFrame">{{0, 219}, {320, 271}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="410270953"/>
+						<reference key="NSNextKeyView" ref="361201825"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -67,17 +67,22 @@
 						<string key="NSFrame">{{8, 68}, {304, 155}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="81892670"/>
+						<reference key="NSNextKeyView" ref="176030820"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">bg1.jpg</string>
+						</object>
 					</object>
 					<object class="IBUIImageView" id="1055349420">
 						<reference key="NSNextResponder" ref="842291567"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{-23, 52}, {305, 150}}</string>
+						<string key="NSFrame">{{-23, 57}, {305, 150}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="361201825"/>
+						<reference key="NSNextKeyView" ref="81892670"/>
+						<float key="IBUIAlpha">0.60000002384185791</float>
 						<int key="IBUIContentMode">1</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -260,6 +265,7 @@
 						<string key="NSFrame">{{163, 512}, {121, 35}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -329,7 +335,7 @@
 						<string key="NSFrame">{{198, 116}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="441262374"/>
+						<reference key="NSNextKeyView" ref="711904157"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -359,7 +365,7 @@
 						<string key="NSFrame">{{38, 355}, {225, 95}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="176030820"/>
+						<reference key="NSNextKeyView" ref="804728982"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -384,7 +390,7 @@
 						<string key="NSFrame">{{26, 250}, {269, 104}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="804728982"/>
+						<reference key="NSNextKeyView" ref="410270953"/>
 						<reference key="IBUIBackgroundColor" ref="14969620"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIDataDetectorTypes">1</int>
@@ -396,6 +402,7 @@
 						<string key="NSFrame">{{26, 198}, {258, 25}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="441262374"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -513,6 +520,14 @@
 						<reference key="destination" ref="711904157"/>
 					</object>
 					<int key="connectionID">67</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">vProfileBg</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="361201825"/>
+					</object>
+					<int key="connectionID">68</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -708,7 +723,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">67</int>
+			<int key="maxID">68</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -740,6 +755,7 @@
 						<string key="lbUserName">UILabel</string>
 						<string key="playerProfile">UIImageView</string>
 						<string key="vBadge">UIScrollView</string>
+						<string key="vProfileBg">UIImageView</string>
 						<string key="vSummary">UIWebView</string>
 						<string key="vcStatus">StatusViewController</string>
 					</dictionary>
@@ -763,6 +779,10 @@
 						<object class="IBToOneOutletInfo" key="vBadge">
 							<string key="name">vBadge</string>
 							<string key="candidateClassName">UIScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="vProfileBg">
+							<string key="name">vProfileBg</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="vSummary">
 							<string key="name">vSummary</string>
@@ -832,6 +852,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="bg1.jpg">{640, 384}</string>
 			<string key="btn_03.png">{213, 95}</string>
 			<string key="button1.png">{92, 39}</string>
 			<string key="button2.png">{138, 52}</string>

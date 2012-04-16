@@ -1,4 +1,4 @@
-require 'objects/equipments/equipment.rb'
+require 'objects/equipments/weapon.rb'
 
 class Cap  < Weapon
   
@@ -29,4 +29,11 @@ class Cap  < Weapon
   def effect
       "deffence +5"
   end
+  
+
+  
+  def defense
+      5
+  end
+  
 end

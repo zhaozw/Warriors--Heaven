@@ -93,28 +93,7 @@ class Unarmed < Game::Skill
         return stam_cost
    end
    
-      def damage_msg(d, weapon_type)
-        if d == 0
-            return "结果没有对$n造成任何伤害"
-        end
-        p "==>weapon type #{weapon_type}"
-        case weapon_type
-        when "unarmed"
-            if (d < 10)
-                return "只把$n打的退了半步，毫发无损!(Hp-#{d})"
-            elsif (d < 20)
-                return "[砰]的一声把$n击退了好几步，差点摔倒!(Hp-#{d})"
-            elsif (d < 20)
-                return "结果一击命中，$n闷哼了一声显然吃了不小的亏!(Hp-#{d})"
-            elsif (d < 50)
-                return "重重的击中了$n, $n【哇】的吐出了一口鲜血!(Hp-#{d})"
-            else
-                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"   
-            end
-        else
-            return "对$n造成#{d}点伤害"
-        end
-    end
+
     
    def doDamage(context)
         # damage

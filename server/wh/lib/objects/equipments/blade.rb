@@ -24,4 +24,8 @@ class Blade  < Weapon
   def rank
       2
   end
+
+  def damage
+      10
+  end
 end

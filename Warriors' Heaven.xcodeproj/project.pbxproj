@@ -16,7 +16,6 @@
 		5A027427151E9BEB0083706E /* MarketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A027425151E9BEA0083706E /* MarketViewController.xib */; };
 		5A0B7F731519966500FC0898 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0B7F721519966500FC0898 /* Reachability.m */; };
 		5A0B7F76151998AB00FC0898 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */; };
-		5A0B7F7C1519A42400FC0898 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0B7F7B1519A42400FC0898 /* warning.png */; };
 		5A0B7F80151A678400FC0898 /* btn_green_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0B7F7F151A678200FC0898 /* btn_green_light.png */; };
 		5A25E2811504CBB20046C67D /* tab_character.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A25E2801504CBB20046C67D /* tab_character.jpg */; };
 		5A25E2861504CC260046C67D /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A25E2841504CC260046C67D /* CharacterViewController.m */; };
@@ -54,6 +53,10 @@
 		5A61E7BD15078DF9008DE591 /* wait2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7BC15078DF9008DE591 /* wait2.gif */; };
 		5A61E7C11507922E008DE591 /* wait3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7C01507922E008DE591 /* wait3.gif */; };
 		5A61E7C3150799E3008DE591 /* wait_transparent.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5A61E7C2150799E3008DE591 /* wait_transparent.gif */; };
+		5A6276CE153B935B007F242D /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A6276CD153B935B007F242D /* bg1.jpg */; };
+		5AA8626F153C05D50099EE98 /* TeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8626D153C05D50099EE98 /* TeamViewController.m */; };
+		5AA86270153C05D50099EE98 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA8626E153C05D50099EE98 /* TeamViewController.xib */; };
+		5AA86273153C08090099EE98 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA86272153C08090099EE98 /* warning.png */; };
 		5AA8C2CC1508048D001C5BD3 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B41508048D001C5BD3 /* NSObject+SBJson.m */; };
 		5AA8C2CD1508048D001C5BD3 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B71508048D001C5BD3 /* SBJsonParser.m */; };
 		5AA8C2CE1508048D001C5BD3 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2B91508048D001C5BD3 /* SBJsonStreamParser.m */; };
@@ -134,7 +137,6 @@
 		5A0B7F711519966500FC0898 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		5A0B7F721519966500FC0898 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5A0B7F75151998AB00FC0898 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		5A0B7F7B1519A42400FC0898 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = warning.png; path = res/warning.png; sourceTree = SOURCE_ROOT; };
 		5A0B7F7F151A678200FC0898 /* btn_green_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_green_light.png; sourceTree = "<group>"; };
 		5A25E2801504CBB20046C67D /* tab_character.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tab_character.jpg; sourceTree = "<group>"; };
 		5A25E2831504CC260046C67D /* CharacterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterViewController.h; sourceTree = "<group>"; };
@@ -179,6 +181,11 @@
 		5A61E7BC15078DF9008DE591 /* wait2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait2.gif; sourceTree = "<group>"; };
 		5A61E7C01507922E008DE591 /* wait3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait3.gif; sourceTree = "<group>"; };
 		5A61E7C2150799E3008DE591 /* wait_transparent.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait_transparent.gif; sourceTree = "<group>"; };
+		5A6276CD153B935B007F242D /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
+		5AA8626C153C05D50099EE98 /* TeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamViewController.h; sourceTree = "<group>"; };
+		5AA8626D153C05D50099EE98 /* TeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamViewController.m; sourceTree = "<group>"; };
+		5AA8626E153C05D50099EE98 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
+		5AA86272153C08090099EE98 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		5AA8C2B31508048D001C5BD3 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		5AA8C2B41508048D001C5BD3 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		5AA8C2B51508048D001C5BD3 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -302,6 +309,7 @@
 				5A027425151E9BEA0083706E /* MarketViewController.xib */,
 				5A25E28A1504CC9A0046C67D /* StatusViewController.xib */,
 				5A47AC4C1516C44400C050FB /* TrainingGround.xib */,
+				5AA8626E153C05D50099EE98 /* TeamViewController.xib */,
 				5A388C47153647E2008395BB /* ResearchViewController.xib */,
 				5AAA2FEB152C58D6002E6FCF /* QuestViewController.xib */,
 			);
@@ -325,6 +333,8 @@
 				5A47AC4B1516C44400C050FB /* TrainingGround.m */,
 				5A388C45153647E2008395BB /* ResearchViewController.h */,
 				5A388C46153647E2008395BB /* ResearchViewController.m */,
+				5AA8626C153C05D50099EE98 /* TeamViewController.h */,
+				5AA8626D153C05D50099EE98 /* TeamViewController.m */,
 				5A027423151E9BE90083706E /* MarketViewController.h */,
 				5A027424151E9BE90083706E /* MarketViewController.m */,
 				5AAA2FE9152C58D5002E6FCF /* QuestViewController.h */,
@@ -524,6 +534,7 @@
 				5A47AC5E15170A0B00C050FB /* btn_skill.png */,
 				5A25E2B3150589210046C67D /* button1.png */,
 				5AAA2FF6152CD491002E6FCF /* btn_close.png */,
+				5AA86272153C08090099EE98 /* warning.png */,
 				5AC06A111522F2090021B7FB /* btn_tab_dark.png */,
 				5AC06A121522F20A0021B7FB /* btn_tab_light.png */,
 				5AC06A251525ED4D0021B7FB /* bt_close.png */,
@@ -534,8 +545,8 @@
 				5AAA2FF0152C5FE7002E6FCF /* bg_quest1.jpg */,
 				5ACC6BE7151EA8EB00C83551 /* bg_12.png */,
 				5AAA2FF2152C637E002E6FCF /* bg_task_title.png */,
+				5A6276CD153B935B007F242D /* bg1.jpg */,
 				5AFD8E0A1502ED420066ECBA /* board.jpg */,
-				5A0B7F7B1519A42400FC0898 /* warning.png */,
 				5AD2154D150EB9D3008CD181 /* fight_result.png */,
 				5AD2154F150EBD65008CD181 /* fight_result_fail.png */,
 				5A027413151A9FDD0083706E /* fight_result_win.png */,
@@ -670,7 +681,6 @@
 				5A47AC561516F08200C050FB /* traininggrd2.jpg in Resources */,
 				5A47AC581516F7D700C050FB /* tab_team.png in Resources */,
 				5A47AC5F15170A0C00C050FB /* btn_skill.png in Resources */,
-				5A0B7F7C1519A42400FC0898 /* warning.png in Resources */,
 				5A0B7F80151A678400FC0898 /* btn_green_light.png in Resources */,
 				5A027414151A9FDD0083706E /* fight_result_win.png in Resources */,
 				5A027417151C271F0083706E /* btn_wood.png in Resources */,
@@ -697,6 +707,9 @@
 				5A388C49153647E2008395BB /* ResearchViewController.xib in Resources */,
 				5A388C4C15366D93008395BB /* RegViewController.xib in Resources */,
 				5A4C619A153A799200D8525B /* bg_prop.png in Resources */,
+				5A6276CE153B935B007F242D /* bg1.jpg in Resources */,
+				5AA86270153C05D50099EE98 /* TeamViewController.xib in Resources */,
+				5AA86273153C08090099EE98 /* warning.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +754,7 @@
 				5A388C48153647E2008395BB /* ResearchViewController.m in Sources */,
 				5A388C4F15366DA4008395BB /* RegViewController.m in Sources */,
 				5A388C521538D1A8008395BB /* LightView.m in Sources */,
+				5AA8626F153C05D50099EE98 /* TeamViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

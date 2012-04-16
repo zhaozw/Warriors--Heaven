@@ -51,11 +51,11 @@
     // init const
 //    host = @"localhost.joyqom.com";
 //host = @"192.168.0.24";
-    host = @"localhost";
+//    host = @"localhost";
     //    host = @"127.0.0.1";
 //  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
+    host = @"homeserver.joyqom.com";
     port = @"3006";
     return self;
 }
@@ -228,15 +228,15 @@
         //    [self checkNetworkStatus];
         
         // load user data
-        data_user = [self readUserObject];
-
-        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
-            data_user = NULL;
+//        data_user = [self readUserObject];
+//
+//        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
+//            data_user = NULL;
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
-        }else{
-//            self.data_user = [userdata JSONValue];
-        }
+//        }else{
+//         
+//        }
 
         
         [self initUI];

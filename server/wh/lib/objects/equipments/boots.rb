@@ -23,4 +23,6 @@ class Boots  < Weapon
     def rank
       1
   end
+    
+
 end

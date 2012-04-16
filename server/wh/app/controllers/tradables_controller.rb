@@ -39,6 +39,7 @@ class TradablesController < ApplicationController
         check_session
         if !session[:userdata] 
             error("session 不存在， 请重新启动游戏")
+            return
         end
         uid = session[:uid]
         item_id = params[:id]
