@@ -33,4 +33,5 @@
 @property (nonatomic, retain) NSMutableArray* lb_level_list; // list of progress view of tp
 @property (strong, nonatomic) IBOutlet ResearchViewController *vcResearch;
 - (IBAction)onSelectLibrary:(id)sender;
+- (void) reloadSkills;
 @end

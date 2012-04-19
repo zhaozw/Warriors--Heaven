@@ -81,7 +81,7 @@
          //        UIImage * img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1/images/home.jpg"] options:NSDataReadingMappedIfSafe error:&error]];
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
-        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.jpg", i] ] ];
+        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
         [logo setContentMode:UIViewContentModeScaleAspectFit];
         
         [logo setFrame:CGRectMake(1, 5, 50, 50)];
@@ -212,7 +212,7 @@
        for (int i = 0; i < [keys_skill count]; i++){
            NSObject* key = [keys_skill objectAtIndex:i];
            NSObject * o = [skills_gain valueForKey:key];
-           NSString* name = [o valueForKey:@"skill"];
+           NSString* name = [o valueForKey:@"dname"];
            NSNumber* point = [o valueForKey:@"point"];   
            NSNumber* level = [o valueForKey:@"level"];   
            
@@ -279,6 +279,8 @@
     [[ad window] addSubview: resultView];
     
     [[ad window] bringSubviewToFront:resultView];
+    
+    [ad reloadStatus];
 }
 
 - (void) fight:(UIButton* )button{

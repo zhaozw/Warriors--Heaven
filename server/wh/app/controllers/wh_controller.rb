@@ -81,6 +81,7 @@ class WhController < ApplicationController
            }
         session[:username] = params[:name]
         p "=====>>>#{session['_wh_session']}"
+        sex =  (params[:profile].to_i+1)/2 - (params[:profile].to_i) /2  # odd:1 even:0
         r = User.new({
             :user=>params[:name],
             :sid=>sid,
@@ -88,6 +89,7 @@ class WhController < ApplicationController
              :race=> 0,
              :sex=> params[:sex],
              :title=> "新人",
+             :profile=>params[:profile]
             
         })
         begin
@@ -109,7 +111,7 @@ class WhController < ApplicationController
             :gold => 100,
             :exp  =>    0,
             :level=>    0,
-            :prop => '{"max_eq":"5", "max_item":10}',
+            :prop => '{"max_eq":"5", "max_item":"10", "teamnotcreated":"1"}',
             :sid  => sid,
             :hp   => 100,
             :maxhp=> 100,
@@ -156,9 +158,9 @@ class WhController < ApplicationController
         })
         skill.save!
 
-                r[:userskills].push(skill)
+        r[:userskills].push(skill)
                 
-                skill = Userskill.new({
+        skill = Userskill.new({
             :uid    =>  r[:id],
             :sid     => sid,
             :skid    => 0,
@@ -170,6 +172,10 @@ class WhController < ApplicationController
         })
         skill.save!
         r[:userskills].push(skill)
+        
+        
+        
+        
         
         render :text=>r.to_json
         
@@ -264,11 +270,11 @@ class WhController < ApplicationController
             "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
-            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>"
+            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>"
         }
          # p msg
         if (params[:debug])
-           render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>" + player[:gain].to_json
+           render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>" + player[:gain].to_json
         else
             render :text=>ret.to_json
         end
@@ -629,11 +635,11 @@ class WhController < ApplicationController
         ret = {
             "win" => attacker[:isUser],
             "gain" => gain,
-            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>"
+            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{msg}</div>"
         }
        # p msg
        if (params[:debug])
-        render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{msg}</div>" + gain.to_json
+        render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{msg}</div>" + gain.to_json
     else
         render :text=>ret.to_json
     end
@@ -645,6 +651,7 @@ class WhController < ApplicationController
         skill_name = params[:skill]
         
         ud = user_data
+
         ext = user_data[:userext]
         pot = ext[:pot]
         if pot <= 0
@@ -692,7 +699,10 @@ class WhController < ApplicationController
             :userskill=>rs[0],
             :user => ud
         }
-        p ret.to_json
+        p ud.to_json
+        p rs[0].to_json
+        p "===>ppp#{ret.inspect}"
+        p "#{ret.to_json}"
        # ret = ud.join(rs[0])
         render :text=>ret.to_json
         

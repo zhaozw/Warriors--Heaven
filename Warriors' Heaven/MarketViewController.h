@@ -12,7 +12,7 @@
 @interface MarketViewController : UIViewController{
     int currentSelectedList;
 }
-@property(nonatomic, assign)     int currentSelectedList;;
+@property(nonatomic, assign)     int currentSelectedList;
 @property (strong, nonatomic) IBOutlet UIButton *btEquipment;
 @property (strong, nonatomic) IBOutlet UIButton *btFixure;
 @property (strong, nonatomic) IBOutlet UIButton *btPremierEq;

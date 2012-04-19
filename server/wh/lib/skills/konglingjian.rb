@@ -1,22 +1,50 @@
-#require 'utility.rb'
 require 'skills/skill.rb'
-
-class Unarmed < Game::Skill
-    # 基本拳脚
+class Konglingjian < Game::Skill 
+#基本剑法
    def for
-       return "attack parry"
+       return "attack sword"
    end
-   def category
-       "basic"
+     def category
+       "common"
    end
    def type 
-       return "unarmed"
+       return "sword"
    end
    
-   def dname #display name
-     "基本拳脚"
+   def dname
+       "空灵剑"
    end
+   
+   def desc
+       "崆峒派传世武功，后来明教金毛狮王谢逊夺得《七伤拳谱》 古抄本，终于练成。此拳法出拳时声势煊赫，一拳中有七股不同的劲力，或刚猛、或阴柔、或刚中有柔，或柔中有刚，或横出，或直送，或内缩，敌人抵挡不住这源源而来的劲力，便会深受内伤。谢逊曾以此拳击毙少林神僧空见大师。但这七伤拳倘由内力未臻化境的人来练，对自己便有极大伤害。人体内有阴阳二气、金木水火土五行，一练七伤，七者皆伤。所以所谓“七伤”，乃是先伤己，再伤人。"
+   end
+   
+   def needResearchPoint
+       100
+   end
+   
+   def researchConditionDesc
+       "基本拳脚>10级"
+   end
+   
+   def mengpai
+       "kongtong" # 崆峒派
+   end
+   
+   
+   def checkResearchCondition(context)
+       user = context[:user]
+       skill = user.query_skill("unarmed")
+      
+       if (!skill or skill.data[:level] <=10 )
+           context[:msg] += "你的基本拳脚功夫还不够，无法参悟书中奥义"
+           return false
+       end
+       return true
+   end
+   
 
+  
    def damage(context)   # only for calculation, "render" function will make real damage
        user = context[:user]
        a = getAction
@@ -24,19 +52,8 @@ class Unarmed < Game::Skill
       
    end
     
-   def power(context)
-     # context[:user].ext[:str] * @skill[:level]
-    # damage(context)
-      p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      str  = context[:user].tmp[:str]
-      return  (p + context[:user].tmp[:str]+1) / 30 *      (( str+1)/10)
-   end
-    
-   def speed(context)
-       thisskill = @skill
-       thisskill[:level] * 2 + context[:user].tmp[:dext].to_i
-   end
-   
+
+  
    def defense(context)
        thisskill = @skill
        return thisskill[:level]
@@ -112,11 +129,12 @@ class Unarmed < Game::Skill
         target = context[:target]
         p "action=#{a}"
 
-        
-        
         # generate msg
         #context[:msg] += translate_msg(a[:action], context)
         # TODO translate arabic number to Chinse e.g.“第三十六式”
+        if !context[:msg] 
+            context[:msg]  = ""
+        end
         context[:msg] += action_msg(a)
    end
 

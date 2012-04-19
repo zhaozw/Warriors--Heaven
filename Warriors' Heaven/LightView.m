@@ -9,15 +9,20 @@
 #import "LightView.h"
 #import "EGOImageButton.h"
 #import <objc/runtime.h>
+#import "LightRowView.h"
 
 @implementation LightView
 @synthesize margin_top;
+@synthesize currentY;
+
 
 - (void) init1{
     currentX = 0;
-    currentY = 0;
+  
     rows = [[NSMutableArray alloc] init];
     margin_top = 10;
+      currentY = margin_top;
+    default_row_height = 70;
 //    return self;
 }
 - (id)initWithFrame:(CGRect)frame
@@ -27,6 +32,7 @@
         // Initialization code
         [self init1];
     }
+    
     return self;
 }
 
@@ -37,8 +43,9 @@
         [v removeFromSuperview];
     }
     currentX = 0;
-    currentY = 0;
+    
     margin_top = 10;
+    currentY = margin_top;
     [rows removeAllObjects];
   //  CGRect r = self .frame ;
     //r.size.height = 50;
@@ -67,8 +74,8 @@
  */
 - (void) addRow:(NSObject*) data
 {
-    if ([rows count] == 0)
-        currentY = margin_top;
+//    if ([rows count] == 0)
+//        currentY = margin_top;
     NSString* bgImage = [data valueForKey:@"bgImage"];
     NSString* bgColor = [data valueForKey:@"bgColor"];
     NSString* titleImage = [data valueForKey:@"titleImage"];
@@ -277,7 +284,56 @@
     return c;
 }
 
++(id) createButton:(CGRect)frame parent:(UIView*)parent text:(NSString*) text tag:(int)tag{
 
+    UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+   
+    
+    btn_ask.frame = frame;
+    
+    [btn_ask setTitle:text forState:UIControlStateNormal];
+    [btn_ask setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
+//    [btn_ask addTarget:vc action: NSSelectorFromString(callback) forControlEvents:UIControlEventTouchUpInside];
+    [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [btn_ask.titleLabel setTextColor:[UIColor whiteColor]];
+    btn_ask.tag = tag;
+    return btn_ask;
+
+}
+
+
++(UIImageView*) createImageView:(NSString*) img frame:(CGRect)frame parent:(UIView*)parent{
+    UIImageView *c = [[UIImageView alloc] initWithImage:[UIImage imageNamed:img]];
+    c.frame = frame;
+    [parent addSubview:c];
+    [c setOpaque:NO];
+ 
+    [c setBackgroundColor:[UIColor clearColor]];
+
+    return c;
+}
+-(UIImageView*) createImageViewAsRow:(NSString*) img frame:(CGRect)frame{
+    UIImageView* v = [LightView createImageView:img frame:frame parent:self];
+    [rows addObject:v];
+    return v;
+}
+
+- (id) addRowView:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag{
+    LightRowView* r = [[LightRowView alloc] initWithController:vc parent:self];
+    [r create:CGRectMake(0, currentY, 320, default_row_height) title:title logo:logo btTitle:btTitle btnTag:btnTag ];
+    [self addSubview:r];
+    currentY += default_row_height;
+    [rows addObject:r];
+    
+    CGRect rect = self.frame;
+    if ( currentY > rect.size.height){
+        rect.size.height = currentY;
+        self.frame = rect;
+    }
+    return r;
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

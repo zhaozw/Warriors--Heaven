@@ -65,7 +65,7 @@
     [vUnRead removeAllRow];
     NSObject* root =  [[ad getDataUser] valueForKey:@"research"];
     NSArray* read = [root valueForKey:@"read"];
-    NSArray* unread = [root valueForKey:@"unread"];
+    NSDictionary* unread = [root valueForKey:@"unread"];
 
     if (read){
         for (int i = 0; i< [read count]; i++){
@@ -135,40 +135,54 @@
     }
     
     if (unread){
-        for (int i = 0; i< [unread count]; i++){
+        NSArray* keys = [unread allKeys];
+        for (int k = 0; k< [keys count]; k++){
+            NSString* sMengpai = [keys objectAtIndex:k];
+            NSArray* books = [unread valueForKey:sMengpai];
+            UIImageView* vMengpai = [vUnRead createImageViewAsRow: @"bg_task_title.png" frame:CGRectMake(0, vUnRead.currentY+5, 320, 18)];
+            vMengpai.alpha = 0.5f;
+            vUnRead.currentY += 23;
+            NSString* strMengpai = @"";
+            if ([sMengpai isEqualToString:@"kongtong"])
+                              strMengpai = @"崆峒系";
+                              else if ([sMengpai isEqualToString:@"dongying"])
+                              strMengpai = @"东瀛系";
+            [LightView createLabel:CGRectMake(5, 0, 100, 18) parent:vMengpai text:strMengpai textColor:[UIColor whiteColor]];
+            for (int i = 0; i< [books count]; i++){
                 NSObject* row = [[NSMutableDictionary alloc] init];
-            NSObject* r = [unread objectAtIndex:i];
-            NSString* dname = [r valueForKey:@"dname"];
-            NSString* desc = [r valueForKey:@"desc"];
-            NSString* imageUrl = [NSString stringWithFormat:@"http://%@:%@/game/badges/badge1.png", [ad host], [ad port]];
-//            int pv = [[r valueForKey:@"progress"] intValue];
-            [row setValue:@"bg_quest1.png" forKey:@"bgImage"];
-            [row setValue:imageUrl forKey:@"titleImage"];
-            //            [row setValue:@"" forKey:@"bgColor"];
-            //            [row setValue:@"" forKey:@"height"];
-            //            [row setValue:@"" forKey:@"margin"];
-            [row setValue:dname forKey:@"title"];
-            
-            NSMutableArray* children = [[NSMutableArray alloc ] init];
-            [row setValue:children forKey:@"children"];
-            
-            NSObject* miaoshu = [[NSMutableDictionary alloc] init];
-            [miaoshu setValue:@"label" forKey:@"nodeName"];
-            [miaoshu setValue:desc forKey:@"text"];
-            [children addObject: miaoshu];
-            
-            NSMutableArray* buttons = [[NSMutableArray alloc ] init ];
-            [row setValue:buttons forKey:@"buttons"];
-            NSObject* button = [[NSMutableDictionary alloc] init];
-            [button setValue:@"onResearchUnread:" forKey:@"callback"];
-            [button setValue:@"Research" forKey:@"text"];
-//            [button setValue:[NSNumber numberWithInt:(_id)] forKey:@"tag"];
-            [button setValue:@"btn_green_light" forKey:@"bgImage"];
-            [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
-            [buttons addObject: button];
-            
+                NSObject* r = [books objectAtIndex:i];
+                NSString* dname = [r valueForKey:@"dname"];
+                NSString* desc = [r valueForKey:@"desc"];
+                NSString* imageUrl = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], [r valueForKey:@"image"]];
+    //            int pv = [[r valueForKey:@"progress"] intValue];
+                [row setValue:@"bg_quest1.png" forKey:@"bgImage"];
+                [row setValue:imageUrl forKey:@"titleImage"];
+                //            [row setValue:@"" forKey:@"bgColor"];
+                //            [row setValue:@"" forKey:@"height"];
+                //            [row setValue:@"" forKey:@"margin"];
+                [row setValue:dname forKey:@"title"];
+                
+                NSMutableArray* children = [[NSMutableArray alloc ] init];
+                [row setValue:children forKey:@"children"];
+                
+                NSObject* miaoshu = [[NSMutableDictionary alloc] init];
+                [miaoshu setValue:@"label" forKey:@"nodeName"];
+                [miaoshu setValue:desc forKey:@"text"];
+                [children addObject: miaoshu];
+                
+                NSMutableArray* buttons = [[NSMutableArray alloc ] init ];
+                [row setValue:buttons forKey:@"buttons"];
+                NSObject* button = [[NSMutableDictionary alloc] init];
+                [button setValue:@"onResearchUnread:" forKey:@"callback"];
+                [button setValue:@"Research" forKey:@"text"];
+    //            [button setValue:[NSNumber numberWithInt:(_id)] forKey:@"tag"];
+                [button setValue:@"btn_green_light" forKey:@"bgImage"];
+                [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
+                [buttons addObject: button];
+                
 
-            [vUnRead addRow:row];
+                [vUnRead addRow:row];
+            }
         }
     }
     
@@ -183,7 +197,7 @@
     CGRect rect3 = [self view].frame;
     rect3.size.height = rect1.size.height + 5 + rect2.size.height;
     [self view].frame = rect3;
-    [self view].backgroundColor = [UIColor redColor];
+//    [self view].backgroundColor = [UIColor redColor];
     
     int scrollSize = rect3.size.height+200 - 480;
     if (scrollSize > 0 ){
@@ -195,8 +209,25 @@
 - (void) onResearchUnread:(UIButton*)btn{
     
     NSObject* root =  [[ad getDataUser] valueForKey:@"research"];
-    NSArray* read = [root valueForKey:@"unread"];
-    NSObject* r = [ read objectAtIndex:btn.tag] ;
+    NSDictionary* unread = [root valueForKey:@"unread"];
+    NSArray* keys = [unread allKeys];
+    int index = 0 ;
+    NSObject* r = NULL;
+    for (int i = 0 ; i< [keys count]; i++){
+        NSArray *mengpai = [unread objectForKey:[keys objectAtIndex:i]];
+        if ( index + [mengpai count] -1 < btn.tag){
+            index += [mengpai count];
+            continue;
+        }
+        if (index + [mengpai count] -1 == btn.tag){
+            r = [mengpai objectAtIndex:[mengpai count] - 1];
+            break;
+        }
+        r = [mengpai objectAtIndex: btn.tag - index ];
+        break;
+            
+    }
+ 
     NSString* name = [r valueForKey:@"skname"];
     
     NSString* url = [NSString stringWithFormat:@"/Userrsches/research?skname=%@", name];

@@ -42,6 +42,13 @@
 @synthesize vBattleMsg;
 @synthesize vBattleMsgBg;
 @synthesize requests;
+@synthesize bUserSkillNeedReload;
+
+
+
+
+
+
 
 - (id) init{
     /////////////////
@@ -252,6 +259,10 @@
 
 - (void) showStatusView:(BOOL)bShow{
     vcStatus.view.hidden = !bShow;
+}
+
+- (void) reloadStatus{
+    [vcStatus viewDidAppear:YES ];
 }
 
 - (void) showHelpView:(NSString*) url{

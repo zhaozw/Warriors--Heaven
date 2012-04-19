@@ -27,6 +27,11 @@ class Qishangquan < Game::Skill
        "基本拳脚>10级"
    end
    
+   def mengpai
+       "kongtong" # 崆峒派
+   end
+   
+   
    def checkResearchCondition(context)
        user = context[:user]
        skill = user.query_skill("unarmed")
@@ -38,6 +43,7 @@ class Qishangquan < Game::Skill
        return true
    end
    
+
   
    def damage(context)   # only for calculation, "render" function will make real damage
        user = context[:user]
@@ -129,7 +135,7 @@ class Qishangquan < Game::Skill
         if !context[:msg] 
             context[:msg]  = ""
         end
-        context[:msg] += "【#{dname} 第#{a[:index]}式】#{a[:action]}" 
+        context[:msg] += action_msg(a)
    end
 
 end

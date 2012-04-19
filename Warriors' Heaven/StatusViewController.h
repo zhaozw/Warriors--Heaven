@@ -16,5 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbAmbition;
 @property (strong, nonatomic) IBOutlet UILabel *lbExp;
 @property (strong, nonatomic) IBOutlet UILabel *lbLevel;
+@property (strong, nonatomic) IBOutlet UIProgressView *pvStam;
+@property (strong, nonatomic) IBOutlet UILabel *lbStam;
 - (void) onReceiveStatus:(NSObject*) json;
 @end

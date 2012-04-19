@@ -28,6 +28,10 @@ class Yidaoliu < Game::Skill
        "基本刀法>10级"
    end
    
+   def mengpai
+       "dongying" # 东瀛
+   end
+   
    def checkResearchCondition(context)
        user = context[:user]
        skill = user.query_skill("blade")

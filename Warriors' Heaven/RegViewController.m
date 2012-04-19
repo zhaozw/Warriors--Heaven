@@ -72,13 +72,13 @@
     }
     
     if (currentSelectedSex <0){
-        lbError.text = @"Please choose sex for your character.";
+        lbError.text = @"Please choose your character.";
         return;
     }
    
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
 //    [client setResponseHandler:@selector(onResponse::)];
-    NSString* url = [NSString stringWithFormat:@"/wh/reg?name=%@&sex=%d", name, currentSelectedSex];
+    NSString* url = [NSString stringWithFormat:@"/wh/reg?name=%@&profile=%d", name, currentSelectedSex];
     
     [client sendHttpRequest:url selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
     

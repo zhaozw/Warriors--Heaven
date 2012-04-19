@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     
     def userskills
         if !self[:userskill]
-           self[:userskill] = Userskill.find_by_sql("select skid, skname, level, tp from userskills where uid='#{self[:id]}'")
+           self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
        end 
 
        return self[:userskill]
@@ -82,6 +82,9 @@ class User < ActiveRecord::Base
            loadAllSkills
        end
        return self[:skills].values
+    end
+    def skills
+        query_all_skills
     end
     # return skills/skill object
     def query_skill(skillname)

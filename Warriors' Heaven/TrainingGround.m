@@ -262,6 +262,8 @@
     if (ad.bUserSkillNeedUpdate){
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         [client sendHttpRequest:@"/userskills" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
+    }else if (ad.bUserSkillNeedReload){
+        [self reloadSkills];
     }
     
 }
@@ -287,12 +289,8 @@
     [vPremierSkill setFrame:CGRectMake(0, 60, 320, 20)];
 }
 
-- (void) onReceiveStatus:(NSArray*) data{
-    [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"userskills"];
-    ad.bUserSkillNeedUpdate = NO;
-    // e.g. 
-    //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
-   
+// reload from local data
+- (void) reloadSkills{
     // reset status
     [self foldAll];
     
@@ -316,7 +314,7 @@
     [pv_tp removeAllObjects];
     [lb_level_list removeAllObjects];
     // build new rows
-    NSArray* userskills = data;
+    NSArray* userskills = [ad getDataUserskills];
     int height = 50;
     int y_b = 0;
     int y_c = 0;
@@ -338,7 +336,7 @@
         [lbSkillTitle setBackgroundColor:[UIColor clearColor]];
         [lbSkillTitle setOpaque:NO];
         [lbSkillTitle setText:[o valueForKey:@"dname"]];
-
+        
         UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         pvTP.frame = CGRectMake(100, 20, 50, 30);
         float process = ((float)tp)/((level+1)*(level+1));
@@ -352,7 +350,7 @@
         [lbSkillStatus setOpaque:NO];
         [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_level_list addObject:lbSkillStatus];
-
+        
         
         UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
         [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
@@ -363,9 +361,9 @@
         [btPractise setTitle:@"Practise" forState:UIControlStateNormal];
         [btPractise setTag:i];
         [btPractise setShowsTouchWhenHighlighted:YES];
-       [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
-
-  
+        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         NSString* cat = [o valueForKey:@"category"];
         if ([cat isEqualToString:@"basic"]){
             count_b ++;
@@ -381,11 +379,11 @@
             [vBasicSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_b, 70, height-17)];
             
-//            [skillsView setUserInteractionEnabled:YES];
-//            [vBasicSkill setUserInteractionEnabled:YES];
-//            [vBasicSkillsList setUserInteractionEnabled:YES];
-//            [btPractise setUserInteractionEnabled: YES];
-//            [vBasicSkillsList bringSubviewToFront:btPractise];
+            //            [skillsView setUserInteractionEnabled:YES];
+            //            [vBasicSkill setUserInteractionEnabled:YES];
+            //            [vBasicSkillsList setUserInteractionEnabled:YES];
+            //            [btPractise setUserInteractionEnabled: YES];
+            //            [vBasicSkillsList bringSubviewToFront:btPractise];
             
             
             y_b += height;
@@ -399,8 +397,8 @@
             [lbSkillStatus setFrame:CGRectMake(120, y_c+5, 80, height)];
             [vCommonSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_c, 70, height-17)];
-  
-  
+            
+            
             y_c += height;
         }else if ([cat isEqualToString:@"premier"]){
             count_p ++;
@@ -412,7 +410,7 @@
             [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height)];
             [vPremierSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_p, 70, height-17)];
-      
+            
             y_p += height;
         }
         
@@ -428,17 +426,17 @@
     rect.size.height = y_p;
     [vPremierSkillsList setFrame:rect];
     
-//    vBasicSkillsList.backgroundColor = [UIColor greenColor];
+    //    vBasicSkillsList.backgroundColor = [UIColor greenColor];
     
-   
-//    int h = vBasicSkillsList.frame.size.height + vCommonSkillsList.frame.size.height + vPremierSkill.frame.size.height+30;
+    
+    //    int h = vBasicSkillsList.frame.size.height + vCommonSkillsList.frame.size.height + vPremierSkill.frame.size.height+30;
     rect =  skillsView.frame;
     rect.size.height = height*(count_b+count_c+count_p)+90;
     skillsView.frame = rect;
     if (rect.size.height+200-480 >0)
-    [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
+        [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
     
-
+    
     vBasicSkillsList.hidden = YES;
     vCommonSkillsList.hidden = YES;
     vPremierSkillsList.hidden = YES;
@@ -446,6 +444,14 @@
     [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基础技 (%d)", count_b] forState:UIControlStateNormal];
     [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高级技 (%d)", count_c] forState:UIControlStateNormal];
     [bt_premier_skill setTitle:[[NSString alloc] initWithFormat:@"必杀技 (%d)", count_p] forState:UIControlStateNormal];
+}
+- (void) onReceiveStatus:(NSArray*) data{
+    [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"userskills"];
+    ad.bUserSkillNeedUpdate = NO;
+    // e.g. 
+    //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
+    [self reloadSkills];
+
 }
 
 - (void)practiseSkill:(UIButton*)btn{
@@ -510,7 +516,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     
 //    [UIView setAnimationsEnabled:YES];
-    NSLog(@"DID APPEAR %d", animated);
+    NSLog(@"TrainingView DID APPEAR %d", animated);
 //    CGAffineTransform initTransform = [skillsView transform];
 
     [skillsView setFrame:CGRectMake(-200, 200, 200, 300)];
@@ -569,7 +575,7 @@
     vcResearch.view.hidden = YES;
     CGRect rect3 = skillsView.frame;
     int scrollSize = rect3.size.height+200 - 480;
-    skillsView.backgroundColor = [UIColor redColor];
+//    skillsView.backgroundColor = [UIColor redColor];
     if (scrollSize > 0 ){
 //        UIScrollView* sv = [self view ].superview;
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];

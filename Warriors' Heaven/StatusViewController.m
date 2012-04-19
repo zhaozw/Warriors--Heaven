@@ -19,6 +19,8 @@
 @synthesize lbAmbition;
 @synthesize lbExp;
 @synthesize lbLevel;
+@synthesize pvStam;
+@synthesize lbStam;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,6 +72,8 @@
         int maxhp = [strMaxHp intValue];
         lbHP.text = [[NSString alloc] initWithFormat:@"%@/%@", strHp, strMaxHp] ;
         [pvHP setProgress:((float)hp ) / ((float)maxhp) ];
+        lbStam.text = [[json valueForKey:@"stam"] stringValue];
+        [pvStam setProgress:((float)[[json valueForKey:@"stam"] intValue])/[ [json valueForKey:@"maxst"] intValue]];
     }
 
 }
@@ -93,6 +97,8 @@
     [self setLbAmbition:nil];
     [self setLbExp:nil];
     [self setLbLevel:nil];
+    [self setPvStam:nil];
+    [self setLbStam:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

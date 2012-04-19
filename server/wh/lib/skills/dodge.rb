@@ -4,7 +4,8 @@ class Dodge < Game::Skill
    def type
        return "unarmed"
    end
-     def category
+ 
+   def category
        "basic"
    end
    def for

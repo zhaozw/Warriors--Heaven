@@ -1,53 +1,69 @@
 class UserrschesController < ApplicationController
     
     def list
-        list = [
-            "huyuezhan","yidaoliu","qishangquan"
-            ]
+        list = {
+            "dongying"=>["huyuezhan","yidaoliu","jiuguishengzhuan"],
+            "kongtong"=>["konglingjian","qishangquan"]
+            }
         
         
 
-        unread_list = []
+        unread_list = {
+            "kongtong"=>[],
+            "dongying"=>[]
+        }
         read_list = []
         if (!user_data[:userrsch])
             rs = Userrsch.find_by_sql("select * from userrsches where uid=#{session[:uid]}")
             user_data[:userrsch] = rs
         end
-        for r in user_data[:userrsch]
+        for r in user_data[:userrsch] # delete those already in research list
             skill = load_skill(r[:skname])
             skill.set(r)
             r[:dname] = skill.dname
             r[:desc] = skill.desc
-            for l in list
+            r[:mengpai] = skill.mengpai
+            r[:image] = skill.image
+            p skill.inspect
+            p "===> check  in meangpai #{skill.mengpai}:#{ list[skill.mengpai].inspect}"
+            for l in list[skill.mengpai]
+                p "==>#{l.inspect}"
                 if l == r[:skname]
-                    list.delete(l)
-                 
+                    list[skill.mengpai].delete(l)
                     break
                 end
             end
         end
         p "==>userskills:#{user_data.userskills}"
-        p user_data.userskills.size
-        for  r in user_data.userskills
+        p user_data.skills.size
+        for  r in user_data.skills # delete those already be user's skill
             p "==>r1=#{r.inspect}"
-            if (!r)
-                continue
+            if (!r || r.mengpai=="" || r.category == "basic")
+                next
             end
-            for l in list
+            p "==>mengpai=#{r.mengpai}"
+            for l in list[r.mengpai]
                 if l == r[:skname]
-                    list.delete(l)        
+                    list[r.mengpai].delete(l)        
                     break
                 end
             end
         end
-        for r in list
-            skill = load_skill(r)
-            rr = {
-                :skname=>r,
-                :dname=>skill.dname,
-                :desc=>skill.desc
-            }
-            unread_list.push(rr)
+        keys = list.keys
+        p "==>keys=#{keys.inspect}"
+        for r in keys
+            for rr in list[r]
+                skill = load_skill(rr)
+                rrr = {
+                    :skname=>rr,
+                    :dname=>skill.dname,
+                    :desc=>skill.desc,
+                    :mengpai=>skill.mengpai,
+                    :image => skill.image
+                }
+            
+                unread_list[r].push(rrr)
+            end
         end
         
         ret = {

@@ -13,13 +13,13 @@ class CreateTradables < ActiveRecord::Migration
     end
   end
 =begin
-    insert into tradables values (null, 'sword', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'blade', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'ring', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'cap', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'necklace', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'armo', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/sword', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/blade', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/ring', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/cap', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/necklace', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/armo', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
 =end
   def self.down
     drop_table :tradables

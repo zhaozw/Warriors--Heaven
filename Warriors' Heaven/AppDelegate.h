@@ -27,8 +27,8 @@
     NSString* port;
 
     int networkStatus;
-    BOOL bUserSkillNeedUpdate;
-    
+    BOOL bUserSkillNeedUpdate; // need update from server
+    BOOL bUserSkillNeedReload; // need update locally
     NSObject* requests;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
@@ -43,6 +43,7 @@
 @property (nonatomic, retain) NSObject* requests;
 @property (nonatomic, assign) int networkStatus;
 @property (nonatomic, assign)  BOOL bUserSkillNeedUpdate;
+@property (nonatomic, assign)  BOOL bUserSkillNeedReload;
 @property (nonatomic, copy) NSString* host;
 @property (nonatomic, copy) NSString* port;
 @property (nonatomic, copy) NSString* session_id;
@@ -93,5 +94,7 @@
 - (void) initUI;
 - (void) saveDataUser;
 - (void) setDataUser:(NSObject *)data save:(BOOL)save;
+
+- (void) reloadStatus;
 
 @end

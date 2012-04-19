@@ -238,6 +238,7 @@ end
     def improve_skill(player, skillname, point)
         p  player.query_skill(skillname)
         skill = player.query_skill(skillname).data
+        p "improve skill #{skill}#{skill.inspect}"
         skill[:tp] += point
         if ( (skill[:level]+1)*(skill[:level]+1) <= skill[:tp] )
             skill[:level] += 1
@@ -249,6 +250,10 @@ end
     end
    def __fight(attacker, defenser)  # one round
         msg = ""
+        if (attacker.tmp[:stam] <= 0)
+            msg = translate_msg("$N的体力不够， 无法发起进攻")
+            return msg
+        end
                 # do attack
             context_a = {
                     :user => attacker,
@@ -509,7 +514,7 @@ end
             p "====>p2 load: #{p2.tmp[:combat_load]} damage:#{p2.tmp[:combat_damage]} defense:#{p2.tmp[:combat_defense]  }"
         # calculate who attach first  
         # TODO need improve
-        if (p1.query_temp("dext") > p1.query_temp("dext"))
+        if (p1.query_temp("dext")-p1.tmp[:combat_load]/10 > p1.query_temp("dext")-p2.tmp[:combat_load]/10)
             attacker = p1
             #attacker_gain = gain_p1
             defenser = p2
@@ -535,31 +540,31 @@ end
             reg = Regexp.new("#{weapon_type}", true)
         end
 =end        
-        context_a = {
-                    :user => attacker,
+        context_p1 = {
+                    :user => p1,
                     :thisskill => nil,
-                    :skills=>attacker.query_all_skills,
-                    :target => defenser
+                    :skills=>p1.query_all_skills,
+                    :target => p2
         }
         # attacker choose the best dodge skill
-        attacker[:dodge_skill] = choosBestDodgeSkill(context_a)
+        p1[:dodge_skill] = choosBestDodgeSkill(context_p1)
         # attacker choose the skill have best damage
-        attacker[:attack_skill] = choosBestAttackSkill(context_a, weapon_type)
+        p1[:attack_skill] = choosBestAttackSkill(context_p1, weapon_type)
         # attacker choose best defense skill
-        attacker[:defense_skill] = choosBestDefenseSkill(context_a, weapon_type)
+        p1[:defense_skill] = choosBestDefenseSkill(context_p1, weapon_type)
         
-        context_d = {
-                    :user => defenser,
+        context_p2 = {
+                    :user => p2,
                     :thisskill => nil,
-                    :skills=>defenser.query_all_skills,
-                    :target => attacker
+                    :skills=>p2.query_all_skills,
+                    :target => p1
         }
         # defenser choose the best dodge skill
-        defenser[:dodge_skill] = choosBestDodgeSkill(context_d)
+        p2[:dodge_skill] = choosBestDodgeSkill(context_p2)
         # defenser choose the skill have best damage
-        defenser[:attack_skill] = choosBestAttackSkill(context_d, weapon_type)
+        p2[:attack_skill] = choosBestAttackSkill(context_p2, weapon_type)
         # defenser choose best defense skill
-        defenser[:defense_skill] = choosBestDefenseSkill(context_d, weapon_type)      
+        p2[:defense_skill] = choosBestDefenseSkill(context_p2, weapon_type)      
         
         
        
@@ -572,21 +577,24 @@ end
             :skills =>{
                 p1[:dodge_skill][:skill][:skname] =>
                 {
-                    :skill => attacker[:dodge_skill][:skill][:skname],
+                    :skill => p1[:dodge_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p1[:dodge_skill][:skill].dname
                 },
                 p1[:attack_skill][:skill][:skname] =>
                 {
-                    :skill => attacker[:attack_skill][:skill][:skname],
+                    :skill => p1[:attack_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p1[:attack_skill][:skill].dname
                 },
                 p1[:defense_skill][:skill][:skname]=>
                 {
-                    :skill => attacker[:defense_skill][:skill][:skname],
+                    :skill => p1[:defense_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p1[:defense_skill][:skill].dname
                 }
             }
         }
@@ -599,25 +607,29 @@ end
             :skills =>{
                 p2[:dodge_skill][:skill][:skname] =>
                 {
-                    :skill => attacker[:dodge_skill][:skill][:skname],
+                    :skill => p2[:dodge_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p2[:dodge_skill][:skill].dname
                 },
                 p2[:attack_skill][:skill][:skname] =>
                 {
-                    :skill => attacker[:attack_skill][:skill][:skname],
+                    :skill => p2[:attack_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p2[:attack_skill][:skill].dname
                 },
                 p2[:defense_skill][:skill][:skname]=>
                 {
-                    :skill => attacker[:defense_skill][:skill][:skname],
+                    :skill => p2[:defense_skill][:skill][:skname],
                     :point => 0,
-                    :level => 0
+                    :level => 0,
+                    :dname =>p2[:defense_skill][:skill].dname
                 }
             }
         }
-      
+      p "==>gain.skill #{gain_p1.inspect}"
+         p "==>gain.skill #{gain_p2.inspect}"
       #  context[:gain_p1] = gain_p1
        # context[:gain_p2] = gain_p2
         p1[:gain] = gain_p1
@@ -630,12 +642,12 @@ end
             attacker_gain = gain_p2
             defenser_gain = gain_p1
         end
-         srand(Time.now.tv_usec.to_i)
+        
+        
+        
+        srand(Time.now.tv_usec.to_i)
         i = 0
         style_c = "user"
-        
-        
-        
        
         while (i < 100 ) # max 100 turn
             if  style_c == "user"
@@ -676,16 +688,34 @@ end
           gain = defenser[:gain]
           player = defenser
         end
-      
+        bChange = false
+        p "===>gain1=#{gain.inspect}"
         if (gain[:exp] != 0 )
             if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.tmp[:exp])
                 gain[:level] = 1
                 player.ext[:level] += 1
                 player.ext[:exp] = 0
             end
-            player.ext.save!
-        elsif (gain[:pot] != 0 )
             player.ext[:exp] = player.tmp[:exp]
+            p "===>33player ext saved #{player.ext.inspect}"
+            bChange = true
+        end
+        
+        if (gain[:pot] != 0 )
+            player.ext[:pot] = player.tmp[:pot]
+            bChange = true
+        end
+        
+        if (player.tmp[:stam] != player.ext[:stam])
+            player.ext[:stam]  = player.tmp[:stam]
+            bChange = true
+        end
+        
+        if (player.tmp[:hp] != player.ext[:hp])
+            player.ext[:hp]  = player.tmp[:hp]
+            bChange = true
+        end
+        if bChange
             player.ext.save!
         end
         
@@ -695,7 +725,7 @@ end
                 skill = player.query_skill(k).data
                 p skill.inspect
                 skill.save!
-                p "save #{player.query_skill(k).data}"
+                p "save skill #{player.name} #{skill}#{skill.inspect}"
             end
         }
         

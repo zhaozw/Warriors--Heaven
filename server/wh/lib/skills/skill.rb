@@ -24,6 +24,14 @@ class Skill
    def []name
        data[name]
    end
+   
+   def to_json
+       data.to_json
+   end
+   
+   def mengpai
+       ""
+   end
 
    def power(context)
      # context[:user].ext[:str] * @skill[:level]
@@ -68,9 +76,17 @@ class Skill
         end
     end
     
-      def image
+    def image
        "other/zhujian.png"
    end
+
+   def action_msg(action)
+        a = action
+        return "【<span style='color:#ffaaaa'>#{dname}</span> 第#{a[:index]}式】#{a[:action]}" 
+   end
+
+
+   
 end
 end
 

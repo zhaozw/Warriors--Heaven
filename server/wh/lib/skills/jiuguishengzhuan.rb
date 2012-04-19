@@ -1,8 +1,9 @@
+
 require 'skills/skill.rb'
-class Huyuezhan < Game::Skill 
-#基本剑法
+class Jiuguishengzhuan < Game::Skill 
+
    def for
-       return "attack blade"
+       return "attack unarmed"
    end
     
    def category
@@ -13,23 +14,23 @@ class Huyuezhan < Game::Skill
    end
    
    def dname
-       "弧月斩"
+       "九鬼神伝流"
    end
    
    def desc
-       "霸王丸曾用的弧月斩"
+       "长平家的一刀流"
    end
-
-   def mengpai
-       "dongying" # 东瀛
-   end
-   
+    
    def needResearchPoint
        100
    end
    
    def researchConditionDesc
-       "基本刀法>10级"
+       "基本拳脚>10级"
+   end
+   
+   def mengpai
+       "dongying" # 东瀛
    end
    
    def checkResearchCondition(context)
