@@ -14,6 +14,7 @@
 @synthesize vcStatus;
 
 @synthesize  fight_result;
+@synthesize ad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +45,7 @@
 //    [self.view addSubview:vcStatus.view];
 
   
-  
+    ad = [UIApplication sharedApplication].delegate;
     
         
 }
@@ -133,7 +134,11 @@
     
     NSLog(@"onFightResult");
     
-    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    if ([data valueForKey:@"error"]){
+        [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES];
+        return;
+    }
+
     ad.bUserSkillNeedUpdate = YES;
     
     [ad setDataUser:[data valueForKey:@"user"] save:YES];
@@ -281,6 +286,8 @@
     [[ad window] bringSubviewToFront:resultView];
     
     [ad reloadStatus];
+    
+    [ad startRecover];
 }
 
 - (void) fight:(UIButton* )button{

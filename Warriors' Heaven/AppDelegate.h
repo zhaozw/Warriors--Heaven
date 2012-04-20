@@ -48,6 +48,7 @@
 @property (nonatomic, copy) NSString* port;
 @property (nonatomic, copy) NSString* session_id;
 //@property (nonatomic, retain) NSObject* data_userext;
+@property (nonatomic, assign)  time_t tmRecoverStart;
 
 // sample data:
 // {"user":{"userext":{"userext":{"level":10,"max_eq":"5","fame":0,"race":"","max_item":10,"str":20,"name":"queen","created_at":null,"updated_at":"2012-03-24T21:16:48Z","dext":20,"s
@@ -95,6 +96,7 @@
 - (void) saveDataUser;
 - (void) setDataUser:(NSObject *)data save:(BOOL)save;
 
+- (void) startRecover;
 - (void) reloadStatus;
 
 @end

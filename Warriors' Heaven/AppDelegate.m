@@ -43,6 +43,7 @@
 @synthesize vBattleMsgBg;
 @synthesize requests;
 @synthesize bUserSkillNeedReload;
+@synthesize tmRecoverStart;
 
 
 
@@ -597,5 +598,47 @@
     NSArray *Array = [NSArray arrayWithObjects:data_user, nil];
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
     [SaveDefaults setObject:Array forKey:@"data_user"];
+}
+
+- (void) recover{
+    BOOL needReocovery = NO;
+    NSMutableDictionary* ext = [self getDataUserext];
+    int hp = [[[self getDataUserext] valueForKey:@"hp"] intValue];
+    int maxhp = [[[self getDataUserext] valueForKey:@"maxhp"] intValue];
+    if (hp < maxhp){
+        hp += maxhp/20;
+        if (hp > maxhp)
+            hp = maxhp;
+        if (hp < maxhp)
+            needReocovery = YES;
+        [ext setValue:[NSNumber numberWithInt:hp] forKey:@"hp"];
+    }
+    
+    int st = [[[self getDataUserext] valueForKey:@"stam"] intValue];
+    int maxst = [[[self getDataUserext] valueForKey:@"maxst"] intValue];
+    if (st < maxst){
+        st += maxst/20;
+        if (st > maxst)
+            st = maxst;
+        if (st < maxst)
+            needReocovery = YES;
+        [ext setValue:[NSNumber numberWithInt:st] forKey:@"stam"];
+    }
+    
+    if (needReocovery)
+        [self performSelector:@selector(recover) withObject:NULL afterDelay:10.0];
+    
+    [self reloadStatus];
+    
+}
+
+- (void) startRecover{
+//    tmRecoverStart = time(&tmRecoverStart);
+    
+    NSObject* t = [[self getDataUserext]valueForKey:@"updated_at"];
+    
+    [self performSelector:@selector(recover) withObject:NULL afterDelay:10.0];
+    
+    
 }
 @end

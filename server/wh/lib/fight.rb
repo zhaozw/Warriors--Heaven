@@ -257,10 +257,11 @@ end
                     :gain => attacker[:gain],
                     :msg => ""
         }
-        if (attacker.tmp[:stam] <= 0)
+        if (attacker.tmp[:stam] <= 0 )
             msg = translate_msg("$N的体力不够， 无法发起进攻", context_a)
             return msg
         end
+
                 # do attack
 
             context_d = {
@@ -502,6 +503,8 @@ end
     # context = {:msg=>""}
     def _fight(p1, p2, context)
         msg = context[:msg]
+        
+    
  
         # calculate temporary fight prop
 

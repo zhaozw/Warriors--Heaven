@@ -3,6 +3,7 @@ require 'objects/player.rb'
 require 'objects/npc/npc.rb'
 #require 'objects/skills/skill.rb'
 require 'fight.rb'
+require 'utility.rb'
 
 class WhController < ApplicationController
     
@@ -227,7 +228,7 @@ class WhController < ApplicationController
     
  
   
-    def recoverPlayer(ext)
+        def recoverPlayer(ext)
         p "update time #{ext[:updated_at].class}"
         p "now #{Time.now.class}"
         
@@ -262,31 +263,28 @@ class WhController < ApplicationController
  
     # /wh/fight?:enemy=<user id>    
     def fight2
+=begin
+        s = load_skill("unarmed")
+        us = Userskill.find(1)
+        us.to_json
+       # s.set(us)
+        s.to_json
+        ss = {:unarmed=>s}
+        ss.to_json
+        p "==>inspect s #{ss.inspect}"
+=end
         return if !check_session or !user_data
-         
-        recoverPlayer(user_data.ext)
+=begin
+        p "==>inspect s2:"+user_data.query_all_skills[0].inspect
         
-       if (user_data.ext[:hp] <= 0)
-           error("你的hp不够，不适合战斗")
-            return
-       end
-        
-        srand(Time.now.to_i)
-        rmsg = [
-            "你的体力不够，好好休息下再来吧",
-            "你的体力不够，别浪费服务器资源了"
-            ]
-        if (user_data.ext[:stam] <= 0)
-            error(rmsg[rand(1)])
-            return
-        end
-        
-        
+        p "==>ppp2p: #{user_data.to_json}"
+         return
+=end
         enemy_id = params[:enemy]
         enemy = User.find(enemy_id)
         p enemy.inspect
-      
 
+=begin
         sid = cookies[:_wh_session]
         p "session uid = #{session[:uid]}"
         if session[:uid]
@@ -297,7 +295,7 @@ class WhController < ApplicationController
              player = r[0]
              session[:uid] = player[:id]
         end
-
+=end        
         player = user_data
         # indicate who is the client, here isUser not same meaning with .isUser 
         player[:isUser] = true
@@ -314,11 +312,18 @@ class WhController < ApplicationController
         
         result = _fight(p1, p2, context)
         
-        #p "=>1: #{user_data[:userext] }"
-        #p "=>2: #{ player.ext}"
        # user_data[:userext] = player.ext
-        p "===>player.ext:#{player.ext.inspect}"
-      #  user_data[:userext]=nil
+     #   user_data[:attack_skill].delete
+       # user_data.delete("defense_skill")
+      #  user_data("dodge_skill")
+      #  user_data[:gain][:skills] = 0
+     #  user_data[:gain] = 0
+     #  user_data[:dodge_skill]=0
+    #   user_data[:attack_skill]=0
+    #   user_data[:defense_skill]=0
+    #   user_data[:skills]={}
+        p "==>ppp1p#{user_data.inspect}#{user_data.attributes.inspect}"
+       
         ret = {
             "user" => user_data,
             "win" => result,
@@ -342,7 +347,6 @@ class WhController < ApplicationController
         if (params[:debug])
            render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>" + player[:gain].to_json
         else
-            p "===>>>ppp"+ret.inspect
             render :text=>ret.to_json
         end
       #  render :text=>context[:msg]

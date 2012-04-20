@@ -25,8 +25,16 @@ class Skill
        data[name]
    end
    
-   def to_json
-       data.to_json
+   def to_json(*opt)
+     p "skill to json"
+    #   return "{}"
+       if (data)
+           p "===>return @skill.to_json"
+            return @skill.to_json(*opt)
+        else
+            p "==>return {}"
+            return "{}"
+        end
    end
    
    def mengpai
