@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201203072147538) do
+ActiveRecord::Schema.define(:version => 201203072147539) do
+
+  create_table "battles", :force => true do |t|
+    t.string   "attacker"
+    t.string   "defenser"
+    t.integer  "ftype"
+    t.integer  "status"
+    t.integer  "winner"
+    t.text     "prop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "equipment", :force => true do |t|
     t.string   "eqname"
@@ -20,7 +31,7 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,9 +47,18 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.datetime "updated_at"
   end
 
+  create_table "teams", :force => true do |t|
+    t.integer  "owner"
+    t.string   "code"
+    t.integer  "power"
+    t.text     "prop"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tradables", :force => true do |t|
     t.string   "name"
-    t.integer  "objtype"
+    t.integer  "obtype"
     t.integer  "price"
     t.integer  "number"
     t.integer  "soldnum"
@@ -78,6 +98,8 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.string   "race"
     t.integer  "pot"
     t.integer  "it"
+    t.integer  "jingli"
+    t.integer  "max_jl"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -92,6 +114,17 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.datetime "updated_at"
   end
 
+  create_table "userrsches", :force => true do |t|
+    t.integer  "uid"
+    t.string   "sid"
+    t.string   "skname"
+    t.integer  "progress"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "userrsches", ["uid", "sid", "skname"], :name => "idx1", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "user"
     t.string   "sid"
@@ -101,6 +134,7 @@ ActiveRecord::Schema.define(:version => 201203072147538) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "profile"
   end
 
   add_index "users", ["sid"], :name => "index_users_on_sid", :unique => true

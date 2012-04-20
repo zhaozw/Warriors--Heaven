@@ -76,7 +76,8 @@ class TeamController < ApplicationController
         return
     
     end
-    
+
+
 
     def join
         return unless check_session and user_data
@@ -117,9 +118,28 @@ class TeamController < ApplicationController
         
         prop[vac.to_s] = session[:uid]
         team[0][:prop] = prop.to_json
+        team[0][:power] += user_data.ext[:level]
         team[0].save!
         success("恭喜!您已成功加入该战队")
         return
  
+    end
+    
+    def delmember
+        team = Team.find_by_sql("select * from teams where owner='#{session[:uid]}'")
+        t = team[0]
+        prop = JSON.parse(t[:prop])
+        uid = prop[params[:i].to_s]
+        prop.delete(params[:i].to_s)
+        t[:prop] = prop.to_json
+        
+        r = Userext.find_by_sql("select * from userexts where uid=#{uid}")
+        t[:power] -= r[0][:level]
+        if t[:power] < 0
+            t[:power] =0
+        end
+        t.save!
+        success("Delete Succeeded.")
+   
     end
 end

@@ -250,18 +250,19 @@ end
     end
    def __fight(attacker, defenser)  # one round
         msg = ""
-        if (attacker.tmp[:stam] <= 0)
-            msg = translate_msg("$N的体力不够， 无法发起进攻")
-            return msg
-        end
-                # do attack
-            context_a = {
+        context_a = {
                     :user => attacker,
                     :skills=> attacker.query_all_skills,
                     :target => defenser,
                     :gain => attacker[:gain],
                     :msg => ""
-            }
+        }
+        if (attacker.tmp[:stam] <= 0)
+            msg = translate_msg("$N的体力不够， 无法发起进攻", context_a)
+            return msg
+        end
+                # do attack
+
             context_d = {
                     :user => defenser,
                    # :thisskill => defenser[:dodge_skill][:skill],

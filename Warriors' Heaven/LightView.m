@@ -334,6 +334,27 @@
     return r;
     
 }
+
+- (void) deleteRow:(UIView*) r{
+    int i=0;
+    
+    for ( i=0; i< [rows count];i++){
+        if ([rows objectAtIndex:i] == r){
+            break;
+        }
+    }
+    i++;
+    int height = r.frame.size.height;
+    for (;i<[rows count]; i++){
+        UIView* v = [rows objectAtIndex:i];
+        CGRect rect = v.frame;
+        rect.origin.y -= height;
+        v.frame = rect;
+    }
+  
+    [rows removeObject:r];
+    [r removeFromSuperview];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

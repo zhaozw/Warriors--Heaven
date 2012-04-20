@@ -355,4 +355,7 @@
     [[ad tabBarController] selectTab:3];
 }
 
+- (IBAction)onTouchTeam:(id)sender {
+    [[ad tabBarController] selectTab:4];
+}
 @end

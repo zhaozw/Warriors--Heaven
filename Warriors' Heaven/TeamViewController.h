@@ -22,7 +22,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *tfTeamCode;
 @property (strong, nonatomic) UILabel *lbMemberNumber;
 @property (strong, nonatomic) UILabel *lbTeamPower;
+@property (strong, nonatomic) UILabel *lbTeamCode;
+@property (strong, nonatomic) IBOutlet UIButton *btMyTeam;
 - (IBAction)onJoinTeam:(id)sender;
 - (IBAction)onHelpTeamCode:(id)sender;
-
+@property (strong, nonatomic) IBOutlet UIButton *btJoinTeam;
+- (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

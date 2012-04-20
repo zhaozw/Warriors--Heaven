@@ -17,4 +17,5 @@
 @property (nonatomic, strong) UIViewController * vc;
 - (id) initWithController:(UIViewController*) c parent:(UIView*)parent;
 - (void) create:(CGRect)frame title:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag;
+- (UIButton*) button:(int) i;
 @end

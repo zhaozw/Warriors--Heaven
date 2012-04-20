@@ -12,6 +12,7 @@
 
 
 @implementation TeamViewController
+@synthesize btJoinTeam;
 @synthesize vMyTeam;
 @synthesize vJoinedTeams;
 @synthesize currentSelectedList;
@@ -20,6 +21,8 @@
 @synthesize tfTeamCode;
 @synthesize lbMemberNumber;
 @synthesize lbTeamPower;
+@synthesize lbTeamCode;
+@synthesize btMyTeam;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,17 +53,24 @@
     vMyTeam.frame = CGRectMake(0, 150, 320, 500);
     [vMyTeam setBackgroundColor:[UIColor clearColor]];
     
-    vJoinedTeams.frame = CGRectMake(0, 130, 320, 500);
+    vJoinedTeams.frame = CGRectMake(0, 150, 320, 500);
     [vJoinedTeams setBackgroundColor:[UIColor clearColor]];
     
     currentSelectedList = 0;
     needReload =TRUE;
     
-    [LightView createLabel:CGRectMake(0, 60, 50, 20) parent:[self view] text:@"战队成员" textColor:[UIColor yellowColor]];
-    lbMemberNumber = [LightView createLabel:CGRectMake(30, 60, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    [LightView createLabel:CGRectMake(0, 65, 60, 20) parent:[self view] text:@"战队Code" textColor:[UIColor yellowColor]];
+    lbTeamCode = [LightView createLabel:CGRectMake(60, 65, 60, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];    
     
-    [LightView createLabel:CGRectMake(0, 80, 50, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
-    lbTeamPower = [LightView createLabel:CGRectMake(30, 80, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    [LightView createLabel:CGRectMake(0, 85, 60, 20) parent:[self view] text:@"战队成员" textColor:[UIColor yellowColor]];
+    lbMemberNumber = [LightView createLabel:CGRectMake(60, 85, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    
+    [LightView createLabel:CGRectMake(100, 85, 30, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
+    lbTeamPower = [LightView createLabel:CGRectMake(135, 85, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    
+
+    
+    
     
     
 }
@@ -70,6 +80,8 @@
     [self setVMyTeam:nil];
     [self setVJoinedTeams:nil];
     [self setTfTeamCode:nil];
+    [self setBtMyTeam:nil];
+    [self setBtJoinTeam:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -99,7 +111,7 @@
     NSObject * team = [data valueForKey:@"team"];
     NSObject* members = [team valueForKey:@"members"];
     
-    
+    int count = 0;
     for (int i = 0; i< 8; i++){
         NSObject* user = [members valueForKey:[[NSNumber numberWithInt:i] stringValue]];
         if (!user)
@@ -110,15 +122,32 @@
         int profile = [[user valueForKey:@"profile"] intValue];
         NSString* userProfile = [NSString stringWithFormat:@"p_%d.png", profile];
         
-        LightRowView * lrv = [vMyTeam addRowView:sUser logo:userProfile btTitle:@"Delete" btnTag:userId];
+        LightRowView * lrv = [vMyTeam addRowView:sUser logo:userProfile btTitle:@"Delete" btnTag:i];
+        [[lrv button:0] addTarget:self action:@selector(onDeleteMember:) forControlEvents:UIControlEventTouchUpInside];
+        
 //        lrv.lbTitle.backgroundColor = [UIColor redColor];
+        count++;
     }
+    lbTeamCode.text = [team valueForKey:@"code"];
+    lbMemberNumber.text  = [[NSNumber numberWithInt:count] stringValue];
+    lbTeamPower.text = [ [team valueForKey:@"power"] stringValue];
     int h = vMyTeam.frame.size.height + vMyTeam.frame.origin.y - 380;
     if (h > 0)
         ((UIScrollView*)[self view]).contentSize = CGSizeMake(0, h+380);
 //    [vJoinedTeams removeAllRow];
 }
 
+- (void) onDelMemberReturn:(NSObject*)data{
+    
+}
+
+- (void) onDeleteMember:(UIButton*) btn{
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/team/delmember?i=%d", btn.tag ] selector:@selector(onDelMemberReturn:) json:YES showWaiting:YES];
+//    [btn.superview removeFromSuperview];
+    [vMyTeam deleteRow:btn.superview]; 
+    lbMemberNumber.text = [[NSNumber numberWithInt:[lbMemberNumber.text intValue]-1] stringValue];
+}
 - (void) viewDidAppear:(BOOL) animated{
     
     
@@ -126,19 +155,48 @@
 
 - (IBAction)onSelectTab1:(id)sender {
     currentSelectedList = 0;
-    vMyTeam.hidden =YES;
-    vJoinedTeams.hidden = NO;
+    vMyTeam.hidden =NO;
+    vJoinedTeams.hidden = YES;
+    [btMyTeam setSelected:YES];
+    [btMyTeam setHighlighted:YES];
     
 }
 
 - (IBAction)onSelectTab2:(id)sender {
     currentSelectedList = 1;
-    vJoinedTeams.hidden = YES;
-    vMyTeam.hidden = NO;
+    vJoinedTeams.hidden = NO;
+    vMyTeam.hidden = YES;
 }
+
 - (IBAction)onJoinTeam:(id)sender {
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/team/join?code=%@", tfTeamCode.text] selector:@selector(onJoinTeamReturn:) json:YES showWaiting:YES];
+    [tfTeamCode resignFirstResponder];
+}
+
+- (void) onJoinTeamReturn:(NSString*)data{
+    NSString* error = [data valueForKey:@"error"];
+    if (error){
+        [ad showMsg:error type:1 hasCloseButton:YES];
+        return;
+    }
+    NSString* success = [data valueForKey:@"OK"];
+    if (success){
+        tfTeamCode.text = @"";
+        [ad showMsg:success type:0 hasCloseButton:YES];
+        return;
+    }
+        
+
 }
 
 - (IBAction)onHelpTeamCode:(id)sender {
+    NSString* helpUrl = [NSString stringWithFormat:@"http://%@:%@/help?cat=team&name=teamcode", ad.host, ad.port];
+    [ad showHelpView:helpUrl];
+}
+// hide system keyboard when user click "return"
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    [tfTeamCode resignFirstResponder];
+    return YES;
 }
 @end

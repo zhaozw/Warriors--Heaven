@@ -13,6 +13,8 @@ class HelpController < ApplicationController
          @o = loadGameObject("badges/#{name}")
         end
         
-        
+        if (cat == "team")
+            @o = loadGameObject("help/#{name}")
+        end
     end
 end

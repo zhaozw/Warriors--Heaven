@@ -272,6 +272,19 @@ class WhController < ApplicationController
             "gain" => player[:gain],
             "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>"
         }
+        winner = 0
+        winner = 1 if !result
+        b = Battle.new({
+            :attacker =>  user_data[:user],
+            :defenser =>  enemy[:user],
+            :ftype     =>  0,
+            :status   =>  0,
+            :winner   =>  winner,
+            :prop     =>  ""
+        })
+        b.save!
+        
+        
          # p msg
         if (params[:debug])
            render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>" + player[:gain].to_json

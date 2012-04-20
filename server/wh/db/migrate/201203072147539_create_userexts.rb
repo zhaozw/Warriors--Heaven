@@ -36,7 +36,7 @@ insert into userexts values(null, 8, "king",        100, 0, 10, '{}', 'f0a28ae6c
 insert into userexts values(null, 9, "queen",       100, 0, 10, '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges/badge1.png"}]}', '1320346951bf2bc6293fb70cc2a71a05', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, null, null);
 insert into userexts values(null, 10,"Linsanity",   100, 0, 10, '{}', 'dce21c64f8788afce3960cf88734048b', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, null, null);
 insert into userexts values(null, 11,"Shelton",     100, 0,  0, '{}', '507c5283c26d277878c622da8252ab03', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, null, null);
-update userexts set prop='{"hand_weapon":"sword"}'  where uid=4;
+#update userexts set prop='{"hand_weapon":"sword"}'  where uid=4;
 =end                                
   def self.down
     drop_table :userexts

@@ -29,6 +29,7 @@
     self  = [super init];
     vc = c;
     [parent addSubview:self];
+    [self setUserInteractionEnabled:YES];
     return self;
 }
 - (void) create:(CGRect)frame title:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag{
@@ -67,6 +68,10 @@
     
     
     
+}
+
+- (UIButton*) button:(int) i{
+    return  [arButtons objectAtIndex:i];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

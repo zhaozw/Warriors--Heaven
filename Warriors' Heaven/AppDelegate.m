@@ -59,10 +59,10 @@
 //    host = @"localhost.joyqom.com";
 //host = @"192.168.0.24";
 //    host = @"localhost";
-    //    host = @"127.0.0.1";
+   host = @"127.0.0.1";
 //  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
     port = @"3006";
     return self;
 }
@@ -171,6 +171,9 @@
     vHelpWebView.frame = CGRectMake(0, 0, 250, 300);
     vHelpWebView.backgroundColor = [UIColor clearColor];
     [vHelpWebView setOpaque:NO];
+
+    btCloseHelpView.backgroundColor = [UIColor clearColor];
+    [btCloseHelpView setBackgroundImage:[UIImage imageNamed:@"btn_close.png"] forState:UIControlStateNormal];
     btCloseHelpView.frame = CGRectMake(230, 0, 20, 20);
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
@@ -217,7 +220,7 @@
     NSLog(@"load session id %@", session_id);
     
 //    if (true){
-    if (!session_id){
+    if (session_id){
 /*        // show registeration
         UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
         [vReg setUserInteractionEnabled:YES];

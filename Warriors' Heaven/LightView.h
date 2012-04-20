@@ -28,4 +28,5 @@
 - (id) addRowView:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag;
 
 +(id) createButton:(CGRect)frame parent:(UIView*)parent text:(NSString*) text tag:(int)tag;
+- (void) deleteRow:(UIView*) r;
 @end

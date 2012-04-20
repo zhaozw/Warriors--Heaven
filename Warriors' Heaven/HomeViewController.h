@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *vSummary;
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
+- (IBAction)onTouchTeam:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UIImageView *playerProfile;
