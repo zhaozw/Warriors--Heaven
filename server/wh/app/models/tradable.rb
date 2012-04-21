@@ -12,4 +12,8 @@ class Tradable < ActiveRecord::Base
             t[:image] = _t.image
             t[:rank] = _t.rank
     end
+    def []=(k,v)
+       super 
+       @changed = true
+    end
 end

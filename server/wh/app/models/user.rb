@@ -1,10 +1,12 @@
 require 'utility.rb'
+
 class User < ActiveRecord::Base
-=begin 
-   def initialize
+=begin
+   def initialize(hash)
         p "====>init user\n"
-        ext
-     init_tmp
+  #      change
+       # ext
+     #init_tmp
 
     end
 
@@ -33,12 +35,15 @@ class User < ActiveRecord::Base
         return tmp[vname]
     end
 =end
+
     def setUserext(ext)
         self[:userext] = ext
+     #   self[:userext][:_p] = self
     end
     
     def setSkills(skills)
         self[:userskill] = skills
+    #    self[:userskill][:_p] = self
     end
     
     def ext
@@ -61,7 +66,7 @@ class User < ActiveRecord::Base
         if !self[:userskill]
            self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
        end 
-
+#       self[:userskill][:_p] = self
        return self[:userskill]
     end
     
@@ -153,9 +158,105 @@ class User < ActiveRecord::Base
               end
         end
         
-     
+       # self[:userquests][:_p] = self
+        #self[:userquests][quest][:_p] = self
        return self[:userquests][quest]
        
+    end
+    
+ #   def change
+  #      @changed = true
+ #       p "====>data chagned!"
+ #   end
+    
+  #  def changed?
+  #      p "===>changed=#{@changed.inspect}"
+  #      if !@changed
+     #       return false
+   #     end
+   #     return true
+   # end
+    
+   # def discard
+   #     @changed = false
+   # end
+    
+    def []=(k,v)
+       super 
+       p "===>updated"
+       #change
+    end
+    
+    def cache
+        @cached= true
+       # self[:cached] = true
+        $memcached.set(self[:id].to_s, self)
+        p "==>cached"
+    end
+    
+    
+    def check_save   
+        p "===>changed?=#{changed?.inspect}"
+        if (changed?)
+            p "==>saving"
+            save!
+            self[:cached] = false
+        end
+        
+        if self.ext.changed?
+            self.ext.save!
+            self[:cached] = false
+        end
+        
+        if self.userskills
+            for us in userskills
+                if (us.changed?)
+                    us.save!
+                    self[:cached] = false
+                end
+            end   
+        end
+        
+        if self[:userquests]
+            for uq in self[:userquests]
+                if uq.changed?
+                    uq.save!
+                    self[:cached] = false
+                end
+                
+            end
+        end
+        
+        
+        if !self[:cached] 
+              p "==>caching"
+            cache
+        end
+    end
+    
+  #  def reset_change
+   #     @changed = false
+  #  end
+
+  #  def save!
+      #  p "===>#{self.class},#{super.class}"
+  #      super
+    #    cache
+   # end
+    
+    def self.get(id)
+        r = $memcached.get(id.to_s)
+
+        if r
+            p "found in cache!"
+        end
+     #   r.reset_change if r # need to reset because the value of @changed also cached
+        return r if r
+        
+        p "not found in cache!"
+        r = User.find(id)
+        r.cache
+        return r
     end
 
 end

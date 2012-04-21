@@ -92,8 +92,8 @@ class TradablesController < ApplicationController
         else item[:obtype] == 2
             r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and usereqs.eqid=equipment.id and equipment.eqtype=2")
             count = r.fetch_row[0].to_i
-            p session[:userdata]
-            if (count+1 > session[:userdata][:userext][:max_item])
+        #    p session[:userdata]
+            if (count+1 > user_data.ext[:max_item])
                 error("There is not availabe slots for new item. You can buy more slot.")
                 return
             end
@@ -101,7 +101,7 @@ class TradablesController < ApplicationController
         
   
         # check if user has enough gold
-        gold = session[:userdata][:userext][:gold]
+        gold = user_data.ext[:gold]
         price = item[:price]
         if (gold -price <0)
             error("Sorry, you don't have enough gold.")

@@ -29,7 +29,7 @@ class Skill
      p "skill to json"
     #   return "{}"
        if (data)
-           p "===>return @skill.to_json"
+           p "===>return #{@skill[:skills].inspect}"
             return @skill.to_json(*opt)
         else
             p "==>return {}"

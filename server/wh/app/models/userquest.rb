@@ -1,5 +1,6 @@
 class Userquest < ActiveRecord::Base
-    def after_initialize       
+    def after_initialize    
+=begin   
          begin   
          prop = JSON.parse(self[:prop])
          prop.each {|k,v|
@@ -9,5 +10,11 @@ class Userquest < ActiveRecord::Base
         rescue Exception=>e
             p e
          end
+=end
+    end
+
+    def []=(k,v)
+       super 
+         @changed = true
     end
 end

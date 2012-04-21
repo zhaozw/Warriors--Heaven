@@ -315,7 +315,7 @@
     
     // send request
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    NSString* url = [[NSString alloc] initWithFormat:@"/wh/fight2?enemy=%@", [button tag]];
+    NSString* url = [[NSString alloc] initWithFormat:@"/wh/fight2?enemy=%d", [button tag]];
     [client sendHttpRequest:url selector:@selector(onFightResult:) json:YES showWaiting:YES];
     
 

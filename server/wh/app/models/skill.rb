@@ -5,4 +5,8 @@ class Skill < ActiveRecord::Base
         return "{}"
     end
 =end
+    def []=(k,v)
+       super 
+       @changed = true
+    end
 end

@@ -505,6 +505,7 @@ end
         msg = context[:msg]
         
     
+    
  
         # calculate temporary fight prop
 
@@ -719,9 +720,9 @@ end
             player.ext[:hp]  = player.tmp[:hp]
             bChange = true
         end
-        if bChange
-            player.ext.save!
-        end
+      #  if bChange
+       #     player.ext.save!
+      #  end
         
         gain[:skills].each {|k, v|
             p "=>skill #{k}, #{v[:point]}, #{v[:level]}"

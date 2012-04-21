@@ -80,6 +80,12 @@ class WhController < ApplicationController
     end
     
     def reg
+        
+      #  r=User.get(1)
+      #  p "==>changed=#{r.changed?}, changes=#{r.changes.inspect}"
+     #   return
+        
+        
         sid = ActiveSupport::SecureRandom.hex(16)
         cookies[:_wh_session] = {
                :value => sid,
@@ -94,13 +100,15 @@ class WhController < ApplicationController
             :sid=>sid,
              :age=>16,
              :race=> 0,
-             :sex=> params[:sex],
+             :sex=> params[:profile],
              :title=> "新人",
              :profile=>params[:profile]
             
         })
+        p "===>save!1#{r.class}"
         begin
             r.save!
+            p "===>save!2"
         rescue  Exception=>e
             p e
             if /Mysql::Error: Duplicate entry/.match(e)
@@ -252,7 +260,7 @@ class WhController < ApplicationController
     end
     
  
-    def recoverZhanyi(ext, save)
+    def recoverZhanyi(ext, save=false)
         if (ext[:zhanyi] >= 100)
             ext[:zhanyi] -= 30
             ext.save if save
@@ -308,13 +316,41 @@ class WhController < ApplicationController
  
     # /wh/fight?:enemy=<user id>    
     def fight2
+=begin
+         r = Team.find(1)
+         #r[:stam] = 90
+         p "=====>>>ddd #{r.changed?}"
+         return 
+=end
+=begin
+        u = User.find(1)
+        h = {
+            "1"=>"dfaaf",
+            "2"=>"fasf",
+            "3"=>u
+        }
+        $memcached.set("113", h)
+        logger.info $memcached.get("113")["3"].inspect
+=end
+=begin
+      #  User.new({})
+        r = User.get(1)
+       # r[:c]  = 11111
+       # p "==>1=#{r[:c]}"
+        p r.inspect
+       # p "--->#{r.psuper.class}"
+        
+       # r.ext[:stam] = 98
+        r.check_save
+        return
+=end
         return if !check_session or !user_data
          
         recoverPlayer(user_data.ext)
         
        if (user_data.ext[:hp] <= 0)
            error("你的hp不够，不适合战斗")
-            return
+           return
        end
         
         srand(Time.now.to_i)
@@ -329,14 +365,14 @@ class WhController < ApplicationController
         
         
         enemy_id = params[:enemy]
-        enemy = User.find(enemy_id)
+        enemy = User.get(enemy_id)
         p enemy.inspect
         if !recoverZhanyi(enemy.ext, false)
             error ("#{enemy[:user]}目前不愿作战")
             return
         end
       
-
+=begin
         sid = cookies[:_wh_session]
         p "session uid = #{session[:uid]}"
         if session[:uid]
@@ -347,7 +383,7 @@ class WhController < ApplicationController
              player = r[0]
              session[:uid] = player[:id]
         end
-
+=end
         player = user_data
         # indicate who is the client, here isUser not same meaning with .isUser 
         player[:isUser] = true
@@ -391,7 +427,9 @@ class WhController < ApplicationController
         })
         b.save!
         
-        enemy.ext.save
+       # enemy.ext.save
+        user_data.check_save
+        enemy.check_save
         
          # p msg
         if (params[:debug])
@@ -421,7 +459,7 @@ class WhController < ApplicationController
    
     end
     
-    
+=begin   
     # /wh/fight?:enemy=<user id>
     def fight
 
@@ -737,7 +775,7 @@ class WhController < ApplicationController
         elsif (gain[:pot] != 0 )
             player.ext.save!
         end
-        session[:userdata][:userext] = player.ext
+       # session[:userdata][:userext] = player.ext
         gain[:skills].each {|k, v|
             p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
             if v[:point] != 0 || v[:level] != 0
@@ -766,7 +804,7 @@ class WhController < ApplicationController
         render :text=>ret.to_json
     end
     end
-    
+=end    
     def practise
         return if !check_session
         use_pot = params[:pot] # use how much potential
