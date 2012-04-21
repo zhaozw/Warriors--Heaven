@@ -32,7 +32,7 @@ class WhController < ApplicationController
       #  }
 
 
-      
+=begin     
       sid = cookies[:_wh_session]
 
       # for test
@@ -70,6 +70,13 @@ class WhController < ApplicationController
             session[:userdata] = user[0]
         end
         render :text=>user[0].to_json
+=end
+         return if !check_session or !user_data
+        # user_data.ext
+         user_data.query_all_skills
+         recoverPlayer(user_data.ext)
+         recoverZhanyi(user_data.ext)
+         render :text=>user_data.to_json
     end
     
     def reg
@@ -206,8 +213,27 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-       r = Userext.find_by_sql("select uid, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 limit #{start}, #{pagesize}")
        if (r.size >0)
+           for rr in r
+               rr[:status] = ""
+               
+               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 10
+                   if (rr[:lastact] == "fight")
+                       rr[:status] = "战斗中"
+                   elsif (rr[:lastact] == "practise")
+                       rr[:status] = "练习中"
+                   elsif (rr[:lastact] == "research")
+                       rr[:status] = "研究中"
+                   elsif (rr[:lastact] == "buy")
+                       rr[:status] = "shopping中"
+                   elsif (rr[:lastact] == "sell")
+                       rr[:status] = "交易中"
+                   elsif (rr[:lastact] =~ /quest_.*/)
+                       rr[:status] = "#{rr[:lastact].form(6)}"                       
+                   end
+               end
+           end
             js = r.to_json
         else
             error("record not found")
@@ -226,7 +252,27 @@ class WhController < ApplicationController
     end
     
  
-  
+    def recoverZhanyi(ext, save)
+        if (ext[:zhanyi] >= 100)
+            ext[:zhanyi] -= 30
+            ext.save if save
+            return true
+        end
+        diff = Time.now - ext[:updated_at]
+        ext[:zhanyi] += diff/36    # recover 100 per hour
+        if ( ext[:zhanyi] > 100)
+             ext[:zhanyi] = 100
+        end
+        
+        if (ext[:zhanyi] > 30)
+            ext[:zhanyi] -= 30
+            ext.save if save
+            return true 
+        else
+            return false
+        end 
+    end
+    
     def recoverPlayer(ext)
         p "update time #{ext[:updated_at].class}"
         p "now #{Time.now.class}"
@@ -285,6 +331,10 @@ class WhController < ApplicationController
         enemy_id = params[:enemy]
         enemy = User.find(enemy_id)
         p enemy.inspect
+        if !recoverZhanyi(enemy.ext, false)
+            error ("#{enemy[:user]}目前不愿作战")
+            return
+        end
       
 
         sid = cookies[:_wh_session]
@@ -302,6 +352,10 @@ class WhController < ApplicationController
         # indicate who is the client, here isUser not same meaning with .isUser 
         player[:isUser] = true
         enemy[:isUser] = false
+        
+        player.ext[:lastact] = "fight"
+        enemy.ext[:lastact] = "fight"
+ 
         
         p1 = Player.new
         p p1.class
@@ -337,6 +391,7 @@ class WhController < ApplicationController
         })
         b.save!
         
+        enemy.ext.save
         
          # p msg
         if (params[:debug])

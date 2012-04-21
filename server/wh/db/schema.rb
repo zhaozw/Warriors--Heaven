@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201203072147539) do
+ActiveRecord::Schema.define(:version => 201203072147540) do
 
   create_table "battles", :force => true do |t|
     t.string   "attacker"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 201203072147539) do
     t.integer  "it"
     t.integer  "jingli"
     t.integer  "max_jl"
+    t.integer  "zhanyi",     :default => 100
     t.datetime "created_at"
     t.datetime "updated_at"
   end

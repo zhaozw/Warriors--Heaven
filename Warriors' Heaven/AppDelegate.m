@@ -65,6 +65,7 @@
     //    host = @"192.168.1.119";
 //    host = @"homeserver.joyqom.com";
     port = @"3006";
+//    bUpadtingStatus = false;
     return self;
 }
 
@@ -184,6 +185,7 @@
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
     [window bringSubviewToFront:vWelcome];
+    tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     
 }
@@ -259,6 +261,7 @@
 
 - (void) hideWelcomeView{
     vWelcome.hidden = YES;
+     tabBarController.view.hidden = NO;
 }
 
 - (void) showStatusView:(BOOL)bShow{
@@ -600,7 +603,9 @@
     [SaveDefaults setObject:Array forKey:@"data_user"];
 }
 
-- (void) recover{
+- (void) recover:(NSNumber*) n{
+    if (tmRecoverStart != [n longValue])
+        return;
     BOOL needReocovery = NO;
     NSMutableDictionary* ext = [self getDataUserext];
     int hp = [[[self getDataUserext] valueForKey:@"hp"] intValue];
@@ -625,19 +630,19 @@
         [ext setValue:[NSNumber numberWithInt:st] forKey:@"stam"];
     }
     
-    if (needReocovery)
-        [self performSelector:@selector(recover) withObject:NULL afterDelay:10.0];
-    
-    [self reloadStatus];
+    if (needReocovery && tmRecoverStart == [n longValue] && ext == [self getDataUserext]){
+        [self performSelector:@selector(recover:) withObject:n afterDelay:10.0];
+        [self reloadStatus];
+    }
     
 }
 
 - (void) startRecover{
-//    tmRecoverStart = time(&tmRecoverStart);
+    tmRecoverStart = time(&tmRecoverStart);
     
-    NSObject* t = [[self getDataUserext]valueForKey:@"updated_at"];
+//    NSObject* t = [[self getDataUserext]valueForKey:@"updated_at"];
     
-    [self performSelector:@selector(recover) withObject:NULL afterDelay:10.0];
+    [self performSelector:@selector(recover:) withObject:[NSNumber numberWithLong:tmRecoverStart] afterDelay:10.0];
     
     
 }

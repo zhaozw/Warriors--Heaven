@@ -111,6 +111,12 @@
     NSObject * team = [data valueForKey:@"team"];
     NSObject* members = [team valueForKey:@"members"];
     
+
+    UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
+    UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
+    UIButton* bt = [LightView createButton:CGRectMake(120, 0, 120, 30) parent:banner text:@"邀请好友加入战队" tag:0];
+    [bt setBackgroundImage:[UIImage imageNamed:@"btn_blue_light.png"] forState:UIControlStateNormal];
+    
     int count = 0;
     for (int i = 0; i< 8; i++){
         NSObject* user = [members valueForKey:[[NSNumber numberWithInt:i] stringValue]];
@@ -128,6 +134,7 @@
 //        lrv.lbTitle.backgroundColor = [UIColor redColor];
         count++;
     }
+    lb.text = [NSString stringWithFormat:@"目前你有%d个战友", count];
     lbTeamCode.text = [team valueForKey:@"code"];
     lbMemberNumber.text  = [[NSNumber numberWithInt:count] stringValue];
     lbTeamPower.text = [ [team valueForKey:@"power"] stringValue];
@@ -153,19 +160,33 @@
     
 }
 
+- (void) highlightButton1:(UIButton*) btn{
+//    [btMyTeam setSelected:YES];
+    [btMyTeam setHighlighted:YES];
+//    [btJoinTeam setSelected:NO];
+    [btJoinTeam setHighlighted:NO];
+}
+- (void) highlightButton2:(UIButton*) btn{
+//    [btJoinTeam setSelected:YES];
+    [btJoinTeam setHighlighted:YES];
+//    [btMyTeam setSelected:NO];
+    [btMyTeam setHighlighted:NO];
+}
 - (IBAction)onSelectTab1:(id)sender {
     currentSelectedList = 0;
     vMyTeam.hidden =NO;
     vJoinedTeams.hidden = YES;
-    [btMyTeam setSelected:YES];
-    [btMyTeam setHighlighted:YES];
-    
+//    [btMyTeam setSelected:YES];
+//    [btMyTeam setHighlighted:YES];
+    [self performSelector:@selector(highlightButton1:) withObject:btMyTeam afterDelay:0.0];
 }
 
 - (IBAction)onSelectTab2:(id)sender {
     currentSelectedList = 1;
     vJoinedTeams.hidden = NO;
     vMyTeam.hidden = YES;
+    [self performSelector:@selector(highlightButton2:) withObject:vJoinedTeams afterDelay:0.0];
+
 }
 
 - (IBAction)onJoinTeam:(id)sender {

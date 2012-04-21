@@ -15,6 +15,7 @@
 
 @synthesize  fight_result;
 @synthesize ad;
+@synthesize players;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +45,7 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
 
-  
+    players = [[NSMutableArray alloc] init];
     ad = [UIApplication sharedApplication].delegate;
     
         
@@ -55,6 +56,13 @@
     int row_height = 70;
     int row_margin = 1;
     int y = 300;
+    
+    // clear 
+    for (int j = 0; j < [players count]; j++){
+        [[players objectAtIndex:j] removeFromSuperview];
+    }
+    [players removeAllObjects];
+    
     for (int i = 0; i< count; i++){
         NSObject* d = [data objectAtIndex:i];
         NSObject* json = [d valueForKey:@"userext"];
@@ -108,6 +116,16 @@
         [lbLevel setText:[[NSString alloc] initWithFormat:@"Level %@", level]];
         [row addSubview:lbLevel];
         
+        UILabel* lbStatus = [[UILabel alloc]initWithFrame:CGRectMake(120, 20, 100, 30)];
+        [lbStatus setOpaque:NO];
+        [lbStatus setAdjustsFontSizeToFitWidth:NO];
+        //[lbLevel setMinimumFontSize:8.0f];
+        [lbStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [lbStatus setTextColor:[UIColor yellowColor]];
+        [lbStatus setBackgroundColor:[UIColor clearColor]];
+        [lbStatus setText:[[NSString alloc] initWithFormat:@"(%@)", [json valueForKey:@"status"] ]];
+        [row addSubview:lbStatus];
+        
         
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setFrame:CGRectMake(240, 10, 70, 35)];
@@ -120,6 +138,7 @@
         [row addSubview:btn];   
         
         [self.view addSubview:row];
+        [players addObject:row];
     }
 
 }

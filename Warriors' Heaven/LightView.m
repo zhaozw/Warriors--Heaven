@@ -289,7 +289,7 @@
     UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
     
    
-    
+    [parent addSubview:btn_ask];
     btn_ask.frame = frame;
     
     [btn_ask setTitle:text forState:UIControlStateNormal];
@@ -313,8 +313,15 @@
 
     return c;
 }
+
+ 
+// the real y = frame.origin.y+currentY 
 -(UIImageView*) createImageViewAsRow:(NSString*) img frame:(CGRect)frame{
+    int y = frame.origin.y;
+    frame.origin.y += currentY;
     UIImageView* v = [LightView createImageView:img frame:frame parent:self];
+    currentY += y+ frame.size.height;
+    [v setUserInteractionEnabled:YES];
     [rows addObject:v];
     return v;
 }

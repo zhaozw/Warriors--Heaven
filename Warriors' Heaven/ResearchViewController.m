@@ -139,9 +139,9 @@
         for (int k = 0; k< [keys count]; k++){
             NSString* sMengpai = [keys objectAtIndex:k];
             NSArray* books = [unread valueForKey:sMengpai];
-            UIImageView* vMengpai = [vUnRead createImageViewAsRow: @"bg_task_title.png" frame:CGRectMake(0, vUnRead.currentY+5, 320, 18)];
+            UIImageView* vMengpai = [vUnRead createImageViewAsRow: @"bg_task_title.png" frame:CGRectMake(0, 5, 320, 18)];
             vMengpai.alpha = 0.5f;
-            vUnRead.currentY += 23;
+//            vUnRead.currentY += 23;
             NSString* strMengpai = @"";
             if ([sMengpai isEqualToString:@"kongtong"])
                               strMengpai = @"崆峒系";

@@ -16,4 +16,5 @@
 @property (nonatomic, retain) NSObject* fight_result;
 
 @property (strong, retain) AppDelegate *ad;
+@property (nonatomic, strong) NSMutableArray *players;
 @end

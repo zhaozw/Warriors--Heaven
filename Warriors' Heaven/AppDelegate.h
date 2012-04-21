@@ -30,6 +30,7 @@
     BOOL bUserSkillNeedUpdate; // need update from server
     BOOL bUserSkillNeedReload; // need update locally
     NSObject* requests;
+//    BOOL bUpadtingStatus;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;

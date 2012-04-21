@@ -72,7 +72,7 @@
         int maxhp = [strMaxHp intValue];
         lbHP.text = [[NSString alloc] initWithFormat:@"%@/%@", strHp, strMaxHp] ;
         [pvHP setProgress:((float)hp ) / ((float)maxhp) ];
-        lbStam.text = [[json valueForKey:@"stam"] stringValue];
+        lbStam.text = [[NSString alloc] initWithFormat:@"%@/%@", [[json valueForKey:@"stam"] stringValue], [[json valueForKey:@"maxst"] stringValue]];
         [pvStam setProgress:((float)[[json valueForKey:@"stam"] intValue])/[ [json valueForKey:@"maxst"] intValue]];
     }
 
