@@ -1,17 +1,18 @@
-class Blade < Game::Skill 
-#基本刀法
+require 'skills/skill.rb'
+class Fencing < Game::Skill 
+#基本剑法
    def for
-       return "attack blade"
+       return "attack parry"
    end
      def category
        "basic"
    end
    def type 
-       return "blade"
+       return "sword"
    end
    
    def dname
-       "基本刀法"
+       "基本剑法"
    end
    
    def damage(context)

@@ -134,7 +134,7 @@
         [btn.titleLabel setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [btn setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
-        [btn setTag:uid];
+        [btn setTag:[uid intValue]];
         [row addSubview:btn];   
         
         [self.view addSubview:row];

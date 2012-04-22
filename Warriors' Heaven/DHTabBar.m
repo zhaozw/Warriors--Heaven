@@ -75,19 +75,19 @@
 //								  backgroundImage:nil];
             UIImage *btnImage;
             if (i == 0)
-                btnImage = [UIImage imageNamed:@"home.jpg"];
+                btnImage = [UIImage imageNamed:@"tab_home.png"];
             else if (i == 1)
-                btnImage = [UIImage imageNamed:@"tab_character.jpg"];
+                btnImage = [UIImage imageNamed:@"tab_character.png"];
             else if (i == 2)
-                btnImage = [UIImage imageNamed:@"tab_fight.jpg"];
+                btnImage = [UIImage imageNamed:@"tab_fight.png"];
             else if (i == 3)
-                btnImage = [UIImage imageNamed:@"tab_train.jpg"];
+                btnImage = [UIImage imageNamed:@"tab_train.png"];
             else if (i == 4)
                 btnImage = [UIImage imageNamed:@"tab_team.png"];
             else if (i == 5)
                 btnImage = [UIImage imageNamed:@"tab_shop.png"];
             else if (i == 6)
-                btnImage = [UIImage imageNamed:@"tab_quest.jpg"];
+                btnImage = [UIImage imageNamed:@"tab_quest.png"];
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];

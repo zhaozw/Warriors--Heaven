@@ -1,17 +1,17 @@
-class Sword < Game::Skill 
-#基本剑法
+class Daofa < Game::Skill 
+#基本刀法
    def for
-       return "attack parry"
+       return "attack blade"
    end
      def category
        "basic"
    end
    def type 
-       return "sword"
+       return "blade"
    end
    
    def dname
-       "基本剑法"
+       "基本刀法"
    end
    
    def damage(context)

@@ -2,15 +2,15 @@
 # Likewise, all the methods added will be available for all controllers.
 require "skills/skill.rb"
 require "skills/unarmed.rb"
-require "skills/dodge.rb"
+require "skills/daofa.rb"
 require "skills/parry.rb"
-require "skills/blade.rb"
-require "skills/sword.rb"
+require "skills/fencing.rb"
 require "skills/huyuezhan.rb"
 require "skills/jiuguishengzhuan.rb"
 require "skills/konglingjian.rb"
 require "skills/qishangquan.rb"
 require "skills/yidaoliu.rb"
+require "skills/dodge.rb"
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
         Unarmed
         Dodge
         Parry
-        Blade
-        Sword
+        Daofa
+        Fencing
         Huyuezhan
         Jiuguishengzhuan
         Konglingjian
