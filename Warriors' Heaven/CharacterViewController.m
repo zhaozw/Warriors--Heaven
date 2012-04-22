@@ -34,6 +34,7 @@
 
 @synthesize vEqbtn_cap;
 @synthesize vEqbtn_neck;
+@synthesize vProfile;
 @synthesize vEqbtn_handright;
 @synthesize vEqbtn_arm;
 @synthesize vEqbtn_fingersRight;
@@ -213,6 +214,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
     [self initPropView];
     
+    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    [vProfile setImage:[UIImage imageNamed:prof]];
     
     UIImage *imageNormal = [UIImage imageNamed:@"bg_12.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:30];
@@ -539,6 +542,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [self setVEq_arm:nil];
     [self setVEqInfoView:nil];
     [self setVItemBg:nil];
+    [self setVProfile:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

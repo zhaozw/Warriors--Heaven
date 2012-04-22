@@ -361,6 +361,7 @@
 						<string key="NSFrame">{{11, 468}, {283, 32}}</string>
 						<reference key="NSSuperview" ref="876876585"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -385,7 +386,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="212003706"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzE0IDAuMzA5ODAzOTIxNiAwLjUyMTU2ODYyNzUAA</bytes>
+							<bytes key="NSRGB">MSAxIDAAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="1048035412"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
@@ -537,6 +538,14 @@
 						<reference key="destination" ref="619140309"/>
 					</object>
 					<int key="connectionID">44</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">vProfile</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="76958379"/>
+					</object>
+					<int key="connectionID">47</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -744,7 +753,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">46</int>
+			<int key="maxID">47</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -786,6 +795,7 @@
 						<string key="vEqbtn_trousers">EGOImageButton</string>
 						<string key="vEquipment">UIImageView</string>
 						<string key="vItemBg">UIImageView</string>
+						<string key="vProfile">UIImageView</string>
 						<string key="vcStatus">StatusViewController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -881,6 +891,10 @@
 							<string key="name">vItemBg</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="vProfile">
+							<string key="name">vProfile</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="vcStatus">
 							<string key="name">vcStatus</string>
 							<string key="candidateClassName">StatusViewController</string>
@@ -908,8 +922,10 @@
 						<string key="lbGold">UILabel</string>
 						<string key="lbHP">UILabel</string>
 						<string key="lbLevel">UILabel</string>
+						<string key="lbStam">UILabel</string>
 						<string key="pbAmbition">UIProgressView</string>
 						<string key="pvHP">UIProgressView</string>
+						<string key="pvStam">UIProgressView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="lbAmbition">
@@ -932,12 +948,20 @@
 							<string key="name">lbLevel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lbStam">
+							<string key="name">lbStam</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="pbAmbition">
 							<string key="name">pbAmbition</string>
 							<string key="candidateClassName">UIProgressView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="pvHP">
 							<string key="name">pvHP</string>
+							<string key="candidateClassName">UIProgressView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pvStam">
+							<string key="name">pvStam</string>
 							<string key="candidateClassName">UIProgressView</string>
 						</object>
 					</dictionary>

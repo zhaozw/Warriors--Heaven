@@ -122,7 +122,7 @@
             NSObject* button = [[NSMutableDictionary alloc] init];
             [button setValue:@"onResearchRead:" forKey:@"callback"];
             [button setValue:@"Research" forKey:@"text"];
-//            [button setValue:[NSNumber numberWithInt:(_id)] forKey:@"tag"];
+            [button setValue:[NSNumber numberWithInt:i] forKey:@"tag"];
             [button setValue:@"btn_green_light" forKey:@"bgImage"];
             [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
             [buttons addObject: button];
@@ -136,22 +136,25 @@
     
     if (unread){
         NSArray* keys = [unread allKeys];
+        int index = 0;
         for (int k = 0; k< [keys count]; k++){
             NSString* sMengpai = [keys objectAtIndex:k];
             NSArray* books = [unread valueForKey:sMengpai];
             UIImageView* vMengpai = [vUnRead createImageViewAsRow: @"bg_task_title.png" frame:CGRectMake(0, 5, 320, 18)];
-            vMengpai.alpha = 0.5f;
+            vMengpai.alpha = 0.8f;
 //            vUnRead.currentY += 23;
             NSString* strMengpai = @"";
             if ([sMengpai isEqualToString:@"kongtong"])
                               strMengpai = @"崆峒系";
                               else if ([sMengpai isEqualToString:@"dongying"])
                               strMengpai = @"东瀛系";
-            [LightView createLabel:CGRectMake(5, 0, 100, 18) parent:vMengpai text:strMengpai textColor:[UIColor whiteColor]];
+            [LightView createLabel:CGRectMake(5, 0, 100, 18) parent:vMengpai text:strMengpai textColor:[UIColor colorWithRed:0.9f green:0.9f blue:0.9f alpha:1.0f]];
             for (int i = 0; i< [books count]; i++){
                 NSObject* row = [[NSMutableDictionary alloc] init];
                 NSObject* r = [books objectAtIndex:i];
                 NSString* dname = [r valueForKey:@"dname"];
+                NSString * dtype = [r valueForKey:@"dtype"];
+                
                 NSString* desc = [r valueForKey:@"desc"];
                 NSString* imageUrl = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], [r valueForKey:@"image"]];
     //            int pv = [[r valueForKey:@"progress"] intValue];
@@ -160,7 +163,7 @@
                 //            [row setValue:@"" forKey:@"bgColor"];
                 //            [row setValue:@"" forKey:@"height"];
                 //            [row setValue:@"" forKey:@"margin"];
-                [row setValue:dname forKey:@"title"];
+                [row setValue:[NSString stringWithFormat:@"%@•%@", dtype, dname ] forKey:@"title"];
                 
                 NSMutableArray* children = [[NSMutableArray alloc ] init];
                 [row setValue:children forKey:@"children"];
@@ -175,13 +178,14 @@
                 NSObject* button = [[NSMutableDictionary alloc] init];
                 [button setValue:@"onResearchUnread:" forKey:@"callback"];
                 [button setValue:@"Research" forKey:@"text"];
-    //            [button setValue:[NSNumber numberWithInt:(_id)] forKey:@"tag"];
+                [button setValue:[NSNumber numberWithInt:index] forKey:@"tag"];
                 [button setValue:@"btn_green_light" forKey:@"bgImage"];
                 [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
                 [buttons addObject: button];
                 
 
                 [vUnRead addRow:row];
+                index ++;
             }
         }
     }

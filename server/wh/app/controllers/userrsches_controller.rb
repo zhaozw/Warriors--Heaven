@@ -2,8 +2,9 @@ class UserrschesController < ApplicationController
     
     def list
         list = {
-            "dongying"=>["huyuezhan","yidaoliu","jiuguishengzhuan"],
-            "kongtong"=>["konglingjian","qishangquan"]
+            "dongying"=>["yidaoliu", "shendaotianxinliu",  ],
+            "kongtong"=>["konglingjian","qishangquan","liefengdaofa"],
+          #  "longxiang"=>[]
             }
         
         
@@ -24,6 +25,7 @@ class UserrschesController < ApplicationController
             r[:desc] = skill.desc
             r[:mengpai] = skill.mengpai
             r[:image] = skill.image
+            r[:dtype] = dtype(skill.type)
             p skill.inspect
             p "===> check  in meangpai #{skill.mengpai}:#{ list[skill.mengpai].inspect}"
             for l in list[skill.mengpai]
@@ -59,7 +61,8 @@ class UserrschesController < ApplicationController
                     :dname=>skill.dname,
                     :desc=>skill.desc,
                     :mengpai=>skill.mengpai,
-                    :image => skill.image
+                    :image => skill.image,
+                    :dtype=> dtype(skill.type)
                 }
             
                 unread_list[r].push(rrr)
@@ -71,6 +74,21 @@ class UserrschesController < ApplicationController
             :read=>user_data[:userrsch]
         }
         return ret
+    end
+    
+    def dtype(t)
+        p "dtype #{t}"
+        if t == 'blade'
+            return "刀法"
+        elsif t == 'fencing' || t=='sword'
+            return "剑法"
+        elsif t == 'unarmed'
+            return "拳法"
+        elsif t == 'dodge'
+            return "轻功"
+        elsif t== 'heal'
+            return '愈法'
+        end
     end
 
     def index
@@ -125,7 +143,7 @@ class UserrschesController < ApplicationController
             return
         end
         
-        ext = user_data[:userext]
+        ext = user_data.ext
         pot = ext[:pot]
         if pot <= 0
             error ("You don't have enough potential")

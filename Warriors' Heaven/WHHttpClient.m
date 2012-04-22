@@ -27,7 +27,8 @@
 - (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
     selector = s;
     _bJSON= bJSON;
-    self->_cmd = cmd;
+    self->_cmd =  [cmd stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+    cmd = self->_cmd;
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     // check network status
@@ -106,7 +107,8 @@
     
     selector = s;
     _bJSON= bJSON;
-    self->_cmd = cmd;
+    self->_cmd = [cmd stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    cmd = self->_cmd;
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     // check network status

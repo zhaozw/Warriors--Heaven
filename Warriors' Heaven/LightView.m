@@ -47,9 +47,9 @@
     margin_top = 10;
     currentY = margin_top;
     [rows removeAllObjects];
-  //  CGRect r = self .frame ;
-    //r.size.height = 50;
-    //self.frame = r;
+    CGRect r = self .frame ;
+    r.size.height = 50;
+    self.frame = r;
 }
 - (void) setController:(UIViewController*) c{
     vc = c;

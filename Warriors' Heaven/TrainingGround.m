@@ -25,6 +25,7 @@
 @synthesize vCommonSkillsList;
 @synthesize vPremierSkillsList;
 @synthesize bt_basic_skill;
+@synthesize vProfile;
 @synthesize bt_common_skill;
 @synthesize bt_premier_skill;
 //@synthesize userskills;
@@ -68,6 +69,11 @@
     [self addChildViewController:vcResearch];
     vcResearch.view.hidden = YES;
     [self.view addSubview:vcResearch.view];
+    
+    
+    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    [vProfile setImage:[UIImage imageNamed:prof]];
+    
     
     //  UIImageView skillsView = [[UIImageView alloc] initWithImage:UIImage imageNamed:@"skillview.png")];
     skillsView = [[UIView alloc] initWithFrame:CGRectMake(-200, 200, 300, 300)];
@@ -242,6 +248,7 @@
     [self setLbPotential:nil];
     [self setVcResearch:nil];
     [self setLbUsername:nil];
+    [self setVProfile:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -444,6 +451,11 @@
     [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基础技 (%d)", count_b] forState:UIControlStateNormal];
     [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高级技 (%d)", count_c] forState:UIControlStateNormal];
     [bt_premier_skill setTitle:[[NSString alloc] initWithFormat:@"必杀技 (%d)", count_p] forState:UIControlStateNormal];
+}
+
+- (IBAction)onSelectStatus:(id)sender {
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+    [[ad tabBarController] selectTab:1];
 }
 - (void) onReceiveStatus:(NSArray*) data{
     [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"userskills"];

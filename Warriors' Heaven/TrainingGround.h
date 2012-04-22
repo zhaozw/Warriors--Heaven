@@ -26,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet UIButton * bt_common_skill;
 @property (strong, nonatomic) IBOutlet UIButton * bt_premier_skill;
 @property (strong, nonatomic) IBOutlet UIButton * bt_basic_skill;
+@property (strong, nonatomic) IBOutlet UIImageView *vProfile;
 - (IBAction)onSelectTrainingGround:(id)sender;
 @property (strong, retain) AppDelegate * ad;
 //@property (nonatomic, retain) NSMutableArray* userskills;
@@ -34,4 +35,5 @@
 @property (strong, nonatomic) IBOutlet ResearchViewController *vcResearch;
 - (IBAction)onSelectLibrary:(id)sender;
 - (void) reloadSkills;
+- (IBAction)onSelectStatus:(id)sender;
 @end

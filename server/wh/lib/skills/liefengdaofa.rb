@@ -1,5 +1,5 @@
 require 'skills/skill.rb'
-class Yidaoliu < Game::Skill 
+class Liefengdaofa < Game::Skill 
 
    def for
        return "attack blade"
@@ -8,16 +8,17 @@ class Yidaoliu < Game::Skill
    def category
        "common"
    end
+   
    def type 
        return "blade"
    end
    
    def dname
-       "长平一刀流"
+       "烈风刀法"
    end
    
    def desc
-       "长平家的一刀流"
+       "崆峒派刀法"
    end
     
    def needResearchPoint

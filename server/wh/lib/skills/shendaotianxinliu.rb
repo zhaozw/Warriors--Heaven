@@ -1,22 +1,22 @@
 require 'skills/skill.rb'
-class Konglingjian < Game::Skill 
+class Shendaotianxinliu < Game::Skill 
 #基本剑法
    def for
-       return "attack sword"
+       return "attack unarmed"
    end
      def category
        "common"
    end
    def type 
-       return "fencing"
+       return "unarmed"
    end
    
    def dname
-       "空灵剑"
+       "神道天心流"
    end
    
    def desc
-       "崆峒派传世武功，后来明教金毛狮王谢逊夺得《七伤拳谱》 古抄本，终于练成。此拳法出拳时声势煊赫，一拳中有七股不同的劲力，或刚猛、或阴柔、或刚中有柔，或柔中有刚，或横出，或直送，或内缩，敌人抵挡不住这源源而来的劲力，便会深受内伤。谢逊曾以此拳击毙少林神僧空见大师。但这七伤拳倘由内力未臻化境的人来练，对自己便有极大伤害。人体内有阴阳二气、金木水火土五行，一练七伤，七者皆伤。所以所谓“七伤”，乃是先伤己，再伤人。"
+       ""
    end
    
    def needResearchPoint
@@ -63,47 +63,79 @@ class Konglingjian < Game::Skill
        [
            {
                :level=>0,
-               :name=>"白云出坳",
-               :action =>"$N剑尖上撩，招式轻灵，犹如白云飘来",
-               :damage => 10
+               :name=>"花弁手",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「催心诀，双拳一股刚猛之力$n人击去",
+               :damage => 10,
                #:damage_type=>""
            },
            {
                :level=>10,
-               :name=>"青山不改",
-               :action =>"$N一剑直劈，招式厚重，犹如重重青山",
-               :damage =>20
+               :name=>"浮　葉",
+               :action =>"$N深吸一口气，左拳使出七伤拳总诀中的「伤肺诀」，双拳飘忽不定，某人顿时感觉一股阴之力迎面而柔来。",
+               :damage =>20,
                #:damage_type=>""
                
            },
            {
                :level=>20,
-               :name=>"晓风残月",
-               :action =>"$N一剑轻削，轻柔如风，无影无踪",
+               :name=>"風揺枝",
+               :action =>"$N右拳使出七伤拳总诀中的「摧肝肠诀」，双拳刚中有柔，向$n击去",
                :damage =>20
                #:damage_type=>""
                
            },
            {
                :level=>30,
-               :name=>"恰似温柔",
-               :action =>"$N翻手倒刺，以退为守，暗藏杀机",
+               :name=>"桐之葉",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「藏离诀」，双拳柔中有刚，打出一股内缩之力！向$n击去",
                :damage =>20
                #:damage_type=>""
                
            },
            {
                :level=>50,
-               :name=>"何去何从",
-               :action =>"$N追步平刺，如松之劲，如风之轻，刚柔兼济",
+               :name=>"龍　 風",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「精失诀」，双拳势如雷霆，将力道直向$n送去",
+               :damage =>20,
+               #:damage_type=>""
+               
+           },
+           {
+               :level=>70,
+               :name=>"万 雷",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「意恍惚诀」，向$n送出一股横出之力！",
+               :damage =>20,
+               #:damage_type=>""
+               
+           },
+           {
+               :level=>90,
+               :name=>"片　 雲",
+               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
                :damage =>20
                #:damage_type=>""
                
            },
            {
-               :level=>80,
-               :name=>"空来空去",
-               :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
+               :level=>120,
+               :name=>"燕　返",
+               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
+               :damage =>20
+               #:damage_type=>""
+               
+           },
+           {
+               :level=>150,
+               :name=>"七里引",
+               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
+               :damage =>20
+               #:damage_type=>""
+               
+           },
+           {
+               :level=>180,
+               :name=>"雪　崩",
+               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
                :damage =>20
                #:damage_type=>""
                

@@ -16,5 +16,8 @@ class Equipment  < Game::Object
       0
   end
     
+  def effect
+      ""
+  end
 end
 end

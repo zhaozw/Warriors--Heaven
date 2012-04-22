@@ -26,6 +26,12 @@ class Armo  < Weapon
       5
   end
     
+  def effect
+      "deffence +5"
+  end
+  
+
+    
   def defense
       30
   end
