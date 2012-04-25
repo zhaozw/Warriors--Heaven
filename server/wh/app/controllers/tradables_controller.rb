@@ -49,8 +49,8 @@ class TradablesController < ApplicationController
             error("There is not enough number of item in stock. Please buy later.")
             return
         end
-        max_eq = user_data[:userext][:max_eq].to_i
-        eqslot = user_data[:userext][:eqslot]
+        max_eq = user_data.ext[:max_eq].to_i
+        eqslot = user_data.ext[:eqslot]
                      
         found_available = -1
         p eqslot
@@ -93,7 +93,7 @@ class TradablesController < ApplicationController
             r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and usereqs.eqid=equipment.id and equipment.eqtype=2")
             count = r.fetch_row[0].to_i
         #    p session[:userdata]
-            if (count+1 > user_data.ext[:max_item])
+            if (count+1 > user_data.ext.get_prop("max_item").to_i)
                 error("There is not availabe slots for new item. You can buy more slot.")
                 return
             end
@@ -118,8 +118,8 @@ class TradablesController < ApplicationController
  
         eqslots[found_available.to_s] = e[:id]
         #user_data[:userext][:eqslot] = eqslots.to_json
-        user_data[:userext].set_prop("eqslot", eqslots.to_json)
-        user_data[:userext].save!
+        user_data.ext.set_prop("eqslot", eqslots.to_json)
+        user_data.ext.save!
 =begin     
         # get available slot number
         r =  ActiveRecord::Base.connection.execute("select eqslotnum from usereqs where uid=#{uid}")
@@ -149,7 +149,8 @@ class TradablesController < ApplicationController
                
             })
         ueq.save!
-        item[:soldnum] -= 1
+        item[:soldnum] += 1
+        item[:number] -= 1
         item.save!
         
        # eq = Equipment.load_equipment(item[:name], item)

@@ -48,7 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    
+
     [vMyTeam init1];
     vMyTeam.frame = CGRectMake(0, 150, 320, 500);
     [vMyTeam setBackgroundColor:[UIColor clearColor]];
@@ -97,7 +97,7 @@
     NSLog(@"Team view will appear");
 //    if (!needReload)
 //        return;
-    
+    [ad setBgImg:[UIImage imageNamed:@"bg2.jpg"] ];
 
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/team" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];

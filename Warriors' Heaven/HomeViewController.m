@@ -68,7 +68,8 @@
     //[strRet release];  
     */
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
@@ -99,6 +100,11 @@
     }else{
         [ad updateUserData];
     }
+    
+    // set player profile
+    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    [playerProfile setImage:[UIImage imageNamed:prof]];
+
     //[vcStatus viewDidAppear:NO];
 }
 
@@ -187,9 +193,6 @@
     //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
     [self->viewReport setImage:stretchableImageNormal  ];
 	
-    // set player profile
-    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
-    [playerProfile setImage:[UIImage imageNamed:prof]];
    // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
     // add status view

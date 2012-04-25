@@ -118,7 +118,8 @@ host = @"192.168.0.24";
     // CGRect rect = [[UIScreen mainScreen] bounds];
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
     //[bgView1 setBackgroundColor:[UIColor redColor]];
-    [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
+//    [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
+    [bgView setImage:[UIImage imageNamed:@"bg2.jpg"]];
     //[bgView setHidden:FALSE];
     //    [bgView setAlpha:0.5f];
     
@@ -141,20 +142,6 @@ host = @"192.168.0.24";
     
      
     
-    // Create and add the activity indicator  
-    //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(120, 200, 50, 50 )];
-    //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
-    [aiv setBackgroundColor:[UIColor clearColor]];
-    [aiv setOpaque:NO];
-    
-    //  [aiv setAlpha:0.0f];
-    NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
-    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
-    //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
-    //   [aiv startAnimating];  
-    [self->waiting addSubview:aiv];  
-    //[aiv release];  
 
     
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
@@ -180,8 +167,9 @@ host = @"192.168.0.24";
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
     
-    
+
     // show welcome view
+    bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
     [window bringSubviewToFront:vWelcome];
@@ -211,6 +199,20 @@ host = @"192.168.0.24";
     [self->waiting setAlpha:0.5f]; 
     //  [self->waiting setUserInteractionEnabled:false];
     //[self->waiting setOpaque:TRUE];
+    // Create and add the activity indicator  
+    //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(120, 200, 50, 50 )];
+    //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
+    [aiv setBackgroundColor:[UIColor clearColor]];
+    [aiv setOpaque:NO];
+    
+    //  [aiv setAlpha:0.0f];
+    NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
+    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+    //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
+    //   [aiv startAnimating];  
+    [self->waiting addSubview:aiv];  
+    //[aiv release];  
 
     // Auto dismiss after 3 seconds  
     //  [self performSelector:@selector(performDismiss) withObject:nil afterDelay:3.0f];  
@@ -219,11 +221,14 @@ host = @"192.168.0.24";
     waiting.hidden = YES;
     
     
+    
+    
+    
     session_id = [self readSessionId];
     NSLog(@"load session id %@", session_id);
     
 //    if (true){
-    if (session_id){
+    if (!session_id){
 /*        // show registeration
         UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
         [vReg setUserInteractionEnabled:YES];
@@ -247,6 +252,7 @@ host = @"192.168.0.24";
 //            data_user = NULL;
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
+            bFirstCallReturn = false;
 //        }else{
 //         
 //        }
@@ -260,8 +266,11 @@ host = @"192.168.0.24";
 }
 
 - (void) hideWelcomeView{
+    bShowingWelcome = NO;
+    if (!bFirstCallReturn)
+        return;
     vWelcome.hidden = YES;
-     tabBarController.view.hidden = NO;
+    tabBarController.view.hidden = NO;
 }
 
 - (void) showStatusView:(BOOL)bShow{
@@ -291,9 +300,11 @@ host = @"192.168.0.24";
     
 }
 - (void) onReceiveStatus:(NSObject *) data{
+    bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"data_user %@", [data_user JSONRepresentation]);
- 
+    if (!bShowingWelcome)
+        [self hideWelcomeView];
     
     [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];

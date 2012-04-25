@@ -169,6 +169,9 @@
             [request addValue:c forHTTPHeaderField:@"Cookie"];
         }
     }
+    // display waiting dialog
+    if (bWait)
+        [ad showWaiting:YES];
     //  NSMutableData* buf = [[NSMutableData alloc] initWithLength:0];
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     NSLog(@"send cmd to http server: %@", cmd);
@@ -178,9 +181,7 @@
     
     //[request release];
     
-    // display waiting dialog
-    if (bWait)
-        [ad showWaiting:YES];
+
 }
 
 /// http request event /////

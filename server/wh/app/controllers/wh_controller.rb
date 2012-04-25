@@ -282,9 +282,11 @@ class WhController < ApplicationController
     end
     
     def recoverPlayer(ext)
-        p "update time #{ext[:updated_at].class}"
-        p "now #{Time.now.class}"
-        
+#        p "update time #{ext[:updated_at].class}"
+ #       p "now #{Time.now.class}"
+        if (!ext || !ext[:updated_at])
+            return
+        end
         diff = Time.now - ext[:updated_at]
         
         if ext[:hp] < ext[:maxhp]
@@ -812,7 +814,7 @@ class WhController < ApplicationController
         
         ud = user_data
 
-        ext = user_data[:userext]
+        ext = user_data.ext
         pot = ext[:pot]
         if pot <= 0
             error ("You don't have enough potential")
@@ -854,7 +856,7 @@ class WhController < ApplicationController
     
 
         p ext.inspect
-            p ud[:userext].inspect
+            p ud.ext.inspect
         ret = {
             :userskill=>rs[0],
             :user => ud
@@ -869,7 +871,29 @@ class WhController < ApplicationController
     end
     
     def summary
+        return if !check_session || !user_data
         sid = params[:sid]
+        
+        t = Time.now - 3600*24
+        p t.to_s
+        @battles = Battle.find_by_sql("select * from battles where defenser='#{user_data[:user]}' and status=0 and ftype=0 group by winner")
+        @win_count = 0
+        for b in @battles
+            @win_count +=1 if b[:winner] == 1
+        end
+        p "====>last day, battle #{@battles.size}, win #{@win_count}"
+        
+        a = Battle.find_by_sql("select count(*) from battles where defenser='#{user_data[:user]}' or attacker='#{user_data[:user]}' and status=0 and ftype=0 ")
+        b = Battle.find_by_sql("select count(*) from battles where (defenser='#{user_data[:user]}' and winner=1) or (attacker='#{user_data[:user]}' and winner=0) and status=0 and ftype=0 ")
+        
+        @battle_count = 0
+         @battle_count =  a[0][0] if a[0][0]
+        @total_win = 0
+        @total_win = b[0][0] if b[0][0]
+        p "===> total battle #{@battle_count}, win #{@total_win}"
+        
+        @rate = @total_win*1.0/@battle_count
+        
         
     end
 end

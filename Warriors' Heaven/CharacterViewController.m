@@ -11,6 +11,7 @@
 #import "EGOImageButton.h"
 #import "WHHttpClient.h"
 #import "SBJson.h"
+#import "LightView.h"
 
 @implementation CharacterViewController
 @synthesize vcStatus;
@@ -56,6 +57,7 @@
 @synthesize pos_list;
 //@synthesize woren_eq_list;
 @synthesize ad;
+@synthesize vcObjDetail;
 @synthesize item_list;
 
 @synthesize lbLongDesc;
@@ -81,6 +83,9 @@
 //@synthesize positions;
 
 @synthesize vItemContainer;
+@synthesize btItemDetail;
+@synthesize btEqDetail;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -206,11 +211,18 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     createLabel(CGRectMake(margin_left+220, margin_top+row_margin*1+20, 30, 18), vProp, @"防御", tColor);
     lbDeffencce = createLabel(CGRectMake(margin_left+260, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
 }
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
+    
+    [[self view] addSubview:[vcObjDetail view]];
+    [vcObjDetail hideDetailView];
+    
     
     [self initPropView];
     
@@ -484,6 +496,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vEqInfoView addSubview:vLongDescContainer];
     
     [vEqInfoView setBackgroundColor:[UIColor clearColor]];
+    
+    btEqDetail = [LightView createButton:CGRectMake(250, 0, 60, 25) parent:vEqInfoView text:@"Detail" tag:0];
+    btEqDetail.hidden = YES;
+    [btEqDetail addTarget:self action:@selector(onEqDetail:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     // add status view
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
@@ -517,6 +535,20 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vItemLongDescContainer addSubview:lbItemLongDesc];
     [vItemInfoView addSubview:vItemLongDescContainer];
     
+//    btItemDetail = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btItemDetail.frame = CGRectMake(250, 0, 60, 25);
+//    [vItemInfoView addSubview:btItemDetail];
+//    [btItemDetail setOpaque:NO];
+//    [btItemDetail.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+//    [btItemDetail.titleLabel setTextColor:[UIColor whiteColor]];
+//    [btItemDetail setBackgroundColor:[UIColor clearColor]];
+//    [btItemDetail setBackgroundImage:@"btn_tab_light.png" forState:UIControlStateNormal];
+//    [btItemDetail setTitle:@"Detail" forState:UIControlStateNormal];
+    btItemDetail = [LightView createButton:CGRectMake(250, 0, 60, 25) parent:vItemInfoView text:@"Detail" tag:0];
+    [btItemDetail addTarget:self action:@selector(onItemDetail:) forControlEvents:UIControlEventTouchUpInside];
+    btItemDetail.hidden = YES;
+     
+    
     // set scrollview frame
     CGRect r_last = vItemBg.frame;
     UIScrollView* vv = ( UIScrollView* )self.view;
@@ -524,6 +556,21 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSLog(@"set content size to %d, %d", 320, t);
     vv.contentSize = CGSizeMake(0, t-480);
 //    self.view.frame = CGRectMake(0,0,320,480);
+}
+
+- (void) onEqDetail:(UIButton*) btn{
+    
+}
+
+- (void) onItemDetail:(UIButton*) btn{
+    NSArray* eqs = [ad getDataUserEqs];
+    NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
+    [vcObjDetail loadObjDetail:o];
+    CGRect r =  vcObjDetail.view.frame;
+    UIScrollView* v = (UIScrollView* )self.view;
+    r.origin.y = v.contentOffset.y+60;
+    vcObjDetail.view.frame = r;
+    [[self view] bringSubviewToFront: [vcObjDetail view]];
 }
 
 - (void)viewDidUnload
@@ -543,6 +590,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [self setVEqInfoView:nil];
     [self setVItemBg:nil];
     [self setVProfile:nil];
+    [self setVcObjDetail:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -558,8 +606,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     if (![data isKindOfClass:[NSArray class]])
         return;
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
-    
+//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+
     [vEqbtn_cap  setBackgroundColor:[UIColor clearColor]];
     [vEqbtn_neck  setBackgroundColor:[UIColor clearColor]];
     [vEqbtn_handright  setBackgroundColor:[UIColor clearColor]];
@@ -923,7 +971,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"character view update");
-    
+    [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
 
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/usereqs" selector:@selector(onLoadEq:) json:YES showWaiting:YES];
@@ -1043,6 +1091,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
             [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
             [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
+            btEqDetail.tag = btn.tag;
+            btEqDetail.hidden = NO;
         }
     }
     
@@ -1139,7 +1189,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
             [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
            
-            
+            btEqDetail.hidden = NO;
+            btEqDetail.tag = btn.tag;
             [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
             [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
         }
@@ -1162,12 +1213,17 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         if (effect)
             [lbItemEffect setText:[NSString stringWithFormat:@"%@", effect]];
         
+        btItemDetail.hidden = NO;
+        btItemDetail.tag = btn.tag;
         
         [lbItemLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
         [vItemLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
         CGRect r = btn.superview.frame;
         r.origin.x += 60;
     //    [vItemContainer scrollRectToVisible:btn.superview.frame animated:YES];
+    }
+    else{
+        btItemDetail.hidden = YES;
     }
 }
 

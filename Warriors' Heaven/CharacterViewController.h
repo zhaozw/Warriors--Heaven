@@ -10,6 +10,7 @@
 #import "StatusViewController.h"
 #import "EGOImageButton.h"
 #import "AppDelegate.h"
+#import "ObjDetailViewController.h"
 
 @interface CharacterViewController : UIViewController{
     NSMutableArray* eq_slots;
@@ -77,17 +78,20 @@
 @property (nonatomic, retain) UILabel* lbLongDesc; 
 @property (nonatomic, retain) UILabel* lbName;
 @property (nonatomic, retain) UILabel* lbEffect;
+@property (nonatomic, retain) UIButton* btEqDetail;
 @property (strong, nonatomic) UIView *vItemInfoView;
 @property (strong, nonatomic) UIScrollView* vItemContainer;
 @property (nonatomic, retain) UILabel* lbItemLongDesc; 
 @property (nonatomic, retain) UILabel* lbItemName;
 @property (nonatomic, retain) UILabel* lbItemEffect;
 @property (nonatomic, retain) UIScrollView* vItemLongDescContainer;
+@property (nonatomic, retain)   UIButton* btItemDetail;
 @property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
 
+@property (strong, nonatomic) IBOutlet ObjDetailViewController *vcObjDetail;
 
-@property (nonatomic, retain)    UIImageView* vProp;
+@property (nonatomic, retain)   UIImageView* vProp;
 @property (nonatomic, retain)   UILabel* lbStrength;
 @property (nonatomic, retain)   UILabel* lbDext;
 @property (nonatomic, retain)   UILabel* lbIntellegence;

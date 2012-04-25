@@ -3,7 +3,9 @@ require 'objects/object.rb'
 module Game
 class Equipment  < Game::Object
   
-
+    def obj_type
+        "equipment"
+    end
   def intro
         desc
  end

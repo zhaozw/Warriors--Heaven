@@ -4,6 +4,7 @@ class Player < LivingObject
     
 
     def initialize
+        @wearing={}
     end
     
     def isUser
@@ -22,6 +23,35 @@ class Player < LivingObject
     
     def after_setdata
         setup_temp
+        setup_wearing
+    end
+    
+    def setup_wearing
+        ext = @obj.ext
+         prop =  ext[:prop]
+        if (prop)
+            j_prop = JSON.parse(prop)
+            eqslot = j_prop["eqslot"]
+            if eqslot
+                 if eqslot.class == String
+                    eqslot = JSON.parse(eqslot)
+                     p "===>2.2#{eqslot}"
+                 end
+                 eqslot.each {|k,v|
+                          if k[0] < 48 or k[0] > 57
+                         r = Equipment.find(v)
+                         if r 
+                           eq = load_obj(r[:eqname], r)
+                           if eq.obj_type == 'equipment'
+                             wear(eq, k)
+                            end
+                         end
+                     end
+                     
+                 }
+            end
+            
+        end
     end
     
     def setup_temp
@@ -93,5 +123,6 @@ class Player < LivingObject
         @obj[:user]
     end
     
+
 
 end

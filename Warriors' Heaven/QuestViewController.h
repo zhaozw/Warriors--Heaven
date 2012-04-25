@@ -22,5 +22,6 @@
 @property (strong, nonatomic) IBOutlet UIView *vQuestContainer;
 @property (strong, nonatomic) IBOutlet UIWebView *vQuestRoom;
 @property (strong, nonatomic) IBOutlet UIButton *btCloseQuestRoom;
+@property (strong, nonatomic) IBOutlet UIWebView *wvLoadingQuest;
 - (void) reloadQuests;
 @end

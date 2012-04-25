@@ -29,4 +29,17 @@ class Userext < ActiveRecord::Base
        super 
         @changed = true
     end
+    def get_prop(k)
+        if !self[:prop]
+            return nil
+        end
+        #p "===>prop=#{self[:prop]}"
+        j = JSON.parse(self[:prop])
+       # p "===>inspect prop=#{j.inspect}"
+        if j
+            return j[k]
+        else
+            return nil
+        end
+    end
 end

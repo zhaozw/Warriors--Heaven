@@ -353,7 +353,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }

@@ -1,18 +1,18 @@
 require 'objects/object.rb'
 
 
-class Dihuang < Game::Object
+class Jinchuangyao < Game::Object
     
     def dname
-        "生地黄"
+        "金疮药"
     end
     
     def desc
-        "这是一株上好的人参，价值不菲"
+        "这是一盒金疮药，可以用来治疗外伤."
     end
     
     def intro
-        "大补元气 HP+70%"
+        "治疗外伤 HP+50"
     end
     
     def weight
@@ -20,11 +20,11 @@ class Dihuang < Game::Object
     end
     
     def rank
-        5
+        1
     end
     
     def image
-        "obj/fixures/ginseng.jpg"
+        "obj/fixtures/jinchuangyao.jpg"
     end
     
     

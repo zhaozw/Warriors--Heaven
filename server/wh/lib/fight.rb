@@ -426,77 +426,29 @@ end
     
     def calcPlayerLoad(p1)
         weight = 0
-        p p1.ext.inspect
-        prop =  p1.ext[:prop]
-        if (prop)
-               p "===>2.0#{prop}"
-            j_prop = JSON.parse(prop)
-            p "===>2#{j_prop}"
-            eqslot = j_prop["eqslot"]
-            p "===>2.1#{eqslot.inspect}"
-            if eqslot
-              #  eqslot = JSON.parse(eqslot)
-               #      p "===>2.2#{eqslot}"
-                 eqslot.each {|k,v|
-                     if k[0] < 48 or k[0] > 57
-                        p "===>2.3#{k}=#{v}"
-                         r = Equipment.find(v)
-                         if r 
-                             eq = load_obj(r[:eqname], r)
-                             weight += eq.weight
-                         end
-                     end
-                     
-                 }
-            end
-            
-        end
+
+        all = p1.query_all_wearings
+        all.each {|k,v|                  
+         weight += v.weight
+        }
         p "===>2.5 leave"
         return weight
     end
     
     def calcPlayerDamage(p1)
         damage = 0
-        prop =  p1.ext[:prop]
-        if (prop)
-            j_prop = JSON.parse(prop)
-            eqslot = j_prop["eqslot"]
-            if eqslot
-                 eqslot.each {|k,v|
-                       if k[0] < 48 or k[0] > 57
-                         r = Equipment.find(v)
-                         if r
-                                    eq = load_obj(r[:eqname], r)
-                             damage += eq.damage
-                         end
-                     end
-                     
-                 }
-            end
-            
-        end
+        all = p1.query_all_wearings
+        all.each {|k,v|                  
+         damage += v.damage
+        }
         return damage
     end
     def calcPlayerDefense(p1)
         defense = 0
-        prop =  p1.ext[:prop]
-        if (prop)
-            j_prop = JSON.parse(prop)
-            eqslot = j_prop["eqslot"]
-            if eqslot
-                 eqslot.each {|k,v|
-                          if k[0] < 48 or k[0] > 57
-                         r = Equipment.find(v)
-                         if r 
-                                   eq = load_obj(r[:eqname], r)
-                             defense += eq.defense
-                         end
-                     end
-                     
-                 }
-            end
-            
-        end
+        all = p1.query_all_wearings
+        all.each {|k,v|                  
+         defense += v.defense
+        }
         return defense
     end
     # p1,p2: Objects/Player

@@ -1,10 +1,10 @@
 require 'objects/object.rb'
 
 
-class Zexie < Game::Object
+class Heshouwu < Game::Object
     
     def dname
-        "泽泻"
+        "何首乌"
     end
     
     def desc
@@ -24,7 +24,7 @@ class Zexie < Game::Object
     end
     
     def image
-        "obj/fixures/ginseng.jpg"
+        "obj/fixtures/ginseng.jpg"
     end
     
     

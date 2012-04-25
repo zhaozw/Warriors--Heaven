@@ -24,6 +24,7 @@
 @synthesize vQuestContainer;
 @synthesize vQuestRoom;
 @synthesize btCloseQuestRoom;
+@synthesize wvLoadingQuest;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +51,7 @@
     // Do any additional setup after loading the view from its nib.
     
      ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
     
     [vAskedQuest setUserInteractionEnabled:YES];
     [vUnaskedQuest setUserInteractionEnabled:YES];
@@ -75,6 +76,10 @@
     vQuestRoom.frame = CGRectMake(0,0, 320, 480);
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];
+    [wvLoadingQuest setBackgroundColor:[UIColor clearColor]];
+    [wvLoadingQuest setOpaque:NO];
+    [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/quest" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
     
@@ -252,6 +257,7 @@
     [self setVQuestRoom:nil];
     [self setVQuestContainer:nil];
     [self setBtCloseQuestRoom:nil];
+    [self setWvLoadingQuest:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

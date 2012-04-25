@@ -45,14 +45,14 @@ class UsereqsController < ApplicationController
        # p request.content_type
         p params[:data]
         check_session
-        prop = JSON.parse(user_data[:userext][:prop])
+        prop = JSON.parse(user_data.ext[:prop])
         prop["eqslot"] = JSON.parse(params[:data])
-        user_data[:userext][:prop]= prop.to_json
-        user_data[:userext].save!
+        user_data.ext[:prop]= prop.to_json
+        user_data.ext.save!
         # update_session_data(nil)
         user_data.check_save
       #  p request_origin
-        render :text=>user_data[:userext].to_json
+        render :text=>user_data.ext.to_json
     end
 =begin
   # GET /usereqs

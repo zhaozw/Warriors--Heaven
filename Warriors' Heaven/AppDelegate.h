@@ -20,7 +20,8 @@
     UIView *waiting;
     UIViewController *vcHome;
 
-    
+    BOOL bFirstCallReturn;
+    BOOL bShowingWelcome;
     NSObject* data_user;
 //    NSObject* data_userext;
     NSString* host;

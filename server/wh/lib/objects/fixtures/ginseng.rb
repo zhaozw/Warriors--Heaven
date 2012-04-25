@@ -24,7 +24,7 @@ class Ginseng < Game::Object
     end
     
     def image
-        "obj/fixures/ginseng.jpg"
+        "obj/fixtures/ginseng.jpg"
     end
     
     

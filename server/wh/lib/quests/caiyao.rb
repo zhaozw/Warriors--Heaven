@@ -33,13 +33,13 @@ class Caiyao < Quest
     
     def caoyao_list
         [ # from expensive to cheap
-            "objects/fixures/ginseng",
-            "objects/fixures/heshouwu",
-            "objects/fixures/fuling",
-            "objects/fixures/dihuang",
-            "objects/fixures/shanzhuyu",
-            "objects/fixures/zexie",
-            "objects/fixures/shanyao",
+            "objects/fixtures/ginseng",
+            "objects/fixtures/heshouwu",
+            "objects/fixtures/fuling",
+            "objects/fixtures/dihuang",
+            "objects/fixtures/shanzhuyu",
+            "objects/fixtures/zexie",
+            "objects/fixtures/shanyao",
         ]
     end
     def onAction(context)

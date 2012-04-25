@@ -5,6 +5,9 @@ class Object
        after_setdata
     end
     
+    def obj_type
+        "object"
+    end
     def after_setdata
         
     end
