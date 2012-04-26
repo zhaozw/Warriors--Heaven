@@ -397,9 +397,9 @@ class WhController < ApplicationController
         
         p1 = Player.new
         p p1.class
-        p1.set(player)
+        p1.set_data(player)
         p2 = Player.new
-        p2.set(enemy)
+        p2.set_data(enemy)
         context = {
             :msg => ""
         }
@@ -451,7 +451,7 @@ class WhController < ApplicationController
         
          user =   Player.new
 
-        user.set(user_data)
+        user.set_data(user_data)
            npc = create_npc("objects/npc/shanzei")
             npc.set_temp("level", user.ext[:level])
            

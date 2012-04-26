@@ -220,9 +220,10 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
     
-    [[self view] addSubview:[vcObjDetail view]];
+    [ad.window addSubview:[vcObjDetail view]];
     [vcObjDetail hideDetailView];
-    
+    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+    [self addChildViewController:vcObjDetail];
     
     [self initPropView];
     
@@ -559,17 +560,27 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 
 - (void) onEqDetail:(UIButton*) btn{
+    NSArray* eqs = [ad getDataUserEqs];
+    NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
+    [vcObjDetail loadObjDetail:o];
+    [[self view] bringSubviewToFront: [vcObjDetail view]];
+}
+
+- (void) onSellReturn:(NSObject* )data{
+    [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES];
+    [vcObjDetail hideDetailView];
     
 }
+
 
 - (void) onItemDetail:(UIButton*) btn{
     NSArray* eqs = [ad getDataUserEqs];
     NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
     [vcObjDetail loadObjDetail:o];
-    CGRect r =  vcObjDetail.view.frame;
-    UIScrollView* v = (UIScrollView* )self.view;
-    r.origin.y = v.contentOffset.y+60;
-    vcObjDetail.view.frame = r;
+//    CGRect r =  vcObjDetail.view.frame;
+//    UIScrollView* v = (UIScrollView* )self.view;
+//    r.origin.y = v.contentOffset.y+60;
+//    vcObjDetail.view.frame = r;
     [[self view] bringSubviewToFront: [vcObjDetail view]];
 }
 

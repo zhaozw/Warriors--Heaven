@@ -3,6 +3,12 @@ require 'objects/object.rb'
 
 class Jinchuangyao < Game::Object
     
+    def initialize
+        super
+        p "init jinchuangyao #{@var.inspect}"
+        set("dname", "金疮药")
+    end
+    
     def dname
         "金疮药"
     end
@@ -12,6 +18,10 @@ class Jinchuangyao < Game::Object
     end
     
     def intro
+        "治疗外伤 HP+50"
+    end
+    
+    def effect
         "治疗外伤 HP+50"
     end
     
@@ -27,5 +37,10 @@ class Jinchuangyao < Game::Object
         "obj/fixtures/jinchuangyao.jpg"
     end
     
+    def price
+        50
+    end
+    
     
 end
+# Jinchuangyao.new

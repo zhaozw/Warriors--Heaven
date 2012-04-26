@@ -7,6 +7,7 @@
 //
 
 #import "ObjDetailViewController.h"
+#import "WHHttpClient.h"
 
 @implementation ObjDetailViewController
 @synthesize vImage;
@@ -15,7 +16,9 @@
 @synthesize lbEffect;
 @synthesize lbTitle;
 @synthesize lbDesc;
+@synthesize lbPrice;
 @synthesize ad;
+@synthesize obj;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,6 +54,7 @@
     [self setLbTitle:nil];
     [self setLbDesc:nil];
     [self setVImage:nil];
+    [self setLbPrice:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -63,14 +67,20 @@
 }
 
 - (IBAction)onSell:(id)sender {
+
+    WHHttpClient* client = [[WHHttpClient alloc] init:[self parentViewController] ];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/sell?id=%d", [[obj valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
+
 }
+
 
 - (IBAction)onClose:(id)sender {
     self.view.hidden = YES;
 }
 
-- (void) loadObjDetail:(NSObject*) obj{
-    NSDictionary* eq = obj;
+- (void) loadObjDetail:(NSObject*) o{
+    obj = o;
+    NSDictionary* eq = o;
     NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
     [lbTitle setText:str];
 //    CGSize size = [str sizeWithFont:lbName.font];
@@ -78,11 +88,14 @@
 //    lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
     [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
     [lbDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+    [lbRank setText:[[eq valueForKey:@"rank"] stringValue]];
     NSString* filepath = [eq valueForKey:@"image"];
     if (filepath == NULL || filepath.length == 0)
         filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
     filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
     [vImage setImageURL:[NSURL URLWithString:filepath]];
+    int price = [[eq valueForKey:@"price"] intValue]/2;
+    lbPrice.text = [[NSNumber numberWithInt:price] stringValue];
     [self view].hidden = NO;
 }
 

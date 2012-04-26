@@ -4,7 +4,7 @@ module Game
 class Skill
     
    # set activerecord object as skill data
-   def set(skill)
+   def set_data(skill)
        @skill = skill
    end 
    

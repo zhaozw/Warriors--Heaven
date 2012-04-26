@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
             for ss in s
                 name = ss[:skname]
                 r = load_skill(name)
-                r.set(ss)
+                r.set_data(ss)
                 self[:skills][name] = r
             end
     end

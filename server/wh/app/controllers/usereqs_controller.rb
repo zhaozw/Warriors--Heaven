@@ -21,16 +21,19 @@ class UsereqsController < ApplicationController
             if eq[:eqtype].to_i == 1
                 _eq = Equipment.load_equipment(eq[:eqname], eq)
                 eq[:pos] = _eq.wearOn
-                eq[:effect] = _eq.effect
+               
                 eq[:damage] = _eq.damage
                 eq[:defense] = _eq.defense
+                
             else
                 _eq = load_obj(eq[:eqname], eq)
             end
             eq[:dname] = _eq.dname
             eq[:desc] = _eq.desc
             eq[:weight] = _eq.weight
-           
+            eq[:rank] = _eq.rank
+            eq[:effect] = _eq.effect
+            eq[:price] = _eq.price
             eq[:image] = _eq.image
         end
         
@@ -54,90 +57,45 @@ class UsereqsController < ApplicationController
       #  p request_origin
         render :text=>user_data.ext.to_json
     end
-=begin
-  # GET /usereqs
-  # GET /usereqs.xml
-  def index
-    @usereqs = Usereq.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @usereqs }
+    
+    def sell
+         check_session
+         eqs = Usereq.find_by_sql("select * from usereqs where eqid=#{params[:id]}" )
+         eq = eqs[0]
+         obj = load_obj(eq[:eqname], eq)
+             
+        max_eq = user_data.ext[:max_eq].to_i
+        eqslot = user_data.ext[:eqslot]
+        p eqslot
+   
+        if eqslot
+            bFound = false
+            if (eqslot.class == String)
+                eqslots = JSON.parse(eqslot)
+            else
+                eqslots = eqslot
+            end
+            
+            eqslots.each{|k,v|
+                if (v.to_i == params[:id].to_i)
+                    eqslots.delete(k)
+                    bFound = true
+                    break
+                end
+            }
+            
+            if bFound
+                user_data.ext.set_prop("eqslot", eqslots)
+            end
+            
+        end
+         
+         user_data.ext[:gold] += obj.price.to_i / 2
+         
+         eq.delete
+         
+         user_data.check_save
+         success("Trade is successful")
     end
-  end
 
-  # GET /usereqs/1
-  # GET /usereqs/1.xml
-  def show
-    @usereq = Usereq.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @usereq }
-    end
-  end
-
-  # GET /usereqs/new
-  # GET /usereqs/new.xml
-  def new
-    @usereq = Usereq.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @usereq }
-    end
-  end
-
-  # GET /usereqs/1/edit
-  def edit
-    @usereq = Usereq.find(params[:id])
-  end
-
-  # POST /usereqs
-  # POST /usereqs.xml
-  def create
-    @usereq = Usereq.new(params[:usereq])
-
-    respond_to do |format|
-      if @usereq.save
-        flash[:notice] = 'Usereq was successfully created.'
-        format.html { redirect_to(@usereq) }
-        format.xml  { render :xml => @usereq, :status => :created, :location => @usereq }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @usereq.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /usereqs/1
-  # PUT /usereqs/1.xml
-  def update
-    @usereq = Usereq.find(params[:id])
-
-    respond_to do |format|
-      if @usereq.update_attributes(params[:usereq])
-        flash[:notice] = 'Usereq was successfully updated.'
-        format.html { redirect_to(@usereq) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @usereq.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /usereqs/1
-  # DELETE /usereqs/1.xml
-  def destroy
-    @usereq = Usereq.find(params[:id])
-    @usereq.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(usereqs_url) }
-      format.xml  { head :ok }
-    end
-  end
-
-=end
 end

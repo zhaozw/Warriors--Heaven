@@ -11,11 +11,13 @@
 #import "EGOImageView.h"
 
 @interface ObjDetailViewController : UIViewController
+@property (strong, nonatomic) NSObject* obj;
 @property (strong, nonatomic) IBOutlet UILabel *lbSellPrice;
 @property (strong, nonatomic) IBOutlet UILabel *lbRank;
 @property (strong, nonatomic) IBOutlet UILabel *lbEffect;
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UILabel *lbDesc;
+@property (strong, nonatomic) IBOutlet UILabel *lbPrice;
 - (void) loadObjDetail:(NSObject*) obj;
 - (void) hideDetailView;
 - (IBAction)onSell:(id)sender;

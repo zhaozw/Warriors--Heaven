@@ -27,7 +27,7 @@ class Npc < LivingObject
     def set_skill(name, level, tp)
         s = load_skill(name)
         if (!s.data)
-            s.set({
+            s.set_data({
                 :skname=>name,
                 :level=>level,
                 :tp => tp

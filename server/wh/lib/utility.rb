@@ -16,12 +16,12 @@ def create_fixure(path)
         o.save!
       
         r = loadGameObject(path)
-        r.set(o)
+        r.set_data(o)
         return r
     end
     def load_obj(path, o)
         r = loadGameObject(path)
-        r.set(o)
+        r.set_data(o)
         return r
     end
 =begin

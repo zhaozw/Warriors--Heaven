@@ -70,7 +70,7 @@ class Caiyao < Quest
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])
                     player = Player.new
-                    player.set(user)
+                    player.set_data(user)
                     _context = {:msg=>msg}
                     _fight(player, npc, _context)
                     msg =  _context[:msg]

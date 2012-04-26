@@ -20,7 +20,7 @@ class UserrschesController < ApplicationController
         end
         for r in user_data[:userrsch] # delete those already in research list
             skill = load_skill(r[:skname])
-            skill.set(r)
+            skill.set_data(r)
             r[:dname] = skill.dname
             r[:desc] = skill.desc
             r[:mengpai] = skill.mengpai

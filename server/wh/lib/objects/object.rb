@@ -1,6 +1,22 @@
 module Game
 class Object
-   def set(obj) 
+    
+    
+    def initialize
+        p "object init"
+        @var = {}
+    end
+    
+    def set(n, v)
+        @var[n] = v
+    end
+    
+    def get(n)
+        @var[n]
+    end
+    
+    
+    def set_data(obj) 
        @obj = obj
        after_setdata
     end
@@ -33,6 +49,10 @@ class Object
     
     def []=(n, v)
         @obj[n] = v
+    end
+    
+    def price
+        0
     end
 =begin    
     def dname

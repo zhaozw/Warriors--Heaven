@@ -33,4 +33,8 @@ class Sword  < Weapon
       10
   end
   
+  def price
+      100
+  end
+  
 end
