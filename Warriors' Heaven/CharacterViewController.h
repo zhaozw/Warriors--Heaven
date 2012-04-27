@@ -101,4 +101,6 @@
 - (IBAction)onSave:(id)sender;
 - (int) findEpById:(int)epid;
 -(void)viewWillAppear:(BOOL)animated ;
+- (void) reloadEq;
+
 @end

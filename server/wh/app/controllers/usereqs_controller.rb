@@ -95,7 +95,14 @@ class UsereqsController < ApplicationController
          eq.delete
          
          user_data.check_save
-         success("Trade is successful")
+         
+         ret = {
+             :id=>params[:id],
+             :gold=>user_data.ext[:gold],
+             :msg=>"Trade is successfull. \nGold +#{obj.price.to_i / 2}"
+         }
+         render :text=>ret.to_json
+         # success("Trade is successful")
     end
 
 end

@@ -58,9 +58,9 @@
     
     // init const
 //    host = @"localhost.joyqom.com";
-host = @"192.168.0.24";
+//host = @"192.168.0.24";
 //    host = @"localhost";
-//   host = @"127.0.0.1";
+   host = @"127.0.0.1";
 //  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
 //    host = @"homeserver.joyqom.com";
@@ -175,6 +175,9 @@ host = @"192.168.0.24";
     [window bringSubviewToFront:vWelcome];
     tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+    
+    [window bringSubviewToFront:vNetworkStatus];
+    [window bringSubviewToFront:waiting];
     
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -589,7 +592,7 @@ host = @"192.168.0.24";
     return [v valueForKey:@"userskills"];
 }
 
-- (NSObject*) getDataUserEqs{
+- (NSArray*) getDataUserEqs{
     NSObject * v = [self getDataUser];
     return [v valueForKey:@"usereqs"];
 }

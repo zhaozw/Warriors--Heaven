@@ -87,7 +87,7 @@
 - (NSObject*) getDataUserext;
 - (void) setDataUserExt:(NSArray*)data;
 - (NSObject*) getDataUserskills;
-- (NSObject*) getDataUserEqs;
+- (NSArray*) getDataUserEqs;
 - (void) setDataUserEqs:(NSArray*)eqs;
 // type: 0: success 1: warning
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;

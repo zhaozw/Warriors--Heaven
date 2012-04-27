@@ -567,8 +567,26 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 
 - (void) onSellReturn:(NSObject* )data{
-    [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES];
+    NSObject* error = [data valueForKey:@"error"];
+    if (error){
+        [ad showMsg:error type:1 hasCloseButton:YES];
+        return;
+    }
+    
+    int index = [[data valueForKey:@"id"] intValue];
+    NSMutableArray* eqs = [ad getDataUserEqs];
+    NSObject* o = [eqs objectAtIndex:[self findEpById:index]];
+    [eqs removeObject:o];
+    
     [vcObjDetail hideDetailView];
+    
+    int gold = [[data valueForKey:@"gold"] intValue];
+    [[ad getDataUserext] setValue:[NSNumber numberWithInt:gold]  forKey:@"gold"];
+    [ad reloadStatus];
+    [self reloadEq];
+    [ad showMsg:[data valueForKey:@"msg"] type:0 hasCloseButton:FALSE];
+    
+    
     
 }
 
@@ -613,12 +631,10 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void) onLoadEq:(NSArray*) data{
-    if (![data isKindOfClass:[NSArray class]])
-        return;
-//    AppDelegate * ad = [UIApplication sharedApplication].delegate;
-//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
 
+- (void) reloadEq{
+    
+    NSArray* data = [ ad getDataUserEqs];
     [vEqbtn_cap  setBackgroundColor:[UIColor clearColor]];
     [vEqbtn_neck  setBackgroundColor:[UIColor clearColor]];
     [vEqbtn_handright  setBackgroundColor:[UIColor clearColor]];
@@ -640,123 +656,118 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         btn.backgroundColor = [UIColor clearColor];
     }
     worneq_selected = sloteq_selected = NULL;
-    
-    if (data == NULL || [data count]==0)
-        return;
-    [ad setDataUserEqs:data];
-    
     int j = 0;
     int item_index = 0;
     // load equipment
-//    [eq_buttons removeAllObjects];
+    //    [eq_buttons removeAllObjects];
     /* for (int i = 0; i< [data count]; i++){
-        NSObject *o = [data objectAtIndex:i];
-        NSObject* eq = [o valueForKey:@"usereq"];
-        int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
-        int eqtype = [[eq valueForKey:@"eqtype"] intValue];
-        
-        NSString* filepath = [eq valueForKey:@"image"];
-        if (filepath == NULL || filepath.length == 0)
-            filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
-        filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
-        NSLog(@"filepath=%@", filepath);
-        
-        if (eqtype == 1){
-       if (slotNumber < 0 ){ //  equiped
-            NSString* wearon = [o valueForKey:@"wearon"];
-            if (wearon != NULL){
-                if ([wearon isEqualToString:@"head"]){
-                    [vEqbtn_cap setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_cap setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_cap setTag:1];
-                    [woren_eq_list replaceObjectAtIndex:1 withObject:eq];
-                }    else if ([wearon isEqualToString:@"neck"]){
-                    [vEqbtn_neck setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_neck setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_neck setTag:2];
-                    [woren_eq_list replaceObjectAtIndex:2 withObject:eq];
-                }   else if ([wearon isEqualToString:@"hand righ"]){
-                    [vEqbtn_handright setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_handright setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_handright setTag:3];
-                    [woren_eq_list replaceObjectAtIndex:3 withObject:eq];
-                }else if ([wearon isEqualToString:@"arm"]){
-                    [vEqbtn_arm setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_arm setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_handright setTag:4];
-                    [woren_eq_list replaceObjectAtIndex:4 withObject:eq];
-                }else if ([wearon isEqualToString:@"fingers right"]){
-                    [vEqbtn_fingersRight setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_fingersRight setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_fingersRight setTag:5];
-                    [woren_eq_list replaceObjectAtIndex:5 withObject:eq];
-                }    else  if ([wearon isEqualToString:@"hand left"]){
-                    [vEqbtn_handleft setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_handleft setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_handleft setTag:6];
-                    [woren_eq_list replaceObjectAtIndex:6 withObject:eq];
-                }
-                else if ([wearon isEqualToString:@"fingers left"]){
-                    [vEqbtn_fingersleft setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_fingersleft setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_fingersleft setTag:7];
-                    [woren_eq_list replaceObjectAtIndex:7 withObject:eq];
-                } 
-                else if ([wearon isEqualToString:@"foot"]){
-                    [vEqbtn_boots setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_boots setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_boots setTag:8];
-                    [woren_eq_list replaceObjectAtIndex:8 withObject:eq];
-                } if ([wearon isEqualToString:@"leg"]){
-                    [vEqbtn_trousers setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_trousers setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_trousers setTag:9];
-                    [woren_eq_list replaceObjectAtIndex:9 withObject:eq];
-                }  else if ([wearon isEqualToString:@"body"]){
-                    [vEqbtn_armo setBackgroundColor:[UIColor yellowColor]];
-                    [vEqbtn_armo setImageURL:[NSURL URLWithString: filepath]];
-                    [vEqbtn_armo setTag:10];
-                    [woren_eq_list replaceObjectAtIndex:10 withObject:eq];
-                }   
-            }
-            continue;
-        }
-       
-        // stocked equipments
-        
-        UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
-        EGOImageButton *v = [[slot subviews] objectAtIndex:0];
-    
-//        EGOImageButton *v = [[EGOImageButton alloc] initWithPlaceholderImage:[UIImage imageNamed:@"eq_slot.png"]];
-//         v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
- 
-//        NSArray * ar = [[NSArray alloc] initWithObjects:
-//                        @"http://192.168.0.24:3006/images/p_1.jpg",
-//                        @"http://192.168.0.24:3006/images/p_2.jpg",
-//                        nil];
-//        
-//        srand(time(nil));
-//        int i = rand()%2;
-//        NSLog(@"rand %d", i);
-//        [v setImageURL:[NSURL URLWithString:[ar objectAtIndex:i]]];
-        [v setImageURL:[NSURL URLWithString: filepath]];
-        [v  setBackgroundColor:[UIColor yellowColor]];
-        [eq_list replaceObjectAtIndex:slotNumber+1 withObject:eq];
-//        [v setTag:slotNumber];
-//        [v setValue:eq forKey:@"wearon"];
-      
-        //    [v setHighlighted:YES];
-//        [vEquipment addSubview:v];
-//               [slot addSubview:v];
-//        [eq_buttons addObject:v];
-        }
-        if (eqtype == 2){
-          //  UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
-            EGOImageButton* btn = [item_buttons objectAtIndex:item_index];
-            [btn setImageURL:filepath];
-            item_index++;
-        }
-    }
+     NSObject *o = [data objectAtIndex:i];
+     NSObject* eq = [o valueForKey:@"usereq"];
+     int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
+     int eqtype = [[eq valueForKey:@"eqtype"] intValue];
+     
+     NSString* filepath = [eq valueForKey:@"image"];
+     if (filepath == NULL || filepath.length == 0)
+     filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
+     filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
+     NSLog(@"filepath=%@", filepath);
+     
+     if (eqtype == 1){
+     if (slotNumber < 0 ){ //  equiped
+     NSString* wearon = [o valueForKey:@"wearon"];
+     if (wearon != NULL){
+     if ([wearon isEqualToString:@"head"]){
+     [vEqbtn_cap setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_cap setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_cap setTag:1];
+     [woren_eq_list replaceObjectAtIndex:1 withObject:eq];
+     }    else if ([wearon isEqualToString:@"neck"]){
+     [vEqbtn_neck setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_neck setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_neck setTag:2];
+     [woren_eq_list replaceObjectAtIndex:2 withObject:eq];
+     }   else if ([wearon isEqualToString:@"hand righ"]){
+     [vEqbtn_handright setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_handright setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_handright setTag:3];
+     [woren_eq_list replaceObjectAtIndex:3 withObject:eq];
+     }else if ([wearon isEqualToString:@"arm"]){
+     [vEqbtn_arm setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_arm setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_handright setTag:4];
+     [woren_eq_list replaceObjectAtIndex:4 withObject:eq];
+     }else if ([wearon isEqualToString:@"fingers right"]){
+     [vEqbtn_fingersRight setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_fingersRight setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_fingersRight setTag:5];
+     [woren_eq_list replaceObjectAtIndex:5 withObject:eq];
+     }    else  if ([wearon isEqualToString:@"hand left"]){
+     [vEqbtn_handleft setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_handleft setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_handleft setTag:6];
+     [woren_eq_list replaceObjectAtIndex:6 withObject:eq];
+     }
+     else if ([wearon isEqualToString:@"fingers left"]){
+     [vEqbtn_fingersleft setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_fingersleft setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_fingersleft setTag:7];
+     [woren_eq_list replaceObjectAtIndex:7 withObject:eq];
+     } 
+     else if ([wearon isEqualToString:@"foot"]){
+     [vEqbtn_boots setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_boots setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_boots setTag:8];
+     [woren_eq_list replaceObjectAtIndex:8 withObject:eq];
+     } if ([wearon isEqualToString:@"leg"]){
+     [vEqbtn_trousers setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_trousers setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_trousers setTag:9];
+     [woren_eq_list replaceObjectAtIndex:9 withObject:eq];
+     }  else if ([wearon isEqualToString:@"body"]){
+     [vEqbtn_armo setBackgroundColor:[UIColor yellowColor]];
+     [vEqbtn_armo setImageURL:[NSURL URLWithString: filepath]];
+     [vEqbtn_armo setTag:10];
+     [woren_eq_list replaceObjectAtIndex:10 withObject:eq];
+     }   
+     }
+     continue;
+     }
+     
+     // stocked equipments
+     
+     UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
+     EGOImageButton *v = [[slot subviews] objectAtIndex:0];
+     
+     //        EGOImageButton *v = [[EGOImageButton alloc] initWithPlaceholderImage:[UIImage imageNamed:@"eq_slot.png"]];
+     //         v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
+     
+     //        NSArray * ar = [[NSArray alloc] initWithObjects:
+     //                        @"http://192.168.0.24:3006/images/p_1.jpg",
+     //                        @"http://192.168.0.24:3006/images/p_2.jpg",
+     //                        nil];
+     //        
+     //        srand(time(nil));
+     //        int i = rand()%2;
+     //        NSLog(@"rand %d", i);
+     //        [v setImageURL:[NSURL URLWithString:[ar objectAtIndex:i]]];
+     [v setImageURL:[NSURL URLWithString: filepath]];
+     [v  setBackgroundColor:[UIColor yellowColor]];
+     [eq_list replaceObjectAtIndex:slotNumber+1 withObject:eq];
+     //        [v setTag:slotNumber];
+     //        [v setValue:eq forKey:@"wearon"];
+     
+     //    [v setHighlighted:YES];
+     //        [vEquipment addSubview:v];
+     //               [slot addSubview:v];
+     //        [eq_buttons addObject:v];
+     }
+     if (eqtype == 2){
+     //  UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
+     EGOImageButton* btn = [item_buttons objectAtIndex:item_index];
+     [btn setImageURL:filepath];
+     item_index++;
+     }
+     }
      */
     
     // put ep on position
@@ -767,13 +778,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSObject* eqslot = es;
     if ([es isKindOfClass:[NSString class]])
         eqslot = [(NSString*)es JSONValue];
-
+    
     if (eqslot){
-//        NSObject* epslot = [sepslot JSONValue];
+        //        NSObject* epslot = [sepslot JSONValue];
         int epid = -1;
         NSArray* keys = [pos_map allKeys];
         for (int i = 0; i< [keys count]; i++) {
-     
+            
             NSString* pos = [keys objectAtIndex:i];
             epid = [[eqslot valueForKey:pos] intValue];
             if (epid <=0)
@@ -784,7 +795,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
                 [arranged addObject:[NSNumber numberWithInt:index]];
                 NSObject *o = [data objectAtIndex:index];
                 NSObject* eq = [o valueForKey:@"usereq"];
-//                int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
+                //                int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
                 int eqtype = [[eq valueForKey:@"eqtype"] intValue];
                 
                 NSString* filepath = [eq valueForKey:@"image"];
@@ -795,18 +806,18 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
                 [btn setImageURL:[NSURL URLWithString: filepath]];
                 [btn setTag:epid];
                 [btn setBackgroundColor:[UIColor yellowColor]];
-          
+                
             }
         }
     }
-     NSLog(@"DATA count %d", [data count]);
+    NSLog(@"DATA count %d", [data count]);
     // proceed remaining item and eq
     for ( int i = 0; i< [data count]; i++){
         
         NSLog(@"DATA %d", i);
         // check if it's already arranged
         BOOL found = FALSE;
-       
+        
         NSLog(@"arranged count %d", [arranged count]);
         for (int j=0; j < [arranged count]; j++){
             if (i == [[arranged objectAtIndex:j] intValue]) {
@@ -815,10 +826,10 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             }
         }
         if (found)
-             continue;
+            continue;
         NSLog(@"DATA %d not found in arraged", i);
         NSObject *o = [data objectAtIndex:i];
-             NSLog(@"DATA %d %@", i, o);
+        NSLog(@"DATA %d %@", i, o);
         NSObject* eq = [o valueForKey:@"usereq"];
         int eqtype = [[eq valueForKey:@"eqtype"] intValue];
         int eqid = [[eq valueForKey:@"id"] intValue];
@@ -827,7 +838,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         if (filepath == NULL || filepath.length == 0)
             filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
         filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
-       
+        
         
         if (eqtype == 1){ //eq
             // found vacancy
@@ -837,7 +848,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             for ( ;i2< [keys count]; i2++) {
                 NSString* str = [keys objectAtIndex:i2];
                 int inte = [str characterAtIndex:0];
-              
+                
                 if (inte <48 || inte >57)
                     continue;
                 btn2 = [pos_map valueForKey:str];
@@ -846,13 +857,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             }
             if (i2 < [keys count]){
                 btn2.tag = eqid;
-                 NSLog(@"filepath=%@, btn=%@", filepath, btn2);
+                NSLog(@"filepath=%@, btn=%@", filepath, btn2);
                 [btn2 setImageURL:[NSURL URLWithString:filepath]];
-//                btn2.backgroundColor = [UIColor yellowColor];
-//                [btn2 setTitle:filepath forState:UIControlStateNormal];
+                //                btn2.backgroundColor = [UIColor yellowColor];
+                //                [btn2 setTitle:filepath forState:UIControlStateNormal];
             }
             
-
+            
         }
         
         if (eqtype == 2){ // item
@@ -870,6 +881,33 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     lbWeight.text = [NSString stringWithFormat:@"%d" ,[self calcWeight]];
     lbDamage.text = [NSString stringWithFormat:@"%d" ,[self calcAttack]];
     lbDeffencce.text = [NSString stringWithFormat:@"%d" ,[self calcDefense]];
+    
+    // reset info view
+    [lbName setText:@""];
+    [lbEffect setText:@""];
+    [lbLongDesc setText:@""];
+    btEqDetail.tag = 0;
+    btEqDetail.hidden = NO;
+    
+    [lbItemName setText:@""];
+    [lbItemEffect setText:@""];
+    [lbItemLongDesc setText:@""];
+    btItemDetail.tag = 0;
+    btItemDetail.hidden = NO;
+}
+
+- (void) onLoadEq:(NSArray*) data{
+    if (![data isKindOfClass:[NSArray class]])
+        return;
+//    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+
+    
+    if (data == NULL || [data count]==0)
+        return;
+    [ad setDataUserEqs:data];
+    
+    [self reloadEq];
 }
 
 - (int) findEpById:(int)epid{

@@ -119,7 +119,8 @@ class TradablesController < ApplicationController
         eqslots[found_available.to_s] = e[:id]
         #user_data[:userext][:eqslot] = eqslots.to_json
         user_data.ext.set_prop("eqslot", eqslots.to_json)
-        user_data.ext.save!
+        user_data.ext[:gold] -= price
+        user_data.check_save
 =begin     
         # get available slot number
         r =  ActiveRecord::Base.connection.execute("select eqslotnum from usereqs where uid=#{uid}")
@@ -154,8 +155,12 @@ class TradablesController < ApplicationController
         item.save!
         
        # eq = Equipment.load_equipment(item[:name], item)
-      success("You bought #{item[:dname]} successfully !")
-
+       ret = {
+           :gold=>user_data.ext[:gold],
+           :msg =>"You bought #{item[:dname]} successfully !\n Gold -#{price}"
+       }
+      # success("You bought #{item[:dname]} successfully !\n Gold -#{price}")
+      render :text=>ret.to_json
     end
 =begin
   # GET /tradables

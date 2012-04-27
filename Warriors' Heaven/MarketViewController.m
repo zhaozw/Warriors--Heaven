@@ -252,13 +252,17 @@
 }
 
 - (void) onBuy:(NSObject*) data{
-    NSString* s = [data valueForKey:@"OK"];
-    if (s)
+    NSString* s = [data valueForKey:@"error"];
+    if (s){
         [ad showMsg:s type:0 hasCloseButton:YES];
-    else{
-        s =  [data valueForKey:@"error"];
-        [ad showMsg:s type:1 hasCloseButton:YES];
+        return;
     }
+ 
+    s =  [data valueForKey:@"msg"];
+    [ad showMsg:s type:1 hasCloseButton:YES];
+    int gold = [[data valueForKey:@"gold"] intValue];
+    [[ad getDataUserext] setValue:[NSNumber numberWithInt:gold]  forKey:@"gold"];
+    [ad reloadStatus];
 }
 - (void) buy:(UIButton*) btn{
     int _id = btn.tag;
