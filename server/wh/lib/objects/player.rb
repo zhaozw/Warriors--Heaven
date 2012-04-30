@@ -1,6 +1,6 @@
-require 'objects/livingobject.rb'
+require 'objects/human.rb'
 
-class Player < LivingObject
+class Player < Human
     
 
     def initialize
@@ -100,16 +100,20 @@ class Player < LivingObject
         if !@temp
             setup_temp
         end
-        @temp[n] = v
+        @temp[n.to_sym] = v
     end
     def query_temp(name)
-        if (@obj[name])
-            return @obj[name]
-        end
-        if (@obj.ext[name]) 
-            return @obj.ext[name]
-        end
-        return nil
+        # if (@obj[name])
+        #     return @obj[name]
+        # end
+        # if (@obj.ext[name]) 
+        #     return @obj.ext[name]
+        # end
+        # if !@temp
+        #     setup_temp
+        # end
+        # return @temp[nam]
+        return tmp[name.to_sym]
     end
     
     def query_equipment(position)

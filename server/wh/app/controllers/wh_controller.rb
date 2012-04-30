@@ -400,6 +400,12 @@ class WhController < ApplicationController
         p1.set_data(player)
         p2 = Player.new
         p2.set_data(enemy)
+        
+        p2.set_temp("hp", p2.ext[:maxhp])
+        p "===> p2.hp=#{p2.ext[:hp]}, p2.hp=#{p2.tmp[:hp]},#{p2.query_temp("hp")}"
+        p2.set_temp("stam", p2.ext[:maxst])
+        p "===> p2.maxst=#{p2.ext[:maxst]}, p2.st=#{p2.query_temp("stam")}"
+        
         context = {
             :msg => ""
         }
@@ -871,7 +877,7 @@ class WhController < ApplicationController
     end
     
     def summary
-        return if !check_session || !user_data
+        return if !check_s/ession || !user_data
         sid = params[:sid]
         
         t = Time.now - 3600*24

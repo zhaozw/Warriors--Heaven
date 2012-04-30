@@ -159,11 +159,22 @@ end
     
    # $N=>attacker $n=>defenser
     def translate_msg(msg, context)
+    
         attacker = context[:user]
       #  p attacker[:name] 
       #  p msg
         defenser = context[:target]
+        
+        limb = context[:limb]
+        if !limb
+           # srand(Time.now.tv_usec.to_i)
+            n = rand(defenser.limbs.size).to_i
+            p "===>n=#{n}"
+            limb = defenser.limbs[n]
+        end
+        
       #  p "player uid #{attacker.tmp[:uid]}, your uid #{session[:uid]}, msg=#{msg}"
+      msg = msg.gsub(/\$l/, limb)
            if (attacker[:isUser])
                 m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.name)
             else

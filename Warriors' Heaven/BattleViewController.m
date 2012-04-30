@@ -311,7 +311,23 @@
 
 - (void) fight:(UIButton* )button{
     NSLog(@"fight");
-
+    
+    // check hp and stam
+    NSDictionary* ext = [ad getDataUserext];
+    if (ext){
+        int hp = [[ext valueForKey:@"hp"] intValue];
+        int stam = [[ext valueForKey:@"stam"] intValue];
+        if (hp < 0 ){
+            [ad showMsg:@"你的hp不够，好好休息吧" type:1 hasCloseButton:YES];   
+            return;
+        }
+        if (stam <0){
+            [ad showMsg:@"你的体力不够，好好休息吧" type:1 hasCloseButton:YES];   
+            return;
+        }
+                    
+                    
+    }
     
     // send request
     WHHttpClient* client = [[WHHttpClient alloc] init:self];

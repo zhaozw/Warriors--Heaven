@@ -1,7 +1,7 @@
-require 'objects/livingobject.rb'
+require 'objects/human.rb'
 
 
-class Npc < LivingObject
+class Npc < Human
     def initialize
         setup
     end

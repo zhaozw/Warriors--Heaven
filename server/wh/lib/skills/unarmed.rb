@@ -46,13 +46,13 @@ class Unarmed < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N一拳挥向$n的左脸",
+               :action =>"$N一拳挥向$n的$l",
                :damage => 10
                #:damage_type=>""
            },
            {
                :level=>10,
-               :action =>"$N一拳挥向$n的右脸",
+               :action =>"$N往$n的$l狠狠地踢了一脚",
                :damage =>20
                #:damage_type=>""
                

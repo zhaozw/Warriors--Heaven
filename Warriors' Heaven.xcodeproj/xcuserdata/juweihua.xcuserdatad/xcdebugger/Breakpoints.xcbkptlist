@@ -2177,11 +2177,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "356733636.863802"
+         timestampString = "357470804.860628"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "318"
-         endingLineNumber = "318"
+         startingLineNumber = "334"
+         endingLineNumber = "334"
          landmarkName = "-fight:"
          landmarkType = "5">
       </FileBreakpoint>
