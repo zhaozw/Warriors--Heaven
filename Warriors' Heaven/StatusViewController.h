@@ -10,10 +10,10 @@
 
 @interface StatusViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *lbGold;
-@property (strong, nonatomic) IBOutlet UIProgressView *pbAmbition;
+@property (strong, nonatomic) IBOutlet UIProgressView *pvJingli;
 @property (strong, nonatomic) IBOutlet UIProgressView *pvHP;
 @property (strong, nonatomic) IBOutlet UILabel *lbHP;
-@property (strong, nonatomic) IBOutlet UILabel *lbAmbition;
+@property (strong, nonatomic) IBOutlet UILabel *lbJingli;
 @property (strong, nonatomic) IBOutlet UILabel *lbExp;
 @property (strong, nonatomic) IBOutlet UILabel *lbLevel;
 @property (strong, nonatomic) IBOutlet UIProgressView *pvStam;

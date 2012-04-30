@@ -17,13 +17,7 @@ class Unarmed < Game::Skill
      "基本拳脚"
    end
 
-   def damage(context)   # only for calculation, "render" function will make real damage
-       user = context[:user]
-       a = getAction
-       d = a[:damage] + user.tmp[:str]
-      
-   end
-    
+
    def power(context)
      # context[:user].ext[:str] * @skill[:level]
     # damage(context)
@@ -60,52 +54,12 @@ class Unarmed < Game::Skill
           ]
    end
 
-   def getAction
-      level = @skill[:level]
-      actions = attack_actions
-      i = 0;
-      for a in actions    
-         if (a[:level] > level)
-             break
-         end
-         i += 1
-      end
-      actions[i-1][:index] = i
-     a = actions[i-1]
-   end
-   
-   def cost_stam(context)
-       p ("power #{power(context)}")
-       p ("power^1/3 #{power(context)**(1.0/3.0)}")
-       p = power(context)**(1.0/3.0)
-       if (p == 0)
-           return 10
-        end
-       stam_cost = 10/(p)
-       stam_cost  = stam_cost.to_i
-      
-        if stam_cost == 0 
-            stam_cost = 1
-        #elsif stam_cost == Infinity
-        #    stam_cost = 10
-        end
-        
-        return stam_cost
-   end
+ 
    
 
+
     
-   def doDamage(context)
-        # damage
-        d = damage(context)                
-     #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
-        context[:target].tmp[:hp] -= d
-        # cost stamina
-        cs = cost_stam(context)
-        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
-        context[:user].tmp[:stam] -= cs
-        context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
-   end
+
    
    def doAttack(context)
        a = getAction

@@ -877,7 +877,7 @@ class WhController < ApplicationController
     end
     
     def summary
-        return if !check_s/ession || !user_data
+        return if !check_session || !user_data
         sid = params[:sid]
         
         t = Time.now - 3600*24

@@ -9,6 +9,10 @@ class Xuezou  < Weapon
       "　“大快刀二十一工”之一。大逆丁字、黑刀乱刃。斩龙武士龙马所有，传说中武士腰间的名刀。在索隆打败武士龙马之后，龙马托付给索隆，不枉费宝刀之名。"
   end
   
+  def skill_type
+      "daofa"
+  end
+  
   def wearOn
       "hand"
   end

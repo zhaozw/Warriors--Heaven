@@ -88,7 +88,7 @@
 						<string key="NSFrame">{{215, 32}, {34, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="600874474"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -123,6 +123,7 @@
 						<string key="NSFrame">{{254, 44}, {55, 9}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -137,7 +138,7 @@
 						<string key="NSFrame">{{150, 32}, {65, 12}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="282647191"/>
+						<reference key="NSNextKeyView" ref="979361472"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -164,6 +165,7 @@
 						<string key="NSFrame">{{254, 32}, {65, 12}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="282647191"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -299,7 +301,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">士气</string>
+						<string key="IBUIText">精力</string>
 						<reference key="IBUITextColor" ref="302505"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -398,27 +400,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">pbAmbition</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="868944944"/>
-					</object>
-					<int key="connectionID">14</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">pvHP</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="282647191"/>
 					</object>
 					<int key="connectionID">15</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">lbAmbition</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="142085239"/>
-					</object>
-					<int key="connectionID">19</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -459,6 +445,22 @@
 						<reference key="destination" ref="979361472"/>
 					</object>
 					<int key="connectionID">31</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbJingli</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="142085239"/>
+					</object>
+					<int key="connectionID">33</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pvJingli</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="868944944"/>
+					</object>
+					<int key="connectionID">35</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -612,7 +614,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">31</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -620,21 +622,17 @@
 					<string key="className">StatusViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="lbAmbition">UILabel</string>
 						<string key="lbExp">UILabel</string>
 						<string key="lbGold">UILabel</string>
 						<string key="lbHP">UILabel</string>
+						<string key="lbJingli">UILabel</string>
 						<string key="lbLevel">UILabel</string>
 						<string key="lbStam">UILabel</string>
-						<string key="pbAmbition">UIProgressView</string>
 						<string key="pvHP">UIProgressView</string>
+						<string key="pvJingli">UIProgressView</string>
 						<string key="pvStam">UIProgressView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="lbAmbition">
-							<string key="name">lbAmbition</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="lbExp">
 							<string key="name">lbExp</string>
 							<string key="candidateClassName">UILabel</string>
@@ -647,6 +645,10 @@
 							<string key="name">lbHP</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="lbJingli">
+							<string key="name">lbJingli</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="lbLevel">
 							<string key="name">lbLevel</string>
 							<string key="candidateClassName">UILabel</string>
@@ -655,12 +657,12 @@
 							<string key="name">lbStam</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pbAmbition">
-							<string key="name">pbAmbition</string>
-							<string key="candidateClassName">UIProgressView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="pvHP">
 							<string key="name">pvHP</string>
+							<string key="candidateClassName">UIProgressView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pvJingli">
+							<string key="name">pvJingli</string>
 							<string key="candidateClassName">UIProgressView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="pvStam">

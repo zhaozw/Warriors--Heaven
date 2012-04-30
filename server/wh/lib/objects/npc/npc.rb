@@ -76,29 +76,35 @@ class Npc < Human
     end
     
     def query_temp(name)
-        if (!@temp)
-            setup_temp
-        end
-        return @temp[name]
+        # if (!@temp)
+        #     setup_temp
+        # end
+        # return @temp[name]
+        return tmp[name.to_sym]
     end
     
     def set_temp(name, value)
-        if (!@temp)
-            setup_temp
-        end
-        @temp[name] = value
+        # if (!@temp)
+        #     setup_temp
+        # end
+        # @temp[name] = value
+        @temp[name.to_sym] = value
     end
     
     def set_equipment(position, eq)
         if (!@eqs)
             @eqs = {}
         end
-        @eqs[position] = eq
+        @eqs[position.to_sym] = eq
     end
     def setup_equipment
     end
     
     def query_equipment(position)
+        if (!@eqs)
+            @eqs = {}
+        end
+        return @eqs[position.to_sym]
     end
     
     def [](n)
@@ -108,5 +114,6 @@ class Npc < Human
     def []=(n, v)
         @temp[n] = v
     end
+
   
 end

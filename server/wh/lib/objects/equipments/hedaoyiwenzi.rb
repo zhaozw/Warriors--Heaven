@@ -1,6 +1,6 @@
 require 'objects/equipments/weapon.rb'
 
-class Hedaoyiwenzi  < Weapon
+class Hedaoyiwenzi  < Blade
     def dname
     "和道一文字"
   end
@@ -11,6 +11,10 @@ class Hedaoyiwenzi  < Weapon
   
   def wearOn
       "hand"
+  end
+  
+  def skill_type
+      "daofa"
   end
   
   def weight

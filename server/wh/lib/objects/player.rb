@@ -117,6 +117,29 @@ class Player < Human
     end
     
     def query_equipment(position)
+        if !@worn_eq
+            @worn_eq = {}
+            eqslot = @obj.ext.get_prop("eqslot")
+            p "===>eqslot=#{eqslot}"
+            if eqslot
+                if eqslot.class == String
+                    eqslot = JSON.parse(eqslot)
+                end
+                eqslot.each{|k,v|
+                    @worn_eq[k.to_sym] = v
+                }
+            end
+                     p "===>@worn_eq=#{@worn_eq}"
+        end
+        id = @worn_eq[position.to_sym]
+        if id
+            eq = Usereq.find(id)
+        
+            return load_obj(eq[:eqname], eq)
+        end
+        
+        return nil
+        
     end
     
     def query_quest(quest)
@@ -125,6 +148,10 @@ class Player < Human
     
     def name
         @obj[:user]
+    end
+    
+    def set_skill(n,l,tp)
+       @obj.set_skill(n,l,tp) 
     end
     
 

@@ -265,6 +265,8 @@
     }
     [self.window makeKeyAndVisible];
     
+    [self startRecover];
+    
     return YES;
 }
 
@@ -644,10 +646,21 @@
         [ext setValue:[NSNumber numberWithInt:st] forKey:@"stam"];
     }
     
-    if (needReocovery && tmRecoverStart == [n longValue] && ext == [self getDataUserext]){
+    int jingli = [[[self getDataUserext] valueForKey:@"jingli"] intValue];
+    int max_jl = [[[self getDataUserext] valueForKey:@"max_jl"] intValue];
+    if (jingli < max_jl){
+        jingli += max_jl/20;
+        if (jingli > max_jl)
+            jingli = max_jl;
+        if (jingli < max_jl)
+            needReocovery = YES;
+        [ext setValue:[NSNumber numberWithInt:jingli] forKey:@"jingli"];
+    }
+    
+   // if (needReocovery && tmRecoverStart == [n longValue] && ext == [self getDataUserext]){
         [self performSelector:@selector(recover:) withObject:n afterDelay:10.0];
         [self reloadStatus];
-    }
+//    }
     
 }
 

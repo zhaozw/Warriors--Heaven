@@ -586,13 +586,19 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [self reloadEq];
     [ad showMsg:[data valueForKey:@"msg"] type:0 hasCloseButton:FALSE];
     
+    btItemDetail.hidden = YES;
+    btEqDetail.hidden = YES;
+    
     
     
 }
 
 
 - (void) onItemDetail:(UIButton*) btn{
+    if (btn.tag == 0)
+        return;
     NSArray* eqs = [ad getDataUserEqs];
+    
     NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"usereq"];
     [vcObjDetail loadObjDetail:o];
 //    CGRect r =  vcObjDetail.view.frame;
@@ -887,13 +893,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [lbEffect setText:@""];
     [lbLongDesc setText:@""];
     btEqDetail.tag = 0;
-    btEqDetail.hidden = NO;
+    btEqDetail.hidden = YES;
     
     [lbItemName setText:@""];
     [lbItemEffect setText:@""];
     [lbItemLongDesc setText:@""];
     btItemDetail.tag = 0;
-    btItemDetail.hidden = NO;
+    btItemDetail.hidden = YES;
 }
 
 - (void) onLoadEq:(NSArray*) data{

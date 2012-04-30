@@ -3,7 +3,8 @@ class Daofa < Game::Skill
    def for
        return "attack blade"
    end
-     def category
+     
+    def category
        "basic"
    end
    def type 

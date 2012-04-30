@@ -5,6 +5,10 @@ class Sword  < Weapon
   def dname
     "铁剑"
   end
+    
+  def skill_type
+      "fencing"
+  end
   
   def desc
       "这是一把普通的铁剑"

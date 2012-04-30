@@ -9,6 +9,10 @@ class Blade  < Weapon
       "这是一个雪亮的钢刀"
   end
   
+  def skill_type
+      "daofa"
+  end
+  
   def wearOn
       "hand"
   end

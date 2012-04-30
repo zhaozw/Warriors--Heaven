@@ -306,7 +306,7 @@
     
     [ad reloadStatus];
     
-    [ad startRecover];
+//    [ad startRecover];
 }
 
 - (void) fight:(UIButton* )button{

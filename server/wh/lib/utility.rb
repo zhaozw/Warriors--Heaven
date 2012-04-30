@@ -56,12 +56,14 @@ end
     
    
    # load skill object, without user data
-    def load_skill (skillname)
+    def load_skill (skillname, data = nil)
              # eval skill class
                 eval "require 'skills/"+ skillname+".rb'"
                
                 target_class = skillname.at(0).upcase+skillname.from(1)
                 targetObj=eval target_class+'.new()'
+                targetObj.set_data(data) if data
+                return targetObj
                 
     end
 =begin 

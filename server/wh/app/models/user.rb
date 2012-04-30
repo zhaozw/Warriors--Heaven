@@ -194,7 +194,31 @@ class User < ActiveRecord::Base
         p "==>cached"
     end
     
-    
+    def set_skill(name, lvl, tp)
+        skill = query_skill(name)
+        if (!skill)
+            us =         Userskill.new({
+                    :uid        =>  self[:id],
+                    :sid        =>  self[:sid],
+                    :skid       =>  0,
+                    :skname     =>  name,
+                    :skdname    => "",
+                    :level      =>  lvl,
+                    :tp         =>  tp,
+                    :enabled    =>  1   
+                })
+                us.save!
+
+            skill = load_skill(name)
+            skill.set_data(us)
+            self[:skills][name] = skill
+           # self[:cached] = false
+        else
+            skill.set("level", lvl)
+            skill.set("tp", tp)
+        end
+        return skill
+    end
     def check_save   
         p "===>changed?=#{changed?.inspect}"
         if (changed?)
@@ -258,5 +282,6 @@ class User < ActiveRecord::Base
         r.cache
         return r
     end
+
 
 end

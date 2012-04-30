@@ -66,7 +66,7 @@ end
 
     def chooseBestSkill(context, pur, weapon_type, prop)
             p "choose best skill for #{pur}/#{weapon_type} by #{prop}"
-            p "skills #{context[:skills]}(size=#{context[:skills].size})}"
+            # p "skills #{context[:skills]}(size=#{context[:skills].size})}"
             attacker_skills = context[:skills]
      
             best_skill = {
@@ -79,7 +79,7 @@ end
             else
                 reg = /./i
             end
-            p attacker_skills
+            p "==>1#{attacker_skills.inspect}"
             for skill in attacker_skills
                 if (!skill)
                     next
@@ -89,8 +89,9 @@ end
                 p "===>skill name =#{skillname}"
                 #context[:thisskill] = skill
 #                purpose = query_skill(skillname, "for", skill, context)
-                purpose = skill.for     
-                type = skill.type
+
+                purpose = skill.for     # usage: attack parry ...
+                type = skill.type       # skill type: unarmed, fencing, daofa...
                 
                 # if skill is for attacking and has correct type with weapon
                 if type=~ reg and purpose=~reg2 
@@ -117,20 +118,22 @@ end
                 if _skname == nil or _skname==""
                     raise "skill name is nil"
                 end
-                 us = Userskill.new({
-                    :uid        =>  context[:user][:id],
-                    :sid        =>  context[:user][:sid],
-                    :skid       =>  0,
-                    :skname     =>  _skname,
-                    :skdname    =>  "basic #{weapon_type}",
-                    :level      =>  0,
-                    :tp         =>  0,
-                    :enabled    =>  1   
-                })
-                us.save!
+                 # us = Userskill.new({
+                 #     :uid        =>  context[:user][:id],
+                 #     :sid        =>  context[:user][:sid],
+                 #     :skid       =>  0,
+                 #     :skname     =>  _skname,
+                 #     :skdname    =>  "basic #{weapon_type}",
+                 #     :level      =>  0,
+                 #     :tp         =>  0,
+                 #     :enabled    =>  1   
+                 # })
+                 # us.save!
+               us =  context[:user].set_skill(_skname, 0, 0)
                 attacker_skills.push(us)
                 best_skill[:skill] = us
             end
+            p "==>best skill of #{context[:user][:user]} for #{pur}, skill_type #{weapon_type}: #{best_skill}"
             return best_skill
     end
     
@@ -231,13 +234,33 @@ end
         return "<br/>\n"+translate_msg(context[:msg], context)
     end
     
-    def skill_power(skillname, context)
+    def calc_total_exp(level)
+        r  = 0
+        for i in 1..level
+            r += i*i*i
+        end
+        return r
+    end
+    
+    #
+    # Usage: 0: attack 1: defense(parry) 3:dodge
+    #
+    def skill_power(skillname, context, usage)
        skill =  context[:user].query_skill(skillname)
        if (skill == nil)
            logger.info("user #{context[:user][:id]}-#{context[:user].ext[:name]} doesn't have skill '#{skillname}'")
            return 1
        end
-       p = skill.power(context)
+       # p = skill.power(context)
+        p = skill.data[:level] * skill.data[:level]  * skill.data[:level] /3 
+        str  = context[:user].tmp[:str]
+        dext = context[:user].tmp[:dext]
+        if (usage == 0)
+            p =   (p + calc_total_exp(context[:user].ext[:level]) +1) / 30 * (( str+1)/10)
+        else
+            p =   (p + calc_total_exp(context[:user].ext[:level]) +1) / 30 * (( dext+1)/10)
+        end
+        
        if p <= 0
            return 1
        else
@@ -283,6 +306,7 @@ end
                     :gain => defenser[:gain],
                     :msg => ""
             }
+            # get attack action
             attacker[:attack_skill][:skill].doAttack(context_a)
            # query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attackerattack_skill][:skill], context_a)
                 
@@ -299,9 +323,9 @@ end
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
            #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
-                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a)
+                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a, 0)
            #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
-                defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d) - defenser.tmp[:combat_load]/10
+                defense_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d, 2) - defenser.tmp[:combat_load]/10
           
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{defense_power}\n"
@@ -364,12 +388,21 @@ end
                     end
                  else
                      context_d[:thisskill] = defenser[:defense_skill][:skill]
-                     power_parry = defenser[:defense_skill][:skill].power(context_d)
-                    # power_parry = query_skill(defenser[:defense_skill][:skill][:skname], "power", defenser[:defense_skill][:skill], context_d)
+               
+                     
+                     # if attacker has weapon but defenser hasn't, pp=0
+                     if ((attacker.query_equipment("handright")||attacker.query_equipment("handleft")) && !(defenser.query_equipment("handright") || defenser.query_equipment("handleft")) )
+                         power_parry = 0
+                     else
+                        # power_parry = defenser[:defense_skill][:skill].power(context_d)
+                         power_parry = skill_power(defenser[:defense_skill][:skill][:skname], context_d, 1)
+                        # power_parry = query_skill(defenser[:defense_skill][:skill][:skname], "power", defenser[:defense_skill][:skill], context_d)
+                    end
                      power_weapon_def = 0
                     # TODO get power of weapon
                    #  query_obj(objname, method, obj, context)
-                   power_attack = attacker[:attack_skill][:skill].power(context_d)
+                   # power_attack = attacker[:attack_skill][:skill].power(context_d)
+                   power_attack = skill_power(attacker[:attack_skill][:skill][:skname], context_d, 0)
             #         power_attack = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_d)
                       power_weapon_att = 0
                     # TODO get power of weapon
@@ -497,10 +530,17 @@ end
         p "attacker is #{attacker.name}"
         # what weapon attacker is wielding
         
-        hand_left_weapon = attacker.query_equipment("handleft")
-        hand_right_weapon =  attacker.query_equipment("handright")
+        hand_right_weapon =  p1.query_equipment("handright")
+        hand_left_weapon = p1.query_equipment("handleft")
+        p "=>righthand weapons #{hand_right_weapon}"
+        p "=>lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed
-        weapon_type = 'unarmed'
+        weapon_skill_type = 'unarmed'
+        if (hand_right_weapon)
+            weapon_skill_type = hand_right_weapon.skill_type
+        elsif hand_left_weapon
+            weapon_skill_type = hand_left_weapon.skill_type
+        end
 =begin
         reg = /unarmed/i
         if (hand_right_weapon)
@@ -517,10 +557,22 @@ end
         # attacker choose the best dodge skill
         p1[:dodge_skill] = choosBestDodgeSkill(context_p1)
         # attacker choose the skill have best damage
-        p1[:attack_skill] = choosBestAttackSkill(context_p1, weapon_type)
+        p1[:attack_skill] = choosBestAttackSkill(context_p1, weapon_skill_type)
         # attacker choose best defense skill
-        p1[:defense_skill] = choosBestDefenseSkill(context_p1, weapon_type)
+        p1[:defense_skill] = choosBestDefenseSkill(context_p1, weapon_skill_type)
         
+        # choose skills for deffenser
+        hand_right_weapon =  p2.query_equipment("handright")
+        hand_left_weapon = p2.query_equipment("handleft")
+        p "=>#{defenser[:user]} righthand weapons #{hand_right_weapon}"
+        p "=>#{defenser[:user]} lefthand weapons #{hand_left_weapon}"
+        # defaut is unarmed
+        weapon_skill_type = 'unarmed'
+        if (hand_right_weapon)
+            weapon_skill_type = hand_right_weapon.skill_type
+        elsif hand_left_weapon
+            weapon_skill_type = hand_left_weapon.skill_type
+        end
         context_p2 = {
                     :user => p2,
                     :thisskill => nil,
@@ -530,9 +582,9 @@ end
         # defenser choose the best dodge skill
         p2[:dodge_skill] = choosBestDodgeSkill(context_p2)
         # defenser choose the skill have best damage
-        p2[:attack_skill] = choosBestAttackSkill(context_p2, weapon_type)
+        p2[:attack_skill] = choosBestAttackSkill(context_p2, weapon_skill_type)
         # defenser choose best defense skill
-        p2[:defense_skill] = choosBestDefenseSkill(context_p2, weapon_type)      
+        p2[:defense_skill] = choosBestDefenseSkill(context_p2, weapon_skill_type)      
         
         
        

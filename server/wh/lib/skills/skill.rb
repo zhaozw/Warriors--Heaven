@@ -12,6 +12,9 @@ class Skill
        return @skill
    end 
    
+   def set(n,v)
+       @skill[n.to_sym] = v
+   end
    def query_data(n)
        return data[n]
    end
@@ -29,10 +32,10 @@ class Skill
      p "skill to json"
     #   return "{}"
        if (data)
-           p "===>return #{@skill[:skills].inspect}"
+           # p "===>return #{@skill.inspect}"
             return @skill.to_json(*opt)
         else
-            p "==>return {}"
+            # p "==>return {}"
             return "{}"
         end
    end
@@ -87,13 +90,76 @@ class Skill
     def image
        "other/zhujian.png"
    end
-
+   
+    #  translate arabic number to Chinse e.g.“第三十六式”
    def action_msg(action)
         a = action
         return "【<span style='color:#ffaaaa'>#{dname}</span> 第#{a[:index]}式】#{a[:action]}" 
    end
+   def doDamage(context)
+        # damage
+        d = damage(context)                
+     #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
+        context[:target].tmp[:hp] -= d
+        # cost stamina
+        cs = cost_stam(context)
+        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
+        context[:user].tmp[:stam] -= cs
+        context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
+   end
+   
+   
+   def damage(context)   # only for calculation, "render" function will make real damage
+       user = context[:user]
+       a = getAction
+       d = a[:damage] + user.tmp[:str]
+   end
+    
+  def getAction
+      level = @skill[:level]
+      actions = attack_actions
+      i = 0;
+      for a in actions    
+         if (a[:level] > level)
+             break
+         end
+         i += 1
+      end
+      actions[i-1][:index] = i
+     a = actions[i-1]
+   end
 
+   def doAttack(context)
+       a = getAction
+        target = context[:target]
+        p "action=#{a}"
 
+        
+        
+        # generate msg
+        #context[:msg] += translate_msg(a[:action], context)
+   
+        context[:msg] += action_msg(a)
+   end
+
+      def cost_stam(context)
+       p ("power #{power(context)}")
+       p ("power^1/3 #{power(context)**(1.0/3.0)}")
+       p = power(context)**(1.0/3.0)
+       if (p == 0)
+           return 10
+        end
+       stam_cost = 10/(p)
+       stam_cost  = stam_cost.to_i
+      
+        if stam_cost == 0 
+            stam_cost = 1
+        #elsif stam_cost == Infinity
+        #    stam_cost = 10
+        end
+        
+        return stam_cost
+   end
    
 end
 end

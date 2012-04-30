@@ -13,14 +13,14 @@
 
 @implementation StatusViewController
 @synthesize lbGold;
-@synthesize pbAmbition;
 @synthesize pvHP;
 @synthesize lbHP;
-@synthesize lbAmbition;
 @synthesize lbExp;
 @synthesize lbLevel;
 @synthesize pvStam;
 @synthesize lbStam;
+@synthesize lbJingli;
+@synthesize pvJingli;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,10 +70,14 @@
         int hp = [strHp intValue];
         NSString* strMaxHp = [[json  valueForKey:@"maxhp"] stringValue];
         int maxhp = [strMaxHp intValue];
+        int jingli = [[json valueForKey:@"jingli"] intValue];
+        int max_jl = [[json valueForKey:@"max_jl"] intValue];
         lbHP.text = [[NSString alloc] initWithFormat:@"%@/%@", strHp, strMaxHp] ;
         [pvHP setProgress:((float)hp ) / ((float)maxhp) ];
         lbStam.text = [[NSString alloc] initWithFormat:@"%@/%@", [[json valueForKey:@"stam"] stringValue], [[json valueForKey:@"maxst"] stringValue]];
         [pvStam setProgress:((float)[[json valueForKey:@"stam"] intValue])/[ [json valueForKey:@"maxst"] intValue]];
+        lbJingli.text = [NSString stringWithFormat:@"%d/%d", jingli, max_jl];
+        [pvJingli setProgress:((float)jingli) / max_jl ];
     }
 
 }
@@ -91,14 +95,13 @@
 - (void)viewDidUnload
 {
     [self setLbGold:nil];
-    [self setPbAmbition:nil];
     [self setPvHP:nil];
     [self setLbHP:nil];
-    [self setLbAmbition:nil];
     [self setLbExp:nil];
     [self setLbLevel:nil];
     [self setPvStam:nil];
     [self setLbStam:nil];
+    [self setLbJingli:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
