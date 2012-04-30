@@ -19,6 +19,7 @@
     NSString* session_id;
     UIView *waiting;
     UIViewController *vcHome;
+    UIView *vAlert;
 
     BOOL bFirstCallReturn;
     BOOL bShowingWelcome;

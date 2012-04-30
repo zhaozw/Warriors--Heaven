@@ -176,7 +176,7 @@
     tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     
-    [window bringSubviewToFront:vNetworkStatus];
+    [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
     
 }
@@ -224,7 +224,13 @@
     waiting.hidden = YES;
     
     
-    
+    vAlert = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
+    [self->vAlert setBackgroundColor:[UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f]];
+//    [self->vAlert setAlpha:0.5f]; 
+    [vNetworkStatus removeFromSuperview];
+    [vAlert addSubview:vNetworkStatus];
+    vAlert.hidden = YES;
+    [window addSubview:vAlert];
     
     
     session_id = [self readSessionId];
@@ -335,7 +341,7 @@
     [self showMsg:@"No Network Connection" type:1 hasCloseButton:FALSE];
 }
 - (void) hideNetworkStatus{
-    vNetworkStatus.hidden = YES;
+    vAlert.hidden = YES;
 }
 
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt{
@@ -350,9 +356,11 @@
         btClose.hidden = NO;
     }else
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
-      vNetworkStatus.hidden = NO;
     
-    [window bringSubviewToFront:vNetworkStatus];
+      vNetworkStatus.hidden = NO;
+    vAlert.hidden = NO;
+    
+    [window bringSubviewToFront:vAlert];
         
 }
 
@@ -586,7 +594,7 @@
     [[data_user valueForKey:@"user"] setValue:data forKey:@"userext"];
 }
 - (void) closeAlert:(UIButton*) btn{
-    vNetworkStatus.hidden = YES;
+    vAlert.hidden = YES;
 }
 
 - (NSObject*) getDataUserskills{

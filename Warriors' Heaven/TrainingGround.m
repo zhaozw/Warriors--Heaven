@@ -469,6 +469,17 @@
 - (void)practiseSkill:(UIButton*)btn{
     NSLog(@"train skill");
     int i = btn.tag;
+    NSDictionary *ext = [ad getDataUserext];
+    int jingli = [[ext valueForKey:@"jingli"] intValue];
+    int stam = [[ext valueForKey:@"stam"] intValue];
+    if (jingli < 0){
+        [ad showMsg:@"你的精力不够，无法集中精神，休息一下吧" type:1 hasCloseButton:NO];
+        return;
+    }
+    if (stam < 0){
+        [ad showMsg:@"你觉得腰酸背痛，体力似乎不够充足，休息一下再练吧" type:1 hasCloseButton:NO];
+        return;
+    }
     NSArray* userskills = [ad getDataUserskills];
     NSObject* skill = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
     NSLog(@"%@", skill);
@@ -521,7 +532,7 @@
     NSLog(@"%@", ad.data_user);
     int pot = [[[ad getDataUserext] valueForKey:@"pot"] intValue];
     lbPotential.text = [NSString stringWithFormat:@"%d", pot];
-    
+    [ad reloadStatus];
     
         
 }

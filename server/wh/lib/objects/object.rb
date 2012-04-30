@@ -54,6 +54,12 @@ class Object
     def price
         0
     end
+    
+    
+    #dummy method
+    def effect
+        ""
+    end
 =begin    
     def dname
         "金疮药"

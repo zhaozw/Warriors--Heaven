@@ -815,6 +815,7 @@ class WhController < ApplicationController
 =end    
     def practise
         return if !check_session
+        recoverPlayer(user_data.ext)
         use_pot = params[:pot] # use how much potential
         skill_name = params[:skill]
         
@@ -857,10 +858,12 @@ class WhController < ApplicationController
         rs[0].save!
         
         ext[:pot] -= 1
-        ext.save!
+        ext[:stam] -=5
+        ext[:jingli] -=1
+        
         
     
-
+        user_data.check_save
         p ext.inspect
             p ud.ext.inspect
         ret = {

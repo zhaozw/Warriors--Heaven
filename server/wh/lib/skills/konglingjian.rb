@@ -24,7 +24,7 @@ class Konglingjian < Game::Skill
    end
    
    def researchConditionDesc
-       "基本拳脚>10级"
+       "基本剑法>10级"
    end
    
    def mengpai
@@ -34,10 +34,10 @@ class Konglingjian < Game::Skill
    
    def checkResearchCondition(context)
        user = context[:user]
-       skill = user.query_skill("unarmed")
+       skill = user.query_skill("fencing")
       
        if (!skill or skill.data[:level] <=10 )
-           context[:msg] += "你的基本拳脚功夫还不够，无法参悟书中奥义"
+           context[:msg] += "你的基本剑法功夫还不够，无法参悟书中奥义"
            return false
        end
        return true
