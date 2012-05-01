@@ -16,8 +16,8 @@
     NSMutableArray* eq_slots;
     NSMutableArray* eq_buttons; 
     EGOImageButton * sloteq_selected; // selected equipment in equipments list
-    EGOImageButton * worneq_selected;       // selected equipments on play's body
-    
+    EGOImageButton * worneq_selected;       // selected equipments on character's body
+    EGOImageButton * item_selected;
     UIImageView *vEq_cap;
     UIImageView *vEq_neck;
     UIImageView *vEq_handright;
@@ -100,6 +100,7 @@
 @property (nonatomic, retain)   UILabel* lbDeffencce;
 - (IBAction)onSave:(id)sender;
 - (int) findEpById:(int)epid;
+- (id) findObjById:(int)eqid;
 -(void)viewWillAppear:(BOOL)animated ;
 - (void) reloadEq;
 

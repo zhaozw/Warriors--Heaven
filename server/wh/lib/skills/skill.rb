@@ -53,7 +53,7 @@ class Skill
    end
     
    def damage(context)
-       userext = context[:user].ext
+       userext = context[:user].tmp
        thisskill =  @skill
        
        d = thisskill[:level] * userext[:str] + userext[:str]

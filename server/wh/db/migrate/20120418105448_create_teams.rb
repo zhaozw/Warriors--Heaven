@@ -8,6 +8,9 @@ class CreateTeams < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index(:teams, ["owner"], {:unique=>true})
+    add_index(:teams, ["code"], {:unique=>true})
+    add_index(:teams, :power)  
   end
 
   def self.down

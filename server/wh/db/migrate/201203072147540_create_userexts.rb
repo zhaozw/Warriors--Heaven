@@ -26,6 +26,9 @@ class CreateUserexts < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index(:userexts, ["uid"], {:unique=>true})
+    add_index(:userexts, ["sid"], {:unique=>true})
   end
 =begin
 insert into userexts values(null, 1, "ju",          100, 0,  0, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges/badge1.png"}]}', 'd434740f4ff4a5e758d4f340d7a5f467', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);

@@ -3,13 +3,16 @@ require 'utility.rb'
 class UsereqsController < ApplicationController
     self.allow_forgery_protection = false
     def index
+        return if !check_session or !user_data
         sid = cookies[:_wh_session]    
       # for test
       if (params[:sid])
           sid = params[:sid]
       end
         
-        eqs = Usereq.find_by_sql(" select * from usereqs, equipment where usereqs.eqid=equipment.id and sid='#{sid}'")
+        # eqs = Usereq.find_by_sql(" select * from usereqs, equipment where usereqs.eqid=equipment.id and sid='#{sid}'")
+        
+        eqs = Equipment.find_by_sql("select * from equipment where owner=#{user_data[:id]}")
         if !eqs || eqs.size == 0
             render :text=>"{}"
             return
@@ -60,12 +63,12 @@ class UsereqsController < ApplicationController
     
     def sell
          check_session
-         eqs = Usereq.find_by_sql("select * from usereqs where eqid=#{params[:id]}" )
-         eq = eqs[0]
+         eqs = Equipment.find(params[:id])
+         eq = eqs
          obj = load_obj(eq[:eqname], eq)
              
-        max_eq = user_data.ext[:max_eq].to_i
-        eqslot = user_data.ext[:eqslot]
+        # max_eq = user_data.ext.get_prop("max_eq").to_i
+        eqslot = user_data.ext.get_prop("eqslot")
         p eqslot
    
         if eqslot
@@ -75,9 +78,11 @@ class UsereqsController < ApplicationController
             else
                 eqslots = eqslot
             end
-            
+            p "===>eqlost=#{eqslots.inspect}"
             eqslots.each{|k,v|
+                p "==>slot[#{k}]=#{v}, param id=#{params[:id]}"
                 if (v.to_i == params[:id].to_i)
+               
                     eqslots.delete(k)
                     bFound = true
                     break
@@ -85,14 +90,18 @@ class UsereqsController < ApplicationController
             }
             
             if bFound
-                user_data.ext.set_prop("eqslot", eqslots)
+                p "==>set eqslot:#{eqslot.inspect}"
+                user_data.ext.set_prop("eqslot", eqslots.to_json)
             end
             
         end
          
          user_data.ext[:gold] += obj.price.to_i / 2
+         p "-->#{user_data.ext.inspect}"
          
-         eq.delete
+         # eq.delete
+         eq[:owner] = nil
+         eq.save!
          
          user_data.check_save
          

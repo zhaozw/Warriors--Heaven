@@ -10,8 +10,10 @@ class CreateUsereqs < ActiveRecord::Migration
 
       t.timestamps
     end
+        add_index(:usereqs, ["uid"], {:unique=>true})
+   3 add_index(:usereqs, ["sid"], {:unique=>true})
   end
-
+  
   def self.down
     drop_table :usereqs
   end

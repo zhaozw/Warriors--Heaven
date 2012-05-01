@@ -96,8 +96,28 @@ class QuestController < ApplicationController
   #      @user = User.find_by_sql("select * from  users where sid='#{sid}'")
         @user = user_data
         @user.ext
-        @action_context = {:action=>params[:action1], :user=>@user}
+
+        player = Player.new
+        player.set_data(@user)
+        player.recover
+        if player.ext[:hp] <0 
+            render :text=>{
+                :msg=>"<div>你的HP太低了, 先休息一下吧 !</div>",
+                :progress=>@user.query_quest(quest_name)[:progress]
+            }.to_json
+            return
+        end  
+        if player.ext[:stam] <0 
+            render :text=>{
+                :msg=>"<div>你的体力不够， 休息休息吧 !</div>",
+                :progress=>@user.query_quest(quest_name)[:progress]
+            }.to_json
+            return
+        end
+        
+        @action_context = {:action=>params[:action1], :user=>player}
         @q.onAction(@action_context)
+        user_data.check_save
         p @action_context.inspect
         ret = {
             :msg=>@action_context[:msg],
@@ -105,6 +125,7 @@ class QuestController < ApplicationController
         }
         render :text=>ret.to_json
     end
+    
     def load_quest(name)
         if (!name or name == '')
             return nil

@@ -135,15 +135,23 @@ class User < ActiveRecord::Base
     end
     
     def get_object(o)
-        Usereq.new({
-            :uid=>self[:id],
-            :sid=>self[:sid],
-            :eqid=>o.data[:id],
-            :eqname=>o.data[:eqname],
-            :eqslotnum=>0,
-            :wearon=>nil
-        }).save!
+        # Usereq.new({
+        #       :uid=>self[:id],
+        #       :sid=>self[:sid],
+        #       :eqid=>o.data[:id],
+        #       :eqname=>o.data[:eqname],
+        #       :eqslotnum=>0,
+        #       :wearon=>nil
+        #   }).save!
+        o.data[:owner] = self[:id]
+        o.data.save!
+        
     end
+    
+    # def update_quest(name, add_progress)
+    #     q = query_quest(name)
+    #     q[:progress] += add_progress
+    # end
     
     def query_quest(quest)
         if (!self[:userquests])
@@ -152,7 +160,7 @@ class User < ActiveRecord::Base
        if (!self[:userquests][quest])
 
       
-           rs = Userquest.find_by_sql("select * from userquests where name='#{quest}'") 
+           rs = Userquest.find_by_sql("select * from userquests where name='#{quest}' and uid=#{self[:id]}") 
             if (rs[0])
                   self[:userquests][quest] = rs[0]
               end
@@ -242,13 +250,23 @@ class User < ActiveRecord::Base
         end
         
         if self[:userquests]
-            for uq in self[:userquests]
-                if uq.changed?
-                    uq.save!
+          self[:userquests].each {|k,v|
+                if v.changed?
+                    v.save!
                     self[:cached] = false
                 end
                 
-            end
+            }
+        end
+        
+        if self[:equipments]
+          self[:equipments].each {|k,v|
+                if v.data.changed?
+                    v..data.save!
+                    self[:cached] = false
+                end
+                
+            }
         end
         
         
@@ -282,6 +300,28 @@ class User < ActiveRecord::Base
         r.cache
         return r
     end
-
+    
+    # only include worn equipment
+    def query_equipment(position)
+        if !self[:equipments]
+            self[:equipments] = {}
+            eqslot = ext.get_prop("eqslot")
+            p "===>eqslot=#{eqslot}"
+            if eqslot
+                if eqslot.class == String
+                    eqslot = JSON.parse(eqslot)
+                end
+                eqslot.each{|k,v|
+                    eq = Equipment.find(v.to_i)
+                    obj = load_obj(eq[:eqname], eq)
+                    self[:equipments][k.to_sym] = obj
+                }
+            end
+                     # p "===>@worn_eq=#{@worn_eq}"
+        end
+        
+        return self[:equipments][position.to_sym]
+        
+    end
 
 end

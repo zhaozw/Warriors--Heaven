@@ -39,7 +39,7 @@ class Caiyao < Quest
             "objects/fixtures/dihuang",
             "objects/fixtures/shanzhuyu",
             "objects/fixtures/zexie",
-            "objects/fixtures/shanyao",
+            "objects/fixtures/shanyao"
         ]
     end
     def onAction(context)
@@ -53,15 +53,36 @@ class Caiyao < Quest
             if (rand(100)<luck) # get caiyao
         #  if (false)
                 ar = caoyao_list
-                
-                r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
+                if (luck < caoyao_list.size)
+                    luck = caoyao_list.size
+                end
+                # r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
+                r = caoyao_list[rand(7)-rand(luck)*7/100]
                 o = create_fixure(r)
                 
                 user.get_object(o)
                 msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
                 r = user.query_quest("caiyao")
-                r[:progress] += 10
-                r.save!
+                progress = 10
+                if (r[:progress] < 100)
+                    r[:progress] += progress
+                    if r[:progress] > 100
+                        r[:progress] = 100
+                    end
+               
+                # r.save!
+                
+                    if r[:progress] >= 100 && 
+                        exp_bonus = 10+rand(user.tmp[:luck])/10
+                        levelup = user.add_exp(exp_bonus)
+                        msg += "<div><span style='color:#990000'>Quest complete !</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
+                        if (levelup)
+                            msg+="<div><span style='color:#990000'>Level Up !</div>"
+                        end
+
+                    end
+                end
+                user.ext[:stam] -=5
             else
             #msg = "你很用力的挖"
      
@@ -69,10 +90,9 @@ class Caiyao < Quest
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])
-                    player = Player.new
-                    player.set_data(user)
+                    player = user
                     _context = {:msg=>msg}
-                    _fight(player, npc, _context)
+                    win = _fight(player, npc, _context)
                     msg =  _context[:msg]
                     if (player[:gain][:exp] >0)
                         msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
@@ -81,11 +101,19 @@ class Caiyao < Quest
                         msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
                     end
                     p "===>msg=#{msg}"
+                    if (win)
+                        eqs = npc.query_all_equipments
+                        eqs.each {|k,v|
+                            user.get_obj(v)
+                        }
+                        
+                    end
                 else
                     msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药</div>"
+                    user.ext[:stam] -=5
                 end
             end
-        else
+        else # action != "dig"
             msg = "???"
         end
         context[:msg] = msg

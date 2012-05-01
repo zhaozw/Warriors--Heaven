@@ -26,9 +26,12 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.string   "eqname"
     t.string   "eqtype"
     t.string   "prop"
+    t.integer  "owner"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "equipment", ["owner"], :name => "index_equipment_on_owner", :unique => true
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.integer  "zhanyi",     :default => 100
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lastact"
   end
 
   create_table "userquests", :force => true do |t|

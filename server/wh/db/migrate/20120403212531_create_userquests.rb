@@ -9,6 +9,8 @@ class CreateUserquests < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index(:userquests, ["uid"], {:unique=>true})
+  #  add_index(:users, ["sid"], {:unique=>true})
   end
 
   def self.down

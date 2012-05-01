@@ -11,6 +11,7 @@ class CreateTradables < ActiveRecord::Migration
 
       t.timestamps
     end
+    
   end
 =begin
     insert into tradables values (null, 'objects/equipments/sword', 1, 10, 100, 0, 0, null, null, null);

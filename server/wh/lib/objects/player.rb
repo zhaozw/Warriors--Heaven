@@ -4,6 +4,7 @@ class Player < Human
     
 
     def initialize
+        super
         @wearing={}
     end
     
@@ -23,9 +24,9 @@ class Player < Human
     
     def after_setdata
         setup_temp
-        setup_wearing
+        # setup_wearing
     end
-    
+=begin    
     def setup_wearing
         ext = @obj.ext
          prop =  ext[:prop]
@@ -53,14 +54,14 @@ class Player < Human
             
         end
     end
-    
+=end    
     def setup_temp
         p "setup_temp for #{@obj[:user]}"
         if (!@obj[:userext]) 
             @obj.ext
         end
         @temp = {
-            :leve =>@obj[:userext][:level  ],
+            :level =>@obj[:userext][:level  ],
               :exp   => @obj[:userext][:exp  ],
               :str   => @obj[:userext][:str  ],
               :hp    => @obj[:userext][:hp   ],
@@ -117,29 +118,29 @@ class Player < Human
     end
     
     def query_equipment(position)
-        if !@worn_eq
-            @worn_eq = {}
-            eqslot = @obj.ext.get_prop("eqslot")
-            p "===>eqslot=#{eqslot}"
-            if eqslot
-                if eqslot.class == String
-                    eqslot = JSON.parse(eqslot)
-                end
-                eqslot.each{|k,v|
-                    @worn_eq[k.to_sym] = v
-                }
-            end
-                     p "===>@worn_eq=#{@worn_eq}"
-        end
-        id = @worn_eq[position.to_sym]
-        if id
-            eq = Usereq.find(id)
-        
-            return load_obj(eq[:eqname], eq)
-        end
-        
-        return nil
-        
+        # if !@worn_eq
+        #     @worn_eq = {}
+        #     eqslot = @obj.ext.get_prop("eqslot")
+        #     p "===>eqslot=#{eqslot}"
+        #     if eqslot
+        #         if eqslot.class == String
+        #             eqslot = JSON.parse(eqslot)
+        #         end
+        #         eqslot.each{|k,v|
+        #             @worn_eq[k.to_sym] = v
+        #         }
+        #     end
+        #              p "===>@worn_eq=#{@worn_eq}"
+        # end
+        # id = @worn_eq[position.to_sym]
+        # if id
+        #     eq = Equipment.find(id)
+        # 
+        #     return load_obj(eq[:eqname], eq)
+        # end
+        # 
+        # return nil
+        return @obj.query_equipment(position)
     end
     
     def query_quest(quest)
@@ -154,6 +155,87 @@ class Player < Human
        @obj.set_skill(n,l,tp) 
     end
     
+    def get_object(o)
+        @obj.get_object(o)
+    end
+    
+    def add_exp(add_exp)
+        if ( (tmp[:level]+1)*(tmp[:level]+1)*(tmp[:level]+1)<= tmp[:exp]+add_exp)
+            tmp[:level] += 1
+            ext[:level] += 1
+            tmp[:exp] = ext[:exp] = 0
+            return true
+        else
+            return false
+        end
+        
+    end
+    def query_quest(quest)
+        @obj.query_quest(quest)
+    end
+    
+    def hp
+        diff = Time.now - ext[:updated_at]
+        if ext[:hp] < ext[:maxhp]
+            ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:hp] > ext[:maxhp])
+                ext[:hp] = ext[:maxhp]
+            end
+        end
+    end
 
+    def stam
+        diff = Time.now - ext[:updated_at]
+        if ext[:stam] < ext[:maxst]
+            ext[:stam] += ext[:maxst] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:stam] > ext[:maxst])
+                ext[:stam] = ext[:maxst]
+            end
+        end
+    end
+    
+    def jingli
+        diff = Time.now - ext[:updated_at]
+        if ext[:jingli] < ext[:max_jl]
+            ext[:jingli] += ext[:max_jl] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:jingli] > ext[:max_jl])
+                ext[:jingli] = ext[:max_jl]
+            end
+        end
+    end
+    
+    def recover
 
+        diff = Time.now - ext[:updated_at]
+        
+        if ext[:hp] < ext[:maxhp]
+            ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:hp] > ext[:maxhp])
+                ext[:hp] = ext[:maxhp]
+            end
+        end
+        
+        
+                
+        if ext[:stam] < ext[:maxst]
+            ext[:stam] += ext[:maxst] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:stam] > ext[:maxst])
+                ext[:stam] = ext[:maxst]
+            end
+        end
+        
+                
+        if ext[:jingli] < ext[:max_jl]
+            ext[:jingli] += ext[:max_jl] * diff /200  # maxhp/20 * (diff/10)
+            if (ext[:jingli] > ext[:max_jl])
+                ext[:jingli] = ext[:max_jl]
+            end
+        end
+        
+        tmp[:hp] = ext[:hp]
+        tmp[:stam] =ext[:stam]
+        tmp[:jingli] = ext[:jingli]
+        p "recover finish: hp:#{ ext[:hp]}, st:#{ext[:stam]}, jingli:#{ext[:jingli]}"
+ 
+    end
 end

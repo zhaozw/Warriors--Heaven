@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface QuestViewController : UIViewController
+@interface QuestViewController : UIViewController{
+//    int currentWorkingQuest;
+}
 @property (strong, nonatomic) IBOutlet UIView *vAskedQuest;
 @property (strong, nonatomic) IBOutlet UIView *vUnaskedQuest;
 @property (strong, retain) AppDelegate *ad;
@@ -24,4 +26,5 @@
 @property (strong, nonatomic) IBOutlet UIButton *btCloseQuestRoom;
 @property (strong, nonatomic) IBOutlet UIWebView *wvLoadingQuest;
 - (void) reloadQuests;
+- (void) retrieveQuests;
 @end

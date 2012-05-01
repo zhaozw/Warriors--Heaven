@@ -49,8 +49,8 @@ class TradablesController < ApplicationController
             error("There is not enough number of item in stock. Please buy later.")
             return
         end
-        max_eq = user_data.ext[:max_eq].to_i
-        eqslot = user_data.ext[:eqslot]
+        max_eq = user_data.ext.get_prop("max_eq").to_i
+        eqslot = user_data.ext.get_prop("eqslot")
                      
         found_available = -1
         p eqslot
@@ -64,6 +64,7 @@ class TradablesController < ApplicationController
             eqslots ={}
         end
         # check user has enough vacancy
+        p "==> item: #{item.inspect}"
         if item[:obtype] == 1 or item[:obtype] == 3
             # find available slot
            # r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and  usereqs.eqid=equipment.id and equipment.eqtype=1")
@@ -72,11 +73,14 @@ class TradablesController < ApplicationController
             #    error("There is not availabe slot for new equipment. You can buy more slot.")
             #    return
            # end
-   
-           if (eqslot)
 
+           if (eqslot)
+               if eqslot.class==String
+                   eqslot = JSON.parse(eqslot)
+               end
+                   p "===> eqslot: #{eqslot.inspect}, #{eqslot['0']}"
                for i in 0..max_eq-1
-                   p "slot[#{i}] #{eqslots[i.to_s]}"
+                   p "===>slot[#{i}] #{eqslots[i.to_s]}"
                    if !eqslots[i.to_s]
                        found_available = i
                        break
@@ -90,7 +94,7 @@ class TradablesController < ApplicationController
                  found_available =0
            end
         else item[:obtype] == 2
-            r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and usereqs.eqid=equipment.id and equipment.eqtype=2")
+            r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2")
             count = r.fetch_row[0].to_i
         #    p session[:userdata]
             if (count+1 > user_data.ext.get_prop("max_item").to_i)
@@ -102,7 +106,9 @@ class TradablesController < ApplicationController
   
         # check if user has enough gold
         gold = user_data.ext[:gold]
-        price = item[:price]
+        obj = loadGameObject(item[:name])
+        # price = item[:price]
+        price = obj.price
         if (gold -price <0)
             error("Sorry, you don't have enough gold.")
             return
@@ -111,7 +117,8 @@ class TradablesController < ApplicationController
         e = Equipment.new({
             :eqname  => item[:name],
             :eqtype  => item[:obtype], 
-            :prop    => "{}"
+            :prop    => obj.vars.to_json,
+            :owner     => user_data[:id]
         })
         e.save!
  

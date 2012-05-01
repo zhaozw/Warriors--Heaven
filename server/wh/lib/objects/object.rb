@@ -1,6 +1,13 @@
 module Game
 class Object
     
+# -------- CONVENTION ----------
+# @var    attributes of instance and can be modified during game, like hp of object
+# @obj    database record
+# @temp   temporary variable, usually copy from database record when initialize. 
+#         The purpos is to prevent modifying database directly. Usually used for one time, like passive fight
+# Method like "dname" define the static attribute of object
+# ------------------------------
     
     def initialize
         p "object init"
@@ -15,6 +22,9 @@ class Object
         @var[n]
     end
     
+    def vars
+        @var
+    end
     
     def set_data(obj) 
        @obj = obj

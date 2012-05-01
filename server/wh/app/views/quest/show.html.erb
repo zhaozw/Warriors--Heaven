@@ -109,7 +109,7 @@ function doAction(action_name){
 	
 	<div id="action_list">
 		<% for action in @quest.action_list %>
-		<button type='button' onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
+		<button type='button' style="font-size:12pt;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
 		<% end %>
 	</div>
 	<div style="border:0px solid green;margin-left:-10px;margin-top:-10px;"> 

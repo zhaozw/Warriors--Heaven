@@ -4,16 +4,17 @@ def create_npc(path)
 end
 
 def create_equipment(path)
-    loadGameObject(path)
+    create_fixure(path)
 end
 
 def create_fixure(path)
         o = Equipment.new({
                     :eqname=>path,
                     :eqtype=>2,
-                    :prop=>"{}"
+                    :prop=>"{}",
+                    :owner =>0
                 })
-        o.save!
+        # o.save!
       
         r = loadGameObject(path)
         r.set_data(o)
@@ -95,3 +96,14 @@ end
         end
          
     end
+    
+    def add_exp(add_exp)
+        
+    end
+
+    # def move_obj(v,p)
+    #     r = v.data
+    #     if !r
+    #         
+    #     end
+    # end

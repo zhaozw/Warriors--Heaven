@@ -3,6 +3,7 @@ require 'objects/human.rb'
 
 class Npc < Human
     def initialize
+        super
         setup
     end
     
@@ -97,6 +98,7 @@ class Npc < Human
         end
         @eqs[position.to_sym] = eq
     end
+    
     def setup_equipment
     end
     
@@ -107,6 +109,9 @@ class Npc < Human
         return @eqs[position.to_sym]
     end
     
+    def query_all_equipments
+        return @eqs
+    end
     def [](n)
         @temp[n]
     end

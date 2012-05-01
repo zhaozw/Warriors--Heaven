@@ -155,6 +155,7 @@
         int _id = [[json valueForKey:@"id"] intValue];
         NSString *desc = [json valueForKey:@"desc"];
         NSString* name = [json valueForKey:@"name"];
+        NSString* dname = [json valueForKey:@"dname"];
         NSString* price = [[json valueForKey:@"price"] stringValue];
         NSString* number = [[json valueForKey:@"number"] stringValue];
         NSString* soldnum = [[json valueForKey:@"soldnum"] stringValue];
@@ -204,11 +205,11 @@
         UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 50, 15)];
         [lbInfo setOpaque:NO];
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
-        [lbInfo setAdjustsFontSizeToFitWidth:YES];
+//        [lbInfo setAdjustsFontSizeToFitWidth:YES];
         [lbInfo setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
         [lbInfo setTextColor:[UIColor whiteColor]];
         [lbInfo setBackgroundColor:[UIColor clearColor]];
-        [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", name]];
+        [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", dname]];
         [row addSubview:lbInfo];
         
         UILabel* lbPrice = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 100, 15)];

@@ -23,7 +23,7 @@ class Userext < ActiveRecord::Base
       j[n] = v
       self[:prop] = j.to_json
       #save!
-      after_initialize
+      # after_initialize
   end
   def []=(k,v)
        super 

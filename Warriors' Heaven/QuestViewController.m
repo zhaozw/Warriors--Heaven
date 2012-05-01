@@ -80,15 +80,22 @@
     [wvLoadingQuest setOpaque:NO];
     [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
 
+    [self retrieveQuests];
+    
+}
+
+- (void) retrieveQuests{
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/quest" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
-    
 }
 
 - (void) closeQuest:(UIButton*) btn{
     vQuestContainer.hidden = YES;
     [ad showStatusView:YES];
      [vQuestRoom loadHTMLString:@"" baseURL:nil];
+ 
+    [self retrieveQuests];
+ 
 }
 
 
@@ -216,12 +223,15 @@
 
 - (void) onEnterQuest:(UIButton*)btn{
     int i = btn.tag;
+   
     NSObject* q = [askedQuests objectAtIndex:i];
     NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"]];
     [vQuestRoom loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
       vQuestContainer.hidden = NO;
    
      [ad showStatusView:NO];
+    
+//     currentWorkingQuest = i;
 }
 
 - (void) askQuest:(UIButton*) btn{

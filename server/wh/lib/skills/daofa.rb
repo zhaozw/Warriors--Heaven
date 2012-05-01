@@ -15,17 +15,27 @@ class Daofa < Game::Skill
        "基本刀法"
    end
    
-   def damage(context)
-       userext = context[:user].ext
-       thisskill =  @skill
-       
-       d = thisskill[:level] * userext[:str] + userext[:str]
-      
-   end
+
     
    def speed(context)
        thisskill =  @skill
        thisskill[:level] * 2
    end
-
+   def attack_actions
+       [
+           {
+               :level=>0,
+               :action =>"$N一刀劈向$n的$l",
+               :damage => 10
+               #:damage_type=>""
+           },
+           {
+               :level=>10,
+               :action =>"$N举刀向$n的$l狠狠地砍去",
+               :damage =>20
+               #:damage_type=>""
+               
+           }
+          ]
+   end
 end
