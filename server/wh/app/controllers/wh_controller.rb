@@ -421,7 +421,7 @@ class WhController < ApplicationController
             "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
-            "msg"  => "<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>"
+            "msg"  => "<div style='background:black;color:white;font-size:11pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}.npc{color:#ff0000}.damage{color:#ff0000;}.status{font-size:10pt;}.rgain{color:yellow;font-size:10pt;}.rgain span{color:#99ff99}.attr{color:#99ff99}</style>#{context[:msg]}</div>"
         }
         winner = 0
         winner = 1 if !result
@@ -840,10 +840,8 @@ class WhController < ApplicationController
         # calculate skillpoint
         gain = use_pot # maybe need change algorithm
         skill = rs[0]
-        e = ext[:exp]
-        for i in 1..ext[:level]
-            e+= i*i*i
-        end
+        e = ext[:exp] + calc_total_exp(ext[:level])
+        
         p "total exp #{e}, level #{ext[:level]} tempexp:#{ext[:exp]}"
         if (rs[0][:tp] + 1 >= (rs[0][:level]+1)*(rs[0][:level]+1))
             if (rs[0][:level] +1) * (rs[0][:level] +1) *(rs[0][:level] +1)/10>e

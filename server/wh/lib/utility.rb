@@ -107,3 +107,38 @@ end
     #         
     #     end
     # end
+    
+    def getfiles(path)  
+        re = []  
+        allre = []  
+        Dir.foreach(path) do |f|  
+            allre << f  
+        end  
+        allre.each do |f|  
+            fullfilename = path + "/" + f  
+            if f == "." or f == ".."   
+            elsif File.directory?(fullfilename)  
+                resub = []  
+                resub = getfiles(fullfilename)  
+          
+                if resub.length > 0  
+                    ref = {}  
+                    ref[f] = resub  
+                    re << ref  
+                end  
+            elsif File.exist?(fullfilename) and (f =~ /\.rb$/) # only rb file  
+                re << f  
+            end  
+        end  
+        return re  
+    end
+    
+    def calc_total_exp(level)
+        p "==>level=#{level}"
+        return 0 if level==0
+        r  = 0
+        for i in 1..level
+            r += i*i*i
+        end
+        return r
+    end

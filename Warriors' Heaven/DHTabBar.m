@@ -40,6 +40,7 @@
 		[tabBarScrollView setCanCancelContentTouches:NO];
 		[tabBarScrollView setClipsToBounds:NO];
 		tabBarScrollView.showsHorizontalScrollIndicator = NO;
+
 		
 		slideBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"slide"]];
 		CGRect slideBgFrame = slideBg.frame;
@@ -91,8 +92,8 @@
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];
-            [btn setBackgroundImage:btnImage forState:UIControlStateNormal];
-			btn.imageEdgeInsets = UIEdgeInsetsMake(-5, 0, 5, 0);
+            [btn setImage:btnImage forState:UIControlStateNormal];
+//			btn.imageEdgeInsets = UIEdgeInsetsMake(-5, 0, 5, 0);
             [btn.imageView setContentMode:UIViewContentModeScaleAspectFit];
             [btn setContentMode:UIViewContentModeScaleAspectFit];
             btn.adjustsImageWhenHighlighted = NO;
@@ -112,7 +113,13 @@
 		}
 		[self addSubview:tabBarScrollView];
         [tabBarScrollView setContentSize:CGSizeMake(count * btnWidth, scrollViewHeight)];
-	}
+      
+//        tabBarScrollView.backgroundColor = [UIColor redColor];
+//        tabBarScrollView.superview.backgroundColor = [UIColor greenColor];
+
+    }
+    
+    
 	return self;
 }
 

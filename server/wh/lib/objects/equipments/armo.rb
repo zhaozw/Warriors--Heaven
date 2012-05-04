@@ -1,4 +1,4 @@
-require 'objects/equipments/equipment.rb'
+require 'objects/equipments/weapon.rb'
 
 class Armo  < Weapon
   def dname

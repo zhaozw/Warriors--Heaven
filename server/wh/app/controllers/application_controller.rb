@@ -1,5 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+# require "utility.rb"
 require "skills/skill.rb"
 require "skills/unarmed.rb"
 require "skills/daofa.rb"
@@ -11,6 +12,8 @@ require "skills/konglingjian.rb"
 require "skills/qishangquan.rb"
 require "skills/yidaoliu.rb"
 require "skills/dodge.rb"
+require "skills/liefengdaofa.rb"
+
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -20,6 +23,11 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   before_filter  :preload_models 
     def preload_models()  
+        p "#{File.dirname(__FILE__)}/lib/**/*.rb"
+        Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
+            load(f)
+            # p "load #{f}"
+         }
         Userext
         Usereq
         Userskill
@@ -42,7 +50,8 @@ class ApplicationController < ActionController::Base
         Konglingjian
         Qishangquan
         Yidaoliu
-        
+        Liefengdaofa
+        Ring
     end
       
     def error(msg)

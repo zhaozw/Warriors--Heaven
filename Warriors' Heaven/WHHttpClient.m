@@ -25,10 +25,11 @@
 //    
 //}
 - (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
-    selector = s;
+    _selector = s;
     _bJSON= bJSON;
     self->_cmd =  [cmd stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
     cmd = self->_cmd;
+    _bWait = bWait;
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     // check network status
@@ -105,10 +106,11 @@
 }
 - (void)sendHttpRequest:(NSString*)cmd selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
     
-    selector = s;
+    _selector = s;
     _bJSON= bJSON;
     self->_cmd = [cmd stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     cmd = self->_cmd;
+    _bWait = bWait;
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     // check network status
@@ -242,6 +244,16 @@
         [ad showWaiting:FALSE];
     [ad showNetworkDown];
     [[ad requests] setValue:@"0" forKey:self->_cmd];
+
+    if (retry){
+        [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+    }
+    
+}
+
+- (void) retryRequest{
+    [self sendHttpRequest:self->_cmd selector:_selector json:_bJSON showWaiting:_bWait];
+
 }
 
 // 全部数据接收完毕时触发
@@ -256,11 +268,11 @@
         NSObject *json = [text JSONValue] ;
         if (json && ([json isKindOfClass:[NSDictionary class]] ||
                      [json isKindOfClass:[NSArray class]]))
-            [view performSelectorOnMainThread:selector withObject:json waitUntilDone:NO];
+            [view performSelectorOnMainThread:_selector withObject:json waitUntilDone:NO];
         else 
             NSLog(@"data is not json string");
     }else{
-        [view performSelectorOnMainThread:selector withObject:text waitUntilDone:NO];
+        [view performSelectorOnMainThread:_selector withObject:text waitUntilDone:NO];
     }
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     if([ad isWaiting])
@@ -286,6 +298,8 @@
     //[self.view setNeedsDisplay];
     [self->view performSelectorOnMainThread:selector withObject:nil waitUntilDone:false];*/
 }
-
+- (void) setRetry:(BOOL) b{
+    retry = b;
+}
 
 @end

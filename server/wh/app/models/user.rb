@@ -301,10 +301,8 @@ class User < ActiveRecord::Base
         return r
     end
     
-    # only include worn equipment
-    def query_equipment(position)
-        if !self[:equipments]
-            self[:equipments] = {}
+    def load_equipments
+        self[:equipments] = {}
             eqslot = ext.get_prop("eqslot")
             p "===>eqslot=#{eqslot}"
             if eqslot
@@ -318,6 +316,17 @@ class User < ActiveRecord::Base
                 }
             end
                      # p "===>@worn_eq=#{@worn_eq}"
+    end
+    def query_all_equipments
+        if !self[:equipments]
+            load_equipments
+        end
+        return self[:equipments]
+    end
+    # only include worn equipment
+    def query_equipment(position)
+        if !self[:equipments]
+            load_equipments
         end
         
         return self[:equipments][position.to_sym]

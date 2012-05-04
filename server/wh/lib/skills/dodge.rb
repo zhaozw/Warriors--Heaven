@@ -16,16 +16,13 @@ class Dodge < Game::Skill
        "基本闪躲"
    end
    
-   def damage(context)
-       0
-      
-   end
+
    
-    def power( context)
-        #dext = dext - context[:user].query_load() 
-        p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:dext]+1)/10)
-    end
+    # def power( context)
+    #     #dext = dext - context[:user].query_load() 
+    #     p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
+    #   return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:dext]+1)/10)
+    # end
     
     def speed (context)
         context[:user].tmp[:dext].to_i+@skill[:level]
@@ -54,18 +51,7 @@ class Dodge < Game::Skill
         return stam_cost
    end
    
-    def doDodge(context)
-        srand Time.now.tv_usec.to_i
-        a = dodge_actions
-    
-        
-        # cost stamina
-             cs = cost_stam(context)
-        context[:user].tmp[:stam] -= cs
-        
-        context[:msg] += a[rand(a.length)] + "(体力-#{cs})"
-        
-    end
+
     
     
 end

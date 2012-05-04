@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PDColoredProgressView.h"
 
 @interface StatusViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *lbGold;

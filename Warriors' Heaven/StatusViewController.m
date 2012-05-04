@@ -49,7 +49,41 @@
     
 //    WHHttpClient* client = [[WHHttpClient alloc] init:self];
 //    [client sendHttpRequest:@"/wh/userext" selector:@selector(onReceiveStatus:) json:YES showWaiting:NO];
-   
+    
+//    PDColoredProgressView *pvStam1 = [[PDColoredProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
+//    [pvStam1 setTintColor: [UIColor greenColor]]; //or any other color you like
+//  
+//    pvStam1.progress = 0.5f;
+//    pvStam1.frame = CGRectMake(240, 35, 56, 9);
+//     [self.view addSubview: pvStam1];
+    
+    
+//    NSArray *colors = [NSArray arrayWithObjects: 
+//					   [UIColor redColor], 
+//					   [UIColor purpleColor], 
+//					   [UIColor blueColor],
+//					   [UIColor colorWithRed: 27.0/255.0 green: 175.0/255.0 blue: 57.0/255.0 alpha: 1],
+//					   [UIColor orangeColor], 
+//					   [UIColor magentaColor],
+//					   [UIColor brownColor],
+//					   [UIColor blackColor],
+//					   nil];
+//	
+//	int i = 0;
+//	
+//	for(i = 0 ; i < [colors count] ; i++)
+//	{
+//		PDColoredProgressView *progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleDefault];
+//		CGRect frame = progressView.frame;
+//		frame.size.width = 300;
+//		frame.origin.x = 10;
+//		frame.origin.y = 10 * (i + 1) + 10 * i;
+//		progressView.frame = frame;
+//        [progressView setProgress:(i+1) * (1.0/[colors count])];
+//		[progressView setTintColor: [colors objectAtIndex: i]];
+//		[self.view addSubview: progressView];
+////		[progressView release];
+//	}
 }
 - (void) viewWillAppear:(BOOL) animated{
     NSLog(@"Status view will appear");

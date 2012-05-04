@@ -169,6 +169,13 @@
         //            [row setBackgroundColor:[UIColor greenColor]];
         [row setOpaque:NO];
         [row setBackgroundColor:[UIColor clearColor]];
+        
+        UIImageView* rowbg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 320, row_height)];
+        rowbg.userInteractionEnabled = YES;
+        rowbg.backgroundColor = [UIColor grayColor];
+        rowbg.image = [UIImage imageNamed:@"shelf7.jpg"];
+        rowbg.alpha = 0.2f;
+        [row addSubview:rowbg];
         //        [row setAlpha:0.6f];
         /* NSString *host = [(AppDelegate*)[UIApplication sharedApplication].delegate host];
          NSString *port = [(AppDelegate*)[UIApplication sharedApplication].delegate port];
@@ -242,9 +249,16 @@
         [v addSubview:row];
     }
     
+    
+    CGRect r = v.frame;
+    r.size.height = 10+ count*(row_height+row_margin);
+    v.frame = r;
     v.hidden = NO;
     
-
+    if (r.size.height+130 > 480){
+        UIScrollView* scv = [self view];
+        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+    }
     
 }
 

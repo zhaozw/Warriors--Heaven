@@ -1,5 +1,5 @@
-require 'skills/skill.rb'
-class Liefengdaofa < Game::Skill 
+require 'skills/daofa.rb'
+class Liefengdaofa < Daofa 
 
    def for
        return "attack blade"
@@ -9,9 +9,7 @@ class Liefengdaofa < Game::Skill
        "common"
    end
    
-   def type 
-       return "blade"
-   end
+
    
    def dname
        "烈风刀法"
@@ -47,13 +45,13 @@ class Liefengdaofa < Game::Skill
    def image
        "other/zhujian.png"
    end
-   def damage(context)
-       userext = context[:user].ext
-       thisskill =  @skill
-       
-       d = thisskill[:level] * userext[:str] + userext[:str]
-      
-   end
+   # def damage(context)
+   #     userext = context[:user].ext
+   #     thisskill =  @skill
+   #     
+   #     d = thisskill[:level] * userext[:str] + userext[:str]
+   #    
+   # end
     
    def speed(context)
        thisskill =  @skill

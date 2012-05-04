@@ -29,11 +29,16 @@
 	self.moreNavigationController.navigationBarHidden = YES;
 	[super viewWillAppear:animated];
     NSLog(@"first view loaded");
+//    CGRect r = tabBarView.frame;
+//    CGRect rr = self.view.frame;
+//    CGRect rrr = tabBarView.superview.frame;
+//    CGRect rrrr = tabBarView.superview.superview.frame;
 }
 
 - (void)viewDidLoad{
 	[super viewDidLoad];
 	firstTime = YES;
+
 }
 
 - (void)viewDidUnload{
@@ -57,6 +62,7 @@
 }
 
 - (void)selectTab:(int)tag{
+
     UIButton* btn = [tabBarView viewWithTag:tag];
     if (btn)
         [tabBarView selectedTab:btn];

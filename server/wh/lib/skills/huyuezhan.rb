@@ -1,5 +1,5 @@
-require 'skills/skill.rb'
-class Huyuezhan < Game::Skill 
+require 'skills/daofa.rb'
+class Huyuezhan < Daofa
 #基本剑法
    def for
        return "attack blade"
@@ -46,13 +46,13 @@ class Huyuezhan < Game::Skill
    def image
        "other/zhujian.png"
    end
-   def damage(context)
-       userext = context[:user].ext
-       thisskill =  @skill
-       
-       d = thisskill[:level] * userext[:str] + userext[:str]
-      
-   end
+   # def damage(context)
+   #     userext = context[:user].ext
+   #     thisskill =  @skill
+   #     
+   #     d = thisskill[:level] * userext[:str] + userext[:str]
+   #    
+   # end
     
    def speed(context)
        thisskill =  @skill

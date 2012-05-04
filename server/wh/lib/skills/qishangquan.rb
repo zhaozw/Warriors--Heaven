@@ -154,17 +154,17 @@ class Qishangquan < Game::Skill
    
 
     
-   def doDamage(context)
-        # damage
-        d = damage(context)                
-     #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
-        context[:target].tmp[:hp] -= d
-        # cost stamina
-        cs = cost_stam(context)
-        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
-        context[:user].tmp[:stam] -= cs
-        context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
-   end
+   # def doDamage(context)
+   #      # damage
+   #      d = damage(context)                
+   #   #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
+   #      context[:target].tmp[:hp] -= d
+   #      # cost stamina
+   #      cs = cost_stam(context)
+   #      #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
+   #      context[:user].tmp[:stam] -= cs
+   #      context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
+   # end
    
    def doAttack(context)
        a = getAction

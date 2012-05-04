@@ -63,7 +63,7 @@
    host = @"127.0.0.1";
 //  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
+    host = @"homeserver.joyqom.com";
     port = @"80";
 //    bUpadtingStatus = false;
     return self;
@@ -260,6 +260,7 @@
 //        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
 //            data_user = NULL;
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
+            [client setRetry:YES];    
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
             bFirstCallReturn = false;
 //        }else{
@@ -556,7 +557,7 @@
     [window bringSubviewToFront:vBattleMsgBg];
     vBattleMsgBg.hidden = NO;
     
-    NSString* m = [NSString stringWithFormat:@"<html><body style=\"background-color: transparent\"><div style=\"background-color: #000;color:#cccccc\">%@</div></body></html>", msg];
+    NSString* m = [NSString stringWithFormat:@"<html><body style=\"background-color: transparent\"><div style=\"background-color: #000;color:#cccccc;font-size:10pt;\"><style> </style>%@</div></body></html>", msg];
     [vBattleMsg loadHTMLString:m baseURL:nil];
     [vBattleMsg becomeFirstResponder];
     tabBarController.view.hidden = TRUE;

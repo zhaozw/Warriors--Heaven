@@ -9,20 +9,20 @@ class Fencing < Game::Skill
        "basic"
    end
    def type 
-       return "sword"
+       return "fencing"
    end
    
    def dname
        "基本剑法"
    end
    
-   def damage(context)
-       userext = context[:user].ext
-       thisskill =  @skill
-       
-       d = thisskill[:level] * userext[:str] + userext[:str]
-      
-   end
+   # def damage(context)
+   #     userext = context[:user].ext
+   #     thisskill =  @skill
+   #     
+   #     d = thisskill[:level] * userext[:str] + userext[:str]
+   #    
+   # end
     
    def defense(context)
         return context[:user].tmp[:str] +  @skill[:level]

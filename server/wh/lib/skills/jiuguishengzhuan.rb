@@ -1,6 +1,6 @@
 
-require 'skills/skill.rb'
-class Jiuguishengzhuan < Game::Skill 
+require 'skills/daofa.rb'
+class Jiuguishengzhuan < Daofa 
 
    def for
        return "attack unarmed"
@@ -47,13 +47,13 @@ class Jiuguishengzhuan < Game::Skill
    def image
        "other/zhujian.png"
    end
-   def damage(context)
-       userext = context[:user].ext
-       thisskill =  @skill
-       
-       d = thisskill[:level] * userext[:str] + userext[:str]
-      
-   end
+   # def damage(context)
+   #     userext = context[:user].ext
+   #     thisskill =  @skill
+   #     
+   #     d = thisskill[:level] * userext[:str] + userext[:str]
+   #    
+   # end
     
    def speed(context)
        thisskill =  @skill

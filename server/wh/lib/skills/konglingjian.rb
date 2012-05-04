@@ -1,5 +1,5 @@
-require 'skills/skill.rb'
-class Konglingjian < Game::Skill 
+require 'skills/fencing.rb'
+class Konglingjian < Fencing 
 #基本剑法
    def for
        return "attack sword"
@@ -7,10 +7,7 @@ class Konglingjian < Game::Skill
      def category
        "common"
    end
-   def type 
-       return "fencing"
-   end
-   
+
    def dname
        "空灵剑"
    end
@@ -45,12 +42,12 @@ class Konglingjian < Game::Skill
    
 
   
-   def damage(context)   # only for calculation, "render" function will make real damage
-       user = context[:user]
-       a = getAction
-       d = a[:damage] + user.tmp[:str]
-      
-   end
+   # def damage(context)   # only for calculation, "render" function will make real damage
+   #     user = context[:user]
+   #     a = getAction
+   #     d = a[:damage] + user.tmp[:str]
+   #    
+   # end
     
 
   
@@ -146,17 +143,17 @@ class Konglingjian < Game::Skill
    
 
     
-   def doDamage(context)
-        # damage
-        d = damage(context)                
-     #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
-        context[:target].tmp[:hp] -= d
-        # cost stamina
-        cs = cost_stam(context)
-        #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
-        context[:user].tmp[:stam] -= cs
-        context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
-   end
+   # def doDamage(context)
+   #      # damage
+   #      d = damage(context)                
+   #   #   context[:target].set_temp("hp", context[:target].query_temp("hp")-d)
+   #      context[:target].tmp[:hp] -= d
+   #      # cost stamina
+   #      cs = cost_stam(context)
+   #      #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
+   #      context[:user].tmp[:stam] -= cs
+   #      context[:msg] = damage_msg(d, type) + "(体力-#{cs})"
+   # end
    
    def doAttack(context)
        a = getAction

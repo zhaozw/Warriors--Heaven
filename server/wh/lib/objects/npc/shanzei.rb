@@ -66,9 +66,11 @@ class Shanzei < Npc
     
     def setup_equipment
         eq = create_equipment("objects/equipments/blade")
-        set_equipment("handleft", eq)
+        # set_equipment("handleft", eq)
+        wear("handleft", eq)
         eq = create_equipment("objects/equipments/blade")
-        set_equipment("handright", eq)
+        # set_equipment("handright", eq)
+        wear("handright", eq)
     end
     
 end

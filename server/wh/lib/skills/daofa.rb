@@ -8,7 +8,7 @@ class Daofa < Game::Skill
        "basic"
    end
    def type 
-       return "blade"
+       return "daofa"
    end
    
    def dname

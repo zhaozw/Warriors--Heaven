@@ -426,7 +426,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vEq_fingersRight addSubview:vEqbtn_fingersRight];
         [vEq_fingersRight setTag:(int)5];
 //    [vEqbtn_fingersRight setTag:5];
-    [pos_map  setValue:vEqbtn_fingersRight forKey:@"fingerrigh"];
+    [pos_map  setValue:vEqbtn_fingersRight forKey:@"fingerright"];
     k++;
     
     vEqbtn_handleft = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];

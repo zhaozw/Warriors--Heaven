@@ -5,7 +5,8 @@ class Player < Human
 
     def initialize
         super
-        @wearing={}
+        @wearings={}
+        @setup_wearing = false
     end
     
     def isUser
@@ -24,7 +25,18 @@ class Player < Human
     
     def after_setdata
         setup_temp
-        # setup_wearing
+        setup_wearing
+    end
+    
+    
+    def setup_wearing
+        eqs = query_all_equipments
+        eqs.each {|k,v|
+        if k.to_s[0] < 48 or k.to_s[0] > 57  
+            @wearings[k.to_sym] = v
+        end
+        }
+         @setup_wearing = true
     end
 =begin    
     def setup_wearing
@@ -116,7 +128,13 @@ class Player < Human
         # return @temp[nam]
         return tmp[name.to_sym]
     end
-    
+    def query_wearing(position)
+        if ! @setup_wearing 
+            setup_wearing
+        end
+        @wearings[position.to_sym]
+    end
+
     def query_equipment(position)
         # if !@worn_eq
         #     @worn_eq = {}
@@ -202,6 +220,17 @@ class Player < Human
                 ext[:jingli] = ext[:max_jl]
             end
         end
+    end
+    
+
+    def query_all_wearings
+        if ! @setup_wearing 
+            setup_wearing
+        end
+      @wearings
+    end
+    def query_all_equipments
+        @obj.query_all_equipments
     end
     
     def recover

@@ -69,7 +69,7 @@
     */
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
-    [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
+    [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");

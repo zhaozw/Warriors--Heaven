@@ -18,13 +18,13 @@ class Unarmed < Game::Skill
    end
 
 
-   def power(context)
-     # context[:user].ext[:str] * @skill[:level]
-    # damage(context)
-      p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      str  = context[:user].tmp[:str]
-      return  (p + context[:user].tmp[:str]+1) / 30 *      (( str+1)/10)
-   end
+   # def power(context)
+   #   # context[:user].ext[:str] * @skill[:level]
+   #  # damage(context)
+   #    p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
+   #    str  = context[:user].tmp[:str]
+   #    return  (p + context[:user].tmp[:str]+1) / 30 *      (( str+1)/10)
+   # end
     
    def speed(context)
        thisskill = @skill
@@ -61,17 +61,17 @@ class Unarmed < Game::Skill
     
 
    
-   def doAttack(context)
-       a = getAction
-        target = context[:target]
-        p "action=#{a}"
-
-        
-        
-        # generate msg
-        #context[:msg] += translate_msg(a[:action], context)
-        # TODO translate arabic number to Chinse e.g.“第三十六式”
-        context[:msg] += action_msg(a)
-   end
+   # def doAttack(context)
+   #     a = getAction
+   #      target = context[:target]
+   #      p "action=#{a}"
+   # 
+   #      
+   #      
+   #      # generate msg
+   #      #context[:msg] += translate_msg(a[:action], context)
+   #      # TODO translate arabic number to Chinse e.g.“第三十六式”
+   #      context[:msg] += action_msg(a)
+   # end
 
 end

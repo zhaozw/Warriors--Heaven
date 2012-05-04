@@ -13,11 +13,12 @@
     // handle http request
     NSMutableData* buf;
     NSString * cookie;
-    SEL selector; // callback after finishing receive data
+    SEL _selector; // callback after finishing receive data
     SEL response; // callback to handle response 
     BOOL _bJSON;
     NSString* _cmd;
-
+    BOOL retry;
+    BOOL _bWait;
     
 }
 - (id) init:(UIView*)_view;
@@ -41,4 +42,5 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConn;
 
 - (void) setResponseHandler:(SEL )callback;
+- (void) setRetry:(BOOL) b;
 @end

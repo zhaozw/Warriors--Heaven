@@ -51,7 +51,7 @@
     // Do any additional setup after loading the view from its nib.
     
      ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
+
     
     [vAskedQuest setUserInteractionEnabled:YES];
     [vUnaskedQuest setUserInteractionEnabled:YES];
@@ -253,7 +253,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
+    [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
 }
 
 - (void)viewDidUnload

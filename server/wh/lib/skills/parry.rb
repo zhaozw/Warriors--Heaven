@@ -16,10 +16,10 @@ class Parry < Game::Skill
       "基本招架" 
    end
    
-   def power(context)
-       p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
-      return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:str]+1)/10)
-   end
+   # def power(context)
+   #     p = @skill[:level] * @skill[:level]  * @skill[:level] /3 
+   #    return  (p + context[:user].tmp[:exp]+1) / 30 *      ( (context[:user].tmp[:str]+1)/10)
+   # end
     
    def defense(context)
        return context[:user].tmp[:str] +  @skill[:level]
@@ -38,12 +38,7 @@ class Parry < Game::Skill
         return stam_cost
    end
    
-   def doParry(context)
-        # cost stamina
-            cs = cost_stam(context)
-        context[:user].tmp[:stam] -= cs
-        
-        
-        context[:msg] += "被$N挡开(体力-#{cs})"
-   end
+   # def doParry(context)
+   # 
+   # end
 end
