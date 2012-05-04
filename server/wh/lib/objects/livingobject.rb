@@ -26,6 +26,18 @@ class LivingObject < Game::Object
         end
         return @wearing
     end
+    def query_all_weapons
+        @weapons = {}
+        weapon = query_wearing("handright")
+        if weapon
+            @weapons[:handright] = weapon
+        end
+        weapon = query_wearing("handleft")
+        if weapon
+            @weapons[:handleft] = weapon
+        end
+        return @weapons
+    end
     
     # def query_weapon_damage
     #    d = 0 

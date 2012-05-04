@@ -164,6 +164,8 @@ end
    #
    # $N=>attacker $n=>defenser
    # $l=>limb
+   # $p=> defenesr的人称代词
+   # $w => weapon
     def translate_msg(msg, context)
     
         attacker = context[:user]
@@ -179,12 +181,17 @@ end
             limb = defenser.limbs[n]
         end
         
+        
       #  p "player uid #{attacker.tmp[:uid]}, your uid #{session[:uid]}, msg=#{msg}"
-      msg = msg.gsub(/\$l/, limb)
+      weapon = "武器"
+      if (attacker.query_all_weapons && attacker.query_all_weapons.size>0)
+          weapon = attacker.query_all_weapons.values[0].dname
+      end
+      msg = msg.gsub(/\$l/, limb).gsub(/\$w/, weapon)
            if (attacker[:isUser])
-                m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.name)
+                m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.name).gsub(/\$p/, "他")
             else
-                m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, "你")
+                m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, "你").gsub(/\$p/, "你")
             end
         p m
         return  m
@@ -309,7 +316,9 @@ end
         end
         p "apply exp > #{d}"
         
+        # apply denfenser's armo defense
         d -= (rand(p2.tmp[:apply_defense]) + p2.tmp[:apply_defense])/2
+        
         p "apply defenser's armo > #{d}"
         d = d.to_i
         # TODO Let special weapon take effect
@@ -501,11 +510,13 @@ end
                     gain_point = 1
                     context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
                     if (defenser.isUser)
+                        msg += "<div class='rgain'>"
                         msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}+#{gain_point}"
                         if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
                              context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
                              msg +="<br/> #{defenser[:dodge_skill][:skill].dname} level up !"
                          end
+                         msg += "</div>"
                     end
                    
                  end
