@@ -261,7 +261,7 @@ end
     #  translate arabic number to Chinse e.g.“第三十六式”
     def action_msg(skill, action)
         a = action
-        return "【<span style='color:#ffaaaa'>#{skill.dname}</span> 第#{a[:index]}式】<br/>#{a[:action]}" 
+        return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]}式】<br/>#{a[:action]}" 
     end
     
     def doDamage(attacker_attack_skill, context, ap)

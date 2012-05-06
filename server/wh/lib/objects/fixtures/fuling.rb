@@ -27,5 +27,10 @@ class Fuling < Game::Object
         "obj/fixtures/ginseng.jpg"
     end
     
-    
+        def use(context)
+        context[:msg] = "你不要乱吃啊！"
+    end
+        def price
+        10
+    end
 end

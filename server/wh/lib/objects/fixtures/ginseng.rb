@@ -29,7 +29,13 @@ class Ginseng < Game::Object
     
    def use(context)
         p = context[:player]
-        p.ext[:hp] += p.ext[:max_hp]/2
-        p.ext[:stam] += p.ext[:maxt_st]
+        p.ext[:hp] += p.ext[:maxhp]/2
+        p.ext[:stam] += p.ext[:maxst]
+        
+        p.delete_item(self)
+        context[:msg]="你服下一棵人参，顿时觉得精神百倍，力气大增！"
    end 
+       def price
+        50
+    end
 end

@@ -41,6 +41,13 @@ class Jinchuangyao < Game::Object
         50
     end
     
+    def use(context)
+        p = context[:player]
+        p.ext[:hp] += p.ext[:maxhp]/5
+        
+        p.delete_item(self)
+        context[:msg]="你服下一包金疮药, 伤处渐渐愈合！"
+    end
     
 end
 # Jinchuangyao.new

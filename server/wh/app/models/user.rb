@@ -332,5 +332,55 @@ class User < ActiveRecord::Base
         return self[:equipments][position.to_sym]
         
     end
+    
+    def delete_item(obj)
+        if obj[:eqtype] !=2
+            unwear_equipment(obj)
+        end
+        obj.data.delete
+    end
+    def remove_item(obj)
+        if obj[:eqtype] !=2
+            unwear_equipment(obj)
+        end
+        obj[:owner]=nil            
+    end
+    
+    def unwear_equipment(eq)
+
+        # eq = Equipment.find(id)
+        #        obj = load_obj(eq[:eqname], eq)
+             
+        # max_eq = user_data.ext.get_prop("max_eq").to_i
+        eqslot = ext.get_prop("eqslot")
+        id  = eq[:id]
+        p eqslot
+   
+        if eqslot
+            bFound = false
+            if (eqslot.class == String)
+                eqslots = JSON.parse(eqslot)
+            else
+                eqslots = eqslot
+            end
+            p "===>eqlost=#{eqslots.inspect}"
+            eqslots.each{|k,v|
+                # p "==>slot[#{k}]=#{v}, param id=#{params[:id]}"
+                if (v.to_i == id.to_i)
+               
+                    eqslots.delete(k)
+                    bFound = true
+                    break
+                end
+            }
+            
+            if bFound
+                p "==>set eqslot:#{eqslot.inspect}"
+                ext.set_prop("eqslot", eqslots.to_json)
+            end
+            
+        end
+        
+    end
 
 end

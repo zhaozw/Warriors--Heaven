@@ -302,4 +302,10 @@ class Player < Human
         ext.set_prop("pending", pending)
 
     end
+    def delete_item(obj)
+        data.delete_item(obj)
+    end
+    def remove_item(obj)
+        data.remove_item(obj)
+    end
 end

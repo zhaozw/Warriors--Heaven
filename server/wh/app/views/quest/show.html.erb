@@ -98,8 +98,8 @@ function doAction(action_name){
 	<div>
 	<div style="float:left;font-size:9pt;">达成度:</div>
 	<div style="overflow:hidde;margin-top:6;float:left;border:1px solid #333333;width:100px;background:#999999;">
-		<div id="pro_left" style="float:left;background:green;height:6px;width:0px;"></div>
-		<div id="pro_right" style="background:transparent;height:6px;width:100px;"></div>
+		<div id="pro_left" style="float:left;background:green;height:6px;width:<%=@userquest[:progress] %>px;"></div>
+		<div id="pro_right" style="background:transparent;height:6px;width:<%=100-@userquest[:progress].to_i %>px;"></div>
 	</div>
 	</div>
 	<div style="clear:both"></div>
@@ -136,6 +136,6 @@ function proccess(){
 //		setInterval('proccess();',100);
 		
 }
-
+		// $("#pro_left").css("width", <%=@userquest[:process] %>+"px");
 // alert("dfs");
 </script>

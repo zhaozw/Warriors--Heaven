@@ -30,6 +30,7 @@ class TradablesController < ApplicationController
             t[:intro] = _t.intro
             t[:image] = _t.image
             t[:rank] = _t.rank
+            t[:price] = _t.price
         end
         
         render :text=>ts.to_json

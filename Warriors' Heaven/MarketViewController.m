@@ -145,6 +145,11 @@
         vFixure.hidden = YES;
     }
     
+    NSArray* svs = [v subviews];
+    for (int i =0; i< [svs count]; i++){
+        UIView* sv = [svs objectAtIndex:i];
+        [sv removeFromSuperview];
+    }
     int count = [data count];
     int row_height = 60;
     int row_margin = 1;

@@ -81,8 +81,13 @@
 }
 
 - (IBAction)onUse:(id)sender {
-    WHHttpClient* client = [[WHHttpClient alloc] init:[self parentViewController] ];
-    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/use?id=%d", [[obj valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
+    WHHttpClient* client = [[WHHttpClient alloc] init:self  ];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/use?id=%d", [[obj valueForKey:@"id"] intValue]] selector:@selector(onUseReturn:) json:YES showWaiting:YES];
+}
+
+- (void) onUseReturn:(NSObject*)data{
+    [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES]; 
+    [self hideDetailView];
 }
 
 - (void) loadObjDetail:(NSObject*) o{

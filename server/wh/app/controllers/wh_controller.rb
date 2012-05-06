@@ -452,7 +452,7 @@ class WhController < ApplicationController
             "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
-            "msg"  => "<div style='background:black;color:white;font-size:11pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}.npc{color:#ff0000}.damage{color:#ff0000;}.status{font-size:10pt;}.rgain{color:yellow;font-size:10pt;}.rgain span{color:#99ff99}.attr{color:#99ff99}</style>#{context[:msg]}</div>"
+            "msg"  => "<div style='background:black;color:white;font-size:11pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}.npc{color:#ff0000}.damage{color:#ff0000;}.status{font-size:10pt;}.rgain{color:yellow;font-size:10pt;}.rgain span{color:#99ff99}.attr{color:#99ff99}.skillname{color:#ffaaaa}</style>#{context[:msg]}</div>"
         }
         winner = 0
         winner = 1 if !result

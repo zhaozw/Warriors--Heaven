@@ -26,6 +26,10 @@ class Shanzhuyu < Game::Object
     def image
         "obj/fixtures/ginseng.jpg"
     end
-    
-    
+        def use(context)
+        context[:msg] = "你不要乱吃啊！"
+    end
+        def price
+        5
+    end
 end

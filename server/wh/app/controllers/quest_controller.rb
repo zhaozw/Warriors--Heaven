@@ -74,6 +74,9 @@ class QuestController < ApplicationController
             error("load quest failed")
             return
         end
+        rs = Userquest.find_by_sql("select * from userquests where name='#{@quest_name}' and uid=#{user_data.id}")
+         @userquest = rs[0] if rs && rs.size>0
+         p "#{@userquest.inspect}"
         room = @quest.room
         if @quest.room.end_with?(".rb") or @quest.room.end_with?(".erb")
             render :template=>"quest/#{room}"

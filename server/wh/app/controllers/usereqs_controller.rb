@@ -66,42 +66,16 @@ class UsereqsController < ApplicationController
          eqs = Equipment.find(params[:id])
          eq = eqs
          obj = load_obj(eq[:eqname], eq)
-             
-        # max_eq = user_data.ext.get_prop("max_eq").to_i
-        eqslot = user_data.ext.get_prop("eqslot")
-        p eqslot
-   
-        if eqslot
-            bFound = false
-            if (eqslot.class == String)
-                eqslots = JSON.parse(eqslot)
-            else
-                eqslots = eqslot
-            end
-            p "===>eqlost=#{eqslots.inspect}"
-            eqslots.each{|k,v|
-                p "==>slot[#{k}]=#{v}, param id=#{params[:id]}"
-                if (v.to_i == params[:id].to_i)
-               
-                    eqslots.delete(k)
-                    bFound = true
-                    break
-                end
-            }
-            
-            if bFound
-                p "==>set eqslot:#{eqslot.inspect}"
-                user_data.ext.set_prop("eqslot", eqslots.to_json)
-            end
-            
-        end
+         user_data.remove_item(obj)
+        
+        # eq.delete
+         # eq[:owner] = nil
+         eq.save!
          
          user_data.ext[:gold] += obj.price.to_i / 2
          p "-->#{user_data.ext.inspect}"
          
-         # eq.delete
-         eq[:owner] = nil
-         eq.save!
+    
          
          user_data.check_save
          
@@ -122,9 +96,13 @@ class UsereqsController < ApplicationController
         player = Player.new
         player.set_data(user_data)
         context= {
-            :player => player
+            :player => player,
+            :msg =>"使用成功"
         }
         obj.use(context)
+        
+        
+        success(context[:msg])
     end
 
 end
