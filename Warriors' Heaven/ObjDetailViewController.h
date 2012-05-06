@@ -18,10 +18,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UILabel *lbDesc;
 @property (strong, nonatomic) IBOutlet UILabel *lbPrice;
+@property (strong, nonatomic) IBOutlet UIButton *btnUse;
 - (void) loadObjDetail:(NSObject*) obj;
 - (void) hideDetailView;
 - (IBAction)onSell:(id)sender;
 - (IBAction)onClose:(id)sender;
+- (IBAction)onUse:(id)sender;
 @property (strong, nonatomic) IBOutlet EGOImageView *vImage;
 @property (strong, retain) AppDelegate * ad;
 @end

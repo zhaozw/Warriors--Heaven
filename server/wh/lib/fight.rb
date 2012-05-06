@@ -310,7 +310,7 @@ end
         
         # Let combat exp take effect
         defense_factor = calc_total_exp(p2.tmp[:level]);
-        while( rand(defense_factor) > calc_total_exp(p1.tmp[:level])) 
+        while( rand(defense_factor) > calc_total_exp(p1.tmp[:level])+1) 
                         d -= d / 3
                         defense_factor /= 2
         end
@@ -399,7 +399,7 @@ end
        end
     end
     
-    # return true if level up
+    # return true if level up, point can be 0
     def improve_skill(player, skillname, point)
         p  player.query_skill(skillname)
         skill = player.query_skill(skillname).data

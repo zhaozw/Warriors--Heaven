@@ -11,7 +11,12 @@
 #import "AppDelegate.h"
 #import "ResearchViewController.h"
 
-@interface TrainingGround : UIViewController
+@interface TrainingGround : UIViewController{
+    NSMutableArray* btn_practise_list; // list of progress view of tp
+    int currentPractisingSkill;
+    int usepot;
+}
+@property (strong, retain) AppDelegate *ad;
 @property (strong, nonatomic) IBOutlet UILabel *lbPotential;
 //@property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 @property (strong, nonatomic) IBOutlet UIView* skillsView;
@@ -28,12 +33,18 @@
 @property (strong, nonatomic) IBOutlet UIButton * bt_basic_skill;
 @property (strong, nonatomic) IBOutlet UIImageView *vProfile;
 - (IBAction)onSelectTrainingGround:(id)sender;
-@property (strong, retain) AppDelegate * ad;
+- (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot;
+
+
 //@property (nonatomic, retain) NSMutableArray* userskills;
 @property (nonatomic, retain) NSMutableArray* pv_tp; // list of progress view of tp
 @property (nonatomic, retain) NSMutableArray* lb_level_list; // list of progress view of tp
+
 @property (strong, nonatomic) IBOutlet ResearchViewController *vcResearch;
 - (IBAction)onSelectLibrary:(id)sender;
 - (void) reloadSkills;
 - (IBAction)onSelectStatus:(id)sender;
+
+- (void) _startPractise:(NSString *)skillname usepot:(int)usepot;
+- (int) findSkillIndexByName:(NSString*) name;
 @end

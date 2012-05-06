@@ -140,5 +140,6 @@ end
         for i in 1..level
             r += i*i*i
         end
+        p "=>exp of level #{level} is #{r}"
         return r
     end

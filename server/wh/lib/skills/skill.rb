@@ -3,9 +3,22 @@ module Game
 
 class Skill
     
+    def initialize
+        @skill = {
+            :category => category,
+            :dname => dname
+        }
+        p "==>skill initialized, #{@skill.inspect}" 
+    end
    # set activerecord object as skill data
    def set_data(skill)
+       p "==>set data1 , #{skill.inspect}" 
+       @skill.each{|k,v|
+           p "=>add #{k}=#{v}"
+        skill[k.to_sym] =v
+       }
        @skill = skill
+       p "==>set data , #{@skill.inspect}" 
    end 
    
    def data

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DotHide_TabBarController.h"
 #import "StatusViewController.h"
+//#import "TrainingGround.h"
 //#import "HomeViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
@@ -32,6 +33,8 @@
     BOOL bUserSkillNeedUpdate; // need update from server
     BOOL bUserSkillNeedReload; // need update locally
     NSObject* requests;
+    BOOL bRecovering;
+    UIViewController* vcTraining;
 //    BOOL bUpadtingStatus;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
@@ -101,5 +104,8 @@
 
 - (void) startRecover;
 - (void) reloadStatus;
+
+- (void) hideWelcomeView;
+- (void) setFirstCallReturn:(BOOL) b;
 
 @end

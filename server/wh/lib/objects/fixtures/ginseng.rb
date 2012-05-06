@@ -27,5 +27,9 @@ class Ginseng < Game::Object
         "obj/fixtures/ginseng.jpg"
     end
     
-    
+   def use(context)
+        p = context[:player]
+        p.ext[:hp] += p.ext[:max_hp]/2
+        p.ext[:stam] += p.ext[:maxt_st]
+   end 
 end

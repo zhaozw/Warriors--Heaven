@@ -57,11 +57,12 @@
     // Do any additional setup after loading the view from its nib.
     // add status view
      ad = [UIApplication sharedApplication].delegate;
-    
+    currentPractisingSkill = -1;
     lbUsername.text = [[ad getDataUser] valueForKey:@"user"];
     
     pv_tp = [[NSMutableArray alloc] init];
     lb_level_list = [[NSMutableArray alloc] init];
+    btn_practise_list = [[NSMutableArray alloc] init];
 //    userskills = [[NSMutableArray alloc] init];
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
@@ -157,6 +158,10 @@
     [vPremierSkill addSubview:vPremierSkillsList];
     vPremierSkillsList.hidden = YES;
     
+
+    vBasicSkillsList.hidden = YES;
+    vCommonSkillsList.hidden = YES;
+    vPremierSkillsList.hidden = YES;
 
 }
 
@@ -299,7 +304,7 @@
 // reload from local data
 - (void) reloadSkills{
     // reset status
-    [self foldAll];
+//    [self foldAll];
     
     // remove all existing row
     NSArray * subviewsArr = [vBasicSkillsList subviews];
@@ -365,11 +370,12 @@
         [btPractise setOpaque:NO];
         [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
         [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-        [btPractise setTitle:@"Practise" forState:UIControlStateNormal];
+        [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
         [btPractise setTag:i];
         [btPractise setShowsTouchWhenHighlighted:YES];
-        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
-        
+//        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
+         [btPractise addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+        [btn_practise_list addObject:btPractise];
         
         NSString* cat = [o valueForKey:@"category"];
         if ([cat isEqualToString:@"basic"]){
@@ -444,9 +450,9 @@
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
     
     
-    vBasicSkillsList.hidden = YES;
-    vCommonSkillsList.hidden = YES;
-    vPremierSkillsList.hidden = YES;
+//    vBasicSkillsList.hidden = YES;
+//    vCommonSkillsList.hidden = YES;
+//    vPremierSkillsList.hidden = YES;
     
     [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基础技 (%d)", count_b] forState:UIControlStateNormal];
     [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高级技 (%d)", count_c] forState:UIControlStateNormal];
@@ -464,6 +470,163 @@
     //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
     [self reloadSkills];
 
+}
+
+- (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot{
+    self->usepot = _usepot;
+    self->currentPractisingSkill = [self findSkillIndexByName:skillname];
+    UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
+    if (btn){
+        [btn setTitle:@"修炼" forState:UIControlStateNormal];
+        [btn removeTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self performSelector:@selector(practiseThred) withObject:NULL afterDelay:1];
+}
+- (void)startPractise:(UIButton*) btn{
+    NSLog(@"train skill");
+
+        
+    
+    
+    int i = btn.tag;
+    NSDictionary *ext = [ad getDataUserext];
+    int jingli = [[ext valueForKey:@"jingli"] intValue];
+    int stam = [[ext valueForKey:@"stam"] intValue];
+    int pot = [[ext valueForKey:@"pot"] intValue];
+    if (pot <= 0){
+        currentPractisingSkill =-1; // in case training didn't stop properly
+        [ad showMsg:@"你没有潜能，无法提高" type:1 hasCloseButton:NO];
+        return;
+    }
+    if (jingli <= 0){
+        [ad showMsg:@"你的精力不够，无法集中精神，休息一下吧" type:1 hasCloseButton:NO];
+        return;
+    }
+    if (stam <= 0){
+        [ad showMsg:@"你觉得腰酸背痛，体力似乎不够充足，休息一下再练吧" type:1 hasCloseButton:NO];
+        return;
+    }
+    if (currentPractisingSkill != -1){      
+        [ad showMsg:@"你正在修炼" type:1 hasCloseButton:NO];
+        return;
+    }
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
+    NSLog(@"%@", skill);
+    NSString* name = [skill valueForKey:@"skname"];
+    NSLog(@"skillname is %@", name);
+    
+    int level = [[skill valueForKey:@"level"] intValue];
+    int tp = [[skill valueForKey:@"tp"] intValue];
+
+    int need_pot = (level+1)*(level+1) - tp;
+    if (need_pot < pot)
+        need_pot = pot;
+        
+    usepot = need_pot;
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    NSString* url = [[NSString alloc] initWithFormat:@"/wh/startPractise?pot=%d&skill=%@", need_pot, name];
+    [client sendHttpRequest:url selector:@selector(onStartPractiseReturn:) json:YES showWaiting:YES];
+    
+    currentPractisingSkill = i;
+
+}
+
+- (void) practiseThred{
+    NSObject* ext = [ad getDataUserext];
+    int pot = [[ext valueForKey:@"pot"] intValue];
+//   int jingli = [[ext valueForKey:@"jingli"] intValue];
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [[userskills objectAtIndex:currentPractisingSkill] valueForKey:@"userskill"];
+    NSLog(@"%@", skill);
+    NSString* name = [skill valueForKey:@"skname"];
+    NSLog(@"skillname is %@", name);
+    int tp = [[skill valueForKey:@"tp"] intValue];
+    if (pot == 0 || usepot == 0){
+        // stop practise
+        NSLog(@"stop practise");
+               WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        NSString* url = [[NSString alloc] initWithFormat:@"/wh/stopPractise?skill=%@", name];
+        [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:NO];
+        return;
+        
+    }
+    usepot --;
+    pot--;
+    tp ++;
+    [skill setValue:[NSNumber numberWithInt:tp] forKey:@"tp"];
+    [ext setValue:[NSNumber numberWithInt:pot] forKey:@"pot"];
+    [self performSelector:@selector(practiseThred) withObject:NULL afterDelay:1];
+    lbPotential.text = [NSString stringWithFormat:@"%d", pot];
+    int level = [[skill valueForKey:@"level"] intValue];
+    float process = ((float)tp)/((level+1)*(level+1));
+    [((UIProgressView*)([pv_tp objectAtIndex:currentPractisingSkill])) setProgress:process];
+    
+}
+- (void) onStopPractiseReturn:(NSObject*) data{
+    NSString* error = [data valueForKey:@"error"];
+    if (error)
+        [ad showMsg:error type:1 hasCloseButton:YES];
+    else{
+        NSString* suc = [data valueForKey:@"OK"];
+        [ad showMsg:suc type:0 hasCloseButton:YES];
+        NSObject* ext = [data valueForKey:@"userext"];
+        [[[ad getDataUser] valueForKey:@"userext"] setValue:ext forKey:@"userext"];
+        NSArray* userskills = [ad getDataUserskills];
+        NSObject* skill = [userskills objectAtIndex:currentPractisingSkill] ;
+        NSObject* new_userskill = [data valueForKey:@"userskill"];
+        if (new_userskill)
+            [skill setValue:new_userskill forKey:@"userskill"];
+        NSLog(@"USERSKILLS: %@", [ad getDataUserskills]);
+        UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
+        if (btn){
+            [btn setTitle:@"修炼" forState:UIControlStateNormal];
+            [btn removeTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+        }
+      
+    }
+    
+    currentPractisingSkill = -1;
+    
+    [ad reloadStatus];
+    [self reloadSkills];
+}
+- (void) onStartPractiseReturn:(NSObject*) data{
+    NSString* error = [data valueForKey:@"error"];
+    if (error){
+        [ad showMsg:error type:1 hasCloseButton:YES];
+        currentPractisingSkill = -1;
+    }
+    
+    else{
+         NSString* suc = [data valueForKey:@"OK"];
+         
+        [ad showMsg:suc type:0 hasCloseButton:YES];
+        int usepot = [[data valueForKey:@"usepot"] intValue];
+        if (usepot > 0)
+            [self _startPractise:[data valueForKey:@"skill"] _usepot:usepot];
+    }
+    [self reloadSkills];
+}
+
+- (void) stopPractise:(UIButton*) btn{
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [[userskills objectAtIndex:currentPractisingSkill] valueForKey:@"userskill"];
+    NSLog(@"%@", skill);
+    NSString* name = [skill valueForKey:@"skname"];
+    NSLog(@"skillname is %@", name);
+    int tp = [[skill valueForKey:@"tp"] intValue];
+
+        // stop practise
+        NSLog(@"stop practise");
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        NSString* url = [[NSString alloc] initWithFormat:@"/wh/stopPractise?skill=%@", name];
+        [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:NO];
+        return;
+        
+  
 }
 
 - (void)practiseSkill:(UIButton*)btn{
@@ -491,6 +654,18 @@
 
 }
 
+- (int) findSkillIndexByName:(NSString*) name{
+    NSMutableArray* userskills = [ad getDataUserskills];
+    int i = 0;
+    for ( i = 0; i< [userskills count]; i++){
+        NSObject* us = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
+        NSString* skname = [us valueForKey:@"skname"];
+        if ([skname isEqualToString:name])
+            return i;
+    }
+    return -1;
+}
+         
 - (void) onPractiseReturn:(NSObject*) data{
     if ([data valueForKey:@"error"]){
         [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES]; 

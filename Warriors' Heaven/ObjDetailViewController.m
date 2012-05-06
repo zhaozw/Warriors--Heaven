@@ -17,6 +17,7 @@
 @synthesize lbTitle;
 @synthesize lbDesc;
 @synthesize lbPrice;
+@synthesize btnUse;
 @synthesize ad;
 @synthesize obj;
 
@@ -55,6 +56,7 @@
     [self setLbDesc:nil];
     [self setVImage:nil];
     [self setLbPrice:nil];
+    [self setBtnUse:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -78,6 +80,11 @@
     self.view.hidden = YES;
 }
 
+- (IBAction)onUse:(id)sender {
+    WHHttpClient* client = [[WHHttpClient alloc] init:[self parentViewController] ];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/use?id=%d", [[obj valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
+}
+
 - (void) loadObjDetail:(NSObject*) o{
     obj = o;
     NSDictionary* eq = o;
@@ -97,6 +104,13 @@
     int price = [[eq valueForKey:@"price"] intValue]/2;
     lbPrice.text = [[NSNumber numberWithInt:price] stringValue];
     [self view].hidden = NO;
+    
+    int type = [[eq valueForKey:@"eqtype"] intValue];
+    if ( type != 2){
+        btnUse.hidden = YES;
+    }else{
+        btnUse.hidden = NO;
+    }
 }
 
 - (void) hideDetailView{

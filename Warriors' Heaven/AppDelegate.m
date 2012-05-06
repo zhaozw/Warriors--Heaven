@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "WHHttpClient.h"
 #import "SBJson.h"
+#import "TrainingGround.h"
 
 
 @implementation AppDelegate
@@ -320,6 +321,15 @@
     
     [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];
+    
+    // check pending task
+    NSString* str = [[self getDataUserext] valueForKey:@"prop"];
+    NSObject* prop = [str JSONValue];
+    NSObject* pending = [prop valueForKey:@"pending"];
+    if (pending){
+        TrainingGround *vc = (TrainingGround*)vcTraining;
+        [vc _startPractise:[pending valueForKey:@"skill"] _usepot:[pending valueForKey:@"usepot"]];
+    }
 }
 - (void) setBgImg:(UIImage*) img{
     [bgView setImage:img];
@@ -631,12 +641,19 @@
 - (void) recover:(NSNumber*) n{
     if (tmRecoverStart != [n longValue])
         return;
+    if (bRecovering)
+        return;
+    bRecovering = YES;
+    [self performSelector:@selector(recover:) withObject:n afterDelay:2.0];
+    
     BOOL needReocovery = NO;
     NSMutableDictionary* ext = [self getDataUserext];
+    int per = 100;
+    
     int hp = [[[self getDataUserext] valueForKey:@"hp"] intValue];
     int maxhp = [[[self getDataUserext] valueForKey:@"maxhp"] intValue];
     if (hp < maxhp){
-        hp += maxhp/20;
+        hp += maxhp/per;
         if (hp > maxhp)
             hp = maxhp;
         if (hp < maxhp)
@@ -647,7 +664,7 @@
     int st = [[[self getDataUserext] valueForKey:@"stam"] intValue];
     int maxst = [[[self getDataUserext] valueForKey:@"maxst"] intValue];
     if (st < maxst){
-        st += maxst/20;
+        st += maxst/per;
         if (st > maxst)
             st = maxst;
         if (st < maxst)
@@ -658,7 +675,7 @@
     int jingli = [[[self getDataUserext] valueForKey:@"jingli"] intValue];
     int max_jl = [[[self getDataUserext] valueForKey:@"max_jl"] intValue];
     if (jingli < max_jl){
-        jingli += max_jl/20;
+        jingli += max_jl/per;
         if (jingli > max_jl)
             jingli = max_jl;
         if (jingli < max_jl)
@@ -667,8 +684,8 @@
     }
     
    // if (needReocovery && tmRecoverStart == [n longValue] && ext == [self getDataUserext]){
-        [self performSelector:@selector(recover:) withObject:n afterDelay:10.0];
-        [self reloadStatus];
+    bRecovering = FALSE;
+        [self performSelectorOnMainThread:@selector(reloadStatus) withObject:NULL waitUntilDone:NO ];
 //    }
     
 }
@@ -678,8 +695,11 @@
     
 //    NSObject* t = [[self getDataUserext]valueForKey:@"updated_at"];
     
-    [self performSelector:@selector(recover:) withObject:[NSNumber numberWithLong:tmRecoverStart] afterDelay:10.0];
+    [self performSelector:@selector(recover:) withObject:[NSNumber numberWithLong:tmRecoverStart] afterDelay:2.0];
     
     
+}
+- (void) setFirstCallReturn:(BOOL) b{
+    bFirstCallReturn = b;
 }
 @end

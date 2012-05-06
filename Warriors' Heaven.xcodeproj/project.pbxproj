@@ -401,6 +401,7 @@
 				5A25E28F1504D2530046C67D /* BattleViewController.xib */,
 				5A25E2851504CC260046C67D /* CharacterViewController.xib */,
 				5A027425151E9BEA0083706E /* MarketViewController.xib */,
+				5A205FF41548684A0048A0C1 /* ObjDetailViewController.xib */,
 				5A25E28A1504CC9A0046C67D /* StatusViewController.xib */,
 				5A47AC4C1516C44400C050FB /* TrainingGround.xib */,
 				5AA8626E153C05D50099EE98 /* TeamViewController.xib */,
@@ -415,7 +416,6 @@
 			children = (
 				5A388C4D15366DA3008395BB /* RegViewController.h */,
 				5A388C4E15366DA3008395BB /* RegViewController.m */,
-				5A205FF41548684A0048A0C1 /* ObjDetailViewController.xib */,
 				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
 				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
 				5A25E28D1504D2520046C67D /* BattleViewController.h */,

@@ -127,6 +127,8 @@
         [ad setSessionId:sid];
         [ad saveDataUser];
         self.view.hidden = YES;
+        [ad setFirstCallReturn:YES];
+        [ad hideWelcomeView];
         [ad initUI];
     }else{
         lbError.text = [data valueForKey:@"error"];

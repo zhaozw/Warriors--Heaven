@@ -9,6 +9,12 @@ class Player < Human
         @setup_wearing = false
     end
     
+    # def initialize(userdata)
+    #     # super(userdata)
+    #     initialize
+    #     set_data(userdata)
+    # end
+    
     def isUser
         true
     end
@@ -266,5 +272,34 @@ class Player < Human
         tmp[:jingli] = ext[:jingli]
         p "recover finish: hp:#{ ext[:hp]}, st:#{ext[:stam]}, jingli:#{ext[:jingli]}"
  
+    end
+    
+    def practise(skillname, usepot)
+        skill = query_skill(skillname)
+        int = ext[:it]
+        pot = ext[:pot]
+        jingli = ext[:jingli]
+           
+        # max pot can be used limited by exp
+        max_pot = 0
+        e = ext[:exp] + calc_total_exp(ext[:level])
+        if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e
+            max_pot = (skill[:level] +1) * (skill[:level] +1) - skill[:tp]
+        end
+        
+        if max_pot < usepot
+            usepot = max_pot
+        end
+        
+
+        cost_jingli = usepot*20/int
+        
+        levelup = improve_skill(self, skillname, max_pot)
+        ext[:jingli] -= cost_jingli
+        ext[:pot] -= usepot      
+        pending = {}
+        
+        ext.set_prop("pending", pending)
+
     end
 end

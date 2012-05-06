@@ -57,8 +57,13 @@ class ApplicationController < ActionController::Base
     def error(msg)
         render :text=>"{\"error\":\"#{msg}\"}"
     end
-    def success(msg)
-        render :text=>"{\"OK\":\"#{msg}\"}"
+    def success(msg, data=nil)
+        ret = {
+            "OK"=>msg
+        }
+        ret = ret.merge(data) if data
+        render :text=>ret.to_json
+        
     end
     
     def check_session

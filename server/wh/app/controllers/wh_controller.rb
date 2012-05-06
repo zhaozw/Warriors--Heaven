@@ -76,7 +76,38 @@ class WhController < ApplicationController
          user_data.query_all_skills
          recoverPlayer(user_data.ext)
          recoverZhanyi(user_data.ext)
+         update_task(user_data)
          render :text=>user_data.to_json
+    end
+    
+    def update_task(ud)
+        pending = ud.ext.get_prop("pending")
+        if !pending
+            return
+        end
+        if pending.class == String
+            pending = JSON.parse(pending)
+        end
+        if !pending["act"]
+            return
+        end
+        t = pending["t"]
+        t_span = Time.now.to_i - t
+        
+        
+        usepot =  pending["usepot"].to_i
+        player = Player.new
+        player.set_data(ud)
+        if t_span > pending["usepot"].to_i # finished
+            player.practise(pending["skill"], usepot)
+        else
+            player.practise(pending["skill"], t_span)
+            pending["t"] = Time.now.to_i
+            pending["usepot"] = pending["usepot"] - t_span
+            ud.ext.set_prop("pending", pending)
+        end
+
+        ud.check_save
     end
     
     def reg
@@ -902,5 +933,183 @@ class WhController < ApplicationController
         @rate = @total_win*1.0/@battle_count
         
         
+    end
+    
+    def startPractise
+        return if !check_session || !user_data
+        pending = user_data.ext.get_prop("pending")
+        
+        player= Player.new
+        player.set_data(user_data)
+        skill = player.query_skill(params[:skill])
+        
+        if ( pending )
+            if (pending.class == String)
+                pending = JSON.parse(pending)
+            end
+  
+            if (pending["act"] != nil and pending["msg"]!=nil)
+                error ("你正忙着#{pending['msg']}呢!")
+                return
+            end
+        end
+  
+        if ( user_data.ext[:pot] <= 0)
+            error("你的潜能不够, 无法提高")
+            return
+        end
+        if params[:userpot]
+            usepot = params[:usepot].to_i
+            if (usepot > user_data.ext[:pot])
+                usepot =  user_data.ext[:pot]
+            end
+        else
+            usepot = user_data.ext[:pot]
+        end
+        p "=>usepot1=#{usepot}"
+      
+        
+        jingli = user_data.ext[:jingli].to_i
+        it = user_data.ext[:it].to_i
+        pot_support_by_jingli = jingli*it/20
+        if pot_support_by_jingli < usepot
+            usepot = pot_support_by_jingli
+        end
+                p "=>usepot2=#{usepot}"
+   
+        e = user_data.ext[:exp] + calc_total_exp(user_data.ext[:level])
+        p "te=#{e} ////skill:#{skill.inspect}"
+        level = skill[:level]
+        max_pot = (skill[:level] +1) * (skill[:level] +1) - skill[:tp]
+        if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10 <= e # can level up
+            if improve_skill(player, params[:skill], 0) # level up-ed
+                p "=>level up-ed"
+                if (level+2)**3/10 <= e
+                    max_pot = (level+2)**2
+                else
+                    max_pot = (level+2)**2-1
+                end
+            end
+            
+        else #cannot levelup
+            max_pot -= 1
+        
+            # error ("你的战斗经验不够！")
+        end
+               p "=>max_pot=#{max_pot}"
+        if max_pot < usepot
+                usepot = max_pot
+        end
+        
+     
+        p "=>usepot3=#{usepot}"
+        if (usepot > 0)
+            pending = {
+                :act=>'practise',
+                :msg=>"修炼#{skill.dname}",
+                :t =>Time.now.to_i,
+                :skill=>params[:skill],
+                :usepot => usepot
+            }
+            user_data.ext.set_prop("pending", pending)
+       
+            user_data.check_save
+            success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot})
+        else
+            error("你的战斗经验似乎不够!")
+        end
+        return
+    end
+    
+    def stopPractise
+        return if !check_session || !user_data
+        ext = user_data.ext
+        _skillname=params[:skill]
+        player   = Player.new
+        player.set_data(user_data)
+        pending = user_data.ext.get_prop("pending")
+        if !pending 
+            error "你不在修炼任何技能"
+            return
+        end
+        
+        p "pending=#{pending.inspect}"
+        if pending.class==String
+            pending = JSON.parse(pending)
+        end
+        
+        if !pending["act"] or pending["act"]!='practise' or !pending["msg"]
+            error "你不在修炼任何技能"
+            return
+        end
+        
+                
+        skillname = pending["skill"]
+        if skillname != _skillname
+            error "你正在修炼的不是这项技能"
+            return
+        end
+        skill = user_data.query_skill(skillname)
+        
+        usepot = pending["usepot"]
+        
+        t = pending["t"].to_i
+        p  "start time #{t}"
+        st = Time.now.to_i
+        p "stoptime #{st}"
+        
+        # calculate gain
+        # int = 20 : consume 1 jingli per converting 1 pot per     
+        int = user_data.ext[:it]
+        pot = user_data.ext[:pot]
+        # if (params[:pot] && params[:pot]< pot)
+        #      pot =params[:pot]
+        #  end 
+        jingli = user_data.ext[:jingli]
+        
+        # cost_jingli_rate = int/20
+        consume_pot = (st-t)*1 # cosume 1 pot per sec
+
+        
+        # max pot can be used limited by exp
+        max_pot = usepot.to_i
+        e = ext[:exp] + calc_total_exp(ext[:level])
+        if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e
+            max_pot = (skill[:level] +1) * (skill[:level] +1) - skill[:tp]
+        end
+        
+      
+        if consume_pot > max_pot
+            consume_pot = max_pot
+        end
+        p "==>consume_pot = #{consume_pot.inspect}, int=#{int}"
+        cost_jingli = consume_pot*20/int
+        
+        if cost_jingli > jingli
+            cost_jingli = jingli
+            consume_pot = cost_jingli*int/20
+        end
+        
+        levelup = improve_skill(player, skillname, max_pot)
+        
+        user_data.ext[:jingli] -= cost_jingli
+        user_data.ext[:pot] -= consume_pot      
+        pending = {}
+        
+        user_data.ext.set_prop("pending", pending)
+        
+        skill = user_data.query_skill(skillname)
+        _skill = JSON.parse(skill.to_json) # convert to has
+        _ext = JSON.parse(user_data.ext.to_json)
+        _ret = _skill.merge(_ext)
+        
+        if (levelup)
+             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}, 恭喜你的#{skillname}等级提高了!", _ret)
+        else
+             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}", _ret)
+        end 
+        
+        user_data.check_save
+        return
     end
 end

@@ -2,7 +2,7 @@ class CreateEquipment < ActiveRecord::Migration
   def self.up
     create_table :equipment do |t|
       t.string :eqname
-      t.string :eqtype #1: ep 2: fixure 3. pep
+      t.string :eqtype #1: eq 2: fixure 3. pep
       t.string :prop
       t.integer :owner
 

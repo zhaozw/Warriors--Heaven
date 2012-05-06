@@ -62,7 +62,7 @@ class UsereqsController < ApplicationController
     end
     
     def sell
-         check_session
+         return if !check_session or !user_data
          eqs = Equipment.find(params[:id])
          eq = eqs
          obj = load_obj(eq[:eqname], eq)
@@ -112,6 +112,19 @@ class UsereqsController < ApplicationController
          }
          render :text=>ret.to_json
          # success("Trade is successful")
+    end
+    
+    def use
+        return if !check_session or !user_data
+        eqs = Equipment.find(params[:id])
+        eq = eqs
+        obj = load_obj(eq[:eqname], eq)
+        player = Player.new
+        player.set_data(user_data)
+        context= {
+            :player => player
+        }
+        obj.use(context)
     end
 
 end

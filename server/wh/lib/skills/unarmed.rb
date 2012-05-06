@@ -2,6 +2,13 @@
 require 'skills/skill.rb'
 
 class Unarmed < Game::Skill
+    
+    # def initialize
+    #     super
+    #     set("category", "basic")
+    #     set("dname", "基本拳脚")
+    # end
+    
     # 基本拳脚
    def for
        return "attack parry"
