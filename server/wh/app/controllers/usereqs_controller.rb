@@ -84,7 +84,7 @@ class UsereqsController < ApplicationController
          ret = {
              :id=>params[:id],
              :gold=>user_data.ext[:gold],
-             :msg=>"Trade is successfull. \nGold +#{obj.price.to_i / 2}"
+             :msg=>"交易成功. \nGold +#{obj.price.to_i / 2}"
          }
          render :text=>ret.to_json
          # success("Trade is successful")
@@ -106,7 +106,7 @@ class UsereqsController < ApplicationController
         user_data.check_save
         
         
-        success(context[:msg], {:id=>params[:id]})
+        success(context[:msg], {:id=>params[:id], :userext=>(user_data.ext)})
     end
 
 end

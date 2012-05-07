@@ -304,6 +304,21 @@
 - (void) closeHelpView:(UIButton*) btn{
     vHelp.hidden = YES;
 }
+
+- (void) updateUserext{
+    
+    
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        [client sendHttpRequest:@"/wh/ext" selector:@selector(onUpdateUserextReturn:) json:YES showWaiting:NO];
+    
+    
+}
+- (void) onUpdateUserextReturn:(NSString*) data{
+    if ([data valueForKey:@"error"])
+        return;
+    [self setDataUserExt:data];
+    [self reloadStatus];
+}
 -(void) updateUserData{
     
     if (data_user == NULL){
@@ -599,7 +614,7 @@
     t = [t valueForKey:@"userext"];
     return t;
 }
-- (NSObject*) getDataUserextProp:(NSString*) name{
+- (id) getDataUserextProp:(NSString*) name{
     NSString* prop = [[self getDataUserext] valueForKey:@"prop"];
     if (!prop)
         return NULL;
@@ -610,7 +625,7 @@
     return [js valueForKey:name];
     
 }
-- (void) setDataUserExt:(NSArray*)data{
+- (void) setDataUserExt:(NSObject*)data{
     //    NSObject * v = [self getDataUser];
     //    [v setValue:eqs forKey:@"userskills"];
     [[data_user valueForKey:@"user"] setValue:data forKey:@"userext"];

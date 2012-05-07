@@ -179,7 +179,7 @@ class Player < Human
        @obj.set_skill(n,l,tp) 
     end
     
-    def get_object(o)
+    def get_obj(o)
         @obj.get_object(o)
     end
     
@@ -307,5 +307,11 @@ class Player < Human
     end
     def remove_item(obj)
         data.remove_item(obj)
+    end
+    def query_items
+        data.query_items
+    end
+    def query_item(name)
+        return data.query_item(name)
     end
 end

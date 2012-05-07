@@ -81,6 +81,12 @@ class WhController < ApplicationController
          render :text=>user_data.to_json
     end
     
+    def ext
+        return if !check_session and !user_data
+        player.recover
+        render :text=>user_data.ext.to_json
+        return 
+    end
     def update_task(ud)
         pending = ud.ext.get_prop("pending")
         if !pending

@@ -11,10 +11,7 @@ class Zexie < Game::Object
         "这是一株#{dname}，可以入药"
     end
     
-    def intro
-        "大补元气 HP+70%"
-    end
-    
+
     def weight
         1
     end

@@ -90,11 +90,11 @@
 - (void) updateUserData;
 - (NSObject*) getDataUser;
 - (NSObject*) getDataUserext;
-- (void) setDataUserExt:(NSArray*)data;
+- (void) setDataUserExt:(NSObject*)data;
 - (NSObject*) getDataUserskills;
 - (NSArray*) getDataUserEqs;
 - (void) setDataUserEqs:(NSArray*)eqs;
-- (NSObject*) getDataUserextProp:(NSString*) name;
+- (id) getDataUserextProp:(NSString*) name;
 // type: 0: success 1: warning
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
 - (void) showHelpView:(NSString*) url;
@@ -110,4 +110,5 @@
 - (void) hideWelcomeView;
 - (void) setFirstCallReturn:(BOOL) b;
 - (void) setUserBusy:(BOOL) busy;
+- (void) updateUserext;
 @end

@@ -213,13 +213,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 
 
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    ad = [UIApplication sharedApplication].delegate;
-    
+- (void) initUI{
     item_selected = NULL;
     
     
@@ -243,17 +237,17 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vItemBg addSubview:vItemInfoView];
     
     
-/*    positions = [[NSMutableArray alloc] initWithObjects:
-                 @"head", 
-                 @"neck",
-                 @"handright",
-                 @"arm",
-                 @"fingerright",
-                 @"handleft",
-                 @"fingerleft",
-                 @"foot",
-                 @"leg",
-                 @"body", nil];*/
+    /*    positions = [[NSMutableArray alloc] initWithObjects:
+     @"head", 
+     @"neck",
+     @"handright",
+     @"arm",
+     @"fingerright",
+     @"handleft",
+     @"fingerleft",
+     @"foot",
+     @"leg",
+     @"body", nil];*/
     pos_map = [[NSMutableDictionary alloc] init];
     [pos_map setValue:NULL forKey:@"head"];
     [pos_map setValue:NULL forKey:@"neck"];
@@ -265,9 +259,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [pos_map setValue:NULL forKey:@"foot"];
     [pos_map setValue:NULL forKey:@"leg"];
     [pos_map setValue:NULL forKey:@"body"];
-
-
-
+    
+    
+    
     
     
     NSDictionary* ext = [ad getDataUserext];
@@ -282,7 +276,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     vEqInfoView.frame = CGRectMake(10, 10+row_count*60, 300, 80);
     [vEqInfoView setBackgroundColor:[UIColor clearColor]];
     CGRect rect = vEquipment.frame;
-    int max_item = [[ext valueForKey:@"max_item"] intValue];
+    int max_item = [[ad getDataUserextProp:@"max_item"] intValue];
     int item_row_count = 0;
     if (max_item <= 0 ){
         item_row_count = 1;
@@ -293,7 +287,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     item_row_count = 1;
     vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60+50);
     vItemContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 10, rect.size.width -20,item_row_count*60)];
-//    vItemContainer.backgroundColor = [UIColor redColor];
+    //    vItemContainer.backgroundColor = [UIColor redColor];
     vItemContainer.opaque = NO;
     [vItemContainer setScrollEnabled:YES];
     [vItemBg addSubview:vItemContainer];
@@ -304,34 +298,34 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
     eq_buttons = [[NSMutableArray alloc] initWithCapacity:10];
     eq_slots = [[NSMutableArray alloc] initWithCapacity:10];
-/*    woren_eq_list = [[NSMutableArray alloc] initWithObjects:
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                    [NSNull null],
-                     nil];*/
+    /*    woren_eq_list = [[NSMutableArray alloc] initWithObjects:
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     nil];*/
     pos_list = [[NSMutableArray alloc] initWithObjects:
-            [NSNull null],
-           @"head",
-           @"neck",
-           @"hand right",
-           @"arm",
-           @"finger right",
-           @"hand left",
-           @"finger left",
-           @"foot",
-           @"leg",
-           @"body",
-        nil ];
-//    eq_list = [[NSMutableArray alloc] initWithCapacity:max_eq+1];
-//    [eq_list addObject:[NSNull null]];
+                [NSNull null],
+                @"head",
+                @"neck",
+                @"hand right",
+                @"arm",
+                @"finger right",
+                @"hand left",
+                @"finger left",
+                @"foot",
+                @"leg",
+                @"body",
+                nil ];
+    //    eq_list = [[NSMutableArray alloc] initWithCapacity:max_eq+1];
+    //    [eq_list addObject:[NSNull null]];
     for (int i = 0; i< max_eq; i++){
         UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
         slot.frame = CGRectMake(10+i*60, 10, 60, 60);
@@ -342,13 +336,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         
         EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
         [eq_buttons addObject:v];
-//        [v setTag:i+1];
+        //        [v setTag:i+1];
         [v addTarget:self action:@selector(selectEq:) forControlEvents:UIControlEventTouchUpInside];
-//        [v setTintColor:[UIColor redColor]];
+        //        [v setTintColor:[UIColor redColor]];
         [slot addSubview:v];
         [pos_map setValue:v forKey:[[NSNumber numberWithInt:i] stringValue]];
-
-//        [eq_list addObject:[NSNull null]];
+        
+        //        [eq_list addObject:[NSNull null]];
     }
     
     item_list = [[NSMutableArray alloc] initWithCapacity:max_item+1];
@@ -360,117 +354,117 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         slot.frame = CGRectMake(i*60, 0, 60, 60);
         [slot setUserInteractionEnabled:YES];
         [vItemContainer addSubview:slot];
-//        [eq_slots addObject:slot];
+        //        [eq_slots addObject:slot];
         [slot setTag:i+1];
         
         EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-//        [eq_buttons addObject:v];
-//        [v setTag:i+1];
+        //        [eq_buttons addObject:v];
+        //        [v setTag:i+1];
         [v addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
         //        [v setTintColor:[UIColor redColor]];
         [item_buttons addObject:v];
-//        [v setBackgroundColor:[UIColor yellowColor]];
+        //        [v setBackgroundColor:[UIColor yellowColor]];
         [slot addSubview:v];
         [item_list addObject:[NSNull null]];
     }
     
     
     //int offset = 60*max_item -vItemContainer.frame.size.width;
-  //  if (offset > 0)
-        vItemContainer.contentSize = CGSizeMake(60*max_item, 0);
+    //  if (offset > 0)
+    vItemContainer.contentSize = CGSizeMake(60*max_item, 0);
     [vItemContainer scrollRectToVisible:CGRectMake(400, 0, 10, 10) animated:YES];
-
+    
     
     
     // initialize posistion
-
-   
+    
+    
     int k=1;
     vEqbtn_cap = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
     [vEqbtn_cap addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_cap addSubview:vEqbtn_cap];
     [vEq_cap setTag:k];
-//    [vEqbtn_cap setTag:k];
+    //    [vEqbtn_cap setTag:k];
     [pos_map  setValue:vEqbtn_cap forKey:@"head"];
     k++;
     
-//    [vEq_cap setTag:(int)@"head"];
-//    [vEq_cap setValue:@"head" forKey:@"pos"];
+    //    [vEq_cap setTag:(int)@"head"];
+    //    [vEq_cap setValue:@"head" forKey:@"pos"];
     
     vEqbtn_neck = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_neck addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_neck addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_neck addSubview:vEqbtn_neck];
     [vEq_neck setTag:2];
-//    [vEqbtn_neck setTag:2];
+    //    [vEqbtn_neck setTag:2];
     [pos_map  setValue:vEqbtn_neck forKey:@"neck"];
     k++;
     
     vEqbtn_handright = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_handright addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_handright addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_handright addSubview:vEqbtn_handright];
     [vEq_handright setTag:3];
-//    [vEqbtn_handright setTag:3];
+    //    [vEqbtn_handright setTag:3];
     [pos_map  setValue:vEqbtn_handright forKey:@"handright"];
     k++;
     
     vEqbtn_arm = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_arm addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_arm addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_arm addSubview:vEqbtn_arm];
     [vEq_arm setTag:4];
-//    [vEqbtn_arm setTag:4];
+    //    [vEqbtn_arm setTag:4];
     [pos_map  setValue:vEqbtn_arm forKey:@"arm"];
     k++;
     
     vEqbtn_fingersRight = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_fingersRight addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_fingersRight addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_fingersRight addSubview:vEqbtn_fingersRight];
-        [vEq_fingersRight setTag:(int)5];
-//    [vEqbtn_fingersRight setTag:5];
+    [vEq_fingersRight setTag:(int)5];
+    //    [vEqbtn_fingersRight setTag:5];
     [pos_map  setValue:vEqbtn_fingersRight forKey:@"fingerright"];
     k++;
     
     vEqbtn_handleft = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_handleft addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_handleft addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_handleft addSubview:vEqbtn_handleft];
-        [vEq_handleft setTag:6];
-//    [vEqbtn_handleft setTag:6];
+    [vEq_handleft setTag:6];
+    //    [vEqbtn_handleft setTag:6];
     [pos_map  setValue:vEqbtn_handleft forKey:@"handleft"];
     k++;
     
     vEqbtn_fingersleft = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_fingersleft addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_fingersleft addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_fingersleft addSubview:vEqbtn_fingersleft];
-        [vEq_fingersleft setTag:7];
-//    [vEqbtn_fingersleft setTag:7];
+    [vEq_fingersleft setTag:7];
+    //    [vEqbtn_fingersleft setTag:7];
     [pos_map  setValue:vEqbtn_fingersleft forKey:@"fingerleft"];
     k++;
     
     vEqbtn_boots = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_boots addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_boots addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_boots addSubview:vEqbtn_boots];
-        [vEq_boots setTag:8];
-//    [vEqbtn_boots setTag:8];
+    [vEq_boots setTag:8];
+    //    [vEqbtn_boots setTag:8];
     [pos_map  setValue:vEqbtn_boots forKey:@"foot"];
     k++;
     NSLog(@"vEqbtn_boots=%@", vEqbtn_boots);
     
     vEqbtn_trousers = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_trousers addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_trousers addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_trousers addSubview:vEqbtn_trousers];
-        [vEq_trousers setTag:9];
-//    [vEqbtn_trousers setTag:9];
+    [vEq_trousers setTag:9];
+    //    [vEqbtn_trousers setTag:9];
     [pos_map  setValue:vEqbtn_trousers forKey:@"leg"];
     k++;
     
     vEqbtn_armo = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-   [vEqbtn_armo addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
+    [vEqbtn_armo addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
     [vEq_armo addSubview:vEqbtn_armo];
-        [vEq_armo setTag:10];
-//    [vEqbtn_armo setTag:10];
+    [vEq_armo setTag:10];
+    //    [vEqbtn_armo setTag:10];
     [pos_map  setValue:vEqbtn_armo forKey:@"body"];
     k++;
     
-
+    
     // init info view for eq
     vLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
     [vLongDescContainer setContentSize:CGSizeMake(500, 0)];
@@ -508,8 +502,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
     
     // add status view
-//    [self addChildViewController:vcStatus];
-//    [self.view addSubview:vcStatus.view];
+    //    [self addChildViewController:vcStatus];
+    //    [self.view addSubview:vcStatus.view];
     
     // init infoview for items
     vItemLongDescContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 18, 300, 30)];
@@ -540,19 +534,19 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vItemLongDescContainer addSubview:lbItemLongDesc];
     [vItemInfoView addSubview:vItemLongDescContainer];
     
-//    btItemDetail = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btItemDetail.frame = CGRectMake(250, 0, 60, 25);
-//    [vItemInfoView addSubview:btItemDetail];
-//    [btItemDetail setOpaque:NO];
-//    [btItemDetail.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-//    [btItemDetail.titleLabel setTextColor:[UIColor whiteColor]];
-//    [btItemDetail setBackgroundColor:[UIColor clearColor]];
-//    [btItemDetail setBackgroundImage:@"btn_tab_light.png" forState:UIControlStateNormal];
-//    [btItemDetail setTitle:@"Detail" forState:UIControlStateNormal];
+    //    btItemDetail = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btItemDetail.frame = CGRectMake(250, 0, 60, 25);
+    //    [vItemInfoView addSubview:btItemDetail];
+    //    [btItemDetail setOpaque:NO];
+    //    [btItemDetail.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    //    [btItemDetail.titleLabel setTextColor:[UIColor whiteColor]];
+    //    [btItemDetail setBackgroundColor:[UIColor clearColor]];
+    //    [btItemDetail setBackgroundImage:@"btn_tab_light.png" forState:UIControlStateNormal];
+    //    [btItemDetail setTitle:@"Detail" forState:UIControlStateNormal];
     btItemDetail = [LightView createButton:CGRectMake(250, 0, 60, 25) parent:vItemInfoView text:@"Detail" tag:0];
     [btItemDetail addTarget:self action:@selector(onItemDetail:) forControlEvents:UIControlEventTouchUpInside];
     btItemDetail.hidden = YES;
-     
+    
     
     // set scrollview frame
     CGRect r_last = vItemBg.frame;
@@ -560,7 +554,15 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     int t = r_last.origin.y+r_last.size.height;
     NSLog(@"set content size to %d, %d", 320, t);
     vv.contentSize = CGSizeMake(0, t-480);
-//    self.view.frame = CGRectMake(0,0,320,480);
+    //    self.view.frame = CGRectMake(0,0,320,480);
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    ad = [UIApplication sharedApplication].delegate;
+    [self initUI];
+
 }
 
 - (void) onEqDetail:(UIButton*) btn{
@@ -571,11 +573,16 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 - (void) onUseReturn:(NSObject*)data{
     [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES]; 
+    NSObject* ext  = [data valueForKey:@"userext"];
+    if (ext)
+        [ad setDataUserExt:ext];
     int index = [[data valueForKey:@"id"] intValue];
     NSMutableArray* eqs = [ad getDataUserEqs];
     NSObject* o = [eqs objectAtIndex:[self findEpById:index]];
     [eqs removeObject:o];
     [vcObjDetail hideDetailView];
+    [ad reloadStatus];
+    [self reloadEq];
 }
 - (void) onSellReturn:(NSObject* )data{
     NSObject* error = [data valueForKey:@"error"];
@@ -611,8 +618,10 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     if (btn.tag == 0)
         return;
     NSArray* eqs = [ad getDataUserEqs];
-    
-    NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"equipment"];
+    NSObject* eq = [eqs objectAtIndex:[self findEpById:btn.tag]];
+    if (!eq)
+        return;
+    NSObject* o = [eq valueForKey:@"equipment"];
     [vcObjDetail loadObjDetail:o];
 //    CGRect r =  vcObjDetail.view.frame;
 //    UIScrollView* v = (UIScrollView* )self.view;
@@ -1210,7 +1219,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         [btn setBackgroundColor:[UIColor yellowColor]];
         if (item_selected && item_selected != btn){
             [item_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-            [item_selected setBackgroundColor:[UIColor yellowColor]];
+            [item_selected setBackgroundColor:[UIColor clearColor]];
         }
         item_selected = btn;
     }

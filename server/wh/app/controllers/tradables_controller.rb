@@ -88,7 +88,8 @@ class TradablesController < ApplicationController
                     end
                end
                if found_available < 0
-                   error("There is not availabe slot for new equipment. You can buy more slot.")
+                   # error("There is not availabe slot for new equipment. You can buy more slot.")
+                   error("你的装备栏已经满了.你可以购买更多装备栏。")
                    return
                end
            else
@@ -99,7 +100,8 @@ class TradablesController < ApplicationController
             count = r.fetch_row[0].to_i
         #    p session[:userdata]
             if (count+1 > user_data.ext.get_prop("max_item").to_i)
-                error("There is not availabe slots for new item. You can buy more slot.")
+                # error("There is not availabe slots for new item. You can buy more slot.")
+                error("你的物品栏已经满了.你可以购买更多物品栏。")
                 return
             end
         end

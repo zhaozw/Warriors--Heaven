@@ -13,7 +13,10 @@ class Userext < ActiveRecord::Base
 =end
   end
   
-  
+    def []=(k,v)
+       super 
+        @changed = true
+    end
     def set_prop(n,v)
       if (self[:prop])
           j = JSON.parse(self[:prop])
@@ -25,10 +28,7 @@ class Userext < ActiveRecord::Base
       #save!
       # after_initialize
   end
-  def []=(k,v)
-       super 
-        @changed = true
-    end
+
     def get_prop(k)
         if !self[:prop]
             return nil

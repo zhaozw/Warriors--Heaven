@@ -7,7 +7,8 @@ class QuestController < ApplicationController
         asked =[]
         list = [
             "caiyao",   #采药任务
-            "wudujiao"  #无毒教任务
+            "wudujiao",  #无毒教任务
+            "yaowanggu",
             ]
         userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
         
@@ -104,20 +105,7 @@ class QuestController < ApplicationController
         player = Player.new
         player.set_data(@user)
         player.recover
-        if player.ext[:hp] <0 
-            render :text=>{
-                :msg=>"<div>你的HP太低了, 先休息一下吧 !</div>",
-                :progress=>@user.query_quest(quest_name)[:progress]
-            }.to_json
-            return
-        end  
-        if player.ext[:stam] <0 
-            render :text=>{
-                :msg=>"<div>你的体力不够， 休息休息吧 !</div>",
-                :progress=>@user.query_quest(quest_name)[:progress]
-            }.to_json
-            return
-        end
+
         
         @action_context = {:action=>params[:action1], :user=>player}
         @q.onAction(@action_context)

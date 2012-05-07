@@ -1,20 +1,17 @@
 require 'objects/object.rb'
 
 
-class Dihuang < Game::Object
+class Mudan < Game::Object
     
     def dname
-        "生地黄"
+        "牡丹"
     end
     
     def desc
-        "这是一株生地黄，可以入药"
+        "这是一株盛开的#{dname}，根皮还可以入药"
     end
     
-    def intro
-        "大补元气 HP+70%"
-    end
-    
+
     def weight
         1
     end
@@ -24,10 +21,10 @@ class Dihuang < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.png"
+        "obj/fixtures/ginseng.jpg"
     end
     
-        def use(context)
+    def use(context)
         context[:msg] = "你不要乱吃啊！"
     end
     

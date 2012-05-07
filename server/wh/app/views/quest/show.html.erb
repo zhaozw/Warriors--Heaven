@@ -58,12 +58,14 @@ function doAction(action_name){
 		if (timer)
 			clearInterval(timer);
 		timer = setInterval('onTimer();', 1000);
+		$(".action_button").attr("disabled", "disabled");
 	}
 	
 	function onTimer(){
 		if (line_number >= TextArray.length){
 			clearInterval(timer);
 			line_number = 0;
+			$(".action_button").removeAttr("disabled");
 			return;
 		}
 	 	$("#result").html( $("#result").html()+TextArray[line_number]);
@@ -109,7 +111,7 @@ function doAction(action_name){
 	
 	<div id="action_list">
 		<% for action in @quest.action_list %>
-		<button type='button' style="font-size:12pt;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
+		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
 		<% end %>
 	</div>
 	<div style="border:0px solid green;margin-left:-10px;margin-top:-10px;"> 

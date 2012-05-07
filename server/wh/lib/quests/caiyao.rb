@@ -39,12 +39,27 @@ class Caiyao < Quest
             "objects/fixtures/dihuang",
             "objects/fixtures/shanzhuyu",
             "objects/fixtures/zexie",
-            "objects/fixtures/shanyao"
+            "objects/fixtures/shanyao",
+            "objects/fixtures/mudan"
         ]
     end
     def onAction(context)
         user = context[:user]
         action = context[:action]
+         player = user
+          if player.ext[:hp] <0 
+     
+               context[:msg]="<div>你的HP太低了, 先休息一下吧 !</div>"
+     
+            return
+        end  
+        if player.ext[:stam] <0 
+        
+                context[:msg]="<div>你的体力不够， 休息休息吧 !</div>"
+         
+            return
+        end
+  
   
         p action
         srand(Time.now.tv_usec.to_i)
@@ -57,10 +72,10 @@ class Caiyao < Quest
                     luck = caoyao_list.size
                 end
                 # r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
-                r = caoyao_list[rand(7)-rand(luck)*7/100]
+                r = caoyao_list[rand(ar.size)-rand(luck)*ar.size/100]
                 o = create_fixure(r)
                 
-                user.get_object(o)
+                user.get_obj(o)
                 msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
                 r = user.query_quest("caiyao")
                 progress = 10
@@ -90,7 +105,7 @@ class Caiyao < Quest
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])
-                    player = user
+         
                     _context = {:msg=>msg}
                     win = _fight(player, npc, _context)
                     msg =  _context[:msg]
