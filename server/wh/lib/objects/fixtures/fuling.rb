@@ -7,8 +7,8 @@ class Fuling < Game::Object
         "茯苓"
     end
     
-    def desc
-        "这是一株上好的人参，价值不菲"
+    def des
+        "这是一株#{dname}，可以入药"
     end
     
     def intro

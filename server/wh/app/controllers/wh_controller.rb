@@ -245,6 +245,8 @@ class WhController < ApplicationController
     end
     
     def listPlayerToFight
+        return if !check_session or !user_data
+        
        sid = cookies[:_wh_session]
        pagesize = params[:pagesize] || 10
        start = params[:start] || 0
@@ -252,7 +254,7 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]} order by level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""
@@ -269,7 +271,11 @@ class WhController < ApplicationController
                    elsif (rr[:lastact] == "sell")
                        rr[:status] = "交易中"
                    elsif (rr[:lastact] =~ /quest_.*/)
-                       rr[:status] = "#{rr[:lastact].form(6)}"                       
+                       rr[:status] = "#{rr[:lastact].form(6)}"
+                   elsif (rr[:lastact] = "idle")
+                       rr[:status] = "发呆中"
+                   elsif 
+                       rr[:status] = ""
                    end
                end
            end
@@ -422,8 +428,8 @@ class WhController < ApplicationController
         player[:isUser] = true
         enemy[:isUser] = false
         
-        player.ext[:lastact] = "fight"
-        enemy.ext[:lastact] = "fight"
+        # player.ext[:lastact] = "fight"
+        # enemy.ext[:lastact] = "fight"
  
         
         p1 = Player.new
@@ -452,6 +458,7 @@ class WhController < ApplicationController
             "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
+            "round" => context[:round],
             "msg"  => "<div style='background:black;color:white;font-size:11pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}.npc{color:#ff0000}.damage{color:#ff0000;}.status{font-size:10pt;}.rgain{color:yellow;font-size:10pt;}.rgain span{color:#99ff99}.attr{color:#99ff99}.skillname{color:#ffaaaa}</style>#{context[:msg]}</div>"
         }
         winner = 0
@@ -937,6 +944,7 @@ class WhController < ApplicationController
     
     def startPractise
         return if !check_session || !user_data
+        player.recover
         pending = user_data.ext.get_prop("pending")
         
         player= Player.new
@@ -1012,7 +1020,7 @@ class WhController < ApplicationController
                 :usepot => usepot
             }
             user_data.ext.set_prop("pending", pending)
-       
+            user_data.ext[:lastact] = "practise"
             user_data.check_save
             success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot})
         else
@@ -1023,6 +1031,7 @@ class WhController < ApplicationController
     
     def stopPractise
         return if !check_session || !user_data
+        player.recover
         ext = user_data.ext
         _skillname=params[:skill]
         player   = Player.new
@@ -1104,11 +1113,11 @@ class WhController < ApplicationController
         _ret = _skill.merge(_ext)
         
         if (levelup)
-             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}, 恭喜你的#{skillname}等级提高了!", _ret)
+             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}, 恭喜你的#{skill.dname}等级提高了!", _ret)
         else
              success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}", _ret)
         end 
-        
+         user_data.ext[:lastact] = ""
         user_data.check_save
         return
     end

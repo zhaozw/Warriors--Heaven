@@ -87,7 +87,8 @@ class QuestController < ApplicationController
     end
     
     def doAction
-        check_session
+        return if !check_session or !user_data
+        player.recover
         sid = params[:sid]
         quest_name  = params[:quest]
         #action_name = params[:action]

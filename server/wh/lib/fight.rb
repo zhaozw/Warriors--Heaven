@@ -684,6 +684,11 @@ end
     # end
     # p1,p2: Objects/Player
     # context = {:msg=>""}
+    
+    # 
+    # the core fight function
+    # p1,p2: Player or NPC
+    #
     def _fight(p1, p2, context)
         msg = context[:msg]
         
@@ -892,6 +897,7 @@ end
       
         end  #while
         
+        context[:round] = i
         #
         # save to db # TODO should the enemy also save gain ?
         #

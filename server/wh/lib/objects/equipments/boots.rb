@@ -23,6 +23,8 @@ class Boots  < Weapon
     def rank
       1
   end
-    
+      def price
+      100
+  end
 
 end

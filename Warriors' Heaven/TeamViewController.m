@@ -59,14 +59,15 @@
     currentSelectedList = 0;
     needReload =TRUE;
     
-    [LightView createLabel:CGRectMake(0, 65, 60, 20) parent:[self view] text:@"战队Code" textColor:[UIColor yellowColor]];
-    lbTeamCode = [LightView createLabel:CGRectMake(60, 65, 60, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];    
+    int margin_top = 70;
+    [LightView createLabel:CGRectMake(30, margin_top, 60, 20) parent:[self view] text:@"战队Code" textColor:[UIColor yellowColor]];
+    lbTeamCode = [LightView createLabel:CGRectMake(90, margin_top, 60, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];    
     
-    [LightView createLabel:CGRectMake(0, 85, 60, 20) parent:[self view] text:@"战队成员" textColor:[UIColor yellowColor]];
-    lbMemberNumber = [LightView createLabel:CGRectMake(60, 85, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    [LightView createLabel:CGRectMake(30, margin_top+20, 60, 20) parent:[self view] text:@"战队成员" textColor:[UIColor yellowColor]];
+    lbMemberNumber = [LightView createLabel:CGRectMake(90, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
     
-    [LightView createLabel:CGRectMake(100, 85, 30, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
-    lbTeamPower = [LightView createLabel:CGRectMake(135, 85, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    [LightView createLabel:CGRectMake(120, margin_top+20, 30, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
+    lbTeamPower = [LightView createLabel:CGRectMake(155, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
     
 
     

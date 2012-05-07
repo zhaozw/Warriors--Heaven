@@ -8,7 +8,7 @@ class Dihuang < Game::Object
     end
     
     def desc
-        "这是一株上好的人参，价值不菲"
+        "这是一株生地黄，可以入药"
     end
     
     def intro

@@ -30,7 +30,9 @@ class Cap  < Weapon
       "deffence +5"
   end
   
-
+  def price
+      100
+  end
   
   def defense
       5

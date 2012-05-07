@@ -39,7 +39,7 @@
 //@property (nonatomic, retain) NSMutableArray* userskills;
 @property (nonatomic, retain) NSMutableArray* pv_tp; // list of progress view of tp
 @property (nonatomic, retain) NSMutableArray* lb_level_list; // list of progress view of tp
-
+@property (nonatomic, retain) NSMutableArray* lb_status_list; // list of label for skill status
 @property (strong, nonatomic) IBOutlet ResearchViewController *vcResearch;
 - (IBAction)onSelectLibrary:(id)sender;
 - (void) reloadSkills;

@@ -31,6 +31,7 @@
 //@synthesize userskills;
 @synthesize pv_tp;
 @synthesize lb_level_list;
+@synthesize lb_status_list;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +64,8 @@
     pv_tp = [[NSMutableArray alloc] init];
     lb_level_list = [[NSMutableArray alloc] init];
     btn_practise_list = [[NSMutableArray alloc] init];
+    lb_status_list  = [[NSMutableArray alloc] init];
+
 //    userskills = [[NSMutableArray alloc] init];
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
@@ -325,6 +328,7 @@
     
     [pv_tp removeAllObjects];
     [lb_level_list removeAllObjects];
+    [lb_status_list removeAllObjects];
     // build new rows
     NSArray* userskills = [ad getDataUserskills];
     int height = 50;
@@ -360,9 +364,17 @@
         [lbSkillStatus setTextColor:[UIColor yellowColor]];
         [lbSkillStatus setBackgroundColor:[UIColor clearColor]];
         [lbSkillStatus setOpaque:NO];
-        [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
+        [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/Level %@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_level_list addObject:lbSkillStatus];
         
+        UILabel* lbSkillStatus2 = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 50, 30)];
+        [lbSkillStatus2 setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+        [lbSkillStatus2 setTextColor:[UIColor yellowColor]];
+        [lbSkillStatus2 setBackgroundColor:[UIColor clearColor]];
+        [lbSkillStatus2 setOpaque:NO];
+        lbSkillStatus2.text = @"dafsd";
+//        [lbSkillStatus2 setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
+        [lb_status_list addObject:lbSkillStatus2];
         
         UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
         [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
@@ -387,7 +399,10 @@
             [pvTP setFrame:CGRectMake(90, y_b+10, 80, 10)];
             
             [vBasicSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(120, y_b+5, 80, height-10)];
+            [lbSkillStatus setFrame:CGRectMake(100, y_b+5, 80, height-10)];
+            
+            [vBasicSkillsList addSubview:lbSkillStatus2];
+            [lbSkillStatus2 setFrame:CGRectMake(180, y_b+5, 50, height-10)];
             
             [vBasicSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_b, 70, height-17)];
@@ -598,6 +613,7 @@
     if (error){
         [ad showMsg:error type:1 hasCloseButton:YES];
         currentPractisingSkill = -1;
+        return;
     }
     
     else{
@@ -607,8 +623,11 @@
         int usepot = [[data valueForKey:@"usepot"] intValue];
         if (usepot > 0)
             [self _startPractise:[data valueForKey:@"skill"] _usepot:usepot];
+        UILabel* lbStatus = [lb_status_list objectAtIndex:currentPractisingSkill];
+        lbStatus.text = @"修炼中";
     }
     [self reloadSkills];
+    [ad setUserBusy:TRUE];
 }
 
 - (void) stopPractise:(UIButton*) btn{

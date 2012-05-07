@@ -151,6 +151,14 @@ class ApplicationController < ActionController::Base
         return @userdata
     end
 
+    def player
+        if !@player
+            @player = Player.new
+            @player.set_data(user_data)
+        end
+        return @player
+            
+    end
 =begin    
     def get_user(sid)
         r = $memcached.get(sid)

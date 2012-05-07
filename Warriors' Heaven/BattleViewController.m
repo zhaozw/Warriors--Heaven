@@ -9,6 +9,7 @@
 #import "BattleViewController.h"
 #import "AppDelegate.h"
 #import "WHHttpClient.h"
+#import "LightView.h"
 
 @implementation BattleViewController
 @synthesize vcStatus;
@@ -47,6 +48,13 @@
 
     players = [[NSMutableArray alloc] init];
     ad = [UIApplication sharedApplication].delegate;
+    
+    UIImageView* vTitleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_01.jpg"]];
+    vTitleView.frame = CGRectMake(0, 66, 320, 39);
+    vTitleView.userInteractionEnabled = YES;
+    [[self view]addSubview: vTitleView];
+    UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
+    [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
     
         
 }
@@ -123,7 +131,10 @@
         [lbStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbStatus setTextColor:[UIColor yellowColor]];
         [lbStatus setBackgroundColor:[UIColor clearColor]];
-        [lbStatus setText:[[NSString alloc] initWithFormat:@"(%@)", [json valueForKey:@"status"] ]];
+        NSString* status = [json valueForKey:@"status"];
+        if ([status length] != 0)
+            status = [NSString stringWithFormat:@"(%@)", status]; 
+        [lbStatus setText:status];
         [row addSubview:lbStatus];
         
         
@@ -182,6 +193,7 @@
         [resView setImage:[UIImage imageNamed:@"fight_result_fail.png"]];
     [resultView addSubview:resView];
     
+    [[LightView createLabel:CGRectMake(150, 130, 100, 30) parent:resultView text:@"10回合" textColor:[UIColor redColor]] setFont:[UIFont fontWithName:@"System Bold" size:17.0f]];
     // display gain in fight
     NSDictionary* gain = [data valueForKey:@"gain"];
     NSArray* keys = [gain allKeys];
@@ -191,7 +203,7 @@
         NSString *o = [keys objectAtIndex:i];
         if ([o isEqualToString:@"skills"])
             continue;
-        y = j/3*30 + 130;
+        y = j/3*30 + 150;
         x = j%3*80 + 50;
         UILabel* lbKey = [[UILabel alloc]initWithFrame:CGRectMake(x, y, 40, 30)];
         [lbKey setOpaque:NO];
@@ -199,7 +211,15 @@
         [lbKey setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [lbKey setTextColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.0f alpha:1.0f]];
         [lbKey setBackgroundColor:[UIColor clearColor]];
-        [lbKey setText:o];
+        NSString *strName = o;
+        if ([o isEqualToString:@"pot"])
+            strName = @"潜能";
+        else if ([o isEqualToString:@"level"])
+            strName = @"等级";
+        else if ([o isEqualToString:@"exp"])
+            strName = @"经验";
+            
+        [lbKey setText:strName];
         [lbKey setContentMode:UIViewContentModeLeft];
         [lbKey setTextAlignment:UITextAlignmentLeft];
         [resultView addSubview:lbKey];
@@ -213,12 +233,12 @@
         [lbValue setContentMode:UIViewContentModeLeft];
         [lbValue setTextAlignment:UITextAlignmentLeft];
         NSNumber* v = [gain valueForKey:o];
-        if ([v intValue] > 0)
+        if ([v intValue] >= 0)
             [lbValue setText:[[NSString alloc] initWithFormat:@"+%d", [v intValue] ]];
         else if ([v intValue] < 0)
             [lbValue setText:[[NSString alloc] initWithFormat:@"-%d", [v intValue] ]];
-        else
-            [lbValue setText:[[NSString alloc] initWithFormat:@"%d", [v intValue] ]];
+//        else
+//            [lbValue setText:[[NSString alloc] initWithFormat:@"%d", [v intValue] ]];
         [resultView addSubview:lbValue];
         j++;
     }

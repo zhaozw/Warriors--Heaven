@@ -599,6 +599,17 @@
     t = [t valueForKey:@"userext"];
     return t;
 }
+- (NSObject*) getDataUserextProp:(NSString*) name{
+    NSString* prop = [[self getDataUserext] valueForKey:@"prop"];
+    if (!prop)
+        return NULL;
+    NSObject* js = [prop JSONValue];
+    if (!js) {
+        return NULL;
+    }
+    return [js valueForKey:name];
+    
+}
 - (void) setDataUserExt:(NSArray*)data{
     //    NSObject * v = [self getDataUser];
     //    [v setValue:eqs forKey:@"userskills"];
@@ -701,5 +712,9 @@
 }
 - (void) setFirstCallReturn:(BOOL) b{
     bFirstCallReturn = b;
+}
+
+- (void) setUserBusy:(BOOL) busy{
+    bUserBusy = busy;
 }
 @end

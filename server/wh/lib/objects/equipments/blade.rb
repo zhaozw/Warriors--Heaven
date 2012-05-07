@@ -32,4 +32,8 @@ class Blade  < Weapon
   def damage
       10
   end
+  
+  def price
+      100
+  end
 end

@@ -95,6 +95,7 @@
      [vQuestRoom loadHTMLString:@"" baseURL:nil];
  
     [self retrieveQuests];
+    [ad reloadStatus];
  
 }
 

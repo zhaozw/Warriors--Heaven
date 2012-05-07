@@ -22,4 +22,7 @@ def weight
     def rank
       3
   end
+    def price
+      100
+  end
 end

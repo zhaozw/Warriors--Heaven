@@ -32,4 +32,7 @@ class Xuezou  < Weapon
     def damage
         80
     end
+      def price
+      100
+  end
 end

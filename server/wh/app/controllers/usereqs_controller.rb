@@ -50,7 +50,8 @@ class UsereqsController < ApplicationController
       #  p "--->"+request.raw_post
        # p request.content_type
         p params[:data]
-        check_session
+        return if !check_session or !user_data
+        player.recover
         prop = JSON.parse(user_data.ext[:prop])
         prop["eqslot"] = JSON.parse(params[:data])
         user_data.ext[:prop]= prop.to_json
@@ -62,7 +63,8 @@ class UsereqsController < ApplicationController
     end
     
     def sell
-         return if !check_session or !user_data
+
+         player.recover
          eqs = Equipment.find(params[:id])
          eq = eqs
          obj = load_obj(eq[:eqname], eq)
@@ -90,19 +92,21 @@ class UsereqsController < ApplicationController
     
     def use
         return if !check_session or !user_data
+        player.recover
         eqs = Equipment.find(params[:id])
         eq = eqs
         obj = load_obj(eq[:eqname], eq)
-        player = Player.new
-        player.set_data(user_data)
+
         context= {
             :player => player,
             :msg =>"使用成功"
         }
         obj.use(context)
         
+        user_data.check_save
         
-        success(context[:msg])
+        
+        success(context[:msg], {:id=>params[:id]})
     end
 
 end
