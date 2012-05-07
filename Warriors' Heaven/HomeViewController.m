@@ -226,6 +226,7 @@
     lbDate.alpha = 0.6f;
     [vProfileBg bringSubviewToFront:lbDate];
     
+    // 节气
     lbTiming = [LightView createLabel:CGRectMake(180+60, 25+55, 30, 20) parent:vProfileBg text:lunar_day.sJieqi textColor: [UIColor colorWithRed:0.8f green:1.0f blue:0.8f alpha:1.0f]];
     lbTiming.alpha = 0.6f;
     [vProfileBg bringSubviewToFront:lbTiming];

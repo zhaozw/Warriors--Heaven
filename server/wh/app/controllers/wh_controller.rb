@@ -77,6 +77,7 @@ class WhController < ApplicationController
          recoverPlayer(user_data.ext)
          recoverZhanyi(user_data.ext)
          update_task(user_data)
+         user_data.check_save
          render :text=>user_data.to_json
     end
     
@@ -254,7 +255,7 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]} order by level limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]-10} order by level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""
@@ -298,11 +299,11 @@ class WhController < ApplicationController
     
  
     def recoverZhanyi(ext, save=false)
-        if (ext[:zhanyi] >= 100)
-            ext[:zhanyi] -= 30
-            ext.save if save
-            return true
-        end
+        # if (ext[:zhanyi] >= 100)
+        #     ext[:zhanyi] -= 30
+        #     ext.save if save
+        #     return true
+        # end
         diff = Time.now - ext[:updated_at]
         ext[:zhanyi] += diff/36    # recover 100 per hour
         if ( ext[:zhanyi] > 100)
@@ -310,8 +311,8 @@ class WhController < ApplicationController
         end
         
         if (ext[:zhanyi] > 30)
-            ext[:zhanyi] -= 30
-            ext.save if save
+            # ext[:zhanyi] -= 30
+            # ext.save if save
             return true 
         else
             return false
@@ -468,12 +469,16 @@ class WhController < ApplicationController
             :defenser =>  enemy[:user],
             :ftype     =>  0,
             :status   =>  0,
-            :winner   =>  winner,
+            :winner   =>  winner, # 0: attacker win 1: enemy win
             :prop     =>  ""
         })
         b.save!
         
        # enemy.ext.save
+        if (winner==0 && enemy.ext[:zhanyi] >= 0)
+            enemy.ext[:zhanyi] -= 30
+        end
+        p "===>enemy zhanyi #{enemy.ext[:zhanyi]}, winner=#{winner}"
         user_data.check_save
         enemy.check_save
         

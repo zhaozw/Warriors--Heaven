@@ -192,18 +192,21 @@
     else
         [resView setImage:[UIImage imageNamed:@"fight_result_fail.png"]];
     [resultView addSubview:resView];
-    
-    [[LightView createLabel:CGRectMake(150, 130, 100, 30) parent:resultView text:@"10回合" textColor:[UIColor redColor]] setFont:[UIFont fontWithName:@"System Bold" size:17.0f]];
+    int x,y;
+    int top_margine = 130;
+//    [[LightView createLabel:CGRectMake(130, 130, 100, 30) parent:resultView text:@"10回合" textColor:[UIColor blackColor]] setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
+//    [LightView createImageView:@"line1.png" frame:CGRectMake(0, 158, 320, 2) parent:resultView];
+
     // display gain in fight
     NSDictionary* gain = [data valueForKey:@"gain"];
     NSArray* keys = [gain allKeys];
     int j = 0;
-    int x,y;
+ 
     for (int i = 0; i < [keys count]; i++){
         NSString *o = [keys objectAtIndex:i];
         if ([o isEqualToString:@"skills"])
             continue;
-        y = j/3*30 + 150;
+        y = j/3*30 + top_margine;
         x = j%3*80 + 50;
         UILabel* lbKey = [[UILabel alloc]initWithFrame:CGRectMake(x, y, 40, 30)];
         [lbKey setOpaque:NO];
@@ -262,7 +265,8 @@
            
            if ([level intValue]== 0 && [point intValue]== 0)
                continue;
-           UILabel* lbKey = [[UILabel alloc]initWithFrame:CGRectMake(30, y + j *30, 80, 30)];
+           
+           UILabel* lbKey = [[UILabel alloc]initWithFrame:CGRectMake(30, y, 80, 30)];
            [lbKey setOpaque:NO];
            [lbKey setAdjustsFontSizeToFitWidth:NO];
            [lbKey setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
@@ -273,7 +277,7 @@
            [lbKey setTextAlignment:UITextAlignmentLeft];
            [resultView addSubview:lbKey];
            
-           UILabel* lbValue = [[UILabel alloc]initWithFrame:CGRectMake(110, y + j *30, 80, 30)];
+           UILabel* lbValue = [[UILabel alloc]initWithFrame:CGRectMake(110, y, 80, 30)];
            [lbValue setOpaque:NO];
            [lbValue setAdjustsFontSizeToFitWidth:YES];
            [lbValue setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
@@ -289,11 +293,14 @@
                [lbValue setText:[[NSString alloc] initWithFormat:@"Level +%d !", [level integerValue] ]];
            [resultView addSubview:lbValue];
            j ++;
-
+           y+= 30;
        }
         
     }
-    
+ 
+    [LightView createImageView:@"line1.png" frame:CGRectMake(0, y+5, 320, 2) parent:resultView];
+    int round = [[data valueForKey:@"round"] intValue];
+    [[LightView createLabel:CGRectMake(30, y+10, 100, 30) parent:resultView text:[NSString stringWithFormat:@"%d回合", round] textColor:[UIColor blackColor]] setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     // show fight procedure button
     UIButton * btn_play = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn_play setFrame:CGRectMake(80, 360, 70, 35)];

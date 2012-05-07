@@ -688,7 +688,7 @@ end
     # 
     # the core fight function
     # p1,p2: Player or NPC
-    #
+    # return: 1: p1 win 0: p2 win
     def _fight(p1, p2, context)
         msg = context[:msg]
         

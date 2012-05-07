@@ -21,7 +21,7 @@
     NSArray* cJieqi = [NSArray arrayWithObjects:
                       @"立春",
                       @"雨水",
-                      @"节气",
+                      @"惊蛰",
                       @"春分",
                       @"清明",
                       @"谷雨",
@@ -44,8 +44,9 @@
                       @"小寒",
                       @"大寒", nil];
     NSArray *cJieqiStartDay = [NSArray arrayWithObjects:
-                              @"2012-04-04 00:00:00", 
+                               @"",@"",@"",@"",@"",
                               @"2012-04-20 00:00:00", 
+                              @"2012-05-05 00:00:00", 
                               @"2012-05-21 00:00:00", 
                               @"2012-06-05 00:00:00", 
                               @"2012-06-21 00:00:00",
@@ -58,10 +59,10 @@
     
     [nsdf2 setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     
-    for (int i = 1; i< [cJieqiStartDay count]; i++){
+    for (int i = 5; i< [cJieqiStartDay count]; i++){
         NSDate* d = [nsdf2 dateFromString:[cJieqiStartDay objectAtIndex:i]];
-        if ( [date earlierDate:d])
-            return [cJieqi objectAtIndex:i];
+        if ( [date compare:d] == NSOrderedAscending) // earlier than d
+            return [cJieqi objectAtIndex:i-1];
     }
 
 }
