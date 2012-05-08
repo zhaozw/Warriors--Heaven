@@ -161,8 +161,6 @@ class User < ActiveRecord::Base
            self[:userquests] = {}; 
        end
        if (!self[:userquests][quest])
-
-      
            rs = Userquest.find_by_sql("select * from userquests where name='#{quest}' and uid=#{self[:id]}") 
             if (rs[0])
                   self[:userquests][quest] = rs[0]
@@ -483,7 +481,7 @@ class User < ActiveRecord::Base
      
      def get_exp(exp)
          levelup = 0
-         exp_next_level = ext[:level]+1)**3
+         exp_next_level = (ext[:level]+1)**3
          if (exp_next_level<= ext[:exp]+exp)
              levelup = 1
              ext[:level] += 1
@@ -492,7 +490,7 @@ class User < ActiveRecord::Base
              mh_bonus = ext[:level]/3 if mh_bonus <= ext[:level]/3
              ext[:maxhp] += mh_bonus
          else
-              ext[:exp] += exp + mh_bonus
+             ext[:exp] += exp
         end
         return levelup
      end

@@ -1,16 +1,21 @@
 require "utility.rb"
 
 class QuestController < ApplicationController
+    def self.list
+        [
+            "caiyao",   #采药任务
+            "wudujiao",  #无毒教任务
+            "yaowanggu",
+            "yunbiao",
+            "xiakedao", # 侠客岛任务
+            "hunting"
+        ]
+    end
     def index
         check_session
         unasked = []
         asked =[]
-        list = [
-            "caiyao",   #采药任务
-            "wudujiao",  #无毒教任务
-            "yaowanggu",
-            "yunbiao"
-            ]
+        list = QuestController.list
         userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
         
         i =0 

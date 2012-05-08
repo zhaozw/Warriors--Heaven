@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "EGOImageView.h"
 
-@interface HomeViewController : UIViewController{
+@interface HomeViewController : UIViewController<UIWebViewDelegate>{
     UIImageView * bgView;
     __unsafe_unretained IBOutlet UILabel *lbGold;
     __unsafe_unretained IBOutlet UIButton *btGold;

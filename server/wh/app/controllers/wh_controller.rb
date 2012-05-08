@@ -931,25 +931,36 @@ class WhController < ApplicationController
         sid = params[:sid]
         
         t = Time.now - 3600*24
+        time = t.strftime("%Y-%m-%d %H:%M:%S") 
         p t.to_s
-        @battles = Battle.find_by_sql("select * from battles where defenser='#{user_data[:user]}' and status=0 and ftype=0 group by winner")
-        @win_count = 0
-        for b in @battles
-            @win_count +=1 if b[:winner] == 1
-        end
-        p "====>last day, battle #{@battles.size}, win #{@win_count}"
+        p time
+        r =  ActiveRecord::Base.connection.execute("select count(*) from battles where defenser='#{user_data[:user]}' and status=0 and ftype=0 and updated_at>'#{time}'")
+        @battle_count_last_day = r.fetch_row[0].to_i
+        r =  ActiveRecord::Base.connection.execute("select count(*) from battles where defenser='#{user_data[:user]}' and winner=1 and status=0 and ftype=0 and updated_at>'#{time}'")
+        @win_count_last_day =  r.fetch_row[0].to_i
+        # @win_count = 0
+        #  for b in @battles
+        #      @win_count +=1 if b[:winner] == 1
+        #  end
+        # p "====>last day, battle #{@battles.size}, win #{@win_count}"
         
-        a = Battle.find_by_sql("select count(*) from battles where defenser='#{user_data[:user]}' or attacker='#{user_data[:user]}' and status=0 and ftype=0 ")
-        b = Battle.find_by_sql("select count(*) from battles where (defenser='#{user_data[:user]}' and winner=1) or (attacker='#{user_data[:user]}' and winner=0) and status=0 and ftype=0 ")
-        
-        @battle_count = 0
-         @battle_count =  a[0][0] if a[0][0]
-        @total_win = 0
-        @total_win = b[0][0] if b[0][0]
+        a = ActiveRecord::Base.connection.execute("select count(*) from battles where defenser='#{user_data[:user]}' or attacker='#{user_data[:user]}' and status=0 and ftype=0 ")
+        b = ActiveRecord::Base.connection.execute("select count(*) from battles where (defenser='#{user_data[:user]}' and winner=1) or (attacker='#{user_data[:user]}' and winner=0) and status=0 and ftype=0 ")
+        @battle_count = a.fetch_row[0].to_i
+        @total_win = b.fetch_row[0].to_i
+        # p "#{b.inspect} / #{a.inspect}"
+        # @battle_count = 0
+        #          @battle_count =  a[0][0] if a.fetch_row[0].to_i
+        #         @total_win = 0
+        #         @total_win = b[0][0] if b[0][0]
         p "===> total battle #{@battle_count}, win #{@total_win}"
         
-        @rate = @total_win*1.0/@battle_count
         
+        
+        @rate = @total_win*100.0/@battle_count
+        
+       r = ActiveRecord::Base.connection.execute("select count(*) from userquests where uid=#{session[:uid]}")
+       @quest_count = QuestController.list.size - r.fetch_row[0].to_i
         
     end
     

@@ -70,6 +70,12 @@
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+    
+    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+    NSLog(url);
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [vSummary loadRequest:req];
+    
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
@@ -106,6 +112,8 @@
     [playerProfile setImage:[UIImage imageNamed:prof]];
 
     //[vcStatus viewDidAppear:NO];
+    
+
 }
 
 - (void) showHelpForBadge:(UIButton*) btn{
@@ -205,10 +213,7 @@
     
     [vSummary setBackgroundColor:[UIColor clearColor]];
     [vSummary setOpaque:NO];
-    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
-    NSLog(url);
-    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [vSummary loadRequest:req];
+
     
     vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(230+5, 5, 50, 50)];
     vSeasonImag.alpha = 0.3f;
@@ -375,5 +380,17 @@
 
 - (IBAction)onTouchTeam:(id)sender {
     [[ad tabBarController] selectTab:4];
+}
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"%@", request);
+    NSString* url = [request.URL path];
+    if ( [url isEqualToString:@"/quests"]){
+        [[ad tabBarController] selectTab:6];
+        return false;
+    }
+        
+    return YES;
 }
 @end
