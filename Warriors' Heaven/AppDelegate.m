@@ -665,12 +665,20 @@
 }
 
 - (void) recover:(NSNumber*) n{
+    
     if (tmRecoverStart != [n longValue])
         return;
     if (bRecovering)
         return;
     bRecovering = YES;
     [self performSelector:@selector(recover:) withObject:n afterDelay:2.0];
+    
+    
+//    if (!data_user){
+//         bRecovering = FALSE;
+//        [self updateUserData ];
+//        return;
+//    }
     
     BOOL needReocovery = NO;
     NSMutableDictionary* ext = [self getDataUserext];

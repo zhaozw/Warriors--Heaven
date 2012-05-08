@@ -20,6 +20,7 @@ class TeamController < ApplicationController
             p "==>create team"
             t = Team.new({
                 :owner  => session[:uid],
+                :sid =>session[:sid],
                 :code   => generate_password(6).upcase,
                 :power  => 0,
                 :prop   => "{}"     
@@ -55,24 +56,28 @@ class TeamController < ApplicationController
         #    m= prop[:joinedTeam]
             
         #end
-        team = Team.find_by_sql("select * from teams where owner='#{session[:uid]}'")
-        t = team[0]
-        prop = JSON.parse(t[:prop])
-        t[:members] = {}
-        for i in 0..7
-            if prop[i.to_s]
-                u = User.find(prop[i.to_s].to_i)
-                u.ext
-                t[:members][i.to_s] = u
-            end
-        end
+        # team = Team.find_by_sql("select * from teams where owner='#{session[:uid]}'")
+        # t = team[0]
+        # prop = JSON.parse(t[:prop])
+        #   t[:members] = {}
+        #   for i in 0..7
+        #       if prop[i.to_s]
+        #           u = User.find(prop[i.to_s].to_i)
+        #           u.ext
+        #           t[:members][i.to_s] = u
+        #       end
+        #   end
+        
+        team = player.query_team
+        p team.inspect
   #      ret = {
      #       :team=>list_myteam,
           #  :joinedTeam=>[
         #        ]
 #        }
     #    user_data[:team] = ret
-        render :text=>team[0].to_json
+    
+        render :text=>{:team=>team}.to_json
         return
     
     end
@@ -110,7 +115,7 @@ class TeamController < ApplicationController
             end
         end
         
-        
+  
         if  vac==-1
             error ("对不起， 该战队已满，请寻找其他战队加入")
             return
@@ -120,6 +125,13 @@ class TeamController < ApplicationController
         team[0][:prop] = prop.to_json
         team[0][:power] += user_data.ext[:level]
         team[0].save!
+        
+        mu = User.get(team[0][:owner])
+        if mu
+            mu.query_team
+            mu.cache
+        end
+        
         success("恭喜!您已成功加入该战队")
         return
  

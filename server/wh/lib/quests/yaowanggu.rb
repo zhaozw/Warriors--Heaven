@@ -107,6 +107,9 @@ class Yaowanggu < Quest
         context[:msg] = msg
         p context.inspect
     end
-        
+          def onAsk(context)
+
+        return true
+    end
     
 end

@@ -9,6 +9,7 @@ class QuestController < ApplicationController
             "caiyao",   #采药任务
             "wudujiao",  #无毒教任务
             "yaowanggu",
+            "yunbiao"
             ]
         userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
         
@@ -53,6 +54,15 @@ class QuestController < ApplicationController
         r = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]} and name='#{quest_name}'")
         if r and r.size >0
             error ("你已经领取过该任务了")
+            return
+        end
+        quest = load_quest(quest_name)
+        context = {
+            :user=>player,
+            :msg=>""
+        }
+        if !quest.onAsk(context)
+            error(context[:msg])
             return
         end
         r = Userquest.new({
@@ -107,7 +117,7 @@ class QuestController < ApplicationController
         player.recover
 
         
-        @action_context = {:action=>params[:action1], :user=>player}
+        @action_context = {:action=>params[:action1], :user=>player, :msg=>""}
         @q.onAction(@action_context)
         user_data.check_save
         p @action_context.inspect

@@ -38,7 +38,9 @@ class Player < Human
     def setup_wearing
         eqs = query_all_equipments
         eqs.each {|k,v|
-        if k.to_s[0] < 48 or k.to_s[0] > 57  
+        if (k.to_s[0] < 48 or k.to_s[0] > 57 ) and k.to_s[0] != 45  
+            p k.to_s[0]
+                p "==>wear #{v.dname} on #{k.to_s}"  
             @wearings[k.to_sym] = v
         end
         }
@@ -313,5 +315,9 @@ class Player < Human
     end
     def query_item(name)
         return data.query_item(name)
+    end
+    
+    def query_team
+        return data.query_team
     end
 end

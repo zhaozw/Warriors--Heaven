@@ -13,7 +13,10 @@ class Wudujiao < Quest
     def room
         
     end
-        
+       def onAsk(context)
+
+        return true
+    end   
         
     
 end

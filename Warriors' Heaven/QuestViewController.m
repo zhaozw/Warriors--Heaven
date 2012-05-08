@@ -246,6 +246,7 @@
 - (void) onAskQuestReturn:(NSObject*) data{
     if ([data valueForKey:@"error"] != NULL){
         [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES];
+        return;
     }
     unaskedQuests = [data valueForKey:@"unasked"];
     askedQuests = [data valueForKey:@"asked"];

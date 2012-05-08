@@ -101,8 +101,8 @@ class LivingObject < Game::Object
         damage = 0
         all = query_all_wearings
         all.each {|k,v|   
-                p "#{v.dname} damage #{v.damage}"                 
-         damage += v.damage
+            p "#{v.dname} damage #{v.damage}"                 
+            damage += v.damage
         }
         return damage
     end

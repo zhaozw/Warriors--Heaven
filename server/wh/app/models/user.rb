@@ -452,5 +452,33 @@ class User < ActiveRecord::Base
          end
          return nil
      end
+     
+     def query_team
+         if !self[:team]
+            team = Team.find_by_sql("select * from teams where owner='#{self[:id]}'")
+           
+            self[:team] = {
+              
+            }
+            if team and team.size > 0
+            
+                t = team[0]
+                self[:team][:data]=team[0]
+                prop = JSON.parse(t[:prop])
+        
+                for i in 0..7
+                    if prop[i.to_s]
+                        u = User.get(prop[i.to_s].to_i)
+                        if u
+                            u.ext
+                            self[:team][i.to_s] = u
+                        end
+                    end
+                end
+            end
+        end
+        return self[:team]
+    
+     end
          
 end

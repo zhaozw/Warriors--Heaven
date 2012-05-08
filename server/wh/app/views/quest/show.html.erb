@@ -105,7 +105,7 @@ function doAction(action_name){
 	</div>
 	</div>
 	<div style="clear:both"></div>
-	<div id="room" style="background:transparent;background-color: transparent;">
+	<div id="room" style="background:transparent;background-color:transparent;overflow:scroll;max-height:60px;">
 		<%=@quest.room%>
 	</div>
 	
@@ -114,10 +114,10 @@ function doAction(action_name){
 		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
 		<% end %>
 	</div>
-	<div style="border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
+	<div style="z-index:1;border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
 		<p><img src="/images/line1.png"></p>
 	</div>
-	<div id="result" style="height:180px;overflow-y:auto;font-size:10pt;">
+	<div id="result" style="margin-top:-10px;z-index:10;height:170px;overflow-y:auto;font-size:10pt;">
 	</div>
 </div>
 

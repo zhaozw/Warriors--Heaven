@@ -43,6 +43,11 @@ class Caiyao < Quest
             "objects/fixtures/mudan"
         ]
     end
+    
+    def onAsk(context)
+
+        return true
+    end
     def onAction(context)
         user = context[:user]
         action = context[:action]

@@ -110,9 +110,11 @@
     [vMyTeam removeAllRow];
 //    NSObject* ext = [ad getDataUserext];
     NSObject * team = [data valueForKey:@"team"];
-    NSObject* members = [team valueForKey:@"members"];
+//    NSObject* members = [team valueForKey:@"members"];
     
-
+    NSObject* members = team;
+    team = [[team valueForKey:@"data"] valueForKey:@"team"];
+    
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
     UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
     UIButton* bt = [LightView createButton:CGRectMake(120, 0, 120, 30) parent:banner text:@"邀请好友加入战队" tag:0];

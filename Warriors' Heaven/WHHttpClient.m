@@ -269,8 +269,12 @@
         if (json && ([json isKindOfClass:[NSDictionary class]] ||
                      [json isKindOfClass:[NSArray class]]))
             [view performSelectorOnMainThread:_selector withObject:json waitUntilDone:NO];
-        else 
+        else {
             NSLog(@"data is not json string");
+            if (retry){
+                [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+            }
+        }
     }else{
         [view performSelectorOnMainThread:_selector withObject:text waitUntilDone:NO];
     }
