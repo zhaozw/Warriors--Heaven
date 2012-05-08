@@ -912,29 +912,30 @@ end
         bChange = false
         p "===>gain1=#{gain.inspect}"
         if (gain[:exp] != 0 )
-            if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.tmp[:exp])
-                gain[:level] = 1
-                player.ext[:level] += 1
-                player.ext[:exp] = 0
-            end
-            player.ext[:exp] = player.tmp[:exp]
+            # if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.tmp[:exp])
+            #     gain[:level] = 1
+            #     player.ext[:level] += 1
+            #     player.ext[:exp] = 0
+            # end
+            # player.ext[:exp] = player.tmp[:exp]
+            player.get_exp(gain[:exp])
             p "===>33player ext saved #{player.ext.inspect}"
-            bChange = true
+            # bChange = true
         end
         
         if (gain[:pot] != 0 )
             player.ext[:pot] = player.tmp[:pot]
-            bChange = true
+            # bChange = true
         end
         
         if (player.tmp[:stam] != player.ext[:stam])
             player.ext[:stam]  = player.tmp[:stam]
-            bChange = true
+            # bChange = true
         end
         
         if (player.tmp[:hp] != player.ext[:hp])
             player.ext[:hp]  = player.tmp[:hp]
-            bChange = true
+            # bChange = true
         end
       #  if bChange
        #     player.ext.save!

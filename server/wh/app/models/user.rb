@@ -480,5 +480,21 @@ class User < ActiveRecord::Base
         return self[:team]
     
      end
+     
+     def get_exp(exp)
+         levelup = 0
+         exp_next_level = ext[:level]+1)**3
+         if (exp_next_level<= ext[:exp]+exp)
+             levelup = 1
+             ext[:level] += 1
+             ext[:exp] = 0
+             mh_bonus = rand(ext[:level]/2 )
+             mh_bonus = ext[:level]/3 if mh_bonus <= ext[:level]/3
+             ext[:maxhp] += mh_bonus
+         else
+              ext[:exp] += exp + mh_bonus
+        end
+        return levelup
+     end
          
 end

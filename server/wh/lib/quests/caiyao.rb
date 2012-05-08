@@ -94,7 +94,8 @@ class Caiyao < Quest
                 
                     if r[:progress] >= 100 && 
                         exp_bonus = 10+rand(user.tmp[:luck])/10
-                        levelup = user.add_exp(exp_bonus)
+                        # levelup = user.add_exp(exp_bonus)
+                        levelup = user.get_exp(exp_bonus)
                         msg += "<div><span style='color:#990000'>Quest complete !</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
                         if (levelup)
                             msg+="<div><span style='color:#990000'>Level Up !</div>"

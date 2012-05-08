@@ -185,17 +185,21 @@ class Player < Human
         @obj.get_object(o)
     end
     
-    def add_exp(add_exp)
-        if ( (tmp[:level]+1)*(tmp[:level]+1)*(tmp[:level]+1)<= tmp[:exp]+add_exp)
-            tmp[:level] += 1
-            ext[:level] += 1
-            tmp[:exp] = ext[:exp] = 0
-            return true
-        else
-            return false
-        end
-        
+    # def add_exp(add_exp)
+    #     if ( (tmp[:level]+1)*(tmp[:level]+1)*(tmp[:level]+1)<= tmp[:exp]+add_exp)
+    #         tmp[:level] += 1
+    #         ext[:level] += 1
+    #         tmp[:exp] = ext[:exp] = 0
+    #         return true
+    #     else
+    #         return false
+    #     end
+    # end
+    
+    def get_exp(exp)
+        return data.get_exp(exp)
     end
+    
     def query_quest(quest)
         @obj.query_quest(quest)
     end
@@ -319,5 +323,8 @@ class Player < Human
     
     def query_team
         return data.query_team
+    end
+    def get_exp(exp)
+        return data.get_exp(exp)
     end
 end
