@@ -15,7 +15,7 @@ class Yaowanggu < Quest
     end
     
     def room
-        ""
+        "你想要什么?"
     end
     
     def logo
@@ -43,6 +43,7 @@ class Yaowanggu < Quest
         p "===>items:#{user.query_items.inspect}"
         srand(Time.now.tv_usec.to_i)
         if (action=="liu")
+                  add_progress(100)
             msg = ""
             dihuang     = user.query_item("objects/fixtures/dihuang") 
             shanyao     = user.query_item("objects/fixtures/shanyao") 
@@ -77,10 +78,10 @@ class Yaowanggu < Quest
                      end
                      if(!r.get_prop("liu"))
                          r.set_prop("liu", 1)
-                         r[:progress] += 10
+                         add_progress(progress)
                      end
                  else
-                     msg += "<div class='row'>程灵素说：此方为熟地黄八钱，山萸肉、干山药各四钱，泽泻、牡丹皮、白茯苓（去皮）各三钱, 可滋肾补肝. 阁下的药材似乎还差几味。</div>"
+                     msg += "<div class='row'>程灵素说：此方为熟地黄八钱，山萸肉、干山药各四钱，泽泻、牡丹皮、白茯苓各三钱, 可滋肾补肝. 阁下的药材似乎还差几味。</div>"
                  end
         elsif  # action = "qixin"
             r = user.query_quest("yaowanggu")

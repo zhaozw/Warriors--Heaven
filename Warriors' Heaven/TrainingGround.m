@@ -372,7 +372,8 @@
         [lbSkillStatus2 setTextColor:[UIColor yellowColor]];
         [lbSkillStatus2 setBackgroundColor:[UIColor clearColor]];
         [lbSkillStatus2 setOpaque:NO];
-        lbSkillStatus2.text = @"dafsd";
+        if (currentPractisingSkill == i)
+            lbSkillStatus2.text = @"修炼中";
 //        [lbSkillStatus2 setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_status_list addObject:lbSkillStatus2];
         
@@ -642,6 +643,7 @@
         NSLog(@"stop practise");
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         NSString* url = [[NSString alloc] initWithFormat:@"/wh/stopPractise?skill=%@", name];
+        [client setRetry:TRUE];
         [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:NO];
         return;
         

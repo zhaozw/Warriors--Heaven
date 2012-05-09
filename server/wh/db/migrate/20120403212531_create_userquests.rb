@@ -5,6 +5,7 @@ class CreateUserquests < ActiveRecord::Migration
       t.integer :uid
       t.string :name
       t.integer :progress
+      t.integer :count
       t.text :prop
 
       t.timestamps

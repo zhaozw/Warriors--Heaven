@@ -83,16 +83,21 @@ class QuestController < ApplicationController
     
     
     def show
+        return if !check_session or !user_data
         @sid = params[:sid]
         @quest_name = params[:name]
         @quest = load_quest(@quest_name)
+        @quest.setPlayer(player)
+        @quest.setData(player.query_quest(@quest_name))
+        p"==>quest=#{@quest.inspect}"
         if !@quest
             error("load quest failed")
             return
         end
-        rs = Userquest.find_by_sql("select * from userquests where name='#{@quest_name}' and uid=#{user_data.id}")
-         @userquest = rs[0] if rs && rs.size>0
-         p "#{@userquest.inspect}"
+        # rs = Userquest.find_by_sql("select * from userquests where name='#{@quest_name}' and uid=#{user_data.id}")
+         # @userquest = rs[0] if rs && rs.size>0
+   
+         # p "#{@userquest.inspect}"
         room = @quest.room
         if @quest.room.end_with?(".rb") or @quest.room.end_with?(".erb")
             render :template=>"quest/#{room}"
@@ -109,6 +114,8 @@ class QuestController < ApplicationController
         quest_name  = params[:quest]
         #action_name = params[:action]
         @q = load_quest(quest_name)
+        @q.setPlayer(player)
+        @q.setData(player.query_quest(quest_name))
         if !@q
             error("load quest failed")
             return
@@ -117,8 +124,8 @@ class QuestController < ApplicationController
         @user = user_data
         @user.ext
 
-        player = Player.new
-        player.set_data(@user)
+        # player = Player.new
+        #  player.set_data(@user)
         player.recover
 
         
@@ -128,7 +135,9 @@ class QuestController < ApplicationController
         p @action_context.inspect
         ret = {
             :msg=>@action_context[:msg],
-            :progress=>@user.query_quest(quest_name)[:progress]
+            :progress=>@user.query_quest(quest_name)[:progress],
+            :room=>@action_context[:room],
+            :actions=>@q.action_list
         }
         render :text=>ret.to_json
     end

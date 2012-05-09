@@ -237,6 +237,7 @@ class User < ActiveRecord::Base
         end
         
         if self.ext.changed?
+            p "saved userext for user #{self[:user]}, #{ext.inspect}"
             self.ext.save!
             self[:cached] = false
         end

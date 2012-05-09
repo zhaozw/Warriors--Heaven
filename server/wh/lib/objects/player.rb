@@ -15,7 +15,7 @@ class Player < Human
     #     set_data(userdata)
     # end
     
-    def isUser
+    def isPlayer
         true
     end
     

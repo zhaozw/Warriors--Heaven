@@ -85,10 +85,7 @@ class Caiyao < Quest
                 r = user.query_quest("caiyao")
                 progress = 10
                 if (r[:progress] < 100)
-                    r[:progress] += progress
-                    if r[:progress] > 100
-                        r[:progress] = 100
-                    end
+                    add_progress(progress)
                
                 # r.save!
                 

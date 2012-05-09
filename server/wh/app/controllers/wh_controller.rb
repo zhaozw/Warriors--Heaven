@@ -261,7 +261,7 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]-10} order by level limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]-1} order by level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""
@@ -311,11 +311,12 @@ class WhController < ApplicationController
         #     return true
         # end
         diff = Time.now - ext[:updated_at]
+        p "===> time diff #{diff}, #{ext[:zhanyi]}"
         ext[:zhanyi] += diff/36    # recover 100 per hour
         if ( ext[:zhanyi] > 100)
              ext[:zhanyi] = 100
         end
-        
+  
         if (ext[:zhanyi] > 30)
             # ext[:zhanyi] -= 30
             # ext.save if save
@@ -481,6 +482,7 @@ class WhController < ApplicationController
         b.save!
         
        # enemy.ext.save
+       p "===>enemy zhanyi #{enemy.ext[:zhanyi]}"
         if (winner==0 && enemy.ext[:zhanyi] >= 0)
             enemy.ext[:zhanyi] -= 30
         end

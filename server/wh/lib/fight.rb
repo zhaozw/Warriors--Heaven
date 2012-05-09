@@ -489,7 +489,7 @@ end
              msg += "dp:#{dodge_power} ap:#{attack_power}"
              if rand(attack_power+dodge_power) < dodge_power # miss
                  #
-                 # attack missed
+                 # attack missed, dodge succeeded
                  #
                  context_a[:msg] = "";
                  # defenser[:dodge_skill][:skill].doDodge(context_d)
@@ -506,10 +506,9 @@ end
                     context_d[:gain][:pot] += 1
                     defenser.tmp[:pot] += 1
                     
-                    
                     gain_point = 1
                     context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
-                    if (defenser.isUser)
+                    if (defenser[:isUser])
                         msg += "<div class='rgain'>"
                         msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}+#{gain_point}"
                         if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
@@ -601,7 +600,7 @@ end
                      # parry succeeded
                      #
                      msg += doParry(defenser[:defense_skill], context_d, parry_power)
-                     if (rand(defenser.tmp[:it]+1) > 10)
+                     if (defenser[:isUser] && rand(defenser.tmp[:it]+1) > 10)
                          context_d[:gain][:exp] += 1
                          defenser.tmp[:exp] += 1
                          context_d[:gain][:pot] += 1
@@ -631,7 +630,7 @@ end
                         attacker.tmp[:pot] += 1
                         gain_point = 1
                         context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
-                        if attacker.isUser
+                        if attacker[:isUser]
                             msg += "<div class='rgain'>"
                             msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                             if (improve_skill(attacker, attacker[:attack_skill][:skill][:skname], gain_point) )

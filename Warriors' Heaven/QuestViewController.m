@@ -219,6 +219,10 @@
     rect2.size.height = [unaskedQuests count]*60;
     vUnaskedQuest.frame = rect2;
     
+    UIScrollView* usv = (UIScrollView*)[self view];
+    int offset =  rect2.origin.y + rect2.size.height - 480;
+    if (offset > 0)
+        usv.contentSize = CGSizeMake(0, offset+500);
     
 }
 

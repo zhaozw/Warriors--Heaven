@@ -25,7 +25,12 @@ class Yunbiao < Quest
         return true
     end
     def room
-        "高风亮把对你说道：这批红货送到慕容庄主那里，务必按时送到，路上小心土匪。"
+        r = data
+        if r[:progress] < 100
+            return "高风亮对你说道：这批红货送到慕容庄主那里，务必按时送到，路上小心土匪。"
+        else
+            return "任务已完成。"
+        end
     end
     
     def logo
@@ -33,12 +38,22 @@ class Yunbiao < Quest
     end
     
     def action_list
-        [
-            {
-                :name=>"go",
-                :dname=>"运镖"
-            }
-        ]
+        l = [
+                {
+                    :name=>"go",
+                    :dname=>"运镖"
+                }
+            ]
+        r = data
+        if r[:progress] < 100
+            return l
+        else
+            return [ { 
+                :name=>"redo",
+                :dname =>"再次领取任务"
+            }]
+        end
+ 
     end
 
     def onAction(context)
@@ -56,12 +71,13 @@ class Yunbiao < Quest
         
         msg = ""
         if (action=="go")
-            if rand(100) < player.tmp[:luck]
+            if rand(100) < player.tmp[:luck]+100
                 msg += "<div class='row'>你把镖旗一扬，趟子手高喊着‘我～武～威～扬’，车轮沉沉压过地面，引来不少注目</div>"
-                r = player.query_quest("yunbiao")
-              r[:progress] += 10
+                r = data
+                add_progress(60)
               
             else
+
                     msg = "<div>忽然跳出3个蒙面人，看样子要劫镖！</div>"
                     for i in 0..2
                         npc = create_npc("objects/npc/gangster")
@@ -88,16 +104,32 @@ class Yunbiao < Quest
                     p "===>msg=#{msg}"
                     r = player.query_quest("yunbiao")
                        if win
-                           r[:progress] += 38
+                           add_progress(38, {:user=>player})
                        else
                            r[:progress] = 0
                            msg += "<div>你眼见不是对手, 只好放弃了镖车。</div>"
                        end
                        
-                        
+    
             end
-        else 
+        elsif (action=="redo")           
+            data[:progress] = 0
+            context[:room] = self.room
+            p "===>progress1 #{data.inspect}"
         end
+        
+        p "===>progress #{data.inspect}"
+        if data[:progress] >= 100
+            msg += "<div> 你终于来到慕容山庄前，庄里的伙计正在那里等着。拍了拍你的肩膀，兄弟辛苦了！</div>"
+            add_exp = 100 + rand(player.ext[:luck])
+            levelup = player.get_exp(add_exp)
+            msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span></div>"
+            if levelup
+                msg +="<div style='color:#990000'>你的等级提升了!</div>"
+            end
+            context[:room] = self.room
+        end
+        
         context[:msg] += msg
     end
 end
