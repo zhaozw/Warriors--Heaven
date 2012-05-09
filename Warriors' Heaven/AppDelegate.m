@@ -331,6 +331,7 @@
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"data_user %@", [data_user JSONRepresentation]);
+    bUserSkillNeedUpdate = TRUE;
     if (!bShowingWelcome)
         [self hideWelcomeView];
     

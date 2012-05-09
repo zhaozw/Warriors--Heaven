@@ -120,6 +120,9 @@
             [ad showNetworkDown];
             //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
             NSLog(@"Network down");
+            if (retry){
+                [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+            }
             return;
         }
     }
