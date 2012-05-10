@@ -80,7 +80,7 @@ class WhController < ApplicationController
          user_data.check_save
          npc = create_npc("objects/npc/hero/#{hero_name}")
          user_data[:hero]={
-             :image => npc.image
+             :lengendImage => npc.lengendImage
          }
          render :text=>user_data.to_json
     end
@@ -553,6 +553,7 @@ class WhController < ApplicationController
         name = params[:name]
         npc = create_npc("objects/npc/hero/#{hero_name}")         
         @fight_context = {:msg=>""}
+        player[:isUser] = true
         @win = _fight(player, npc, @fight_context )
     end
     def fight3

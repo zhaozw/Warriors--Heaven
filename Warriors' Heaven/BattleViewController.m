@@ -62,22 +62,29 @@
     UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
     [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
 //    lbTitle.backgroundColor = [UIColor greenColor];
-    
-    EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(250, 5, 60, 30)];
-    [vTitleView addSubview:btBoss];
-    NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"image"];
+
+    NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"lengendImage"];
     NSString* url = NULL;
     if ([bossImage characterAtIndex:0]=='/')
          url = [NSString stringWithFormat:@"http://%@:%@/game%@", [ad host], [ad port], bossImage];
     else
         url = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], bossImage];
+    
+    EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(180, 3, 160, 36)];
+    [vTitleView addSubview:btBoss];
     btBoss.imageURL = [NSURL URLWithString:url];
-    btBoss.backgroundColor = [UIColor redColor];
+    btBoss.imageView.contentMode = UIViewContentModeScaleToFill;
+    btBoss.contentMode = UIViewContentModeScaleToFill;
+//    btBoss.contentStretch = btBoss.frame;
+//    btBoss.backgroundColor = [UIColor redColor];
     [btBoss addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
     btBoss.userInteractionEnabled = YES;
+ 
+
     vTitleView.userInteractionEnabled = YES;
     [[self view] bringSubviewToFront:vTitleView];
     
+ 
 }
 
 - (void) onTouchBoss:(UIButton*) btn{
@@ -428,8 +435,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    AppDelegate * ad = [UIApplication sharedApplication].delegate;
-//    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
+    if ([ad readLocalProp:@"showBoss"] == NULL){
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
+        [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
+      
+        [ad saveLocalProp:@"showBoss" v:@"1"];
+    }
+    else{
+        [vcBoss view ].hidden = YES;
+    }
+
     [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];

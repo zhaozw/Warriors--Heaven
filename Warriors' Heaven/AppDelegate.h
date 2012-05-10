@@ -111,4 +111,7 @@
 - (void) setFirstCallReturn:(BOOL) b;
 - (void) setUserBusy:(BOOL) busy;
 - (void) updateUserext;
+
+- (void) saveLocalProp:(NSString*)n v:(NSObject*)d;
+- (NSObject*) readLocalProp:(NSString*)n;
 @end

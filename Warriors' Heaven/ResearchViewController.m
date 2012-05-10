@@ -263,7 +263,9 @@
     [[ad getDataUser] setValue:data forKey:@"research"];
     [self buildRearchList];
     
-    ad.bUserSkillNeedUpdate = TRUE;
+    if ([data valueForKey:@"add_skill"])
+        ad.bUserSkillNeedUpdate = TRUE;
+//    NSObject* newskill = [data valueForKey:@"add_skill"];
 }
 
 - (void) onReceiveStatus:(NSObject*) data{
@@ -273,6 +275,8 @@
     }
     [[ad getDataUser] setValue:data forKey:@"research"];
     [self buildRearchList];
+    
+   
     
     
 }

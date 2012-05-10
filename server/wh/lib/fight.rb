@@ -278,11 +278,13 @@ end
             d += ad
         end
         p "apply damage > #{d}"
+
         
-        if d <= 30
-            d = 30
-        end
-        
+        # if d <= 30
+        #       d = 30
+        #   end
+        m1 = "<div>apply damage #{d}</div>"
+                
         d = d.to_f
        # p "fuzzy damage > #{d}"
     
@@ -291,22 +293,26 @@ end
         
         # apply damage of zhaoshi
         action = context[:action]
+        # m1 += "<div>actioin damage >#{action.inspect}</div>"
         if (action[:damage])
-            d += action[:damage]/10 * (d / 30);
+            d += action[:damage]/10.0 * (d / 30);
         end
         p "apply skill zhaoshi damage > #{d}"
-    
-        if d <= 10
-            d = 10
-        end
+        m1 += "<div>zhaoshi damage >#{d}</div>"
+        
+        # if d <= 10
+        #          d = 10
+        #      end
         # apply general damage of skill (equal skill, eqaul damage)
         d += (skill.data[:level]+ 1) /10 * (d /10);
         p "apply skill common damage > #{d}"
+        m1 += "<div>skill general damage >#{d}</div>"
         
         damage_bonus = p1.tmp[:str]
         
         d += (damage_bonus + rand(damage_bonus))/2
         p "apply damage bonus > #{d}"
+        m1 += "<div>bonus damage >#{d}</div>"
         
         # Let combat exp take effect
         defense_factor = calc_total_exp(p2.tmp[:level]);
@@ -315,9 +321,11 @@ end
                         defense_factor /= 2
         end
         p "apply exp > #{d}"
+         m1 += "<div>apply exp >#{d}</div>"
         
         # apply denfenser's armo defense
         d -= (rand(p2.tmp[:apply_defense]) + p2.tmp[:apply_defense])/2
+         m1 += "<div>apply armo >#{d}</div>"
         
         p "apply defenser's armo > #{d}"
         d = d.to_i
@@ -331,14 +339,14 @@ end
         # p "===>1#{context[:user][:apply_damage].inspect}\r\n#{context[:target][[:apply_defense]].inspect}"
         # d += skill.damage(context) + context[:user].tmp[:apply_damage]/10 - context[:target].tmp[:apply_defense]/10
         p "===>damage=#{d}"
-        d = 0 if d <0
+        d = 1 if d <0
         context[:target].tmp[:hp] -= d
          cs = cost_stam(ap)
         #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
         context[:user].tmp[:stam] -= cs
         m = damage_msg(d, skill.type) + "(<span class='attr'>Hp</span>:<span class='damage'>-#{d}</span>)(<span class='attr'>体力</span>:<span class='damage'>-#{cs}</span>)"
         # m = skill.doDamage(context)
-        return "<br/>\n"+translate_msg(m, context)
+        return "<br/>\n"+translate_msg(m1+m, context)
     end
     
     def cost_stam(power)
@@ -700,13 +708,13 @@ end
         # p1.tmp[:apply_dodge]  = 0-p1.query_all_weight
         # p1.tmp[:apply_defense] = p1.query_armo_defense 
         
-        p1.tmp[:apply_dodge] = 0-p1.query_all_weight/10
-        p1.tmp[:apply_damage] = p1.query_weapon_damage/10
-        p1.tmp[:apply_defense] = p1.query_armo_defense/10
+        p1.tmp[:apply_dodge] = 0-p1.query_all_weight
+        p1.tmp[:apply_damage] = p1.query_weapon_damage
+        p1.tmp[:apply_defense] = p1.query_armo_defense
         p "====>p1 load: #{p1.tmp[:apply_dodge]} damage:#{p1.tmp[:apply_damage]} defense:#{p1.tmp[:apply_defense]  }"
-        p2.tmp[:apply_dodge] = 0-p2.query_all_weight/10
-        p2.tmp[:apply_damage] = p2.query_weapon_damage/10
-        p2.tmp[:apply_defense] = p2.query_armo_defense/10
+        p2.tmp[:apply_dodge] = 0-p2.query_all_weight
+        p2.tmp[:apply_damage] = p2.query_weapon_damage
+        p2.tmp[:apply_defense] = p2.query_armo_defense
         p "====>p2 load: #{p2.tmp[:apply_dodge]} damage:#{p2.tmp[:apply_damage]} defense:#{p2.tmp[:apply_defense]  }"
         
         # calculate who attach first  
@@ -724,12 +732,12 @@ end
         end
         
         p "attacker is #{attacker.name}"
-        msg += "<div>#{attacker.name}抢先发动进攻!</div>"
+        msg += translate_msg("<div>$N抢先发动进攻!</div>", {:user=>attacker, :target=>defenser})
         
         
         # what weapon attacker is wielding
-        hand_right_weapon =  p1.query_equipment("handright")
-        hand_left_weapon = p1.query_equipment("handleft")
+        hand_right_weapon =  p1.query_wearing("handright")
+        hand_left_weapon = p1.query_wearing("handleft")
         p "=>righthand weapons #{hand_right_weapon}"
         p "=>lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed

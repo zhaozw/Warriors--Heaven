@@ -33,6 +33,6 @@ class Armo  < Weapon
 
     
   def defense
-      30
+      10
   end
 end

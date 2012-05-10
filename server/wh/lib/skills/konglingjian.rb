@@ -30,6 +30,7 @@ class Konglingjian < Fencing
    
    
    def checkResearchCondition(context)
+       return true
        user = context[:user]
        skill = user.query_skill("fencing")
       

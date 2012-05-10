@@ -71,7 +71,7 @@ class Yunbiao < Quest
         
         msg = ""
         if (action=="go")
-            if rand(100) < player.tmp[:luck]+100
+            if rand(100) < player.tmp[:luck]
                 msg += "<div class='row'>你把镖旗一扬，趟子手高喊着‘我～武～威～扬’，车轮沉沉压过地面，引来不少注目</div>"
                 r = data
                 add_progress(10)
@@ -84,6 +84,7 @@ class Yunbiao < Quest
                         npc.set_temp("level", player.ext[:level])
          
                         _context = {:msg=>msg}
+                        player[:isUser] = true
                         win = _fight(player, npc, _context)
                         msg =  _context[:msg]
                         if (player[:gain][:exp] >0)

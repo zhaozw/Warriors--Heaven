@@ -658,6 +658,26 @@
     return;
     
 }
+
+- (NSObject*) readLocalProp:(NSString*) n{
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    if (! SaveDefaults) 
+        return NULL;
+    
+    NSArray * Array = [SaveDefaults objectForKey:n];
+    
+    if (!Array || [Array count] == 0)
+        return NULL;
+    
+    
+    return  [Array objectAtIndex:0];
+}
+- (void) saveLocalProp:(NSString*)n v:(NSObject*)d{
+
+    NSArray *Array = [NSArray arrayWithObjects:d, nil];
+    NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
+    [SaveDefaults setObject:Array forKey:n]; 
+}
 - (void) saveDataUser{
    
     NSLog(@"save data_user %@", [data_user JSONRepresentation]);

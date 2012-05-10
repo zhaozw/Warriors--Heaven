@@ -14,7 +14,7 @@ class Ring  < Weapon
       "finger"
   end
 
-def weight
+  def weight
       0
   end
     def image

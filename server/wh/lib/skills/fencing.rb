@@ -8,6 +8,7 @@ class Fencing < Game::Skill
    def category
        "basic"
    end
+   
    def type 
        return "fencing"
    end

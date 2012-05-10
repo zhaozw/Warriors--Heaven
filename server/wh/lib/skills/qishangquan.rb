@@ -33,6 +33,7 @@ class Qishangquan < Game::Skill
    
    
    def checkResearchCondition(context)
+       return true
        user = context[:user]
        skill = user.query_skill("unarmed")
       

@@ -110,6 +110,7 @@ class Caiyao < Quest
                     npc.set_temp("level", user.ext[:level])
          
                     _context = {:msg=>msg}
+                    player[:isUser] = true
                     win = _fight(player, npc, _context)
                     msg =  _context[:msg]
                     if (player[:gain][:exp] >0)

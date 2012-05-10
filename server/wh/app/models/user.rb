@@ -201,21 +201,26 @@ class User < ActiveRecord::Base
     def set_skill(name, lvl, tp)
         skill = query_skill(name)
         if (!skill)
-            us =         Userskill.new({
-                    :uid        =>  self[:id],
-                    :sid        =>  self[:sid],
-                    :skid       =>  0,
-                    :skname     =>  name,
-                    :skdname    => "",
-                    :level      =>  lvl,
-                    :tp         =>  tp,
-                    :enabled    =>  1   
-                })
+            begin
+                us =         Userskill.new({
+                        :uid        =>  self[:id],
+                        :sid        =>  self[:sid],
+                        :skid       =>  0,
+                        :skname     =>  name,
+                        :skdname    => "",
+                        :level      =>  lvl,
+                        :tp         =>  tp,
+                        :enabled    =>  1   
+                    })
                 us.save!
+        
 
-            skill = load_skill(name)
-            skill.set_data(us)
-            self[:skills][name] = skill
+                skill = load_skill(name)
+                skill.set_data(us)
+                self[:skills][name] = skill
+            rescue Exception=>e
+                p 
+            end
            # self[:cached] = false
         else
             skill.set("level", lvl)
@@ -234,6 +239,7 @@ class User < ActiveRecord::Base
         if self.ext.changed?
             p "saved userext for user #{self[:user]}, #{ext.inspect}"
             self.ext.save!
+            self[:equipments] = nil
             self[:cached] = false
         end
         
@@ -326,6 +332,7 @@ class User < ActiveRecord::Base
                 }
             end
                      # p "===>@worn_eq=#{@worn_eq}"
+            return self[:equipments]
     end
     def query_all_equipments
         if !self[:equipments]

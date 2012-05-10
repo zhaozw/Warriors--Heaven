@@ -347,7 +347,7 @@
         int level = [[o valueForKey:@"level"] intValue];
         
         UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-        [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:13.0f]];
+        [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [lbSkillTitle setTextColor:[UIColor whiteColor]];
         [lbSkillTitle setBackgroundColor:[UIColor clearColor]];
         [lbSkillTitle setOpaque:NO];
@@ -393,7 +393,7 @@
         NSString* cat = [o valueForKey:@"category"];
         if ([cat isEqualToString:@"basic"]){
             count_b ++;
-            [lbSkillTitle setFrame:CGRectMake(0, y_b, 80, height-10)];
+            [lbSkillTitle setFrame:CGRectMake(0, y_b, 90, height-10)];
             [vBasicSkillsList addSubview:lbSkillTitle];
             
             [vBasicSkillsList addSubview:pvTP];
@@ -419,11 +419,13 @@
         }else if ([cat isEqualToString:@"common"]){
             count_c ++;
             [vCommonSkillsList addSubview:lbSkillTitle];
-            [lbSkillTitle setFrame:CGRectMake(0, y_c, 80, height)];
+            [lbSkillTitle setFrame:CGRectMake(0, y_c, 90, height-10)];
             [vCommonSkillsList addSubview:pvTP];
             [pvTP setFrame:CGRectMake(90, y_c+10, 80, height-10)];
             [vCommonSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(120, y_c+5, 80, height)];
+            [lbSkillStatus setFrame:CGRectMake(100, y_c+5, 80, height-10)];
+            [vCommonSkillsList addSubview:lbSkillStatus2];
+            [lbSkillStatus2 setFrame:CGRectMake(180, y_c+5, 50, height-10)];
             [vCommonSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_c, 70, height-17)];
             
@@ -432,11 +434,13 @@
         }else if ([cat isEqualToString:@"premier"]){
             count_p ++;
             [vPremierSkillsList addSubview:lbSkillTitle];
-            [lbSkillTitle setFrame:CGRectMake(0, y_p, 80, height)];
+            [lbSkillTitle setFrame:CGRectMake(0, y_p, 90, height)];
             [vPremierSkillsList addSubview:pvTP];
             [pvTP setFrame:CGRectMake(90, y_p+10, 80, height-10)];
             [vPremierSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height)];
+            [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height-10)];
+            [vPremierSkillsList addSubview:lbSkillStatus2];
+            [lbSkillStatus2 setFrame:CGRectMake(180, y_p+5, 50, height-10)];
             [vPremierSkillsList addSubview:btPractise];
             [btPractise setFrame:CGRectMake(250, y_p, 70, height-17)];
             
@@ -480,7 +484,7 @@
     [[ad tabBarController] selectTab:1];
 }
 - (void) onReceiveStatus:(NSArray*) data{
-    [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"userskills"];
+    [[ad.data_user valueForKey:@"user"] setValue:data forKey:@"skills"];
     ad.bUserSkillNeedUpdate = NO;
     // e.g. 
     //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
@@ -795,6 +799,7 @@
     CGRect rect3 = skillsView.frame;
     int scrollSize = rect3.size.height+200 - 480;
 //    skillsView.backgroundColor = [UIColor redColor];
+    [self viewWillAppear:NO];
     if (scrollSize > 0 ){
 //        UIScrollView* sv = [self view ].superview;
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];

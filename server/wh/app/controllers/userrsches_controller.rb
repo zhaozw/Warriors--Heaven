@@ -36,7 +36,7 @@ class UserrschesController < ApplicationController
                 end
             end
         end
-        p "==>userskills:#{user_data.userskills}"
+        # p "==>userskills:#{user_data.userskills}"
         p user_data.skills.size
         for  r in user_data.skills # delete those already be user's skill
             p "==>r1=#{r.inspect}"
@@ -78,7 +78,7 @@ class UserrschesController < ApplicationController
     
     def dtype(t)
         p "dtype #{t}"
-        if t == 'blade'
+        if t == 'daofa'
             return "刀法"
         elsif t == 'fencing' || t=='sword'
             return "剑法"
@@ -145,10 +145,10 @@ class UserrschesController < ApplicationController
         
         ext = user_data.ext
         pot = ext[:pot]
-        if pot <= 0
-            error ("You don't have enough potential")
-            return
-        end
+        # if pot <= 0
+        #      error ("You don't have enough potential")
+        #      return
+        #  end
         # calculate skillpoint
       #  gain = use_pot # maybe need change algorithm 
      
@@ -168,25 +168,26 @@ class UserrschesController < ApplicationController
                     bFinish = true
                     r.delete
                     rs.delete(r)
-                    begin
-                    s = Userskill.new({
-                        :uid    =>  session[:uid],
-                        :sid     => session[:sid],
-                        :skid    => 0,
-                        :skname  => skill_name,
-                        :skdname => "",
-                        :level   => 0,
-                        :tp      => 0,
-                        :enabled => 1
-                    })
-                    s.save!
-                    p "===>s=#{s}"
-                    rescue Exception=>e
-                        p e
-                    end
-                    if (user_data.userskills)
-                        user_data.userskills.push(s)
-                    end
+                    # begin
+                    #                     s = Userskill.new({
+                    #                         :uid    =>  session[:uid],
+                    #                         :sid     => session[:sid],
+                    #                         :skid    => 0,
+                    #                         :skname  => skill_name,
+                    #                         :skdname => "",
+                    #                         :level   => 0,
+                    #                         :tp      => 0,
+                    #                         :enabled => 1
+                    #                     })
+                    #                     s.save!
+                    # p "===>s=#{s}"
+                    # rescue Exception=>e
+                    #                        p e
+                    #                    end
+                    # if (user_data.userskills)
+                    #     user_data.userskills.push(s)
+                    # end
+                    user_data.set_skill(skill_name, 0, 0)
                 end
                 break
             end
@@ -194,9 +195,9 @@ class UserrschesController < ApplicationController
         user_data[:userrsch] = rs
         
             
-        ext[:pot] -= 1
-        ext.save!
-        
+        # ext[:pot] -= 1
+        # ext.save!
+        user_data.check_save
       #  ret = {
        #     :msg => "你对书中的内容有所领悟",
       #      :progress=>point
@@ -207,6 +208,7 @@ class UserrschesController < ApplicationController
         dname = load_skill(skill_name).dname
         if bFinish
             ret[:msg] = "恭喜你参透了武功秘笈“#{dname}”!"
+            ret[:add_skill] = user_data.query_skill(skill_name)
         else
             ret[:msg] = "你对书中的内容有所领悟"
         end

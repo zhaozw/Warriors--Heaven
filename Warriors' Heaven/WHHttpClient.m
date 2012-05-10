@@ -263,7 +263,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConn{
     NSString* text =  [[NSString alloc ]initWithData:buf encoding:NSUTF8StringEncoding];
 //    lbStatus.text = text;
-    NSLog(@"http return content:%@", text);
+    NSLog(@"%@ return content:%@", self->_cmd, text);
     
     // parse json
     //NSString* JSONString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"] encoding:NSUTF8StringEncoding error:nil];

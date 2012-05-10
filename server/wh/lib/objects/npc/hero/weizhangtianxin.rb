@@ -15,7 +15,7 @@ class Weizhangtianxin < Npc
    
    
    def desc
-        "是尾张天心古流拳法的创始人，"
+        "尾张天心古流拳法的创始人，战败他可以完成第10级的修炼，成为‘武士’"
    end
       
      
@@ -101,5 +101,8 @@ class Weizhangtianxin < Npc
     
     def homeImage
         "obj/npc/weizhangtianxin_home.gif"
+    end
+    def lengendImage
+        "obj/npc/weizhangtianxin_lengend.jpg"
     end
 end
