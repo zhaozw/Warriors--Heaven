@@ -54,17 +54,29 @@ class Object
     end
     
     def [](n)
-        @obj[n]
+        data[n]
     end
     
     def []=(n, v)
-        @obj[n] = v
+        data[n] = v
     end
     
     def price
         0
     end
     
+   #  def to_json(*opt)
+   #   # p "skill to json"
+   #  #   return "{}"
+   #     if (data)
+   #         # p "===>return #{@skill.inspect}"
+   #          return @skill.to_json(*opt)
+   #      else
+   #          # p "==>return {}"
+   #          return 
+   #      end
+   # end
+   # 
     
     #dummy method
     def effect

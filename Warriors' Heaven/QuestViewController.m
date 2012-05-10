@@ -72,8 +72,9 @@
     vQuestContainer.hidden = YES;
     vQuestContainer.backgroundColor = [UIColor clearColor];
     vQuestContainer.opaque = NO;
-    vQuestContainer.frame = CGRectMake(0,0, 320, 480);
-    vQuestRoom.frame = CGRectMake(0,0, 320, 480);
+    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
+    [[ad window] addSubview:vQuestContainer];
+    vQuestRoom.frame = CGRectMake(0,0, 320, 490);
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];
     [wvLoadingQuest setBackgroundColor:[UIColor clearColor]];

@@ -168,7 +168,8 @@
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
     
-
+    [vcStatus view].frame = CGRectMake(0, 0, 320, 65);
+    
     // show welcome view
     bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
@@ -331,7 +332,7 @@
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"data_user %@", [data_user JSONRepresentation]);
-    bUserSkillNeedUpdate = TRUE;
+    bUserSkillNeedUpdate = FALSE;
     if (!bShowingWelcome)
         [self hideWelcomeView];
     
@@ -637,7 +638,7 @@
 
 - (NSObject*) getDataUserskills{
     NSObject * v = [self getDataUser];
-    return [v valueForKey:@"userskills"];
+    return [v valueForKey:@"skills"];
 }
 
 - (NSArray*) getDataUserEqs{

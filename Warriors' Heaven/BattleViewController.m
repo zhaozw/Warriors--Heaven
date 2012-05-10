@@ -10,11 +10,13 @@
 #import "AppDelegate.h"
 #import "WHHttpClient.h"
 #import "LightView.h"
+#import "EGOImageButton.h"
 
 @implementation BattleViewController
 @synthesize vcStatus;
 
 @synthesize  fight_result;
+@synthesize vcBoss;
 @synthesize ad;
 @synthesize players;
 
@@ -46,7 +48,11 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
 
+
+    [vcBoss view].hidden = YES;
+    
     players = [[NSMutableArray alloc] init];
+    
     ad = [UIApplication sharedApplication].delegate;
     
     UIImageView* vTitleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_01.jpg"]];
@@ -55,11 +61,37 @@
     [[self view]addSubview: vTitleView];
     UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
     [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
+//    lbTitle.backgroundColor = [UIColor greenColor];
     
-        
+    EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(250, 5, 60, 30)];
+    [vTitleView addSubview:btBoss];
+    NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"image"];
+    NSString* url = NULL;
+    if ([bossImage characterAtIndex:0]=='/')
+         url = [NSString stringWithFormat:@"http://%@:%@/game%@", [ad host], [ad port], bossImage];
+    else
+        url = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], bossImage];
+    btBoss.imageURL = [NSURL URLWithString:url];
+    btBoss.backgroundColor = [UIColor redColor];
+    [btBoss addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
+    btBoss.userInteractionEnabled = YES;
+    vTitleView.userInteractionEnabled = YES;
+    [[self view] bringSubviewToFront:vTitleView];
+    
+}
+
+- (void) onTouchBoss:(UIButton*) btn{
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
+    [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
+    
+}
+- (void) onHeroReturn:(NSObject*) data{
+    [vcBoss loadHero:data];
 }
 
 - (void) onReceiveStatus:(NSArray*) data{
+ 
     int count = [data count];
     int row_height = 70;
     int row_margin = 1;
@@ -383,6 +415,7 @@
 - (void)viewDidUnload
 {
     [self setVcStatus:nil];
+    [self setVcBoss:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

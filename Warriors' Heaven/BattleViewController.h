@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "StatusViewController.h"
 #import "AppDelegate.h"
+#import "BossViewController.h"
 
 @interface BattleViewController : UIViewController
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 
 @property (nonatomic, retain) NSObject* fight_result;
+@property (strong, nonatomic) IBOutlet BossViewController *vcBoss;
 
 @property (strong, retain) AppDelegate *ad;
 @property (nonatomic, strong) NSMutableArray *players;

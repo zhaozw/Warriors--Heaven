@@ -563,7 +563,7 @@ end
                          msg += "<br/>\n$n的体力不够，无法招架"
                      else
                          # if attacker has weapon but defenser hasn't, pp=0
-                         if ((attacker.query_equipment("handright")||attacker.query_equipment("handleft")) && !(defenser.query_equipment("handright") || defenser.query_equipment("handleft")) )
+                         if ((attacker.query_wearing("handright")||attacker.query_wearing("handleft")) && !(defenser.query_wearing("handright") || defenser.query_wearing("handleft")) )
                              parry_power = 0
                          else
                              # power_parry = defenser[:defense_skill][:skill].power(context_d)
@@ -761,8 +761,8 @@ end
         p1[:defense_skill] = choosBestDefenseSkill(context_p1, weapon_skill_type)
         
         # choose skills for deffenser
-        hand_right_weapon =  p2.query_equipment("handright")
-        hand_left_weapon = p2.query_equipment("handleft")
+        hand_right_weapon =  p2.query_wearing("handright")
+        hand_left_weapon = p2.query_wearing("handleft")
         p "=>#{defenser[:user]} righthand weapons #{hand_right_weapon}"
         p "=>#{defenser[:user]} lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed

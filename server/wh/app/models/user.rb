@@ -41,10 +41,11 @@ class User < ActiveRecord::Base
      #   self[:userext][:_p] = self
     end
     
-    def setSkills(skills)
-        self[:userskill] = skills
-    #    self[:userskill][:_p] = self
-    end
+    # def setSkills(skills)
+    #     # self[:userskill] = skills
+    #     self[:skills] = skillss
+    # #    self[:userskill][:_p] = self
+    # end
     
     def ext
         if (self[:userext])
@@ -62,19 +63,13 @@ class User < ActiveRecord::Base
         
     end
     
-    def userskills
-        if !self[:userskill]
-           self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
-       end 
-#       self[:userskill][:_p] = self
-       return self[:userskill]
-    end
-    
+
 
     def loadAllSkills
         p "==>load all skills"
          self[:skills] = {}
-            s = userskills
+            # s = userskills
+            s = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'") 
             for ss in s
                 name = ss[:skname]
                 r = load_skill(name)
@@ -98,7 +93,7 @@ class User < ActiveRecord::Base
      #  if !self[:userskill]
        #    self[:userskill] = Userskill.find_by_sql("select * from userskills where uid='#{self[:id]}'")
      #  end 
-        userskills
+        # userskills
     #p "==>userskills=#{self[:userskill]}"
 #          p "==>skills=#{self[:skills].count}"
        if (!self[:skills] || self[:skills].count == 0)
@@ -242,8 +237,9 @@ class User < ActiveRecord::Base
             self[:cached] = false
         end
         
-        if self.userskills
-            for us in userskills
+        if self[:skills]
+            for us in self[:skills].values
+                us = us.data
                 if (us.changed?)
                     us.save!
                     self[:cached] = false

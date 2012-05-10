@@ -78,6 +78,10 @@ class WhController < ApplicationController
          recoverZhanyi(user_data.ext)
          update_task(user_data)
          user_data.check_save
+         npc = create_npc("objects/npc/hero/#{hero_name}")
+         user_data[:hero]={
+             :image => npc.image
+         }
          render :text=>user_data.to_json
     end
     
@@ -487,6 +491,13 @@ class WhController < ApplicationController
             enemy.ext[:zhanyi] -= 30
         end
         p "===>enemy zhanyi #{enemy.ext[:zhanyi]}, winner=#{winner}"
+        
+        # cleanup
+        player[:isUser]=nil
+        player[:gain] = nil
+        player[:attack_skill] = nil
+        player[:dodge_skill] = nil
+        player[:defense_skill] = nil
         user_data.check_save
         enemy.check_save
         
@@ -500,8 +511,50 @@ class WhController < ApplicationController
       #  render :text=>context[:msg]
     end
     
+    def hero_name
+        l = user_data.ext[:level]
+             if l < 10
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        elsif l < 20
+            name = "weizhangtianxin"
+        end
+        return name
+    end
+
+    def hero
+        return if !check_session or !user_data
+       
+        npc = create_npc("objects/npc/hero/#{hero_name}")
+        eqs = npc.query_all_wearings.values
+        ret = {
+            :name=>hero_name,
+            :dname=>npc.name,
+            :desc=>npc.desc,
+            :title=>npc.title,
+            :image=>npc.image,
+            :homeImage=>npc.homeImage,
+            :equipments=>eqs
+        }
+        render :text=>ret.to_json
+    end
     
-    
+    def fightHero
+        return if !check_session or !user_data
+        name = params[:name]
+        npc = create_npc("objects/npc/hero/#{hero_name}")         
+        @fight_context = {:msg=>""}
+        @win = _fight(player, npc, @fight_context )
+    end
     def fight3
        # reset_session
         check_session

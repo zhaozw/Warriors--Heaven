@@ -92,26 +92,26 @@ class Npc < Human
         @temp[name.to_sym] = value
     end
     
-    def set_equipment(position, eq)
-        if (!@eqs)
-            @eqs = {}
-        end
-        @eqs[position.to_sym] = eq
-    end
-    
-    def setup_equipment
-    end
-    
-    def query_equipment(position)
-        if (!@eqs)
-            @eqs = {}
-        end
-        return @eqs[position.to_sym]
-    end
-    
-    def query_all_equipments
-        return @eqs
-    end
+    # def set_equipment(position, eq)
+    #     if (!@eqs)
+    #         @eqs = {}
+    #     end
+    #     @eqs[position.to_sym] = eq
+    # end
+    # 
+    # def setup_equipment
+    # end
+    # 
+    # def query_equipment(position)
+    #     if (!@eqs)
+    #         @eqs = {}
+    #     end
+    #     return @eqs[position.to_sym]
+    # end
+    # 
+    # def query_all_equipments
+    #     return @eqs
+    # end
     def [](n)
         @temp[n]
     end

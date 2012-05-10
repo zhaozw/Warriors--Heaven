@@ -277,7 +277,7 @@
     if (ad.bUserSkillNeedUpdate){
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         [client sendHttpRequest:@"/userskills" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
-    }else if (ad.bUserSkillNeedReload){
+    }else {
         [self reloadSkills];
     }
     

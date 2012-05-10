@@ -273,7 +273,7 @@
     [parent addSubview:c];
     [c setOpaque:NO];
     [c setAdjustsFontSizeToFitWidth:YES];
-    [c setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+    [c setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:13.0f]];
     
     [c setBackgroundColor:[UIColor clearColor]];
     if (textColor)
@@ -295,7 +295,7 @@
     [btn_ask setTitle:text forState:UIControlStateNormal];
     [btn_ask setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
 //    [btn_ask addTarget:vc action: NSSelectorFromString(callback) forControlEvents:UIControlEventTouchUpInside];
-    [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
+    [btn_ask.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:12.0f]];
     [btn_ask.titleLabel setTextColor:[UIColor whiteColor]];
     btn_ask.tag = tag;
     return btn_ask;

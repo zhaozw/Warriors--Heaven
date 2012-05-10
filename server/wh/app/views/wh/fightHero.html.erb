@@ -1,0 +1,89 @@
+<html>
+<head>
+<style>
+	div.user{color:#eeeeee}
+	div.enemy{color:#ff8888}
+	.npc{color:#ff0000}
+	.damage{color:#ff0000;}
+	.status{font-size:10pt;}
+	.rgain{color:yellow;font-size:10pt;}
+	.rgain span{color:#99ff99}
+	.attr{color:#99ff99}
+	.skillname{color:#ffaaaa}
+</style>
+</head>
+<script src="/javascripts/jquery-1.3.2.js"></script>
+<body style="background:transparent;background-color:transparent;width:320px;margin:0;padding:0;border:0px solid red;">
+<div id="bg" style="background-color:black;opacity:0.3;z-index:-1;position:absolute;left:0;top:0;width:320px;height: 430px;">
+	
+</div>
+	<img style="z-index:100;position:absolute;left:230;top:5;width:25px;" src="/images/restart.png" alt="Replay" onclick="replay()"/>
+	<img id="play" style="z-index:100;position:absolute;left:180;top:5;width:25px;" src="/images/stop.png" alt="playorstop" onclick="playorstop()"/>
+	<div id="result" style="margin-top:0px;z-index:10;height:100%;overflow-y:auto;font-size:10pt;color:white;">
+	</div>
+	<div id="c" style="display:none">
+		<%=@fight_context[:msg] %>
+	</div>
+
+</body>
+</html>
+<script>
+	var line_number = 0;
+	var TextArray=[];
+	var timer;
+	var stop = false;
+
+	function playorstop(){
+		if (stop){
+			$("#play").attr("src", "/images/stop.png");
+			stop= false;
+		}
+		else
+		{
+			$("#play").attr("src", "/images/play.png");
+			stop= true;
+		}
+	
+	}
+
+	function replay(){
+		$("#result").html("");
+		showTextWithTimer($("#c").html());
+	}
+	function showTextWithTimer(msg){
+		if (!msg || msg.length==0)
+			return;
+
+		line_number = 0;
+		TextArray = [];
+		reg = /<div([\s\S])*?div>/ig;
+		while ((res = reg.exec(msg)) != null)  
+		{  
+  
+			TextArray.push(res[0]);
+		}  
+
+
+		if (timer)
+			clearInterval(timer);
+		timer = setInterval('onTimer();', 1000);
+	
+	}
+	
+	function onTimer(){
+		if (stop)
+			return;
+		if (line_number >= TextArray.length){
+			clearInterval(timer);
+			line_number = 0;
+			return;
+		}
+	 	$("#result").html( $("#result").html()+TextArray[line_number]);
+		line_number +=1;
+		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+	}
+	
+	
+	
+ showTextWithTimer($("#c").html());
+</script>
