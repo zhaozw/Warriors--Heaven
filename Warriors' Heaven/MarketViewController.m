@@ -283,6 +283,7 @@
     int gold = [[data valueForKey:@"gold"] intValue];
     [[ad getDataUserext] setValue:[NSNumber numberWithInt:gold]  forKey:@"gold"];
     [ad reloadStatus];
+    ad.bUserEqNeedUpdated = YES;
 }
 - (void) buy:(UIButton*) btn{
     int _id = btn.tag;

@@ -326,13 +326,34 @@ class User < ActiveRecord::Base
                     eqslot = JSON.parse(eqslot)
                 end
                 eqslot.each{|k,v|
-                    eq = Equipment.find(v.to_i)
-                    obj = load_obj(eq[:eqname], eq)
+                    obj = query_obj(v.to_i)
                     self[:equipments][k.to_sym] = obj
                 }
             end
                      # p "===>@worn_eq=#{@worn_eq}"
             return self[:equipments]
+    end
+    
+    def query_obj(id)
+        objs = query_all_obj
+        for o in objs
+            return o if o.data[:id] == id
+        end
+        return nil
+    end
+    def query_all_obj
+        if !self[:objects]
+            self[:objects] = []
+            eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]}")
+            if eqs and eqs.size>0
+                for eq in eqs
+                    _eq = Equipment.load_equipment(eq[:eqname], eq)
+                    self[:objects].push(_eq)
+                end
+            end
+        end
+            
+        return self[:objects]
     end
     def query_all_equipments
         if !self[:equipments]
@@ -420,11 +441,12 @@ class User < ActiveRecord::Base
     end
     
     def load_items
-        eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]} and eqtype=2")
+        # eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]} and eqtype=2")
+        eqs = query_all_obj
         self[:items] =[]
         for eq in eqs 
-            obj=load_obj(eq[:eqname], eq)
-            self[:items].push(obj)
+   
+            self[:items].push(obj) if eq.data[:eqtype==2]
         end
     end
     def query_items

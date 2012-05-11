@@ -32,12 +32,14 @@
     int networkStatus;
     BOOL bUserSkillNeedUpdate; // need update from server
     BOOL bUserSkillNeedReload; // need update locally
+
     NSObject* requests;
     BOOL bRecovering;
     UIViewController* vcTraining;
 //    BOOL bUpadtingStatus;
     BOOL bUserBusy;
 }
+@property (nonatomic, assign)    BOOL bUserEqNeedUpdated; // need update locally
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;

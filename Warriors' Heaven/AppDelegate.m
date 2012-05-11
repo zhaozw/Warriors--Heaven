@@ -47,7 +47,7 @@
 @synthesize tmRecoverStart;
 
 
-
+@synthesize bUserEqNeedUpdated;
 
 
 
@@ -66,6 +66,7 @@
     //    host = @"192.168.1.119";
     host = @"homeserver.joyqom.com";
     port = @"80";
+    bUserEqNeedUpdated = FALSE;
 //    bUpadtingStatus = false;
     return self;
 }
@@ -643,12 +644,12 @@
 
 - (NSArray*) getDataUserEqs{
     NSObject * v = [self getDataUser];
-    return [v valueForKey:@"usereqs"];
+    return [v valueForKey:@"objects"];
 }
 - (void) setDataUserEqs:(NSArray*)eqs{
 //    NSObject * v = [self getDataUser];
 //    [v setValue:eqs forKey:@"userskills"];
-      [[data_user valueForKey:@"user"] setValue:eqs forKey:@"usereqs"];
+      [[data_user valueForKey:@"user"] setValue:eqs forKey:@"objects"];
 }
 - (void) setDataUser:(NSObject *)data save:(BOOL)save{
 

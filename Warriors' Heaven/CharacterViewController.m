@@ -134,7 +134,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         int index = [self findEpById:btn.tag];
         if (index < 0)
             continue;
-        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"equipment"];
+        NSObject* o = [eqs objectAtIndex:index];
         int weight = [[o valueForKey:@"weight"] intValue];
         total_weight += weight;
     }
@@ -154,7 +154,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         int index = [self findEpById:btn.tag];
         if (index < 0)
             continue;
-        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"equipment"];
+        NSObject* o = [eqs objectAtIndex:index] ;
         int damage = [[o valueForKey:@"damage"] intValue];
         t_damage += damage;
     }
@@ -173,7 +173,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         int index = [self findEpById:btn.tag];
         if (index < 0)
             continue;
-        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"equipment"];
+        NSObject* o = [eqs objectAtIndex:index] ;
         int damage = [[o valueForKey:@"defense"] intValue];
         t_damage += damage;
     }
@@ -567,7 +567,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 
 - (void) onEqDetail:(UIButton*) btn{
     NSArray* eqs = [ad getDataUserEqs];
-    NSObject* o = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"equipment"];
+    NSObject* o = [eqs objectAtIndex:[self findEpById:btn.tag]];
     [vcObjDetail loadObjDetail:o];
     [[self view] bringSubviewToFront: [vcObjDetail view]];
 }
@@ -621,8 +621,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSObject* eq = [eqs objectAtIndex:[self findEpById:btn.tag]];
     if (!eq)
         return;
-    NSObject* o = [eq valueForKey:@"equipment"];
-    [vcObjDetail loadObjDetail:o];
+//    NSObject* o = [eq valueForKey:@"equipment"];
+    [vcObjDetail loadObjDetail:eq];
 //    CGRect r =  vcObjDetail.view.frame;
 //    UIScrollView* v = (UIScrollView* )self.view;
 //    r.origin.y = v.contentOffset.y+60;
@@ -723,7 +723,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             if (index >=0){
                 [arranged addObject:[NSNumber numberWithInt:index]];
                 NSObject *o = [data objectAtIndex:index];
-                NSObject* eq = [o valueForKey:@"equipment"];
+//                NSObject* eq = [o valueForKey:@"equipment"];
+                NSObject* eq = o;
                 //                int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
                 int eqtype = [[eq valueForKey:@"eqtype"] intValue];
                 
@@ -759,7 +760,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         NSLog(@"DATA %d not found in arraged", i);
         NSObject *o = [data objectAtIndex:i];
         NSLog(@"DATA %d %@", i, o);
-        NSObject* eq = [o valueForKey:@"equipment"];
+//        NSObject* eq = [o valueForKey:@"equipment"];
+        NSObject* eq = o;
         int eqtype = [[eq valueForKey:@"eqtype"] intValue];
         int eqid = [[eq valueForKey:@"id"] intValue];
         
@@ -846,7 +848,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSArray* data = [ad getDataUserEqs];
     for (int i = 0; i< [data count]; i++){
         NSObject *o = [data objectAtIndex:i];
-        NSObject* eq = [o valueForKey:@"equipment"];
+//        NSObject* eq = [o valueForKey:@"equipment"];
+        NSObject* eq = o;
         int _eqid = [[eq valueForKey:@"id"] intValue];
         if (_eqid == eqid)
             return eq;
@@ -860,7 +863,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSArray* data = [ad getDataUserEqs];
     for (int i = 0; i< [data count]; i++){
         NSObject *o = [data objectAtIndex:i];
-        NSObject* eq = [o valueForKey:@"equipment"];
+//        NSObject* eq = [o valueForKey:@"equipment"];
+        NSObject* eq = o;
 //        int slotNumber = [[eq valueForKey:@"eqslotnum"] intValue];
 //        int eqtype = [[eq valueForKey:@"eqtype"] intValue];
         int _epid = [[eq valueForKey:@"id"] intValue];
@@ -880,7 +884,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         int index = [self findEpById:btn.tag];
         if (index < 0)
             continue;
-        NSObject* o = [[eqs objectAtIndex:index] valueForKey:@"equipment"];
+        NSObject* o = [eqs objectAtIndex:index];
         NSObject* eqid = [o valueForKey:@"id"];
         [data setValue:eqid forKey:pos];
     }
@@ -966,8 +970,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSLog(@"character view update");
     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
 
-    WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/usereqs" selector:@selector(onLoadEq:) json:YES showWaiting:YES];
+    if (ad.bUserEqNeedUpdated) {
+        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+        [client sendHttpRequest:@"/usereqs" selector:@selector(onLoadEq:) json:YES showWaiting:YES];
+    }else{
+        [self reloadEq];
+    }
 }
 
 - (void) highlightButton:(UIButton*)btn{
@@ -1032,7 +1040,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             NSString* pos = [pos_list objectAtIndex:worneq_selected.superview.tag];
             NSLog(@"worneq_selected.superview.tag=%d", worneq_selected.superview.tag);
 //            NSObject* eq = [eq_list objectAtIndex:btn.tag];
-            NSObject* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]]  valueForKey:@"equipment"];
+            NSObject* eq = [eqs objectAtIndex:[self findEpById:btn.tag]] ;
 //            NSLog(@"eq=%@", eq);
             NSString* wearon = [eq valueForKey:@"pos"];
             
@@ -1075,7 +1083,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //        }
 //        NSDictionary* eq = [eq_list objectAtIndex:btn.tag];
         if (btn.tag != 0){
-            NSDictionary* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"equipment"];
+            NSDictionary* eq = [eqs objectAtIndex:[self findEpById:btn.tag]];
             NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
             [lbName setText:str];
             CGSize size = [str sizeWithFont:lbName.font];
@@ -1119,7 +1127,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         NSString* pos = [pos_list objectAtIndex:btn.superview.tag];
         NSLog(@"sloteq_selected.tag=%d", sloteq_selected.tag);
 //        NSObject* eq = [eq_list objectAtIndex:sloteq_selected.tag];
-        NSObject* eq = [[eqs objectAtIndex:[self findEpById:sloteq_selected.tag]] valueForKey:@"equipment"];
+        NSObject* eq = [eqs objectAtIndex:[self findEpById:sloteq_selected.tag]];
         NSLog(@"eq=%@", eq);
         NSString* wearon = [eq valueForKey:@"pos"];
         
@@ -1173,7 +1181,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //        else
 //            worneq_selected = NULL;
         if (btn.tag != 0){
-            NSDictionary* eq = [[eqs objectAtIndex:[self findEpById:btn.tag]] valueForKey:@"equipment"];
+            NSDictionary* eq = [eqs objectAtIndex:[self findEpById:btn.tag]];
             
             NSString *str = [NSString stringWithFormat:@"%@", [eq valueForKey:@"dname"]];
             [lbName setText:str];

@@ -97,6 +97,7 @@
  
     [self retrieveQuests];
     [ad updateUserext];
+    ad.bUserEqNeedUpdated = YES;
  
 }
 

@@ -65,22 +65,50 @@ class Object
         0
     end
     
-   #  def to_json(*opt)
-   #   # p "skill to json"
-   #  #   return "{}"
-   #     if (data)
-   #         # p "===>return #{@skill.inspect}"
-   #          return @skill.to_json(*opt)
-   #      else
-   #          # p "==>return {}"
-   #          return 
-   #      end
-   # end
-   # 
+     def to_json(*opt)
+
+        hash = {
+            :dname=>dname,
+            :image=>image,
+            :effect=>effect,
+            :desc=>desc,
+            :price=>price,
+            :weight=>weight,
+            :rand=>rank
+        }
+        if data && data[:eqtype].to_i==1     
+            hash[:damage] = damage
+            hash[:defense] = defense
+            hash[:pos] = wearOn
+            hash[:wearOn] = wearOn
+        end
+        # self.instance_variables.each {|var| 
+        #            hash[var.to_s.delete("@")] = self.instance_variable_get(var)
+        #         }
+       
+       if (data)
+      
+            hash = hash.merge(data.attributes)
+        else
+
+        end
+        return hash.to_json(*opt)
+   end
     
     #dummy method
     def effect
         ""
+    end
+        def weight
+        0
+    end
+    
+    def rank
+        0
+    end
+    
+    def price
+        0
     end
 =begin    
     def dname
@@ -95,13 +123,7 @@ class Object
         "治疗外伤 HP+20%"
     end
     
-    def weight
-        1
-    end
-    
-    def rank
-        1
-    end
+
     
     def file
         "jinchuangyao.jpg"

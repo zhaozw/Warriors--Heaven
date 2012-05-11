@@ -30,7 +30,8 @@ class Equipment  < Game::Object
   def dname
       ""
   end
-      
+
+=begin
     def to_json(*opt)
      # p "skill to json"
     #   return "{}"
@@ -54,5 +55,6 @@ class Equipment  < Game::Object
         end
         return hash.to_json(*opt)
    end
+=end
 end
 end

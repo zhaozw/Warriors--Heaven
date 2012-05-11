@@ -4,6 +4,7 @@ class UsereqsController < ApplicationController
     self.allow_forgery_protection = false
     def index
         return if !check_session or !user_data
+=begin        
         sid = cookies[:_wh_session]    
       # for test
       if (params[:sid])
@@ -41,7 +42,8 @@ class UsereqsController < ApplicationController
         end
         
         render :text=>eqs.to_json
-        
+=end
+        render :text=>user_data.query_all_obj.to_json
     end
     
     def save

@@ -74,6 +74,7 @@ class WhController < ApplicationController
          return if !check_session or !user_data
         # user_data.ext
          user_data.query_all_skills
+         user_data.query_all_obj
          recoverPlayer(user_data.ext)
          recoverZhanyi(user_data.ext)
          update_task(user_data)
