@@ -21,7 +21,7 @@ class Mudan < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.jpg"
+        "obj/fixtures/mudan.jpg"
     end
     
     def use(context)

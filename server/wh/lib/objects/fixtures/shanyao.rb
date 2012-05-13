@@ -24,7 +24,7 @@ class Shanyao < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.jpg"
+        "obj/fixtures/shanyao.jpg"
     end
         def use(context)
         context[:msg] = "你不要乱吃啊！"

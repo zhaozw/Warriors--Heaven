@@ -31,7 +31,13 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
-  add_index "equipment", ["owner"], :name => "index_equipment_on_owner", :unique => true
+  create_table "globalquests", :force => true do |t|
+    t.string   "name"
+    t.text     "prop"
+    t.datetime "finishedat"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -58,6 +64,10 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "teams", ["code"], :name => "index_teams_on_code", :unique => true
+  add_index "teams", ["owner"], :name => "index_teams_on_owner", :unique => true
+  add_index "teams", ["power"], :name => "index_teams_on_power"
 
   create_table "tradables", :force => true do |t|
     t.string   "name"
@@ -117,6 +127,7 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.text     "prop"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "count"
   end
 
   create_table "userrsches", :force => true do |t|

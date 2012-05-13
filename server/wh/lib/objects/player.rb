@@ -169,6 +169,10 @@ class Player < Human
         return @obj.query_equipment(position)
     end
     
+    def id
+        return data[:id]
+    end
+    
     def query_quest(quest)
         @obj.query_quest(quest)
     end

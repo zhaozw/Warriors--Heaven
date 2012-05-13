@@ -24,7 +24,7 @@ class Heshouwu < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.jpg"
+        "obj/fixtures/shouwu.jpg"
     end
         def use(context)
         context[:msg] = "你不要乱吃啊！"

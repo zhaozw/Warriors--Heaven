@@ -24,7 +24,7 @@ class Fuling < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.jpg"
+        "obj/fixtures/fuling.jpg"
     end
     
         def use(context)

@@ -24,7 +24,7 @@ class Dihuang < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.png"
+        "obj/fixtures/dihuang.jpg"
     end
     
         def use(context)

@@ -135,14 +135,20 @@ function apply(){
 	</div>
 	
 	<div id="action_list">
-		<% for action in @quest.action_list %>
+		<% if @quest.action_list
+			for action in @quest.action_list
+		 %>
 		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
-		<% end %>
+		<% end 
+		end
+		%>
+		
 	</div>
 	<div style="z-index:1;border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
 		<p><img src="/images/line1.png"></p>
 	</div>
 	<div id="result" style="margin-top:-10px;z-index:10;height:170px;overflow-y:auto;font-size:10pt;">
+	<%=@quest.room_welcome if @quest.room_welcome %>
 	</div>
 </div>
 

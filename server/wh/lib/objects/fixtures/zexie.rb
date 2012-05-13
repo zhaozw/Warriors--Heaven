@@ -21,7 +21,7 @@ class Zexie < Game::Object
     end
     
     def image
-        "obj/fixtures/ginseng.jpg"
+        "obj/fixtures/zexie.jpg"
     end
     
     def use(context)

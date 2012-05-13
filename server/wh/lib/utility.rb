@@ -143,3 +143,30 @@ end
         p "=>exp of level #{level} is #{r}"
         return r
     end
+    
+    # prop can be json obj or json string
+    # return new json string
+    def set_prop(prop, n,v)
+        js = prop
+        if js.class == String
+            js = JSON.parse(prop)
+        end
+
+      js[n] = v
+     return  js.to_json
+
+  end
+  
+    # prop can be json obj or json string
+ 
+    def get_prop(prop, k)
+        js = prop
+        if js.class == String
+            js = JSON.parse(prop)
+        end
+        if js
+            return j[k]
+        else
+            return nil
+        end
+    end

@@ -99,7 +99,8 @@ class QuestController < ApplicationController
    
          # p "#{@userquest.inspect}"
         room = @quest.room
-        if @quest.room.end_with?(".rb") or @quest.room.end_with?(".erb")
+        
+        if @quest.room && (@quest.room.end_with?(".rb") or @quest.room.end_with?(".erb") )
             render :template=>"quest/#{room}"
         end 
         

@@ -7,7 +7,10 @@ require 'fight.rb'
 class WhController < ApplicationController
     
     def test
-  
+        Process.detach fork{
+            sleep 10
+            p "sdfsasafsafs"
+        }
    #cookies[:_wh_session]=""
  #  destroy_session
  #   reset_session
