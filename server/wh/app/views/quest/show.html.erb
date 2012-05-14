@@ -54,6 +54,8 @@ function apply(){
 				// alert("s="+s);
 				$("div#action_list").html(s);
 			}
+			if (data.script)
+				eval(data.script)
 			$("#pro_left").css("width", data.progress+"px");		
 }
 	var line_number = 0;

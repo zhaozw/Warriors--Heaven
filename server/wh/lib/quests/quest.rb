@@ -39,6 +39,10 @@ class Quest
         end
     end
     
+    def room_welcome
+        ""
+    end
+    
     
     
 

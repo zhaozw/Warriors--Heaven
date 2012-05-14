@@ -140,6 +140,9 @@ class QuestController < ApplicationController
             :room=>@action_context[:room],
             :actions=>@q.action_list
         }
+        if @action_context[:script]
+            ret[:script] = @action_context[:script]
+        end
         render :text=>ret.to_json
     end
     

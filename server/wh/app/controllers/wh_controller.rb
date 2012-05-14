@@ -1205,4 +1205,24 @@ class WhController < ApplicationController
         user_data.check_save
         return
     end
+    
+    def teamfight
+        id = params[:id].to_i
+            dir = id/100
+            dir = "/var/wh/globalquest/"+dir.to_s+"/"
+    path = dir + id.to_s
+    r = ""
+       # logger.info("$$$$$$$$$$:#{path}$$$")
+    if FileTest.exist?(path) 
+      f = File.new(path, "r") 
+      f.each_line do |l|
+        r = r + l
+      end
+      f.close
+    else
+      logger.error "file #{path} not exist!"
+    end
+
+        @fight_result =r
+    end
 end

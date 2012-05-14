@@ -14,6 +14,7 @@ class Wudujiao < Quest
     def room
         
        qid = data.get_prop("quest_id")
+       p "==>qid=#{qid.inspect}"
        if !qid
            return "这里通往五毒教的必经之路，前面就是黑压压的大山，向右是一条官道，远处人声马嘶，似乎聚集了很多人，应该就是中原武林人士临时集结之所。"
        end
@@ -90,7 +91,13 @@ class Wudujiao < Quest
                         :name=>"check_result",
                         :dname=>"查看战役结果"
                     
-                    }]
+                    },
+                    {
+                        :name=>"restart",
+                        :dname=>"重新获取任务"
+                    
+                    },
+                    ]
             end
         end
     end
@@ -151,8 +158,16 @@ class Wudujiao < Quest
       end
                              p "====>zhanyikaishi22"           
       if action=="check_result"
-          p "====>already joined"
+          
+          context[:script]="location.replace('/wh/teamfight?id=#{qid}');"
+          return
+      elsif action =="restart"
+         data.set_prop("quest_id", nil)
+          
+          return
+        
       else  
+          
         # join
             team_zhongyuan = q.get_prop("zhongyuan")
             team_wudu =q.get_prop("wudu")
@@ -214,6 +229,7 @@ class Wudujiao < Quest
              if team_wudu.size >= full and team_zhongyuan.size >=full
                  p "====>zhanyikaishi1"
                  q[:stat] = 1 # fighting
+                 q.save
                  Process.detach fork{
                      db_reconnected = false
                      puts "waiting for db reconnect"
@@ -300,7 +316,9 @@ class Wudujiao < Quest
                     
                     team1.each{|p|p.data.check_save}
                     team2.each{|p|p.data.check_save}
-                      
+                     q[:stat] = 2
+                     q.save
+                     
                  }
                  msg = msg+ "<div>战役开始!</div>"
                  # sleep 1000

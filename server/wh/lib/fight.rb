@@ -193,7 +193,7 @@ end
             elsif (defenser[:isUser])
                 m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, "你").gsub(/\$p/, "你")
             else
-                m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, attacker.name).gsub(/\$p/, "你")
+                m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, defenser.name).gsub(/\$p/, "你")
             end
         p m
         return  m
