@@ -6,7 +6,7 @@ development:
   host: localhost
   username: root
   password: 
-  #pool: 5
+  pool: 15
   timeout: 5000
 #  encoding: utf8
 #  socket: /var/lib/mysql/mysql.sock

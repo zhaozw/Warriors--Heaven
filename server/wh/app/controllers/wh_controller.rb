@@ -442,7 +442,9 @@ class WhController < ApplicationController
         player = user_data
         # indicate who is the client, here isUser not same meaning with .isUser 
         player[:isUser] = true
+        player[:canGain] = true
         enemy[:isUser] = false
+        enemy[:canGain] = false
         
         # player.ext[:lastact] = "fight"
         # enemy.ext[:lastact] = "fight"

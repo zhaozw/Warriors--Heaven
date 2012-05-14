@@ -170,3 +170,7 @@ end
             return nil
         end
     end
+
+    def calc_zhanli(livingObj)
+        return livingObj.tmp[:level]
+    end

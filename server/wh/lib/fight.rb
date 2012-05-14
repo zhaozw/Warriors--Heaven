@@ -190,8 +190,10 @@ end
       msg = msg.gsub(/\$l/, limb).gsub(/\$w/, weapon)
            if (attacker[:isUser])
                 m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.name).gsub(/\$p/, "他")
-            else
+            elsif (defenser[:isUser])
                 m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, "你").gsub(/\$p/, "你")
+            else
+                m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, attacker.name).gsub(/\$p/, "你")
             end
         p m
         return  m
@@ -516,7 +518,7 @@ end
                     
                     gain_point = 1
                     context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
-                    if (defenser[:isUser])
+                    if (defenser[:canGain])
                         msg += "<div class='rgain'>"
                         msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}+#{gain_point}"
                         if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
@@ -608,7 +610,7 @@ end
                      # parry succeeded
                      #
                      msg += doParry(defenser[:defense_skill], context_d, parry_power)
-                     if (defenser[:isUser] && rand(defenser.tmp[:it]+1) > 10)
+                     if (defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10)
                          context_d[:gain][:exp] += 1
                          defenser.tmp[:exp] += 1
                          context_d[:gain][:pot] += 1
@@ -638,7 +640,7 @@ end
                         attacker.tmp[:pot] += 1
                         gain_point = 1
                         context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
-                        if attacker[:isUser]
+                        if attacker[:canGain]
                             msg += "<div class='rgain'>"
                             msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                             if (improve_skill(attacker, attacker[:attack_skill][:skill][:skname], gain_point) )
@@ -692,6 +694,51 @@ end
     # p1,p2: Objects/Player
     # context = {:msg=>""}
     
+    def receive_gain(player, gain)
+     
+        # bChange = false
+        p "===>gain1=#{gain.inspect}"
+        if (gain[:exp] != 0 )
+            # if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.tmp[:exp])
+            #     gain[:level] = 1
+            #     player.ext[:level] += 1
+            #     player.ext[:exp] = 0
+            # end
+            # player.ext[:exp] = player.tmp[:exp]
+            player.get_exp(gain[:exp])
+            p "===>33player ext saved #{player.ext.inspect}"
+            # bChange = true
+        end
+        
+        if (gain[:pot] != 0 )
+            player.ext[:pot] = player.tmp[:pot]
+            # bChange = true
+        end
+        
+        if (player.tmp[:stam] != player.ext[:stam])
+            player.ext[:stam]  = player.tmp[:stam]
+            # bChange = true
+        end
+        
+        if (player.tmp[:hp] != player.ext[:hp])
+            player.ext[:hp]  = player.tmp[:hp]
+            # bChange = true
+        end
+      #  if bChange
+       #     player.ext.save!
+      #  end
+        
+        gain[:skills].each {|k, v|
+            p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
+            if v[:point] != 0 || v[:level] != 0
+                skill = player.query_skill(k).data
+                p skill.inspect
+                skill.save!
+                p "save skill #{player.name} #{skill}#{skill.inspect}"
+            end
+        }
+        
+    end
     # 
     # the core fight function
     # p1,p2: Player or NPC
@@ -877,7 +924,7 @@ end
         i = 0
         style_c = "user"
        
-   
+        winner = nil
         while (i < 100 ) # max 100 turn
             if  style_c == "user"
                style_c = "enemy"
@@ -892,6 +939,12 @@ end
             
              if (defenser.tmp[:hp] <=0 )
                  msg += "<br/>#{defenser[:user]}战斗不能"
+                 winner = attacker
+                 break;
+             end
+             
+             if (defenser.tmp[:stam] <=0 && attacker.tmp[:stam]<=0)
+                 msg += "<div>双方都已经精疲力尽了!</div>"
                  break;
              end
              
@@ -908,68 +961,145 @@ end
         #
         # save to db # TODO should the enemy also save gain ?
         #
-    
-        if (attacker[:isUser])
-          gain = attacker[:gain]
-          player = attacker
-        else
-          gain = defenser[:gain]
-          player = defenser
+       if (attacker[:canGain])
+          receive_gain(attacker, attacker[:gain])
         end
-        bChange = false
-        p "===>gain1=#{gain.inspect}"
-        if (gain[:exp] != 0 )
-            # if ( (player.ext[:level]+1)*(player.ext[:level]+1)*(player.ext[:level]+1)<= player.tmp[:exp])
-            #     gain[:level] = 1
-            #     player.ext[:level] += 1
-            #     player.ext[:exp] = 0
-            # end
-            # player.ext[:exp] = player.tmp[:exp]
-            player.get_exp(gain[:exp])
-            p "===>33player ext saved #{player.ext.inspect}"
-            # bChange = true
+       if (defenser[:canGain])
+          receive_gain(defenser, defenser[:gain])
         end
-        
-        if (gain[:pot] != 0 )
-            player.ext[:pot] = player.tmp[:pot]
-            # bChange = true
-        end
-        
-        if (player.tmp[:stam] != player.ext[:stam])
-            player.ext[:stam]  = player.tmp[:stam]
-            # bChange = true
-        end
-        
-        if (player.tmp[:hp] != player.ext[:hp])
-            player.ext[:hp]  = player.tmp[:hp]
-            # bChange = true
-        end
-      #  if bChange
-       #     player.ext.save!
-      #  end
-        
-        gain[:skills].each {|k, v|
-            p "=>skill #{k}, #{v[:point]}, #{v[:level]}"
-            if v[:point] != 0 || v[:level] != 0
-                skill = player.query_skill(k).data
-                p skill.inspect
-                skill.save!
-                p "save skill #{player.name} #{skill}#{skill.inspect}"
-            end
-        }
-        
+
+        win = 0
         msg += "\n<div class='fight_result'><div class='win'>\n"
-        if (attacker[:isUser])
-            msg += "You(#{attacker[:user]}) Win !"
+        if !winner
+            win = -1
+            if attacker[:isUser]
+                msg += "你和#{defenser[:user]}战成平手!}"
+            elsif defenser[:isUser]
+                msg += "你和#{attacker[:user]}战成平手!"
+            else
+                msg += "#{attacker[:user]}和#{defenser[:user]}战成平手!"
+            end
         else
-            msg += "You(#{defenser[:user]}) Lose !"
+            if attacker == p1
+                win = 1
+            else
+                win = 0
+            end
+            if (winner[:isUser])
+                msg += "You(#{winner[:user]}) Win !"
+            elsif (defenser[:isUser])
+                msg += "You(#{defenser[:user]}) Lose !"
+            else
+                msg += "#{winner[:user]} Win !"
+            end
         end
         p attacker.tmp
-        msg += "(in #{i} rounds)</div>\n"
+        msg += "&nbsp;(in #{i} rounds)</div>\n"
         msg += "</div>"
-        context[:msg] = msg
+        if (context[:msg])
+            context[:msg] += msg
+        else
+            context[:msg] = msg
+        end
         p context[:msg]
         # return attacker[:isUser]
-        return attacker == p1
+        # return attacker == p1
+        return win
     end
     
+    def sort_team(t, p, desc)
+        _t = t.sort_by {|u| u[p.to_sym].to_i} 
+        if desc
+            return _t.reverse
+        else
+            return _t
+        end
+    end
+    
+    # return 0: team1 win 1: team2 win -1:duce
+    def team_fight(team1, team2, context)
+        # # sort by level
+        #    sort_team(team1, "level", true)
+        #    sort_team(team2, "level", true)
+        index_player_team1 = 0
+        index_player_team2 = 0
+        p "team1 size #{team1.size}"
+        p "team2.size #{team2.size}"
+        i =0 
+        while index_player_team2 < team2.size && index_player_team1 < team1.size
+            p "===>team1 player index #{index_player_team1}"
+            p "===>team2 player index #{index_player_team2}"
+            p1 = team1[index_player_team1]
+            p2 = team2[index_player_team2]
+            
+            p1_hp = p1.tmp[:hp]
+            p2_hp = p2.tmp[:hp]
+            p1_st = p1.tmp[:stam]
+            p2_st = p2.tmp[:stam]
+            if !p1.tmp[:contrib]
+                p1.tmp[:contrib] = {
+                    :score =>0,
+                    :win => 0
+                }
+            end
+            
+            if !p2.tmp[:contrib]
+                p2.tmp[:contrib] = {
+                         :score =>0,
+                    :win => 0
+                }
+            end
+            
+            context[:msg] += "<div class='baomu'>第#{i}阵&nbsp;<span class='user'>#{p1.name}</span> VS <span class='user'>#{p2.name}</span></div>"
+            
+            fight_context = {:msg=>""}
+            win = _fight(p1, p2, fight_context)
+            
+            context[:msg] += fight_context[:msg]
+             
+            p1_hp_delta = p1.tmp[:hp]-p1_hp
+            p2_hp_delta = p2.tmp[:hp]-p2_hp
+            p1_st_detal = p1.tmp[:stam] - p1_st
+            p2_st_detal = p2.tmp[:stam] - p2_st
+            
+            if win == 1
+                p1.tmp[:contrib][:score] += calc_zhanli(p2)
+                p1.tmp[:contrib][:win] += 1
+                if p1_hp_delta >0
+                    p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1.ext[:maxhp]/p1_hp_delta
+                end
+                
+                context[:msg] += "<div><span class='user'>#{p1.name}sp</span></div>"
+                p1.tmp[:hp] += p1_hp_delta/3
+                p1.tmp[:stam] += p1_st_detal/2
+                index_player_team2 += 1
+            elsif win == 0
+                p2.tmp[:contrib][:score] += calc_zhanli(p1)
+                p2.tmp[:contrib][:win] += 1
+                if p2_hp_delta > 0
+                    p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2.ext[:maxhp]/p2_hp_delta
+                end
+                  context[:msg] += "<div><span class='user'>#{p2.name}sp</span></div>"
+                p2.tmp[:hp] += p2_hp_delta/3
+                p2.tmp[:stam] += p2_st_detal/2
+                index_player_team1 += 1
+            elsif win == -1 # duce
+                p1.tmp[:contrib][:score] += calc_zhanli(p2)
+                # p1.tmp[:contrib][:win] += 1
+                p2.tmp[:contrib][:score] += calc_zhanli(p1)
+                # p2.tmp[:contrib][:win] += 1
+                index_player_team2 += 1
+                index_player_team1 += 1
+            end
+            i += 1
+        end
+        
+        if index_player_team2 > index_player_team1
+            return 0
+        elsif index_player_team2 < index_player_team1
+            return 1
+        elsif index_player_team2 == index_player_team1
+            return -1
+        end
+            
+    end
