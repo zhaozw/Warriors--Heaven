@@ -132,14 +132,22 @@ class Skill
       level = @skill[:level]
       actions = attack_actions
       i = 0;
+      ar = []
       for a in actions    
          if (a[:level] > level)
              break
          end
+         ar.push(a)
          i += 1
       end
-      actions[i-1][:index] = i
-     a = actions[i-1]
+      r = 0
+      if ar.size > 1
+        max=ar.size-1
+        r = (rand(max*2)+rand(max*2))/2
+        r = max if ret > max
+    end
+      actions[r][:index] = i  #第几式
+      a = actions[r]
    end
 
    # def getAttackActionMsg(context)

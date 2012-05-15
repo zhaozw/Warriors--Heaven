@@ -129,7 +129,24 @@ class User < ActiveRecord::Base
 =end
     end
     
-    def get_object(o)
+    def get_obj(o)
+        # Usereq.new({
+        #       :uid=>self[:id],
+        #       :sid=>self[:sid],
+        #       :eqid=>o.data[:id],
+        #       :eqname=>o.data[:eqname],
+        #       :eqslotnum=>0,
+        #       :wearon=>nil
+        #   }).save!
+        o.data[:owner] = self[:id]
+        o.data.save!
+        if self[:objects]
+            self[:objects].push(o)
+            self[:cached] = false
+        end
+        
+    end
+    def get_item(o)
         # Usereq.new({
         #       :uid=>self[:id],
         #       :sid=>self[:sid],
@@ -142,6 +159,7 @@ class User < ActiveRecord::Base
         o.data.save!
         if self[:items]
             self[:items].push(o)
+            self[:cached] = false
         end
         
     end

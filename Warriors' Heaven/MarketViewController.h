@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "ObjDetailViewController.h"
 
 @interface MarketViewController : UIViewController{
     int currentSelectedList;
+    NSArray* item_list;
+//    NSArray* eq_list;
+//    NSArray* fixture_list;
+//    NSArray* prem_list;
 }
 @property(nonatomic, assign)     int currentSelectedList;
 @property (strong, nonatomic) IBOutlet UIButton *btEquipment;
@@ -20,5 +25,7 @@
 @property (strong, nonatomic) IBOutlet UIView *vFixure;
 @property (strong, nonatomic) IBOutlet UIView *vPremierEq;
 @property (strong, nonatomic)  UIButton *btCurrentSelected;
+@property (strong, nonatomic) IBOutlet ObjDetailViewController *vcObjDetail;
 @property (strong, retain) AppDelegate * ad;
+-(void) updateData;
 @end

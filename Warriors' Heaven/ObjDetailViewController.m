@@ -18,6 +18,8 @@
 @synthesize lbDesc;
 @synthesize lbPrice;
 @synthesize btnUse;
+@synthesize slbPrice;
+@synthesize btTrade;
 @synthesize ad;
 @synthesize obj;
 
@@ -45,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
+    [self view ].hidden = YES;
 }
 
 - (void)viewDidUnload
@@ -57,6 +60,8 @@
     [self setVImage:nil];
     [self setLbPrice:nil];
     [self setBtnUse:nil];
+    [self setSlbPrice:nil];
+    [self setBtTrade:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -68,12 +73,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)onSell:(id)sender {
 
-    WHHttpClient* client = [[WHHttpClient alloc] init:[self parentViewController] ];
-    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/sell?id=%d", [[obj valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
-
-}
 
 
 - (IBAction)onClose:(id)sender {
@@ -86,7 +86,22 @@
 }
 
 
-
+- (void) setViewType:(NSString*) type{
+     NSObject* p = [self parentViewController];
+    if ([type isEqualToString:@"buy"]){
+        viewType = @"buy";
+        [btTrade setTitle:@"购买" forState:UIControlStateNormal];
+        [btTrade addTarget:[self parentViewController] action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
+        slbPrice.text = @"买入价格";
+    }
+    else if ([type isEqualToString:@"sell"]){
+       
+        viewType = @"sell";
+        [btTrade setTitle:@"卖出" forState:UIControlStateNormal];
+        [btTrade addTarget:[self parentViewController] action:@selector(onSell1:) forControlEvents:UIControlEventTouchUpInside];
+         slbPrice.text = @"卖出价格";
+    }
+}
 - (void) loadObjDetail:(NSObject*) o{
     obj = o;
     NSDictionary* eq = o;
@@ -103,10 +118,16 @@
         filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];
     filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
     [vImage setImageURL:[NSURL URLWithString:filepath]];
-    int price = [[eq valueForKey:@"price"] intValue]/2;
+     int price = [[eq valueForKey:@"price"] intValue];
+    if ([viewType isEqualToString:@"sell"])
+        price = price /2;
+   
     lbPrice.text = [[NSNumber numberWithInt:price] stringValue];
     [self view].hidden = NO;
     
+    int _id =  [[eq valueForKey:@"id"] intValue];
+    btTrade.tag = _id;
+    btnUse.tag = _id;
     int type = [[eq valueForKey:@"eqtype"] intValue];
     if ( type != 2){
         btnUse.hidden = YES;

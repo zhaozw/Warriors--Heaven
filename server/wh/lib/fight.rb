@@ -184,8 +184,11 @@ end
         
       #  p "player uid #{attacker.tmp[:uid]}, your uid #{session[:uid]}, msg=#{msg}"
       weapon = "武器"
-      if (attacker.query_all_weapons && attacker.query_all_weapons.size>0)
-          weapon = attacker.query_all_weapons.values[0].dname
+      # if (attacker.query_all_weapons && attacker.query_all_weapons.size>0)
+      #     weapon = attacker.query_all_weapons.values[0].dname
+      # end
+      if attacker.tmp[:main_weapon]
+          weapon = attacker.tmp[:main_weapon].dname
       end
       msg = msg.gsub(/\$l/, limb).gsub(/\$w/, weapon)
            if (attacker[:isUser])
@@ -263,7 +266,7 @@ end
     #  translate arabic number to Chinse e.g.“第三十六式”
     def action_msg(skill, action)
         a = action
-        return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]}式】<br/>#{a[:action]}" 
+        return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]}式 <span class='zhaoshiname'>#{a[:name]}</span>】<br/>#{a[:action]}" 
     end
     
     def doDamage(attacker_attack_skill, context, ap)
@@ -791,8 +794,10 @@ end
         weapon_skill_type = 'unarmed'
         if (hand_right_weapon)
             weapon_skill_type = hand_right_weapon.skill_type
+            p1.tmp[:main_weapon] = hand_right_weapon
         elsif hand_left_weapon
             weapon_skill_type = hand_left_weapon.skill_type
+            p1.tmp[:main_weapon] = hand_left_weapon
         end
         
 =begin
@@ -824,8 +829,10 @@ end
         weapon_skill_type = 'unarmed'
         if (hand_right_weapon)
             weapon_skill_type = hand_right_weapon.skill_type
+            p2.tmp[:main_weapon] = hand_right_weapon
         elsif hand_left_weapon
             weapon_skill_type = hand_left_weapon.skill_type
+            p2.tmp[:main_weapon] = hand_left_weapon
         end
         context_p2 = {
                     :user => p2,
@@ -994,7 +1001,7 @@ end
             end
         end
         p attacker.tmp
-        msg += "&nbsp;(in #{i} rounds)</div>\n"
+        msg += "(in #{i} rounds)</div>\n"
         msg += "</div>"
         if (context[:msg])
             context[:msg] += msg
@@ -1050,7 +1057,7 @@ end
                 }
             end
             
-            context[:msg] += "<div class='baomu'>第#{i}阵&nbsp;<span class='user'>#{p1.name}</span> VS <span class='user'>#{p2.name}</span></div>"
+            context[:msg] += "<div class='baomu'>第#{i+1}阵&nbsp;<span class='user'>#{p1.name}</span> VS <span class='user'>#{p2.name}</span></div>"
             
             fight_context = {:msg=>""}
             win = _fight(p1, p2, fight_context)
@@ -1069,20 +1076,22 @@ end
                     p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1.ext[:maxhp]/p1_hp_delta
                 end
                 
-                context[:msg] += "<div><span class='user'>#{p1.name}sp</span></div>"
-                p1.tmp[:hp] += p1_hp_delta/3
-                p1.tmp[:stam] += p1_st_detal/2
+                context[:msg] += "<div><span class='user'>#{p1.name}稍作休息，体力有所恢复...</span></div>"
+                p1.tmp[:hp] -= p1_hp_delta/3
+                p1.tmp[:stam] -= p1_st_detal/2
                 index_player_team2 += 1
+                context[:team1win] += 1
             elsif win == 0
                 p2.tmp[:contrib][:score] += calc_zhanli(p1)
                 p2.tmp[:contrib][:win] += 1
                 if p2_hp_delta > 0
                     p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2.ext[:maxhp]/p2_hp_delta
                 end
-                  context[:msg] += "<div><span class='user'>#{p2.name}sp</span></div>"
-                p2.tmp[:hp] += p2_hp_delta/3
-                p2.tmp[:stam] += p2_st_detal/2
+                  context[:msg] += "<div><span class='user'>#{p2.name}稍作休息，体力有所恢复...</span></div>"
+                p2.tmp[:hp] -= p2_hp_delta/3
+                p2.tmp[:stam] -= p2_st_detal/2
                 index_player_team1 += 1
+                context[:team2win] += 1
             elsif win == -1 # duce
                 p1.tmp[:contrib][:score] += calc_zhanli(p2)
                 # p1.tmp[:contrib][:win] += 1
@@ -1090,6 +1099,10 @@ end
                 # p2.tmp[:contrib][:win] += 1
                 index_player_team2 += 1
                 index_player_team1 += 1
+            end
+            if context[:observer]
+                context[:observer].notify(context)
+                context[:msg]=""
             end
             i += 1
         end

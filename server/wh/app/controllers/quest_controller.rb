@@ -88,7 +88,12 @@ class QuestController < ApplicationController
         @quest_name = params[:name]
         @quest = load_quest(@quest_name)
         @quest.setPlayer(player)
-        @quest.setData(player.query_quest(@quest_name))
+        data = player.query_quest(@quest_name)
+        if (data==nil)
+            render :text=>"任务不存在"
+            return
+        end
+        @quest.setData(data)
         p"==>quest=#{@quest.inspect}"
         if !@quest
             error("load quest failed")

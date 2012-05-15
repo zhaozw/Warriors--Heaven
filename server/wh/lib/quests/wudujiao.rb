@@ -32,6 +32,11 @@ class Wudujiao < Quest
 
 
             return msg
+        elsif q[:stat] == 1
+            
+            return "战役进行中。目前五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team1win")}阵"
+        elsif q[:stat] == 2
+            return "战役已经结束。五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team1win")}阵"
         end
     end
     
@@ -72,6 +77,7 @@ class Wudujiao < Quest
     def action_list
        
         qid = data.get_prop("quest_id")
+        p "====>action_list qid=#{qid}"
         if !qid
              return         [
             {
@@ -85,11 +91,12 @@ class Wudujiao < Quest
         ]
         else
             q = globalq(qid.to_i)
+                    p "====>action_list q=#{q.inspect}"
             if q[:stat] == 2
                 return [
                     {
                         :name=>"check_result",
-                        :dname=>"查看战役结果"
+                        :dname=>"战役实况录像"
                     
                     },
                     {
@@ -98,6 +105,15 @@ class Wudujiao < Quest
                     
                     },
                     ]
+            elsif q[:stat] == 1
+                    {
+                        :name=>"check_result",
+                        :dname=>"查看战役直播"
+                    
+                    }
+                 
+            else
+                return []
             end
         end
     end
@@ -114,9 +130,10 @@ class Wudujiao < Quest
             
             # try to join
             r = player.query_quest("caiyao")
-            if !r or r[:progress] < 100
+=begin
+           if !r or r[:progress] < 100
 
-            # else
+            else
                         
                 if action == "join_zhongyuan"
                     msg += "<div>你向右走上，来到群雄面前, 想要加入。</div>"
@@ -131,7 +148,8 @@ class Wudujiao < Quest
             
                 return
             end
-                     p "===>13"
+=end
+      
             # passed check, set quest id
             rs = Globalquest.find_by_sql("select * from globalquests where stat=0")
             if !rs or rs.size == 0 # not globalquest
@@ -162,8 +180,8 @@ class Wudujiao < Quest
           context[:script]="location.replace('/wh/teamfight?id=#{qid}');"
           return
       elsif action =="restart"
-         data.set_prop("quest_id", nil)
-          
+          data.set_prop("quest_id", nil)
+          context[:room] = self.room
           return
         
       else  
@@ -184,8 +202,10 @@ class Wudujiao < Quest
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
                 else
-                
-                    num = team_zhongyuan.size
+                    data.set_prop("join", "zhongyuan")
+                    team_zhongyuan.push(player.id)
+                    q.set_prop("zhongyuan", team_zhongyuan)
+                    q.savenum = team_zhongyuan.size
                     msg += "<div>左冷禅拱手说道：多谢英雄前来助战，请稍事休息，等大伙汇集齐了便一同出发！</div>"
                     per = num*100/full
                     if per > 80
@@ -195,15 +215,16 @@ class Wudujiao < Quest
                     elsif per > 20
                         msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
                     end
-                    data.set_prop("join", "zhongyuan")
-                    team_zhongyuan.push(player.id)
-                    q.set_prop("zhongyuan", team_zhongyuan)
-                    q.save
+
                 end
             elsif action == "join_wudu"
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
                 else
+                    data.set_prop("join", "wudu")
+                    team_wudu.push(player.id)
+                    q.set_prop("wudu", team_wudu)
+                    q.save
                     num = team_wudu.size
                     msg += "<div>苗人女子拍手乐道：好好，我们又多了一个帮手，阁下坐一哈子，等我们教主号令。</div>"
                     per = num*100/full
@@ -214,10 +235,7 @@ class Wudujiao < Quest
                     elsif per > 20
                         msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
                     end
-                    data.set_prop("join", "wudu")
-                    team_wudu.push(player.id)
-                    q.set_prop("wudu", team_wudu)
-                    q.save
+                   
                 end
             end
                     
@@ -265,6 +283,7 @@ class Wudujiao < Quest
                          team1.push(player)
                          msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
                     }
+                    msg2+="<p/>"
                     msg2+="<div>中原武林出场阵容:</div>"
                     team_zhongyuan.each {|u|
                          user = User.get(u)
@@ -280,7 +299,11 @@ class Wudujiao < Quest
                   
                     }
                     
-                    c = {:msg=>msg2}
+                    c = {:msg=>msg2,
+                        :team1win=>0,
+                        :team2win=>0,
+                        :observer=>self
+                        }
                     win = team_fight(team1, team2, c)
                     if win == 1
                         c[:msg] += "<div>平局!</div>"
@@ -293,27 +316,28 @@ class Wudujiao < Quest
                     team1.sort_by {|u| u.tmp[:contrib][:score].to_i} 
                     team2.sort_by {|u| u.tmp[:contrib][:score].to_i} 
                     
-                    c[:msg] += "<div>五毒教荣誉榜</div>"
+                    c[:msg] += "<div>五毒教贡献榜</div>"
                     for t in team1 
                         c[:msg] += "<div>#{t.name} 胜#{t.tmp[:contrib][:win]}场，得分#{t.tmp[:contrib][:score]}</div>"
                     end
-                    c[:msg] += "<div>中原武林荣誉榜</div>"
+                    c[:msg] += "<div>中原武林贡献榜</div>"
                     for t in team2
                         c[:msg] += "<div>#{t.name} 胜#{t.tmp[:contrib][:win]}场，得分#{t.tmp[:contrib][:score]}</div>"
                     end
                     
                     id = q[:id].to_i
-                  dir = id/100
-                  dir = "/var/wh/globalquest/#{dir.to_s}"
-                  begin
-                      FileUtils.makedirs(dir)
-                      aFile = File.new("#{dir}/#{id}","w")
-                      p "==>team fight result #{c[:msg]}"
-                      aFile.puts c[:msg]
-                  rescue Exception=>e
-                      logger.error e
-                  end
-                    
+                                 dir = id/100
+                                 dir = "/var/wh/globalquest/#{dir.to_s}"
+                                 begin
+                                     FileUtils.makedirs(dir)
+                                     aFile = File.new("#{dir}/#{id}","a")
+                                     p "==>team fight result #{c[:msg]}"
+                                     aFile.puts c[:msg]
+                                     aFile.close
+                                 rescue Exception=>e
+                                     logger.error e
+                                 end
+                                   
                     team1.each{|p|p.data.check_save}
                     team2.each{|p|p.data.check_save}
                      q[:stat] = 2
@@ -331,9 +355,10 @@ class Wudujiao < Quest
 
 
  
-        
+        context[:room] = self.room
         context[:msg] = msg
          p context.inspect
+         
     end
     def logo
        "/game/quests/wudujiao.jpg" 
@@ -346,5 +371,35 @@ class Wudujiao < Quest
             @q = Globalquest.find(qid.to_i)
         end
         return @q
+    end
+    
+    def notify(context)
+        if context[:count]  == nil
+            context[:count] =0
+        end
+        
+        q = globalq(data.get_prop("quest_id"))
+        if q
+            q.set_prop("team1win", context[:team1win])
+            q.set_prop("team2win", context[:team2win])
+            id = q[:id].to_i
+            dir = id/100
+            dir = "/var/wh/globalquest/#{dir.to_s}"
+            begin
+              FileUtils.makedirs(dir)
+              aFile = File.new("#{dir}/#{id}_#{context[:count]}","a")
+              # p "==>team fight result #{context[:msg]}"
+              aFile.puts context[:msg]
+              aFile.close
+              aFile = File.new("#{dir}/#{id}","a")
+              # aFile.seek(IO::SEEK_END)
+              aFile.puts context[:msg]
+              aFile.close
+            rescue Exception=>e
+              p "Exception: "+e.inspect
+            end
+            q.save
+            context[:count] +=1        
+        end
     end
 end

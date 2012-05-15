@@ -10,7 +10,9 @@
 #import "AppDelegate.h"
 #import "EGOImageView.h"
 
-@interface ObjDetailViewController : UIViewController
+@interface ObjDetailViewController : UIViewController{
+    NSString* viewType;
+}
 @property (strong, nonatomic) NSObject* obj;
 @property (strong, nonatomic) IBOutlet UILabel *lbSellPrice;
 @property (strong, nonatomic) IBOutlet UILabel *lbRank;
@@ -19,9 +21,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *lbDesc;
 @property (strong, nonatomic) IBOutlet UILabel *lbPrice;
 @property (strong, nonatomic) IBOutlet UIButton *btnUse;
+@property (strong, nonatomic) IBOutlet UILabel *slbPrice;
+@property (strong, nonatomic) IBOutlet UIButton *btTrade;
 - (void) loadObjDetail:(NSObject*) obj;
 - (void) hideDetailView;
-- (IBAction)onSell:(id)sender;
+- (void) setViewType:(NSString*) type;
 - (IBAction)onClose:(id)sender;
 - (IBAction)onUse:(id)sender;
 @property (strong, nonatomic) IBOutlet EGOImageView *vImage;

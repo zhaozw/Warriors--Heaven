@@ -20,6 +20,7 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/cap', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/necklace', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/armo', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/xuezou', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
 =end
   def self.down

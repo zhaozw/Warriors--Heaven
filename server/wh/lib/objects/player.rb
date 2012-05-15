@@ -186,7 +186,7 @@ class Player < Human
     end
     
     def get_obj(o)
-        @obj.get_object(o)
+        @obj.get_obj(o)
     end
     
     # def add_exp(add_exp)

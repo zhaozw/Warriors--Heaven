@@ -57,27 +57,27 @@ class Liefengdaofa < Daofa
        thisskill =  @skill
        thisskill[:level] * 2
    end
-      def attack_actions
+      def attack_actions # from liuhe-da-fa
        [
            {
                :level=>0,
-               :name=>"三十六烦恼凤",
-               :action =>"$N剑尖上撩，招式轻灵，犹如白云飘来",
+               :name=>"呵壁问天",
+               :action =>"$N大喝一声，手中$w大开大阖，连连挥刀使出「呵壁问天」，斩向$n的$l",
                :damage => 10
                #:damage_type=>""
            },
            {
                :level=>10,
-               :name=>"飞龙火焰",
-               :action =>"$N一剑直劈，招式厚重，犹如重重青山",
+               :name=>"气盖河山",
+               :action =>"$N运刀如风，一招「气盖河山」，刀势霸道之极，向着$n周身各处猛砍猛劈",
                :damage =>20
                #:damage_type=>""
                
            },
            {
                :level=>20,
-               :name=>"鹰波",
-               :action =>"$N一剑轻削，轻柔如风，无影无踪",
+               :name=>"天地乍合",
+               :action =>"$N一着「天地乍合」，突然抢进$n近侧，迅猛地驱刀连斩，攻式顿然合成一个圆圈",
                :damage =>20
                #:damage_type=>""
                

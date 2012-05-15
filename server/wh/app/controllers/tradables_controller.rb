@@ -9,31 +9,37 @@ class TradablesController < ApplicationController
           sid = params[:sid]
       end
       type = params[:type]
-        if (!type)
-            error("You didn't specify item type")
-            return 
+        # if (!type)
+        #       error("You didn't specify item type")
+        #       return 
+        #   end
+        if type
+            ts = Tradable.find_by_sql("select * from tradables where obtype=#{type}")
+        else
+            ts = Tradable.find_by_sql("select * from tradables")
         end
-        ts = Tradable.find_by_sql("select * from tradables where obtype=#{type}")
         if !ts || ts.size == 0
             render :text=>"{}"
             return
         end
         
+        ret = []
         for t in ts
             _t = Equipment.load_equipment(t[:name], t)
-            t[:dname] = _t.dname
-            t[:desc] = _t.desc
-            t[:weight] = _t.desc
-            if t[:obtype] == 1
-                t[:pos] = _t.wearOn
-            end
-            t[:intro] = _t.intro
-            t[:image] = _t.image
-            t[:rank] = _t.rank
-            t[:price] = _t.price
+            # t[:dname] = _t.dname
+            # t[:desc] = _t.desc
+            # t[:weight] = _t.desc
+            # if t[:obtype] == 1
+            #     t[:pos] = _t.wearOn
+            # end
+            # t[:intro] = _t.intro
+            # t[:image] = _t.image
+            # t[:rank] = _t.rank
+            # t[:price] = _t.price
+            ret.push(_t)
         end
         
-        render :text=>ts.to_json
+        render :text=>ret.to_json
     end
     
     def buy
@@ -109,7 +115,7 @@ class TradablesController < ApplicationController
   
         # check if user has enough gold
         gold = user_data.ext[:gold]
-        obj = loadGameObject(item[:name])
+        obj = load_obj(item[:name], item)
         # price = item[:price]
         price = obj.price
         if (gold -price <0)
@@ -130,6 +136,7 @@ class TradablesController < ApplicationController
         #user_data[:userext][:eqslot] = eqslots.to_json
         user_data.ext.set_prop("eqslot", eqslots.to_json)
         user_data.ext[:gold] -= price
+        user_data.get_obj(obj)
         user_data.check_save
 =begin     
         # get available slot number

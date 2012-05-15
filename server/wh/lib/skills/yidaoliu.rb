@@ -60,15 +60,15 @@ class Yidaoliu < Daofa
        [
            {
                :level=>0,
-               :name=>"三十六烦恼凤",
-               :action =>"$N剑尖上撩，招式轻灵，犹如白云飘来",
+               :name=>"断云斩",
+               :action =>"刀光一闪，$w拦腰劈向$n",
                :damage => 10
                #:damage_type=>""
            },
            {
                :level=>10,
                :name=>"飞龙火焰",
-               :action =>"$N一剑直劈，招式厚重，犹如重重青山",
+               :action =>"$N一刀直劈,刀光凌厉，如烈焰奔腾。",
                :damage =>20
                #:damage_type=>""
                

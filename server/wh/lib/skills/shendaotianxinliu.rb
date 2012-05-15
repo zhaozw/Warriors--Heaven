@@ -59,19 +59,19 @@ class Shendaotianxinliu < Game::Skill
        return thisskill[:level]
    end
 
-   def attack_actions
+   def attack_actions # from pishi-poyu quan
        [
            {
                :level=>0,
                :name=>"花弁手",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「催心诀，双拳一股刚猛之力$n人击去",
+               :action =>"身子微躬、右拳左掌合着一揖，突然随势向前疾探，打向$n$l",
                :damage => 10,
                #:damage_type=>""
            },
            {
                :level=>10,
                :name=>"浮　葉",
-               :action =>"$N深吸一口气，左拳使出七伤拳总诀中的「伤肺诀」，双拳飘忽不定，某人顿时感觉一股阴之力迎面而柔来。",
+               :action =>"$N左掌虚抚，右拳“嗖”地一声从掌风中猛穿出来，击向$n的$l",
                :damage =>20,
                #:damage_type=>""
                

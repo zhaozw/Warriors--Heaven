@@ -174,3 +174,13 @@ end
     def calc_zhanli(livingObj)
         return livingObj.tmp[:level]
     end
+    
+    def rand1(max, desc)        
+        ret = (rand(max*2)+rand(max*2))/2
+        ret = max if ret > max
+        if desc 
+            return ret
+        else
+            return max - ret
+        end
+    end

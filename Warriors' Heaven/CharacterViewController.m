@@ -217,10 +217,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     item_selected = NULL;
     
     
-    [ad.window addSubview:[vcObjDetail view]];
-    [vcObjDetail hideDetailView];
-    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
-    [self addChildViewController:vcObjDetail];
+
     
     [self initPropView];
     
@@ -555,6 +552,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSLog(@"set content size to %d, %d", 320, t);
     vv.contentSize = CGSizeMake(0, t-480);
     //    self.view.frame = CGRectMake(0,0,320,480);
+    
+    [self addChildViewController:vcObjDetail];
+    [ad.window addSubview:[vcObjDetail view]];
+    [vcObjDetail hideDetailView];
+    [vcObjDetail setViewType:@"sell"];
+    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+
 }
 - (void)viewDidLoad
 {
@@ -569,6 +573,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSArray* eqs = [ad getDataUserEqs];
     NSObject* o = [eqs objectAtIndex:[self findEpById:btn.tag]];
     [vcObjDetail loadObjDetail:o];
+    itemOnDetail = btn.tag;
     [[self view] bringSubviewToFront: [vcObjDetail view]];
 }
 - (void) onUseReturn:(NSObject*)data{
@@ -621,6 +626,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSObject* eq = [eqs objectAtIndex:[self findEpById:btn.tag]];
     if (!eq)
         return;
+    itemOnDetail = btn.tag;
 //    NSObject* o = [eq valueForKey:@"equipment"];
     [vcObjDetail loadObjDetail:eq];
 //    CGRect r =  vcObjDetail.view.frame;
@@ -1236,4 +1242,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     }
 }
 
+- (void) onSell1:(UIButton*)btn {
+    NSArray* eqs = [ad getDataUserEqs];
+    NSObject* eq = [eqs objectAtIndex:[self findEpById:itemOnDetail]];
+    if (!eq)
+        return;
+    WHHttpClient* client = [[WHHttpClient alloc] init:self  ];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/sell?id=%d", [[eq valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
+    
+}
 @end

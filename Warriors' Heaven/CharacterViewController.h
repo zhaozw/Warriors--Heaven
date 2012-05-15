@@ -38,6 +38,8 @@
     EGOImageButton *vEqbtn_boots;
     EGOImageButton *vEqbtn_trousers;
     EGOImageButton *vEqbtn_armo;
+    
+    int itemOnDetail;
 }
 @property (nonatomic, retain) NSMutableArray* positions;
 @property (nonatomic, retain) NSDictionary* pos_map;

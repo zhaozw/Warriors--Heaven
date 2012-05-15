@@ -18,21 +18,21 @@ class Xuezou  < Weapon
     end
 
     def weight
-        9
+        10
     end
 
     def image
-        "obj/equipments/blade.jpg"
+        "obj/equipments/xuezou.jpg"
     end
 
     def rank
-        2
+        3
     end
 
     def damage
-        80
+        120
     end
       def price
-      100
+      500
   end
 end
