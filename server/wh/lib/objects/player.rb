@@ -34,7 +34,7 @@ class Player < Human
         setup_wearing
     end
     
-    
+
     def setup_wearing
         eqs = query_all_equipments
         eqs.each {|k,v|
@@ -82,6 +82,8 @@ class Player < Human
         end
         @temp = {
             :level =>@obj[:userext][:level  ],
+            :jingli =>@obj[:userext][:jingli],
+            :max_jl =>@obj[:userext][:max_jl],
               :exp   => @obj[:userext][:exp  ],
               :str   => @obj[:userext][:str  ],
               :hp    => @obj[:userext][:hp   ],
@@ -204,6 +206,10 @@ class Player < Human
         return data.get_exp(exp)
     end
     
+    def receive_gold(g)
+        data.ext[:gold] += g
+    end
+    
     def query_quest(quest)
         @obj.query_quest(quest)
     end
@@ -312,13 +318,17 @@ class Player < Human
         ext.set_prop("pending", pending)
 
     end
-    def delete_item(obj)
-        data.delete_item(obj)
+    def delete_obj(obj)
+        data.delete_obj(obj)
     end
-    def remove_item(obj)
-        data.remove_item(obj)
+    def remove_obj(obj)
+        data.remove_obj(obj)
+        unwear(obj)
     end
     def query_items
+        data.query_items
+    end
+    def query_carrying
         data.query_items
     end
     def query_item(name)
@@ -331,4 +341,5 @@ class Player < Human
     def get_exp(exp)
         return data.get_exp(exp)
     end
+
 end

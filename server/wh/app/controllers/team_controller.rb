@@ -1,5 +1,17 @@
 require 'rubyutility.rb'
 class TeamController < ApplicationController
+    def create_team
+        return if !check_session
+        
+        t = Team.new({
+            :owner  => session[:uid],
+            :code   => generate_password(6).upcase,
+            :power  => 0,
+            :prop   => "{}"     
+        })
+        t.save!
+        render :text=>"ok"
+    end
     def index
         
         return unless check_session and user_data
@@ -32,6 +44,7 @@ class TeamController < ApplicationController
             render :text=>t.to_json
        #     user_data[:team] 
             return
+      
         end
         
         
@@ -69,7 +82,7 @@ class TeamController < ApplicationController
         #   end
         
         team = player.query_team
-        p team.inspect
+        p "==>Your team: #{team.inspect}"
   #      ret = {
      #       :team=>list_myteam,
           #  :joinedTeam=>[

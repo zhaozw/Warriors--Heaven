@@ -119,12 +119,17 @@ class Caiyao < Quest
                     if (player[:gain][:level] > 0)
                         msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
                     end
+               
                     p "===>msg=#{msg}"
                     if (win)
-                        eqs = npc.query_all_equipments
-                        eqs.each {|k,v|
-                            user.get_obj(v)
-                        }
+                        # eqs = npc.query_all_equipments
+                        #  eqs.each {|k,v|
+                        #      user.get_obj(v)
+                        #  }
+                        drop = rand_drop(npc,player)
+                        for dr in drop
+                            msg += "\n<div class='gain' style='color:#990000'>你得到了#{dr.dname}!</div>"
+                        end
                         
                     end
                 else

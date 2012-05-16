@@ -1,6 +1,7 @@
 require 'objects/equipments/weapon.rb'
 
 class Armo  < Weapon
+
   def dname
     "铁甲"
   end

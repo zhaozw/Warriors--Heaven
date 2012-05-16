@@ -144,9 +144,9 @@ class Skill
       if ar.size > 1
         max=ar.size-1
         r = (rand(max*2)+rand(max*2))/2
-        r = max if ret > max
-    end
-      actions[r][:index] = i  #第几式
+        r = max if r > max
+      end
+      actions[r][:index] = r  #第几式
       a = actions[r]
    end
 

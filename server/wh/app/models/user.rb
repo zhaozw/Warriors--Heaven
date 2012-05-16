@@ -129,6 +129,8 @@ class User < ActiveRecord::Base
 =end
     end
     
+ 
+    # get object (equipment, item, prem)
     def get_obj(o)
         # Usereq.new({
         #       :uid=>self[:id],
@@ -146,6 +148,8 @@ class User < ActiveRecord::Base
         end
         
     end
+    
+    # get item (eqtype=2)
     def get_item(o)
         # Usereq.new({
         #       :uid=>self[:id],
@@ -321,17 +325,25 @@ class User < ActiveRecord::Base
    # end
     
     def self.get(id)
-        r = $memcached.get(id.to_s)
-
-        if r
-            p "found in cache!"
+        flat = false
+        if (!get_flag(id, "db_changed")) 
+            r = $memcached.get(id.to_s)
+            if r
+                p "found in cache!"
+            end
+        else
+            flag = true
+           
         end
+
+        
      #   r.reset_change if r # need to reset because the value of @changed also cached
         return r if r
         
         p "not found in cache!"
         r = User.find(id)
         r.cache
+        delete_flag(id, "db_changed") if flag
         return r
     end
     
@@ -389,26 +401,26 @@ class User < ActiveRecord::Base
         
     end
     
-    def delete_item(obj)
-        o = remove_item(obj)
+    def delete_obj(obj)
+        o = remove_obj(obj)
         if o
             o.data.delete
         end
-       
     end
-    def remove_item(obj)
-        o = query_item_by_id(obj.data[:id])
+    
+    
+    def remove_obj(obj)
+        o = query_obj_by_id(obj.data[:id])
               p "==>items33330:#{self[:items].inspect}"
         if !o
             return nil
         end
               p "==>items33331:#{obj[:eqtype]}"
-        if obj[:eqtype].to_i !=2
+        if obj[:eqtype].to_i ==1
             unwear_equipment(obj)
         else
             p "==>items3333:#{self[:items].inspect}"
             if (self[:items])
-                
                  self[:items].delete(o)
                  p "==>items3:#{self[:items].inspect}"
              end
@@ -473,7 +485,16 @@ class User < ActiveRecord::Base
         end
         return self[:items]
     end
-    
+    def query_obj_by_id(id)
+        eqs = query_all_obj
+         p "===> eqs=#{eqs.inspect}"
+         for eq in eqs
+             if eq.data[:id] == id
+                 return eq
+             end
+         end
+         return nil
+    end
     def query_item_by_id(id)
         eqs = query_items
          p "===> eqs=#{eqs.inspect}"

@@ -19,7 +19,7 @@
 </div>
 	<img style="z-index:100;position:absolute;left:230;top:15;width:25px;" src="/images/restart.png" alt="Replay" onclick="replay()"/>
 	<img id="play" style="z-index:100;position:absolute;left:180;top:15;width:25px;" src="/images/stop.png" alt="playorstop" onclick="playorstop()"/>
-	<div id="result" style="margin-top:15px;margin-left:15px;z-index:10;height:80%;overflow-y:auto;font-size:10pt;color:black;">
+	<div id="result" style="margin-top:15px;margin-left:15px;z-index:10;height:450px;overflow-y:auto;font-size:10pt;color:black;">
 	</div>
 	<div id="c" style="display:none;">
 		<%=@fight_result %>
@@ -32,6 +32,7 @@
 	var TextArray=[];
 	var timer;
 	var stop = false;
+	var finished = false;
 
 	function playorstop(){
 		if (stop){
@@ -47,8 +48,17 @@
 	}
 
 	function replay(){
-		$("#result").html("");
-		showTextWithTimer($("#c").html());
+		if (!finished){
+			$("#result").html($("#c").html());
+			$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+			if (timer)
+				clearInterval(timer);
+			finished = true;
+		}else{
+			$("#result").html("");
+			showTextWithTimer($("#c").html());
+			finished = false;
+		}
 	}
 	function showTextWithTimer(msg){
 		if (!msg || msg.length==0)

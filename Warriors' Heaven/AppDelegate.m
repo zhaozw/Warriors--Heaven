@@ -266,10 +266,12 @@
             [client setRetry:YES];    
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
             bFirstCallReturn = false;
+         // start poll thread
+        [self query_msg];
 //        }else{
 //         
 //        }
-
+        
         
         [self initUI];
     }
@@ -308,8 +310,6 @@
 }
 
 - (void) updateUserext{
-    
-    
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         [client sendHttpRequest:@"/wh/ext" selector:@selector(onUpdateUserextReturn:) json:YES showWaiting:NO];
     
@@ -348,6 +348,33 @@
         TrainingGround *vc = (TrainingGround*)vcTraining;
         [vc _startPractise:[pending valueForKey:@"skill"] _usepot:[pending valueForKey:@"usepot"]];
     }
+    
+   
+    
+    
+}
+- (void) query_msg{
+    if (!bFirstCallReturn){
+        [self performSelector:@selector(query_msg) withObject:NULL afterDelay:10];
+        return;
+    }
+        
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client setRetry:YES];    
+    [client sendHttpRequest:@"/message/get" selector:@selector(onGetMsgReturn:) json:NO showWaiting:NO];
+}
+
+- (void) onGetMsgReturn:(NSObject*) data{
+    
+    NSString* s = data;
+    if ([s length] >0){
+    
+    
+    [self showMsg:data type:1 hasCloseButton:NO];
+      }
+    [self performSelector:@selector(query_msg) withObject:NULL afterDelay:600];
+
+    
 }
 - (void) setBgImg:(UIImage*) img{
     [bgView setImage:img];

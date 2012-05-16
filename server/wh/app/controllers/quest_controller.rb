@@ -109,6 +109,7 @@ class QuestController < ApplicationController
             render :template=>"quest/#{room}"
         end 
         
+         p "==>ret=#{@quest.action_list.inspect}"
     
         
     end
@@ -148,6 +149,7 @@ class QuestController < ApplicationController
         if @action_context[:script]
             ret[:script] = @action_context[:script]
         end
+       
         render :text=>ret.to_json
     end
     

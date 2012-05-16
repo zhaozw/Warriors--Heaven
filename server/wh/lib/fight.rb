@@ -274,22 +274,33 @@ end
         p1 = context[:user]
         p2 = context[:target]
         
-      
-        # apply damage from equipment and weapon or other things
-        ad = p1.tmp[:apply_damage]
-         # give some fuzzy
+        m1 = ""
+        if (p1.hasWeapon?)
+        #     apply damage from equipment and weapon or other things
+            ad = p1.tmp[:apply_damage]
+        else
+            ad = 5 # unarmed damaged
+            m1 += "<div>apply unarmed damage #{ad}</div>"
+        end
+            # give some fuzzy
         if (ad > 0)
             ad = (ad + rand(ad)) / 2;
             d += ad
         end
+        d = 1 if d < 1
         p "apply damage > #{d}"
-
-        
+        m1 += "<div>apply damage #{d}</div>"
+    
+        d = d*p1.tmp[:str]/20
+        d = 1 if d < 1
+        p "apply str > #{d}"
+    
         # if d <= 30
         #       d = 30
         #   end
-        m1 = "<div>apply damage #{d}</div>"
-                
+
+        m1 += "<div>apply str #{d}</div>"
+   
         d = d.to_f
        # p "fuzzy damage > #{d}"
     
@@ -300,7 +311,7 @@ end
         action = context[:action]
         # m1 += "<div>actioin damage >#{action.inspect}</div>"
         if (action[:damage])
-            d += action[:damage]/10.0 * (d / 30);
+            d += action[:damage]/10.0 * (d / 5);
         end
         p "apply skill zhaoshi damage > #{d}"
         m1 += "<div>zhaoshi damage >#{d}</div>"
@@ -309,15 +320,15 @@ end
         #          d = 10
         #      end
         # apply general damage of skill (equal skill, eqaul damage)
-        d += (skill.data[:level]+ 1) /10 * (d /10);
+        d += (skill.data[:level]+ 1) /10 * (d /5);
         p "apply skill common damage > #{d}"
         m1 += "<div>skill general damage >#{d}</div>"
         
-        damage_bonus = p1.tmp[:str]
-        
-        d += (damage_bonus + rand(damage_bonus))/2
-        p "apply damage bonus > #{d}"
-        m1 += "<div>bonus damage >#{d}</div>"
+        # damage_bonus = p1.tmp[:str]
+        # 
+        # d += (damage_bonus + rand(damage_bonus))/2
+        # p "apply damage bonus > #{d}"
+        # m1 += "<div>bonus damage >#{d}</div>"
         
         # Let combat exp take effect
         defense_factor = calc_total_exp(p2.tmp[:level]);
@@ -745,7 +756,7 @@ end
     # 
     # the core fight function
     # p1,p2: Player or NPC
-    # return: 1: p1 win 0: p2 win
+    # return: 1: p1 win 0: p2 win -1: duce
     def _fight(p1, p2, context)
         msg = context[:msg]
         
@@ -1064,38 +1075,38 @@ end
             
             context[:msg] += fight_context[:msg]
              
-            p1_hp_delta = p1.tmp[:hp]-p1_hp
-            p2_hp_delta = p2.tmp[:hp]-p2_hp
-            p1_st_detal = p1.tmp[:stam] - p1_st
-            p2_st_detal = p2.tmp[:stam] - p2_st
-            
+            p1_hp_delta = 0-(p1.tmp[:hp]-p1_hp)
+            p2_hp_delta = 0-(p2.tmp[:hp]-p2_hp)
+            p1_st_delta = 0-(p1.tmp[:stam] - p1_st)
+            p2_st_delta = 0-(p2.tmp[:stam] - p2_st)
+                          
             if win == 1
                 p1.tmp[:contrib][:score] += calc_zhanli(p2)
                 p1.tmp[:contrib][:win] += 1
                 if p1_hp_delta >0
-                    p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1.ext[:maxhp]/p1_hp_delta
+                    p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1_hp_delta
                 end
                 
                 context[:msg] += "<div><span class='user'>#{p1.name}稍作休息，体力有所恢复...</span></div>"
-                p1.tmp[:hp] -= p1_hp_delta/3
-                p1.tmp[:stam] -= p1_st_detal/2
+                p1.tmp[:hp] += p1_hp_delta/3
+                p1.tmp[:stam] += p1_hp_delta/2
                 index_player_team2 += 1
                 context[:team1win] += 1
             elsif win == 0
                 p2.tmp[:contrib][:score] += calc_zhanli(p1)
                 p2.tmp[:contrib][:win] += 1
                 if p2_hp_delta > 0
-                    p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2.ext[:maxhp]/p2_hp_delta
+                    p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2_hp_delta
                 end
                   context[:msg] += "<div><span class='user'>#{p2.name}稍作休息，体力有所恢复...</span></div>"
-                p2.tmp[:hp] -= p2_hp_delta/3
-                p2.tmp[:stam] -= p2_st_detal/2
+                p2.tmp[:hp] += p2_hp_delta/3
+                p2.tmp[:stam] += p2_hp_delta/2
                 index_player_team1 += 1
                 context[:team2win] += 1
             elsif win == -1 # duce
-                p1.tmp[:contrib][:score] += calc_zhanli(p2)
+                p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2_hp_delta
                 # p1.tmp[:contrib][:win] += 1
-                p2.tmp[:contrib][:score] += calc_zhanli(p1)
+                p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1_hp_delta
                 # p2.tmp[:contrib][:win] += 1
                 index_player_team2 += 1
                 index_player_team1 += 1

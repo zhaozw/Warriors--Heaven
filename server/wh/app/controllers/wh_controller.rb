@@ -465,7 +465,19 @@ class WhController < ApplicationController
             :msg => ""
         }
         
-        result = _fight(p1, p2, context)
+        result = _fight(p1, p2, context) # 0: lose, 1: win
+        
+        
+        if result == 0 
+            # if  p1.tmp[:stam] < 0
+                dr = rand_drop(p1, p2)
+                player[:gain][:drop] = dr if dr
+                p "===>drop:#{dr.inspect}"
+            # end
+        elsif result == 1
+            rand_drop(p2, p1, (100 - enemy.tmp[:luck])/20)
+             player[:gain][:object] = dr if dr
+        end
         
         #p "=>1: #{user_data[:userext] }"
         #p "=>2: #{ player.ext}"

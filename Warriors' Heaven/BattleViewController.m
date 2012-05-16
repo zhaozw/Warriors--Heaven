@@ -243,7 +243,7 @@
  
     for (int i = 0; i < [keys count]; i++){
         NSString *o = [keys objectAtIndex:i];
-        if ([o isEqualToString:@"skills"])
+        if ([o isEqualToString:@"skills"] || [o isEqualToString:@"drop"] || [o isEqualToString:@"object"])
             continue;
         y = j/3*30 + top_margine;
         x = j%3*80 + 50;
@@ -337,6 +337,26 @@
         
     }
  
+    NSArray* drop = NULL;
+    if (win)
+        drop = [gain valueForKey:@"object"];
+    else
+        drop = [gain valueForKey:@"drop"];
+    if (drop  && drop!= [NSNull null]){
+        for (int i = 0; i<[drop count]; i++) {
+            NSObject* o = [drop objectAtIndex:i];
+            NSString* dname = [o valueForKey:@"dname"];
+            NSString* s = NULL;
+            if (win)
+                s = [NSString stringWithFormat:@"你获得了‘%@’", dname];
+            else
+                s = [NSString stringWithFormat:@"你失去了'%@‘", dname];
+            [LightView createLabel:CGRectMake(30, y, 200, 30) parent:resultView text:s textColor:[UIColor redColor]];
+             y += 30;
+        }
+    }
+    
+    
     [LightView createImageView:@"line1.png" frame:CGRectMake(0, y+5, 320, 2) parent:resultView];
     int round = [[data valueForKey:@"round"] intValue];
     [[LightView createLabel:CGRectMake(30, y+10, 100, 30) parent:resultView text:[NSString stringWithFormat:@"%d回合", round] textColor:[UIColor blackColor]] setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];

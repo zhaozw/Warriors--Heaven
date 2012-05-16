@@ -34,9 +34,16 @@ class Wudujiao < Quest
             return msg
         elsif q[:stat] == 1
             
-            return "战役进行中。目前五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team1win")}阵"
+            return "战役进行中。目前五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team2win")}阵"
         elsif q[:stat] == 2
-            return "战役已经结束。五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team1win")}阵"
+            win = q.get_prop('win')
+            r = ""
+            case win
+                when -1: r="不分胜负!"
+                when 0: r="五毒教获胜!"
+                when 1: r="中原武林获胜!"
+            end
+            return "战役已经结束。五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team2win")}阵.#{r}"
         end
     end
     
@@ -65,8 +72,14 @@ class Wudujiao < Quest
                 msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
             end
 
-            return msg
+           elsif q[:stat] == 2
+               gain = data.get_prop("gain")
+               b_exp = get_prop(gain, "bonus_exp")
+               b_gold = get_prop(gain, "bonus_gold")
+               msg += "<div>你获得了#{b_exp}点经验的战役奖励！"
+               msg += "<div>你获得了#{b_gold}gold的战役奖励！"
         end
+         return msg
     end
     
     def onAsk(context)
@@ -106,7 +119,7 @@ class Wudujiao < Quest
                     },
                     ]
             elsif q[:stat] == 1
-                    {
+                  return  {
                         :name=>"check_result",
                         :dname=>"查看战役直播"
                     
@@ -152,13 +165,16 @@ class Wudujiao < Quest
       
             # passed check, set quest id
             rs = Globalquest.find_by_sql("select * from globalquests where stat=0")
+            rs2 =  ActiveRecord::Base.connection.execute("select count(*) from globalquests where name='wudujiao'")
+            battlecount = rs2.fetch_row[0].to_i
             if !rs or rs.size == 0 # not globalquest
                 g = Globalquest.new({
                     :name=>"wudujiao",
                     :stat=>0,
                     :prop =>{
                         :wudu=>[],
-                        :zhongyuan=>[]
+                        :zhongyuan=>[],
+                        :battle_count=>battlecount.to_i
                     }.to_json
                 })
                 g.save!
@@ -305,11 +321,13 @@ class Wudujiao < Quest
                         :observer=>self
                         }
                     win = team_fight(team1, team2, c)
-                    if win == 1
+                    q.set_prop("win", win)
+                    if win == -1
                         c[:msg] += "<div>平局!</div>"
-                    elsif win == 1
-                        c[:msg] += "<div>五毒教获胜!</div>"
                     elsif win == 0
+               
+                        c[:msg] += "<div>五毒教获胜!</div>"
+                    elsif win == 1
                         c[:msg] += "<div>中原武林获胜!</div>"
                     end
                     
@@ -317,31 +335,75 @@ class Wudujiao < Quest
                     team2.sort_by {|u| u.tmp[:contrib][:score].to_i} 
                     
                     c[:msg] += "<div>五毒教贡献榜</div>"
+                    index_t =1
                     for t in team1 
-                        c[:msg] += "<div>#{t.name} 胜#{t.tmp[:contrib][:win]}场，得分#{t.tmp[:contrib][:score]}</div>"
+                        bonus_gold = t.tmp[:contrib][:score] 
+                        bonus_exp  = t.tmp[:contrib][:score] 
+                        if win ==0
+                            bonus_gold += 20
+                            bonus_exp += 10 
+                        end
+                        t.get_exp(bonus_exp)
+                        t.receive_gold(bonus_gold)
+                        c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"      
+                        send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+                        
+                        qdata=t.query_quest("wudujiao")
+                        gain = {
+                            :bonus_gold=>bonus_gold,
+                            :bonus_exp=> bonus_exp
+                        }
+                        qdata.set_prop("gain", gain)
+                        set_flag(t.id, "db_changed")
+                        
+                        
+                        index_t += 1
                     end
+                    
                     c[:msg] += "<div>中原武林贡献榜</div>"
+                    index_t =1
                     for t in team2
-                        c[:msg] += "<div>#{t.name} 胜#{t.tmp[:contrib][:win]}场，得分#{t.tmp[:contrib][:score]}</div>"
+                        bonus_gold = t.tmp[:contrib][:score] 
+                        bonus_exp  = t.tmp[:contrib][:score]
+                        if win ==1 
+                            bonus_gold += 20
+                            bonus_exp += 10 
+                        end
+                        t.get_exp(bonus_exp)
+                        t.receive_gold(bonus_gold)
+                        c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"
+                        send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+                        
+                        qdata=t.query_quest("wudujiao")
+                        gain = {
+                            :bonus_gold=>bonus_gold,
+                            :bonus_exp=> bonus_exp
+                        }
+                        qdata.set_prop("gain", gain)
+                        set_flag(t.id, "db_changed")
+                        
+                     
+                        index_t += 1
                     end
                     
                     id = q[:id].to_i
-                                 dir = id/100
-                                 dir = "/var/wh/globalquest/#{dir.to_s}"
-                                 begin
-                                     FileUtils.makedirs(dir)
-                                     aFile = File.new("#{dir}/#{id}","a")
-                                     p "==>team fight result #{c[:msg]}"
-                                     aFile.puts c[:msg]
-                                     aFile.close
-                                 rescue Exception=>e
-                                     logger.error e
-                                 end
+                    dir = id/100
+                     dir = "/var/wh/globalquest/#{dir.to_s}"
+                     begin
+                         FileUtils.makedirs(dir)
+                         aFile = File.new("#{dir}/#{id}","a")
+                         p "==>team fight result #{c[:msg]}"
+                         aFile.puts c[:msg]
+                         aFile.close
+                     rescue Exception=>e
+                         logger.error e
+                     end
                                    
                     team1.each{|p|p.data.check_save}
                     team2.each{|p|p.data.check_save}
-                     q[:stat] = 2
-                     q.save
+                    q[:stat] = 2
+                    q.save
+                    p "====> 战役结束 <====="
                      
                  }
                  msg = msg+ "<div>战役开始!</div>"

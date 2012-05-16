@@ -119,6 +119,7 @@ class Npc < Human
     def []=(n, v)
         @temp[n] = v
     end
+    
 
   
 end

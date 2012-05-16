@@ -110,6 +110,10 @@ class Object
     def price
         0
     end
+    
+    def id
+        data[:id]
+    end
 =begin    
     def dname
         "金疮药"

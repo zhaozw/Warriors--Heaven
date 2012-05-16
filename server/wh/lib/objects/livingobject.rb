@@ -3,9 +3,34 @@ require 'objects/object.rb'
 
 class LivingObject < Game::Object
     @wearing={}
+    @carryig =[] # carrying include wearing
      
     def initialize
         @wearing={}
+    end
+    
+    def carry(o)
+        @carrying.push(o)
+    end
+    
+    def query_carrying
+        return @carrying
+    end
+    
+    def remove_obj(o)
+        if @carrying.include?(o)
+            @carrying.delete(o)
+        end
+        
+        unwear(o) if o.obj_type == "equipment"
+    end
+    
+    def unwear(eq)
+        @wearing.each{|k,v|
+            if v.id == eq.id
+                @wearing.delete(k)
+            end
+        }
     end
     def wear(pos, eq)
         return if !eq
@@ -115,5 +140,16 @@ class LivingObject < Game::Object
          defense += v.defense
         }
         return defense
+    end
+    def weapons
+        ret =[]
+        a = query_wearing("handright")
+        ret.push(a) if a
+        a= query_wearing("handleft")
+        ret.push(a) if a
+        return ret
+    end
+    def hasWeapon?
+        return weapons.size > 0
     end
 end

@@ -70,7 +70,7 @@ class UsereqsController < ApplicationController
          eqs = Equipment.find(params[:id])
          eq = eqs
          obj = load_obj(eq[:eqname], eq)
-         user_data.remove_item(obj)
+         user_data.remove_obj(obj)
         
         # eq.delete
          # eq[:owner] = nil

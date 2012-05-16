@@ -165,7 +165,7 @@ end
             js = JSON.parse(prop)
         end
         if js
-            return j[k]
+            return js[k]
         else
             return nil
         end
@@ -175,6 +175,7 @@ end
         return livingObj.tmp[:level]
     end
     
+    # non-randam rand
     def rand1(max, desc)        
         ret = (rand(max*2)+rand(max*2))/2
         ret = max if ret > max
@@ -184,3 +185,154 @@ end
             return max - ret
         end
     end
+    # ==========================
+    #  For fight related
+    # ==========================
+    
+    def move_obj(obj, p1, p2)
+        p1.remove_obj(obj)
+        p2.get_obj(obj)
+    end
+    # player1 drop equipment randomly to player2
+    def rand_drop(p1, p2, q=5)
+        if rand(10)<q
+            return
+        end
+        
+        drop = []
+        objs = p1.query_all_wearings.values
+        p "==>objs:#{objs.inspect}"
+        r = rand(objs.size*2)
+        p "===>r=#{r}"
+        if r < objs.size
+            move_obj(objs[r], p1, p2)
+            drop.push(objs[r])
+        end
+        
+        objs = p1.query_carrying
+         r = rand(objs.size*2)
+         if r < objs.size && objs.obj_type !="equipment" and objs.obj_type != "special"
+             move_obj(objs[r], p1, p2)
+              drop.push(objs[r])
+         end
+         
+         return drop
+    end
+    # ==========================
+    #  File system
+    # ==========================
+    def append_file(fname, content)
+         begin
+             aFile = File.new(fname,"a")
+             aFile.puts content
+             aFile.close
+         rescue Exception=>e
+             logger.error e
+         end
+    end
+    def delete_msg(ch)
+        id = ch.to_i
+        if id < 0 
+            dir = "chat" if id == -1
+            dir = "rumor" if id == -2
+        else
+            dir = id/100
+        end
+        dir = "/var/wh/message/#{dir.to_s}"     
+        fname = "#{dir}/#{id}"
+        begin
+            if FileTest::exists?(fname) 
+                aFile = File.new(fname, "w")
+                aFile.puts ""
+                aFile.close
+            end
+        
+        rescue Exception=>e
+             logger.error e
+        end
+    end
+    
+    def take_msg(ch)
+        d = get_msg(ch)
+        delete_msg(ch)
+        return d
+    end
+    def get_msg(ch)
+        id = ch.to_i
+        if id < 0 
+            dir = "chat" if id == -1
+            dir = "rumor" if id == -2
+        else
+            dir = id/100
+        end
+ 
+        dir = "/var/wh/message/#{dir.to_s}"     
+        fname = "#{dir}/#{id}"
+          data = ""    
+        begin
+            if FileTest::exists?(fname)   
+                      # aFile = File.new(fname,"r")
+                    
+                   open(fname) {|f|
+                       data = f.read
+                   }
+                   p "===>messsage: #{data}"
+                   data = data.gsub(/^\[.*?\]/, "")
+                  
+                      # aFile.close
+            end
+        rescue Exception=>e
+             logger.error e
+        end
+        return data
+    end
+    def send_msg(ch, m)
+        id = ch.to_i
+        if id < 0 
+            dir = "chat" if id == -1
+            dir = "rumor" if id == -2
+        else
+            dir = id/100
+        end
+        time = Time.now
+        st =  "#{time.strftime("%Y-%m-%d %H:%M:%S")}.#{time.usec.to_s[0,2]}"
+        msg = "[#{st}]#{m}"
+        dir = "/var/wh/message/#{dir.to_s}"
+        FileUtils.makedirs(dir)
+        fname = "#{dir}/#{id}"    
+        append_file(fname, msg)               
+    end
+    
+    def delete_flag(uid, f)
+        id = uid.to_i
+        dir = id/100
+        fname = "/var/wh/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        File.delete(fname)
+    end
+    def get_flag(uid, f)
+        id = uid.to_i
+        dir = id/100
+        fname = "/var/wh/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        if FileTest::exists?(fname) 
+            return true
+        else 
+            return false
+        end 
+    end
+    def set_flag(uid, f)
+        id = uid.to_i
+         dir = id/100
+        dir = "/var/wh/userdata/#{dir.to_s}/#{id}/flag"
+        FileUtils.makedirs(dir)
+        fname = "#{dir}/#{f}" 
+        begin
+            if !FileTest::exists?(fname)   
+                      aFile = File.new(fname,"w")
+                      aFile.close
+            end
+        rescue Exception=>e
+             logger.error e
+        end
+        
+    end
+    
