@@ -22,7 +22,7 @@ class Sandaiguiche  < Weapon
   end
   
   def image
-      "obj/equipments/blade.jpg"
+      "obj/equipments/guiche.jpg"
   end
   
   def rank

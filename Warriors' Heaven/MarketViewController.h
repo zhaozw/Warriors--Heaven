@@ -17,6 +17,9 @@
 //    NSArray* fixture_list;
 //    NSArray* prem_list;
 }
+
+@property (strong, nonatomic) IBOutlet UIView *vSpecial;
+@property (strong, nonatomic) IBOutlet UIButton *btSpecial;
 @property(nonatomic, assign)     int currentSelectedList;
 @property (strong, nonatomic) IBOutlet UIButton *btEquipment;
 @property (strong, nonatomic) IBOutlet UIButton *btFixure;

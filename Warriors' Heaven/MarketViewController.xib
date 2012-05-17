@@ -33,7 +33,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUIViewController" id="153848624">
+			<object class="IBUIViewController" id="516328289">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">1</int>
@@ -59,6 +59,19 @@
 							<object class="NSColorSpace" key="NSCustomColorSpace" id="561182651">
 								<int key="NSID">2</int>
 							</object>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUIView" id="1034268568">
+						<reference key="NSNextResponder" ref="1042672067"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{80, 146}, {160, 188}}</string>
+						<reference key="NSSuperview" ref="1042672067"/>
+						<reference key="NSWindow"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+							<reference key="NSCustomColorSpace" ref="561182651"/>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -150,15 +163,35 @@
 					<object class="IBUIButton" id="339897515">
 						<reference key="NSNextResponder" ref="1042672067"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{144, 93}, {72, 37}}</string>
+						<string key="NSFrame">{{144, 93}, {75, 37}}</string>
 						<reference key="NSSuperview" ref="1042672067"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="328268980"/>
+						<reference key="NSNextKeyView" ref="584938242"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUINormalTitle">高级装备</string>
+						<reference key="IBUIHighlightedTitleColor" ref="756237075"/>
+						<reference key="IBUINormalTitleColor" ref="706315637"/>
+						<reference key="IBUINormalTitleShadowColor" ref="20713762"/>
+						<reference key="IBUINormalBackgroundImage" ref="354595182"/>
+						<reference key="IBUIFontDescription" ref="187482555"/>
+						<reference key="IBUIFont" ref="1055436209"/>
+					</object>
+					<object class="IBUIButton" id="584938242">
+						<reference key="NSNextResponder" ref="1042672067"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{219, 93}, {85, 37}}</string>
+						<reference key="NSSuperview" ref="1042672067"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="328268980"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<int key="IBUITag">4</int>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUINormalTitle">特殊道具</string>
 						<reference key="IBUIHighlightedTitleColor" ref="756237075"/>
 						<reference key="IBUINormalTitleColor" ref="706315637"/>
 						<reference key="IBUINormalTitleShadowColor" ref="20713762"/>
@@ -242,9 +275,25 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vcObjDetail</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="153848624"/>
+						<reference key="destination" ref="516328289"/>
 					</object>
 					<int key="connectionID">41</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">vSpecial</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1034268568"/>
+					</object>
+					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btSpecial</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="584938242"/>
+					</object>
+					<int key="connectionID">46</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -276,6 +325,8 @@
 							<reference ref="675349924"/>
 							<reference ref="491414880"/>
 							<reference ref="339897515"/>
+							<reference ref="584938242"/>
+							<reference ref="1034268568"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -312,8 +363,18 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">40</int>
-						<reference key="object" ref="153848624"/>
+						<reference key="object" ref="516328289"/>
 						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">42</int>
+						<reference key="object" ref="584938242"/>
+						<reference key="parent" ref="1042672067"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">44</int>
+						<reference key="object" ref="1034268568"/>
+						<reference key="parent" ref="1042672067"/>
 					</object>
 				</array>
 			</object>
@@ -328,6 +389,8 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.CustomClassName">ObjDetailViewController</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -336,7 +399,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">46</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -355,9 +418,11 @@
 						<string key="btEquipment">UIButton</string>
 						<string key="btFixure">UIButton</string>
 						<string key="btPremierEq">UIButton</string>
+						<string key="btSpecial">UIButton</string>
 						<string key="vEquipment">UIView</string>
 						<string key="vFixure">UIView</string>
 						<string key="vPremierEq">UIView</string>
+						<string key="vSpecial">UIView</string>
 						<string key="vcObjDetail">ObjDetailViewController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -373,6 +438,10 @@
 							<string key="name">btPremierEq</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="btSpecial">
+							<string key="name">btSpecial</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="vEquipment">
 							<string key="name">vEquipment</string>
 							<string key="candidateClassName">UIView</string>
@@ -383,6 +452,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="vPremierEq">
 							<string key="name">vPremierEq</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="vSpecial">
+							<string key="name">vSpecial</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="vcObjDetail">
@@ -400,16 +473,11 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="onClose:">id</string>
-						<string key="onSell:">id</string>
 						<string key="onUse:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="onClose:">
 							<string key="name">onClose:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSell:">
-							<string key="name">onSell:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onUse:">
@@ -418,6 +486,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="btTrade">UIButton</string>
 						<string key="btnUse">UIButton</string>
 						<string key="lbDesc">UILabel</string>
 						<string key="lbEffect">UILabel</string>
@@ -425,9 +494,14 @@
 						<string key="lbRank">UILabel</string>
 						<string key="lbSellPrice">UILabel</string>
 						<string key="lbTitle">UILabel</string>
+						<string key="slbPrice">UILabel</string>
 						<string key="vImage">EGOImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="btTrade">
+							<string key="name">btTrade</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="btnUse">
 							<string key="name">btnUse</string>
 							<string key="candidateClassName">UIButton</string>
@@ -454,6 +528,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="lbTitle">
 							<string key="name">lbTitle</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="slbPrice">
+							<string key="name">slbPrice</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="vImage">

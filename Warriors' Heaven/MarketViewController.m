@@ -19,6 +19,8 @@
 @synthesize vEquipment;
 @synthesize vFixure;
 @synthesize vPremierEq;
+@synthesize btSpecial;
+@synthesize vSpecial;
 @synthesize currentSelectedList;
 @synthesize btCurrentSelected;
 @synthesize vcObjDetail;
@@ -61,6 +63,10 @@
     vPremierEq.frame = CGRectMake(0, 130, 320, 500);
     vPremierEq.hidden = YES;
     [vPremierEq setBackgroundColor:[UIColor clearColor]];
+ 
+    vSpecial.frame = CGRectMake(0, 130, 320, 500);
+    vSpecial.hidden = YES;
+    [vSpecial setBackgroundColor:[UIColor clearColor]];
     
     [btEquipment setSelected: YES];
     [btEquipment setHighlighted:YES];
@@ -71,6 +77,7 @@
     [btEquipment addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
     [btFixure addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
     [btPremierEq addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
+    [btSpecial addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
 
      [self addChildViewController:vcObjDetail];
     [[ad window] addSubview:[vcObjDetail view]];
@@ -91,6 +98,9 @@
     [self setVFixure:nil];
     [self setVPremierEq:nil];
     [self setVcObjDetail:nil];
+    [self setBtSpecial:nil];
+    [self setVSpecial:nil];
+    [self setBtSpecial:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -122,17 +132,26 @@
         v = vEquipment;
         vFixure.hidden = YES;
         vPremierEq.hidden = YES;
+        vSpecial.hidden = YES;
     } 
     else if (currentSelectedList == 2){
         v = vFixure;
         vEquipment.hidden = YES;
         vPremierEq.hidden = YES;
+        vSpecial.hidden = YES;
     }
     else if (currentSelectedList == 3){
         v = vPremierEq;
         vEquipment.hidden = YES;
         vFixure.hidden = YES;
-    }
+        vSpecial.hidden = YES;
+    }else if (currentSelectedList == 4){
+        v = vSpecial;
+        vEquipment.hidden = YES;
+        vFixure.hidden = YES;
+        vPremierEq.hidden = YES;
+    }    
+    
     v.hidden = NO;
     CGRect r = v.frame;
     
@@ -209,6 +228,7 @@
     int count_eq = 0;
     int count_fx = 0;
     int count_pr = 0;
+    int count_sp = 0;
     int row_height = 60;
     int row_margin = 1;
     int y = 300;
@@ -239,7 +259,9 @@
             case 3:
                 index = count_pr;
                 break;
-                
+            case 4:
+                index = count_sp;
+                break;               
             default:
                 break;
         }
@@ -288,6 +310,7 @@
         [logo setContentMode:UIViewContentModeScaleAspectFit];
         [logo addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
         [logo setTag:_id];
+        logo.backgroundColor = [UIColor clearColor];
         [logo setFrame:CGRectMake(1, 5, 50, 50)];
         [row addSubview:logo];
         
@@ -341,6 +364,10 @@
             [vPremierEq addSubview:row];
             count_pr++;
         }
+        else if (obtype == 4){
+            [vSpecial addSubview:row];
+            count_sp++;
+        }
 //        [v addSubview:row];
     }
     
@@ -356,7 +383,11 @@
      r = vPremierEq.frame;
     r.size.height = 10+ count_pr*(row_height+row_margin);
     vPremierEq.frame = r;
-   
+
+    r = vSpecial.frame;
+    r.size.height = 10+ count_sp*(row_height+row_margin);
+    vSpecial.frame = r;
+    
     
 //    v.hidden = NO;
 //    r = v.frame;

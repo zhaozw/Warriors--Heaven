@@ -114,6 +114,11 @@ class Object
     def id
         data[:id]
     end
+    
+    # for tradable
+    def intro
+      desc
+    end
 =begin    
     def dname
         "金疮药"

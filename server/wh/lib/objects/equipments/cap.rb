@@ -23,7 +23,7 @@ class Cap  < Weapon
   end
 
   def rank
-      1
+      2
   end
   
   def effect

@@ -20,8 +20,23 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/cap', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/necklace', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/armo', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'objects/equipments/xuezou', 1, 10, 100, 0, 0, null, null, null);
-    insert into tradables values (null, 'objects/equipments/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/buyi', 1, 10, 100, 0, 0, null, null, null);
+
+    insert into tradables values (null, 'objects/fixtures/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
+ 
+    insert into tradables values (null, 'objects/equipments/xuezou', 3, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/tianchanjia', 3, 10, 100, 0, 0, null, null, null);
+
+    insert into tradables values (null, 'objects/special/rename', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/muren', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/goldkeeper', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/addeqslot', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/additemslot', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/meihuazhuang', 4, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/special/shadai', 4, 10, 100, 0, 0, null, null, null);
+ 
+
+
 =end
   def self.down
     drop_table :tradables

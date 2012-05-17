@@ -30,7 +30,7 @@ class Sword  < Weapon
       "Damage +10"
   end
   def rank
-      1
+      2
   end
   
   def damage

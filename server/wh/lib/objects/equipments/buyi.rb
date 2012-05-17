@@ -1,13 +1,13 @@
 require 'objects/equipments/weapon.rb'
 
-class Armo  < Weapon
+class Buyi  < Armo
 
   def dname
-    "铁甲"
+    "布衣"
   end
   
   def desc
-      "这是一副铁质的甲胄，上面似乎还有斑斑血迹，不知是它的主人的血，还是敌人的。"
+      "这是一件最普通粗布上衣"
   end
 
     
@@ -20,11 +20,11 @@ class Armo  < Weapon
   end
   
   def image
-      "obj/equipments/armo.jpg"
+      "obj/equipments/buyi.jpg"
   end
   
   def rank
-      2
+      1
   end
     
   def effect

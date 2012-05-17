@@ -22,7 +22,7 @@ class Hedaoyiwenzi  < Blade
   end
   
   def image
-      "obj/equipments/blade.jpg"
+      "obj/equipments/hedao.jpg"
   end
   
   def rank

@@ -1,13 +1,13 @@
 require 'objects/equipments/weapon.rb'
 
-class Armo  < Weapon
+class Tianchanjia  < Armo
 
   def dname
     "铁甲"
   end
   
   def desc
-      "这是一副铁质的甲胄，上面似乎还有斑斑血迹，不知是它的主人的血，还是敌人的。"
+      "西域天蚕丝制成的宝甲"
   end
 
     
@@ -20,18 +20,20 @@ class Armo  < Weapon
   end
   
   def image
-      "obj/equipments/armo.jpg"
+      "obj/equipments/tiancanjia.jpg"
   end
   
   def rank
-      2
+      4
   end
     
   def effect
       "deffence +5"
   end
   
-
+  def price
+      5000
+  end
     
   def defense
       10
