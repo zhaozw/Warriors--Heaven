@@ -19,8 +19,8 @@ img.player {height:100px;}
 	<div id="bg" style="background-color:transparent;opacity:1;z-index:-1;position:absolute;left:-5;top:-5;width:350px;height: 430px;">
 			<!--img id="bg" src="/images/quest_bg.png" style="margin:10 0;height:480px;width:350px;"/-->
 	</div>
-	<img class="player" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].ext[:profile].to_i}m.png"%>' />
-	<img class="player" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].ext[:profile].to_i}m.png"%>' />
+	<img class="player" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].data[:profile].to_i}m.png"%>' />
+	<img class="player" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].data[:profile].to_i}m.png"%>' />
 	<div class="playername" style="left:50px;">
 		<%=@context[:p1].name%>
 	</div>
