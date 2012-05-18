@@ -1,0 +1,186 @@
+<script src="/javascripts/jquery-1.3.2.js"></script>
+<div style='background:black;color:white;font-size:11pt;margin:0;left:0;width:320;'>
+<style>
+div.user{color:#eeeeee}
+div.enemy{color:#ff8888}
+.npc{color:#ff0000}
+.damage{color:#ff0000;}
+.status{font-size:10pt;}
+.rgain{color:yellow;font-size:10pt;}
+.rgain span{color:#99ff99}
+.attr{color:#99ff99}
+.skillname{color:#ffaaaa}
+img.player {height:100px;}
+.playername{color:white;font-size:12pt;position:absolute;top:95;z-index:100;}
+.bloodslot {border:1px solid;border-color:#eee #ddd #ddd #eee;top:100;width:122px;height:12;/*background-image:url('/images/bloodslot.png');*/}
+.bloolbar {background-image:url('/images/bloodbar_green.jpg');width:50px;height:10;margin:1;}
+</style>
+
+	<div id="bg" style="background-color:transparent;opacity:1;z-index:-1;position:absolute;left:-5;top:-5;width:350px;height: 430px;">
+			<!--img id="bg" src="/images/quest_bg.png" style="margin:10 0;height:480px;width:350px;"/-->
+	</div>
+	<img class="player" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].ext[:profile].to_i}m.png"%>' />
+	<img class="player" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].ext[:profile].to_i}m.png"%>' />
+	<div class="playername" style="left:50px;">
+		<%=@context[:p1].name%>
+	</div>
+	<div class="playername" style="left:230px;">
+		<%=@context[:p2].name%>
+	</div>
+	<div id="p1bslot" class="bloodslot" style="position:absolute;left:10;">
+		<div id="p1bbar" class="bloolbar" sytle="width:0px;">
+		</div>
+	</div>
+	
+	<div id="p2bslot" class="bloodslot" style="position:absolute;left:190;">
+		<div id="p2bbar" class="bloolbar" style="width:0px;left:0px">
+		</div>
+	</div>
+
+	<img style="z-index:100;position:absolute;left:230;top:120;width:25px;" src="/images/restart.png" alt="Replay" onclick="replay()"/>
+	<img id="play" style="z-index:100;position:absolute;left:180;top:120;width:25px;" src="/images/stop.png" alt="playorstop" onclick="playorstop()"/>
+	<div id="result" style="position:absolute;top:120px;margin-left:5px;z-index:10;height:390px;overflow-y:auto;font-size:10pt;color:white;">
+	</div>
+	<div id="c" style="display:none;">
+		<%=@context[:msg] %>
+	</div>
+
+
+
+
+</div>
+
+<script>
+	var line_number = 0;
+	var TextArray=[];
+	var timer;
+	var stop = false;
+	var finished = false;
+
+	function playorstop(){
+		if (stop){
+			$("#play").attr("src", "/images/stop.png");
+			stop= false;
+		}
+		else
+		{
+			$("#play").attr("src", "/images/play.png");
+			stop= true;
+		}
+	
+	}
+
+	function replay(){
+		if (!finished){
+			$("#result").html($("#c").html());
+			$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+			if (timer)
+				clearInterval(timer);
+			finished = true;
+		}else{
+			$("#result").html("");
+			showTextWithTimer($("#c").html());
+			finished = false;
+		}
+	}
+	function showTextWithTimer(msg){
+		if (!msg || msg.length==0)
+			return;
+
+		setBloodbar(msg);
+			
+		line_number = 0;
+		TextArray = [];
+		reg = /<div([\s\S])*?div>/ig;
+		while ((res = reg.exec(msg)) != null)  
+		{  
+  
+			TextArray.push(res[0]);
+		}  
+
+
+		if (timer)
+			clearInterval(timer);
+		timer = setInterval('onTimer();', 1000);
+	
+	}
+	
+	var p1_id = <%=@context[:p1].data[:id].to_s %>
+		var p2_id = <%=@context[:p2].data[:id] %>
+		var p1_maxhp = <%=@context[:p1].ext[:maxhp] %>
+		var p2_maxhp = <%=@context[:p2].ext[:maxhp] %>
+	
+	function setBloodbar(s){
+				// sreg = "<div class=\"status\">[\s\S]*?<div class='st_lines' id='p"+p1_id+"'>.*?<span class='attr'>hp<\/span>:(\d+)";
+		sreg ="<div class=\"st_lines\" id=\"p"+p1_id+"\">.*?<span class=\"attr\">hp<\/span>:(.*?)<span class=\"attr\">.*?</span>:.*?</div>";
+		
+		reg = new RegExp(sreg ,"gm");
+		 //<span class='attr'>hp<\/span>: \s*<span class='attr'>体力<\/span>:(\d+)\s*<br\/>.*?<span class='attr'>hp<\/span>:(\d+)
+	 	 d = reg.exec(s);
+	
+		if (d){		 			// alert(d[1]);
+			hp = d[1]
+			if (hp<0)
+				hp =0;
+			width = 120*hp/p1_maxhp;
+			$("#p1bbar").width(width);
+			if (width < 30){
+					$("#p1bbar").css("background-image", "url('/images/bloodbar_red.jpg')");
+			}else
+				$("#p1bbar").css("background-image", "url('/images/bloodbar_green.jpg')");
+		}
+		
+		sreg ="<div class=\"st_lines\" id=\"p"+p2_id+"\">.*?<span class=\"attr\">hp<\/span>:(.*?)<span class=\"attr\">.*?</span>:.*?</div>";	
+		reg = new RegExp(sreg ,"gm");
+		d = reg.exec(s);
+		if (d){		 	
+			hp = d[1];
+			if (hp<0)
+				hp =0;
+			width = 120*hp/p2_maxhp;
+			$("#p2bbar").width(width);	
+			$("#p2bbar").css("margin-left", 1+120-width);	
+			if (width < 30){
+					$("#p2bbar").css("background-image", "url('/images/bloodbar_red.jpg')");
+			}else{
+					$("#p2bbar").css("background-image", "url('/images/bloodbar_green.jpg')");
+			}
+		}	
+		
+		
+	//	status_block = "<div class=\"status\">[\s\S]<div class=\"st_lines\" id=\"p.*?\">.*?<span class=\"attr\">hp</span>:\*<span class=\"attr\">\"</span>:.*?</div>[\s\S]<div class=\"st_lines\" id=\"p.*\">.*?<span class=\"attr\">hp</span>:.*?<span class=\"attr\">.*?</span>:.*?</div>[\s\S]</div>[\s\S]</div>"
+	//	reg = RegExp(status_block ,"gm");
+	//	s.replace(reg, "")
+
+		s=s.replace(/<div class=\"st_lines\" id=\"p.*?\">.*?<\/div>/m, "");
+		return s;
+	}
+	function onTimer(){
+		if (stop)
+			return;
+		if (line_number >= TextArray.length){
+			clearInterval(timer);
+			line_number = 0;
+			finished;
+			return;
+		}
+		s = TextArray[line_number];
+		s= setBloodbar(s);
+		
+		
+		$("#result").html( $("#result").html()+s);
+		line_number +=1;
+		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+	}
+	
+	
+	
+ showTextWithTimer($("#c").html());
+
+	
+	
+	
+
+
+
+</script>

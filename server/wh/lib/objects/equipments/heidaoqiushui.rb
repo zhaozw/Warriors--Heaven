@@ -1,7 +1,8 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/equipments/blade.rb'
 
-class Xuezou  < Weapon
-    def dname
+class Heidaoqiushui < Blade
+
+  def dname
     "黑刀秋水"
   end
   

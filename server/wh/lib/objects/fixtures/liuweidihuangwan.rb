@@ -3,6 +3,10 @@ require 'objects/object.rb'
 
 class Liuweidihuangwan < Game::Object
     
+    def unit
+        "颗"
+    end
+    
     def dname
         "六位帝黄丸"
     end

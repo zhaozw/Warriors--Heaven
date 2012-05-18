@@ -1,6 +1,10 @@
 require 'objects/equipments/equipment.rb'
 
 class Boots  < Weapon
+    
+    def unit
+        "双"
+    end
     def dname
     "布靴"
   end

@@ -65,6 +65,10 @@ class Object
         0
     end
     
+    def unit
+        ""
+    end
+    
      def to_json(*opt)
 
         hash = {
@@ -74,7 +78,8 @@ class Object
             :desc=>desc,
             :price=>price,
             :weight=>weight,
-            :rand=>rank
+            :rand=>rank,
+            :unit=>unit
         }
         if data && data[:eqtype].to_i==1     
             hash[:damage] = damage

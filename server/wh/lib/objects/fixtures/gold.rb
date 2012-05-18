@@ -1,17 +1,21 @@
-require 'objects/fixtures/herb.rb'
+
+require 'objects/object.rb'
 
 
-class Mudan < Herb
+class Gold < Game::Object
     
     def dname
-        "牡丹"
+        "黄金"
     end
     
     def desc
-        "这是一株盛开的#{dname}，根皮还可以入药"
+        "这是一枚金币"
     end
     
-
+    def intro
+        "一枚金币"
+    end
+    
     def weight
         1
     end
@@ -21,7 +25,7 @@ class Mudan < Herb
     end
     
     def image
-        "obj/fixtures/mudan.jpg"
+        "obj/fixtures/gold.jpg"
     end
     
     def use(context)
@@ -29,6 +33,6 @@ class Mudan < Herb
     end
     
     def price
-        5
+        1
     end
 end

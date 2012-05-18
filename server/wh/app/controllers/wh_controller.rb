@@ -146,7 +146,7 @@ class WhController < ApplicationController
             :sid=>sid,
              :age=>16,
              :race=> 0,
-             :sex=> params[:profile],
+             :sex=> sex,
              :title=> "新人",
              :profile=>params[:profile]
             
@@ -470,13 +470,31 @@ class WhController < ApplicationController
         
         if result == 0 
             # if  p1.tmp[:stam] < 0
+                player[:gain][:drop] = []
                 dr = rand_drop(p1, p2)
                 player[:gain][:drop] = dr if dr
+                dr = rand_drop_gold(p1, p2, (100-p1.tmp[:luck])/10)
+                player[:gain][:drop].push({
+                    :dname=>"Gold",
+                    :unit=>"",
+                    :amount=>dr
+                }) if dr
+                
                 p "===>drop:#{dr.inspect}"
             # end
         elsif result == 1
-            rand_drop(p2, p1, (100 - enemy.tmp[:luck])/20)
-             player[:gain][:object] = dr if dr
+             player[:gain][:object] = []
+            rand_drop(p2, p1, (100 - enemy.ext[:luck])/20)
+            player[:gain][:object] = dr if dr
+            
+            dr = rand_drop_gold(p1, p2, (100-p2.tmp[:luck])/10)
+            player[:gain][:object].push({
+                    :dname=>"Gold",
+                    :unit=>"",
+                    :amount=>dr
+                })  if dr
+            
+            p "===>drop:#{dr.inspect}"
         end
         
         #p "=>1: #{user_data[:userext] }"
@@ -484,12 +502,15 @@ class WhController < ApplicationController
        # user_data[:userext] = player.ext
         p "===>player.ext:#{player.ext.inspect}"
       #  user_data[:userext]=nil
+      @context = context # for template render
+      @context[:p1] = p1
+      @context[:p2] = p2
         ret = {
             "user" => user_data,
             "win" => result,
             "gain" => player[:gain],
             "round" => context[:round],
-            "msg"  => "<div style='background:black;color:white;font-size:11pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}.npc{color:#ff0000}.damage{color:#ff0000;}.status{font-size:10pt;}.rgain{color:yellow;font-size:10pt;}.rgain span{color:#99ff99}.attr{color:#99ff99}.skillname{color:#ffaaaa}</style>#{context[:msg]}</div>"
+            "msg"  => render_to_string(:layout=>false)
         }
         winner = 0
         winner = 1 if !result
@@ -518,6 +539,9 @@ class WhController < ApplicationController
         player[:defense_skill] = nil
         user_data.check_save
         enemy.check_save
+        
+     
+        # return
         
          # p msg
         if (params[:debug])

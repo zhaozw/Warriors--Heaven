@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/equipments/blade.rb'
 
-class Xuezou  < Weapon
+class Xuezou  < Blade
     def dname
         "雪走"
     end
@@ -32,7 +32,8 @@ class Xuezou  < Weapon
     def damage
         120
     end
-      def price
+     
+    def price
       500
-  end
+    end
 end

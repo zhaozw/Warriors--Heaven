@@ -54,6 +54,7 @@
     [[self view] sendSubviewToBack:vBg];
     [[ad window] addSubview:[self view]];
     
+    vEquipment.backgroundColor = [UIColor grayColor];
 //    UIView* v = [[UIView alloc] initWithFrame:CGRectMake(5, 139, 310, 300)];
 //    [v addSubview:lbDesc];
 //    [v addSubview:vEquipment];
@@ -88,7 +89,8 @@
     int margin_left = 2;
     int margin_top = 2;
     int textHeight = 18;
-    for (int i= 0; i< [eqs count]; i++){
+    int i = 0;
+    for (i= 0; i< [eqs count]; i++){
         NSObject* eq = [eqs objectAtIndex:i];
         NSString* eqImage = [eq valueForKey:@"image"];
         int postion_x = i%count_per_row;
@@ -104,6 +106,11 @@
         t.textAlignment = UITextAlignmentCenter;
 
     }
+    
+    CGRect rect = vEquipment.frame;
+    i --;
+    int row= i/count_per_row;
+    rect.size.height = margin_top+row*(height+margin_item_vertical+textHeight)+ height + textHeight+2;
     [self view].hidden = NO;
     
 }

@@ -199,6 +199,7 @@ end
             return
         end
         
+        # drop equipment
         drop = []
         objs = p1.query_all_wearings.values
         p "==>objs:#{objs.inspect}"
@@ -209,14 +210,36 @@ end
             drop.push(objs[r])
         end
         
+        # drop object
         objs = p1.query_carrying
          r = rand(objs.size*2)
          if r < objs.size && objs.obj_type !="equipment" and objs.obj_type != "special"
              move_obj(objs[r], p1, p2)
               drop.push(objs[r])
          end
+        
          
          return drop
+    end
+    
+    def rand_drop_gold(p1, p2, q=5)
+        if rand(10)<q
+            return 0
+        end
+     
+         # drop gold
+         gold = p1.tmp[:gold].to_i
+         r = rand(gold*2)
+         if r <gold
+             move_gold(p1, p2, r/3)
+         end
+         
+         return r/3
+    end
+    
+    def move_gold(p1, p2, gold)
+        p1.tmp[:gold] -= gold
+        p2.tmp[:gold] += gold
     end
     # ==========================
     #  File system

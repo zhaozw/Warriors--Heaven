@@ -1,7 +1,7 @@
-require 'objects/object.rb'
+require 'objects/fixtures/herb.rb'
 
 
-class Zexie < Game::Object
+class Zexie < Herb
     
     def dname
         "泽泻"

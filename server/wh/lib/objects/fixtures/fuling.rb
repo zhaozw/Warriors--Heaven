@@ -1,7 +1,7 @@
-require 'objects/object.rb'
+require 'objects/fixtures/herb.rb'
 
 
-class Fuling < Game::Object
+class Fuling < Herb
     
     def dname
         "茯苓"

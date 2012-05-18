@@ -1,7 +1,7 @@
 require 'objects/object.rb'
 
 
-class Ginseng < Game::Object
+class Ginseng < Herb
     
     def dname
         "人参"

@@ -1,6 +1,9 @@
 require 'objects/equipments/weapon.rb'
 
 class Blade  < Weapon
+    def unit
+        "柄"
+    end
     def dname
     "钢刀"
   end

@@ -324,11 +324,11 @@ end
         p "apply skill common damage > #{d}"
         m1 += "<div>skill general damage >#{d}</div>"
         
-        # damage_bonus = p1.tmp[:str]
-        # 
-        # d += (damage_bonus + rand(damage_bonus))/2
-        # p "apply damage bonus > #{d}"
-        # m1 += "<div>bonus damage >#{d}</div>"
+         damage_bonus = p1.tmp[:str]
+         
+         d += (damage_bonus + rand(damage_bonus))/2
+         p "apply damage bonus > #{d}"
+         m1 += "<div>bonus damage >#{d}</div>"
         
         # Let combat exp take effect
         defense_factor = calc_total_exp(p2.tmp[:level]);
@@ -362,7 +362,8 @@ end
         context[:user].tmp[:stam] -= cs
         m = damage_msg(d, skill.type) + "(<span class='attr'>Hp</span>:<span class='damage'>-#{d}</span>)(<span class='attr'>体力</span>:<span class='damage'>-#{cs}</span>)"
         # m = skill.doDamage(context)
-        return "<br/>\n"+translate_msg(m1+m, context)
+         return "<br/>\n"+translate_msg(m, context)
+        # return "<br/>\n"+translate_msg(m1+m, context)
     end
     
     def cost_stam(power)
@@ -670,9 +671,9 @@ end
             end # hit, check parry
              
              # show status
-             msg += '<div class="status">'
-             msg += "<br/>\n#{attacker[:user]}  <span class='attr'>hp</span>:#{attacker.tmp[:hp]} <span class='attr'>体力</span>:#{attacker.tmp[:stam]}\n<br/>"
-             msg += "#{defenser[:user]}  <span class='attr'>hp</span>:#{defenser.tmp[:hp]} <span class='attr'>体力</span>::#{defenser.tmp[:stam]}\n<br/>"
+             msg += '<div class="status">'+"\n"
+             msg += "<div class='st_lines' id='p#{attacker.id}'>#{attacker[:user]}  <span class='attr'>hp</span>:#{attacker.tmp[:hp]} <span class='attr'>体力</span>:#{attacker.tmp[:stam]}</div>\n"
+             msg += "<div class='st_lines' id='p#{defenser.id}'>#{defenser[:user]}  <span class='attr'>hp</span>:#{defenser.tmp[:hp]} <span class='attr'>体力</span>:#{defenser.tmp[:stam]}</div>\n"
              msg += "</div>"
              
              translate_msg(msg, context_a)
@@ -941,6 +942,12 @@ end
         srand(Time.now.tv_usec.to_i)
         i = 0
         style_c = "user"
+            
+            # show status
+             msg += '<div class="status">'+"\n"
+             msg += "<div class='st_lines' id='p#{attacker.id}'>#{attacker[:user]}  <span class='attr'>hp</span>:#{attacker.tmp[:hp]} <span class='attr'>体力</span>:#{attacker.tmp[:stam]}</div>\n"
+             msg += "<div class='st_lines' id='p#{defenser.id}'>#{defenser[:user]}  <span class='attr'>hp</span>:#{defenser.tmp[:hp]} <span class='attr'>体力</span>:#{defenser.tmp[:stam]}</div>\n"
+             msg += "</div>"
        
         winner = nil
         while (i < 100 ) # max 100 turn

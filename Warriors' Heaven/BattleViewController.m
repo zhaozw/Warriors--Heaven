@@ -346,11 +346,20 @@
         for (int i = 0; i<[drop count]; i++) {
             NSObject* o = [drop objectAtIndex:i];
             NSString* dname = [o valueForKey:@"dname"];
+            NSString* unit = [o valueForKey:@"unit"];
+            if (!unit)
+                unit = @"";
+            id _amount = [o valueForKey:@"amount"];
+            int amount = 1;
+            if (amount)
+                amount = [_amount intValue];
+            if (amount <= 0)
+                continue;
             NSString* s = NULL;
             if (win)
-                s = [NSString stringWithFormat:@"你获得了‘%@’", dname];
+                s = [NSString stringWithFormat:@"你获得了%d%@‘%@’", amount, unit, dname];
             else
-                s = [NSString stringWithFormat:@"你失去了'%@‘", dname];
+                s = [NSString stringWithFormat:@"你失去了%d%@'%@‘", amount, unit, dname];
             [LightView createLabel:CGRectMake(30, y, 200, 30) parent:resultView text:s textColor:[UIColor redColor]];
              y += 30;
         }

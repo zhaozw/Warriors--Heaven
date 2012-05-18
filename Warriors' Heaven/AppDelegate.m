@@ -613,7 +613,9 @@
     vBattleMsgBg.hidden = NO;
     
     NSString* m = [NSString stringWithFormat:@"<html><body style=\"background-color: transparent\"><div style=\"background-color: #000;color:#cccccc;font-size:10pt;\"><style> </style>%@</div></body></html>", msg];
-    [vBattleMsg loadHTMLString:m baseURL:nil];
+//    vBattleMsg.backgroundColor = [UIColor greenColor];
+//    CGRect r = vBattleMsg.frame;
+    [vBattleMsg loadHTMLString:m baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@", [self host], [self port]]]];
     [vBattleMsg becomeFirstResponder];
     tabBarController.view.hidden = TRUE;
 }

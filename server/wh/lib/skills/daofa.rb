@@ -1,3 +1,4 @@
+require 'skills/skill.rb'
 class Daofa < Game::Skill 
 #基本刀法
    def for
