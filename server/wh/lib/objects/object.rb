@@ -81,7 +81,7 @@ class Object
             :rand=>rank,
             :unit=>unit
         }
-        if data && data[:eqtype].to_i==1     
+        if data && (data[:eqtype].to_i==1   || data[:eqtype].to_i==3 ) 
             hash[:damage] = damage
             hash[:defense] = defense
             hash[:pos] = wearOn

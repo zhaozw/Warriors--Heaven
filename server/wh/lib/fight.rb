@@ -730,15 +730,7 @@ end
             # bChange = true
         end
         
-        if (player.tmp[:stam] != player.ext[:stam])
-            player.ext[:stam]  = player.tmp[:stam]
-            # bChange = true
-        end
-        
-        if (player.tmp[:hp] != player.ext[:hp])
-            player.ext[:hp]  = player.tmp[:hp]
-            # bChange = true
-        end
+
       #  if bChange
        #     player.ext.save!
       #  end
@@ -752,6 +744,19 @@ end
                 p "save skill #{player.name} #{skill}#{skill.inspect}"
             end
         }
+        
+    end
+    
+    def copyExt(player)
+        if (player.tmp[:stam] != player.ext[:stam])
+            player.ext[:stam]  = player.tmp[:stam]
+            # bChange = true
+        end
+        
+        if (player.tmp[:hp] != player.ext[:hp])
+            player.ext[:hp]  = player.tmp[:hp]
+            # bChange = true
+        end 
         
     end
     # 
@@ -986,6 +991,12 @@ end
         #
         # save to db # TODO should the enemy also save gain ?
         #
+       if attacker[:isUser]
+           copyExt(attacker)
+       end
+       if deffenser[:isUser]
+           copyExt(deffenser)
+       end
        if (attacker[:canGain])
           receive_gain(attacker, attacker[:gain])
         end

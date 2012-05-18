@@ -596,7 +596,17 @@ class WhController < ApplicationController
         npc = create_npc("objects/npc/hero/#{hero_name}")         
         @fight_context = {:msg=>""}
         player[:isUser] = true
+        player[:canGain] = true
         @win = _fight(player, npc, @fight_context )
+        p "after fight hero #{player.inspect}"
+        # cleanup
+        player[:isUser]=nil
+        player[:gain] = nil
+        player[:attack_skill] = nil
+        player[:dodge_skill] = nil
+        player[:defense_skill] = nil
+        user_data.check_save
+        user_data.check_save
     end
     def fight3
        # reset_session

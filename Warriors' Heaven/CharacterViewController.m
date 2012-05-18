@@ -777,15 +777,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
         
         
-        if (eqtype == 1){ //eq
-            if (i == 34){
-                i = 34;
-            }
-        }
-        if (eqtype == 1){ //eq
-            if (i == 34){
-                i = 34;
-            }
+//        if (eqtype == 1){ //eq
+//            if (i == 34){
+//                i = 34;
+//            }
+//        }
+        if (eqtype == 1 || eqtype == 3){ //eq
+      
             // found vacancy
             NSArray* keys = [pos_map allKeys];
             int i2 = 0;
