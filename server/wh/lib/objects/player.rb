@@ -40,7 +40,7 @@ class Player < Human
         eqs.each {|k,v|
         if (k.to_s[0] < 48 or k.to_s[0] > 57 ) and k.to_s[0] != 45  
             p k.to_s[0]
-                p "==>wear #{v.dname} on #{k.to_s}"  
+                p "==>wear #{v.inspect} on #{k.to_s}"  
             @wearings[k.to_sym] = v
         end
         }

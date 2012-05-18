@@ -131,7 +131,7 @@ class TradablesController < ApplicationController
         })
         e.save!
  
- 
+        obj.set_data(e)
         eqslots[found_available.to_s] = e[:id]
         #user_data[:userext][:eqslot] = eqslots.to_json
         user_data.ext.set_prop("eqslot", eqslots.to_json)

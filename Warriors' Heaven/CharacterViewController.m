@@ -778,6 +778,14 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         
         
         if (eqtype == 1){ //eq
+            if (i == 34){
+                i = 34;
+            }
+        }
+        if (eqtype == 1){ //eq
+            if (i == 34){
+                i = 34;
+            }
             // found vacancy
             NSArray* keys = [pos_map allKeys];
             int i2 = 0;

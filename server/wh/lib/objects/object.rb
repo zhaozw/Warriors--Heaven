@@ -117,7 +117,11 @@ class Object
     end
     
     def id
-        data[:id]
+        if data
+            return data[:id]
+        else
+            return super
+        end 
     end
     
     # for tradable
