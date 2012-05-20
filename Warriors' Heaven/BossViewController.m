@@ -54,7 +54,7 @@
     [[self view] sendSubviewToBack:vBg];
     [[ad window] addSubview:[self view]];
     
-    vEquipment.backgroundColor = [UIColor grayColor];
+//    vEquipment.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
 //    UIView* v = [[UIView alloc] initWithFrame:CGRectMake(5, 139, 310, 300)];
 //    [v addSubview:lbDesc];
 //    [v addSubview:vEquipment];
@@ -90,13 +90,15 @@
     int margin_top = 2;
     int textHeight = 18;
     int i = 0;
+    int x= 0;
+    int y = 0;
     for (i= 0; i< [eqs count]; i++){
         NSObject* eq = [eqs objectAtIndex:i];
         NSString* eqImage = [eq valueForKey:@"image"];
         int postion_x = i%count_per_row;
         int row= i/count_per_row;
-        int x = margin_left+postion_x*(width+margin_item_horizon);
-        int y = margin_top+row*(height+margin_item_vertical+textHeight);
+        x = margin_left+postion_x*(width+margin_item_horizon);
+        y = margin_top+row*(height+margin_item_vertical+textHeight);
         EGOImageView *v = [[EGOImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
         v.imageURL =  [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], eqImage]];
         [vEquipment addSubview:v];
@@ -108,9 +110,11 @@
     }
     
     CGRect rect = vEquipment.frame;
-    i --;
-    int row= i/count_per_row;
-    rect.size.height = margin_top+row*(height+margin_item_vertical+textHeight)+ height + textHeight+2;
+//    i --;
+//    int row= i/count_per_row;
+//    rect.size.height = margin_top+row*(height+margin_item_vertical+textHeight)+ height + textHeight+2;
+    rect.size.height = y + height+ textHeight+2;
+    vEquipment.frame = rect;
     [self view].hidden = NO;
     
 }

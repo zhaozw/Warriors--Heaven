@@ -356,7 +356,7 @@ class User < ActiveRecord::Base
                     eqslot = JSON.parse(eqslot)
                 end
                 eqslot.each{|k,v|
-                    obj = query_obj(v.to_i)
+                    obj = query_obj_by_id(v.to_i)
                     self[:equipments][k.to_sym] = obj
                 }
             end
@@ -364,10 +364,10 @@ class User < ActiveRecord::Base
             return self[:equipments]
     end
     
-    def query_obj(id)
+    def query_obj(name)
         objs = query_all_obj
         for o in objs
-            return o if o.data[:id] == id
+            return o if o.data[:name] == name
         end
         return nil
     end
@@ -516,6 +516,7 @@ class User < ActiveRecord::Base
          return nil
      end
      
+     
      def query_team
          if !self[:team]
             team = Team.find_by_sql("select * from teams where owner='#{self[:id]}'")
@@ -544,20 +545,5 @@ class User < ActiveRecord::Base
     
      end
      
-     def get_exp(exp)
-         levelup = 0
-         exp_next_level = (ext[:level]+1)**3
-         if (exp_next_level<= ext[:exp]+exp)
-             levelup = 1
-             ext[:level] += 1
-             ext[:exp] = 0
-             mh_bonus = rand(ext[:level]/2 )
-             mh_bonus = ext[:level]/3 if mh_bonus <= ext[:level]/3
-             ext[:maxhp] += mh_bonus
-         else
-             ext[:exp] += exp
-        end
-        return levelup
-     end
-         
+
 end

@@ -2,6 +2,9 @@ require 'objects/equipments/weapon.rb'
 
 class Rename  < Game::Object
 
+    def instantiatable
+        false
+    end
   def dname
     "改名符"
   end
@@ -11,7 +14,7 @@ class Rename  < Game::Object
   end
 
   def image
-      "obj/special/rename.jpg"
+      "obj/special/rename.jpg?r=1"
   end
   
   def rank

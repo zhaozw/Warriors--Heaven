@@ -117,4 +117,6 @@
 
 - (void) saveLocalProp:(NSString*)n v:(NSObject*)d;
 - (NSObject*) readLocalProp:(NSString*)n;
+- (void) checkUpdated:(NSObject*) data;
+- (NSObject*) setDataUserskills:(NSArray*) ar;
 @end

@@ -120,6 +120,8 @@ class Npc < Human
         @temp[n] = v
     end
     
-
+    def hp
+        tmp[:hp]
+    end
   
 end

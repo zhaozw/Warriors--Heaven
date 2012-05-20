@@ -11,7 +11,7 @@ class Muren  < Game::Object
   end
 
   def image
-      "obj/special/muren.jpg?r=3"
+      "obj/special/muren.jpg?r=33"
   end
   
   def rank

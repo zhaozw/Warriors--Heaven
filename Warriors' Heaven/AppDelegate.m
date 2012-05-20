@@ -670,6 +670,11 @@
     NSObject * v = [self getDataUser];
     return [v valueForKey:@"skills"];
 }
+- (NSObject*) setDataUserskills:(NSArray*) ar{
+    NSObject * v = [self getDataUser];
+//    NSObject* skills = [sefl getDataUserskills];
+    [v setValue:ar forKey:@"skills"];
+}
 
 - (NSArray*) getDataUserEqs{
     NSObject * v = [self getDataUser];
@@ -734,7 +739,7 @@
     
     BOOL needReocovery = NO;
     NSMutableDictionary* ext = [self getDataUserext];
-    int per = 100;
+    int per = 100;  // recover 1/100 of maxhp every second
     
     int hp = [[[self getDataUserext] valueForKey:@"hp"] intValue];
     int maxhp = [[[self getDataUserext] valueForKey:@"maxhp"] intValue];
@@ -791,5 +796,27 @@
 
 - (void) setUserBusy:(BOOL) busy{
     bUserBusy = busy;
+}
+
+
+- (void) checkUpdated:(NSObject*) data{
+    id updated = [data valueForKey:@"updated"];
+    if (!updated)
+        return;
+    id user = [updated valueForKey:@"user"];
+    if (user){
+        [self setData_user:user];
+        return;
+    }
+    id ext = [updated valueForKey:@"userext"];
+    if (ext)
+        [self setDataUserExt:ext];
+    id skills = [updated valueForKey:@"skills"];
+    if (skills)
+        [self setDataUserskills:skills];
+    id eqs = [updated valueForKey:@"objects"];
+    if (eqs)
+        [self setDataUserEqs:eqs];
+    
 }
 @end

@@ -102,6 +102,7 @@ class Weizhangtianxin < Npc
     def homeImage
         "obj/npc/weizhangtianxin_home.gif"
     end
+    
     def lengendImage
         "obj/npc/weizhangtianxin_lengend.jpg"
     end

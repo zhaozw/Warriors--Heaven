@@ -2,6 +2,9 @@ require 'objects/object.rb'
 
 class Additemslot  < Game::Object
 
+    def instantiatable
+        false
+    end
   def dname
     "物品栏"
   end
@@ -23,5 +26,10 @@ class Additemslot  < Game::Object
   end
   def price
       1000
+  end
+  
+  def use(context)
+      v = context[:player].ext.get_prop("max_item").to_i
+      context[:player].ext.set_prop("max_item", v+5)
   end
 end

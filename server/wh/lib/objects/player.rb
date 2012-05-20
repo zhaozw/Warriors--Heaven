@@ -1,3 +1,4 @@
+require 'gamesettings.rb'
 require 'objects/human.rb'
 
 class Player < Human
@@ -258,6 +259,16 @@ class Player < Human
     def recover
 
         diff = Time.now - ext[:updated_at]
+    
+        rate = 100 # recover 1/100 of max per second
+        
+        # hasMuren = ext.get_prop("hasMuren")
+        #   if hasMuren && hasMuren > 0
+        #       rate = rate /2
+        #       ext.set_prop("hasMuren", hasMuren-1)
+        #   end
+        
+        
         
         if ext[:hp] < ext[:maxhp]
             ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
@@ -265,7 +276,6 @@ class Player < Human
                 ext[:hp] = ext[:maxhp]
             end
         end
-        
         
                 
         if ext[:stam] < ext[:maxst]
@@ -290,13 +300,41 @@ class Player < Human
  
     end
     
-    def practise(skillname, usepot)
-        skill = query_skill(skillname)
+    def practise(skill, sec)
+        # skill = query_skill(skillname)
+        skillname = skill[:skname]
         int = ext[:it]
         pot = ext[:pot]
         jingli = ext[:jingli]
-           
-        # max pot can be used limited by exp
+          
+        # try to use all pot
+        # usepot = pot
+        
+        rate = 1 # consume 1 pot per second
+        
+        rate_add_fix = nil
+        if (skillname == "unarmed")
+            rate_fix = "shadai"
+            rate_add_fix = ext.get_prop("shadai")
+            if rate_add_fix > 0
+                rate = rate *2
+            end
+        elsif (skillname == "parry")
+            rate_fix = "muren"
+            rate_add_fix = ext.get_prop("muren")
+            rate = rate * 2 if rate_add_fix > 0
+        elsif skillname == "dodge"
+            rate_fix = "meihuazhuang"
+            rate_add_fix = ext.get_prop("meihuazhuang")
+            rate = rate * 2 if rate_add_fix >0
+        end
+        
+        usepot= rate * sec
+        usepot= pot if usepot > pot
+        
+        
+        
+        # max pot can be used is limited by exp
         max_pot = 0
         e = ext[:exp] + calc_total_exp(ext[:level])
         if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e
@@ -307,20 +345,43 @@ class Player < Human
             usepot = max_pot
         end
         
-
+        # more int, consume less jingli
+        # for int = 20, 1 jingli for every pot
         cost_jingli = usepot*20/int
         
         levelup = improve_skill(self, skillname, max_pot)
+        if levelup
+            if rate_add_fix-usepot < 0
+                fix_name = ""
+                case rate_fix
+                    when "muren": fix_name="objects/special/muren"
+                    when "shadai": fix_name="objects/special/shadai"
+                    when "meihuazhuang": fix_name="objects/special/meihuazhuang"
+                end
+                f =   query_obj(fix_name)
+                f_hp = f.hp - usepot
+                if f_hp >= 0
+                    f.set_prop("hp", f_hp)
+                else
+                    delete_obj(f)
+                end
+                # f.save
+            end
+        end
+
         ext[:jingli] -= cost_jingli
         ext[:pot] -= usepot      
-        pending = {}
-        
-        ext.set_prop("pending", pending)
-
+        # pending = {}
+        #   
+        #   ext.set_prop("pending", pending)
+        ext.set_prop(rate_fix, rate_add_fix-usepot)
+        return usepot
     end
+    # remove and delete record
     def delete_obj(obj)
         data.delete_obj(obj)
     end
+    # remove associate between obj and player
     def remove_obj(obj)
         data.remove_obj(obj)
         unwear(obj)
@@ -334,12 +395,63 @@ class Player < Human
     def query_item(name)
         return data.query_item(name)
     end
-    
+    def query_obj_by_id(id)
+        data.query_obj_by_id(id)
+    end
+    def query_obj(name)
+        data.query_obj(name)
+    end
     def query_team
         return data.query_team
     end
-    def get_exp(exp)
-        return data.get_exp(exp)
-    end
 
+    
+    def get_exp(exp)
+         levelup = 0
+         exp_next_level = (ext[:level]+1)**3
+         if (exp_next_level<= ext[:exp]+exp)
+             levelup = 1
+             # check if defeated hero in legend
+             levelHero = BossForLevelup(ext[:level]+levelup)
+             pass = true
+             hero = ""
+             if levelHero
+                 defeatHero = ext.get_prop("defeatHero")
+                 levelHero.each {|h|
+                     if !defeatHero.include?()
+                         hero = h
+                         pass = false
+                         break
+                     end
+                }
+             end 
+             
+             if !pass
+                 send_msg(id, "你的等级无法提升，你需要打败#{hero}才能升至#{ext[:level]+levelup}级")
+             else
+                 ext[:level] += 1
+                 ext[:exp] = 0
+                 mh_bonus = rand(ext[:level]/2 )
+                 mh_bonus = ext[:level]/3 if mh_bonus <= ext[:level]/3
+                 ext[:maxhp] += mh_bonus
+                 
+                 mst_bonus = rand(ext[:level]/2 )
+                 mst_bonus = ext[:level]/3 if mst_bonus <= ext[:level]/3
+                 ext[:maxst] += mst_bonus
+                 
+                 mjl_bonus = rand(ext[:level]/2 )
+                 mjl_bonus = ext[:level]/3 if mjl_bonus <= ext[:level]/3
+                 ext[:max_jl] += mjl_bonus
+             end  
+             
+
+         else
+             ext[:exp] += exp
+        end
+        return levelup
+     end
+     
+     def hp
+         tmp[:hp]
+     end
 end

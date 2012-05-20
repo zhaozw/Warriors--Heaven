@@ -994,8 +994,8 @@ end
        if attacker[:isUser]
            copyExt(attacker)
        end
-       if deffenser[:isUser]
-           copyExt(deffenser)
+       if defenser[:isUser]
+           copyExt(defenser)
        end
        if (attacker[:canGain])
           receive_gain(attacker, attacker[:gain])

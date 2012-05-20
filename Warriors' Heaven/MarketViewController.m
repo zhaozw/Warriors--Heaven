@@ -414,8 +414,9 @@
  
     s =  [data valueForKey:@"msg"];
     [ad showMsg:s type:1 hasCloseButton:YES];
-    int gold = [[data valueForKey:@"gold"] intValue];
-    [[ad getDataUserext] setValue:[NSNumber numberWithInt:gold]  forKey:@"gold"];
+    [ad checkUpdated:data];
+//    int gold = [[data valueForKey:@"gold"] intValue];
+//    [[ad getDataUserext] setValue:[NSNumber numberWithInt:gold]  forKey:@"gold"];
     [ad reloadStatus];
     ad.bUserEqNeedUpdated = YES;
 }

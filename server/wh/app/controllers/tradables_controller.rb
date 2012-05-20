@@ -51,6 +51,7 @@ class TradablesController < ApplicationController
         uid = session[:uid]
         item_id = params[:id]
         item = Tradable.find(item_id)
+        obj = load_obj(item[:name], item)
         
         if (item[:number] < 1)
             error("There is not enough number of item in stock. Please buy later.")
@@ -70,74 +71,83 @@ class TradablesController < ApplicationController
         else
             eqslots ={}
         end
-        # check user has enough vacancy
-        p "==> item: #{item.inspect}"
-        if item[:obtype] == 1 or item[:obtype] == 3
-            # find available slot
-           # r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and  usereqs.eqid=equipment.id and equipment.eqtype=1")
-           # count = r.fetch_row[0].to_i
-            #if (count+1 > session[:userdata][:userext][:max_eq].to_i)
-            #    error("There is not availabe slot for new equipment. You can buy more slot.")
-            #    return
-           # end
-
-           if (eqslot)
-               if eqslot.class==String
-                   eqslot = JSON.parse(eqslot)
-               end
-                   p "===> eqslot: #{eqslot.inspect}, #{eqslot['0']}"
-               for i in 0..max_eq-1
-                   p "===>slot[#{i}] #{eqslots[i.to_s]}"
-                   if !eqslots[i.to_s]
-                       found_available = i
-                       break
-                    end
-               end
-               if found_available < 0
-                   # error("There is not availabe slot for new equipment. You can buy more slot.")
-                   error("你的装备栏已经满了.你可以购买更多装备栏。")
-                   return
-               end
-           else
-                 found_available =0
-           end
-        else item[:obtype] == 2
-            r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2")
-            count = r.fetch_row[0].to_i
-        #    p session[:userdata]
-            if (count+1 > user_data.ext.get_prop("max_item").to_i)
-                # error("There is not availabe slots for new item. You can buy more slot.")
-                error("你的物品栏已经满了.你可以购买更多物品栏。")
-                return
-            end
-        end
         
+        if obj.instantiatable
+            # check user has enough vacancy
+            p "==> item: #{item.inspect}"
+            if item[:obtype] == 1 or item[:obtype] == 3
+                # find available slot
+               # r = ActiveRecord::Base.connection.execute("select count(*) from usereqs, equipment where usereqs.uid=#{uid} and  usereqs.eqid=equipment.id and equipment.eqtype=1")
+               # count = r.fetch_row[0].to_i
+                #if (count+1 > session[:userdata][:userext][:max_eq].to_i)
+                #    error("There is not availabe slot for new equipment. You can buy more slot.")
+                #    return
+               # end
+
+               if (eqslot)
+                   if eqslot.class==String
+                       eqslot = JSON.parse(eqslot)
+                   end
+                       p "===> eqslot: #{eqslot.inspect}, #{eqslot['0']}"
+                   for i in 0..max_eq-1
+                       p "===>slot[#{i}] #{eqslots[i.to_s]}"
+                       if !eqslots[i.to_s]
+                           found_available = i
+                           break
+                        end
+                   end
+                   if found_available < 0
+                       # error("There is not availabe slot for new equipment. You can buy more slot.")
+                       error("你的装备栏已经满了.你可以购买更多装备栏。")
+                       return
+                   end
+               else
+                     found_available =0
+               end
+            else item[:obtype] == 2
+                r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2")
+                count = r.fetch_row[0].to_i
+            #    p session[:userdata]
+                if (count+1 > user_data.ext.get_prop("max_item").to_i)
+                    # error("There is not availabe slots for new item. You can buy more slot.")
+                    error("你的物品栏已经满了.你可以购买更多物品栏。")
+                    return
+                end
+            end
+        end # if obj.instantiatable
   
         # check if user has enough gold
         gold = user_data.ext[:gold]
-        obj = load_obj(item[:name], item)
+     
         # price = item[:price]
         price = obj.price
         if (gold -price <0)
             error("Sorry, you don't have enough gold.")
             return
         end
-        # create instance
-        e = Equipment.new({
-            :eqname  => item[:name],
-            :eqtype  => item[:obtype], 
-            :prop    => obj.vars.to_json,
-            :owner     => user_data[:id]
-        })
-        e.save!
+        
+        # ===============================================
+        # OK, trade pass check, create object for player
+        # ===============================================
+        
+        if obj.instantiatable
+        
+            # create instance
+            e = Equipment.new({
+                :eqname  => item[:name],
+                :eqtype  => item[:obtype], 
+                :prop    => obj.vars.to_json,
+                :owner     => user_data[:id]
+            })
+            e.save!
  
-        obj.set_data(e)
-        eqslots[found_available.to_s] = e[:id]
-        #user_data[:userext][:eqslot] = eqslots.to_json
-        user_data.ext.set_prop("eqslot", eqslots.to_json)
-        user_data.ext[:gold] -= price
-        user_data.get_obj(obj)
-        user_data.check_save
+            obj.set_data(e)
+            eqslots[found_available.to_s] = e[:id]
+            #user_data[:userext][:eqslot] = eqslots.to_json
+            user_data.ext.set_prop("eqslot", eqslots.to_json)
+            user_data.ext[:gold] -= price
+            user_data.get_obj(obj)
+            
 =begin     
         # get available slot number
         r =  ActiveRecord::Base.connection.execute("select eqslotnum from usereqs where uid=#{uid}")
@@ -157,27 +167,37 @@ class TradablesController < ApplicationController
         end
 =end
 
-        ueq = Usereq.new({                        
-                :uid        => uid                ,
-                :sid        => session[:sid]      ,
-                :eqid       => e[:id]             ,
-                :eqname     => item[:name]        ,
-                :eqslotnum  => found_available.to_s             ,
-                :wearon     => nil
-               
-            })
-        ueq.save!
+        # ueq = Usereq.new({                        
+        #         :uid        => uid                ,
+        #         :sid        => session[:sid]      ,
+        #         :eqid       => e[:id]             ,
+        #         :eqname     => item[:name]        ,
+        #         :eqslotnum  => found_available.to_s             ,
+        #         :wearon     => nil
+        #        
+        #     })
+        # ueq.save!
+        end
         item[:soldnum] += 1
         item[:number] -= 1
         item.save!
         
+        
+        # =================
+        # special effect of item when user buy it
+        # =================
+        c = {:player=>player}
+        obj.use(c)
+        
        # eq = Equipment.load_equipment(item[:name], item)
        ret = {
-           :gold=>user_data.ext[:gold],
-           :msg =>"You bought #{item[:dname]} successfully !\n Gold -#{price}"
+           # :gold=>user_data.ext[:gold],
+           :msg =>"You bought #{item[:dname]} successfully !\n Gold -#{price}",
+           :updated=>user_data.ext
        }
       # success("You bought #{item[:dname]} successfully !\n Gold -#{price}")
       render :text=>ret.to_json
+      user_data.check_save
     end
 =begin
   # GET /tradables

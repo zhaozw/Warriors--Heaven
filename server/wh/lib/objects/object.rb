@@ -69,6 +69,28 @@ class Object
         ""
     end
     
+   def set_prop(n,v)
+       
+        set_prop(data[:prop], n, v) if data
+
+  end
+
+    def get_prop(k)
+        if  data
+            get_prop(data[:prop], k)
+        else
+            return nil
+        end
+    end
+    
+    def hp
+        if data
+            return get_prop("hp")
+        else
+            return 1
+        end
+    end
+    
      def to_json(*opt)
 
         hash = {
@@ -99,6 +121,10 @@ class Object
         end
         return hash.to_json(*opt)
    end
+    
+    def instantiatable
+        true
+    end
     
     #dummy method
     def effect

@@ -113,15 +113,22 @@ class WhController < ApplicationController
         usepot =  pending["usepot"].to_i
         player = Player.new
         player.set_data(ud)
-        if t_span > pending["usepot"].to_i # finished
-            player.practise(pending["skill"], usepot)
+        up = player.practise(pending["skill"], t_span)
+        # if t_span > pending["usepot"].to_i # finished
+        #     player.practise(pending["skill"], usepot)
+        # else
+        #     player.practise(pending["skill"], t_span)
+        #     pending["t"] = Time.now.to_i
+        #     pending["usepot"] = pending["usepot"] - t_span
+        #     ud.ext.set_prop("pending", pending)
+        # end
+        if up >= pending["usepot"].to_i
+            pending = {}
         else
-            player.practise(pending["skill"], t_span)
-            pending["t"] = Time.now.to_i
-            pending["usepot"] = pending["usepot"] - t_span
+            pendig["t"] = Time.now.to_i
+            pending["usepot"] = pending["usepot"].to_i - up
             ud.ext.set_prop("pending", pending)
         end
-
         ud.check_save
     end
     
@@ -478,7 +485,7 @@ class WhController < ApplicationController
                     :dname=>"Gold",
                     :unit=>"",
                     :amount=>dr
-                }) if dr
+                }) if dr && ! player.query_obj("objects/special/goldkeeper")
                 
                 p "===>drop:#{dr.inspect}"
             # end
@@ -492,7 +499,7 @@ class WhController < ApplicationController
                     :dname=>"Gold",
                     :unit=>"",
                     :amount=>dr
-                })  if dr
+                })  if dr ! player.query_obj("objects/special/goldkeeper")
             
             p "===>drop:#{dr.inspect}"
         end
@@ -1196,7 +1203,8 @@ class WhController < ApplicationController
         p  "start time #{t}"
         st = Time.now.to_i
         p "stoptime #{st}"
-        
+        t_span = st -t
+=begin        
         # calculate gain
         # int = 20 : consume 1 jingli per converting 1 pot per     
         int = user_data.ext[:it]
@@ -1208,7 +1216,6 @@ class WhController < ApplicationController
         
         # cost_jingli_rate = int/20
         consume_pot = (st-t)*1 # cosume 1 pot per sec
-
         
         # max pot can be used limited by exp
         max_pot = usepot.to_i
@@ -1216,8 +1223,7 @@ class WhController < ApplicationController
         if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e
             max_pot = (skill[:level] +1) * (skill[:level] +1) - skill[:tp]
         end
-        
-      
+              
         if consume_pot > max_pot
             consume_pot = max_pot
         end
@@ -1233,11 +1239,23 @@ class WhController < ApplicationController
         
         user_data.ext[:jingli] -= cost_jingli
         user_data.ext[:pot] -= consume_pot      
-        pending = {}
         
+=end
+        levelup = false
+        level1 = skill[:level]
+        skill = user_data.query_skill(skillname)
+        player.practise(skill, t_span)
+        if skill[:level] > level1
+            levelup = true
+            
+        end  
+        
+        
+        
+        pending = {}
         user_data.ext.set_prop("pending", pending)
         
-        skill = user_data.query_skill(skillname)
+  
         _skill = JSON.parse(skill.to_json) # convert to has
         _ext = JSON.parse(user_data.ext.to_json)
         _ret = _skill.merge(_ext)

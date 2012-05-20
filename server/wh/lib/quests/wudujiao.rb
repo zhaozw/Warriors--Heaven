@@ -174,7 +174,7 @@ class Wudujiao < Quest
                     :prop =>{
                         :wudu=>[],
                         :zhongyuan=>[],
-                        :battle_count=>battlecount.to_i
+                        :battle_count=>battlecount.to_i # 第x次无毒教战役
                     }.to_json
                 })
                 g.save!
@@ -402,8 +402,12 @@ class Wudujiao < Quest
                     team1.each{|p|p.data.check_save}
                     team2.each{|p|p.data.check_save}
                     q[:stat] = 2
+                    q[:finishedat] = Time.now
                     q.save
+                    p "==>q:#{q.changed?}- #{q.inspect}"
+                    
                     p "====> 战役结束 <====="
+                    
                      
                  }
                  msg = msg+ "<div>战役开始!</div>"

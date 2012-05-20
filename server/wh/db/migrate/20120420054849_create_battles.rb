@@ -10,6 +10,12 @@ class CreateBattles < ActiveRecord::Migration
 
       t.timestamps
     end
+     add_index(:battles, ["updated_at"])
+     add_index(:battles, ["attacker"])
+     add_index(:battles, ["defenser"])
+     add_index(:battles, ["ftype"])
+     add_index(:battles, ["status"])
+     add_index(:battles, ["winner"])
   end
 
   def self.down

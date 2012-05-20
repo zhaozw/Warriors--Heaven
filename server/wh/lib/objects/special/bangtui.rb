@@ -3,11 +3,11 @@ require 'objects/equipments/weapon.rb'
 class Shadai  < Game::Object
 
   def dname
-    "沙袋"
+    "绑腿"
   end
   
   def desc
-     "一个灌满了沙子的皮袋，可以用来提高基本拳脚的练习效率"
+     "一副灌了铁砂的bangtui"
   end
 
   def image

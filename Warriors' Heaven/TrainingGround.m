@@ -556,7 +556,8 @@
 - (void) practiseThred{
     NSObject* ext = [ad getDataUserext];
     int pot = [[ext valueForKey:@"pot"] intValue];
-//   int jingli = [[ext valueForKey:@"jingli"] intValue];
+    int jingli = [[ext valueForKey:@"jingli"] intValue];
+    int it = [[ext valueForKey:@"it"] intValue];
     NSArray* userskills = [ad getDataUserskills];
     NSObject* skill = [[userskills objectAtIndex:currentPractisingSkill] valueForKey:@"userskill"];
     NSLog(@"%@", skill);
@@ -572,11 +573,39 @@
         return;
         
     }
-    usepot --;
-    pot--;
-    tp ++;
+    int rate = 1; // consume 1 pot per second 
+   
+    id fixture;
+    
+    if ([name isEqualToString:@"parry"]){
+         fixture   = [ad getDataUserextProp:@"muren"];
+        if (fixture){
+            int fx_v = [fixture intValue];
+            if (fx_v >0)
+                rate = rate / 2;
+        }
+    }else if ([name isEqualToString:@"unarmed"]){
+        fixture   = [ad getDataUserextProp:@"shadai"];
+        if (fixture){
+            int fx_v = [fixture intValue];
+            if (fx_v >0)
+                rate = rate / 2;
+        }
+    }else if ([name isEqualToString:@"dodge"]){
+        fixture   = [ad getDataUserextProp:@"meihuazhuang"];
+        if (fixture){
+            int fx_v = [fixture intValue];
+            if (fx_v >0)
+                rate = rate / 2;
+        }
+    }
+    usepot -= rate;
+    pot-=rate;
+    tp += rate;
+    jingli -= rate*20/it;
     [skill setValue:[NSNumber numberWithInt:tp] forKey:@"tp"];
     [ext setValue:[NSNumber numberWithInt:pot] forKey:@"pot"];
+    [ext setValue:[NSNumber numberWithInt:jingli] forKey:@"jingli"];
     [self performSelector:@selector(practiseThred) withObject:NULL afterDelay:1];
     lbPotential.text = [NSString stringWithFormat:@"%d", pot];
     int level = [[skill valueForKey:@"level"] intValue];

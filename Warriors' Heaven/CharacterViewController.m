@@ -215,10 +215,6 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 
 - (void) initUI{
     item_selected = NULL;
-    
-    
-
-    
     [self initPropView];
     
     NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
@@ -257,7 +253,19 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [pos_map setValue:NULL forKey:@"leg"];
     [pos_map setValue:NULL forKey:@"body"];
     
-    
+    pos_list = [[NSMutableArray alloc] initWithObjects:
+                [NSNull null],
+                @"head",
+                @"neck",
+                @"hand right",
+                @"arm",
+                @"finger right",
+                @"hand left",
+                @"finger left",
+                @"foot",
+                @"leg",
+                @"body",
+                nil ];
     
     
     
@@ -308,19 +316,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
      [NSNull null],
      [NSNull null],
      nil];*/
-    pos_list = [[NSMutableArray alloc] initWithObjects:
-                [NSNull null],
-                @"head",
-                @"neck",
-                @"hand right",
-                @"arm",
-                @"finger right",
-                @"hand left",
-                @"finger left",
-                @"foot",
-                @"leg",
-                @"body",
-                nil ];
+
     //    eq_list = [[NSMutableArray alloc] initWithCapacity:max_eq+1];
     //    [eq_list addObject:[NSNull null]];
     for (int i = 0; i< max_eq; i++){
@@ -373,9 +369,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
     
     
-    // initialize posistion
-    
-    
+    // initialize position
     int k=1;
     vEqbtn_cap = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
     [vEqbtn_cap addTarget:self action:@selector(selectWorenEq:) forControlEvents:UIControlEventTouchUpInside];
@@ -565,7 +559,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    [self initUI];
+    
 
 }
 
@@ -980,6 +974,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"character view update");
+    [self initUI];
     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
 
     if (ad.bUserEqNeedUpdated) {
