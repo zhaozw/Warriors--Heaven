@@ -370,5 +370,11 @@
     // Drawing code
 }
 */
-
++ (void) removeAllSubview:(UIView*) v{
+    NSArray * subviewsArr = [v subviews];
+    for(UIView *v in subviewsArr )
+    {
+        [v removeFromSuperview];
+    }
+}
 @end

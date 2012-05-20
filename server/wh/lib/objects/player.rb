@@ -316,17 +316,17 @@ class Player < Human
         if (skillname == "unarmed")
             rate_fix = "shadai"
             rate_add_fix = ext.get_prop("shadai")
-            if rate_add_fix > 0
+            if rate_add_fix && rate_add_fix > 0
                 rate = rate *2
             end
         elsif (skillname == "parry")
             rate_fix = "muren"
             rate_add_fix = ext.get_prop("muren")
-            rate = rate * 2 if rate_add_fix > 0
+            rate = rate * 2 if rate_add_fix && rate_add_fix > 0
         elsif skillname == "dodge"
             rate_fix = "meihuazhuang"
             rate_add_fix = ext.get_prop("meihuazhuang")
-            rate = rate * 2 if rate_add_fix >0
+            rate = rate * 2 if rate_add_fix && rate_add_fix >0
         end
         
         usepot= rate * sec
@@ -374,7 +374,9 @@ class Player < Human
         # pending = {}
         #   
         #   ext.set_prop("pending", pending)
-        ext.set_prop(rate_fix, rate_add_fix-usepot)
+        if rate_add_fix && rate_add_fix >0
+            ext.set_prop(rate_fix, rate_add_fix-usepot)
+        end
         return usepot
     end
     # remove and delete record

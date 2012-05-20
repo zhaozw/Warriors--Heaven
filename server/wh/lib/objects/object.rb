@@ -150,6 +150,8 @@ class Object
         end 
     end
     
+    def use(context)
+    end
     # for tradable
     def intro
       desc

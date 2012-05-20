@@ -113,7 +113,10 @@ class WhController < ApplicationController
         usepot =  pending["usepot"].to_i
         player = Player.new
         player.set_data(ud)
-        up = player.practise(pending["skill"], t_span)
+
+        skill = player.query_skill(pending["skill"])
+         p "==>pending skill = #{pending["skill"]}, #{skill.inspect}"       
+        up = player.practise(skill, t_span)
         # if t_span > pending["usepot"].to_i # finished
         #     player.practise(pending["skill"], usepot)
         # else
@@ -125,7 +128,7 @@ class WhController < ApplicationController
         if up >= pending["usepot"].to_i
             pending = {}
         else
-            pendig["t"] = Time.now.to_i
+            pending["t"] = Time.now.to_i
             pending["usepot"] = pending["usepot"].to_i - up
             ud.ext.set_prop("pending", pending)
         end

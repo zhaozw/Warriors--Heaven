@@ -809,8 +809,9 @@
         return;
     }
     id ext = [updated valueForKey:@"userext"];
-    if (ext)
-        [self setDataUserExt:ext];
+    if (ext){
+        [[[data_user valueForKey:@"user"] valueForKey:@"userext"] setValue:ext forKey:@"userext"];
+    }
     id skills = [updated valueForKey:@"skills"];
     if (skills)
         [self setDataUserskills:skills];
@@ -818,5 +819,6 @@
     if (eqs)
         [self setDataUserEqs:eqs];
     
+    NSLog(@"root: %@", [self getDataUser]);
 }
 @end

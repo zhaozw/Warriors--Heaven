@@ -38,8 +38,9 @@
     EGOImageButton *vEqbtn_boots;
     EGOImageButton *vEqbtn_trousers;
     EGOImageButton *vEqbtn_armo;
-    
+    UIScrollView* vEqContainer;
     int itemOnDetail;
+    NSMutableArray* item_slots;
 }
 @property (nonatomic, retain) NSMutableArray* positions;
 @property (nonatomic, retain) NSDictionary* pos_map;
@@ -105,5 +106,5 @@
 - (id) findObjById:(int)eqid;
 -(void)viewWillAppear:(BOOL)animated ;
 - (void) reloadEq;
-
+- (void) reloadEqUI;
 @end

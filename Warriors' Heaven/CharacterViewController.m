@@ -212,6 +212,130 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     lbDeffencce = createLabel(CGRectMake(margin_left+260, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
 }
 
+- (void) reloadEqUI{
+//    [LightView removeAllSubview:vEqContainer];
+//    [LightView removeAllSubview:vItemContainer];
+    for (int i = 0; i< [eq_slots count]; i++){
+        UIView* uiv = [eq_slots objectAtIndex:i];
+        [uiv removeFromSuperview];
+    }
+    for (int i = 0; i< [item_slots count]; i++){
+        UIView* uiv = [item_slots objectAtIndex:i];
+        [uiv removeFromSuperview];
+    }
+    NSDictionary* ext = [ad getDataUserext];
+    int max_eq = [[ad getDataUserextProp:@"max_eq"] intValue];
+    NSLog(@"ROOT2:%@", [ad getDataUser]);
+    int row_count = 0;
+    if (max_eq <= 0 ){
+        row_count = 1;
+        max_eq = 5;
+    }
+    else
+        row_count = (max_eq-1)/5 + 1;
+    CGRect rect = vEquipment.frame;
+    vEqContainer.frame = CGRectMake(10, 10, rect.size.width -20, 60);
+    vEqContainer.contentSize = CGSizeMake(0, 60*row_count);
+   
+    
+   
+
+    int max_item = [[ad getDataUserextProp:@"max_item"] intValue];
+    int item_row_count = 0;
+    if (max_item <= 0 ){
+        item_row_count = 1;
+        max_item = 5;
+    }
+    else
+        item_row_count = (max_item-1)/5 + 1;
+    item_row_count = 1;
+    vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60+50);
+    vItemContainer.frame = CGRectMake(10, 10, rect.size.width -20,item_row_count*60);
+    //    vItemContainer.backgroundColor = [UIColor redColor];
+    vItemContainer.contentSize = CGSizeMake(60*max_item, 0);
+
+    
+    
+    
+    
+    eq_buttons = [[NSMutableArray alloc] initWithCapacity:max_eq];
+    eq_slots = [[NSMutableArray alloc] initWithCapacity:max_eq];
+    item_slots = [[NSMutableArray alloc] initWithCapacity:max_item];
+    /*    woren_eq_list = [[NSMutableArray alloc] initWithObjects:
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     [NSNull null],
+     nil];*/
+    
+    //    eq_list = [[NSMutableArray alloc] initWithCapacity:max_eq+1];
+    //    [eq_list addObject:[NSNull null]];
+    for (int i = 0; i< max_eq; i++){
+        UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
+        slot.frame = CGRectMake(i%5*60, i/5*60, 60, 60);
+        [slot setUserInteractionEnabled:YES];
+        [vEqContainer addSubview:slot];
+        [eq_slots addObject:slot];
+        [slot setTag:i+1];
+        
+        EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
+        [eq_buttons addObject:v];
+        //        [v setTag:i+1];
+        [v addTarget:self action:@selector(selectEq:) forControlEvents:UIControlEventTouchUpInside];
+        //        [v setTintColor:[UIColor redColor]];
+        [slot addSubview:v];
+        [pos_map setValue:v forKey:[[NSNumber numberWithInt:i] stringValue]];
+        
+        //        [eq_list addObject:[NSNull null]];
+    }
+    
+    item_list = [[NSMutableArray alloc] initWithCapacity:max_item+1];
+    [item_list addObject:[NSNull null]];
+    item_buttons = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i< max_item; i++){
+        UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
+        slot.frame = CGRectMake(i*60, 0, 60, 60);
+        [slot setUserInteractionEnabled:YES];
+        [vItemContainer addSubview:slot];
+        [item_slots addObject:slot];
+        [slot setTag:i+1];
+        
+        EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
+        //        [eq_buttons addObject:v];
+        //        [v setTag:i+1];
+        [v addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
+        //        [v setTintColor:[UIColor redColor]];
+        [item_buttons addObject:v];
+        //        [v setBackgroundColor:[UIColor yellowColor]];
+        [slot addSubview:v];
+        [item_list addObject:[NSNull null]];
+    }
+    
+    
+    //int offset = 60*max_item -vItemContainer.frame.size.width;
+    //  if (offset > 0)
+   
+    [vItemContainer scrollRectToVisible:CGRectMake(400, 0, 10, 10) animated:YES];
+    
+    // set scrollview frame
+    CGRect r_last = vItemBg.frame;
+    UIScrollView* vv = ( UIScrollView* )self.view;
+    int t = r_last.origin.y+r_last.size.height;
+    NSLog(@"set content size to %d, %d", 320, t);
+    vv.contentSize = CGSizeMake(0, t-480);
+    //    self.view.frame = CGRectMake(0,0,320,480);
+    
+    
+
+}
 
 - (void) initUI{
     item_selected = NULL;
@@ -224,12 +348,21 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:30 topCapHeight:30];
     [vEquipment setImage:stretchableImageNormal];
     [vEquipment addSubview:vEqInfoView];
+     [vEqInfoView setBackgroundColor:[UIColor clearColor]];
+     vEqInfoView.frame = CGRectMake(10, 10+60, 300, 80);
     
     vItemInfoView = [[UIView alloc] init];
+    vItemInfoView.frame = CGRectMake(10, 10+60, 300, 80);
     [vItemInfoView setBackgroundColor:[UIColor clearColor]];
     [vItemBg addSubview:vItemInfoView];
-    
-    
+    vItemContainer = [[UIScrollView alloc] init];
+    vItemContainer.opaque = NO;
+    [vItemContainer setScrollEnabled:YES];
+    [vItemBg addSubview:vItemContainer];
+    vEqContainer = [[UIScrollView alloc] init];
+    vEqContainer.opaque = NO;
+    [vEqContainer setScrollEnabled:YES];
+    [vEquipment addSubview:vEqContainer];
     /*    positions = [[NSMutableArray alloc] initWithObjects:
      @"head", 
      @"neck",
@@ -268,104 +401,6 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
                 nil ];
     
     
-    
-    NSDictionary* ext = [ad getDataUserext];
-    int max_eq = [[ext valueForKey:@"max_eq"] intValue];
-    int row_count = 0;
-    if (max_eq <= 0 ){
-        row_count = 1;
-        max_eq = 5;
-    }
-    else
-        row_count = (max_eq-1)/5 + 1;
-    vEqInfoView.frame = CGRectMake(10, 10+row_count*60, 300, 80);
-    [vEqInfoView setBackgroundColor:[UIColor clearColor]];
-    CGRect rect = vEquipment.frame;
-    int max_item = [[ad getDataUserextProp:@"max_item"] intValue];
-    int item_row_count = 0;
-    if (max_item <= 0 ){
-        item_row_count = 1;
-        max_item = 5;
-    }
-    else
-        item_row_count = (max_item-1)/5 + 1;
-    item_row_count = 1;
-    vItemBg.frame = CGRectMake(rect.origin.x, rect.origin.y+rect.size.height, rect.size.width, 20+item_row_count*60+50);
-    vItemContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 10, rect.size.width -20,item_row_count*60)];
-    //    vItemContainer.backgroundColor = [UIColor redColor];
-    vItemContainer.opaque = NO;
-    [vItemContainer setScrollEnabled:YES];
-    [vItemBg addSubview:vItemContainer];
-    vItemInfoView.frame = CGRectMake(10, 10+item_row_count*60, 300, 80);
-    
-    
-    
-    
-    eq_buttons = [[NSMutableArray alloc] initWithCapacity:10];
-    eq_slots = [[NSMutableArray alloc] initWithCapacity:10];
-    /*    woren_eq_list = [[NSMutableArray alloc] initWithObjects:
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     [NSNull null],
-     nil];*/
-
-    //    eq_list = [[NSMutableArray alloc] initWithCapacity:max_eq+1];
-    //    [eq_list addObject:[NSNull null]];
-    for (int i = 0; i< max_eq; i++){
-        UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
-        slot.frame = CGRectMake(10+i*60, 10, 60, 60);
-        [slot setUserInteractionEnabled:YES];
-        [vEquipment addSubview:slot];
-        [eq_slots addObject:slot];
-        [slot setTag:i+1];
-        
-        EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-        [eq_buttons addObject:v];
-        //        [v setTag:i+1];
-        [v addTarget:self action:@selector(selectEq:) forControlEvents:UIControlEventTouchUpInside];
-        //        [v setTintColor:[UIColor redColor]];
-        [slot addSubview:v];
-        [pos_map setValue:v forKey:[[NSNumber numberWithInt:i] stringValue]];
-        
-        //        [eq_list addObject:[NSNull null]];
-    }
-    
-    item_list = [[NSMutableArray alloc] initWithCapacity:max_item+1];
-    [item_list addObject:[NSNull null]];
-    item_buttons = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i< max_item; i++){
-        UIImageView* slot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eqslot.png"]];
-        slot.frame = CGRectMake(i*60, 0, 60, 60);
-        [slot setUserInteractionEnabled:YES];
-        [vItemContainer addSubview:slot];
-        //        [eq_slots addObject:slot];
-        [slot setTag:i+1];
-        
-        EGOImageButton *v = [[EGOImageButton alloc] initWithFrame:CGRectMake(5, 5, 50, 50)];
-        //        [eq_buttons addObject:v];
-        //        [v setTag:i+1];
-        [v addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
-        //        [v setTintColor:[UIColor redColor]];
-        [item_buttons addObject:v];
-        //        [v setBackgroundColor:[UIColor yellowColor]];
-        [slot addSubview:v];
-        [item_list addObject:[NSNull null]];
-    }
-    
-    
-    //int offset = 60*max_item -vItemContainer.frame.size.width;
-    //  if (offset > 0)
-    vItemContainer.contentSize = CGSizeMake(60*max_item, 0);
-    [vItemContainer scrollRectToVisible:CGRectMake(400, 0, 10, 10) animated:YES];
     
     
     
@@ -539,14 +574,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     btItemDetail.hidden = YES;
     
     
-    // set scrollview frame
-    CGRect r_last = vItemBg.frame;
-    UIScrollView* vv = ( UIScrollView* )self.view;
-    int t = r_last.origin.y+r_last.size.height;
-    NSLog(@"set content size to %d, %d", 320, t);
-    vv.contentSize = CGSizeMake(0, t-480);
-    //    self.view.frame = CGRectMake(0,0,320,480);
-    
+
     [self addChildViewController:vcObjDetail];
     [ad.window addSubview:[vcObjDetail view]];
     [vcObjDetail hideDetailView];
@@ -559,7 +587,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    
+    [self initUI];
 
 }
 
@@ -974,7 +1002,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 }
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"character view update");
-    [self initUI];
+    [self reloadEqUI];
     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
 
     if (ad.bUserEqNeedUpdated) {
