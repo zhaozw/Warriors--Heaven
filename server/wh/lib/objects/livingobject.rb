@@ -6,7 +6,9 @@ class LivingObject < Game::Object
     @carryig =[] # carrying include wearing
      
     def initialize
+        super
         @wearing={}
+        @carryig =[]
     end
     
     def carry(o)

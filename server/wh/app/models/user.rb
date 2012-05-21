@@ -263,8 +263,9 @@ class User < ActiveRecord::Base
     def isChanged?(r)
         return false if !r.changed? 
         return true if r.new_record? || r.marked_for_destruction?
-        r.changes.each {|k|
-            return true if  r.class.column_names.include?k
+        r.changes.each {|k,v|
+            p "=>#{k}"
+            return true if  r.class.column_names.include?(k)
         }
         return false
        
@@ -278,6 +279,9 @@ class User < ActiveRecord::Base
             self[:cached] = false
         end
         
+        p "===>ext changes: #{ext.changes.inspect}"
+        p "ext columns:#{ext.class.column_names.inspect}"
+        p "include prop = #{ext.class.column_names.include?"prop"}"
         if isChanged?(ext)
             p "saved userext for user #{self[:user]}, #{ext.inspect}"
             self.ext.save!
@@ -392,9 +396,9 @@ class User < ActiveRecord::Base
         p "=>query_obj #{name}"
         objs = query_all_obj
         for o in objs
-            if name=~/muren/
-                p "==>obj: #{o.data[:eqname]}"
-            end
+            # if name=~/muren/
+            #     p "==>obj: #{o.data[:eqname]}"
+            # end
             return o if o.data[:eqname] == name
         end
         return nil
@@ -514,6 +518,7 @@ class User < ActiveRecord::Base
         return self[:items]
     end
     def query_obj_by_id(id)
+        p "==>query obj by id #{id}"
         eqs = query_all_obj
          # p "===> eqs=#{eqs.inspect}"
          for eq in eqs
@@ -521,6 +526,7 @@ class User < ActiveRecord::Base
                  return eq
              end
          end
+         p "==> not found"
          return nil
     end
     def query_item_by_id(id)

@@ -247,6 +247,7 @@ class Player < Human
     
 
     def query_all_wearings
+        p "==>wearing #{@wearing.inspect}"
         if ! @setup_wearing 
             setup_wearing
         end
