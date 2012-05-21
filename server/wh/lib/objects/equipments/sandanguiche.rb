@@ -1,6 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Sandaiguiche  < Weapon
+        def initialize
+        super
+        set("hp", 1200)
+    end
     def dname
     "三代鬼彻"
   end

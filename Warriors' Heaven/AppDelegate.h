@@ -119,4 +119,5 @@
 - (NSObject*) readLocalProp:(NSString*)n;
 - (void) checkUpdated:(NSObject*) data;
 - (NSObject*) setDataUserskills:(NSArray*) ar;
++ (id) getProp:(NSObject*)prop name:(NSString*)name;
 @end

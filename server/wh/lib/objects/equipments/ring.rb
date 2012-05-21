@@ -1,7 +1,10 @@
 require 'objects/equipments/equipment.rb'
 
 class Ring  < Weapon
-    
+        def initialize
+        super
+        set("hp", 100)
+    end
     def dname
     "铜戒指"
   end

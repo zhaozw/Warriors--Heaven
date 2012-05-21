@@ -1,7 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Shadai  < Game::Object
-
+    def initialize
+        super
+        set("hp", 1000)
+    end
   def dname
     "沙袋"
   end

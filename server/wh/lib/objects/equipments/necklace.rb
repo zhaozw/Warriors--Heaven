@@ -1,6 +1,10 @@
 require 'objects/equipments/equipment.rb'
 
 class Necklace  < Weapon
+        def initialize
+        super
+        set("hp", 100)
+    end
     def dname
     "项链"
   end

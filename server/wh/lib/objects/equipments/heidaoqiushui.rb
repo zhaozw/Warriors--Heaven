@@ -1,7 +1,10 @@
 require 'objects/equipments/blade.rb'
 
 class Heidaoqiushui < Blade
-
+    def initialize
+        super
+        set("hp", 1200)
+    end
   def dname
     "黑刀秋水"
   end

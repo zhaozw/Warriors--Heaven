@@ -59,7 +59,7 @@ class TradablesController < ApplicationController
         end
         max_eq = user_data.ext.get_prop("max_eq").to_i
         eqslot = user_data.ext.get_prop("eqslot")
-                     
+            
         found_available = -1
         p eqslot
         if eqslot
@@ -104,8 +104,8 @@ class TradablesController < ApplicationController
                else
                      found_available =0
                end
-            else item[:obtype] == 2
-                r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2")
+            else item[:obtype] == 2 or item[:obtype] == 4
+                r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2 or eqtype=4")
                 count = r.fetch_row[0].to_i
             #    p session[:userdata]
                 if (count+1 > user_data.ext.get_prop("max_item").to_i)

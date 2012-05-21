@@ -2,7 +2,7 @@ module Game
 class Object
     
 # -------- CONVENTION ----------
-# @var    attributes of instance and can be modified during game, like hp of object
+# @var    attributes of instance and can be modified during game, and stored in "prop" field of db record, like hp of object. 
 # @obj    database record
 # @temp   temporary variable, usually copy from database record when initialize. 
 #         The purpos is to prevent modifying database directly. Usually used for one time, like passive fight
@@ -87,7 +87,7 @@ class Object
         if data
             return get_prop("hp")
         else
-            return 1
+            return 0
         end
     end
     
@@ -100,7 +100,7 @@ class Object
             :desc=>desc,
             :price=>price,
             :weight=>weight,
-            :rand=>rank,
+            :rank=>rank,
             :unit=>unit
         }
         if data && (data[:eqtype].to_i==1   || data[:eqtype].to_i==3 ) 

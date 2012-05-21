@@ -14,6 +14,7 @@
 @interface TrainingGround : UIViewController{
     NSMutableArray* btn_practise_list; // list of progress view of tp
     int currentPractisingSkill;
+    int willPractiseSkill;
     int usepot;
 }
 @property (strong, retain) AppDelegate *ad;

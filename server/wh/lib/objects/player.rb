@@ -335,13 +335,13 @@ class Player < Human
         
         
         # max pot can be used is limited by exp
-        max_pot = 0
-        e = ext[:exp] + calc_total_exp(ext[:level])
-        if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e
+        # max_pot = 0
+        # e = ext[:exp] + calc_total_exp(ext[:level])
+        # if (skill[:level] +1) * (skill[:level] +1) *(skill[:level] +1)/10>e # if cannot levelup
             max_pot = (skill[:level] +1) * (skill[:level] +1) - skill[:tp]
-        end
+        # end
         
-        if max_pot < usepot
+        if usepot > max_pot 
             usepot = max_pot
         end
         
@@ -349,9 +349,10 @@ class Player < Human
         # for int = 20, 1 jingli for every pot
         cost_jingli = usepot*20/int
         
-        levelup = improve_skill(self, skillname, max_pot)
+        p "==>practise: rate_fix:#{rate_fix}, rate_add_fix:#{rate_add_fix}, skill level:#{skill[:level]}, use pot #{usepot}, rate #{rate}"
+        levelup = improve_skill(self, skillname, usepot)
         if levelup
-            if rate_add_fix-usepot < 0
+            if rate_add_fix && rate_add_fix-usepot < 0
                 fix_name = ""
                 case rate_fix
                     when "muren": fix_name="objects/special/muren"
@@ -377,7 +378,7 @@ class Player < Human
         if rate_add_fix && rate_add_fix >0
             ext.set_prop(rate_fix, rate_add_fix-usepot)
         end
-        return usepot
+        return {:usepot=>usepot, :levelup=>levelup, :addtp=>usepot, :cost_jingli=>cost_jingli}
     end
     # remove and delete record
     def delete_obj(obj)

@@ -81,12 +81,14 @@ class WhController < ApplicationController
          recoverPlayer(user_data.ext)
          recoverZhanyi(user_data.ext)
          update_task(user_data)
-         user_data.check_save
+
          npc = create_npc("objects/npc/hero/#{hero_name}")
          user_data[:hero]={
              :lengendImage => npc.lengendImage
          }
          render :text=>user_data.to_json
+         
+         user_data.check_save
     end
     
     def ext
@@ -95,6 +97,35 @@ class WhController < ApplicationController
         render :text=>user_data.ext.to_json
         return 
     end
+    def check_practise(pending, context=nil)
+        t = pending["t"]
+        t_span = Time.now.to_i - t
+        
+        
+        usepot =  pending["usepot"].to_i
+                skill = player.query_skill(pending["skill"])
+         p "==>pending skill = #{pending["skill"]}, #{skill.inspect}"       
+        up = player.practise(skill, t_span)
+        ret = pending.clone
+        if up[:usepot] >= pending["usepot"].to_i
+            ret = {}
+        else
+            ret["t"] = Time.now.to_i
+            ret["usepot"] = pending["usepot"].to_i - up[:usepot]
+        end
+        
+        p "=>up=#{up.inspect}, #{context.inspect}"
+        if (context)
+            if (up[:levelup] )
+                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}, 恭喜你的#{skill.dname}等级提高了!"
+            else
+                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}"
+            end 
+        end
+        
+        return ret
+    end
+    
     def update_task(ud)
         pending = ud.ext.get_prop("pending")
         if !pending
@@ -106,6 +137,7 @@ class WhController < ApplicationController
         if !pending["act"]
             return
         end
+=begin       
         t = pending["t"]
         t_span = Time.now.to_i - t
         
@@ -125,14 +157,17 @@ class WhController < ApplicationController
         #     pending["usepot"] = pending["usepot"] - t_span
         #     ud.ext.set_prop("pending", pending)
         # end
-        if up >= pending["usepot"].to_i
+        if up[:usepot] >= pending["usepot"].to_i
             pending = {}
         else
             pending["t"] = Time.now.to_i
-            pending["usepot"] = pending["usepot"].to_i - up
+            pending["usepot"] = pending["usepot"].to_i - up[:usepot]
             ud.ext.set_prop("pending", pending)
         end
-        ud.check_save
+=end
+       _pending = check_practise(pending)
+        ud.ext.set_prop("pending", _pending)
+        # ud.check_save
     end
     
     def reg
@@ -1097,8 +1132,11 @@ class WhController < ApplicationController
             end
   
             if (pending["act"] != nil and pending["msg"]!=nil)
-                error ("你正忙着#{pending['msg']}呢!")
-                return
+                _pending = check_practise(pending)
+                if _pending &&_pending[:usepot] && _pending[:usepot] > 0
+                    error ("你正忙着#{pending['msg']}呢!")
+                    return
+                end
             end
         end
   
@@ -1202,11 +1240,11 @@ class WhController < ApplicationController
         
         usepot = pending["usepot"]
         
-        t = pending["t"].to_i
-        p  "start time #{t}"
-        st = Time.now.to_i
-        p "stoptime #{st}"
-        t_span = st -t
+        # t = pending["t"].to_i
+        # p  "start time #{t}"
+        # st = Time.now.to_i
+        # p "stoptime #{st}"
+        # t_span = st -t
 =begin        
         # calculate gain
         # int = 20 : consume 1 jingli per converting 1 pot per     
@@ -1244,31 +1282,30 @@ class WhController < ApplicationController
         user_data.ext[:pot] -= consume_pot      
         
 =end
-        levelup = false
-        level1 = skill[:level]
-        skill = user_data.query_skill(skillname)
-        player.practise(skill, t_span)
-        if skill[:level] > level1
-            levelup = true
-            
-        end  
-        
-        
-        
-        pending = {}
-        user_data.ext.set_prop("pending", pending)
+        # levelup = false
+        #         level1 = skill[:level]
+        #         skill = user_data.query_skill(skillname)
+        #         ret = player.practise(skill, t_span)
+        #         # if skill[:level] > level1
+        #         #     levelup = true
+        #         #     
+        #         # end  
+        #         
+        #         
+        #         
+        #         pending = {}
+        c = {:msg=>""}
+        _pending = check_practise(pending, c)
+        user_data.ext.set_prop("pending", _pending)
         
   
         _skill = JSON.parse(skill.to_json) # convert to has
         _ext = JSON.parse(user_data.ext.to_json)
         _ret = _skill.merge(_ext)
         
-        if (levelup)
-             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}, 恭喜你的#{skill.dname}等级提高了!", _ret)
-        else
-             success("修练完毕，消耗#{max_pot}点潜能, 精力-#{cost_jingli}, 技能点增加#{max_pot}", _ret)
-        end 
-         user_data.ext[:lastact] = ""
+        success(c[:msg], _ret)
+  
+        user_data.ext[:lastact] = ""
         user_data.check_save
         return
     end

@@ -1,7 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Armo  < Weapon
-
+    def initialize
+        super
+        set("hp", 100)
+    end
   def unit
       "件"
   end

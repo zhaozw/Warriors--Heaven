@@ -1,6 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Hedaoyiwenzi  < Blade
+        def initialize
+        super
+        set("hp", 1200)
+    end
     def dname
     "和道一文字"
   end

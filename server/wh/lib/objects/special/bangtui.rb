@@ -2,6 +2,11 @@ require 'objects/equipments/weapon.rb'
 
 class Shadai  < Game::Object
 
+    def initialize
+        super
+        set("hp", 1000)
+    end
+    
   def dname
     "绑腿"
   end
@@ -21,6 +26,7 @@ class Shadai  < Game::Object
   def effect
       "可以用来提高基本拳脚的练习效率"
   end
+  
   def price
       1000
   end

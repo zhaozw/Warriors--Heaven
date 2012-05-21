@@ -1,7 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Cap  < Weapon
-  
+      def initialize
+        super
+        set("hp", 100)
+    end
   def dname
     "铁头盔"
   end

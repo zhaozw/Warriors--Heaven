@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnUse;
 @property (strong, nonatomic) IBOutlet UILabel *slbPrice;
 @property (strong, nonatomic) IBOutlet UIButton *btTrade;
+@property (strong, nonatomic) IBOutlet UILabel *lbHp;
 - (void) loadObjDetail:(NSObject*) obj;
 - (void) hideDetailView;
 - (void) setViewType:(NSString*) type;

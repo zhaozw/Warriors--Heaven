@@ -20,6 +20,7 @@
 @synthesize btnUse;
 @synthesize slbPrice;
 @synthesize btTrade;
+@synthesize lbHp;
 @synthesize ad;
 @synthesize obj;
 
@@ -62,6 +63,7 @@
     [self setBtnUse:nil];
     [self setSlbPrice:nil];
     [self setBtTrade:nil];
+    [self setLbHp:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -113,6 +115,7 @@
     [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
     [lbDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
     [lbRank setText:[[eq valueForKey:@"rank"] stringValue]];
+    [lbHp setText:[[AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"] stringValue]] ;
     NSString* filepath = [eq valueForKey:@"image"];
     if (filepath == NULL || filepath.length == 0)
         filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];

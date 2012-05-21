@@ -1,7 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Meihuazhuang  < Game::Object
-
+    def initialize
+        super
+        set("hp", 1000)
+    end
   def dname
     "梅花桩"
   end

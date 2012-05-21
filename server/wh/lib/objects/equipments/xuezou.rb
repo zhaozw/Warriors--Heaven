@@ -1,6 +1,10 @@
 require 'objects/equipments/blade.rb'
 
 class Xuezou  < Blade
+        def initialize
+        super
+        set("hp", 1200)
+    end
     def dname
         "雪走"
     end

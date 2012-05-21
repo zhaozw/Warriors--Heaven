@@ -831,7 +831,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             
         }
         
-        if (eqtype == 2){ // item
+        if (eqtype == 2 || eqtype==4){ // item
             //  UIImageView* slot = [eq_slots objectAtIndex:slotNumber];
             NSLog(@"item_buttons count %d, index %d", [item_buttons count], item_index);
             if (item_index < [item_buttons count]) {// has room for item ?

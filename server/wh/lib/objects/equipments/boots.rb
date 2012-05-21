@@ -1,7 +1,10 @@
 require 'objects/equipments/equipment.rb'
 
 class Boots  < Weapon
-    
+        def initialize
+        super
+        set("hp", 100)
+    end
     def unit
         "双"
     end

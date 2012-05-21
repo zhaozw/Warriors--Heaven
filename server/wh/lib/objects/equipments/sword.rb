@@ -3,7 +3,10 @@ require 'objects/equipments/weapon.rb'
 class Sword  < Weapon
 
 
-    
+        def initialize
+        super
+        set("hp", 100)
+    end
   def dname
     "铁剑"
   end

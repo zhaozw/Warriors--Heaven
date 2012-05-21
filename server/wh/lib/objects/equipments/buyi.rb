@@ -1,7 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Buyi  < Armo
-
+    def initialize
+        super
+        set("hp", 50)
+    end
   def dname
     "布衣"
   end

@@ -799,6 +799,13 @@
 }
 
 
++ (id) getProp:(NSObject*)prop name:(NSString*)name{
+    NSObject* js = prop;
+    if ([prop isKindOfClass:[NSString class]])
+         js = [(NSString*)prop JSONValue];
+    return [js valueForKey:name];
+}
+
 - (void) checkUpdated:(NSObject*) data{
     id updated = [data valueForKey:@"updated"];
     if (!updated)

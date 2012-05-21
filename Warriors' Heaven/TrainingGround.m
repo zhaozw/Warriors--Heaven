@@ -59,6 +59,7 @@
     // add status view
      ad = [UIApplication sharedApplication].delegate;
     currentPractisingSkill = -1;
+    willPractiseSkill = -1;
     lbUsername.text = [[ad getDataUser] valueForKey:@"user"];
     
     pv_tp = [[NSMutableArray alloc] init];
@@ -494,6 +495,7 @@
 
 - (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot{
     self->usepot = _usepot;
+
     self->currentPractisingSkill = [self findSkillIndexByName:skillname];
     UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
     if (btn){
@@ -501,7 +503,7 @@
         [btn removeTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
         [btn addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
     }
-    [self performSelector:@selector(practiseThred) withObject:NULL afterDelay:1];
+    [self performSelector:@selector(practiseThread) withObject:NULL afterDelay:1];
 }
 - (void)startPractise:(UIButton*) btn{
     NSLog(@"train skill");
@@ -546,14 +548,15 @@
         
     usepot = need_pot;
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client setRetry:TRUE];
     NSString* url = [[NSString alloc] initWithFormat:@"/wh/startPractise?pot=%d&skill=%@", need_pot, name];
     [client sendHttpRequest:url selector:@selector(onStartPractiseReturn:) json:YES showWaiting:YES];
     
-    currentPractisingSkill = i;
+//    currentPractisingSkill = i;
 
 }
 
-- (void) practiseThred{
+- (void) practiseThread{
     NSObject* ext = [ad getDataUserext];
     int pot = [[ext valueForKey:@"pot"] intValue];
     int jingli = [[ext valueForKey:@"jingli"] intValue];
@@ -569,6 +572,7 @@
         NSLog(@"stop practise");
                WHHttpClient* client = [[WHHttpClient alloc] init:self];
         NSString* url = [[NSString alloc] initWithFormat:@"/wh/stopPractise?skill=%@", name];
+        [client setRetry:YES];
         [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:NO];
         return;
         
@@ -606,7 +610,7 @@
     [skill setValue:[NSNumber numberWithInt:tp] forKey:@"tp"];
     [ext setValue:[NSNumber numberWithInt:pot] forKey:@"pot"];
     [ext setValue:[NSNumber numberWithInt:jingli] forKey:@"jingli"];
-    [self performSelector:@selector(practiseThred) withObject:NULL afterDelay:1];
+    [self performSelector:@selector(practiseThread) withObject:NULL afterDelay:1];
     lbPotential.text = [NSString stringWithFormat:@"%d", pot];
     int level = [[skill valueForKey:@"level"] intValue];
     float process = ((float)tp)/((level+1)*(level+1));
@@ -662,6 +666,7 @@
     }
     [self reloadSkills];
     [ad setUserBusy:TRUE];
+
 }
 
 - (void) stopPractise:(UIButton*) btn{

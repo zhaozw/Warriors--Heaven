@@ -1,6 +1,10 @@
 require 'objects/equipments/weapon.rb'
 
 class Blade  < Weapon
+        def initialize
+        super
+        set("hp", 100)
+    end
     def unit
         "柄"
     end
