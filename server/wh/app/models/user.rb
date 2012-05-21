@@ -250,15 +250,35 @@ class User < ActiveRecord::Base
         end
         return skill
     end
+    def remove_attr(a)
+        _a = self.attributes
+        a.each {|k|
+          _a.delete(k)  
+          _a.delete(k.to_sym)  
+        }
+        p "==>_a #{_a.inspect}"
+        attributes= _a
+        p "==>attributes #{attributes.inspect}"
+    end
+    def isChanged?(r)
+        return false if !r.changed? 
+        return true if r.new_record? || r.marked_for_destruction?
+        r.changes.each {|k|
+            return true if  r.class.column_names.include?k
+        }
+        return false
+       
+    end
     def check_save   
-        p "===>changed?=#{changed?.inspect}"
-        if (changed?)
+        p "===>changed?=#{changed.inspect}, changes=#{changes.inspect}, attributes=#{attributes.inspect}"
+        p "==>columns =#{User.column_names.inspect}"
+        if (isChanged?(self))
             p "==>saving"
             save!
             self[:cached] = false
         end
         
-        if self.ext.changed?
+        if isChanged?(ext)
             p "saved userext for user #{self[:user]}, #{ext.inspect}"
             self.ext.save!
             self[:equipments] = nil
@@ -268,7 +288,7 @@ class User < ActiveRecord::Base
         if self[:skills]
             for us in self[:skills].values
                 us = us.data
-                if (us.changed?)
+                if (isChanged?(us))
                     us.save!
                     self[:cached] = false
                 end
@@ -277,7 +297,7 @@ class User < ActiveRecord::Base
         
         if self[:userquests]
           self[:userquests].each {|k,v|
-                if v.changed?
+                if isChanged?(v)
                     v.save!
                     self[:cached] = false
                 end
@@ -287,9 +307,13 @@ class User < ActiveRecord::Base
         
         if self[:equipments]
           self[:equipments].each {|k,v|
-                if v.data.changed?
-                    v.data.save!
-                    self[:cached] = false
+                if v == nil
+                    self[:equipments].delete(k)
+                else
+                    if isChanged?(v.data)
+                        v.data.save!
+                        self[:cached] = false
+                    end
                 end
                 
             }
@@ -298,7 +322,7 @@ class User < ActiveRecord::Base
         if self[:items]
             for us in self[:items]
                 if (us.data)
-                    if (us.data.changed?)
+                    if (isChanged?(us.data))
                         p "=>changed=#{us.data.changed.inspect}"
                         p "==>#{us.data.inspect}"
                         us.data.save!
@@ -365,9 +389,13 @@ class User < ActiveRecord::Base
     end
     
     def query_obj(name)
+        p "=>query_obj #{name}"
         objs = query_all_obj
         for o in objs
-            return o if o.data[:name] == name
+            if name=~/muren/
+                p "==>obj: #{o.data[:eqname]}"
+            end
+            return o if o.data[:eqname] == name
         end
         return nil
     end
@@ -487,7 +515,7 @@ class User < ActiveRecord::Base
     end
     def query_obj_by_id(id)
         eqs = query_all_obj
-         p "===> eqs=#{eqs.inspect}"
+         # p "===> eqs=#{eqs.inspect}"
          for eq in eqs
              if eq.data[:id] == id
                  return eq
@@ -497,7 +525,7 @@ class User < ActiveRecord::Base
     end
     def query_item_by_id(id)
         eqs = query_items
-         p "===> eqs=#{eqs.inspect}"
+         # p "===> eqs=#{eqs.inspect}"
          for eq in eqs
              if eq.data[:id] == id
                  return eq
@@ -507,7 +535,7 @@ class User < ActiveRecord::Base
     end
     def query_item(name)
          eqs = query_items
-         p "===> eqs=#{eqs.inspect}"
+         # p "===> eqs=#{eqs.inspect}"
          for eq in eqs
              if eq.data[:eqname] == name
                  return eq

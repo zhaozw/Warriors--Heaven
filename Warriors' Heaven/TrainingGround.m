@@ -330,6 +330,7 @@
     [pv_tp removeAllObjects];
     [lb_level_list removeAllObjects];
     [lb_status_list removeAllObjects];
+    [btn_practise_list removeAllObjects];
     // build new rows
     NSArray* userskills = [ad getDataUserskills];
     int height = 50;
@@ -499,9 +500,9 @@
     self->currentPractisingSkill = [self findSkillIndexByName:skillname];
     UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
     if (btn){
-        [btn setTitle:@"修炼" forState:UIControlStateNormal];
-        [btn removeTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
-        [btn addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"停止" forState:UIControlStateNormal];
+        [btn removeTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self performSelector:@selector(practiseThread) withObject:NULL afterDelay:1];
 }

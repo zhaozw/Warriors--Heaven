@@ -300,7 +300,7 @@ class Player < Human
  
     end
     
-    def practise(skill, sec)
+    def practise(skill, sec,c =nil)
         # skill = query_skill(skillname)
         skillname = skill[:skname]
         int = ext[:it]
@@ -312,21 +312,34 @@ class Player < Human
         
         rate = 1 # consume 1 pot per second
         
-        rate_add_fix = nil
+        fix = nil
+        # rate_add_fix = nil
+        p"=>>skillname=#{skillname}"
         if (skillname == "unarmed")
             rate_fix = "shadai"
-            rate_add_fix = ext.get_prop("shadai")
-            if rate_add_fix && rate_add_fix > 0
+            fix = query_obj("objects/special/shadai")
+            if fix && fix.hp > 0
+                # rate_add_fix = ext.get_prop("shadai")
+                
+            # if rate_add_fix && rate_add_fix > 0
                 rate = rate *2
             end
         elsif (skillname == "parry")
-            rate_fix = "muren"
-            rate_add_fix = ext.get_prop("muren")
-            rate = rate * 2 if rate_add_fix && rate_add_fix > 0
+             # rate_fix = "muren"
+            #          rate_add_fix = ext.get_prop("muren")
+            #          rate = rate * 2 if rate_add_fix && rate_add_fix > 0
+            fix = query_obj("objects/special/muren")
+            if fix && fix.hp > 0
+                rate = rate *2
+            end
         elsif skillname == "dodge"
-            rate_fix = "meihuazhuang"
-            rate_add_fix = ext.get_prop("meihuazhuang")
-            rate = rate * 2 if rate_add_fix && rate_add_fix >0
+            # rate_fix = "meihuazhuang"
+            # rate_add_fix = ext.get_prop("meihuazhuang")
+            #          rate = rate * 2 if rate_add_fix && rate_add_fix >0
+            fix = query_obj("objects/special/meihuazhuang")
+            if fix && fix.hp > 0
+                rate = rate *2
+            end
         end
         
         usepot= rate * sec
@@ -349,8 +362,9 @@ class Player < Human
         # for int = 20, 1 jingli for every pot
         cost_jingli = usepot*20/int
         
-        p "==>practise: rate_fix:#{rate_fix}, rate_add_fix:#{rate_add_fix}, skill level:#{skill[:level]}, use pot #{usepot}, rate #{rate}"
+        p "==>practise: fix:#{fix}, skill level:#{skill[:level]}, use pot #{usepot}, rate #{rate}"
         levelup = improve_skill(self, skillname, usepot)
+=begin
         if levelup
             if rate_add_fix && rate_add_fix-usepot < 0
                 fix_name = ""
@@ -369,14 +383,30 @@ class Player < Human
                 # f.save
             end
         end
-
+=end
+    
         ext[:jingli] -= cost_jingli
         ext[:pot] -= usepot      
         # pending = {}
         #   
         #   ext.set_prop("pending", pending)
-        if rate_add_fix && rate_add_fix >0
-            ext.set_prop(rate_fix, rate_add_fix-usepot)
+        # if rate_add_fix && rate_add_fix >0
+        #     ext.set_prop(rate_fix, rate_add_fix-usepot)
+        # end
+        if fix
+            
+            if fix.hp-usepot <=0
+                delete_obj(f)
+                if c
+                    c[:msg] += "你的#{fix.dname}损坏了！\n"
+                end
+                    
+            else
+                fix.hp(fix.hp-usepot)
+                fix.data.save  
+                p "==>fix=#{fix.inspect}"
+            end
+            
         end
         return {:usepot=>usepot, :levelup=>levelup, :addtp=>usepot, :cost_jingli=>cost_jingli}
     end

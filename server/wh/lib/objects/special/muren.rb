@@ -3,7 +3,7 @@ require 'objects/equipments/weapon.rb'
 class Muren  < Game::Object
     def initialize
         super
-        set("hp", 1000)
+        set("max_hp", 1000)
     end
   def dname
     "木人"

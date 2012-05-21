@@ -69,23 +69,28 @@ class Object
         ""
     end
     
-   def set_prop(n,v)
+   def setProp(n,v)
        
-        set_prop(data[:prop], n, v) if data
+        data[:prop]=util_set_prop(data[:prop], n, v) if data
 
   end
 
-    def get_prop(k)
+    def getProp(k)
         if  data
-            get_prop(data[:prop], k)
+            util_get_prop(data[:prop], k)
         else
             return nil
         end
     end
     
-    def hp
+    def hp(h=nil)
         if data
-            return get_prop("hp")
+            _h= getProp("hp") 
+            if h != nil
+                _h = h
+                setProp("hp", _h)
+            end
+            return _h
         else
             return 0
         end
@@ -102,7 +107,7 @@ class Object
             :weight=>weight,
             :rank=>rank,
             :unit=>unit
-        }
+        }.merge(vars)
         if data && (data[:eqtype].to_i==1   || data[:eqtype].to_i==3 ) 
             hash[:damage] = damage
             hash[:defense] = defense

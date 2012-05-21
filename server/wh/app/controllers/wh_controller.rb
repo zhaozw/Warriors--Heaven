@@ -105,7 +105,7 @@ class WhController < ApplicationController
         usepot =  pending["usepot"].to_i
                 skill = player.query_skill(pending["skill"])
          p "==>pending skill = #{pending["skill"]}, #{skill.inspect}"       
-        up = player.practise(skill, t_span)
+        up = player.practise(skill, t_span, context)
         ret = pending.clone
         if up[:usepot] >= pending["usepot"].to_i
             ret = {}
@@ -582,7 +582,15 @@ class WhController < ApplicationController
         player[:attack_skill] = nil
         player[:dodge_skill] = nil
         player[:defense_skill] = nil
+
+        enemy[:gain] = nil
+        enemy[:attack_skill] = nil
+        enemy[:dodge_skill] = nil
+        enemy[:defense_skill] = nil        
+
+        user_data.remove_attr(["gain", "canGain", "isUser", "attack_skill", "defense_skill", "dodge_skill"])
         user_data.check_save
+        enemy.remove_attr(["gain", "canGain", "isUser", "attack_skill", "defense_skill", "dodge_skill"])
         enemy.check_save
         
      
@@ -653,6 +661,7 @@ class WhController < ApplicationController
         user_data.check_save
         user_data.check_save
     end
+=begin
     def fight3
        # reset_session
         check_session
@@ -668,7 +677,7 @@ class WhController < ApplicationController
              render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ee6666}</style>#{context[:msg]}</div>" + user[:gain].to_json
    
     end
-    
+=end    
 =begin   
     # /wh/fight?:enemy=<user id>
     def fight

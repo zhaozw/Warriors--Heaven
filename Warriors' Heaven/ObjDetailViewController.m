@@ -115,7 +115,14 @@
     [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
     [lbDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
     [lbRank setText:[[eq valueForKey:@"rank"] stringValue]];
-    [lbHp setText:[[AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"] stringValue]] ;
+    id nodeHp = [AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"];
+    if (nodeHp && [eq valueForKey:@"max_hp"]){
+        int hp = [nodeHp intValue];
+        int percentage = hp  *100/[ [eq valueForKey:@"max_hp"] intValue];
+        [lbHp setText:[NSString stringWithFormat:@"%d%%", percentage]];
+    }else{
+         [lbHp setText:@"N/A"];
+    }
     NSString* filepath = [eq valueForKey:@"image"];
     if (filepath == NULL || filepath.length == 0)
         filepath = [NSString stringWithFormat:@"%@.png", [eq valueForKey:@"eqname"]];

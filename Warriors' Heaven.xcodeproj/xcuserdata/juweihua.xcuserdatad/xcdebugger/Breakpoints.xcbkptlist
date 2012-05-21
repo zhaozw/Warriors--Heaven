@@ -483,11 +483,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "485"
-         endingLineNumber = "485"
+         startingLineNumber = "486"
+         endingLineNumber = "486"
          landmarkName = "-onSelectStatus:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -861,11 +861,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "741"
-         endingLineNumber = "741"
+         startingLineNumber = "742"
+         endingLineNumber = "742"
          landmarkName = "-onPractiseReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -875,11 +875,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "733"
-         endingLineNumber = "733"
+         startingLineNumber = "734"
+         endingLineNumber = "734"
          landmarkName = "-onPractiseReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -889,11 +889,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "707"
-         endingLineNumber = "707"
+         startingLineNumber = "708"
+         endingLineNumber = "708"
          landmarkName = "-practiseSkill:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -917,11 +917,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "757"
-         endingLineNumber = "757"
+         startingLineNumber = "758"
+         endingLineNumber = "758"
          landmarkName = "-onPractiseReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1547,11 +1547,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "829"
-         endingLineNumber = "829"
+         startingLineNumber = "830"
+         endingLineNumber = "830"
          landmarkName = "-onSelectLibrary:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1659,11 +1659,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "820"
-         endingLineNumber = "820"
+         startingLineNumber = "821"
+         endingLineNumber = "821"
          landmarkName = "-animationDidStop:finished:context:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1827,11 +1827,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "773"
-         endingLineNumber = "773"
+         startingLineNumber = "774"
+         endingLineNumber = "774"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2121,11 +2121,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "468"
-         endingLineNumber = "468"
+         startingLineNumber = "469"
+         endingLineNumber = "469"
          landmarkName = "-reloadSkills"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2135,11 +2135,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "835"
-         endingLineNumber = "835"
+         startingLineNumber = "836"
+         endingLineNumber = "836"
          landmarkName = "-onSelectTrainingGround:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2387,11 +2387,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/ObjDetailViewController.m"
-         timestampString = "359273676.055194"
+         timestampString = "359299444.790899"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
          landmarkName = "-loadObjDetail:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2401,11 +2401,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/ObjDetailViewController.m"
-         timestampString = "359273676.055194"
+         timestampString = "359299444.790899"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "124"
-         endingLineNumber = "124"
+         startingLineNumber = "131"
+         endingLineNumber = "131"
          landmarkName = "-loadObjDetail:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2721,11 +2721,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "690"
-         endingLineNumber = "690"
+         startingLineNumber = "691"
+         endingLineNumber = "691"
          landmarkName = "@implementation TrainingGround"
          landmarkType = "3">
       </FileBreakpoint>
@@ -2735,11 +2735,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284488.075622"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "557"
-         endingLineNumber = "557"
+         startingLineNumber = "558"
+         endingLineNumber = "558"
          landmarkName = "-startPractise:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2749,11 +2749,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "618"
-         endingLineNumber = "618"
+         startingLineNumber = "619"
+         endingLineNumber = "619"
          landmarkName = "-practiseThread"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2791,11 +2791,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "495"
-         endingLineNumber = "495"
+         startingLineNumber = "496"
+         endingLineNumber = "496"
          landmarkName = "@implementation TrainingGround"
          landmarkType = "3">
       </FileBreakpoint>
@@ -2805,11 +2805,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "682"
-         endingLineNumber = "682"
+         startingLineNumber = "683"
+         endingLineNumber = "683"
          landmarkName = "-stopPractise:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2819,11 +2819,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "614"
-         endingLineNumber = "614"
+         startingLineNumber = "615"
+         endingLineNumber = "615"
          landmarkName = "-practiseThread"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2833,11 +2833,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "546"
-         endingLineNumber = "546"
+         startingLineNumber = "547"
+         endingLineNumber = "547"
          landmarkName = "-startPractise:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2847,11 +2847,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284936.685124"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "662"
-         endingLineNumber = "662"
+         startingLineNumber = "663"
+         endingLineNumber = "663"
          landmarkName = "-onStartPractiseReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2861,11 +2861,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "379"
-         endingLineNumber = "379"
+         startingLineNumber = "380"
+         endingLineNumber = "380"
          landmarkName = "-reloadSkills"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3211,11 +3211,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282845.281689"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "344"
-         endingLineNumber = "344"
+         startingLineNumber = "345"
+         endingLineNumber = "345"
          landmarkName = "-reloadSkills"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3477,11 +3477,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359282918.101188"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "497"
-         endingLineNumber = "497"
+         startingLineNumber = "498"
+         endingLineNumber = "498"
          landmarkName = "-_startPractise:_usepot:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3491,11 +3491,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359283006.007756"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "532"
-         endingLineNumber = "532"
+         startingLineNumber = "533"
+         endingLineNumber = "533"
          landmarkName = "-startPractise:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3505,11 +3505,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/TrainingGround.m"
-         timestampString = "359284488.075622"
+         timestampString = "359298962.896916"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "555"
-         endingLineNumber = "555"
+         startingLineNumber = "556"
+         endingLineNumber = "556"
          landmarkName = "-startPractise:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3553,6 +3553,34 @@
          startingLineNumber = "276"
          endingLineNumber = "276"
          landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/TrainingGround.m"
+         timestampString = "359298962.896916"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "503"
+         endingLineNumber = "503"
+         landmarkName = "-_startPractise:_usepot:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/TrainingGround.m"
+         timestampString = "359298962.896916"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "393"
+         endingLineNumber = "393"
+         landmarkName = "-reloadSkills"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

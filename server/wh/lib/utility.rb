@@ -157,6 +157,7 @@ end
 
   end
   
+
     # prop can be json obj or json string
  
     def get_prop(prop, k)
@@ -170,7 +171,13 @@ end
             return nil
         end
     end
-
+  def util_get_prop(prop, n)
+      get_prop(prop, n)
+  end
+  def util_set_prop(prop,n,v)
+      set_prop(prop,n,v)
+  end
+  
     def calc_zhanli(livingObj)
         return livingObj.tmp[:level]
     end
