@@ -127,8 +127,10 @@ class Caiyao < Quest
                         #      user.get_obj(v)
                         #  }
                         drop = rand_drop(npc,player)
-                        for dr in drop
-                            msg += "\n<div class='gain' style='color:#990000'>你得到了#{dr.dname}!</div>"
+                        if drop
+                            for dr in drop
+                                msg += "\n<div class='gain' style='color:#990000'>你得到了#{dr.dname}!</div>"
+                            end
                         end
                         
                     end
