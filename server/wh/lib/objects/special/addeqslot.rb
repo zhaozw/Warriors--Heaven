@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Addeqslot  < Game::Object
+class Addeqslot  < Special
     
    def instantiatable
        false

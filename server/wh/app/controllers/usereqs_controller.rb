@@ -69,6 +69,10 @@ class UsereqsController < ApplicationController
          player.recover
          eqs = Equipment.find(params[:id])
          eq = eqs
+         if eq[:owner] != user_data[:id]
+             error "交易失败！ 该物品不属于你。"
+             return
+         end
          obj = load_obj(eq[:eqname], eq)
          user_data.remove_obj(obj)
         

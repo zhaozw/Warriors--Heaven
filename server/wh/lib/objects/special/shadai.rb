@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Shadai  < Game::Object
+class Shadai  < Special
     def initialize
         super
         set("hp", 1000)

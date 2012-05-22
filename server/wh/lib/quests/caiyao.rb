@@ -70,7 +70,7 @@ class Caiyao < Quest
         srand(Time.now.tv_usec.to_i)
         if (action=="dig")
             luck = user.ext[:luck]
-            if (rand(100)<luck) # get caiyao
+            if (rand(150)<luck) # get caiyao
         #  if (false)
                 ar = caoyao_list
                 if (luck < caoyao_list.size)
@@ -104,15 +104,15 @@ class Caiyao < Quest
             else
             #msg = "你很用力的挖"
      
-                if (rand(100)> luck)
+                if (rand(150) > luck)
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])
          
-                    _context = {:msg=>msg}
+                    _context = {:msg=>""}
                     player[:isUser] = true
                     win = _fight(player, npc, _context)
-                    msg =  _context[:msg]
+                    msg +=  _context[:msg]
                     if (player[:gain][:exp] >0)
                         msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                     end
@@ -129,7 +129,7 @@ class Caiyao < Quest
                         drop = rand_drop(npc,player)
                         if drop
                             for dr in drop
-                                msg += "\n<div class='gain' style='color:#990000'>你得到了#{dr.dname}!</div>"
+                                msg += "\n<div class='gain' style='color:#990000'>你得到了一#{dr.unit}#{dr.dname}!</div>"
                             end
                         end
                         

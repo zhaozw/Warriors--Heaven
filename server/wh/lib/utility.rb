@@ -3,22 +3,58 @@ def create_npc(path)
     return o
 end
 
-def create_equipment(path)
-    create_fixure(path)
-end
-
-def create_fixure(path)
+def create_obj(path)
+    r = loadGameObject(path)
+    eqtype=2
+    case r.obj_type
+        when "special":eqtype=4
+        when "fixture":eqtype=2
+        when "equipment":eqtype=1
+        when "premium":eqtype=4
+    end
+    prop={
+        :hp=>r.hp
+    }
         o = Equipment.new({
                     :eqname=>path,
-                    :eqtype=>2,
-                    :prop=>"{}",
+                    :eqtype=>eqtype,
+                    :prop=>prop.to_json,
                     :owner =>0
                 })
         # o.save!
       
-        r = loadGameObject(path)
-        r.set_data(o)
-        return r
+    
+    r.set_data(o)
+    return r
+end
+def create_equipment(path)
+    # o = Equipment.new({
+    #                 :eqname=>path,
+    #                 :eqtype=>1,
+    #                 :prop=>"{}",
+    #                 :owner =>0
+    #             })
+    #     # o.save!
+    #   
+    # r = loadGameObject(path)
+    # r.set_data(o)
+    # return r
+    create_obj(path)
+end
+
+def create_fixure(path)
+        # o = Equipment.new({
+        #             :eqname=>path,
+        #             :eqtype=>2,
+        #             :prop=>"{}",
+        #             :owner =>0
+        #         })
+        # # o.save!
+        #       
+        # r = loadGameObject(path)
+        # r.set_data(o)
+        # return r
+        create_obj(path)
     end
     def load_obj(path, o)
         r = loadGameObject(path)
@@ -201,7 +237,8 @@ end
         p2.get_obj(obj)
     end
     # player1 drop equipment randomly to player2
-    def rand_drop(p1, p2, q=5)
+    # q is chance to drop compare to rand(10), q is bigger, chance is more.
+    def rand_drop(p1, p2, q=-5)
         if rand(10)<q
             return
         end
@@ -211,8 +248,11 @@ end
         objs = p1.query_all_wearings.values
         p "==>objs:#{objs.inspect}"
         r = rand(objs.size*2)
-        p "===>r=#{r}"
+        r=0
+        p "===>r=#{r} obj size #{objs.size}"
+      
         if r < objs.size
+            p "==>move obj"
             move_obj(objs[r], p1, p2)
             drop.push(objs[r])
         end
@@ -222,7 +262,7 @@ end
          r = rand(objs.size*2)
          if r < objs.size && objs.obj_type !="equipment" and objs.obj_type != "special"
              move_obj(objs[r], p1, p2)
-              drop.push(objs[r])
+             drop.push(objs[r])
          end
         
          

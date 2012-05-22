@@ -32,7 +32,7 @@ class Ginseng < Herb
         p.ext[:hp] += p.ext[:maxhp]/2
         p.ext[:stam] += p.ext[:maxst]
         
-        p.delete_item(self)
+        p.delete_obj(self)
         context[:msg]="你服下一棵人参，顿时觉得精神百倍，力气大增！"
    end 
        def price

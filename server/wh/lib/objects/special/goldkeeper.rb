@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Goldkeeper  < Game::Object
+class Goldkeeper  < Special
 
   def dname
     "保险箱"

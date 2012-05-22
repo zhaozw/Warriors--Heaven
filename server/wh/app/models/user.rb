@@ -132,6 +132,7 @@ class User < ActiveRecord::Base
  
     # get object (equipment, item, prem)
     def get_obj(o)
+        p "==>get obj #{o.inspect}"
         # Usereq.new({
         #       :uid=>self[:id],
         #       :sid=>self[:sid],
@@ -140,8 +141,10 @@ class User < ActiveRecord::Base
         #       :eqslotnum=>0,
         #       :wearon=>nil
         #   }).save!
+        
         o.data[:owner] = self[:id]
         o.data.save!
+         p "==>save obj #{o.inspect}"
         if self[:objects]
             self[:objects].push(o)
             self[:cached] = false

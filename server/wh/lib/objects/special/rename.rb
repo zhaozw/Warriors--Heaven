@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Rename  < Game::Object
+class Rename  < Special
 
     def instantiatable
         false

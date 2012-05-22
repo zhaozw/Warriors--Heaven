@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Meihuazhuang  < Game::Object
+class Meihuazhuang  < Special
     def initialize
         super
         set("hp", 1000)

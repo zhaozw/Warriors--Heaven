@@ -1,10 +1,12 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/special/special.rb'
 
-class Muren  < Game::Object
+class Muren  < Special
+  
     def initialize
         super
         set("max_hp", 1000)
     end
+  
   def dname
     "木人"
   end

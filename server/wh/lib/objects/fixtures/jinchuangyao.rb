@@ -1,7 +1,7 @@
-require 'objects/object.rb'
+require 'objects/fixtures/fixture.rb'
 
 
-class Jinchuangyao < Game::Object
+class Jinchuangyao < Fixture
     
     def initialize
         super

@@ -1,7 +1,7 @@
-require 'objects/object.rb'
+require 'objects/fixtures/fixture.rb'
 
 
-class Liuweidihuangwan < Game::Object
+class Liuweidihuangwan < Fixture
     
     def unit
         "颗"

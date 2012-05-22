@@ -1,6 +1,6 @@
-require 'objects/object.rb'
+require 'objects/special/special.rb'
 
-class Additemslot  < Game::Object
+class Additemslot  < Special
 
     def instantiatable
         false

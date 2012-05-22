@@ -1,7 +1,7 @@
-require 'objects/object.rb'
+require 'objects/fixtures/fixture.rb'
 
 
-class Herb < Game::Object
+class Herb < Fixture
     def unit
         "株"
     end
