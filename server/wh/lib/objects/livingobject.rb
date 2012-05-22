@@ -3,12 +3,12 @@ require 'objects/object.rb'
 
 class LivingObject < Game::Object
     @wearing={}
-    @carryig =[] # carrying include wearing
+    @carrying =[] # carrying include wearing
      
     def initialize
         super
         @wearing={}
-        @carryig =[]
+        @carrying =[]
     end
     
     def carry(o)

@@ -537,7 +537,7 @@ class WhController < ApplicationController
                     :dname=>"Gold",
                     :unit=>"",
                     :amount=>dr
-                })  if dr ! player.query_obj("objects/special/goldkeeper")
+                })  if dr and ! player.query_obj("objects/special/goldkeeper")
             
             p "===>drop:#{dr.inspect}"
         end
