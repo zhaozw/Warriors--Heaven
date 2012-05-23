@@ -10,6 +10,7 @@
 #import "WHHttpClient.h"
 #import "BossViewController.h"
 #import "LightView.h"
+#import "SBJson.h"
 
 @implementation BossViewController
 @synthesize lbTitle;
@@ -49,6 +50,7 @@
     ad = [UIApplication sharedApplication].delegate;
     vBg = [[EGOImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     vImage = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 5, 130, 130)];
+    vImage.contentMode = UIViewContentModeScaleAspectFit;
     [[self view ]addSubview:vBg];
     [[self view ] addSubview:vImage];
     [[self view] sendSubviewToBack:vBg];
@@ -61,25 +63,35 @@
 //    [v addSubview:lbEq];
 //    [v addSubview:btnClose];
 }
-- (void) loadHero:(NSObject*) data{
+
+- (void) loadPlayer:(id) data{
     if (!data)
         return;
     for (int i = 0; i <[vEquipment.subviews count]; i++){
         [[vEquipment.subviews objectAtIndex:i] removeFromSuperview];
     }
-    hero = [data valueForKey:@"name"];
-    NSString* name = [data valueForKey:@"dname"];
-    NSString* title = [data valueForKey:@"title"];
-    NSString* desc = [data valueForKey:@"desc"];
-    NSArray* eqs = [data valueForKey:@"equipments"];
-    NSString* image = [data valueForKey:@"image"];
-    NSString* homeImage = [data valueForKey:@"homeImage"];
     
+    id ext = [data valueForKey:@"userext"];
+    NSString *title = [ext valueForKey:@"title"];
+    int uid = [[ext valueForKey:@"uid"] intValue];
+    NSString * name = [ext valueForKey:@"name"];
+    int level = [[ext valueForKey:@"level"] intValue];
+    int profile = [[ext valueForKey:@"profile"] intValue];
+    [vImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%db.png", profile]]];
     lbTitle.text = name;
-    lbLevel.text = title;
-    lbDesc.text = desc;
-    [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
-    [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
+    lbLevel.text = [NSString stringWithFormat:@"%d", level];
+    lbDesc.text = @"";
+    btnFight.tag = uid;
+    [vBg setImage:[UIImage imageNamed:@"fight_result.png"]];
+    
+    
+    
+    NSArray* eqs = [ext valueForKey:@"equipments"];
+      [self loadEq:eqs];
+    
+     [self view].hidden = NO;
+}
+- (void) loadEq:(NSArray*) eqs{
     
     int count_per_row = 5;
     int height = 50;
@@ -106,18 +118,50 @@
         NSString* dname = [eq valueForKey:@"dname"];
         UILabel* t = [LightView createLabel:CGRectMake(x-margin_item_horizon/2, y+height, width+margin_item_horizon/2, textHeight) parent:vEquipment text:dname textColor:[UIColor yellowColor]];
         t.textAlignment = UITextAlignmentCenter;
-
+        
     }
     
     CGRect rect = vEquipment.frame;
-//    i --;
-//    int row= i/count_per_row;
-//    rect.size.height = margin_top+row*(height+margin_item_vertical+textHeight)+ height + textHeight+2;
+    //    i --;
+    //    int row= i/count_per_row;
+    //    rect.size.height = margin_top+row*(height+margin_item_vertical+textHeight)+ height + textHeight+2;
     rect.size.height = y + height+ textHeight+2;
     vEquipment.frame = rect;
+}
+- (void) loadHero:(NSObject*) data{
+    if (!data)
+        return;
+    for (int i = 0; i <[vEquipment.subviews count]; i++){
+        [[vEquipment.subviews objectAtIndex:i] removeFromSuperview];
+    }
+    hero = [data valueForKey:@"name"];
+    NSString* name = [data valueForKey:@"dname"];
+    NSString* title = [data valueForKey:@"title"];
+    NSString* desc = [data valueForKey:@"desc"];
+    NSArray* eqs = [data valueForKey:@"equipments"];
+    NSString* image = [data valueForKey:@"image"];
+    NSString* homeImage = [data valueForKey:@"homeImage"];
+    
+    lbTitle.text = name;
+    lbLevel.text = title;
+    lbDesc.text = desc;
+    [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
+    [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
+
+    [self loadEq:eqs];
     [self view].hidden = NO;
     
 }
+
+
+- (void) setOnFight:(id)c  sel:(SEL) sel{
+    if (c && sel){
+        [btnFight removeTarget:self action:@selector(onFight:) forControlEvents:UIControlEventTouchUpInside];
+        [btnFight addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+                    
+
 - (void)viewDidUnload
 {
     [self setLbTitle:nil];

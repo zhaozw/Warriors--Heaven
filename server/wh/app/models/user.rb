@@ -387,7 +387,12 @@ class User < ActiveRecord::Base
                     eqslot = JSON.parse(eqslot)
                 end
                 eqslot.each{|k,v|
-                    obj = query_obj_by_id(v.to_i)
+                    if v.class == String
+                        ar = v.split("@")
+                        obj = query_obj_by_id(ar[1].to_i)
+                    else
+                        obj = query_obj_by_id(v)
+                    end
                     self[:equipments][k.to_sym] = obj
                 }
             end
@@ -487,9 +492,10 @@ class User < ActiveRecord::Base
             end
             p "===>eqlost=#{eqslots.inspect}"
             eqslots.each{|k,v|
+                ar = v.split("@")
                 # p "==>slot[#{k}]=#{v}, param id=#{params[:id]}"
-                if (v.to_i == id.to_i)
-               
+                if (ar[1].to_i == id.to_i)
+                    
                     eqslots.delete(k)
                     bFound = true
                     break

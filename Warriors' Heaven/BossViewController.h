@@ -29,4 +29,7 @@
 - (IBAction)onTouchClose:(id)sender;
 - (IBAction)onFight:(id)sender;
 - (void) loadHero:(NSObject*) data;
+- (void) setOnFight:(id)c  sel:(SEL) sel;
+- (void) loadPlayer:(id) data;
+- (void) loadEq:(NSArray*) eqs;
 @end

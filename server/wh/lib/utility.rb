@@ -56,9 +56,9 @@ def create_fixure(path)
         # return r
         create_obj(path)
     end
-    def load_obj(path, o)
+    def load_obj(path, o=nil)
         r = loadGameObject(path)
-        r.set_data(o)
+        r.set_data(o) if o
         return r
     end
 =begin

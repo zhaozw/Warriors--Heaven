@@ -234,7 +234,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     else
         row_count = (max_eq-1)/5 + 1;
     CGRect rect = vEquipment.frame;
-    vEqContainer.frame = CGRectMake(10, 10, rect.size.width -20, 60);
+    vEqContainer.frame = CGRectMake(10, 10, rect.size.width -20, 60*2);
     vEqContainer.contentSize = CGSizeMake(0, 60*row_count);
    
     
@@ -341,7 +341,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     item_selected = NULL;
     [self initPropView];
     
-    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
     [vProfile setImage:[UIImage imageNamed:prof]];
     
     UIImage *imageNormal = [UIImage imageNamed:@"bg_12.png"];
@@ -349,7 +349,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vEquipment setImage:stretchableImageNormal];
     [vEquipment addSubview:vEqInfoView];
      [vEqInfoView setBackgroundColor:[UIColor clearColor]];
-     vEqInfoView.frame = CGRectMake(10, 10+60, 300, 80);
+     vEqInfoView.frame = CGRectMake(10, 10+60*2, 300, 80);
     
     vItemInfoView = [[UIView alloc] init];
     vItemInfoView.frame = CGRectMake(10, 10+60, 300, 80);
@@ -743,7 +743,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         for (int i = 0; i< [keys count]; i++) {
             
             NSString* pos = [keys objectAtIndex:i];
-            epid = [[eqslot valueForKey:pos] intValue];
+            NSString* v = [eqslot valueForKey:pos];
+            if ([v isKindOfClass:[NSString class]]){
+                NSArray *vs =[v componentsSeparatedByString:@"@"];
+                 epid = [[vs objectAtIndex:1] intValue];
+            }else
+                 epid = [v intValue];
+           
             if (epid <=0)
                 continue;
             EGOImageButton* btn = [pos_map valueForKey:pos];
@@ -919,8 +925,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         if (index < 0)
             continue;
         NSObject* o = [eqs objectAtIndex:index];
-        NSObject* eqid = [o valueForKey:@"id"];
-        [data setValue:eqid forKey:pos];
+        int eqid = [[o valueForKey:@"id"] intValue];
+        NSString* v = [NSString stringWithFormat:@"%@@%d", [o valueForKey:@"eqname"], eqid];
+        [data setValue:v forKey:pos];
     }
     /*
     NSObject* o = [woren_eq_list objectAtIndex:vEqbtn_cap.tag];

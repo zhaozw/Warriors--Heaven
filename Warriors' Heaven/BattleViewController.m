@@ -14,6 +14,7 @@
 
 @implementation BattleViewController
 @synthesize vcStatus;
+@synthesize vcPlayer;
 
 @synthesize  fight_result;
 @synthesize vcBoss;
@@ -50,6 +51,8 @@
 
 
     [vcBoss view].hidden = YES;
+    [vcPlayer view].hidden = YES;
+    [vcPlayer setOnFight:self sel:@selector(onFight:)];
     
     players = [[NSMutableArray alloc] init];
     
@@ -99,6 +102,7 @@
 
 - (void) onReceiveStatus:(NSArray*) data{
  
+    playerList = data;
     int count = [data count];
     int row_height = 70;
     int row_margin = 1;
@@ -116,6 +120,7 @@
         NSNumber *uid = [json valueForKey:@"uid"];
         NSString* name = [json valueForKey:@"name"];
         NSString* level = [[json valueForKey:@"level"] stringValue];
+        int profile = [[json valueForKey:@"profile"] intValue];
         y = 100+ i*(row_height+row_margin);
         UIView * row = [[UIView alloc] initWithFrame:CGRectMake(0,y, 320, row_height)];
         //        if (i/2*2 == i)
@@ -137,11 +142,15 @@
          //        UIImage * img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1/images/home.jpg"] options:NSDataReadingMappedIfSafe error:&error]];
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
-        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
+        UIButton* logo = [LightView createButton:CGRectMake(1, 5, 50, 50) parent:row text:@"" tag:[uid intValue]];
+        [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
+        [logo addTarget:self action:@selector(onSelectPlayer:) forControlEvents:UIControlEventTouchUpInside];
+//        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
         [logo setContentMode:UIViewContentModeScaleAspectFit];
         
-        [logo setFrame:CGRectMake(1, 5, 50, 50)];
-        [row addSubview:logo];
+        
+//        [logo setFrame:CGRectMake(1, 5, 50, 50)];
+//        [row addSubview:logo];
         
         UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 50, 30)];
         [lbInfo setOpaque:NO];
@@ -180,7 +189,7 @@
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setFrame:CGRectMake(240, 10, 70, 35)];
         [btn setTitle:@"Fight" forState: UIControlStateNormal];
-        [btn addTarget:self action:@selector(fight:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(onFight:) forControlEvents:UIControlEventTouchUpInside];
         [btn.titleLabel setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [btn setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
@@ -191,6 +200,24 @@
         [players addObject:row];
     }
 
+}
+
+- (id) findPlayerById:(int) uid{
+    for (int i = 0; i< [playerList count]; i++){
+        NSObject* d = [playerList objectAtIndex:i];
+        NSObject* json = [d valueForKey:@"userext"];
+        int _uid = [[json valueForKey:@"uid"] intValue];
+        if (uid == _uid)
+            return d;
+    }
+    return NULL;
+
+}
+- (void) onSelectPlayer:(UIButton*) btn{
+    id player = [self findPlayerById:btn.tag];
+    if (player){
+        [vcPlayer loadPlayer:player];
+    }
 }
 
 - (void) showFight:(UIButton*) btn{
@@ -404,7 +431,7 @@
 //    [ad startRecover];
 }
 
-- (void) fight:(UIButton* )button{
+- (void) onFight:(UIButton* )button{
     NSLog(@"fight");
     
     // check hp and stam
@@ -452,6 +479,7 @@
 {
     [self setVcStatus:nil];
     [self setVcBoss:nil];
+    [self setVcPlayer:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

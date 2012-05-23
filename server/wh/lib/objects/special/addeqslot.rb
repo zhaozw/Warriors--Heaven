@@ -25,6 +25,11 @@ class Addeqslot  < Special
   def effect
       "添加5个装备栏"
   end
+  
+  def price
+      1000
+  end
+  
 
   def use(context)
       v = context[:player].ext.get_prop("max_eq").to_i

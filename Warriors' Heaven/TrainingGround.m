@@ -76,7 +76,7 @@
     [self.view addSubview:vcResearch.view];
     
     
-    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
     [vProfile setImage:[UIImage imageNamed:prof]];
     
     

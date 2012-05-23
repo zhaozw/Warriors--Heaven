@@ -314,7 +314,7 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-       r = Userext.find_by_sql("select uid, lastact, updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, sid, fame, race, dext, str, luck from userexts where sid<>'#{sid}' and zhanyi>30 and level>#{user_data.ext[:level]-1} order by level limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql(" select profile, userexts.race, sex, title, uid, lastact, userexts.updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, userexts.sid, fame,  dext, str, luck from users, userexts  where users.id=userexts.uid and userexts.sid<>'#{session[:sid]}' and userexts.zhanyi>30 and userexts.level>#{user_data.ext[:level]-1} order by userexts.level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""
@@ -337,6 +337,24 @@ class WhController < ApplicationController
                    elsif 
                        rr[:status] = ""
                    end
+               end
+               rr[:equipments] = []
+               prop = rr[:prop]
+               eqslot = get_prop(prop, "eqslot")
+               if eqslot
+                   if eqslot.class == String
+                       eqslot = JSON.parse(eqslot)
+                   end
+                   # p "==>eqslot #{eqslot}"
+               
+                   eqslot.each {|k,v|
+                       if v.class==String
+                           vs = v.split("@")
+                           eqname=vs[0]
+                           eq = load_obj(eqname)
+                           rr[:equipments].push(eq)
+                       end
+                   } 
                end
            end
             js = r.to_json

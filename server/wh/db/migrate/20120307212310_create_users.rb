@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
     #  t.integer :uid
       t.string :sid
       t.integer :age
-      t.integer :race
+      #t.integer :race
       t.integer :sex
       t.string :title
       t.integer :profile

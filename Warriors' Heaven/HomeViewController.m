@@ -108,7 +108,7 @@
     }
     
     // set player profile
-    NSString* prof = [NSString stringWithFormat:@"p_%@m.png", [[ad getDataUser] valueForKey:@"profile"]];
+    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
     [playerProfile setImage:[UIImage imageNamed:prof]];
 
     //[vcStatus viewDidAppear:NO];
