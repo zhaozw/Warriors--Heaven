@@ -22,6 +22,8 @@
 @synthesize lbEq;
 @synthesize vFightView;
 @synthesize wvFight;
+@synthesize lbTitle2;
+@synthesize vWebBG;
 @synthesize ad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,6 +56,8 @@
     [[self view ]addSubview:vBg];
     [[self view ] addSubview:vImage];
     [[self view] sendSubviewToBack:vBg];
+    [vWebBG setBackgroundColor:[UIColor clearColor]];
+    [vWebBG setOpaque:NO];
     [[ad window] addSubview:[self view]];
     
 //    vEquipment.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
@@ -81,14 +85,22 @@
     lbTitle.text = name;
     lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = @"";
+    lbTitle2.text = title;
     btnFight.tag = uid;
-    [vBg setImage:[UIImage imageNamed:@"fight_result.png"]];
+    
+//    [vBg setImage:[UIImage imageNamed:@"fight_result.png"]];
     
     
     
     NSArray* eqs = [ext valueForKey:@"equipments"];
       [self loadEq:eqs];
     
+    
+
+    
+    //  [aiv setAlpha:0.0f];
+    NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
+    [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0\" width='320' height='480' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"playerview" ofType:@"gif"] ] baseURL:Nil] ;
      [self view].hidden = NO;
 }
 - (void) loadEq:(NSArray*) eqs{
@@ -141,10 +153,12 @@
     NSArray* eqs = [data valueForKey:@"equipments"];
     NSString* image = [data valueForKey:@"image"];
     NSString* homeImage = [data valueForKey:@"homeImage"];
-    
+    int level = [[data valueForKey:@"level"] intValue];
+
     lbTitle.text = name;
-    lbLevel.text = title;
+    lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = desc;
+    lbTitle2.text = title;
     [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
     [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
 
@@ -173,6 +187,8 @@
     [self setLbEq:nil];
     [self setVFightView:nil];
     [self setWvFight:nil];
+    [self setVWebBG:nil];
+    [self setLbTitle2:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

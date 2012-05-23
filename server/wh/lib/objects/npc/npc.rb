@@ -120,8 +120,17 @@ class Npc < Human
         @temp[n] = v
     end
     
-    def hp
+    def hp(hp=nil)
+        if (hp != nil)
+            temp[:hp] = hp
+        end
         tmp[:hp]
     end
+    
+     def to_hash
+         h = super
+         h = h.merge(@temp)
+     end
+
   
 end

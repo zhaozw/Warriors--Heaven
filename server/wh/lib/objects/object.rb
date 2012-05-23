@@ -96,8 +96,7 @@ class Object
         end
     end
     
-     def to_json(*opt)
-
+    def to_hash
         hash = {
             :dname=>dname,
             :image=>image,
@@ -124,7 +123,12 @@ class Object
         else
 
         end
-        return hash.to_json(*opt)
+        return hash
+    end
+    
+    def to_json(*opt)
+
+      to_hash.to_json(*opt)
    end
     
     def instantiatable

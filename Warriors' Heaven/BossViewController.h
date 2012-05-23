@@ -15,6 +15,8 @@
     EGOImageView* vImage;
     NSString* hero;
 }
+@property (strong, nonatomic) IBOutlet UILabel *lbTitle2;
+@property (strong, nonatomic) IBOutlet UIWebView *vWebBG;
 @property (strong, retain) AppDelegate *ad;
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet UILabel *lbLevel;
