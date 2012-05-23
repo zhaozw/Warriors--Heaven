@@ -654,6 +654,7 @@ class WhController < ApplicationController
             :dname=>npc.name,
             :desc=>npc.desc,
             :title=>npc.title,
+            :level=>npc.tmp[:level],
             :image=>npc.image,
             :homeImage=>npc.homeImage,
             :equipments=>eqs
