@@ -3,6 +3,7 @@ require 'objects/player.rb'
 require 'objects/npc/npc.rb'
 #require 'objects/skills/skill.rb'
 require 'fight.rb'
+require 'gamesettings.rb'
 
 class WhController < ApplicationController
     
@@ -357,12 +358,17 @@ class WhController < ApplicationController
                    } 
                end
            end
-            js = r.to_json
+       
+            # js = r.to_json
         else
             error("record not found")
             return
         end
-        render :text=>js
+        ret = {
+               :player=>r,
+               :hero=>listHeroes
+         }
+        render :text=>ret.to_json
         
     end
     
@@ -623,13 +629,15 @@ class WhController < ApplicationController
         end
       #  render :text=>context[:msg]
     end
-    
+
     def hero_name
         l = user_data.ext[:level]
-             if l < 10
+        if l < 5
+            name = "yezhu"
+        elsif l < 10
             name = "weizhangtianxin"
         elsif l < 20
-            name = "weizhangtianxin"
+            name = "guiwuzhe"
         elsif l < 20
             name = "weizhangtianxin"
         elsif l < 20
@@ -644,10 +652,34 @@ class WhController < ApplicationController
         return name
     end
 
+    def listHeroes
+        l = user_data.ext[:level]
+        if l/10*10 == l
+            h_level = l
+        else
+            h_level = l/10*10 + (10-l%10)
+        end
+        list = hero_list
+        list.each {|r|
+            o = loadGameObject(r[:name])
+            r[:lengendImage] = o.lengendImage
+            defeatHero = user_data.ext.get_prop("defeatHero") 
+            if (defeatHero && defeatHero.include?(r[:name]))
+                r[:defeated] = 1
+            elsif r[:level] > h_level
+                r[:locked] = 1
+            end
+        }
+        return list
+    end
+    
     def hero
         return if !check_session or !user_data
-       
-        npc = create_npc("objects/npc/hero/#{hero_name}")
+        if params[:heroname]
+            npc = create_npc(param[:heroname])
+        else
+            npc = create_npc("objects/npc/hero/#{hero_name}")
+        end
         eqs = npc.query_all_wearings.values
         ret = {
             :name=>hero_name,

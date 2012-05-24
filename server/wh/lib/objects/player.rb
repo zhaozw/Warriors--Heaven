@@ -446,14 +446,14 @@ class Player < Human
          if (exp_next_level<= ext[:exp]+exp)
              levelup = 1
              # check if defeated hero in legend
-             levelHero = BossForLevelup(ext[:level]+levelup)
+             levelHero = BossForLevelupTo(ext[:level]+levelup)
              pass = true
              hero = ""
              if levelHero
                  defeatHero = ext.get_prop("defeatHero")
                  levelHero.each {|h|
-                     if !defeatHero.include?()
-                         hero = h
+                     if !defeatHero.include?(h[:name])
+                         hero = loadGameObject(h[:name])
                          pass = false
                          break
                      end
@@ -461,7 +461,7 @@ class Player < Human
              end 
              
              if !pass
-                 send_msg(id, "你的等级无法提升，你需要打败#{hero}才能升至#{ext[:level]+levelup}级")
+                 send_msg(id, "你的等级无法提升，你需要打败#{hero.name}才能升至#{ext[:level]+levelup}级")
              else
                  ext[:level] += 1
                  ext[:exp] = 0

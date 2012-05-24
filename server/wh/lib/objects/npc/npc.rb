@@ -129,7 +129,9 @@ class Npc < Human
     
      def to_hash
          h = super
-         h = h.merge(@temp)
+         h = h.merge(@temp).merge({
+             :race=>race
+         })
      end
 
   

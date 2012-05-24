@@ -58,13 +58,21 @@
     
     ad = [UIApplication sharedApplication].delegate;
     
-    UIImageView* vTitleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_01.jpg"]];
-    vTitleView.frame = CGRectMake(0, 66, 320, 39);
+    vPlayers = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 480-66)];
+    [[self view] addSubview:vPlayers];
+//    vPlayers.backgroundColor = [UIColor redColor];
+    vHeroes = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 480-66)];
+    [[self view]  addSubview:vHeroes];
+    vHeroes.backgroundColor = [UIColor clearColor];
+    vHeroes.hidden = YES;
+
+    UIImageView* vTitleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_02.jpg"]];
+    vTitleView.frame = CGRectMake(0, 0, 320, 39);
     vTitleView.userInteractionEnabled = YES;
-    [[self view]addSubview: vTitleView];
+    [vPlayers addSubview: vTitleView];
     UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
     [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
-//    lbTitle.backgroundColor = [UIColor greenColor];
+
 
     NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"lengendImage"];
     NSString* url = NULL;
@@ -72,7 +80,7 @@
          url = [NSString stringWithFormat:@"http://%@:%@/game%@", [ad host], [ad port], bossImage];
     else
         url = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], bossImage];
-    
+ 
     EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(180, 3, 160, 36)];
     [vTitleView addSubview:btBoss];
     btBoss.imageURL = [NSURL URLWithString:url];
@@ -82,32 +90,62 @@
 //    btBoss.backgroundColor = [UIColor redColor];
     [btBoss addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
     btBoss.userInteractionEnabled = YES;
- 
 
-    vTitleView.userInteractionEnabled = YES;
+    UIImageView* vTitleView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_02.jpg"]];
+    vTitleView2.frame = CGRectMake(0, 0, 320, 39);
+    vTitleView2.userInteractionEnabled = YES;
+  
+    [vHeroes addSubview: vTitleView2];
+//    vHeroes.backgroundColor = [UIColor greenColor];
+//    UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
+//    [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
+    UIButton* btBack = [LightView createButton:CGRectMake(0, 3, 90, 35) parent:vTitleView2 text:@"Back" tag:0];
+    [btBack setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
+    [btBack addTarget:self action:@selector(showPlayers:) forControlEvents:UIControlEventTouchUpInside];
+    
+ /*   UIButton* btPlayer = [LightView createButton:CGRectMake(0, 0, 160, 39) parent:vTitleView text:@"玩家" tag:0];
+    btPlayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    [btPlayer setBackgroundImage:NULL forState:UIControlStateNormal];
+    UIButton* btBoss = [LightView createButton:CGRectMake(160, 0, 160, 39) parent:vTitleView text:@"Boss" tag:0];
+    [btBoss setBackgroundImage:NULL forState:UIControlStateNormal];
+    btBoss.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+  */
+   
+    vHeroList = [[UIView alloc] initWithFrame:CGRectMake(0, 39, 320, 480-66-39)];
+    [vHeroes addSubview:vHeroList];
+    
     [[self view] bringSubviewToFront:vTitleView];
     
  
 }
 
-- (void) onTouchBoss:(UIButton*) btn{
+- (void)  showPlayers:(UIButton*) btn{
+    vPlayers.hidden = NO;
+    vHeroes.hidden = YES;
+}
+- (void) onShowBoss:(UIButton*) btn{
+    NSObject* o= [heroList objectAtIndex:btn.tag];
+    NSString* name = [o valueForKey:@"name"];
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
+    NSString* url = [NSString stringWithFormat:@"/wh/hero?heroname=%@", name];
     [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
+}
+- (void) onTouchBoss:(UIButton*) btn{
+    vHeroes.hidden = NO;
+    vPlayers.hidden = YES;
     
 }
 - (void) onHeroReturn:(NSObject*) data{
     [vcBoss loadHero:data];
 }
 
-- (void) onReceiveStatus:(NSArray*) data{
- 
-    playerList = data;
-    int count = [data count];
+- (void) loadPlayers{
+    int count = [playerList count];
     int row_height = 70;
     int row_margin = 1;
-    int y = 300;
-    
+    int margin_top = 39;
+    //    int y = 300;
+    int y = 0;
     // clear 
     for (int j = 0; j < [players count]; j++){
         [[players objectAtIndex:j] removeFromSuperview];
@@ -115,13 +153,15 @@
     [players removeAllObjects];
     
     for (int i = 0; i< count; i++){
-        NSObject* d = [data objectAtIndex:i];
+        NSObject* d = [playerList objectAtIndex:i];
         NSObject* json = [d valueForKey:@"userext"];
         NSNumber *uid = [json valueForKey:@"uid"];
         NSString* name = [json valueForKey:@"name"];
         NSString* level = [[json valueForKey:@"level"] stringValue];
         int profile = [[json valueForKey:@"profile"] intValue];
-        y = 100+ i*(row_height+row_margin);
+        //        y = 100+ i*(row_height+row_margin);
+        y = i*(row_height+row_margin)+ margin_top;
+        
         UIView * row = [[UIView alloc] initWithFrame:CGRectMake(0,y, 320, row_height)];
         //        if (i/2*2 == i)
         //            [row setBackgroundColor:[UIColor redColor]];
@@ -145,12 +185,12 @@
         UIButton* logo = [LightView createButton:CGRectMake(1, 5, 50, 50) parent:row text:@"" tag:[uid intValue]];
         [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
         [logo addTarget:self action:@selector(onSelectPlayer:) forControlEvents:UIControlEventTouchUpInside];
-//        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
+        //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
         [logo setContentMode:UIViewContentModeScaleAspectFit];
         
         
-//        [logo setFrame:CGRectMake(1, 5, 50, 50)];
-//        [row addSubview:logo];
+        //        [logo setFrame:CGRectMake(1, 5, 50, 50)];
+        //        [row addSubview:logo];
         
         UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 50, 30)];
         [lbInfo setOpaque:NO];
@@ -196,10 +236,77 @@
         [btn setTag:[uid intValue]];
         [row addSubview:btn];   
         
-        [self.view addSubview:row];
+        [vPlayers addSubview:row];
         [players addObject:row];
     }
+    int h = margin_top+count*(row_height+row_margin);
+    CGRect rect = vPlayers.frame;
+    rect.size.height = h;
+    vPlayers.frame = rect;
 
+}
+
+- (void) loadHeroes{
+    int count = [heroList count];
+    int row_height = 50;
+    int row_margin = 1;
+    int margin_top = 0;
+    //    int y = 300;
+    int y = 0;
+    
+    [LightView removeAllSubview:vHeroList];
+    
+    for (int i= 0; i < [heroList count]; i++) {
+        NSObject * o = [heroList objectAtIndex:i];
+        NSString * image = [o valueForKey:@"lengendImage"];
+        int level  = [[o valueForKey:@"level"] intValue];
+        NSObject* defeated = [o valueForKey:@"defeated"];
+        NSObject* locked = [o valueForKey:@"locked"];
+        NSString *filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, image];
+        y = margin_top+i*row_height;
+        EGOImageView* v = [[EGOImageView alloc] initWithFrame:CGRectMake(0, y, 320, row_height)];
+        UIButton* b = [LightView createButton:CGRectMake(0, y, 320, row_height) parent:vHeroList text:@"" tag:0];
+        b.alpha = 0;
+        b.opaque = YES;
+        [b addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
+//        EGOImageButton *btn = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, margin_top+i*row_height, 320, row_height)];
+//        btn.imageView.contentMode = UIViewContentModeScaleToFill;
+//        btn.contentMode = UIViewContentModeScaleToFill;
+     
+//        btn.backgroundColor = [UIColor redColor];
+//        [vHeroList addSubview:btn];
+        [vHeroList addSubview:v];
+
+        if (locked){
+//            [btn setImage:[UIImage imageNamed:@"lock.png"] forState:UIControlStateNormal];
+            [v setImage:[UIImage imageNamed:@"lock.png"]];
+
+        }
+        else {
+              [v setImageURL:[NSURL URLWithString:filepath]];
+        if (!defeated){
+            [LightView createImageView:@"defeated.png" frame:CGRectMake(250, y+5, 50, 50) parent:vHeroList];
+        }        
+          
+        }
+        
+        
+    }
+    vHeroes.hidden = NO;
+    CGRect rect = vHeroes.frame;
+    rect.size.height = margin_top+ row_height*[heroList count];
+    vHeroes.frame = rect;
+     rect = vHeroList.frame;
+    rect.size.height = 0+ row_height*[heroList count];
+    vHeroList.frame = rect;
+}
+- (void) onReceiveStatus:(NSObject*) data{
+    
+    playerList = [data valueForKey:@"player"];
+    heroList = [data valueForKey:@"hero"];
+    [self loadPlayers];
+    [self loadHeroes];
+    vHeroes.hidden = YES;
 }
 
 - (id) findPlayerById:(int) uid{

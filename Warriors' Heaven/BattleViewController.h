@@ -12,7 +12,11 @@
 #import "BossViewController.h"
 
 @interface BattleViewController : UIViewController{
+    UIView* vPlayers;
+    UIView* vHeroes;
+    UIView* vHeroList;
     NSArray* playerList;
+    NSArray* heroList;
 }
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 @property (strong, nonatomic) IBOutlet BossViewController *vcPlayer;

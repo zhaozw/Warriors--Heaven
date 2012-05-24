@@ -11,6 +11,10 @@ class LivingObject < Game::Object
         @carrying =[]
     end
     
+    def race
+        "human"
+    end
+    
     def carry(o)
         @carrying.push(o)
     end
