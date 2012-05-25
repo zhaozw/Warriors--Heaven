@@ -1,34 +1,34 @@
 require 'objects/npc/npc.rb'
 
 
-class Weizhangtianxin < Npc
-    
-   def name
-       "尾张天心"
+class Yeren < Npc
+      def name
+       "野人"
    end
    
    
    def title
-       "狂浪人" 
+       "大力王" 
    end
    
-   
+   def race
+       "human"
+   end
    
    def desc
-        "尾张天心古流拳法的创始人，战败他可以完成第10级的修炼，成为‘武士’"
+        "战败他可以完成第5级的修炼，成为‘初级侠客’"
    end
       
-     
-   def setup_temp
+       def setup_temp
         
        @temp ={
            :exp =>0,
-           :level => 10,
+           :level => 15,
            :hp => 200,
            :maxhp =>200,
            :stam    =>200,
            :maxst   =>200,
-           :str     =>30,
+           :str     =>60,
            :dext    =>20,
            :luck    =>50,
            :fame    =>0,
@@ -39,7 +39,7 @@ class Weizhangtianxin < Npc
     end
     
     def setup_skill  
-          fullskill = cacl_fullskill(tmp[:level])
+              fullskill = cacl_fullskill(tmp[:level])
         set_skill("unarmed", fullskill, 0)
         set_skill("parry", fullskill, 0)
         set_skill("dodge", fullskill, 0)
@@ -75,29 +75,11 @@ class Weizhangtianxin < Npc
     
     
     def setup_equipment
-        eq = create_equipment("objects/equipments/sword")
-        # set_equipment("handleft", eq)
-        wear("handleft", eq)
-        eq = create_equipment("objects/equipments/xuezou")
-        # set_equipment("handright", eq)
-        wear("handright", eq)
-        
-        eq = create_equipment("objects/equipments/armo")
-        # set_equipment("handright", eq)
-        wear("body", eq)
-        
-        eq = create_equipment("objects/equipments/cap")
-        # set_equipment("handright", eq)
-        wear("head", eq)
-        
-        eq = create_equipment("objects/equipments/boots")
-        # set_equipment("handright", eq)
-        wear("foot", eq)
 
     end
     
     def image
-        "obj/npc/weizhangtianxin.jpg"
+        "obj/npc/yeren.png"
     end
     
     def homeImage
@@ -105,6 +87,8 @@ class Weizhangtianxin < Npc
     end
     
     def lengendImage
-        "obj/npc/weizhangtianxin_legend.jpg"
+        "obj/npc/yeren_legend.jpg"
     end
+
+    
 end

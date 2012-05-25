@@ -83,7 +83,9 @@ class WhController < ApplicationController
          recoverZhanyi(user_data.ext)
          update_task(user_data)
 
-         npc = create_npc("objects/npc/hero/#{hero_name}")
+         # npc = create_npc("objects/npc/hero/#{hero_name}")
+         
+         npc = create_npc("#{hero_name}")
          user_data[:hero]={
              :lengendImage => npc.lengendImage
          }
@@ -632,32 +634,41 @@ class WhController < ApplicationController
 
     def hero_name
         l = user_data.ext[:level]
-        if l < 5
-            name = "yezhu"
-        elsif l < 10
-            name = "weizhangtianxin"
-        elsif l < 20
-            name = "guiwuzhe"
-        elsif l < 20
-            name = "weizhangtianxin"
-        elsif l < 20
-            name = "weizhangtianxin"
-        elsif l < 20
-            name = "weizhangtianxin"
-        elsif l < 20
-            name = "weizhangtianxin"
-        elsif l < 20
-            name = "weizhangtianxin"
+        if l/5*5 == l
+            h_level = l
+        else
+            h_level = (l+5)/5*5
         end
-        return name
+        ar = BossForLevelupTo(h_level)
+        return ar[0][:name]
+        # if l < 5
+        #        name = "yezhu"
+        #    elsif l < 10
+        #        name = "weizhangtianxin"
+        #    elsif l < 20
+        #        name = "guiwuzhe"
+        #    elsif l < 20
+        #        name = "weizhangtianxin"
+        #    elsif l < 20
+        #        name = "weizhangtianxin"
+        #    elsif l < 20
+        #        name = "weizhangtianxin"
+        #    elsif l < 20
+        #        name = "weizhangtianxin"
+        #    elsif l < 20
+        #        name = "weizhangtianxin"
+        #    end
+        #    return name
+        
     end
 
     def listHeroes
-        l = user_data.ext[:level]
-        if l/10*10 == l
+        l = user_data.ext[:level].to_i
+        h_level = 0
+        if l/5*5 == l
             h_level = l
         else
-            h_level = l/10*10 + (10-l%10)
+            h_level = (l+5)/5*5
         end
         list = hero_list
         list.each {|r|
@@ -676,13 +687,15 @@ class WhController < ApplicationController
     def hero
         return if !check_session or !user_data
         if params[:heroname]
-            npc = create_npc(param[:heroname])
+            npc = create_npc(params[:heroname])
+            _hero_name = params[:heroname]
         else
             npc = create_npc("objects/npc/hero/#{hero_name}")
+            _hero_name = hero_name
         end
         eqs = npc.query_all_wearings.values
         ret = {
-            :name=>hero_name,
+            :name=>_hero_name,
             :dname=>npc.name,
             :desc=>npc.desc,
             :title=>npc.title,
@@ -697,12 +710,24 @@ class WhController < ApplicationController
     def fightHero
         return if !check_session or !user_data
         name = params[:name]
-        npc = create_npc("objects/npc/hero/#{hero_name}")         
+        if !name || name == ""
+            name=hero_name
+        end
+        npc = create_npc(name)
         @fight_context = {:msg=>""}
         player[:isUser] = true
         player[:canGain] = true
         @win = _fight(player, npc, @fight_context )
         p "after fight hero #{player.inspect}"
+        p "fight result #{@win}"
+        if (@win == 1)
+            defeatHero = player.ext.get_prop("defeatHero")
+            if !defeatHero
+                defeatHero = []
+            end
+            defeatHero.push(name)
+            player.ext.set_prop("defeatHero", defeatHero)
+        end
         # cleanup
         player[:isUser]=nil
         player[:gain] = nil

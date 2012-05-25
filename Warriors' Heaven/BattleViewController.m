@@ -99,7 +99,7 @@
 //    vHeroes.backgroundColor = [UIColor greenColor];
 //    UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
 //    [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
-    UIButton* btBack = [LightView createButton:CGRectMake(0, 3, 90, 35) parent:vTitleView2 text:@"Back" tag:0];
+    UIButton* btBack = [LightView createButton:CGRectMake(0, 3, 90, 35) parent:vTitleView2 text:@"" tag:0];
     [btBack setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
     [btBack addTarget:self action:@selector(showPlayers:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -140,7 +140,7 @@
 }
 
 - (void) loadPlayers{
-    int count = [playerList count];
+    int count = [playerList count]; 
     int row_height = 70;
     int row_margin = 1;
     int margin_top = 39;
@@ -243,7 +243,7 @@
     CGRect rect = vPlayers.frame;
     rect.size.height = h;
     vPlayers.frame = rect;
-
+    vPlayers.hidden = NO;
 }
 
 - (void) loadHeroes{
@@ -251,8 +251,9 @@
     int row_height = 50;
     int row_margin = 1;
     int margin_top = 0;
-    //    int y = 300;
-    int y = 0;
+    int margin = 1;
+    //    int y = 300;˙
+    int y = margin_top;
     
     [LightView removeAllSubview:vHeroList];
     
@@ -263,12 +264,13 @@
         NSObject* defeated = [o valueForKey:@"defeated"];
         NSObject* locked = [o valueForKey:@"locked"];
         NSString *filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, image];
-        y = margin_top+i*row_height;
+        
         EGOImageView* v = [[EGOImageView alloc] initWithFrame:CGRectMake(0, y, 320, row_height)];
-        UIButton* b = [LightView createButton:CGRectMake(0, y, 320, row_height) parent:vHeroList text:@"" tag:0];
-        b.alpha = 0;
+        UIButton* b = [LightView createButton:CGRectMake(0, y, 320, row_height) parent:vHeroList text:@"" tag:i];
+        b.alpha = 0.1f;
         b.opaque = YES;
-        [b addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
+        [b addTarget:self action:@selector(onShowBoss:) forControlEvents:UIControlEventTouchUpInside];
+       
 //        EGOImageButton *btn = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, margin_top+i*row_height, 320, row_height)];
 //        btn.imageView.contentMode = UIViewContentModeScaleToFill;
 //        btn.contentMode = UIViewContentModeScaleToFill;
@@ -276,28 +278,31 @@
 //        btn.backgroundColor = [UIColor redColor];
 //        [vHeroList addSubview:btn];
         [vHeroList addSubview:v];
+        [vHeroList addSubview:b];
+
 
         if (locked){
 //            [btn setImage:[UIImage imageNamed:@"lock.png"] forState:UIControlStateNormal];
-            [v setImage:[UIImage imageNamed:@"lock.png"]];
-
+            [v setImage:[UIImage imageNamed:@"unknown.jpg"]];
+            b.userInteractionEnabled = NO;
         }
         else {
               [v setImageURL:[NSURL URLWithString:filepath]];
-        if (!defeated){
-            [LightView createImageView:@"defeated.png" frame:CGRectMake(250, y+5, 50, 50) parent:vHeroList];
+        if (defeated){
+            [LightView createImageView:@"defeated.png" frame:CGRectMake(250, y, 50, 50) parent:vHeroList];
+            b.userInteractionEnabled = NO;
         }        
           
         }
-        
+        y += margin+row_height;
         
     }
     vHeroes.hidden = NO;
     CGRect rect = vHeroes.frame;
-    rect.size.height = margin_top+ row_height*[heroList count];
+    rect.size.height = margin_top+ (row_height+margin)*[heroList count];
     vHeroes.frame = rect;
      rect = vHeroList.frame;
-    rect.size.height = 0+ row_height*[heroList count];
+    rect.size.height = 0+ (row_height+margin)*[heroList count];
     vHeroList.frame = rect;
 }
 - (void) onReceiveStatus:(NSObject*) data{

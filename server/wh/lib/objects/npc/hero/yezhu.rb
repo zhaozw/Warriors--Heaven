@@ -23,7 +23,7 @@ class Yezhu < Npc
         
        @temp ={
            :exp =>0,
-           :level => 10,
+           :level => 5,
            :hp => 200,
            :maxhp =>200,
            :stam    =>200,
@@ -74,29 +74,11 @@ class Yezhu < Npc
     
     
     def setup_equipment
-        eq = create_equipment("objects/equipments/sword")
-        # set_equipment("handleft", eq)
-        wear("handleft", eq)
-        eq = create_equipment("objects/equipments/xuezou")
-        # set_equipment("handright", eq)
-        wear("handright", eq)
-        
-        eq = create_equipment("objects/equipments/armo")
-        # set_equipment("handright", eq)
-        wear("body", eq)
-        
-        eq = create_equipment("objects/equipments/cap")
-        # set_equipment("handright", eq)
-        wear("head", eq)
-        
-        eq = create_equipment("objects/equipments/boots")
-        # set_equipment("handright", eq)
-        wear("foot", eq)
 
     end
     
     def image
-        "obj/npc/weizhangtianxin.jpg"
+        "obj/npc/yezhu.jpg"
     end
     
     def homeImage
@@ -104,7 +86,7 @@ class Yezhu < Npc
     end
     
     def lengendImage
-        "obj/npc/weizhangtianxin_lengend.jpg"
+        "obj/npc/yezhu_legend.jpg"
     end
 
     

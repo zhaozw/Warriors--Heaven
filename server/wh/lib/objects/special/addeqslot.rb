@@ -29,7 +29,9 @@ class Addeqslot  < Special
   def price
       1000
   end
-  
+    def useonbuy
+      true
+  end
 
   def use(context)
       v = context[:player].ext.get_prop("max_eq").to_i

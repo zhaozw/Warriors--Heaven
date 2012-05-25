@@ -32,4 +32,8 @@ class Additemslot  < Special
       v = context[:player].ext.get_prop("max_item").to_i
       context[:player].ext.set_prop("max_item", v+5)
   end
+  
+  def useonbuy
+      true
+  end
 end

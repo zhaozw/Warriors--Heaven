@@ -169,6 +169,11 @@ end
         return re  
     end
     
+    def cacl_fullskill(level)
+        exp = calc_total_exp(level)
+        
+        return (exp*10)**(1/3.0)#+1
+    end
     def calc_total_exp(level)
         p "==>level=#{level}"
         return 0 if level==0

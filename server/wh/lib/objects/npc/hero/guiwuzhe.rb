@@ -12,7 +12,7 @@ class Guiwuzhe < Npc
    end
    
    def race
-       "org"
+       "mag"
    end
    
    def desc
@@ -23,7 +23,7 @@ class Guiwuzhe < Npc
         
        @temp ={
            :exp =>0,
-           :level => 10,
+           :level => 20,
            :hp => 200,
            :maxhp =>200,
            :stam    =>200,
@@ -39,11 +39,13 @@ class Guiwuzhe < Npc
     end
     
     def setup_skill  
-        set_skill("unarmed", 20, 0)
-        set_skill("parry", 20, 0)
-        set_skill("dodge", 20, 0)
-        set_skill("fencing", 20, 0)
-        set_skill("daofa", 20, 0)
+        fullskill = cacl_fullskill(tmp[:level])
+        set_skill("unarmed", fullskill, 0)
+        set_skill("parry", fullskill, 0)
+        set_skill("dodge", fullskill, 0)
+        set_skill("fencing", fullskill, 0)
+        set_skill("daofa", fullskill, 0)
+        set_skill("yidaoliu", fullskill, 0)
 =begin
        @skills =[
        #    "unarmed" =>
@@ -96,7 +98,7 @@ class Guiwuzhe < Npc
     end
     
     def image
-        "obj/npc/weizhangtianxin.jpg"
+        "obj/npc/guiwuzhe.jpg"
     end
     
     def homeImage
@@ -104,7 +106,7 @@ class Guiwuzhe < Npc
     end
     
     def lengendImage
-        "obj/npc/weizhangtianxin_lengend.jpg"
+        "obj/npc/guiwuzhe_legend.jpg?r=3"
     end
 
     

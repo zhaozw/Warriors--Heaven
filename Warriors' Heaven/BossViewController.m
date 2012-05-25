@@ -22,6 +22,7 @@
 @synthesize lbEq;
 @synthesize vFightView;
 @synthesize wvFight;
+@synthesize lbRace;
 @synthesize lbTitle2;
 @synthesize vWebBG;
 @synthesize ad;
@@ -153,12 +154,20 @@
     NSArray* eqs = [data valueForKey:@"equipments"];
     NSString* image = [data valueForKey:@"image"];
     NSString* homeImage = [data valueForKey:@"homeImage"];
+    NSString* race = [data valueForKey:@"race"];
     int level = [[data valueForKey:@"level"] intValue];
 
     lbTitle.text = name;
     lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = desc;
     lbTitle2.text = title;
+    if ([race isEqualToString:@"human"]){
+        lbRace.text = @"人类";
+    }else if ([race isEqualToString:@"org"]){
+        lbRace.text = @"兽族";
+    }else if ([race isEqualToString:@"mag"]){
+        lbRace.text = @"魔族";
+    }
     [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
     [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
 
@@ -189,6 +198,7 @@
     [self setWvFight:nil];
     [self setVWebBG:nil];
     [self setLbTitle2:nil];
+    [self setLbRace:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -228,7 +238,7 @@
     btnFight.hidden = YES;
     
     vFightView.hidden = NO;
-    NSString * url = [NSString stringWithFormat:@"http://%@:%@/wh/fightHero?name=%@", ad.host, ad.port, ad.session_id, hero];
+    NSString * url = [NSString stringWithFormat:@"http://%@:%@/wh/fightHero?name=%@", ad.host, ad.port, hero];
     wvFight.backgroundColor = [UIColor clearColor];
     
     [wvFight loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];

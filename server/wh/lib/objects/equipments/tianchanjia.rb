@@ -6,7 +6,7 @@ class Tianchanjia  < Armo
         set("hp", 100)
     end
   def dname
-    "铁甲"
+    "天蚕甲"
   end
   
   def desc

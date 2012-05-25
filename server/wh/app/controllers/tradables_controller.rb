@@ -43,11 +43,8 @@ class TradablesController < ApplicationController
     end
     
     def buy
-        check_session
-        if !user_data
-            error("session 不存在， 请重新启动游戏")
-            return
-        end
+        return if !check_session or !user_data
+        player.recover
         uid = session[:uid]
         item_id = params[:id]
         item = Tradable.find(item_id)
@@ -186,13 +183,15 @@ class TradablesController < ApplicationController
         # =================
         # special effect of item when user buy it
         # =================
-        c = {:player=>player}
-        obj.use(c)
+        if (obj.obj_type == "special" and obj.useonbuy)
+            c = {:player=>player}
+            obj.use(c)
+        end
         
        # eq = Equipment.load_equipment(item[:name], item)
        ret = {
            # :gold=>user_data.ext[:gold],
-           :msg =>"You bought #{item[:dname]} successfully !\n Gold -#{price}",
+           :msg =>"您购买了 #{item[:dname]}  !\n Gold -#{price}",
            :updated=>user_data.ext
        }
       # success("You bought #{item[:dname]} successfully !\n Gold -#{price}")

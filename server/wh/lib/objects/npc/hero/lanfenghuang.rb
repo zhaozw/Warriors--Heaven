@@ -1,35 +1,35 @@
 require 'objects/npc/npc.rb'
 
 
-class Weizhangtianxin < Npc
-    
-   def name
-       "尾张天心"
+class Lanfenghuang < Npc
+      def name
+       "蓝凤凰"
    end
    
    
    def title
-       "狂浪人" 
+       "大祭司" 
    end
    
-   
+   def race
+       "human"
+   end
    
    def desc
-        "尾张天心古流拳法的创始人，战败他可以完成第10级的修炼，成为‘武士’"
+        "拜月教大祭司，战败他可以完成第25级的修炼，成为‘侠客’"
    end
       
-     
-   def setup_temp
+       def setup_temp
         
        @temp ={
            :exp =>0,
-           :level => 10,
+           :level => 15,
            :hp => 200,
            :maxhp =>200,
            :stam    =>200,
            :maxst   =>200,
            :str     =>30,
-           :dext    =>20,
+           :dext    =>40,
            :luck    =>50,
            :fame    =>0,
            :race    =>"human",
@@ -39,7 +39,7 @@ class Weizhangtianxin < Npc
     end
     
     def setup_skill  
-          fullskill = cacl_fullskill(tmp[:level])
+              fullskill = cacl_fullskill(tmp[:level])
         set_skill("unarmed", fullskill, 0)
         set_skill("parry", fullskill, 0)
         set_skill("dodge", fullskill, 0)
@@ -82,7 +82,7 @@ class Weizhangtianxin < Npc
         # set_equipment("handright", eq)
         wear("handright", eq)
         
-        eq = create_equipment("objects/equipments/armo")
+        eq = create_equipment("objects/equipments/Tianchanjia")
         # set_equipment("handright", eq)
         wear("body", eq)
         
@@ -97,7 +97,7 @@ class Weizhangtianxin < Npc
     end
     
     def image
-        "obj/npc/weizhangtianxin.jpg"
+        "obj/npc/lanfenghuang.jpg"
     end
     
     def homeImage
@@ -105,6 +105,8 @@ class Weizhangtianxin < Npc
     end
     
     def lengendImage
-        "obj/npc/weizhangtianxin_legend.jpg"
+        "obj/npc/lanfenghuang_legend.jpg"
     end
+
+    
 end

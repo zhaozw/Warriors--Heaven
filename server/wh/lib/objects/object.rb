@@ -184,5 +184,8 @@ class Object
         "jinchuangyao.jpg"
     end
 =end
+    def useonbuy # for tradables
+        false
+    end
 end
 end

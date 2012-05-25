@@ -24,14 +24,43 @@ def hero_list
             :level=>10,
         },
         {
-            :name=>  "objects/npc/hero/guiwuzhe",
+            :name=>  "objects/npc/hero/yeren",
             :level=>15,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>20,
+        },
+       {
+            :name=>  "objects/npc/hero/lanfenghuang",
+            :level=>25,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>30,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>35,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>40,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>45,
+        },
+       {
+            :name=>  "objects/npc/hero/guiwuzhe",
+            :level=>50,
         }
     ]
 end
+
 def BossForLevelupTo(level)
     ar = []
-    HeroesList.each {|h|
+    hero_list.each {|h|
         if h[:level] <= level
             ar.push h
         end
