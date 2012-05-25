@@ -82,15 +82,27 @@
         url = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], bossImage];
  
     EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(180, 3, 160, 36)];
+    [btBoss setTitle:@"挑战Boss" forState:UIControlStateNormal];
     [vTitleView addSubview:btBoss];
     btBoss.imageURL = [NSURL URLWithString:url];
     btBoss.imageView.contentMode = UIViewContentModeScaleToFill;
     btBoss.contentMode = UIViewContentModeScaleToFill;
+    
+      
 //    btBoss.contentStretch = btBoss.frame;
 //    btBoss.backgroundColor = [UIColor redColor];
     [btBoss addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
     btBoss.userInteractionEnabled = YES;
 
+    UIButton* btChallenge = [LightView createButton:CGRectMake(240, 10, 80, 25) parent:vTitleView text:@""  tag:0];
+    [btChallenge setBackgroundImage:NULL forState:UIControlStateNormal];
+    [btChallenge setImage:[UIImage imageNamed:@"challenge.png"] forState:UIControlStateNormal];
+    btChallenge.opaque = FALSE;
+    btChallenge.alpha = 0.7f;
+    [btChallenge.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:15.0f]];
+    [btChallenge addTarget:self action:@selector(onTouchBoss:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     UIImageView* vTitleView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title_02.jpg"]];
     vTitleView2.frame = CGRectMake(0, 0, 320, 39);
     vTitleView2.userInteractionEnabled = YES;
@@ -311,7 +323,7 @@
     heroList = [data valueForKey:@"hero"];
     [self loadPlayers];
     [self loadHeroes];
-    vHeroes.hidden = YES;
+    vHeroes .hidden = YES;
 }
 
 - (id) findPlayerById:(int) uid{

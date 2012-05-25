@@ -88,6 +88,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{44, 102}, {72, 37}}</string>
 								<reference key="NSSuperview" ref="992761348"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -313,7 +314,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">logo16-1.jpg</string>
+							<string key="NSResourceName">logo16-3.jpg</string>
 						</object>
 					</object>
 				</array>
@@ -457,6 +458,7 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSNextKeyView"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MCAwAA</bytes>
@@ -917,7 +919,7 @@
 			<string key="bg_head2.png">{319, 58}</string>
 			<string key="bt_close.png">{19, 15}</string>
 			<string key="btn_wood.png">{99, 45}</string>
-			<string key="logo16-1.jpg">{768, 768}</string>
+			<string key="logo16-3.jpg">{768, 768}</string>
 			<string key="warning.png">{256, 256}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>
