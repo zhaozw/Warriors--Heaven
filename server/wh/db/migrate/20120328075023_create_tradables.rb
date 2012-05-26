@@ -23,7 +23,10 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/buyi', 1, 10, 100, 0, 0, null, null, null);
 
     insert into tradables values (null, 'objects/fixtures/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
- 
+    insert into tradables values (null, 'objects/fixtures/jiuhuayuluwan', 2, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/fixtures/yudongheishidan', 2, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/fixtures/lingzhi', 2, 10, 100, 0, 0, null, null, null);
+
     insert into tradables values (null, 'objects/equipments/xuezou', 3, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/tianchanjia', 3, 10, 100, 0, 0, null, null, null);
 

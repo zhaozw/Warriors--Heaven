@@ -11,6 +11,7 @@
 #import "WHHttpClient.h"
 #import "SBJson.h"
 #import "TrainingGround.h"
+#import "LightView.h"
 
 
 @implementation AppDelegate
@@ -197,6 +198,17 @@
     
     bUserSkillNeedUpdate = TRUE;
 
+    floatMsg = [[NSMutableArray alloc] init];
+    vMsgFloat = [[UIView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
+    [[self window] addSubview:vMsgFloat];
+//    lbMsgFloat = [LightView createLabel:CGRectMake(0, 0, 320, 30) parent:vMsgFloat text:@"" textColor:[UIColor whiteColor]];
+//    vMsgFloat.backgroundColor = [UIColor grayColor];
+//    lbMsgFloat.backgroundColor = [UIColor clearColor];
+    vMsgFloat.alpha = 0.6f;
+    wvMsgFloat = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 30) ];
+    [vMsgFloat setBackgroundColor:[UIColor clearColor]];
+    [vMsgFloat setOpaque:NO];
+ 
     
     // set waiting must be here, because isWaiting() depend on the value of waiting.hidden
     // create waiting view
@@ -275,9 +287,13 @@
         
         [self initUI];
     }
+       [window bringSubviewToFront:vMsgFloat];
+  
+    
     [self.window makeKeyAndVisible];
     
     [self startRecover];
+    
     
     return YES;
 }
@@ -353,25 +369,56 @@
     
     
 }
+
+- (void) float_msg{
+    if (!bFirstCallReturn){
+        [self performSelector:@selector(float_msg) withObject:NULL afterDelay:10];
+        return;
+    }
+    if ([floatMsg count] == 0){
+        vMsgFloat.hidden = NO;
+    }else{
+        NSString* s = [floatMsg objectAtIndex:0];
+        [floatMsg removeObject:s];
+        [wvMsgFloat loadHTMLString:s baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]]];
+        vMsgFloat.hidden = NO;
+    }
+
+    [self performSelector:@selector(float_msg) withObject:NULL afterDelay:3];
+
+}
+
 - (void) query_msg{
     if (!bFirstCallReturn){
         [self performSelector:@selector(query_msg) withObject:NULL afterDelay:10];
         return;
     }
+    
+    id _t = [self readLocalProp:@"lastMsgTime"];
+    int t = 0;
+    if (_t){
+        t = [_t intValue];
+    }
         
+    NSString* url = [NSString stringWithFormat:@"/message/get?type=html&type2=json&t=%d", t];
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client setRetry:YES];    
-    [client sendHttpRequest:@"/message/get" selector:@selector(onGetMsgReturn:) json:NO showWaiting:NO];
+    [client sendHttpRequest:url selector:@selector(onGetMsgReturn:) json:NO showWaiting:NO];
 }
 
 - (void) onGetMsgReturn:(NSObject*) data{
+    id _t = [data valueForKey:@"t"];
+    NSArray* msg = [data valueForKey:@"msg"];
     
-    NSString* s = data;
-    if ([s length] >0){
+    if (_t){
+        [self saveLocalProp:@"lastMsgTime" v:_t];
+    }
+ 
+    if ([msg count] >0){
+//        [self showMsg:data type:1 hasCloseButton:NO];
+        [floatMsg addObjectsFromArray:msg];
+    }
     
-    
-    [self showMsg:data type:1 hasCloseButton:NO];
-      }
     [self performSelector:@selector(query_msg) withObject:NULL afterDelay:600];
 
     
@@ -828,4 +875,5 @@
     
     NSLog(@"root: %@", [self getDataUser]);
 }
+
 @end

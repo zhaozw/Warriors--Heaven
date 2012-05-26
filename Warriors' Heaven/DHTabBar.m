@@ -92,7 +92,8 @@
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
            // [btn setImage:btnImage forState:UIControlStateNormal];
-            [btn setImage:btnImage forState:UIControlStateNormal];
+//            [btn setImage:btnImage forState:UIControlStateNormal];
+            [btn setBackgroundImage:btnImage forState:UIControlStateNormal];
 //			btn.imageEdgeInsets = UIEdgeInsetsMake(-5, 0, 5, 0);
             [btn.imageView setContentMode:UIViewContentModeScaleAspectFit];
             [btn setContentMode:UIViewContentModeScaleAspectFit];

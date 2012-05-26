@@ -327,12 +327,31 @@ end
         end
     end
     
-    def take_msg(ch)
-        d = get_msg(ch)
-        delete_msg(ch)
+    def public_channel
+        ["chat, rumor"]
+    end
+    def take_msg(ch_array, t)
+        d = ""
+        time = t[:time]
+        ch_array.each{|ch|
+            if public_channel.include?ch
+                d += get_public_msg(ch, t)
+                if t[:time] <=> time > 0
+                    t[:time] = time
+                end
+            else
+                d += get_msg(ch, true)
+            end
+        }
+     
+        # delete_msg(ch)
         return d
     end
-    def get_msg(ch)
+    
+    def get_public_msg(ch, t)
+        get_msg(ch, false, t)
+    end
+    def get_msg(ch, delete=false, context_time=nil)
         id = ch.to_i
         if id < 0 
             dir = "chat" if id == -1
@@ -344,16 +363,38 @@ end
         dir = "/var/wh/message/#{dir.to_s}"     
         fname = "#{dir}/#{id}"
           data = ""    
+          
+         time  = nil
+         if context_time
+             time = context_time[:time]
+         end
         begin
             if FileTest::exists?(fname)   
                       # aFile = File.new(fname,"r")
-                    
+                if delete 
                    open(fname) {|f|
                        data = f.read
+                       f.write("") if delete
                    }
                    p "===>messsage: #{data}"
                    data = data.gsub(/^\[.*?\]/, "")
-                  
+                elsif time
+                    file=File.open(fname,"r")  
+                    t = nil      
+                    file.each_line do |line|
+                        # puts line
+                        md = /^\[(.*?)\](.*)$/.match(data)
+                        t = Time.parse(md[1])
+                        if t && t <=> time >= 1
+                            data+="#{md[2]}\n"
+                        end
+                    end
+                    context_time[:time] = t
+                    file.close
+                 
+                end
+                   
+                 
                       # aFile.close
             end
         rescue Exception=>e

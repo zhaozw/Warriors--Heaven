@@ -24,7 +24,7 @@ class Shanzhuyu < Herb
     end
     
     def image
-        "obj/fixtures/shanzhuyu.jpg"
+        "obj/fixtures/shanzhuyu.png"
     end
         def use(context)
         context[:msg] = "你不要乱吃啊！"

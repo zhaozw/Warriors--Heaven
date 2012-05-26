@@ -38,6 +38,9 @@
     UIViewController* vcTraining;
 //    BOOL bUpadtingStatus;
     BOOL bUserBusy;
+    UIView *vMsgFloat;
+    UIWebView* wvMsgFloat;
+    NSMutableArray* floatMsg;
 }
 @property (nonatomic, assign)    BOOL bUserEqNeedUpdated; // need update locally
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
@@ -99,6 +102,7 @@
 - (id) getDataUserextProp:(NSString*) name;
 // type: 0: success 1: warning
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
+//- (void) addFloatMsg:(NSString*)msg;
 - (void) showHelpView:(NSString*) url;
 - (void) showStatusView:(BOOL)bShow;
 - (void) setSessionId:(NSString *)session_id;

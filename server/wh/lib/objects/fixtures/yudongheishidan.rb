@@ -1,12 +1,12 @@
 require 'objects/fixtures/fixture.rb'
 
 
-class Jiuhuayuluwan < Fixture
+class Yudongheishidan < Fixture
     
     def initialize
         super
         p "init Fixture #{dname} #{@var.inspect}"
-        set("dname", "九花玉露丸")
+        set("dname", "玉洞黑石丹")
     end
     
     def unit
@@ -14,19 +14,19 @@ class Jiuhuayuluwan < Fixture
     end
     
     def dname
-        "九花玉露丸"
+        "玉洞黑石丹"
     end
     
     def desc
-        "这是一盒金疮药，可以用来治疗外伤."
+        intro
     end
     
     def intro
-        "治疗外伤 HP+50"
+        "崆峒派疗伤圣药，专治七伤拳引起的内伤。"
     end
     
     def effect
-        "治疗外伤 HP+50"
+        "可治疗七伤拳引起的内伤"
     end
     
     def weight
@@ -38,7 +38,7 @@ class Jiuhuayuluwan < Fixture
     end
     
     def image
-        "obj/fixtures/jiuhuayuluwan.jpg"
+        "obj/fixtures/yudongheishidan.jpg"
     end
     
     def price
