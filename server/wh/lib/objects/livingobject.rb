@@ -123,8 +123,9 @@ class LivingObject < Game::Object
     def query_all_weight
        d = 0 
         eqs = query_all_wearings
+        p "=>wearing=#{eqs.inspect}"
         eqs.each {|k,v|
-            d+= v.weight
+            d+= v.weight if v
         }
        return d
     end
@@ -132,8 +133,10 @@ class LivingObject < Game::Object
         damage = 0
         all = query_all_wearings
         all.each {|k,v|   
-            p "#{v.dname} damage #{v.damage}"                 
-            damage += v.damage
+            if v
+                p "#{v.dname} damage #{v.damage}"                 
+                damage += v.damage
+            end
         }
         return damage
     end
@@ -142,8 +145,10 @@ class LivingObject < Game::Object
         defense = 0
         all = query_all_wearings
         all.each {|k,v|    
-            p "v.dname defense #{v.defense}"              
-         defense += v.defense
+            if v
+                p "v.dname defense #{v.defense}"              
+                defense += v.defense
+            end
         }
         return defense
     end

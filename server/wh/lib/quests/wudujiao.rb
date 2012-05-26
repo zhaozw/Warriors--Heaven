@@ -372,7 +372,7 @@ class Wudujiao < Quest
                         t.get_exp(bonus_exp)
                         t.receive_gold(bonus_gold)
                         c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"
-                        send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+                        send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.</div>")
                         
                         qdata=t.query_quest("wudujiao")
                         gain = {

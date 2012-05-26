@@ -208,7 +208,10 @@
     wvMsgFloat = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 30) ];
     [vMsgFloat setBackgroundColor:[UIColor clearColor]];
     [vMsgFloat setOpaque:NO];
- 
+    [wvMsgFloat setBackgroundColor:[UIColor clearColor]];
+    [wvMsgFloat setOpaque:NO];
+    [vMsgFloat addSubview:wvMsgFloat];
+
     
     // set waiting must be here, because isWaiting() depend on the value of waiting.hidden
     // create waiting view
@@ -279,7 +282,7 @@
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
             bFirstCallReturn = false;
          // start poll thread
-        [self query_msg];
+//        [self query_msg];
 //        }else{
 //         
 //        }
@@ -292,8 +295,7 @@
     
     [self.window makeKeyAndVisible];
     
-    [self startRecover];
-    
+  
     
     return YES;
 }
@@ -366,7 +368,9 @@
     }
     
    
-    
+    [self startRecover];
+    [self query_msg];
+    [self float_msg];
     
 }
 
@@ -376,12 +380,14 @@
         return;
     }
     if ([floatMsg count] == 0){
-        vMsgFloat.hidden = NO;
+        vMsgFloat.hidden = YES;
     }else{
         NSString* s = [floatMsg objectAtIndex:0];
         [floatMsg removeObject:s];
-        [wvMsgFloat loadHTMLString:s baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]]];
+        NSString * ss = [NSString stringWithFormat:@"<div style=\"width:270\">%@</div><div style=\"position:absolute;top:5;left:270;\">。。。</div>", s];
+        [wvMsgFloat loadHTMLString:ss baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]]];
         vMsgFloat.hidden = NO;
+        [window bringSubviewToFront:vMsgFloat];
     }
 
     [self performSelector:@selector(float_msg) withObject:NULL afterDelay:3];
@@ -400,10 +406,10 @@
         t = [_t intValue];
     }
         
-    NSString* url = [NSString stringWithFormat:@"/message/get?type=html&type2=json&t=%d", t];
+    NSString* url = [NSString stringWithFormat:@"/message/get?type=html&type2=json&t=%d&delete=0", t];
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client setRetry:YES];    
-    [client sendHttpRequest:url selector:@selector(onGetMsgReturn:) json:NO showWaiting:NO];
+    [client sendHttpRequest:url selector:@selector(onGetMsgReturn:) json:YES showWaiting:NO];
 }
 
 - (void) onGetMsgReturn:(NSObject*) data{
@@ -419,7 +425,7 @@
         [floatMsg addObjectsFromArray:msg];
     }
     
-    [self performSelector:@selector(query_msg) withObject:NULL afterDelay:600];
+    [self performSelector:@selector(query_msg) withObject:NULL afterDelay:3];
 
     
 }

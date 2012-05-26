@@ -451,13 +451,18 @@ class Player < Human
              hero = ""
              if levelHero
                  defeatHero = ext.get_prop("defeatHero")
-                 levelHero.each {|h|
-                     if !defeatHero.include?(h[:name])
-                         hero = loadGameObject(h[:name])
-                         pass = false
-                         break
-                     end
-                }
+                 if defeatHero
+                     levelHero.each {|h|
+                         if !defeatHero.include?(h[:name])
+                             hero = loadGameObject(h[:name])
+                             pass = false
+                             break
+                         end
+                     }
+                else
+                    pass = false
+                    hero = loadGameObject(levelHero[0][:name])
+                 end
              end 
              
              if !pass

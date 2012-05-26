@@ -67,14 +67,10 @@
      NSLog(@"%@", strRet);  
     //[strRet release];  
     */
-    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+//    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
     
-    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
-    NSLog(url);
-    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    [vSummary loadRequest:req];
     
 }
 - (void) viewDidAppear:(BOOL) animated{
@@ -247,6 +243,12 @@
     //[self sendHttpRequest:@"/"];
     //WHHttpClient* client = [[WHHttpClient alloc] init:self];
   //  [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
+    
+    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+    NSLog(url);
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    [vSummary loadRequest:req];
+
 }
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"HomeViewController receive data:%@", json);

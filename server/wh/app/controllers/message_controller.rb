@@ -2,9 +2,22 @@ require 'utility.rb'
 class MessageController < ApplicationController
     def get
         return if !check_session or !user_data
+        
+        @delete = params[:delete]
+        if !@delete
+            @delete = 0
+        else
+            @delete = @delete.to_i
+        end
+        
         @t = params[:t]
-        if !@t
-            @t = Time.at(0)
+        if !@t || @t.to_i == 0
+            data = query_filedata(user_data[:id])
+            if !data || data[:lastreadmsg] == nil 
+                @t = Time.at(1)
+            else
+                @t = Time.at(data[:lastreadmsg])
+            end
         else
             @t = Time.at(t.to_i)
         end
@@ -12,6 +25,7 @@ class MessageController < ApplicationController
         @ch = params[:ch]
         if !@ch
             @ch = "public_user"
+        end
         
         @type = params[:type]
         if !@type 
@@ -22,8 +36,8 @@ class MessageController < ApplicationController
         if !@type 
             @type = "text"
         end
-        c = {:time = @t}
-        ret = take_msg(public_channel.merge[user_data[:id]], c)
+        c = {:time => @t}
+        @msg = query_msg(public_channel+[user_data[:id]], c)
     
         if (@type == "plain")
             @msg = ret.gsub(/<.*?>/,"")
@@ -33,14 +47,20 @@ class MessageController < ApplicationController
         
         if @type2 == "text"        
             render :text=>@msg
-        elsif @type == "josn"
+        elsif @type2 == "json"
             ar = @msg.split("\n")
             ret = {
                 :t =>c[:time].to_i,
                 :msg => ar
             }
-            render :text=>ar.to_json
+            p "==>11#{ret.to_json}"
+            render :text=>ret.to_json
         end
+        if !data
+            data = {}
+        end
+        data[:lastreadmsg] = c[:time].to_i
+        save_filedata(user_data[:id], data)
     end
     
     

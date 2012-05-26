@@ -330,22 +330,25 @@ end
     def public_channel
         ["chat, rumor"]
     end
-    def take_msg(ch_array, t)
+    def query_msg(ch_array, t, delete=false)
         d = ""
         time = t[:time]
         ch_array.each{|ch|
             if public_channel.include?ch
                 d += get_public_msg(ch, t)
-                if t[:time] <=> time > 0
+                if (t[:time] <=> time) > 0
                     t[:time] = time
                 end
             else
-                d += get_msg(ch, true)
+                d += get_msg(ch, delete)
             end
         }
      
         # delete_msg(ch)
         return d
+    end
+    def take_msg(ch_array, t)
+        query_msg(ch_array, t, true)
     end
     
     def get_public_msg(ch, t)
@@ -372,9 +375,11 @@ end
             if FileTest::exists?(fname)   
                       # aFile = File.new(fname,"r")
                 if delete 
-                   open(fname) {|f|
+                   open(fname, "r+") {|f|
                        data = f.read
-                       f.write("") if delete
+                       f.seek(0)
+                       # f.write("") 
+                       f.truncate(0)
                    }
                    p "===>messsage: #{data}"
                    data = data.gsub(/^\[.*?\]/, "")
@@ -450,5 +455,51 @@ end
              logger.error e
         end
         
+    end
+    
+    def query_filedata(uid)
+        json = {}
+        id = uid.to_i
+         dir = id/100
+        dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
+        FileUtils.makedirs(dir)
+        fname = "#{dir}/jsondata" 
+        begin
+            if !FileTest::exists?(fname)   
+                open(fname, "r") {|f|
+                       data = f.read
+                       # f.seek(0)
+                       # f.write("") 
+                       # f.truncate(0)
+                   }
+                   json = JSON.parse(data) if data
+            end
+        rescue Exception=>e
+             logger.error e
+        end
+        
+        return json
+        
+    end
+    
+    def save_filedata(uid, data)
+        json = data.to_json
+        id = uid.to_i
+         dir = id/100
+        dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
+        FileUtils.makedirs(dir)
+        fname = "#{dir}/jsondata" 
+        begin
+            if !FileTest::exists?(fname)   
+                open(fname, "w+") {|f|
+                       f.write(json)
+                   }
+                 
+            end
+        rescue Exception=>e
+             logger.error e
+        end
+        
+
     end
     
