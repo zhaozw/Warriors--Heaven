@@ -1,6 +1,6 @@
 <html>
 <body style="background-color: transparent; font-size:10pt;font-weight:bold;">
-	<div id="main">
+	<div id="main" style="height:170px;overflow:scroll;">
 	<div>
 	你昨天一共收到<%=@battle_count_last_day %>次挑战，胜<span style="color:red" ><%=@win_count_last_day %></span>, 负<span style="color:blue"><%=@battle_count_last_day - @win_count_last_day %></span>.
 	</div>
@@ -24,24 +24,18 @@ function query_msg(){
 	$.ajax({
 			type: "get",
 			url: "/message/get?type=html&type2=text&delete=1"+"?t="+ new Date().getTime(),
-			data: {
-				quest: '<%=@quest_name %>',
-				action1: action_name,
-				sid: '<%=@sid%>',
-				authenticity_token:window._token
-			}, 
-			dataType: 'json',
+
 			success: function(data, textStatus){
 				  // alert( "Data Saved: " + data +","+ textStatus);
 			//	$("#memopad").css("display", "block");
-			 //  $("#result").html( $("#result").html()+data);
-			 //$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
-			g_data = data;
+			  $("#main").html( $("#main").html()+data);
+			 $("#main").attr("scrollTop",$("#main").attr('scrollHeight'));
+			// g_data = data;
 		
-			if (data.msg)
-				showTextWithTimer(data.msg);
-			else
-				apply();
+			// if (data.msg)
+			// 	showTextWithTimer(data.msg);
+			// else
+			// 	apply();
 			//alert(data.progress);
 			//alert($("#pro_left"));
 	
@@ -53,5 +47,6 @@ function query_msg(){
 			}
 	});
 }
-
+	timer = setInterval('query_msg();', 60000+60000*Math.random());
+	// alert("dsf");
 </script>

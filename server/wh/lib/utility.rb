@@ -330,21 +330,50 @@ end
     def public_channel
         ["chat, rumor"]
     end
-    def query_msg(ch_array, t, delete=false)
+    def query_msg(uid, ch_array, delete=false)
         d = ""
-        time = t[:time]
+        # time = t[:time]
+        data = query_filedata(uid)
+        if data
+            lastread = get_prop(data, "lastread")
+             p "=>last read = #{lastread.inspect}, data=#{data}"
+            if lastread.class==String
+                lastread= JSON.parse(lastread)
+            end
+        end
+            
+        lastread = {} if !lastread
+        p "=>last read = #{lastread.inspect}, #{lastread['191']}, #{lastread["191"]},  #{lastread["191"]}"
+        
         ch_array.each{|ch|
+            _t= lastread[ch.to_s]
+            p "_t=#{_t}, ch=#{ch}, #{lastread[ch.to_s]}"
+            if _t
+                t = Time.at(_t)
+            else
+                t = Time.now - 3600*24*7
+            end
+            c = {:time=>t}
+            p "ttt=>#{t.inspect}"
             if public_channel.include?ch
-                d += get_public_msg(ch, t)
-                if (t[:time] <=> time) > 0
-                    t[:time] = time
+                r = get_public_msg(ch, c)
+                d += r[:data]
+                if (r[:time] && r[:time] <=> t)
+                    # c[:time] = time
+                    lastread[ch.to_s] = r[:time]
                 end
             else
-                d += get_msg(ch, delete)
+                r = get_msg(ch, delete, c)
+                d += r[:data]
+                p "->query_msg r=#{r.inspect}, t=#{t.inspect}, data=#{r[:data]}"
+                lastread[ch.to_s] = r[:time].to_f+0.000001 if r[:time] && (r[:time] <=> t) > 0
             end
         }
-     
+        p "=>lastread=#{lastread}"
+        set_prop(data, "lastread", lastread)
+        save_filedata(uid, data)
         # delete_msg(ch)
+        p "===>d=#{d}"
         return d
     end
     def take_msg(ch_array, t)
@@ -355,6 +384,9 @@ end
         get_msg(ch, false, t)
     end
     def get_msg(ch, delete=false, context_time=nil)
+        ret = {
+            :data => ""
+        }
         id = ch.to_i
         if id < 0 
             dir = "chat" if id == -1
@@ -365,36 +397,43 @@ end
  
         dir = "/var/wh/message/#{dir.to_s}"     
         fname = "#{dir}/#{id}"
-          data = ""    
+        
           
          time  = nil
          if context_time
              time = context_time[:time]
          end
+         p "ch=#{ch}"
+         p "====>context time #{time.inspect}"
         begin
             if FileTest::exists?(fname)   
                       # aFile = File.new(fname,"r")
                 if delete 
                    open(fname, "r+") {|f|
-                       data = f.read
+                       ret[:data] = f.read
                        f.seek(0)
                        # f.write("") 
                        f.truncate(0)
                    }
-                   p "===>messsage: #{data}"
-                   data = data.gsub(/^\[.*?\]/, "")
-                elsif time
+                   p "===>messsage: #{ret[:data]}"
+                   ret[:data] = ret[:data].gsub(/^\[.*?\]/, "")
+                else
+                
                     file=File.open(fname,"r")  
                     t = nil      
                     file.each_line do |line|
-                        # puts line
-                        md = /^\[(.*?)\](.*)$/.match(data)
-                        t = Time.parse(md[1])
-                        if t && t <=> time >= 1
-                            data+="#{md[2]}\n"
+                        p "line = #{line}"
+                        md = /^\[(.*?)\](.*)$/.match(line)
+                        ret[:time] = Time.parse(md[1])
+                        p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
+                        p "context time #{time.to_f}"
+                        p "==>md2=#{md[2].inspect}"
+                        p ret[:time] <=> time
+                        if ( time && ret[:time] && (ret[:time] <=> time) > 0 ) or time==nil
+                            ret[:data]="#{md[2]}\n"
                         end
                     end
-                    context_time[:time] = t
+                    # context_time[:time] = t
                     file.close
                  
                 end
@@ -404,8 +443,10 @@ end
             end
         rescue Exception=>e
              logger.error e
+             p "==>exception #{e.inspect}"
         end
-        return data
+        p "ret=#{ret.inspect}"
+        return ret
     end
     def send_msg(ch, m)
         id = ch.to_i
@@ -464,18 +505,23 @@ end
         dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
+        p "filename #{fname}"
+        
         begin
-            if !FileTest::exists?(fname)   
+            if FileTest::exists?(fname) 
+                data= nil  
                 open(fname, "r") {|f|
                        data = f.read
                        # f.seek(0)
                        # f.write("") 
                        # f.truncate(0)
                    }
+                   p "data=#{data.inspect}"
                    json = JSON.parse(data) if data
             end
         rescue Exception=>e
              logger.error e
+             p e.inspect
         end
         
         return json
@@ -483,19 +529,21 @@ end
     end
     
     def save_filedata(uid, data)
+        p "save_filedata #{data.inspect}"
         json = data.to_json
+        p "save_filedata json=#{json}"
         id = uid.to_i
          dir = id/100
         dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
         begin
-            if !FileTest::exists?(fname)   
+           
                 open(fname, "w+") {|f|
                        f.write(json)
                    }
                  
-            end
+            
         rescue Exception=>e
              logger.error e
         end
