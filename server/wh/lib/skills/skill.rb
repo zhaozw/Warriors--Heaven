@@ -6,7 +6,8 @@ class Skill
     def initialize
         @skill = {
             :category => category,
-            :dname => dname
+            :dname => dname,
+            :image=>image
         }
         p "==>skill initialized, #{@skill.inspect}" 
     end

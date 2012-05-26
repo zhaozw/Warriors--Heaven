@@ -517,6 +517,8 @@ class WhController < ApplicationController
         enemy[:isUser] = false
         enemy[:canGain] = false
         
+        
+ 
         # player.ext[:lastact] = "fight"
         # enemy.ext[:lastact] = "fight"
  
@@ -526,6 +528,13 @@ class WhController < ApplicationController
         p1.set_data(player)
         p2 = Player.new
         p2.set_data(enemy)
+        
+        @full_hp_p1 = p1.tmp[:hp]
+        if p1.tmp[:hp] < p1.tmp[:maxhp]
+            @full_hp_p1 =  p1.tmp[:maxhp]
+        end
+        
+        @full_hp_p2 = p2.tmp[:maxhp];
         
         p2.set_temp("hp", p2.ext[:maxhp])
         p "===> p2.hp=#{p2.ext[:hp]}, p2.hp=#{p2.tmp[:hp]},#{p2.query_temp("hp")}"

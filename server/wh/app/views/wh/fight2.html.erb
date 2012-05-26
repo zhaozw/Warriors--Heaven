@@ -56,7 +56,8 @@ img.player {height:100px;}
 	var timer;
 	var stop = false;
 	var finished = false;
-
+	var fullblood_p1 = <%=@full_hp_p1%>
+var fullblood_p2 = <%=@full_hp_p2%>
 	function playorstop(){
 		if (stop){
 			$("#play").attr("src", "/images/stop.png");
@@ -107,8 +108,8 @@ img.player {height:100px;}
 	
 	var p1_id = <%=@context[:p1].data[:id].to_s %>
 		var p2_id = <%=@context[:p2].data[:id] %>
-		var p1_maxhp = <%=@context[:p1].ext[:maxhp] %>
-		var p2_maxhp = <%=@context[:p2].ext[:maxhp] %>
+	//	var p1_maxhp = <%=@context[:p1].ext[:maxhp] %>
+	//	var p2_maxhp = <%=@context[:p2].ext[:maxhp] %>
 	
 	function setBloodbar(s){
 				// sreg = "<div class=\"status\">[\s\S]*?<div class='st_lines' id='p"+p1_id+"'>.*?<span class='attr'>hp<\/span>:(\d+)";
@@ -122,7 +123,7 @@ img.player {height:100px;}
 			hp = d[1]
 			if (hp<0)
 				hp =0;
-			width = 120*hp/p1_maxhp;
+			width = 120*hp/fullblood_p1;
 			$("#p1bbar").width(width);
 			if (width < 30){
 					$("#p1bbar").css("background-image", "url('/images/bloodbar_red.jpg')");
@@ -137,7 +138,7 @@ img.player {height:100px;}
 			hp = d[1];
 			if (hp<0)
 				hp =0;
-			width = 120*hp/p2_maxhp;
+			width = 120*hp/fullblood_p1;
 			$("#p2bbar").width(width);	
 			$("#p2bbar").css("margin-left", 1+120-width);	
 			if (width < 30){

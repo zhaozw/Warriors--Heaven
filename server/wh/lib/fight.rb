@@ -64,6 +64,24 @@ def damage_msg1( damage,  type)
 =end
 end
 
+    def chooseBestPerform(player, skill_types)
+        skills = player.query_all_skills
+        sp = 0
+        skill = nil
+        skills.each {|sk|
+            if sk.category == "premier" && skill_types.include?(sk.type)
+                _sp = skill_power(skill, player, 0)
+                
+                if _sp > sp
+                    sp = _sp
+                    skill = sk
+                end
+            end
+        }
+        return skill
+    end
+    # pur: attack parry ...
+    # weapon_type: skill type: unarmed, fencing, daofa...
     def chooseBestSkill(context, pur, weapon_type, prop)
             p "choose best skill for #{pur}/#{weapon_type} by #{prop}"
             # p "skills #{context[:skills]}(size=#{context[:skills].size})}"
@@ -97,7 +115,7 @@ end
                 if type=~ reg and purpose=~reg2 
                  #   ret = query_skill(skillname, prop, skill, context)
                     # ret = skill.query(prop, context)
-                    ret = skill_power(skill, context, pur)
+                    ret = skill_power(skill, context[:user], pur)
                     p "===>#{prop} of #{skillname}: #{ret} \n"
                     if (ret.to_i > best_skill[prop])
                         best_skill[prop] = ret
@@ -357,6 +375,7 @@ end
         p "===>damage=#{d}"
         d = 1 if d <0
         context[:target].tmp[:hp] -= d
+        context[:target].tmp[:willperform] +=d
          cs = cost_stam(ap)
         #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
         context[:user].tmp[:stam] -= cs
@@ -399,22 +418,22 @@ end
     #
     # Usage: 0: attack 1: defense(parry) 3:dodge
     #
-    def skill_power(skillname, context, usage)
-       skill =  context[:user].query_skill(skillname)
+    def skill_power(skillname, player, usage)
+       skill =  player.query_skill(skillname)
        if (skill == nil)
-           #logger.info("user #{context[:user][:id]}-#{context[:user].ext[:name]} doesn't have skill '#{skillname}'")
+           #logger.info("user #{player[:id]}-#{player.ext[:name]} doesn't have skill '#{skillname}'")
            return 1
        end
        # p = skill.power(context)
         p = skill.data[:level] * skill.data[:level]  * skill.data[:level] /3 
-        str  = context[:user].tmp[:str]
-        dext = context[:user].tmp[:dext]
-        p "===>#{context[:user].tmp.inspect}"
+        str  = player.tmp[:str]
+        dext = player.tmp[:dext]
+        p "===>#{player.tmp.inspect}"
         
         if (usage == "attack")
-            p =   (p + calc_total_exp(context[:user].tmp[:level]) +1) / 30 * (( str+1)/10)
+            p =   (p + calc_total_exp(player.tmp[:level]) +1) / 30 * (( str+1)/10)
         else
-            p =   (p + calc_total_exp(context[:user].tmp[:level]) +1) / 30 * (( dext+1)/10)
+            p =   (p + calc_total_exp(player.tmp[:level]) +1) / 30 * (( dext+1)/10)
         end
         
        if p <= 0
@@ -481,10 +500,17 @@ end
                     :gain => defenser[:gain],
                     :msg => ""
             }
-            # get attack action
-            context_a[:action] = attacker[:attack_skill][:skill].getAttackAction
-            # attacker[:attack_skill][:skill].getAttackActionMsg(context_a)
             
+            # perform ?
+            p "==>#{attacker.name} willperfrom:#{ attacker.tmp[:willperform]}"
+            if attacker.tmp[:perform]!= nil && rand(attacker.tmp[:maxhp])< attacker.tmp[:willperform]
+                attacker.tmp[:perform].perform(context_a)
+                context_a[:action] = attacker.tmp[:perform].getAttackAction
+            else
+                # get attack action
+                context_a[:action] = attacker[:attack_skill][:skill].getAttackAction
+                # attacker[:attack_skill][:skill].getAttackActionMsg(context_a)
+            end
             
            # query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attackerattack_skill][:skill], context_a)
                 
@@ -501,13 +527,13 @@ end
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
            #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
-                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a, "attack")
+                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a[:user], "attack")
            #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
               if (defenser.tmp[:stam]<=0)
                   dodge_power = 0
                   msg += "<br/>\n$n的体力不够，无法闪躲"
               else
-                dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d, "dodge") + defenser.tmp[:apply_dodge]/10
+                dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d[:user], "dodge") + defenser.tmp[:apply_dodge]/10
                 end
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
@@ -592,7 +618,7 @@ end
                              parry_power = 0
                          else
                              # power_parry = defenser[:defense_skill][:skill].power(context_d)
-                             parry_power = skill_power(defenser[:defense_skill][:skill][:skname], context_d, "parry")
+                             parry_power = skill_power(defenser[:defense_skill][:skill][:skname], context_d[:user], "parry")
                              # power_parry = query_skill(defenser[:defense_skill][:skill][:skname], "power", defenser[:defense_skill][:skill], context_d)
                          end
                      end
@@ -624,6 +650,7 @@ end
                      #
                      # parry succeeded
                      #
+                     defenser.tmp[:willperform] += defenser.ext[:maxhp]/10
                      msg += doParry(defenser[:defense_skill], context_d, parry_power)
                      if (defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10)
                          context_d[:gain][:exp] += 1
@@ -759,6 +786,15 @@ end
         end 
         
     end
+    
+    
+    def calc_apply_var(p1)
+        
+        p1.tmp[:apply_dodge] = 0-p1.query_all_weight
+        p1.tmp[:apply_damage] = p1.query_weapon_damage
+        p1.tmp[:apply_defense] = p1.query_armo_defense
+   
+    end
     # 
     # the core fight function
     # p1,p2: Player or NPC
@@ -775,13 +811,9 @@ end
         # p1.tmp[:apply_dodge]  = 0-p1.query_all_weight
         # p1.tmp[:apply_defense] = p1.query_armo_defense 
         
-        p1.tmp[:apply_dodge] = 0-p1.query_all_weight
-        p1.tmp[:apply_damage] = p1.query_weapon_damage
-        p1.tmp[:apply_defense] = p1.query_armo_defense
+        calc_apply_var(p1)
         p "====>p1 load: #{p1.tmp[:apply_dodge]} damage:#{p1.tmp[:apply_damage]} defense:#{p1.tmp[:apply_defense]  }"
-        p2.tmp[:apply_dodge] = 0-p2.query_all_weight
-        p2.tmp[:apply_damage] = p2.query_weapon_damage
-        p2.tmp[:apply_defense] = p2.query_armo_defense
+        calc_apply_var(p2)
         p "====>p2 load: #{p2.tmp[:apply_dodge]} damage:#{p2.tmp[:apply_damage]} defense:#{p2.tmp[:apply_defense]  }"
         
         # calculate who attach first  
@@ -805,6 +837,8 @@ end
         # what weapon attacker is wielding
         hand_right_weapon =  p1.query_wearing("handright")
         hand_left_weapon = p1.query_wearing("handleft")
+          p1.tmp[:right_hand_weapon] = hand_right_weapon
+            p1.tmp[:left_hand_weapon] = hand_left_weapon
         p "=>righthand weapons #{hand_right_weapon}"
         p "=>lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed
@@ -812,6 +846,7 @@ end
         if (hand_right_weapon)
             weapon_skill_type = hand_right_weapon.skill_type
             p1.tmp[:main_weapon] = hand_right_weapon
+          
         elsif hand_left_weapon
             weapon_skill_type = hand_left_weapon.skill_type
             p1.tmp[:main_weapon] = hand_left_weapon
@@ -837,9 +872,28 @@ end
         # attacker choose best defense skill
         p1[:defense_skill] = choosBestDefenseSkill(context_p1, weapon_skill_type)
         
+        # choose perform for p1
+        skill_types = []
+        if p1.tmp[:left_hand_weapon]
+            skill_types.push(p1.tmp[:left_hand_weapon].skill_type)
+        else
+             skill_types.push("unarmed")
+        end
+        if p1.tmp[:right_hand_weapon]
+            skill_types.push(p1.tmp[:right_hand_weapon].skill_type)
+        else
+             skill_types.push("unarmed") if !skill_types.include?"unarmed"
+        end
+        p1.tmp[:perfrom] = chooseBestPerform(p1, skill_types)
+                
+        
+        
+        
         # choose skills for deffenser
         hand_right_weapon =  p2.query_wearing("handright")
         hand_left_weapon = p2.query_wearing("handleft")
+                 p2.tmp[:right_hand_weapon] = hand_right_weapon
+            p2.tmp[:left_hand_weapon] = hand_left_weapon
         p "=>#{defenser[:user]} righthand weapons #{hand_right_weapon}"
         p "=>#{defenser[:user]} lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed
@@ -864,7 +918,20 @@ end
         # defenser choose best defense skill
         p2[:defense_skill] = choosBestDefenseSkill(context_p2, weapon_skill_type)      
         
-        
+        # choose perform for p2
+        skill_types = []
+        if p2.tmp[:left_hand_weapon]
+            skill_types.push(p2.tmp[:left_hand_weapon].skill_type)
+        else
+             skill_types.push("unarmed")
+        end
+        if p2.tmp[:right_hand_weapon]
+            skill_types.push(p2.tmp[:right_hand_weapon].skill_type)
+        else
+             skill_types.push("unarmed") if !skill_types.include?"unarmed"
+        end
+        p2.tmp[:perfrom] = chooseBestPerform(p2, skill_types)
+                
        
         gain_p1 = {
             :exp =>0,
@@ -941,7 +1008,8 @@ end
             defenser_gain = gain_p1
         end
         
-        
+        p1.tmp[:willperform]=0
+        p2.tmp[:willperform]=0
 
         
         srand(Time.now.tv_usec.to_i)
@@ -963,6 +1031,11 @@ end
             end
             
              msg += "<div class=\"#{style_c}\">\n#{__fight(attacker, defenser)}\n</div>\n";
+             
+             # recalculate apply varaibles, because perform may make change
+             calc_apply_var(p1)
+             calc_apply_var(p2)
+             
             i = i+1
             
          

@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "QuartzCore/CAAnimation.h"
 #import "WHHttpClient.h"
+#import "EGOImageView.h"
 
 @implementation TrainingGround
 @synthesize vcResearch;
@@ -333,13 +334,14 @@
     [btn_practise_list removeAllObjects];
     // build new rows
     NSArray* userskills = [ad getDataUserskills];
-    int height = 50;
+//    int height = 50;
     int y_b = 0;
     int y_c = 0;
     int y_p = 0;
     int count_b = 0;
     int count_c = 0;
     int count_p = 0;
+    int row_height = 50;
     for (int i = 0; i< [userskills count];  i++){
         
         NSObject *o = [userskills objectAtIndex:i];
@@ -347,29 +349,50 @@
         NSLog(@"skill %@", [o valueForKey:@"dname"]);
         int tp = [[o valueForKey:@"tp"] intValue];
         int level = [[o valueForKey:@"level"] intValue];
+         NSString* cat = [o valueForKey:@"category"];
         
-        UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        UIView* row = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, row_height)];
+        
+        UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, row_height-10)];
         [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [lbSkillTitle setTextColor:[UIColor whiteColor]];
         [lbSkillTitle setBackgroundColor:[UIColor clearColor]];
         [lbSkillTitle setOpaque:NO];
         [lbSkillTitle setText:[o valueForKey:@"dname"]];
+        [row addSubview:lbSkillTitle];
         
-        UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        pvTP.frame = CGRectMake(100, 20, 50, 30);
-        float process = ((float)tp)/((level+1)*(level+1));
-        [pvTP setProgress:process];
-        [pv_tp addObject:pvTP];
+        if ([cat isEqualToString:@"premier"] ){
+            lbSkillTitle.frame = CGRectMake(5, 12, 90, row_height-10);
+
+        }
         
-        UILabel* lbSkillStatus = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 50, 30)];
+        NSString* image = [o valueForKey:@"image"];
+        if ([cat isEqualToString:@"premier"] && image){
+            EGOImageView* vImage = [[EGOImageView alloc] initWithFrame:CGRectMake(100, 1, 50, 50)];
+         
+            NSString* filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, image];
+            vImage.imageURL= [NSURL URLWithString:filepath];
+            [row addSubview:vImage];
+        }
+        
+        if (![cat isEqualToString:@"premier"]){
+            UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+            pvTP.frame = CGRectMake(90, 10, 80, 10);
+            float process = ((float)tp)/((level+1)*(level+1));
+            [pvTP setProgress:process];
+            [pv_tp addObject:pvTP];
+            [row addSubview:pvTP];
+             
+        UILabel* lbSkillStatus = [[UILabel alloc] initWithFrame:CGRectMake(100, 5, 80, row_height-10)];
         [lbSkillStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbSkillStatus setTextColor:[UIColor yellowColor]];
         [lbSkillStatus setBackgroundColor:[UIColor clearColor]];
         [lbSkillStatus setOpaque:NO];
         [lbSkillStatus setText:[[NSString alloc] initWithFormat:@"%@/Level %@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_level_list addObject:lbSkillStatus];
+        [row addSubview:lbSkillStatus];
         
-        UILabel* lbSkillStatus2 = [[UILabel alloc] initWithFrame:CGRectMake(160, 10, 50, 30)];
+        UILabel* lbSkillStatus2 = [[UILabel alloc] initWithFrame:CGRectMake(180, 5, 50, row_height-10)];
         [lbSkillStatus2 setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbSkillStatus2 setTextColor:[UIColor yellowColor]];
         [lbSkillStatus2 setBackgroundColor:[UIColor clearColor]];
@@ -378,37 +401,44 @@
             lbSkillStatus2.text = @"修炼中";
 //        [lbSkillStatus2 setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_status_list addObject:lbSkillStatus2];
-        
-        UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
-        [btPractise setBackgroundColor:[UIColor clearColor]];
-        [btPractise setOpaque:NO];
-        [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-        [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-        [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
-        [btPractise setTag:i];
-        [btPractise setShowsTouchWhenHighlighted:YES];
-//        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
-         [btPractise addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
-        [btn_practise_list addObject:btPractise];
-        
-        NSString* cat = [o valueForKey:@"category"];
+        [row addSubview:lbSkillStatus2];
+        }
+
+        if (![cat isEqualToString:@"premier"]){
+            UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
+            [btPractise setBackgroundColor:[UIColor clearColor]];
+            [btPractise setOpaque:NO];
+            [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+            [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
+            [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
+            [btPractise setTag:i];
+            [btPractise setShowsTouchWhenHighlighted:YES];
+    //        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
+             [btPractise addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+            [btn_practise_list addObject:btPractise];
+            btPractise.frame = CGRectMake(250, 0, 70, row_height-10);
+            [row addSubview:btPractise];
+        }
+       
         if ([cat isEqualToString:@"basic"]){
             count_b ++;
-            [lbSkillTitle setFrame:CGRectMake(0, y_b, 90, height-10)];
-            [vBasicSkillsList addSubview:lbSkillTitle];
-            
-            [vBasicSkillsList addSubview:pvTP];
-            [pvTP setFrame:CGRectMake(90, y_b+10, 80, 10)];
-            
-            [vBasicSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(100, y_b+5, 80, height-10)];
-            
-            [vBasicSkillsList addSubview:lbSkillStatus2];
-            [lbSkillStatus2 setFrame:CGRectMake(180, y_b+5, 50, height-10)];
-            
-            [vBasicSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(250, y_b, 70, height-17)];
+            [vBasicSkillsList addSubview:row];
+            row.frame = CGRectMake(0, y_b, 320, row_height);
+//            [lbSkillTitle setFrame:CGRectMake(0, y_b, 90, height-10)];
+//            [vBasicSkillsList addSubview:lbSkillTitle];
+//            
+//            [vBasicSkillsList addSubview:pvTP];
+//            [pvTP setFrame:CGRectMake(90, y_b+10, 80, 10)];
+//            
+//            [vBasicSkillsList addSubview:lbSkillStatus];
+//            [lbSkillStatus setFrame:CGRectMake(100, y_b+5, 80, height-10)];
+//            
+//            [vBasicSkillsList addSubview:lbSkillStatus2];
+//            [lbSkillStatus2 setFrame:CGRectMake(180, y_b+5, 50, height-10)];
+//            
+//            [vBasicSkillsList addSubview:btPractise];
+//            [btPractise setFrame:CGRectMake(250, y_b, 70, height-17)];
             
             //            [skillsView setUserInteractionEnabled:YES];
             //            [vBasicSkill setUserInteractionEnabled:YES];
@@ -417,36 +447,38 @@
             //            [vBasicSkillsList bringSubviewToFront:btPractise];
             
             
-            y_b += height;
+            y_b += row_height;
         }else if ([cat isEqualToString:@"common"]){
             count_c ++;
-            [vCommonSkillsList addSubview:lbSkillTitle];
-            [lbSkillTitle setFrame:CGRectMake(0, y_c, 90, height-10)];
-            [vCommonSkillsList addSubview:pvTP];
-            [pvTP setFrame:CGRectMake(90, y_c+10, 80, height-10)];
-            [vCommonSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(100, y_c+5, 80, height-10)];
-            [vCommonSkillsList addSubview:lbSkillStatus2];
-            [lbSkillStatus2 setFrame:CGRectMake(180, y_c+5, 50, height-10)];
-            [vCommonSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(250, y_c, 70, height-17)];
+//            [vCommonSkillsList addSubview:lbSkillTitle];
+//            [lbSkillTitle setFrame:CGRectMake(0, y_c, 90, height-10)];
+//            [vCommonSkillsList addSubview:pvTP];
+//            [pvTP setFrame:CGRectMake(90, y_c+10, 80, height-10)];
+//            [vCommonSkillsList addSubview:lbSkillStatus];
+//            [lbSkillStatus setFrame:CGRectMake(100, y_c+5, 80, height-10)];
+//            [vCommonSkillsList addSubview:lbSkillStatus2];
+//            [lbSkillStatus2 setFrame:CGRectMake(180, y_c+5, 50, height-10)];
+//            [vCommonSkillsList addSubview:btPractise];
+//            [btPractise setFrame:CGRectMake(250, y_c, 70, height-17)];
+            [vCommonSkillsList addSubview:row];
+              row.frame = CGRectMake(0, y_c, 320, row_height);
             
-            
-            y_c += height;
+            y_c += row_height;
         }else if ([cat isEqualToString:@"premier"]){
             count_p ++;
-            [vPremierSkillsList addSubview:lbSkillTitle];
-            [lbSkillTitle setFrame:CGRectMake(0, y_p, 90, height)];
-            [vPremierSkillsList addSubview:pvTP];
-            [pvTP setFrame:CGRectMake(90, y_p+10, 80, height-10)];
-            [vPremierSkillsList addSubview:lbSkillStatus];
-            [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height-10)];
-            [vPremierSkillsList addSubview:lbSkillStatus2];
-            [lbSkillStatus2 setFrame:CGRectMake(180, y_p+5, 50, height-10)];
-            [vPremierSkillsList addSubview:btPractise];
-            [btPractise setFrame:CGRectMake(250, y_p, 70, height-17)];
-            
-            y_p += height;
+//            [vPremierSkillsList addSubview:lbSkillTitle];
+//            [lbSkillTitle setFrame:CGRectMake(0, y_p, 90, height)];
+//            [vPremierSkillsList addSubview:pvTP];
+//            [pvTP setFrame:CGRectMake(90, y_p+10, 80, height-10)];
+//            [vPremierSkillsList addSubview:lbSkillStatus];
+//            [lbSkillStatus setFrame:CGRectMake(120, y_p+5, 80, height-10)];
+//            [vPremierSkillsList addSubview:lbSkillStatus2];
+//            [lbSkillStatus2 setFrame:CGRectMake(180, y_p+5, 50, height-10)];
+//            [vPremierSkillsList addSubview:btPractise];
+//            [btPractise setFrame:CGRectMake(250, y_p, 70, height-17)];
+               [vPremierSkillsList addSubview:row];
+            row.frame = CGRectMake(0, y_p, 320, row_height);
+            y_p += row_height;
         }
         
     }
@@ -466,7 +498,7 @@
     
     //    int h = vBasicSkillsList.frame.size.height + vCommonSkillsList.frame.size.height + vPremierSkill.frame.size.height+30;
     rect =  skillsView.frame;
-    rect.size.height = height*(count_b+count_c+count_p)+90;
+    rect.size.height = row_height*(count_b+count_c+count_p)+90;
     skillsView.frame = rect;
     if (rect.size.height+200-480 >0)
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
