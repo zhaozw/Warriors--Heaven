@@ -257,7 +257,7 @@ end
         p "===>r=#{r} obj size #{objs.size}"
       
         if r < objs.size && objs[r] != nil
-            p "==>move obj #{obj[r].inspect}"
+            p "==>move obj #{objs[r].inspect}"
             move_obj(objs[r], p1, p2)
             drop.push(objs[r])
         end

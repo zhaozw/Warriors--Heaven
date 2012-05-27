@@ -492,7 +492,7 @@ class User < ActiveRecord::Base
             end
             p "===>eqlost=#{eqslots.inspect}"
             eqslots.each{|k,v|
-                ar = v.split("@")
+                ar = v.to_s.split("@")
                 # p "==>slot[#{k}]=#{v}, param id=#{params[:id]}"
                 if (ar[1].to_i == id.to_i)
                     

@@ -35,7 +35,8 @@ class Xunlei < Game::Skill
            {
                :level=>0,
                :action =>"$N在电光火石之间攻出五拳，击向$n",
-               :damage => 100
+               :damage => 50,
+               :cost_stam => 20
                #:damage_type=>""
            },
       
@@ -43,7 +44,10 @@ class Xunlei < Game::Skill
    end
    
    def perform(context)
-       context[:user].tmp[:apply_damage] += 100
+       # add more damage
+       context[:user].tmp[:apply_damage] += 20
+       # enhance chance to hit
+       context[:user].tmp[:apply_attack] += 30
    end
    
    def image

@@ -8,9 +8,15 @@ div.enemy{color:#ff8888}
 .status{font-size:10pt;}
 .rgain{color:yellow;font-size:10pt;}
 .rgain span{color:#99ff99}
-.attr{color:#99ff99}
+.attr{color:#99ff99;/*width:30px;display: inline-block;*/white-space:nowrap;}
 .skillname{color:#ffaaaa}
+.performname{color:#ff0000}
+.perform{color:#ff0000}
+.bishaji{color:yellow;}
 img.player {height:100px;}
+.stl_playername{width:50px;display: inline-block;white-space:nowrap;}
+.st_v{width:30px;display: inline-block;white-space:nowrap;}
+
 .playername{color:white;font-size:12pt;position:absolute;top:95;z-index:100;}
 .bloodslot {border:1px solid;border-color:#eee #ddd #ddd #eee;top:100;width:122px;height:12;/*background-image:url('/images/bloodslot.png');*/}
 .bloolbar {background-image:url('/images/bloodbar_green.jpg');width:50px;height:10;margin:1;}
@@ -39,7 +45,7 @@ img.player {height:100px;}
 
 	<img style="z-index:100;position:absolute;left:230;top:120;width:25px;" src="/images/restart.png" alt="Replay" onclick="replay()"/>
 	<img id="play" style="z-index:100;position:absolute;left:180;top:120;width:25px;" src="/images/stop.png" alt="playorstop" onclick="playorstop()"/>
-	<div id="result" style="position:absolute;top:120px;margin-left:5px;z-index:10;height:300px;overflow-y:auto;font-size:10pt;color:white;">
+	<div id="result" style="position:absolute;top:120px;margin-left:5px;z-index:10;height:300px;overflow-y:scroll;font-size:10pt;color:white;">
 	</div>
 	<div id="c" style="display:none;">
 		<%=@context[:msg] %>
@@ -113,7 +119,7 @@ var fullblood_p2 = <%=@full_hp_p2%>
 	
 	function setBloodbar(s){
 				// sreg = "<div class=\"status\">[\s\S]*?<div class='st_lines' id='p"+p1_id+"'>.*?<span class='attr'>hp<\/span>:(\d+)";
-		sreg ="<div class=\"st_lines\" id=\"p"+p1_id+"\">.*?<span class=\"attr\">hp<\/span>:(.*?)<span class=\"attr\">.*?</span>:.*?</div>";
+		sreg ="<div class=\"st_lines\" id=\"p"+p1_id+"\">.*?<span class=\"attr\">hp<\/span>:<span class=\"st_v\">(.*?)</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</div>";
 		
 		reg = new RegExp(sreg ,"gm");
 		 //<span class='attr'>hp<\/span>: \s*<span class='attr'>体力<\/span>:(\d+)\s*<br\/>.*?<span class='attr'>hp<\/span>:(\d+)
@@ -131,14 +137,16 @@ var fullblood_p2 = <%=@full_hp_p2%>
 				$("#p1bbar").css("background-image", "url('/images/bloodbar_green.jpg')");
 		}
 		
-		sreg ="<div class=\"st_lines\" id=\"p"+p2_id+"\">.*?<span class=\"attr\">hp<\/span>:(.*?)<span class=\"attr\">.*?</span>:.*?</div>";	
+		sreg ="<div class=\"st_lines\" id=\"p"+p2_id+"\">.*?<span class=\"attr\">hp<\/span>:<span class=\"st_v\">(.*?)</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</span></div>";	
+		// alert(sreg);
 		reg = new RegExp(sreg ,"gm");
 		d = reg.exec(s);
+		// alert(d);
 		if (d){		 	
 			hp = d[1];
 			if (hp<0)
 				hp =0;
-			width = 120*hp/fullblood_p1;
+			width = 120*hp/fullblood_p2;
 			$("#p2bbar").width(width);	
 			$("#p2bbar").css("margin-left", 1+120-width);	
 			if (width < 30){
@@ -153,7 +161,7 @@ var fullblood_p2 = <%=@full_hp_p2%>
 	//	reg = RegExp(status_block ,"gm");
 	//	s.replace(reg, "")
 
-		s=s.replace(/<div class=\"st_lines\" id=\"p.*?\">.*?<\/div>/m, "");
+		// s=s.replace(/<div class=\"st_lines\" id=\"p.*?\">.*?<\/div>/m, "");
 		return s;
 	}
 	function onTimer(){
@@ -162,7 +170,7 @@ var fullblood_p2 = <%=@full_hp_p2%>
 		if (line_number >= TextArray.length){
 			clearInterval(timer);
 			line_number = 0;
-			finished;
+			finished = true;
 			return;
 		}
 		s = TextArray[line_number];

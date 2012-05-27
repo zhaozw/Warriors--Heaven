@@ -633,7 +633,8 @@ class WhController < ApplicationController
         
          # p msg
         if (params[:debug])
-           render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>" + player[:gain].to_json
+           # render :text=>"<div style='background:black;color:white;font-size:12pt;'><style>div.user{color:#eeeeee}div.enemy{color:#ff8888}</style>#{context[:msg]}</div>" + player[:gain].to_json
+            render :text=>ret["msg"]
         else
             p "===>>>ppp"+ret.inspect
             render :text=>ret.to_json

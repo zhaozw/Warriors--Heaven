@@ -65,7 +65,9 @@ def damage_msg1( damage,  type)
 end
 
     def chooseBestPerform(player, skill_types)
+        p "#{player.name} choose best perform for skill_types #{skill_types.inspect}"
         skills = player.query_all_skills
+        p "all skills: #{skills.inspect}"
         sp = 0
         skill = nil
         skills.each {|sk|
@@ -78,6 +80,7 @@ end
                 end
             end
         }
+        p "peform #{skill.inspect}"
         return skill
     end
     # pur: attack parry ...
@@ -99,7 +102,7 @@ end
             end
             p "==>1#{attacker_skills.inspect}"
             for skill in attacker_skills
-                if (!skill)
+                if (!skill || skill.category=='premier')
                     next
                 end
                 skillname = skill.query_data("skname")
@@ -284,22 +287,30 @@ end
     #  translate arabic number to Chinse e.g.“第三十六式”
     def action_msg(skill, action)
         a = action
-        return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]}式 <span class='zhaoshiname'>#{a[:name]}</span>】<br/>#{a[:action]}" 
+        if skill.category == 'premier'
+            return "【<span class='bishaji'>必杀技</span>•<span class='performname'>#{skill.dname}</span>】<br/><span class='perform'>#{a[:action]}</span>" 
+        else
+            return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]}式 <span class='zhaoshiname'>#{a[:name]}</span>】<br/>#{a[:action]}" 
+        end
     end
     
-    def doDamage(attacker_attack_skill, context, ap)
+    def doDamage(skill, context, ap)
         d = context[:damage]
         p1 = context[:user]
         p2 = context[:target]
         
         m1 = ""
+=begin
         if (p1.hasWeapon?)
         #     apply damage from equipment and weapon or other things
             ad = p1.tmp[:apply_damage]
         else
             ad = 5 # unarmed damaged
-            m1 += "<div>apply unarmed damage #{ad}</div>"
+            m1 += "<div>#{p1.name} apply unarmed damage #{ad}</div>"
         end
+=end
+        ad = p1.tmp[:apply_damage]
+        p "#{p1.name} apply_damage = #{p1.tmp[:apply_damage]}"
             # give some fuzzy
         if (ad > 0)
             ad = (ad + rand(ad)) / 2;
@@ -323,7 +334,7 @@ end
        # p "fuzzy damage > #{d}"
     
         # apply skill damage
-        skill = context[:user].query_skill(attacker_attack_skill[:skill][:skname])
+        # skill = context[:user].query_skill(attacker_attack_skill[:skill][:skname])
         
         # apply damage of zhaoshi
         action = context[:action]
@@ -340,7 +351,7 @@ end
         # apply general damage of skill (equal skill, eqaul damage)
         d += (skill.data[:level]+ 1) /10 * (d /5);
         p "apply skill common damage > #{d}"
-        m1 += "<div>skill general damage >#{d}</div>"
+        m1 += "<div>skill general damage >#{d} (level #{skill[:level]})</div>"
         
          damage_bonus = p1.tmp[:str]
          
@@ -377,11 +388,14 @@ end
         context[:target].tmp[:hp] -= d
         context[:target].tmp[:willperform] +=d
          cs = cost_stam(ap)
+         if action[:cost_stam]
+             cs += action[:cost_stam]
+         end
         #context[:user].set_temp("stam", context[:user].query_temp("stam") - cs)
         context[:user].tmp[:stam] -= cs
         m = damage_msg(d, skill.type) + "(<span class='attr'>Hp</span>:<span class='damage'>-#{d}</span>)(<span class='attr'>体力</span>:<span class='damage'>-#{cs}</span>)"
         # m = skill.doDamage(context)
-         return "<br/>\n"+translate_msg(m, context)
+        return "<br/>\n"+translate_msg(m, context)
         # return "<br/>\n"+translate_msg(m1+m, context)
     end
     
@@ -416,24 +430,41 @@ end
     
 
     #
-    # Usage: 0: attack 1: defense(parry) 3:dodge
+    # Usage:  attack parry dodge
     #
     def skill_power(skillname, player, usage)
+        p "==>calc #{player.name}skill power of #{skillname} for #{usage}:"
        skill =  player.query_skill(skillname)
        if (skill == nil)
            #logger.info("user #{player[:id]}-#{player.ext[:name]} doesn't have skill '#{skillname}'")
            return 1
        end
        # p = skill.power(context)
-        p = skill.data[:level] * skill.data[:level]  * skill.data[:level] /3 
+       level = skill.data[:level]
+       p "=>level=#{level} apply_attack=#{player.tmp[:apply_attack]}"
+       
+       if (usage == "attack" && player.tmp[:apply_attack] !=  nil)
+           level += player.tmp[:apply_attack]
+       end
+       
+        if (usage == "dodge" && player.tmp[:apply_dodge] != nil)
+           level += player.tmp[:apply_dodge]
+       end  
+       
+       # if (usage == "parry" && player.tmp[:apply_defense] != nil)
+       #      level += player.tmp[:apply_dodge]
+       #  end      
+       
+        p =level**3/3 
         str  = player.tmp[:str]
         dext = player.tmp[:dext]
-        p "===>#{player.tmp.inspect}"
-        
-        if (usage == "attack")
-            p =   (p + calc_total_exp(player.tmp[:level]) +1) / 30 * (( str+1)/10)
+         p "===>#{player.tmp.inspect}"
+        total_exp = calc_total_exp(player.tmp[:level])
+        p "==>total exp #{total_exp}"
+        if (usage == "attack" || usage == "parry")
+            p =   (p + total_exp +1) / 30 * (( str+1)/10)
         else
-            p =   (p + calc_total_exp(player.tmp[:level]) +1) / 30 * (( dext+1)/10)
+            p =   (p + total_exp +1) / 30 * (( dext+1)/10)
         end
         
        if p <= 0
@@ -502,14 +533,21 @@ end
             }
             
             # perform ?
-            p "==>#{attacker.name} willperfrom:#{ attacker.tmp[:willperform]}"
-            if attacker.tmp[:perform]!= nil && rand(attacker.tmp[:maxhp])< attacker.tmp[:willperform]
+              _perp= rand(attacker.tmp[:maxhp])
+            p "==>#{attacker.name} willperform:#{ attacker.tmp[:willperform]}, _perp=#{_perp}, perform=#{attacker.tmp[:perform].inspect}"
+          
+            
+            if attacker.tmp[:perform]!= nil &&_perp< attacker.tmp[:willperform]
+                p "==>#{attacker.name} do perform #{attacker.tmp[:perform].dname}!"
                 attacker.tmp[:perform].perform(context_a)
                 context_a[:action] = attacker.tmp[:perform].getAttackAction
+                attacker.tmp[:willperform] =0
+                _attack_skill = attacker.tmp[:perform]
             else
                 # get attack action
                 context_a[:action] = attacker[:attack_skill][:skill].getAttackAction
                 # attacker[:attack_skill][:skill].getAttackActionMsg(context_a)
+                _attack_skill = attacker[:attack_skill][:skill]
             end
             
            # query_skill(attacker[:attack_skill][:skill][:skname], "doAttack", attackerattack_skill][:skill], context_a)
@@ -517,17 +555,17 @@ end
           #  dname = attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname
           #   msg += "<br/>\n【#{dname}】"+translate_msg(context_a[:msg], context_a)
                
-               msg += "<br/>\n"+translate_msg(action_msg(attacker[:attack_skill][:skill], context_a[:action]), context_a)
+               msg += "<br/>\n"+translate_msg(action_msg(_attack_skill, context_a[:action]), context_a)
               
              #
              # hit ?
              #
              
-             p "attack skill #{attacker[:attack_skill][:skill][:skname]} level=#{attacker[:attack_skill][:skill][:level]}\n"
+             p "attack skill #{_attack_skill[:skname]} level=#{_attack_skill[:level]}\n"
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
            #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
-                attack_power = skill_power(attacker[:attack_skill][:skill][:skname], context_a[:user], "attack")
+                attack_power = skill_power(_attack_skill[:skname], context_a[:user], "attack")
            #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
               if (defenser.tmp[:stam]<=0)
                   dodge_power = 0
@@ -558,10 +596,11 @@ end
                     defenser.tmp[:pot] += 1
                     
                     gain_point = 1
-                    context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
+                    # context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
+                    gain_skill_point(context_d[:gain], defenser[:dodge_skill][:skill], gain_point)
                     if (defenser[:canGain])
                         msg += "<div class='rgain'>"
-                        msg += "<br/> 战斗经验+1 潜能+1 #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}+#{gain_point}"
+                        msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                         if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
                              context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
                              msg +="<br/> #{defenser[:dodge_skill][:skill].dname} level up !"
@@ -645,8 +684,9 @@ end
                  end # has parry
                  
                  # 
-                  msg += "pp:#{parry_power} ap:#{attack_power}"
-                 if (rand(parry_power  + attack_power  ) >= attack_power ) # can parry
+                 _perp = rand(parry_power  + attack_power  )
+                  msg += "pp:#{parry_power} ap:#{attack_power} _perp=#{_perp}"
+                 if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded
                      #
@@ -658,7 +698,8 @@ end
                          context_d[:gain][:pot] += 1
                          defenser.tmp[:pot] += 1
                          gain_point = 1
-                         context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
+                         # context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
+                         gain_skill_point(context_d[:gain], defenser[:defense_skill][:skill], gain_point)
                          msg += "<div class='rgain'>"
                          msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                          if (improve_skill(defenser, defenser[:defense_skill][:skill][:skname], gain_point) )
@@ -674,20 +715,21 @@ end
                     #
                     # do damage
                     context_a[:damage] = damage
-                    msg += doDamage(attacker[:attack_skill], context_a, attack_power)
+                    msg += doDamage(_attack_skill, context_a, attack_power)
                     if ( rand(attacker.tmp[:it]+1) > 10)
                         context_a[:gain][:exp] += 1
                         attacker.tmp[:exp] += 1
                         context_a[:gain][:pot] += 1
                         attacker.tmp[:pot] += 1
                         gain_point = 1
-                        context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
+                        gain_skill_point(context_a[:gain], _attack_skill, gain_point)
+                        # context_a[:gain][:skills][_attack_skill[:skname]][:point] += gain_point
                         if attacker[:canGain]
                             msg += "<div class='rgain'>"
                             msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
-                            if (improve_skill(attacker, attacker[:attack_skill][:skill][:skname], gain_point) )
-                                context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
-                                msg +="<br/> <span>#{attacker[:attack_skill][:skill][:skname]} level up !</span>"
+                            if (improve_skill(attacker, _attack_skill[:skname], gain_point) )
+                                context_a[:gain][:skills][_attack_skill[:skname]][:level] +=1
+                                msg +="<br/> <span>#{_attack_skill[:skname]} level up !</span>"
                             end
                             msg += "</div>"
                         end
@@ -698,14 +740,19 @@ end
             end # hit, check parry
              
              # show status
-             msg += '<div class="status">'+"\n"
-             msg += "<div class='st_lines' id='p#{attacker.id}'>#{attacker[:user]}  <span class='attr'>hp</span>:#{attacker.tmp[:hp]} <span class='attr'>体力</span>:#{attacker.tmp[:stam]}</div>\n"
-             msg += "<div class='st_lines' id='p#{defenser.id}'>#{defenser[:user]}  <span class='attr'>hp</span>:#{defenser.tmp[:hp]} <span class='attr'>体力</span>:#{defenser.tmp[:stam]}</div>\n"
-             msg += "</div>"
+             msg += status_lines(attacker, defenser)
+            
              
              translate_msg(msg, context_a)
     end
-    
+    def status_lines(attacker, defenser)
+        msg =""
+     msg += '<div class="status">'+"\n"
+             msg += "<div class='st_lines' id='p#{attacker.id}'><span class='stl_playername'>#{attacker[:user]}</span><span class='attr'>hp</span>:<span class='st_v'>#{attacker.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{attacker.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{attacker.tmp[:willperform]}</span></div>\n"
+             msg += "<div class='st_lines' id='p#{defenser.id}'><span class='stl_playername'>#{defenser[:user]}</span><span class='attr'>hp</span>:<span class='st_v'>#{defenser.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{defenser.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{defenser.tmp[:willperform]}</span></div>\n"
+             msg += "</div>"
+             return msg
+    end
     # def calcPlayerLoad(p1)
     #     weight = 0
     # 
@@ -788,14 +835,37 @@ end
     end
     
     
+    #
+    # apply_attack: for calc attack power, give skill chance to enhance attack power
+    # apply_damage: for calc damage, give weapon chance to enhance damage
+    # apply_dodge: for calc dodge power, give skill chance to enhance dp
+    # apply_defense: for calc parry power, give armo chance to enhance pp
     def calc_apply_var(p1)
-        
+        p1.tmp[:apply_attack] = 0 if !p1.tmp[:apply_attack]
+        p1.tmp[:apply_dodge] = 0 if !p1.tmp[:apply_dodge]
+        p1.tmp[:apply_damage] = 0 if !p1.tmp[:apply_damage]
+        p1.tmp[:apply_defense] = 0 if !p1.tmp[:apply_defense]
         p1.tmp[:apply_dodge] = 0-p1.query_all_weight
-        p1.tmp[:apply_damage] = p1.query_weapon_damage
+        if (p1.hasWeapon?)
+            p1.tmp[:apply_damage] = p1.query_weapon_damage
+        else
+            p1.tmp[:apply_damage] = 5 # unarmed damage
+        end
+         
         p1.tmp[:apply_defense] = p1.query_armo_defense
-   
     end
-    # 
+    
+    def gain_skill_point(gain, skill, gain_point)
+        if !gain[:skills][skill[:skname]]
+            gain[:skills][skill[:skname]] ={
+                    :skill => skill,
+                    :point => 0,
+                    :level => 0,
+                    :dname =>skill.dname
+                }
+        end
+        gain[:skills][skill[:skname]][:point] += gain_point
+    end
     # the core fight function
     # p1,p2: Player or NPC
     # return: 1: p1 win 0: p2 win -1: duce
@@ -810,6 +880,8 @@ end
         # p1.tmp[:apply_damage] = p1.query_weapon_damage
         # p1.tmp[:apply_dodge]  = 0-p1.query_all_weight
         # p1.tmp[:apply_defense] = p1.query_armo_defense 
+        
+        
         
         calc_apply_var(p1)
         p "====>p1 load: #{p1.tmp[:apply_dodge]} damage:#{p1.tmp[:apply_damage]} defense:#{p1.tmp[:apply_defense]  }"
@@ -884,7 +956,7 @@ end
         else
              skill_types.push("unarmed") if !skill_types.include?"unarmed"
         end
-        p1.tmp[:perfrom] = chooseBestPerform(p1, skill_types)
+        p1.tmp[:perform] = chooseBestPerform(p1, skill_types)
                 
         
         
@@ -930,7 +1002,7 @@ end
         else
              skill_types.push("unarmed") if !skill_types.include?"unarmed"
         end
-        p2.tmp[:perfrom] = chooseBestPerform(p2, skill_types)
+        p2.tmp[:perform] = chooseBestPerform(p2, skill_types)
                 
        
         gain_p1 = {
@@ -1017,10 +1089,7 @@ end
         style_c = "user"
             
             # show status
-             msg += '<div class="status">'+"\n"
-             msg += "<div class='st_lines' id='p#{attacker.id}'>#{attacker[:user]}  <span class='attr'>hp</span>:#{attacker.tmp[:hp]} <span class='attr'>体力</span>:#{attacker.tmp[:stam]}</div>\n"
-             msg += "<div class='st_lines' id='p#{defenser.id}'>#{defenser[:user]}  <span class='attr'>hp</span>:#{defenser.tmp[:hp]} <span class='attr'>体力</span>:#{defenser.tmp[:stam]}</div>\n"
-             msg += "</div>"
+          msg += status_lines(attacker, defenser)
        
         winner = nil
         while (i < 100 ) # max 100 turn
@@ -1216,5 +1285,6 @@ end
         elsif index_player_team2 == index_player_team1
             return -1
         end
+            
             
     end
