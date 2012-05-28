@@ -357,8 +357,14 @@ class User < ActiveRecord::Base
     
     def self.get(id)
         flat = false
+        r = nil
         if (!get_flag(id, "db_changed")) 
-            r = $memcached.get(id.to_s)
+            begin
+                r = $memcached.get(id.to_s)
+            rescue Exception => e
+                logger.error e
+                 p e.inspect
+             end
             if r
                 p "found in cache!"
             end

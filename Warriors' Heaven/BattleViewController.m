@@ -82,7 +82,7 @@
         url = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], bossImage];
  
     EGOImageButton * btBoss = [[EGOImageButton alloc]initWithFrame:CGRectMake(180, 3, 160, 36)];
-    [btBoss setTitle:@"挑战Boss" forState:UIControlStateNormal];
+//    [btBoss setTitle:@"挑战Boss" forState:UIControlStateNormal];
     [vTitleView addSubview:btBoss];
     btBoss.imageURL = [NSURL URLWithString:url];
     btBoss.imageView.contentMode = UIViewContentModeScaleToFill;

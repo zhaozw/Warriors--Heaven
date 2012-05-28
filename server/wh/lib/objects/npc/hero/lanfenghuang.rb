@@ -82,7 +82,7 @@ class Lanfenghuang < Npc
         # set_equipment("handright", eq)
         wear("handright", eq)
         
-        eq = create_equipment("objects/equipments/Tianchanjia")
+        eq = create_equipment("objects/equipments/tianchanjia")
         # set_equipment("handright", eq)
         wear("body", eq)
         
