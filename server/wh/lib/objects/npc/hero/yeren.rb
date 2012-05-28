@@ -86,7 +86,7 @@ class Yeren < Npc
         "obj/npc/weizhangtianxin_home.gif"
     end
     
-    def lengendImage
+    def legendImage
         "obj/npc/yeren_legend.jpg"
     end
 

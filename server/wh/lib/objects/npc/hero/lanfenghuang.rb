@@ -104,7 +104,7 @@ class Lanfenghuang < Npc
         "obj/npc/weizhangtianxin_home.gif"
     end
     
-    def lengendImage
+    def legendImage
         "obj/npc/lanfenghuang_legend.jpg"
     end
 

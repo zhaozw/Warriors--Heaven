@@ -74,7 +74,7 @@
     [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
 
 
-    NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"lengendImage"];
+    NSString* bossImage = [[[ad getDataUser] valueForKey:@"hero"] valueForKey:@"legendImage"];
     NSString* url = NULL;
     if ([bossImage characterAtIndex:0]=='/')
          url = [NSString stringWithFormat:@"http://%@:%@/game%@", [ad host], [ad port], bossImage];
@@ -274,7 +274,7 @@
     
     for (int i= 0; i < [heroList count]; i++) {
         NSObject * o = [heroList objectAtIndex:i];
-        NSString * image = [o valueForKey:@"lengendImage"];
+        NSString * image = [o valueForKey:@"legendImage"];
         int level  = [[o valueForKey:@"level"] intValue];
         NSObject* defeated = [o valueForKey:@"defeated"];
         NSObject* locked = [o valueForKey:@"locked"];

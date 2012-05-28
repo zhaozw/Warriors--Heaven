@@ -87,7 +87,7 @@ class WhController < ApplicationController
          
          npc = create_npc("#{hero_name}")
          user_data[:hero]={
-             :lengendImage => npc.lengendImage
+             :legendImage => npc.legendImage
          }
          render :text=>user_data.to_json
          
@@ -696,7 +696,7 @@ class WhController < ApplicationController
         list = hero_list
         list.each {|r|
             o = loadGameObject(r[:name])
-            r[:lengendImage] = o.lengendImage
+            r[:legendImage] = o.legendImage
             defeatHero = user_data.ext.get_prop("defeatHero") 
             if (defeatHero && defeatHero.include?(r[:name]))
                 r[:defeated] = 1

@@ -105,7 +105,7 @@ class Blackknight < Npc
         "obj/npc/weizhangtianxin_home.gif"
     end
     
-    def lengendImage
+    def legendImage
         "obj/npc/guiwuzhe_legend.jpg?r=3"
     end
 

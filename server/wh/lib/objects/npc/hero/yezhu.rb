@@ -85,7 +85,7 @@ class Yezhu < Npc
         "obj/npc/weizhangtianxin_home.gif"
     end
     
-    def lengendImage
+    def legendImage
         "obj/npc/yezhu_legend.jpg"
     end
 

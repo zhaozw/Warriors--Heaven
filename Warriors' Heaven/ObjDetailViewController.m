@@ -93,14 +93,14 @@
     if ([type isEqualToString:@"buy"]){
         viewType = @"buy";
         [btTrade setTitle:@"购买" forState:UIControlStateNormal];
-        [btTrade addTarget:[self parentViewController] action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
+//        [btTrade addTarget:[self parentViewController] action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
         slbPrice.text = @"买入价格";
     }
     else if ([type isEqualToString:@"sell"]){
        
         viewType = @"sell";
         [btTrade setTitle:@"卖出" forState:UIControlStateNormal];
-        [btTrade addTarget:[self parentViewController] action:@selector(onSell1:) forControlEvents:UIControlEventTouchUpInside];
+//        [btTrade addTarget:[self parentViewController] action:@selector(onSell1:) forControlEvents:UIControlEventTouchUpInside];
          slbPrice.text = @"卖出价格";
     }
 }
@@ -145,7 +145,12 @@
         btnUse.hidden = NO;
     }
 }
-
+- (void) setOnTrade:(id)c  sel:(SEL) sel{
+    if (c && sel){
+//        [btTrade removeTarget:self action:@selector(onFight:) forControlEvents:UIControlEventTouchUpInside];
+        [btTrade addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+    }
+}
 - (void) hideDetailView{
     [self view].hidden = YES;
 }

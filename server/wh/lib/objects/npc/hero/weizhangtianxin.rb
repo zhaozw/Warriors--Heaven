@@ -104,7 +104,7 @@ class Weizhangtianxin < Npc
         "obj/npc/weizhangtianxin_home.gif"
     end
     
-    def lengendImage
+    def legendImage
         "obj/npc/weizhangtianxin_legend.jpg"
     end
 end

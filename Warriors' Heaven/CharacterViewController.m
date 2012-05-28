@@ -579,6 +579,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [ad.window addSubview:[vcObjDetail view]];
     [vcObjDetail hideDetailView];
     [vcObjDetail setViewType:@"sell"];
+    [vcObjDetail setOnTrade:self sel:@selector(onSell1:)];
     vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
 
 }

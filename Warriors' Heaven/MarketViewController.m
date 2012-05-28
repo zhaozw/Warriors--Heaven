@@ -83,7 +83,7 @@
     [[ad window] addSubview:[vcObjDetail view]];
     vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
     [vcObjDetail setViewType:@"buy"];
-   
+   [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
     [self updateData];
     
     
