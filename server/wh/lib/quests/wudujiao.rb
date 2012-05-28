@@ -188,7 +188,7 @@ class Wudujiao < Quest
             q = r
       end
       
-      if !q
+      if q==nil
           q = globalq(qid)
       end
                              p "====>zhanyikaishi22"           
