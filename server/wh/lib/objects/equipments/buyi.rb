@@ -1,4 +1,5 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/equipments/armo.rb'
+
 
 class Buyi  < Armo
     def initialize
