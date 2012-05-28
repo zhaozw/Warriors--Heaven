@@ -12,7 +12,7 @@ class CreateUserskills < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index(:userskills, ["uid"], {:unique=>true})
+    # add_index(:userskills, ["uid"], {:unique=>true})
 #    add_index(:users, ["sid"], {:unique=>true})
     add_index(:userskills, ["uid", "skname"], {:unique=>true})
   end

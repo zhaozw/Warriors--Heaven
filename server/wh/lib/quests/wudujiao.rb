@@ -1,3 +1,4 @@
+require "quests/quest.rb"
 require "fight.rb"
 class Wudujiao < Quest 
     def dname
