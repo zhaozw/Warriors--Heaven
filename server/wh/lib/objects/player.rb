@@ -259,7 +259,11 @@ class Player < Human
     
     def recover
 
-        diff = Time.now - ext[:updated_at]
+        if ext[:updated_at]
+            diff = Time.now - ext[:updated_at]
+        else
+            diff = 10000000000
+        end
     
         rate = 100 # recover 1/100 of max per second
         

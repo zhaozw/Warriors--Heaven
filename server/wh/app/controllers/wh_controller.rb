@@ -389,7 +389,11 @@ class WhController < ApplicationController
         #     ext.save if save
         #     return true
         # end
-        diff = Time.now - ext[:updated_at]
+        if ext[:updated_at]
+            diff = Time.now - ext[:updated_at]
+        else
+            diff = 10000000000
+        end
         p "===> time diff #{diff}, #{ext[:zhanyi]}"
         ext[:zhanyi] += diff/36    # recover 100 per hour
         if ( ext[:zhanyi] > 100)
@@ -408,10 +412,15 @@ class WhController < ApplicationController
     def recoverPlayer(ext)
 #        p "update time #{ext[:updated_at].class}"
  #       p "now #{Time.now.class}"
-        if (!ext || !ext[:updated_at])
-            return
+        # if (!ext || !ext[:updated_at])
+        #     return
+        # end
+        
+        if ext[:updated_at]
+            diff = Time.now - ext[:updated_at]
+        else
+            diff = 10000000000
         end
-        diff = Time.now - ext[:updated_at]
         
         if ext[:hp] < ext[:maxhp]
             ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
