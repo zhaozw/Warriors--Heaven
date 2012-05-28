@@ -251,9 +251,13 @@
     NSLog(@"load session id %@", session_id);
     
     
+    // get server list
+    WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
+    [client1 setRetry:YES];    
+    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
-    if (!session_id){
+    if (session_id){
 /*        // show registeration
         UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
         [vReg setUserInteractionEnabled:YES];
@@ -270,11 +274,18 @@
         
         //    [self checkNetworkStatus];
         
+        data_user = [self readUserObject];
+        
+        
+        
         // load user data
-//        data_user = [self readUserObject];
+        
 //
 //        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
 //            data_user = NULL;
+        
+        
+        
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client setRetry:YES];    
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
@@ -304,6 +315,33 @@
     return YES;
 }
 
+- (void) onServerListReturn:(NSString*)data{
+    if (data)
+    {
+        int _uid = -1;
+        id uid = NULL;
+        if (data_user){
+            uid= [[self getDataUser] valueForKey:@"id"] ;
+            if (uid)
+                _uid= [uid intValue];
+        }
+        if (_uid >=0){
+            _uid = _uid- _uid/10*10;
+        }
+        NSString *suid = [NSString stringWithFormat:@"%d", _uid];
+        NSObject* server_assigned = NULL;
+        NSObject* serverList = [data JSONValue];
+        if (serverList){
+            server_assigned = [serverList valueForKey:suid];
+            if (!server_assigned)
+                server_assigned = [serverList valueForKey:@"default"];
+        }
+        if (server_assigned){
+            host = [server_assigned valueForKey:@"server"];
+            port = [server_assigned valueForKey:@"port"] ;
+        }
+    }
+}
 - (void) hideWelcomeView{
     bShowingWelcome = NO;
     if (!bFirstCallReturn)

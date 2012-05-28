@@ -193,7 +193,7 @@ class WhController < ApplicationController
             :user=>params[:name],
             :sid=>sid,
              :age=>16,
-             :race=> 0,
+             # :race=> 0,
              :sex=> sex,
              :title=> "新人",
              :profile=>params[:profile]
