@@ -689,7 +689,7 @@ class WhController < ApplicationController
         
     def listHeroes
         l = user_data.ext[:level].to_i
-        h_level = getNextStageLevel(level)
+        h_level = getNextStageLevel(l)
         list = hero_list
         list.each {|r|
             o = loadGameObject(r[:name])

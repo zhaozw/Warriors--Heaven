@@ -62,10 +62,10 @@
 //    host = @"localhost.joyqom.com";
 //host = @"192.168.0.24";
 //    host = @"localhost";
-   host = @"127.0.0.1";
-//  host = @"wh.joyqom.com";
+//   host = @"127.0.0.1";
+  host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
     port = @"80";
     bUserEqNeedUpdated = FALSE;
 //    bUpadtingStatus = false;
@@ -254,7 +254,7 @@
     // get server list
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
     [client1 setRetry:YES];    
-    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+//    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
     if (!session_id){

@@ -117,7 +117,6 @@
 		5AA8C2D61508048D001C5BD3 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2C91508048D001C5BD3 /* SBJsonUTF8Stream.m */; };
 		5AA8C2D71508048D001C5BD3 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2CB1508048D001C5BD3 /* SBJsonWriter.m */; };
 		5AA8C2DA150814DB001C5BD3 /* WHHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8C2D9150814DB001C5BD3 /* WHHttpClient.m */; };
-		5AAA2FE7152B8114002E6FCF /* logo16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA2FE6152B8114002E6FCF /* logo16.jpg */; };
 		5AAA2FEC152C58D6002E6FCF /* QuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA2FEA152C58D5002E6FCF /* QuestViewController.m */; };
 		5AAA2FED152C58D6002E6FCF /* QuestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA2FEB152C58D6002E6FCF /* QuestViewController.xib */; };
 		5AAA2FF1152C5FE7002E6FCF /* bg_quest1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AAA2FF0152C5FE7002E6FCF /* bg_quest1.jpg */; };
@@ -153,7 +152,6 @@
 		5ADF4D4515468ED000D2D44F /* bg9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4215468ED000D2D44F /* bg9.jpg */; };
 		5ADF4D4615468ED000D2D44F /* bg8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4315468ED000D2D44F /* bg8.jpg */; };
 		5ADF4D4715468ED000D2D44F /* bg7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4415468ED000D2D44F /* bg7.jpg */; };
-		5ADF4D491546A27000D2D44F /* logo16-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D481546A26D00D2D44F /* logo16-1.jpg */; };
 		5ADF4D4B1546A86B00D2D44F /* logo001.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4A1546A86700D2D44F /* logo001.png */; };
 		5ADF4D4D1546A93C00D2D44F /* logo0012.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4C1546A93700D2D44F /* logo0012.png */; };
 		5ADF4D4F1546AC7400D2D44F /* bg9-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D4E1546AC7200D2D44F /* bg9-2.jpg */; };
@@ -322,7 +320,6 @@
 		5AA8C2CB1508048D001C5BD3 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		5AA8C2D8150814DB001C5BD3 /* WHHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WHHttpClient.h; sourceTree = "<group>"; };
 		5AA8C2D9150814DB001C5BD3 /* WHHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WHHttpClient.m; sourceTree = "<group>"; };
-		5AAA2FE6152B8114002E6FCF /* logo16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo16.jpg; sourceTree = "<group>"; };
 		5AAA2FE9152C58D5002E6FCF /* QuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestViewController.h; sourceTree = "<group>"; };
 		5AAA2FEA152C58D5002E6FCF /* QuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestViewController.m; sourceTree = "<group>"; };
 		5AAA2FEB152C58D6002E6FCF /* QuestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestViewController.xib; sourceTree = "<group>"; };
@@ -366,7 +363,6 @@
 		5ADF4D4215468ED000D2D44F /* bg9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg9.jpg; sourceTree = "<group>"; };
 		5ADF4D4315468ED000D2D44F /* bg8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg8.jpg; sourceTree = "<group>"; };
 		5ADF4D4415468ED000D2D44F /* bg7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg7.jpg; sourceTree = "<group>"; };
-		5ADF4D481546A26D00D2D44F /* logo16-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "logo16-1.jpg"; sourceTree = "<group>"; };
 		5ADF4D4A1546A86700D2D44F /* logo001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo001.png; sourceTree = "<group>"; };
 		5ADF4D4C1546A93700D2D44F /* logo0012.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo0012.png; sourceTree = "<group>"; };
 		5ADF4D4E1546AC7200D2D44F /* bg9-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg9-2.jpg"; sourceTree = "<group>"; };
@@ -754,11 +750,9 @@
 				5ADF4D4115468E8700D2D44F /* bg */,
 				5ADF4D281543BF0100D2D44F /* tabs */,
 				5A9C75AC1542B2F500275F04 /* buttons */,
-				5AAA2FE6152B8114002E6FCF /* logo16.jpg */,
 				5A2687901570127500F34279 /* logo16-3.jpg */,
 				5ADF4D4A1546A86700D2D44F /* logo001.png */,
 				5ADF4D4C1546A93700D2D44F /* logo0012.png */,
-				5ADF4D481546A26D00D2D44F /* logo16-1.jpg */,
 				5AC06A3115265F390021B7FB /* logo57x57.png */,
 				5AC06A33152660C30021B7FB /* logo72x72.jpg */,
 				5A646A8B156E967E0040EECD /* unknown.jpg */,
@@ -902,7 +896,6 @@
 				5AC06A261525ED4E0021B7FB /* bt_close.png in Resources */,
 				5AC06A3215265F3A0021B7FB /* logo57x57.png in Resources */,
 				5AC06A34152660C40021B7FB /* logo72x72.jpg in Resources */,
-				5AAA2FE7152B8114002E6FCF /* logo16.jpg in Resources */,
 				5AAA2FED152C58D6002E6FCF /* QuestViewController.xib in Resources */,
 				5AAA2FF1152C5FE7002E6FCF /* bg_quest1.jpg in Resources */,
 				5AAA2FF3152C637E002E6FCF /* bg_task_title.png in Resources */,
@@ -931,7 +924,6 @@
 				5ADF4D4515468ED000D2D44F /* bg9.jpg in Resources */,
 				5ADF4D4615468ED000D2D44F /* bg8.jpg in Resources */,
 				5ADF4D4715468ED000D2D44F /* bg7.jpg in Resources */,
-				5ADF4D491546A27000D2D44F /* logo16-1.jpg in Resources */,
 				5ADF4D4B1546A86B00D2D44F /* logo001.png in Resources */,
 				5ADF4D4D1546A93C00D2D44F /* logo0012.png in Resources */,
 				5ADF4D4F1546AC7400D2D44F /* bg9-2.jpg in Resources */,
