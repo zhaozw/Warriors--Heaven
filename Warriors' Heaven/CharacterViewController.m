@@ -575,7 +575,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
     
 
-    [self addChildViewController:vcObjDetail];
+//    [self addChildViewController:vcObjDetail];
     [ad.window addSubview:[vcObjDetail view]];
     [vcObjDetail hideDetailView];
     [vcObjDetail setViewType:@"sell"];
