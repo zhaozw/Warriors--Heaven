@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
+  add_index "battles", ["attacker"], :name => "index_battles_on_attacker"
+  add_index "battles", ["defenser"], :name => "index_battles_on_defenser"
+  add_index "battles", ["ftype"], :name => "index_battles_on_ftype"
+  add_index "battles", ["status"], :name => "index_battles_on_status"
+  add_index "battles", ["updated_at"], :name => "index_battles_on_updated_at"
+  add_index "battles", ["winner"], :name => "index_battles_on_winner"
+
   create_table "equipment", :force => true do |t|
     t.string   "eqname"
     t.string   "eqtype"
@@ -31,8 +38,11 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
+  add_index "equipment", ["owner"], :name => "index_equipment_on_owner"
+
   create_table "globalquests", :force => true do |t|
     t.string   "name"
+    t.integer  "stat"
     t.text     "prop"
     t.datetime "finishedat"
     t.datetime "created_at"
@@ -40,7 +50,7 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+    t.string   "session_id", :default => "", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -92,12 +102,16 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
+  add_index "usereqs", ["sid"], :name => "index_usereqs_on_sid", :unique => true
+  add_index "usereqs", ["uid"], :name => "index_usereqs_on_uid", :unique => true
+
   create_table "userexts", :force => true do |t|
     t.integer  "uid"
     t.string   "name"
     t.integer  "gold"
     t.integer  "exp"
     t.integer  "level"
+    t.string   "lastact"
     t.text     "prop"
     t.string   "sid"
     t.integer  "hp"
@@ -116,19 +130,23 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.integer  "zhanyi",     :default => 100
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "lastact"
   end
+
+  add_index "userexts", ["sid"], :name => "index_userexts_on_sid", :unique => true
+  add_index "userexts", ["uid"], :name => "index_userexts_on_uid", :unique => true
 
   create_table "userquests", :force => true do |t|
     t.string   "sid"
     t.integer  "uid"
     t.string   "name"
     t.integer  "progress"
+    t.integer  "count"
     t.text     "prop"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "count"
   end
+
+  add_index "userquests", ["uid"], :name => "index_userquests_on_uid", :unique => true
 
   create_table "userrsches", :force => true do |t|
     t.integer  "uid"
@@ -139,18 +157,18 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
-  add_index "userrsches", ["uid", "sid", "skname"], :name => "idx1", :unique => true
+  add_index "userrsches", ["uid", "sid", "skname"], :name => "index_userrsches_on_uid_and_sid_and_skname", :unique => true
+  add_index "userrsches", ["uid"], :name => "index_userrsches_on_uid", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "user"
     t.string   "sid"
     t.integer  "age"
-    t.integer  "race"
     t.integer  "sex"
     t.string   "title"
+    t.integer  "profile"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "profile"
   end
 
   add_index "users", ["sid"], :name => "index_users_on_sid", :unique => true
@@ -170,5 +188,6 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
   end
 
   add_index "userskills", ["uid", "skname"], :name => "index_userskills_on_uid_and_skname", :unique => true
+  add_index "userskills", ["uid"], :name => "index_userskills_on_uid", :unique => true
 
 end
