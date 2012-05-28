@@ -56,7 +56,8 @@
 
 		line_number = 0;
 		TextArray = [];
-		reg = /<div([\s\S])*?div>/ig;
+		// reg = /<div([\s\S])*?div>/ig;
+		reg =/<!--1-->([\s\S])*?<!--0-->/ig;
 		while ((res = reg.exec(msg)) != null)  
 		{  
   

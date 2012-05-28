@@ -314,7 +314,7 @@
         [logo setFrame:CGRectMake(1, 5, 50, 50)];
         [row addSubview:logo];
         
-        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 50, 15)];
+        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 100, 15)];
         [lbInfo setOpaque:NO];
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
 //        [lbInfo setAdjustsFontSizeToFitWidth:YES];

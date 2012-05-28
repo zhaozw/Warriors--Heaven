@@ -1,7 +1,7 @@
 require 'objects/object.rb'
 
 
-class Ginseng < Herb
+class Lingzhi < Herb
     
     def dname
         "灵芝"

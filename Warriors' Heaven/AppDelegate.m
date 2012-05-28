@@ -150,12 +150,7 @@
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
     
-    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
-//    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
-    [lbAlertMsg setMinimumFontSize:0.1f];
-    [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
-    [lbAlertMsg setNumberOfLines:3];
-    [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
+
     
     // init help view
     vHelp.frame = CGRectMake(20, 60, 250, 300);
@@ -172,13 +167,7 @@
     
     [vcStatus view].frame = CGRectMake(0, 0, 320, 65);
     
-    // show welcome view
-    bShowingWelcome = TRUE;
-    vWelcome.backgroundColor = [UIColor whiteColor];
-    vWelcome.opaque = YES;
-    [window bringSubviewToFront:vWelcome];
-    tabBarController.view.hidden = YES;
-    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+
     
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
@@ -251,8 +240,17 @@
     [window addSubview:vAlert];
     
     
+    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+    //    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+    [lbAlertMsg setMinimumFontSize:0.1f];
+    [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
+    [lbAlertMsg setNumberOfLines:3];
+    [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
+    
     session_id = [self readSessionId];
     NSLog(@"load session id %@", session_id);
+    
+    
     
 //    if (true){
     if (!session_id){
@@ -287,8 +285,14 @@
 //         
 //        }
         
-        
-        [self initUI];
+        // show welcome view
+        bShowingWelcome = TRUE;
+        vWelcome.backgroundColor = [UIColor whiteColor];
+        vWelcome.opaque = YES;
+        [window bringSubviewToFront:vWelcome];
+        tabBarController.view.hidden = YES;
+        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+//        [self initUI];
     }
        [window bringSubviewToFront:vMsgFloat];
   
@@ -348,6 +352,8 @@
     
 }
 - (void) onReceiveStatus:(NSObject *) data{
+    if (!bFirstCallReturn)
+         [self initUI];
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"data_user %@", [data_user JSONRepresentation]);

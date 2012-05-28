@@ -65,7 +65,7 @@ class Qishangquan < Game::Skill
            {
                :level=>0,
                :name=>"催心诀",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「催心诀，双拳一股刚猛之力$n人击去",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「催心诀，双拳一股刚猛之力$n击去",
                :damage => 10
                #:damage_type=>""
            },

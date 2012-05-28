@@ -1,6 +1,7 @@
 class Tradable < ActiveRecord::Base
     def after_initialize
         t = self
+        begin
             _t = Equipment.load_equipment(t[:name], t)
             t[:dname] = _t.dname
             t[:desc] = _t.desc
@@ -11,6 +12,10 @@ class Tradable < ActiveRecord::Base
             t[:intro] = _t.intro
             t[:image] = _t.image
             t[:rank] = _t.rank
+        rescue Exception =>e
+            logger.error e.inpsect
+            p e.insepct
+        end
     end
     def []=(k,v)
        super 

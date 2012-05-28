@@ -36,7 +36,7 @@ def hero_list
             :level=>25,
         },
        {
-            :name=>  "objects/npc/hero/guiwuzhe",
+            :name=>  "objects/npc/hero/blackknight",
             :level=>30,
         },
        {

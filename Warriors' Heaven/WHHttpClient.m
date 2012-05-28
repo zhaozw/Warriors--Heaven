@@ -162,6 +162,7 @@
     NSLog([NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]);
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, cmd]]];
     [request setHTTPMethod:@"GET"];
+    [request addValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
    
     //if (ad.session_id != nil)
     //[request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];

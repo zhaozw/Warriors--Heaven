@@ -26,6 +26,7 @@ img.player {height:100px;}
 			<!--img id="bg" src="/images/quest_bg.png" style="margin:10 0;height:480px;width:350px;"/-->
 	</div>
 	<img class="player" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].data[:profile].to_i}m.png"%>' />
+	<img class="player" style="position:absolute;left:130px;top:20;" src='<%="#{@serverurl}/images/vs.png"%>' />
 	<img class="player" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].data[:profile].to_i}m.png"%>' />
 	<div class="playername" style="left:50px;">
 		<%=@context[:p1].name%>
@@ -98,10 +99,12 @@ var fullblood_p2 = <%=@full_hp_p2%>
 			
 		line_number = 0;
 		TextArray = [];
-		reg = /<div([\s\S])*?div>/ig;
+		// reg = /<div([\s\S])*?div>/ig;
+		// reg = /([\s\S])*?<br\/>/ig;
+		reg =/<!--1-->([\s\S])*?<!--0-->/ig;
 		while ((res = reg.exec(msg)) != null)  
 		{  
-  
+  		// alert(res);
 			TextArray.push(res[0]);
 		}  
 

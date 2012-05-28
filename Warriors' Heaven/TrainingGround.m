@@ -362,7 +362,7 @@
         [row addSubview:lbSkillTitle];
         
         if ([cat isEqualToString:@"premier"] ){
-            lbSkillTitle.frame = CGRectMake(5, 12, 90, row_height-10);
+            lbSkillTitle.frame = CGRectMake(5, 12, 95, row_height-10);
 
         }
         

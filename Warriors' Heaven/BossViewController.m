@@ -220,6 +220,8 @@
     btnClose.hidden =   NO;
     btnFight.hidden =   NO;
     [wvFight loadHTMLString:@"" baseURL:nil];
+    [ad updateUserext];
+    ad.bUserEqNeedUpdated = YES;
 }
 
 - (IBAction)onTouchClose:(id)sender {
@@ -230,6 +232,23 @@
 //    WHHttpClient* client = [[WHHttpClient alloc] init:self];
 //    NSString* url = [[NSString alloc] initWithFormat:@"/wh/fightHero?name=%@", hero];
 //    [client sendHttpRequest:url selector:@selector(onFightReturn:) json:YES showWaiting:YES];
+    // check hp and stam
+    NSDictionary* ext = [ad getDataUserext];
+    if (ext){
+        int hp = [[ext valueForKey:@"hp"] intValue];
+        int stam = [[ext valueForKey:@"stam"] intValue];
+        if (hp < 0 ){
+            [ad showMsg:@"你的hp不够，好好休息吧" type:1 hasCloseButton:YES];   
+            return;
+        }
+        if (stam <0){
+            [ad showMsg:@"你的体力不够，好好休息吧" type:1 hasCloseButton:YES];   
+            return;
+        }
+        
+        
+    }
+    
     
     lbDesc.hidden = YES;
     vEquipment.hidden = YES;
