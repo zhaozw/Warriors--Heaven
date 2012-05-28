@@ -717,6 +717,7 @@ class WhController < ApplicationController
         ret = {
             :name=>_hero_name,
             :dname=>npc.name,
+            :race=>npc.race,
             :desc=>npc.desc,
             :title=>npc.title,
             :level=>npc.tmp[:level],
