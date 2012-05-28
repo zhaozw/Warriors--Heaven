@@ -654,7 +654,7 @@ class WhController < ApplicationController
     def hero_name
         l = user_data.ext[:level]
         if l==0
-            l = 5
+            h_level = 5
         else
             if l/5*5 == l
                h_level = l
