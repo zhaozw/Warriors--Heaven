@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
              r = User.find_by_sql("select * from users where sid='#{session[:sid]}'")
              if !r or r.size == 0
                 error("session not exist, please reinstall app or login again")
-                eturn false
+                return false
             end
              @userdata = r[0]
              session[:uid] = @userdata[:id]
