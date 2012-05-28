@@ -59,9 +59,18 @@ def hero_list
 end
 
 def BossForLevelupTo(level)
+    if level==0
+            h_level = 5
+        else
+            if level/5*5 == level
+               h_level =  level
+            else
+                h_level = (level+5)/5*5
+            end
+        end
     ar = []
     hero_list.each {|h|
-        if h[:level] <= level
+        if h[:level] <= h_level
             ar.push h
         end
     }

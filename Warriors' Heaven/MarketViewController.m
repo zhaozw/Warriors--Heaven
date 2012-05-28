@@ -79,7 +79,7 @@
     [btPremierEq addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
     [btSpecial addTarget:self action:@selector(selectList:) forControlEvents:UIControlEventTouchUpInside];
 
-     [self addChildViewController:vcObjDetail];
+//     [self addChildViewController:vcObjDetail];
     [[ad window] addSubview:[vcObjDetail view]];
     vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
     [vcObjDetail setViewType:@"buy"];
