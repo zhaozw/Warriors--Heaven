@@ -111,6 +111,7 @@ class Caiyao < Quest
          
                     _context = {:msg=>""}
                     player[:isUser] = true
+                    player[:canGain] = true
                     win = _fight(player, npc, _context)
                     msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "")
                     if (player[:gain][:exp] >0)
