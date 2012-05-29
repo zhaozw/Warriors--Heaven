@@ -430,15 +430,22 @@ end
                         ar.push line
                     end
                     ar.reverse!
+                    if ar.size >0
+                        md = /^\[(.*?)\](.*)$/.match(ar[0])
+                       if md && md[1] 
+                        _t =  Time.parse(md[1]) 
+                        ret[:time] = _t if (_t <=> time) >0
+                        end
+                    end
                     ar.each{|line|
                         # p "line = #{line}"
                         md = /^\[(.*?)\](.*)$/.match(line)
-                        ret[:time] = Time.parse(md[1])
+                        t = Time.parse(md[1])
                         # p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
                         # p "context time #{time.to_f}"
                         # p "==>md2=#{md[2].inspect}"
-                        p ret[:time] <=> time
-                        if ( time && ret[:time] && (ret[:time] <=> time) > 0 ) or time==nil
+                        # p t <=> time
+                        if ( time && t&& (t <=> time) > 0 ) or time==nil
                             ret[:data] ="#{md[2]}\n"+ret[:data]
                         else 
                             break
