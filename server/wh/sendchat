@@ -1,0 +1,1 @@
+sudo ruby sendmsg.rb -1 $1
