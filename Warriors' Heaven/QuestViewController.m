@@ -74,6 +74,8 @@
     vQuestContainer.opaque = NO;
     vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
     [[ad window] addSubview:vQuestContainer];
+    vQuestContainer.userInteractionEnabled = YES;
+    vQuestRoom.userInteractionEnabled = YES;
     vQuestRoom.frame = CGRectMake(0,0, 320, 490);
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];

@@ -439,7 +439,7 @@ end
                         # p "==>md2=#{md[2].inspect}"
                         p ret[:time] <=> time
                         if ( time && ret[:time] && (ret[:time] <=> time) > 0 ) or time==nil
-                            ret[:data]+="#{md[2]}\n"
+                            ret[:data] ="#{md[2]}\n"+ret[:data]
                         else 
                             break
                         end

@@ -70,7 +70,7 @@
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
-    [self recoverWebView];
+//    [self recoverWebView];
     
 }
 - (void) viewDidAppear:(BOOL) animated{
@@ -210,6 +210,7 @@
     [vSummary setBackgroundColor:[UIColor clearColor]];
     [vSummary setOpaque:NO];
 
+    [viewReport setUserInteractionEnabled:YES];
      [viewReport addSubview:vSummary];
         vSummary.frame = CGRectMake(26, 26, 269, 175);
 //    [self recoverWebView];
@@ -429,10 +430,11 @@
         
         NSArray* aurl = [surl componentsSeparatedByString:@"<br\/>"];
         [[ad floatMsg] addObjectsFromArray:aurl];
-            NSLog(@"%@",[request.URL absoluteString]);
-         NSLog(surl);
-            NSLog(@"%d", [aurl count]);
-        NSLog(@"%@",request.URL);
+        
+//            NSLog(@"%@",[request.URL absoluteString]);
+//         NSLog(surl);
+//            NSLog(@"%d", [aurl count]);
+//        NSLog(@"%@",request.URL);
     }
         
     return YES;
