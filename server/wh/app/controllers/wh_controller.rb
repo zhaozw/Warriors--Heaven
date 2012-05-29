@@ -653,7 +653,7 @@ class WhController < ApplicationController
 
     def hero_name
 
-        ar = BossForLevel(h_level)
+        ar = BossForLevel(user_data.ext[:level])
         return ar[0][:name]
         # if l < 5
         #        name = "yezhu"
