@@ -93,9 +93,9 @@ class Caiyao < Quest
                         exp_bonus = 10+rand(user.tmp[:luck])/10
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
-                        msg += "<div><span style='color:#990000'>Quest complete !</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
+                        msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
                         if (levelup)
-                            msg+="<div><span style='color:#990000'>Level Up !</div>"
+                            msg+="<div><span style='color:#990000'>你的等级提升了!</div>"
                         end
 
                     end
@@ -112,7 +112,7 @@ class Caiyao < Quest
                     _context = {:msg=>""}
                     player[:isUser] = true
                     win = _fight(player, npc, _context)
-                    msg +=  _context[:msg]
+                    msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "")
                     if (player[:gain][:exp] >0)
                         msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                     end
@@ -121,7 +121,7 @@ class Caiyao < Quest
                     end
                
                     p "===>msg=#{msg}"
-                    if (win)
+                    if (win == 1)
                         # eqs = npc.query_all_equipments
                         #  eqs.each {|k,v|
                         #      user.get_obj(v)

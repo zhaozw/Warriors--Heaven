@@ -305,16 +305,29 @@ end
              logger.error e
          end
     end
-    def delete_msg(ch)
-        id = ch.to_i
-        if id < 0 
-            dir = "chat" if id == -1
-            dir = "rumor" if id == -2
+    def get_msg_file(ch)
+        if (ch.class == Fixnum)
+            id = ch.to_i
+            if id < 0 
+                dir = "chat" if id == -1 
+                dir = "rumor" if id == -2 
+            else
+                dir = id/100
+            end
         else
-            dir = id/100
+            dir = ch
+            id=-1 if ch == "chat"
+            id=-2 if ch == "rumor"
         end
-        dir = "/var/wh/message/#{dir.to_s}"     
+ 
+        dir = "/var/wh/message/#{dir.to_s}"  
+        FileUtils.makedirs(dir)   
         fname = "#{dir}/#{id}"
+        return fname
+        
+    end
+    def delete_msg(ch)
+       fname = get_msg_file(ch)
         begin
             if FileTest::exists?(fname) 
                 aFile = File.new(fname, "w")
@@ -328,7 +341,7 @@ end
     end
     
     def public_channel
-        ["chat, rumor"]
+        ["chat", "rumor"]
     end
     def query_msg(uid, ch_array, delete=false)
         d = ""
@@ -336,48 +349,48 @@ end
         data = query_filedata(uid)
         if data
             lastread = get_prop(data, "lastread")
-             p "=>last read = #{lastread.inspect}, data=#{data}"
+             # p "=>last read = #{lastread.inspect}, data=#{data}"
             if lastread.class==String
                 lastread= JSON.parse(lastread)
             end
         end
             
         lastread = {} if !lastread
-        p "=>last read = #{lastread.inspect}, #{lastread['191']}, #{lastread["191"]},  #{lastread["191"]}"
+        # p "=>last read = #{lastread.inspect}, #{lastread['191']}, #{lastread["191"]},  #{lastread["191"]}"
         
         ch_array.each{|ch|
             _t= lastread[ch.to_s]
-            p "_t=#{_t}, ch=#{ch}, #{lastread[ch.to_s]}"
+            # p "_t=#{_t}, ch=#{ch}, #{lastread[ch.to_s]}"
             if _t
                 t = Time.at(_t)
             else
                 t = Time.now - 3600*24*7
             end
             c = {:time=>t}
-            p "ttt=>#{t.inspect}"
+            # p "ttt=>#{t.inspect}, ch=#{ch.inspect}, pch=#{public_channel.inspect}"
             if public_channel.include?ch
                 r = get_public_msg(ch, c)
                 d += r[:data]
-                if (r[:time] && r[:time] <=> t)
+                if (r[:time] && (r[:time] <=> t)>0)
                     # c[:time] = time
-                    lastread[ch.to_s] = r[:time]
+                    lastread[ch.to_s] = r[:time].to_f+0.000001 
                 end
             else
                 r = get_msg(ch, delete, c)
                 d += r[:data]
-                p "->query_msg r=#{r.inspect}, t=#{t.inspect}, data=#{r[:data]}"
+                # p "->query_msg r=#{r.inspect}, t=#{t.inspect}, data=#{r[:data]}"
                 lastread[ch.to_s] = r[:time].to_f+0.000001 if r[:time] && (r[:time] <=> t) > 0
             end
         }
-        p "=>lastread=#{lastread}"
+        # p "=>lastread=#{lastread}"
         set_prop(data, "lastread", lastread)
         save_filedata(uid, data)
         # delete_msg(ch)
-        p "===>d=#{d}"
+        # p "===>d=#{d}"
         return d
     end
-    def take_msg(ch_array, t)
-        query_msg(ch_array, t, true)
+    def take_msg(uid,ch_array, t)
+        query_msg(uid, ch_array, t, true)
     end
     
     def get_public_msg(ch, t)
@@ -387,24 +400,14 @@ end
         ret = {
             :data => ""
         }
-        id = ch.to_i
-        if id < 0 
-            dir = "chat" if id == -1
-            dir = "rumor" if id == -2
-        else
-            dir = id/100
-        end
  
-        dir = "/var/wh/message/#{dir.to_s}"     
-        fname = "#{dir}/#{id}"
-        
-          
+          fname=get_msg_file(ch)
          time  = nil
          if context_time
              time = context_time[:time]
          end
-         p "ch=#{ch}"
-         p "====>context time #{time.inspect}"
+         # p "ch=#{ch}"
+         # p "====>context time #{time.inspect}, delete=#{delete}, filename=#{fname}"
         begin
             if FileTest::exists?(fname)   
                       # aFile = File.new(fname,"r")
@@ -418,21 +421,29 @@ end
                    p "===>messsage: #{ret[:data]}"
                    ret[:data] = ret[:data].gsub(/^\[.*?\]/, "")
                 else
-                
+                    p "filename=#{fname}"
+                    ret[:data] = ""
                     file=File.open(fname,"r")  
                     t = nil      
+                    ar = []
                     file.each_line do |line|
-                        p "line = #{line}"
+                        ar.push line
+                    end
+                    ar.reverse!
+                    ar.each{|line|
+                        # p "line = #{line}"
                         md = /^\[(.*?)\](.*)$/.match(line)
                         ret[:time] = Time.parse(md[1])
-                        p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
-                        p "context time #{time.to_f}"
-                        p "==>md2=#{md[2].inspect}"
+                        # p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
+                        # p "context time #{time.to_f}"
+                        # p "==>md2=#{md[2].inspect}"
                         p ret[:time] <=> time
                         if ( time && ret[:time] && (ret[:time] <=> time) > 0 ) or time==nil
-                            ret[:data]="#{md[2]}\n"
+                            ret[:data]+="#{md[2]}\n"
+                        else 
+                            break
                         end
-                    end
+                    }
                     # context_time[:time] = t
                     file.close
                  
@@ -448,20 +459,24 @@ end
         p "ret=#{ret.inspect}"
         return ret
     end
-    def send_msg(ch, m)
-        id = ch.to_i
-        if id < 0 
-            dir = "chat" if id == -1
-            dir = "rumor" if id == -2
-        else
-            dir = id/100
+    def send_msg(ch, m, type='')
+        fname = get_msg_file(ch)
+        stype=""
+        case ch
+        when -1:stype="[聊天]"
+        when "chat":stype="[聊天]"
+        when -2:stype="[江湖传闻]" 
+        when "rumor":stype="[江湖传闻]"
         end
+        
+        case type
+        when "task":stype+="[任务]"
+        end
+        
         time = Time.now
         st =  "#{time.strftime("%Y-%m-%d %H:%M:%S")}.#{time.usec.to_s[0,2]}"
-        msg = "[#{st}]#{m}"
-        dir = "/var/wh/message/#{dir.to_s}"
-        FileUtils.makedirs(dir)
-        fname = "#{dir}/#{id}"    
+        msg = "[#{st}]#{stype}#{m}<br/>"
+  p "==>send msg #{msg}"
         append_file(fname, msg)               
     end
     

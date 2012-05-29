@@ -39,7 +39,7 @@ class MessageController < ApplicationController
         # c = {:time => @t}
         # p "==>lastreadtime=#{@t.inspect}"
         @msg = query_msg(user_data.id, public_channel+[user_data[:id]], @delete ==1)
-        p "msg=#{@msg}"
+        # p "msg=#{@msg}"
         if (@type == "plain")
             @msg = ret.gsub(/<.*?>/,"")
         end
@@ -47,7 +47,7 @@ class MessageController < ApplicationController
         @msg.strip!
         
         if @type2 == "text"        
-            p "msg2=#{@msg}"
+            # p "msg2=#{@msg}"
             render :text=>@msg
         elsif @type2 == "json"
             ar = @msg.split("\n")

@@ -155,7 +155,7 @@ end
                 attacker_skills.push(us)
                 best_skill[:skill] = us
             end
-            p "==>best skill of #{context[:user][:user]} for #{pur}, skill_type #{weapon_type}: #{best_skill}"
+            p "==>best skill of #{context[:user].name} for #{pur}, skill_type #{weapon_type}: #{best_skill}"
             return best_skill
     end
     
@@ -748,8 +748,8 @@ end
     def status_lines(attacker, defenser)
         msg =""
      msg += '<div class="status">'+"\n"
-             msg += "<div class='st_lines' id='p#{attacker.id}'><span class='stl_playername'>#{attacker[:user]}</span><span class='attr'>hp</span>:<span class='st_v'>#{attacker.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{attacker.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{attacker.tmp[:willperform]}</span></div>\n"
-             msg += "<div class='st_lines' id='p#{defenser.id}'><span class='stl_playername'>#{defenser[:user]}</span><span class='attr'>hp</span>:<span class='st_v'>#{defenser.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{defenser.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{defenser.tmp[:willperform]}</span></div>\n"
+             msg += "<div class='st_lines' id='p#{attacker.id}'><span class='stl_playername'>#{attacker.name}</span><span class='attr'>hp</span>:<span class='st_v'>#{attacker.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{attacker.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{attacker.tmp[:willperform]}</span></div>\n"
+             msg += "<div class='st_lines' id='p#{defenser.id}'><span class='stl_playername'>#{defenser.name}</span><span class='attr'>hp</span>:<span class='st_v'>#{defenser.tmp[:hp]}</span><span class='attr'>体力</span>:<span class='st_v'>#{defenser.tmp[:stam]}</span><span class='attr'>怒</span>:<span class='st_v'>#{defenser.tmp[:willperform]}</span></div>\n"
              msg += "</div>"
              return msg
     end
@@ -977,8 +977,8 @@ end
         hand_left_weapon = p2.query_wearing("handleft")
                  p2.tmp[:right_hand_weapon] = hand_right_weapon
             p2.tmp[:left_hand_weapon] = hand_left_weapon
-        p "=>#{defenser[:user]} righthand weapons #{hand_right_weapon}"
-        p "=>#{defenser[:user]} lefthand weapons #{hand_left_weapon}"
+        p "=>#{defenser.name} righthand weapons #{hand_right_weapon}"
+        p "=>#{defenser.name} lefthand weapons #{hand_left_weapon}"
         # defaut is unarmed
         weapon_skill_type = 'unarmed'
         if (hand_right_weapon)
@@ -1111,7 +1111,7 @@ end
             end
             
              # msg += "<!--1--><div class=\"#{style_c}\">\n#{__fight(attacker, defenser)}\n</div>\n";
-             msg += "\n#{__fight(attacker, defenser)}\n"
+             msg += "\n<div class=\"#{style_c}\">\n#{__fight(attacker, defenser)}</div>\n"
              # recalculate apply varaibles, because perform may make change
              calc_apply_var(p1)
              calc_apply_var(p2)
@@ -1121,7 +1121,7 @@ end
          
             
              if (defenser.tmp[:hp] <=0 )
-                 msg += line "<br/>#{defenser[:user]}战斗不能"
+                 msg += line "<br/>#{defenser.name}战斗不能"
                  winner = attacker
                  break;
              end
@@ -1162,11 +1162,11 @@ end
         if !winner
             win = -1
             if attacker[:isUser]
-                msg +=  "你和#{defenser[:user]}战成平手!}"
+                msg +=  "你和#{defenser.name}战成平手!}"
             elsif defenser[:isUser]
-                msg +=  "你和#{attacker[:user]}战成平手!"
+                msg +=  "你和#{attacker.name}战成平手!"
             else
-                msg +=  "#{attacker[:user]}和#{defenser[:user]}战成平手!"
+                msg +=  "#{attacker.name}和#{defenser.name}战成平手!"
             end
         else
             if attacker == p1
@@ -1175,11 +1175,11 @@ end
                 win = 0
             end
             if (winner[:isUser])
-                msg +=  "You(#{winner[:user]}) Win !"
+                msg +=  "You(#{winner.name}) Win !"
             elsif (defenser[:isUser])
-                msg +=  "You(#{defenser[:user]}) Lose !"
+                msg +=  "You(#{defenser.name}) Lose !"
             else
-                msg +=  "#{winner[:user]} Win !"
+                msg +=  "#{winner.name} Win !"
             end
         end
         p attacker.tmp

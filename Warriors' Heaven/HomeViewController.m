@@ -70,7 +70,7 @@
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
-    
+    [self recoverWebView];
     
 }
 - (void) viewDidAppear:(BOOL) animated{
@@ -189,7 +189,7 @@
 //    
 //    [bgView setImage:[UIImage imageNamed:@"background.png"]];
 //    [self.view addSubview:bgView];
-    
+    hideWebViewCount = 0;
     ad = [UIApplication sharedApplication].delegate;
     // set strechable image for report view
     UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
@@ -209,6 +209,10 @@
     
     [vSummary setBackgroundColor:[UIColor clearColor]];
     [vSummary setOpaque:NO];
+
+     [viewReport addSubview:vSummary];
+        vSummary.frame = CGRectMake(26, 26, 269, 175);
+//    [self recoverWebView];
 
     
     vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(230+5, 5, 50, 50)];
@@ -249,6 +253,33 @@
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [vSummary loadRequest:req];
 
+}
+
+- (void) recoverWebView{
+    [[self view ] addSubview:viewReport];
+    viewReport.hidden = NO;
+    viewReport.frame= CGRectMake(0, 219, 320, 231);
+    vSummary.frame = CGRectMake(26, 26, 269, 175);
+    viewReport.alpha = 1.0f;
+    
+}
+
+- (void) hideWebView{
+    if (--hideWebViewCount <= 0)
+        viewReport.hidden = YES;
+}
+- (void) floatWebView{
+    if ([[ad tabBarController] selectedIndex] == 0)
+        return;
+   
+    [[ad window] addSubview:viewReport];
+    [[ad window] bringSubviewToFront:viewReport];
+    viewReport.hidden = NO;
+    viewReport.frame = CGRectMake(0, 480-49-30-30, 320, 60);
+    vSummary.frame = CGRectMake(26, 10, 269, 30);
+//    viewReport.alpha = 0.8f;
+    hideWebViewCount++;
+    [self performSelector:@selector(hideWebView) withObject:NULL afterDelay:3];
 }
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"HomeViewController receive data:%@", json);
@@ -391,6 +422,17 @@
     if ( [url isEqualToString:@"/quests"]){
         [[ad tabBarController] selectTab:6];
         return false;
+    }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:foo//"]){
+//        [self floatWebView];
+        NSString* surl = [[[request.URL absoluteString] substringFromIndex:18] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+        
+        NSArray* aurl = [surl componentsSeparatedByString:@"<br\/>"];
+        [[ad floatMsg] addObjectsFromArray:aurl];
+            NSLog(@"%@",[request.URL absoluteString]);
+         NSLog(surl);
+            NSLog(@"%d", [aurl count]);
+        NSLog(@"%@",request.URL);
     }
         
     return YES;

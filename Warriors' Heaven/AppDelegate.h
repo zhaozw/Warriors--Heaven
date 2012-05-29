@@ -10,8 +10,8 @@
 #import "DotHide_TabBarController.h"
 #import "StatusViewController.h"
 //#import "TrainingGround.h"
-//#import "HomeViewController.h"
-
+#import "HomeViewController.h"
+@class HomeViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     DotHide_TabBarController *tabBarController;
     UIViewController *viewcontroller;
@@ -19,7 +19,7 @@
     UIImageView *bgView;
     NSString* session_id;
     UIView *waiting;
-    UIViewController *vcHome;
+//    HomeViewController *vcHome;
     UIView *vAlert;
 
     BOOL bFirstCallReturn;
@@ -38,7 +38,7 @@
     UIViewController* vcTraining;
 //    BOOL bUpadtingStatus;
     BOOL bUserBusy;
-    UIView *vMsgFloat;
+    UIImageView *vMsgFloat;
     UIWebView* wvMsgFloat;
     NSMutableArray* floatMsg;
 }
@@ -47,7 +47,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
-@property (strong, nonatomic) IBOutlet UIViewController *vcHome;
+@property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
@@ -61,6 +61,7 @@
 @property (nonatomic, copy) NSString* session_id;
 //@property (nonatomic, retain) NSObject* data_userext;
 @property (nonatomic, assign)  time_t tmRecoverStart;
+@property (strong, atomic)  NSMutableArray* floatMsg;
 
 // sample data:
 // {"user":{"userext":{"userext":{"level":10,"max_eq":"5","fame":0,"race":"","max_item":10,"str":20,"name":"queen","created_at":null,"updated_at":"2012-03-24T21:16:48Z","dext":20,"s

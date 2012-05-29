@@ -10,7 +10,7 @@
 #import "StatusViewController.h"
 #import "AppDelegate.h"
 #import "EGOImageView.h"
-
+@class AppDelegate;
 @interface HomeViewController : UIViewController<UIWebViewDelegate>{
     UIImageView * bgView;
     __unsafe_unretained IBOutlet UILabel *lbGold;
@@ -21,6 +21,7 @@
     NSMutableData* buf;
     UIView *waiting;
     NSString * cookie;
+    int hideWebViewCount;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *vBadge;
 @property (strong, retain) AppDelegate *ad;
@@ -64,5 +65,6 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConn;
 
 - (void) onReceiveStatus:(NSObject*) json;
-
+- (void) recoverWebView;
+- (void) floatWebView;
 @end

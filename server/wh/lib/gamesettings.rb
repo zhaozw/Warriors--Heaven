@@ -69,11 +69,15 @@ end
         end
         return h_level
     end
+def BossForLevel(level)
+       h_level = getNextStageLevel(level)
+    BossForLevel(h_level)
+   
+end
 def BossForLevelupTo(level)
-    h_level = getNextStageLevel(level)
     ar = []
     hero_list.each {|h|
-        if h[:level] <= h_level
+        if h[:level] <= level
             ar.push h
         end
     }

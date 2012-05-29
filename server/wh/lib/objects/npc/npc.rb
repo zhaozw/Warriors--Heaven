@@ -7,6 +7,7 @@ class Npc < Human
         setup
     end
     
+    
     def isUser
         false
     end

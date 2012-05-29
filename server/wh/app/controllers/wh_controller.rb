@@ -652,17 +652,8 @@ class WhController < ApplicationController
     end
 
     def hero_name
-        l = user_data.ext[:level]
-        if l==0
-            h_level = 5
-        else
-            if l/5*5 == l
-               h_level = l
-            else
-                h_level = (l+5)/5*5
-            end
-        end
-        ar = BossForLevelupTo(h_level)
+
+        ar = BossForLevel(h_level)
         return ar[0][:name]
         # if l < 5
         #        name = "yezhu"

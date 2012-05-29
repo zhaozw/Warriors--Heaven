@@ -49,7 +49,7 @@
 
 
 @synthesize bUserEqNeedUpdated;
-
+@synthesize floatMsg;
 
 
 
@@ -188,14 +188,19 @@
     bUserSkillNeedUpdate = TRUE;
 
     floatMsg = [[NSMutableArray alloc] init];
-    vMsgFloat = [[UIView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
+    vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
+    UIImage *imageNormal = [UIImage imageNamed:@"msgbg.png"];
+    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+    [vMsgFloat setImage:stretchableImageNormal];
     [[self window] addSubview:vMsgFloat];
+    vMsgFloat.hidden = YES;
 //    lbMsgFloat = [LightView createLabel:CGRectMake(0, 0, 320, 30) parent:vMsgFloat text:@"" textColor:[UIColor whiteColor]];
 //    vMsgFloat.backgroundColor = [UIColor grayColor];
 //    lbMsgFloat.backgroundColor = [UIColor clearColor];
-    vMsgFloat.alpha = 0.6f;
-    wvMsgFloat = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 30) ];
-    [vMsgFloat setBackgroundColor:[UIColor clearColor]];
+//    vMsgFloat.alpha = 0.6f;
+    
+    wvMsgFloat = [[UIWebView alloc] initWithFrame:CGRectMake(3, -5, 320, 30) ];
+//    [vMsgFloat setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f]];
     [vMsgFloat setOpaque:NO];
     [wvMsgFloat setBackgroundColor:[UIColor clearColor]];
     [wvMsgFloat setOpaque:NO];
@@ -254,7 +259,7 @@
     // get server list
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
     [client1 setRetry:YES];    
-//    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
     if (!session_id){
@@ -423,15 +428,24 @@
         [self performSelector:@selector(float_msg) withObject:NULL afterDelay:10];
         return;
     }
+    if ([tabBarController selectedIndex]==0){
+        vMsgFloat.hidden = YES;
+        if ([floatMsg count] > 0)
+            [floatMsg removeObjectAtIndex:0];
+    }
+        
     if ([floatMsg count] == 0){
         vMsgFloat.hidden = YES;
     }else{
         NSString* s = [floatMsg objectAtIndex:0];
         [floatMsg removeObject:s];
-        NSString * ss = [NSString stringWithFormat:@"<div style=\"overflow:hidden\"<div style=\"width:270\">%@</div><div style=\"position:absolute;top:5;left:270;\">。。。</div>", s];
+        if ([s length]>0){
+            NSString * ss = [NSString stringWithFormat:@"<div style=\"overflow-x:scroll;width:298px;text-overflow:ellipsis;white-space:nowrap\">%@</div>", s];
         [wvMsgFloat loadHTMLString:ss baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]]];
         vMsgFloat.hidden = NO;
         [window bringSubviewToFront:vMsgFloat];
+        }else
+            vMsgFloat.hidden = YES;
     }
 
     [self performSelector:@selector(float_msg) withObject:NULL afterDelay:3];
@@ -455,6 +469,7 @@
     [client setRetry:YES];    
     [client sendHttpRequest:url selector:@selector(onGetMsgReturn:) json:YES showWaiting:NO];
 }
+
 
 - (void) onGetMsgReturn:(NSObject*) data{
     id _t = [data valueForKey:@"t"];

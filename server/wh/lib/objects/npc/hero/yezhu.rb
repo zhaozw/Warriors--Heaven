@@ -16,7 +16,7 @@ class Yezhu < Npc
    end
    
    def desc
-        "战败他可以完成第5级的修炼，成为‘初级侠客’"
+        "一只凶猛的野猪，必须战败它才可以完成第5级的修炼。"
    end
       
        def setup_temp

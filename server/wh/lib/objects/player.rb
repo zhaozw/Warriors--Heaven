@@ -203,10 +203,10 @@ class Player < Human
     #     end
     # end
     
-    def get_exp(exp)
-        return data.get_exp(exp)
-    end
-    
+    # def get_exp(exp)
+    #       return data.get_exp(exp)
+    #   end
+    #   
     def receive_gold(g)
         data.ext[:gold] += g
     end
@@ -448,12 +448,12 @@ class Player < Human
          levelup = 0
          exp_next_level = (ext[:level]+1)**3
          if (exp_next_level<= ext[:exp]+exp)
-             levelup = 1
+          
              # check if defeated hero in legend
              levelHero = BossForLevelupTo(ext[:level]+levelup)
              pass = true
              hero = ""
-             if levelHero
+             if levelHero && levelHero.size >0
                  defeatHero = ext.get_prop("defeatHero")
                  if defeatHero
                      levelHero.each {|h|
@@ -470,7 +470,7 @@ class Player < Human
              end 
              
              if !pass
-                 send_msg(id, "你的等级无法提升，你需要打败#{hero.name}才能升至#{ext[:level]+levelup}级")
+                 send_msg(id, "<div>你的等级无法提升，你需要打败#{hero.name}才能升至#{ext[:level]+levelup}级</div>")
              else
                  ext[:level] += 1
                  ext[:exp] = 0
@@ -485,6 +485,8 @@ class Player < Human
                  mjl_bonus = rand(ext[:level]/2 )
                  mjl_bonus = ext[:level]/3 if mjl_bonus <= ext[:level]/3
                  ext[:max_jl] += mjl_bonus
+                 
+                 levelup = 1
              end  
              
 

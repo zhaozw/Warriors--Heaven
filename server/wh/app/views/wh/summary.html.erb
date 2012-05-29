@@ -28,8 +28,13 @@ function query_msg(){
 			success: function(data, textStatus){
 				  // alert( "Data Saved: " + data +","+ textStatus);
 			//	$("#memopad").css("display", "block");
+			if (data.length >0){
+				// alert(data);
 			  $("#main").html( $("#main").html()+data);
 			 $("#main").attr("scrollTop",$("#main").attr('scrollHeight'));
+					 window.location = "myspecialurl:foo"+"//"+encodeURIComponent(data);
+			}
+	
 			// g_data = data;
 		
 			// if (data.msg)
@@ -47,6 +52,7 @@ function query_msg(){
 			}
 	});
 }
-	timer = setInterval('query_msg();', 60000+60000*Math.random());
+	 timer = setInterval('query_msg();', 50000+50000*Math.random());
+	// timer = setInterval('query_msg();', 3000);
 	// alert("dsf");
 </script>
