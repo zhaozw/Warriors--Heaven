@@ -71,7 +71,7 @@ end
     end
 def BossForLevel(level)
        h_level = getNextStageLevel(level)
-    BossForLevel(h_level)
+    BossForLevelupTo(h_level)
    
 end
 def BossForLevelupTo(level)
