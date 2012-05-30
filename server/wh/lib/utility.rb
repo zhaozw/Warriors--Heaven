@@ -416,7 +416,7 @@ end
         ret = {
             :data => ""
         }
-        public_msg = system_channel.include?ch
+        sys_msg = system_channel.include?ch
           fname=get_msg_file(ch)
          time  = nil
          if context_time
