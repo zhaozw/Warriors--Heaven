@@ -114,8 +114,9 @@ class Hunt < Quest
                 index = (rand(ar.size*2) + rand(ar.size*2))/2
                 if index >= ar.size
                     index = ar.size - index%ar.size
-                    inde = ar.size-1 if index == ar.size
+                    index = ar.size-1 if index == ar.size
                 end
+                p "==>index #{index}"
                 r = beast_list[index]
                 npc = create_npc(r)
                     msg += "<div>忽然跳出一#{npc.unit}#{npc.name}，看样子要杀了你！</div>"
