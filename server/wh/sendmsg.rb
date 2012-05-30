@@ -1,4 +1,4 @@
-require "FileUtils"
+require "fileutils"
 require "lib/utility.rb"
 
 #p $*.inspect
