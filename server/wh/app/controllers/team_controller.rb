@@ -22,7 +22,7 @@ class TeamController < ApplicationController
         # end
       
         
-        teamnotcreated = user_data.ext.get_prop["teamnotcreated"]
+        teamnotcreated = user_data.ext.get_prop("teamnotcreated")
         if teamnotcreated # create team
             p "==>create team"
             t = Team.new({
