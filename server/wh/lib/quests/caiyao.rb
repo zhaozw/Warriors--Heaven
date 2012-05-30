@@ -101,6 +101,7 @@ class Caiyao < Quest
                     end
                 end
                 user.ext[:stam] -=5
+                msg += "<div>你的潜能增加了。</div>" if give_pot(player)
             else
             #msg = "你很用力的挖"
      
@@ -136,8 +137,9 @@ class Caiyao < Quest
                         
                     end
                 else
-                    msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药</div>"
+                    msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药。</div>"
                     user.ext[:stam] -=5
+                    msg += "<div>你的潜能增加了。</div>" if give_pot(player)
                 end
             end
         else # action != "dig"
@@ -145,6 +147,14 @@ class Caiyao < Quest
         end
         context[:msg] = msg
         p context.inspect
+    end
+    
+    def give_pot(p1)
+        if rand(100) < p1.tmp[:luck]
+            p1.ext[:pot] += 1
+            return true
+        end
+        return false
     end
         
     
