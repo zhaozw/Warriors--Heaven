@@ -1,1 +1,3 @@
+killall memcached
 mongrel_rails cluster::restart
+memcached -d -u root -m 512
