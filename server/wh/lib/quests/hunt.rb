@@ -109,7 +109,7 @@ class Hunt < Quest
                     luck = beast_list.size
                 end
                 # r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
-                index =rand(ar.size)-rand(luck)*ar.size/100
+                # index =rand(ar.size)-rand(luck)*ar.size/100
                 r = beast_list[index]
                 npc = create_npc(r)
                 npc.set_temp("level", user.ext[:level])
