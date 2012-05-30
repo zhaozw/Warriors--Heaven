@@ -20,14 +20,9 @@ class TeamController < ApplicationController
         #     render :text=>user_data[:team].to_json
         #     return
         # end
-         prop = user_data.ext["prop"]
+      
         
-        if  prop.class == String
-            prop = JSON.parse(prop)
-        end
-        p "prop=#{prop}"
-        
-        teamnotcreated = prop["teamnotcreated"]
+        teamnotcreated = user_data.ext.get_prop["teamnotcreated"]
         if teamnotcreated # create team
             p "==>create team"
             t = Team.new({
