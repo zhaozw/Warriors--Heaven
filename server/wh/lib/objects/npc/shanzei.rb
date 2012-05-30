@@ -1,4 +1,4 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/npchuman.rb'
 
 
 class Shanzei < Npchuman

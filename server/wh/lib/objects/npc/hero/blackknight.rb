@@ -1,4 +1,4 @@
-require 'objects/npc/Npchuman.rb'
+require 'objects/npc/npchuman.rb'
 
 
 class Blackknight < Npchuman
