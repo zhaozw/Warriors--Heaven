@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/Npchuman.rb'
 
 
-class Weizhangtianxin < Npc
+class Weizhangtianxin < Npchuman
     
    def name
        "尾张天心"

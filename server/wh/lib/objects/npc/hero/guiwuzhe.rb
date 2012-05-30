@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/Npchuman.rb'
 
 
-class Guiwuzhe < Npc
+class Guiwuzhe < Npchuman
       def name
        "鬼武者"
    end

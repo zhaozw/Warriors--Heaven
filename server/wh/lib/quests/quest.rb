@@ -22,6 +22,10 @@ class Quest
        "/game/quests/logo.png" 
     end
     
+    def set_progress(p)
+        return if !data
+        data[:progress] = p
+    end
     def add_progress (progress)
         # cls = self.class.to_s
         #    cls = cls.at(0).downcase+cls.from(1)

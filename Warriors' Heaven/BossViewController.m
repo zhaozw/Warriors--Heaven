@@ -163,7 +163,7 @@
     lbTitle2.text = title;
     if ([race isEqualToString:@"human"]){
         lbRace.text = @"人类";
-    }else if ([race isEqualToString:@"org"]){
+    }else if ([race isEqualToString:@"orc"]){
         lbRace.text = @"兽族";
     }else if ([race isEqualToString:@"mag"]){
         lbRace.text = @"魔族";

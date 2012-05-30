@@ -65,7 +65,7 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
+    host = @"homeserver.joyqom.com";
     port = @"80";
     bUserEqNeedUpdated = FALSE;
 //    bUpadtingStatus = false;
@@ -261,9 +261,9 @@
     [client1 setRetry:YES];    
 //    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
-//    if (true){
-//    if (!session_id){
     if (true){
+//    if (!session_id){
+//    if (true){
 /*        // show registeration
         UIImageView* vReg = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 200, 300)];
         [vReg setUserInteractionEnabled:YES];

@@ -23,6 +23,9 @@ class LivingObject < Game::Object
         return @carrying
     end
     
+    def query_all_obj
+        @wearing.values+@carring
+    end
     def remove_obj(o)
         if @carrying.include?(o)
             @carrying.delete(o)
@@ -152,15 +155,15 @@ class LivingObject < Game::Object
         }
         return defense
     end
-    def weapons
-        ret =[]
-        a = query_wearing("handright")
-        ret.push(a) if a
-        a= query_wearing("handleft")
-        ret.push(a) if a
-        return ret
-    end
+    # def query_weapons
+    #     ret =[]
+    #     a = query_wearing("handright")
+    #     ret.push(a) if a
+    #     a= query_wearing("handleft")
+    #     ret.push(a) if a
+    #     return ret
+    # end
     def hasWeapon?
-        return weapons.size > 0
+        return query_all_weapons.size > 0
     end
 end

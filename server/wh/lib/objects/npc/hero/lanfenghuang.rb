@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/Npchuman.rb'
 
 
-class Lanfenghuang < Npc
+class Lanfenghuang < Npchuman
       def name
        "蓝凤凰"
    end

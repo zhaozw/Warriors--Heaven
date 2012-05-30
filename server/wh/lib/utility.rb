@@ -241,6 +241,14 @@ end
         p1.remove_obj(obj)
         p2.get_obj(obj)
     end
+    
+    def drop_all(p1, p2)
+        objs = p1.query_all_obj
+        objs.each{|o|
+            move_obj(o, p1, p2)
+        }
+        return objs
+    end
     # player1 drop equipment randomly to player2
     # q is chance to drop compare to rand(10), q is bigger, chance is more.
     def rand_drop(p1, p2, q=-5)

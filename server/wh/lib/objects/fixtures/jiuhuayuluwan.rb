@@ -18,15 +18,15 @@ class Jiuhuayuluwan < Fixture
     end
     
     def desc
-        "这是一盒金疮药，可以用来治疗外伤."
+        "黄药师独门灵丹妙药，以清晨九种花瓣上的露水调制而成，外呈朱红色，清香袭人，服后补神健体，延年益寿"
     end
     
     def intro
-        "治疗外伤 HP+50"
+        "解百毒 治疗内外伤 HP+100%"
     end
     
     def effect
-        "治疗外伤 HP+50"
+        "解百毒 治疗内外伤 HP+100%"
     end
     
     def weight
@@ -38,7 +38,7 @@ class Jiuhuayuluwan < Fixture
     end
     
     def image
-        "obj/fixtures/jiuhuayuluwan.jpg"
+        "obj/fixtures/jiuhuayuluwan.gif"
     end
     
     def price
@@ -47,10 +47,10 @@ class Jiuhuayuluwan < Fixture
     
     def use(context)
         p = context[:player]
-        p.ext[:hp] += p.ext[:maxhp]/5
+        p.ext[:hp] = p.ext[:maxhp]
         
         p.delete_obj(self)
-        context[:msg]="你服下一#{unit}#{dname}, 伤处渐渐愈合！"
+        context[:msg]="你服下一#{unit}#{dname}, 觉得一股清气贯通全身！"
     end
     
 end

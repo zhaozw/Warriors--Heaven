@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/Npchuman.rb'
 
 
-class Blackknight < Npc
+class Blackknight < Npchuman
       def name
        "黑骑士"
    end

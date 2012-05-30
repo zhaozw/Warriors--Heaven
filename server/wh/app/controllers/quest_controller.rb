@@ -7,8 +7,8 @@ class QuestController < ApplicationController
             "wudujiao",  #无毒教任务
             "yaowanggu",
             "yunbiao",
-            "xiakedao", # 侠客岛任务
-            "hunting"
+            # "xiakedao", # 侠客岛任务
+            "hunt"
         ]
     end
     def index

@@ -38,7 +38,7 @@ class Yudongheishidan < Fixture
     end
     
     def image
-        "obj/fixtures/yudongheishidan.jpg"
+        "obj/fixtures/yudongheishidan.gif"
     end
     
     def price

@@ -1,9 +1,10 @@
 require 'gamesettings.rb'
 require 'objects/human.rb'
+require 'objects/pc.rb'
 
 class Player < Human
     
-
+include Pc
     def initialize
         super
         @wearings={}
@@ -117,6 +118,7 @@ class Player < Human
     def query_skill(name)
         @obj.query_skill(name)
     end
+    
     def query_all_skills
         return @obj.query_all_skills
     end
@@ -499,5 +501,9 @@ class Player < Human
      
      def hp
          tmp[:hp]
+     end
+     
+     def query_all_obj
+         data.query_all_obj
      end
 end

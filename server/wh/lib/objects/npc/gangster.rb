@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/npchuman.rb'
 
 
-class Gangster < Npc
+class Gangster < Npchuman
     
    def name
        "土匪"

@@ -4,7 +4,7 @@
 <style>
 
 .status{font-size:10pt;}
-.rgain{color:yellow;font-size:10pt;}
+.rgain{color:green;font-size:10pt;}
 
 .attr{/*width:30px;display: inline-block;*/white-space:nowrap;}
 
@@ -100,7 +100,7 @@ function apply(){
 	//	alert("====>"+TextArray);
 		if (timer)
 			clearInterval(timer);
-		timer = setInterval('onTimer();', 1000);
+		timer = setInterval('onTimer();', 1200);
 		$(".action_button").attr("disabled", "disabled");
 	}
 	
@@ -154,7 +154,9 @@ function apply(){
 	</div>
 	
 	<div id="action_list">
-		<% if @quest.action_list
+		<% 
+		p "actionlist = #{@quest.action_list.inspect}"
+		if @quest.action_list
 			for action in @quest.action_list
 		 %>
 		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>

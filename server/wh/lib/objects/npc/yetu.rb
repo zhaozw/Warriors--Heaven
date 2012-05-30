@@ -1,50 +1,48 @@
-require 'objects/npc/Npchuman.rb'
+require 'objects/npc/npc.rb'
 
 
-class Yeren < Npchuman
+class Yetu < Npcorc
       def name
-       "野人"
+       "野猪"
    end
    
    
    def title
-       "大力王" 
+       "猛兽" 
    end
    
    def race
-       "human"
+       "orc"
    end
    
    def desc
-        "战败他可以完成第5级的修炼，成为‘初级侠客’"
+        "一只山里常见的野兔。"
    end
       
        def setup_temp
         
        @temp ={
            :exp =>0,
-           :level => 15,
-           :hp => 200,
-           :maxhp =>200,
+           :level => 5,
+           :hp => 50,
+           :maxhp =>50,
            :stam    =>200,
            :maxst   =>200,
-           :str     =>60,
-           :dext    =>20,
-           :luck    =>50,
+           :str     =>10,
+           :dext    =>30,
+           :luck    =>30,
            :fame    =>0,
-           :race    =>"human",
+           :race    =>"orc",
            :pot     =>0,
            :it      =>20
        }
     end
     
     def setup_skill  
-              fullskill = cacl_fullskill(tmp[:level])
-        set_skill("unarmed", fullskill, 0)
-        set_skill("parry", fullskill, 0)
-        set_skill("dodge", fullskill, 0)
-        set_skill("fencing", fullskill, 0)
-        set_skill("daofa", fullskill, 0)
+        set_skill("beastunarmed", 20, 0)
+        set_skill("parry", 20, 0)
+        set_skill("dodge", 20, 0)
+    
 =begin
        @skills =[
        #    "unarmed" =>
@@ -79,7 +77,7 @@ class Yeren < Npchuman
     end
     
     def image
-        "obj/npc/yeren.png"
+        "obj/npc/yezhu.jpg"
     end
     
     def homeImage
@@ -87,7 +85,7 @@ class Yeren < Npchuman
     end
     
     def legendImage
-        "obj/npc/yeren_legend.jpg"
+        "obj/npc/yezhu_legend.jpg"
     end
 
     

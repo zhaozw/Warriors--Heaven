@@ -1,7 +1,8 @@
-require 'objects/human.rb'
+require 'objects/Character.rb'
 
 
-class Npc < Human
+module Npc 
+    include Character
     def initialize
         super
         setup

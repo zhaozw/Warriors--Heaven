@@ -1,7 +1,7 @@
 require 'objects/npc/npc.rb'
 
 
-class Shanzei < Npc
+class Shanzei < Npchuman
     
    def name
        "山贼"

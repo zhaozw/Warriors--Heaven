@@ -1,7 +1,7 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/npcorc.rb'
 
 
-class Yezhu < Npc
+class Yezhu < Npcorc
       def name
        "野猪"
    end
@@ -12,7 +12,7 @@ class Yezhu < Npc
    end
    
    def race
-       "org"
+       "orc"
    end
    
    def desc
@@ -39,7 +39,7 @@ class Yezhu < Npc
     end
     
     def setup_skill  
-        set_skill("unarmed", 20, 0)
+        set_skill("beastunarmed", 20, 0)
         set_skill("parry", 20, 0)
         set_skill("dodge", 20, 0)
         set_skill("fencing", 20, 0)
