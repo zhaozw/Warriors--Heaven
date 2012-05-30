@@ -41,6 +41,7 @@
     UIImageView *vMsgFloat;
     UIWebView* wvMsgFloat;
     NSMutableArray* floatMsg;
+    BOOL debug;
 }
 @property (nonatomic, assign)    BOOL bUserEqNeedUpdated; // need update locally
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
