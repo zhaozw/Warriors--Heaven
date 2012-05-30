@@ -1,4 +1,4 @@
-require 'objects/Character.rb'
+require 'objects/character.rb'
 
 
 module Npc 
