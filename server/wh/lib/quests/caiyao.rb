@@ -99,7 +99,13 @@ class Caiyao < Quest
                     luck = caoyao_list.size
                 end
                 # r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
-                r = caoyao_list[rand(ar.size)-rand(luck)*ar.size/100]
+                # r = caoyao_list[rand(ar.size)-rand(luck)*ar.size/100]
+                index = (rand(ar.size*2) + rand(ar.size*2))/2
+                if index >= ar.size
+                    index = ar.size - index%ar.size
+                    index = ar.size -1 if index == ar.size
+                end
+                r = caoyao_list[index]
                 o = create_fixure(r)
                 
                 user.get_obj(o)
@@ -123,7 +129,7 @@ class Caiyao < Quest
                     end
                 end
                 user.ext[:stam] -=5
-                msg += "<div>你的潜能增加了。</div>" if give_pot(player)
+                msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
             else
             #msg = "你很用力的挖"
      
@@ -161,7 +167,7 @@ class Caiyao < Quest
                 else
                     msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药。</div>"
                     user.ext[:stam] -=5
-                    msg += "<div>你的潜能增加了。</div>" if give_pot(player)
+                    msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
                 end
             end
         else # action != "dig"

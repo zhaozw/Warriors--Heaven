@@ -6,6 +6,9 @@ class Tiger < Npcorc
        "白虎"
    end
    
+   def unit
+       "只"
+   end
    
    def title
        "猛兽" 

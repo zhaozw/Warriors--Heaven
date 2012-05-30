@@ -685,7 +685,7 @@ end
                  
                  # 
                  _perp = rand(parry_power  + attack_power  )
-                  msg += "pp:#{parry_power} ap:#{attack_power} _perp=#{_perp}"
+                  # msg += "pp:#{parry_power} ap:#{attack_power} _perp=#{_perp}"
                  if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded

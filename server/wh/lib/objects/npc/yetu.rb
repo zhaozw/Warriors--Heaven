@@ -3,7 +3,7 @@ require 'objects/npc/npc.rb'
 
 class Yetu < Npcorc
       def name
-       "野猪"
+       "野兔"
    end
    
    

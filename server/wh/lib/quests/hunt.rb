@@ -91,6 +91,7 @@ class Hunt < Quest
         end
   
         weapons = user.query_all_weapons
+        p "=>weapons: #{weapons.values[0].inspect}"
         if weapons.size == 0
              context[:msg]="<div>你没有武器，无法打猎 !</div>"
             return 
@@ -103,15 +104,21 @@ class Hunt < Quest
             pp = rand(150)
             if (pp<luck) # get beast
         #  if (false)
-             msg += "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
+         
                 ar = beast_list
                 if (luck < beast_list.size)
                     luck = beast_list.size
                 end
                 # r = caoyao_list[rand(100-luck)/(luck/caoyao_list.size)]
                 # index =rand(ar.size)-rand(luck)*ar.size/100
+                index = (rand(ar.size*2) + rand(ar.size*2))/2
+                if index >= ar.size
+                    index = ar.size - index%ar.size
+                    inde = ar.size-1 if index == ar.size
+                end
                 r = beast_list[index]
                 npc = create_npc(r)
+                    msg += "<div>忽然跳出一#{npc.unit}#{npc.name}，看样子要杀了你！</div>"
                 npc.set_temp("level", user.ext[:level])
                 player[:isUser] = true
                 player[:canGain] = true
@@ -160,7 +167,7 @@ class Hunt < Quest
              
                 
                 # user.ext[:stam] -=5
-                msg += "<div>你的潜能增加了。</div>" if give_pot(player)
+                msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
             else
             #msg = "你很用力的挖"
      
@@ -196,10 +203,11 @@ class Hunt < Quest
                         
                     end
                 else
-                    msg = rand(hunting_msg.size) %[weapons[0]]
+                    
+                    msg = hunting_msg[rand(hunting_msg.size)] % weapons.values[0].dname
                     
                     user.ext[:stam] -=5
-                    msg += "<div>你的潜能增加了。</div>" if give_pot(player)
+                    msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
                 end
             end
         else # action != "dig"
@@ -210,7 +218,7 @@ class Hunt < Quest
     end
     def hunting_msg
         [
-            "<div>你不断挥动着%s劈砍拦路的枝条，向树林深处走去。</div>",
+            "<div>你不断挥动着%s劈砍灌木，向树林深处走去。</div>",
             "<div>你隐蔽在灌木中，耐心的等待猎物出现。</div>",
             "<div>太阳慢慢的西斜了，森林中的光线也越来越暗。你不断的寻找着地上动物经过的踪迹。</div>"
         ]

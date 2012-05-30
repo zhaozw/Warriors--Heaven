@@ -145,6 +145,7 @@ include Pc
         if ! @setup_wearing 
             setup_wearing
         end
+        p "==>wearings #{@wearings.inspect}"
         @wearings[position.to_sym]
     end
 
