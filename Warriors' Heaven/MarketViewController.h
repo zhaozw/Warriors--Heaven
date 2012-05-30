@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "ObjDetailViewController.h"
+#import "EGOImageButton.h"
 
 @interface MarketViewController : UIViewController{
     int currentSelectedList;
     NSArray* item_list;
+    EGOImageButton* btnSale;
 //    NSArray* eq_list;
 //    NSArray* fixture_list;
 //    NSArray* prem_list;

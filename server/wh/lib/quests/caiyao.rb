@@ -133,7 +133,7 @@ class Caiyao < Quest
             else
             #msg = "你很用力的挖"
      
-                if (pp  > luck + 50)
+                if (pp  > luck + 70)
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])

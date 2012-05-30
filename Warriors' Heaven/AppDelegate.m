@@ -65,8 +65,8 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
-    debug = FALSE;
+    host = @"homeserver.joyqom.com";
+//    debug = TRUE;
     port = @"80";
     bUserEqNeedUpdated = FALSE;
 //    bUpadtingStatus = false;
@@ -154,15 +154,15 @@
 
     
     // init help view
-    vHelp.frame = CGRectMake(20, 60, 250, 300);
-    vHelp.backgroundColor = [UIColor redColor];
-    vHelpWebView.frame = CGRectMake(0, 0, 250, 300);
+    vHelp.frame = CGRectMake(0, 60, 320, 480-60-49);
+    vHelp.backgroundColor = [UIColor clearColor];
+    vHelpWebView.frame = CGRectMake(0, 0, 320, 480-60-49);
     vHelpWebView.backgroundColor = [UIColor clearColor];
     [vHelpWebView setOpaque:NO];
 
     btCloseHelpView.backgroundColor = [UIColor clearColor];
     [btCloseHelpView setBackgroundImage:[UIImage imageNamed:@"btn_close.png"] forState:UIControlStateNormal];
-    btCloseHelpView.frame = CGRectMake(230, 0, 20, 20);
+    btCloseHelpView.frame = CGRectMake(320-25, 0, 25, 25);
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
     

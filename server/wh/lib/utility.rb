@@ -351,6 +351,9 @@ end
     def public_channel
         ["chat", "rumor"]
     end
+    def system_channel
+        ["sys", "rumor"]
+    end
     def query_msg(uid, ch_array, delete=false)
         d = ""
         # time = t[:time]
@@ -371,12 +374,14 @@ end
             # p "_t=#{_t}, ch=#{ch}, #{lastread[ch.to_s]}"
             if _t
                 t = Time.at(_t)
-            else
-                t = Time.now - 3600*24*7
+
             end
             c = {:time=>t}
             # p "ttt=>#{t.inspect}, ch=#{ch.inspect}, pch=#{public_channel.inspect}"
-            if public_channel.include?ch
+            if system_channel.include?ch
+                if c[:time] == nil
+                    t=c[:time] =  Time.now - 3600*24*7
+                end
                 r = get_public_msg(ch, c)
                 d += r[:data]
                 if (r[:time] && (r[:time] <=> t)>0)
@@ -384,6 +389,9 @@ end
                     lastread[ch.to_s] = r[:time].to_f+0.000001 
                 end
             else
+                if c[:time] == nil
+                    t=c[:time] =  Time.now - 3600*24
+                end
                 r = get_msg(ch, delete, c)
                 d += r[:data]
                 # p "->query_msg r=#{r.inspect}, t=#{t.inspect}, data=#{r[:data]}"
@@ -408,7 +416,7 @@ end
         ret = {
             :data => ""
         }
- 
+        public_msg = system_channel.include?ch
           fname=get_msg_file(ch)
          time  = nil
          if context_time
@@ -427,7 +435,12 @@ end
                        f.truncate(0)
                    }
                    p "===>messsage: #{ret[:data]}"
-                   ret[:data] = ret[:data].gsub(/^\[.*?\]/, "")
+                            if sys_msg
+                                   ret[:data] = ret[:data].gsub(/^(\[....-..-.. ..:..).*?(\])/){|s| $1+$2}
+                            else
+                                   ret[:data] = ret[:data].gsub(/^\[.*?\]/, "") 
+                            end
+                
                 else
                     p "filename=#{fname}"
                     ret[:data] = ""
@@ -454,7 +467,11 @@ end
                         # p "==>md2=#{md[2].inspect}"
                         # p t <=> time
                         if ( time && t&& (t <=> time) > 0 ) or time==nil
-                            ret[:data] ="#{md[2]}\n"+ret[:data]
+                            if sys_msg
+                                ret[:data] = "#{md[1].to(17)}#{md[2]}\n"+ret[:data] 
+                            else
+                                ret[:data] = "#{md[2]}\n"+ret[:data] 
+                            end
                         else 
                             break
                         end

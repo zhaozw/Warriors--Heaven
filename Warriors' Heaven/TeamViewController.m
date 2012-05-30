@@ -114,6 +114,7 @@
     
     NSObject* members = team;
     team = [[team valueForKey:@"data"] valueForKey:@"team"];
+    NSLog(@"TEAM:%@", team);
     
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
     UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];

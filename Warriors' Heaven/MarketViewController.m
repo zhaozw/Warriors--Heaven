@@ -51,6 +51,10 @@
     // Do any additional setup after loading the view from its nib.
     
     ad = [UIApplication sharedApplication].delegate;
+    btnSale = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, 60, 320, 39)];
+    [[self view] addSubview:btnSale];
+    [btnSale setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/images/sale.jpg", ad.host, ad.port]]];
+    
 //    item_list = [[NSMutableArray alloc ] init];
     currentSelectedList = 1; // equipment
     vEquipment.frame = CGRectMake(0, 130, 320, 500);
