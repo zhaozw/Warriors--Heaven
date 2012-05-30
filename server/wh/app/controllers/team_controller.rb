@@ -27,7 +27,7 @@ class TeamController < ApplicationController
             p "==>create team"
             t = Team.new({
                 :owner  => session[:uid],
-                :sid =>session[:sid],
+                # :sid =>session[:sid],
                 :code   => generate_password(6).upcase,
                 :power  => 0,
                 :prop   => "{}"     
