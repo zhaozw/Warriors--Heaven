@@ -23,13 +23,25 @@ class Userext < ActiveRecord::Base
       else
           j = {}
       end
+      
       j[n] = v
       self[:prop] = j.to_json
       #save!
       # after_initialize
   end
-
-    def get_prop(k)
+    def delete_prop(n)
+      if (self[:prop])
+          j = JSON.parse(self[:prop])
+      else
+          j = {}
+      end
+      
+      j.delete(n)
+      self[:prop] = j.to_json
+      #save!
+      # after_initialize
+  end
+  def get_prop(k)
         if !self[:prop]
             return nil
         end

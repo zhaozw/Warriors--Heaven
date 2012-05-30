@@ -33,9 +33,9 @@ class TeamController < ApplicationController
                 :prop   => "{}"     
             })
             t.save!
-            prop.delete("teamnotcreated")
-            user_data.ext[:prop] = prop.to_json
-            user_data.ext.save!
+            user_data.ext.delete_prop("teamnotcreated")
+    
+            user_data.check_save
             render :text=>t.to_json
        #     user_data[:team] 
             return
