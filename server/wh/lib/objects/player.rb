@@ -470,6 +470,7 @@ class Player < Human
              end 
              
              if !pass
+                 ext[:exp] = exp_next_level-1 if ext[:exp]< exp_next_level-1
                  send_msg(id, "<div>你的等级无法提升，你需要打败#{hero.name}才能升至#{ext[:level]+levelup}级</div>")
              else
                  ext[:level] += 1

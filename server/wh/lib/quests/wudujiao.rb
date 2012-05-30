@@ -222,7 +222,7 @@ class Wudujiao < Quest
                     data.set_prop("join", "zhongyuan")
                     team_zhongyuan.push(player.id)
                     q.set_prop("zhongyuan", team_zhongyuan)
-                    q.savenum = team_zhongyuan.size
+                    # q.savenum = team_zhongyuan.size
                     msg += "<div>左冷禅拱手说道：多谢英雄前来助战，请稍事休息，等大伙汇集齐了便一同出发！</div>"
                     per = num*100/full
                     if per > 80

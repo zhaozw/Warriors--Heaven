@@ -37,11 +37,25 @@ insert into userexts values(null, 3, "taiseng",     100, 0, 10, '', '{}', '9d4a4
 insert into userexts values(null, 4, "燕北天",         100, 0, 20, '', '{}', '40d2e044df294a37a604a9458e621018', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
 insert into userexts values(null, 5, "一灯",          100, 0, 20, '', '{}', '8800a9ef2d3c91569eff59ed68349e46', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
 insert into userexts values(null, 6, "张三疯",         100, 0, 42, '', '{}', 'c630a00633734cf4f5ff4c0de5e6e8b2', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
-insert into userexts values(null, 7, "monkey",      100, 0, 10, '', '{}', 'b88f4175ebdee8be89f50d12d7ddb5f3', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
-insert into userexts values(null, 8, "king",        100, 0, 10, '', '{}', 'f0a28ae6cc681d3f50ae4f281cab9218', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
-insert into userexts values(null, 9, "queen",       100, 0, 10, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges100, /badge1.png"}]}', '1320346951bf2bc6293fb70cc2a71a05', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
-insert into userexts values(null, 10,"Linsanity",   100, 0, 10, '', '{}', 'dce21c64f8788afce3960cf88734048b', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 7, "monkey",      100, 0, 9, '', '{}', 'b88f4175ebdee8be89f50d12d7ddb5f3', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 8, "king",        100, 0, 8, '', '{}', 'f0a28ae6cc681d3f50ae4f281cab9218', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 9, "queen",       100, 0, 7, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges100, /badge1.png"}]}', '1320346951bf2bc6293fb70cc2a71a05', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 10,"Linsanity",   100, 0, 3, '', '{}', 'dce21c64f8788afce3960cf88734048b', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
 insert into userexts values(null, 11,"Shelton",     100, 0,  0, '', '{}', '507c5283c26d277878c622da8252ab03', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 15,"Spring",      100, 0,  3, '', '{}', '512298b206ac82df11e370f4021736d0', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+
+insert into userexts values(null, 24, "真还赚",          100, 0,  0, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges/badge1.png"}]}', 'd434740f4ff4a5e758d4f340d7a5f467', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 25, "终南山旅游事业管理局",   100, 0,  0, '', '{}', '032730df4eb17eaa9b6b83f798b76602', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 26, "奥巴马",          100, 0, 10, '', '{}', '9d4a4051baf9d1c4ab7ffa9f6e9ad7b4', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 27, "sunbin",       100, 0, 20, '', '{}', '40d2e044df294a37a604a9458e621018', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 28, "Tony",         100, 0, 20, '', '{}', '8800a9ef2d3c91569eff59ed68349e46', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 29, "gaga",         100, 0, 42, '', '{}', 'c630a00633734cf4f5ff4c0de5e6e8b2', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 30, "Panny",        100, 0, 9, '', '{}', 'b88f4175ebdee8be89f50d12d7ddb5f3', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 31, "新佑卫门",         100, 0, 8, '', '{}', 'f0a28ae6cc681d3f50ae4f281cab9218', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+insert into userexts values(null, 32, "川上奈美子",        100, 0, 7, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges100, /badge1.png"}]}', '1320346951bf2bc6293fb70cc2a71a05', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
+
+
+
 #update userexts set prop='{"hand_weapon":"sword"}'  where uid=4;
 =end                                
   def self.down

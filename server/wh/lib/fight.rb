@@ -795,7 +795,7 @@ end
             # end
             # player.ext[:exp] = player.tmp[:exp]
             player.get_exp(gain[:exp])
-            p "===>33player ext saved #{player.ext.inspect}"
+            # p "===>33player ext saved #{player.ext.inspect}"
             # bChange = true
         end
         
