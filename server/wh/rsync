@@ -1,1 +1,1 @@
-rsync -i ~/.ssh/id_rsa public.tar.gz ju.weihua@wh.joyqom.com:/home/ju.weihua/public.tar.gz
+rsync -i ~/.ssh/id_rsa $1 ju.weihua@wh.joyqom.com:/home/ju.weihua/

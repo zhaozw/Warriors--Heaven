@@ -94,7 +94,7 @@ class Yunbiao < Quest
                             msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
                         end
                         if (win)
-                            eqs = npc.query_all_equipments
+                            eqs = npc.query_all_obj
                                 eqs.each {|k,v|
                                 user.get_obj(v)
                             }
@@ -124,7 +124,9 @@ class Yunbiao < Quest
             msg += "<div> 你终于来到慕容山庄前，庄里的伙计正在那里等着。拍了拍你的肩膀，兄弟辛苦了！</div>"
             add_exp = 100 + rand(player.ext[:luck])
             levelup = player.get_exp(add_exp)
-            msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span></div>"
+            gold_bonus= 100
+            player.ext[:gold] += gold
+            msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span>, Gold<span style='color:#990000'>+#{gold_bonus}</span></div>"
             if levelup
                 msg +="<div style='color:#990000'>你的等级提升了!</div>"
             end

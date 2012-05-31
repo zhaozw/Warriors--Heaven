@@ -251,7 +251,7 @@ end
     end
     # player1 drop equipment randomly to player2
     # q is chance to drop compare to rand(10), q is bigger, chance is more.
-    def rand_drop(p1, p2, q=-5)
+    def rand_drop(p1, p2, q=5)
         if rand(10)<q
             return
         end

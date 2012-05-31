@@ -101,6 +101,7 @@ class UsereqsController < ApplicationController
         player.recover
         eqs = Equipment.find(params[:id])
         eq = eqs
+        p "==>use eq #{eq.inspect}"
         obj = load_obj(eq[:eqname], eq)
 
         context= {
@@ -110,7 +111,7 @@ class UsereqsController < ApplicationController
         obj.use(context)
         
         user_data.check_save
-        
+        p "==>use eq2 #{context.inspect}"
         
         success(context[:msg], {:id=>params[:id], :userext=>(user_data.ext)})
     end
