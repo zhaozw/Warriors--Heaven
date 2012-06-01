@@ -89,6 +89,8 @@
                 btnImage = [UIImage imageNamed:@"tab_shop.png"];
             else if (i == 6)
                 btnImage = [UIImage imageNamed:@"tab_quest.png"];
+            else if (i == 7)
+                btnImage = [UIImage imageNamed:@"tab_rank.png"];
             else
                 btnImage = [self tabBarImage:v.tabBarItem.image size:btn.frame.size backgroundImage:nil];
             [btn setImage:btnImage forState:UIControlStateNormal];
