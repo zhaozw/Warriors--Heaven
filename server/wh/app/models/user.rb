@@ -338,6 +338,18 @@ class User < ActiveRecord::Base
                 end
             end
         end
+        if self[:objects]
+            for us in self[:objects]
+                if (us.data)
+                    if (isChanged?(us.data))
+                        p "=>changed=#{us.data.changed.inspect}"
+                        p "==>#{us.data.inspect}"
+                        us.data.save!
+                        self[:cached] = false
+                    end
+                end
+            end
+        end
         
         if !self[:cached] 
               p "==>caching"
@@ -419,10 +431,13 @@ class User < ActiveRecord::Base
     end
     
     def invalidate_all_obj(reload)
+        p "===>invalidate objects"
         self[:objects] = nil
         query_all_obj if reload
+        set_cached(false)
     end
     def query_all_obj
+        p "self objects #{self[:objects].inspect}"
         if !self[:objects]
             self[:objects] = []
             eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]}")
@@ -459,6 +474,9 @@ class User < ActiveRecord::Base
         end
     end
     
+    def set_cached(b)
+        self[:cached] = b 
+    end
     
     def remove_obj(obj)
         o = query_obj_by_id(obj.data[:id])

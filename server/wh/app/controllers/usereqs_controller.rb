@@ -72,6 +72,7 @@ class UsereqsController < ApplicationController
          eq = eqs
          if eq[:owner] != user_data[:id]
             user_data.invalidate_all_obj(false)
+            user_data.check_save
             error "交易失败！ 该物品不属于你。"
              return
          end
