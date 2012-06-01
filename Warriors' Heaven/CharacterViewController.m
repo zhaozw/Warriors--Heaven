@@ -993,19 +993,23 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSLog(@"Post data %@", s);
     
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client postHttpRequest:@"/usereqs/save" data:s selector:@selector(onSaveEq:) json:YES showWaiting:YES];
+    [client postHttpRequest:@"/usereqs/save" data:s selector:@selector(onSaveReturn:) json:YES showWaiting:YES];
 
 
     
 }
-- (void) onSaveEq:(NSObject*) data{
+- (void) onSaveReturn:(NSObject*) data{
     if ([data valueForKey:@"error"]){
         [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES];
         return;
     }
     [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:NO];
-    [ad setDataUserExt:data];
-    [ad saveDataUser];
+    id ext = [data valueForKey:@"userext"];
+    if (ext)
+    {
+        [ad setDataUserExt:ext];
+        [ad saveDataUser];
+    }
     
 }
 

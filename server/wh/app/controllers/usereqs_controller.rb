@@ -62,7 +62,7 @@ class UsereqsController < ApplicationController
         user_data.check_save
       #  p request_origin
         # render :text=>user_data.ext.to_json
-        success("保存成功!", user_dat.ext)
+        success("保存成功!", {:userext=>user_data.ext})
     end
     
     def sell

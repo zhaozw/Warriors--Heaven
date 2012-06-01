@@ -56,8 +56,13 @@ class ApplicationController < ActionController::Base
          Blade
     end
       
-    def error(msg)
-        render :text=>"{\"error\":\"#{msg}\"}"
+    def error(msg, data=nil)
+         ret = {
+            "error"=>msg
+        }
+        ret = ret.merge(data) if data
+        render :text=>ret.to_json
+        # render :text=>"{\"error\":\"#{msg}\"}"
     end
     def success(msg, data=nil)
         ret = {

@@ -65,7 +65,7 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
+    host = @"homeserver.joyqom.com";
 //    debug = TRUE;
     port = @"80";
     bUserEqNeedUpdated = FALSE;
@@ -531,7 +531,8 @@
     if (bCloseBt){
         btClose.hidden = NO;
     }else
-        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
+//        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
+        [self performSelector:@selector(hideNetworkStatus) withObject:nil afterDelay:3];
     
       vNetworkStatus.hidden = NO;
     vAlert.hidden = NO;

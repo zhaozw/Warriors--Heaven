@@ -97,7 +97,8 @@ include Pc
               :it  =>@obj[:userext][:it],
               :fame    =>@obj[:userext][:fame],
               :race    =>@obj[:userext][:race],
-              :pot     =>@obj[:userext][:pot]
+              :pot     =>@obj[:userext][:pot],
+              :gold    =>@obj[:userext][:gold]
           }
           prop =  JSON.parse(@obj[:userext][:prop])
           prop.each {|k,v|

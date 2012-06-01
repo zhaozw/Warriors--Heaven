@@ -278,6 +278,7 @@ end
              drop.push(objs[r])
          end
         
+        p "==>drop from #{p1.name} to#{p2.name}: #{drop.inspect}"
          
          return drop
     end
@@ -289,12 +290,15 @@ end
      
          # drop gold
          gold = p1.tmp[:gold].to_i
+           p "===>gold=#{gold}"
          r = rand(gold*2)
+         p "===>r1=#{r}"
          if r <gold
-             move_gold(p1, p2, r/3)
+             r = (r/10).to_i
+             move_gold(p1, p2, r)
          end
          
-         return r/3
+         return r
     end
     
     def move_gold(p1, p2, gold)

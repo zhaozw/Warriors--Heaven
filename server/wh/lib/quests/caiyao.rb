@@ -92,8 +92,9 @@ class Caiyao < Quest
         if (action=="dig")
             luck = user.ext[:luck]
             pp = rand(150)
-            if (pp<luck) # get caiyao
-        #  if (false)
+            # if (pp<luck) # get caiyao
+         # if (false)
+         if true
                 ar = caoyao_list
                 if (luck < caoyao_list.size)
                     luck = caoyao_list.size
@@ -103,7 +104,7 @@ class Caiyao < Quest
                 index = (rand(ar.size*2) + rand(ar.size*2))/2
                 if index >= ar.size
                     index = ar.size - index%ar.size
-                    index = ar.size -1 if index == ar.size
+                    index = ar.size() -1 if index == ar.size
                 end
                 r = caoyao_list[index]
                 o = create_fixure(r)
@@ -122,7 +123,7 @@ class Caiyao < Quest
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
                         msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
-                        if (levelup)
+                        if (levelup>0)
                             msg+="<div><span style='color:#990000'>你的等级提升了!</div>"
                         end
 
@@ -149,14 +150,22 @@ class Caiyao < Quest
                     if (player[:gain][:level] > 0)
                         msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
                     end
+                    
+                    if (player[:gain][:skills])
+                        player[:gain][:skills].each{|k,v|
+                            if v[:point] > 0
+                                msg +=  "\n<div class='gain' style='color:#990000'>你的#{v[:skill].dname}提升了#{v[:point]}点!</div>"
+                            end
+                        }
+                    end
                
                     p "===>msg=#{msg}"
                     if (win == 1)
                         # eqs = npc.query_all_equipments
                         #  eqs.each {|k,v|
                         #      user.get_obj(v)
-                        #  }
-                        drop = rand_drop(npc,player)
+                        #  }    
+                        drop = rand_drop(npc, player)
                         if drop
                             for dr in drop
                                 msg += "\n<div class='gain' style='color:#990000'>你得到了一#{dr.unit}#{dr.dname}!</div>"

@@ -505,7 +505,7 @@
                 unit = @"";
             id _amount = [o valueForKey:@"amount"];
             int amount = 1;
-            if (amount)
+            if (_amount)
                 amount = [_amount intValue];
             if (amount <= 0)
                 continue;

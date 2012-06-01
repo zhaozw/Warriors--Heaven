@@ -19,8 +19,15 @@ img.player {height:100px;}
 <script src="/javascripts/jquery-1.3.2.js"></script>
 <script>
 var g_data;
+function showWaiting(show){
+	if (show)
+		$("#waitingbg").css("display", "block");
+	else
+		$("#waitingbg").css("display", "none");	
+}
 function doAction(action_name){
 //	alert(action_name);
+	showWaiting(true);
 	$.ajax({
 			type: "post",
 			url: "/quest/doAction"+"?t="+ new Date().getTime(),
@@ -45,11 +52,12 @@ function doAction(action_name){
 			//alert(data.progress);
 			//alert($("#pro_left"));
 	
-		
+			showWaiting(false);
 			//hasMemo=1;
 			},
 			error: function(xhr, textStatus, errorThrow){
 				//alert("error"+errorThrow+","+textStatus+","+xhr.responseText);
+				showWaiting(false);
 			}
 	});
 }
@@ -105,6 +113,13 @@ function apply(){
 	}
 	
 	function onTimer(){
+		if (line_number >= TextArray.length)
+			return;
+			
+	 	$("#result").html( $("#result").html()+TextArray[line_number]);
+		line_number +=1;
+		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
+		
 		if (line_number >= TextArray.length){
 			clearInterval(timer);
 			line_number = 0;
@@ -112,15 +127,15 @@ function apply(){
 			apply();
 			return;
 		}
-	 	$("#result").html( $("#result").html()+TextArray[line_number]);
-		line_number +=1;
-		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
 	}
 
 </script>
 <body style="background:transparent;background-color:transparent;width:320px;margin:0;padding:0;border:0px solid red;">
 <div id="bg" style="z-index:-1;position:absolute;left:0;top:0;width:320px;height: 430px;">
 	<img id="bg" src="<%=@quest.bgimage%>" style="margin:10 0;height:480px;"/>
+</div>
+<div id="waitingbg" style="display:none;z-index:100;position:absolute;left:0;top:0;width:320px;height:480px;">
+	<img src="/images/wait3.gif" style="width:50px;margin-left:135px;margin-top:230px;"/>
 </div>
 <div id="main" style="display:none;background:transparent;background-color: transparent;margin:25px;">
 	<div >

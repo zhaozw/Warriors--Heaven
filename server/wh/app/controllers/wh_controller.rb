@@ -554,20 +554,23 @@ class WhController < ApplicationController
             :msg => ""
         }
         
-        result = _fight(p1, p2, context) # 0: lose, 1: win
+        result = _fight(p1, p2, context) # 0: lose, 1: win -1:duce
         
-        
+=begin  # drop?
+
         if result == 0 
             # if  p1.tmp[:stam] < 0
-                player[:gain][:drop] = []
+                p1[:gain][:drop] = []
                 dr = rand_drop(p1, p2)
                 player[:gain][:drop] = dr if dr
-                dr = rand_drop_gold(p1, p2, (100-p1.tmp[:luck])/10)
-                player[:gain][:drop].push({
-                    :dname=>"Gold",
-                    :unit=>"",
-                    :amount=>dr
-                }) if dr && ! player.query_obj("objects/special/goldkeeper")
+                if  ! p1.query_obj("objects/special/goldkeeper")
+                    dr = rand_drop_gold(p1, p2, (100-p1.tmp[:luck])/10)
+                    player[:gain][:drop].push({
+                        :dname=>"Gold",
+                        :unit=>"",
+                        :amount=>dr
+                    }) if dr 
+                end
                 
                 p "===>drop:#{dr.inspect}"
             # end
@@ -576,16 +579,18 @@ class WhController < ApplicationController
             rand_drop(p2, p1, (100 - enemy.ext[:luck])/20)
             player[:gain][:object] = dr if dr
             
-            dr = rand_drop_gold(p1, p2, (100-p2.tmp[:luck])/10)
-            player[:gain][:object].push({
-                    :dname=>"Gold",
-                    :unit=>"",
-                    :amount=>dr
-                })  if dr and ! player.query_obj("objects/special/goldkeeper")
+            if ! p2.query_obj("objects/special/goldkeeper")
+                dr = rand_drop_gold(p1, p2, (100-p2.tmp[:luck])/10)
+                player[:gain][:object].push({
+                        :dname=>"Gold",
+                        :unit=>"",
+                        :amount=>dr
+                    })  if dr 
+            end 
             
             p "===>drop:#{dr.inspect}"
         end
-        
+=end        
         #p "=>1: #{user_data[:userext] }"
         #p "=>2: #{ player.ext}"
        # user_data[:userext] = player.ext

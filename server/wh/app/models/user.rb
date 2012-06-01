@@ -494,6 +494,10 @@ class User < ActiveRecord::Base
                  p "==>items3:#{self[:items].inspect}"
              end
         end
+        
+        if (self[:objects])
+            self[:objects].delete(o)
+        end
    
         obj[:owner]=nil   
         o[:owner]=nil   
