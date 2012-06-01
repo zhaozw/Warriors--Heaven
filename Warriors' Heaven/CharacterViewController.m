@@ -580,6 +580,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [vcObjDetail hideDetailView];
     [vcObjDetail setViewType:@"sell"];
     [vcObjDetail setOnTrade:self sel:@selector(onSell1:)];
+    [vcObjDetail setOnUse:self sel:@selector(onUse:)];
     vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
 
 }
@@ -610,7 +611,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [eqs removeObject:o];
     [vcObjDetail hideDetailView];
     [ad reloadStatus];
-    [self reloadEq];
+//    [self reloadEq];
+    [self viewWillAppear:NO];
 }
 - (void) onSellReturn:(NSObject* )data{
     NSObject* error = [data valueForKey:@"error"];
@@ -995,6 +997,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         [ad showMsg:[data valueForKey:@"error"] type:1 hasCloseButton:YES];
         return;
     }
+    [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:NO];
     [ad setDataUserExt:data];
     [ad saveDataUser];
     
@@ -1287,5 +1290,13 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     WHHttpClient* client = [[WHHttpClient alloc] init:self  ];
     [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/sell?id=%d", [[eq valueForKey:@"id"] intValue]] selector:@selector(onSellReturn:) json:YES showWaiting:YES];
     
+}
+- (void)onUse:(UIButton*)btn {
+    NSArray* eqs = [ad getDataUserEqs];
+    NSObject* eq = [eqs objectAtIndex:[self findEpById:itemOnDetail]];
+    if (!eq)
+        return;
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/use?id=%d", [[eq valueForKey:@"id"] intValue]] selector:@selector(onUseReturn:) json:YES showWaiting:YES];
 }
 @end

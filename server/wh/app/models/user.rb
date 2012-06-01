@@ -417,6 +417,11 @@ class User < ActiveRecord::Base
         end
         return nil
     end
+    
+    def invalidate_all_obj(reload)
+        self[:objects] = nil
+        query_all_obj if reload
+    end
     def query_all_obj
         if !self[:objects]
             self[:objects] = []

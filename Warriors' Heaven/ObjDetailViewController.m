@@ -151,6 +151,12 @@
         [btTrade addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
     }
 }
+- (void) setOnUse:(id)c  sel:(SEL) sel{
+    if (c && sel){
+        [btnUse removeTarget:self action:@selector(onUse:) forControlEvents:UIControlEventTouchUpInside];
+        [btnUse addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+    }
+}
 - (void) hideDetailView{
     [self view].hidden = YES;
 }

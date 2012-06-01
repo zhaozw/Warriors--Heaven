@@ -32,4 +32,5 @@
 @property (strong, nonatomic) IBOutlet EGOImageView *vImage;
 @property (strong, retain) AppDelegate * ad;
 - (void) setOnTrade:(id)c  sel:(SEL) sel;
+- (void) setOnUse:(id)c  sel:(SEL) sel;
 @end

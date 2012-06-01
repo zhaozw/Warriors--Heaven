@@ -61,7 +61,8 @@ class UsereqsController < ApplicationController
         # update_session_data(nil)
         user_data.check_save
       #  p request_origin
-        render :text=>user_data.ext.to_json
+        # render :text=>user_data.ext.to_json
+        success("保存成功!", user_dat.ext)
     end
     
     def sell
@@ -70,7 +71,8 @@ class UsereqsController < ApplicationController
          eqs = Equipment.find(params[:id])
          eq = eqs
          if eq[:owner] != user_data[:id]
-             error "交易失败！ 该物品不属于你。"
+            user_data.invalidate_all_obj(false)
+            error "交易失败！ 该物品不属于你。"
              return
          end
          obj = load_obj(eq[:eqname], eq)
@@ -82,9 +84,7 @@ class UsereqsController < ApplicationController
          
          user_data.ext[:gold] += obj.price.to_i / 2
          p "-->#{user_data.ext.inspect}"
-         
-    
-         
+
          user_data.check_save
          
          ret = {
