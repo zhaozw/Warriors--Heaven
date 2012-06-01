@@ -618,6 +618,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSObject* error = [data valueForKey:@"error"];
     if (error){
         [ad showMsg:error type:1 hasCloseButton:YES];
+        id usereqs = [data valueForKey:@"usereqs"];
+        if (usereqs){
+            [ad setDataUserEqs:usereqs];
+            [self reloadEq];
+        }
+            
         return;
     }
     

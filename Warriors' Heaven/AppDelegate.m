@@ -65,7 +65,7 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
 //    debug = TRUE;
     port = @"80";
     bUserEqNeedUpdated = FALSE;
@@ -515,10 +515,16 @@
 }
 
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt{
-    if (type == 0)
-        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
-    else if (type == 1)
+    if (type == 0){
+//        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
+        lbAlertMsg.frame = CGRectMake(20, 20, 240, 73);
+        vAlertImg.hidden = YES;
+    }
+    else if (type == 1){
         [vAlertImg setImage:[UIImage imageNamed:@"warning.png"]];
+        lbAlertMsg.frame = CGRectMake(20, 62, 240, 73);
+        vAlertImg.hidden = NO;
+    }
         
     lbAlertMsg.text = msg;
     

@@ -71,9 +71,9 @@ class UsereqsController < ApplicationController
          eqs = Equipment.find(params[:id])
          eq = eqs
          if eq[:owner] != user_data[:id]
-            user_data.invalidate_all_obj(false)
+            user_data.invalidate_all_obj(true)
             user_data.check_save
-            error "交易失败！ 该物品不属于你。"
+            error ("交易失败！ 该物品不属于你。", {:usereqs=>user_data.query_all_obj})
              return
          end
          obj = load_obj(eq[:eqname], eq)

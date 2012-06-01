@@ -96,7 +96,10 @@
     if (json){
 //        json = [json valueForKey:@"userext"];
         // NSNumber* exp = [json  valueForKey:@"exp"];
-        lbExp.text = [[json  valueForKey:@"exp"] stringValue];
+        int level = [[json  valueForKey:@"level"]  intValue];
+        int exp = [[json  valueForKey:@"exp"] intValue];
+        int max_exp = (level+1)*(level+1)*(level+1);
+        lbExp.text = [NSString stringWithFormat:@"%d/%d", exp, max_exp];
         lbGold.text = [[json  valueForKey:@"gold"] stringValue];
         //lbAmbition = [json  valueForKey:@"exp"];
         lbLevel.text = [[json  valueForKey:@"level"] stringValue];
