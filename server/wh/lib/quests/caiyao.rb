@@ -92,9 +92,9 @@ class Caiyao < Quest
         if (action=="dig")
             luck = user.ext[:luck]
             pp = rand(150)
-            # if (pp<luck) # get caiyao
+            if (pp<luck) # get caiyao
          # if (false)
-         if true
+         # if true
                 ar = caoyao_list
                 if (luck < caoyao_list.size)
                     luck = caoyao_list.size
@@ -135,10 +135,25 @@ class Caiyao < Quest
             #msg = "你很用力的挖"
      
                 if (pp  > luck + 70)
-                    msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
-                    npc = create_npc("objects/npc/shanzei")
+                    ar = npc_list
+                    index = (rand(ar.size*2) + rand(ar.size*2))/2
+                    if index >= ar.size
+                        index = ar.size - index%ar.size
+                        index = rand(ar.size) if index == ar.size
+                    end
+                    npc_name = ar[index]
+                    npc = create_npc(npc_name)
                     npc.set_temp("level", user.ext[:level])
-         
+                    msg = "<div>忽然跳出一#{npc.unit}#{npc.name}，看样子要杀了你！</div>"
+                    
+                   if npc_name == "objects/npc/shanzei"
+                        full_skill_level = cacl_fullskill(user.ext[:level])
+                        npc.set_skill("unarmed", full_skill_level, 0)
+                        npc.set_skill("parry", full_skill_level, 0)
+                        npc.set_skill("dodge", full_skill_level, 0)
+                        npc.set_skill("daofa", full_skill_level, 0)
+                   end
+                     
                     _context = {:msg=>""}
                     player[:isUser] = true
                     player[:canGain] = true
@@ -154,7 +169,7 @@ class Caiyao < Quest
                     if (player[:gain][:skills])
                         player[:gain][:skills].each{|k,v|
                             if v[:point] > 0
-                                msg +=  "\n<div class='gain' style='color:#990000'>你的#{v[:skill].dname}提升了#{v[:point]}点!</div>"
+                                msg +=  "\n<div class='gain' style='color:#990000'>你的#{v[:dname]}提升了#{v[:point]}点!</div>"
                             end
                         }
                     end
@@ -185,6 +200,17 @@ class Caiyao < Quest
         context[:msg] = msg
         p context.inspect
     end
+    
+    def npc_list
+        [ # from expensive to cheap
+            # "objects/npc/tiger",
+            # "objects/npc/snake",
+            "objects/npc/shanzei",
+            "objects/npc/yetu",
+            "objects/npc/yetu"
+        ]
+    end
+    
     
     def give_pot(p1)
         if rand(100) < p1.tmp[:luck]

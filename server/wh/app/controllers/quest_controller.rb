@@ -28,20 +28,14 @@ class QuestController < ApplicationController
                "desc"=> quest.desc,
                "image"=> quest.logo
            }
-            bfound = false
-            for uq in userquests
-                if q == uq[:name]
-                    row[:progress] = uq[:progress]
-                    asked.push(row)
-                    bfound = true
-                    break
-                end
-            end
-            if bfound
-                next
-            else
-                unasked.push(row)
-            end
+           userquest = player.query_quest(q)
+           if userquest != nil
+               row[:progress] = userquest[:progress]
+               asked.push(row)
+           else
+               unasked.push(row)
+           end
+           
            
         end
         ret={

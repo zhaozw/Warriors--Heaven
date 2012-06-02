@@ -169,6 +169,10 @@ end
         return re  
     end
     
+    #=====================
+    # skill related
+    #=====================
+    
     def cacl_fullskill(level)
         exp = calc_total_exp(level)
         

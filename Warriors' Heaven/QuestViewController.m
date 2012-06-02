@@ -154,7 +154,7 @@
         
         UIProgressView* pv = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         pv.frame = CGRectMake(2, 62, 60, 10);
-        [pv setProgress:progress];
+        [pv setProgress:progress/100.0f];
         [row addSubview:pv];
         
         UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];

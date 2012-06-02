@@ -39,9 +39,9 @@ class Yetu < Npcorc
     end
     
     def setup_skill  
-        set_skill("beastunarmed", 20, 0)
-        set_skill("parry", 20, 0)
-        set_skill("dodge", 20, 0)
+        set_skill("beastunarmed", 10, 0)
+        set_skill("parry", 10, 0)
+        set_skill("dodge", 10, 0)
     
 =begin
        @skills =[

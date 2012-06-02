@@ -4,13 +4,14 @@ require 'objects/npc/npchuman.rb'
 class Shanzei < Npchuman
     
    def name
-       "山贼"
+       "蒙面山贼"
    end
    
    def desc
         "这是一个破衣烂山的山贼，眼睛里露着凶狠的目光."
    end
       
+     
      
    def setup_temp
         

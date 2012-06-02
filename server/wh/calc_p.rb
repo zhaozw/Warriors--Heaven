@@ -1,6 +1,7 @@
 a = {}
 m = 11
 ar = [0,1,2,3,4,5,6,7,8,9]
+#ar =[0,1]
 p "size #{ar.size}"
 luck = 50
 srand(Time.now.tv_usec.to_i)
@@ -26,7 +27,8 @@ for i in 0..10000
                     index = (rand(ar.size*2) + rand(ar.size*2))/2
                 if index >= ar.size
                     index = ar.size - index%ar.size
-                    index = ar.size-1 if index == ar.size
+                    #index = ar.size-1 if index == ar.size
+                    index = 0  if index == ar.size
                 end
                 p "!!!" if index <0 or index > ar.size
                 b= index

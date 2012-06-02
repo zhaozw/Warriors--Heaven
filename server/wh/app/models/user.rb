@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
     #     q[:progress] += add_progress
     # end
     
+
     def query_quest(quest)
         if (!self[:userquests])
            self[:userquests] = {}; 

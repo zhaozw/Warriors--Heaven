@@ -106,7 +106,7 @@
     NSObject* userdata = NULL;
     if ([Array count] > 0)
         userdata = [Array objectAtIndex:0];
-    NSLog(@"datauser: %@", userdata);
+    NSLog(@"readUserObject datauser: %@", userdata);
     return userdata;
 }
 
@@ -401,7 +401,7 @@
          [self initUI];
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
-    NSLog(@"data_user %@", [data_user JSONRepresentation]);
+    NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
     bUserSkillNeedUpdate = FALSE;
     if (!bShowingWelcome)
         [self hideWelcomeView];

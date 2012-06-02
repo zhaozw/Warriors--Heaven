@@ -575,7 +575,7 @@ end
                 end
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
-             # msg += "dp:#{dodge_power} ap:#{attack_power}"
+             msg += "dp:#{dodge_power} ap:#{attack_power}"
              if rand(attack_power+dodge_power) < dodge_power # miss
                  #
                  # attack missed, dodge succeeded
@@ -587,7 +587,7 @@ end
                  msg +=  line "<br/>\n"+translate_msg(context_d[:msg], context_d)
                  
                  # improve dodge skill
-                 if (rand(defenser.tmp[:it]+1) > 10)
+                 if (defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10)
                     
                     context_d[:gain][:exp] += 1
                     defenser.tmp[:exp] += 1
@@ -607,7 +607,17 @@ end
                          end
                          msg += "</div><!--0-->"
                     end
+         
                    
+                 end
+                 
+                 # attacker get potential point
+                 if attacker[:canGain] && rand(attacker.tmp[:it]+1) > 10
+                        context_a[:gain][:pot] += 1
+                        msg += "<!--1--><div class='rgain'>"
+                        msg += "<br/> 潜能<span>+1</span></span>"
+               
+                        msg += "</div><!--0-->"
                  end
                  
                  damage += 1 #  result_dodge                         
@@ -685,7 +695,7 @@ end
                  
                  # 
                  _perp = rand(parry_power  + attack_power  )
-                  # msg += "pp:#{parry_power} ap:#{attack_power} _perp=#{_perp}"
+                  msg += "pp:#{parry_power}  _perp=#{_perp}"
                  if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded

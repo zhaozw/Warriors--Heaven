@@ -1,4 +1,6 @@
-level =  43
+#level =  43
+level = $*[0].to_i
+p level
 a = 0
 for i in 0..level
 	a += i*i*i

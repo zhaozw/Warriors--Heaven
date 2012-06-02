@@ -199,7 +199,10 @@
 // 你可以在里面判断返回结果, 或者处理返回的http头中的信息
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse{
 
-    NSLog(@"Recieve http respnse %@", aResponse.MIMEType);
+    NSLog(@"Recieve http respnse %@, %@", aResponse.MIMEType, aResponse);
+    NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
+    NSDictionary *fields = [HTTPResponse allHeaderFields];
+    NSLog(@"HTTP HEADER %@", fields);
 /* 
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];
