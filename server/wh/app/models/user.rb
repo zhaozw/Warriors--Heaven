@@ -548,16 +548,18 @@ class User < ActiveRecord::Base
     def load_items
         # eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]} and eqtype=2")
         eqs = query_all_obj
+          p "eqs=#{eqs.inspect}"
         self[:items] =[]
         for eq in eqs 
-   
-            self[:items].push(obj) if eq.data[:eqtype==2]
+            p "eq=#{eq.inspect}"
+            self[:items].push(eq) if eq.data[:eqtype].to_i==2
         end
     end
     def query_items
-        if !self[:items]
+        p "=>items=#{self[:items]}"
+        # if !self[:items]
             load_items
-        end
+        # end
         return self[:items]
     end
     def query_obj_by_id(id)
@@ -584,7 +586,7 @@ class User < ActiveRecord::Base
     end
     def query_item(name)
          eqs = query_items
-         # p "===> eqs=#{eqs.inspect}"
+          p "===> eqs=#{eqs.inspect}"
          for eq in eqs
              if eq.data[:eqname] == name
                  return eq

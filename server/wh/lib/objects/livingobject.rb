@@ -24,7 +24,7 @@ class LivingObject < Game::Object
     end
     
     def query_all_obj
-        @wearing.values+@carring
+        @wearing.values+@carrying
     end
     def remove_obj(o)
         if @carrying.include?(o)

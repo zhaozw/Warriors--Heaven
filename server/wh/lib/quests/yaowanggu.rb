@@ -43,7 +43,7 @@ class Yaowanggu < Quest
         p "===>items:#{user.query_items.inspect}"
         srand(Time.now.tv_usec.to_i)
         if (action=="liu")
-                  add_progress(100)
+                  # add_progress(100)
             msg = ""
             dihuang     = user.query_item("objects/fixtures/dihuang") 
             shanyao     = user.query_item("objects/fixtures/shanyao") 
@@ -63,12 +63,12 @@ class Yaowanggu < Quest
                      msg += "<div class='row'>过不多久, 药童便出来，递上一颗黑黑的药丸.</div>"
                      
                      wan = create_fixure("objects/fixtures/liuweidihuangwan")
-                     user.delete_item(dihuang)
-                     user.delete_item(shanyao)
-                     user.delete_item(shanzhuyu)
-                     user.delete_item(zexie)
-                     user.delete_item(mudan)
-                     user.delete_item(fuling)
+                     user.delete_obj(dihuang)
+                     user.delete_obj(shanyao)
+                     user.delete_obj(shanzhuyu)
+                     user.delete_obj(zexie)
+                     user.delete_obj(mudan)
+                     user.delete_obj(fuling)
               
                      user.get_obj(wan)
                      msg += "<div class='row'>你得到一颗<span style='color:red'>六位帝黄丸</span>!</div>"
@@ -78,7 +78,7 @@ class Yaowanggu < Quest
                      end
                      if(!r.get_prop("liu"))
                          r.set_prop("liu", 1)
-                         add_progress(progress)
+                         add_progress(20)
                      end
                  else
                      msg += "<div class='row'>程灵素说：此方为熟地黄八钱，山萸肉、干山药各四钱，泽泻、牡丹皮、白茯苓各三钱, 可滋肾补肝. 阁下的药材似乎还差几味。</div>"

@@ -36,7 +36,7 @@ class Jiuguishengzhuan < Daofa
    def checkResearchCondition(context)
        user = context[:user]
        skill = user.query_skill("blade")
-      return true
+
        if (!skill or skill.data[:level] <= 10 )
            context[:msg] += "你的基本刀法功夫还不够，无法参悟书中奥义"
            return false

@@ -138,6 +138,7 @@ class UserrschesController < ApplicationController
       
         skill = load_skill(skill_name)
         b = skill.checkResearchCondition(context)
+        p "===>checkResearchCondition=#{b}"
         if (!b)
             error(context[:msg])
             return

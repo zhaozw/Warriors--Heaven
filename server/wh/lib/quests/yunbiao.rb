@@ -83,20 +83,24 @@ class Yunbiao < Quest
                         npc = create_npc("objects/npc/gangster")
                         npc.set_temp("level", player.ext[:level])
          
-                        _context = {:msg=>msg}
+                        _context = {:msg=>""}
                         player[:isUser] = true
                         win = _fight(player, npc, _context)
-                        msg =  _context[:msg]
+                        msg +=  _context[:msg]
                         if (player[:gain][:exp] >0)
                             msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                         end
                         if (player[:gain][:level] > 0)
                             msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
                         end
-                        if (win)
+                        p "==>win=#{win}"
+                        if (win == 1)
                             eqs = npc.query_all_obj
                                 eqs.each {|k,v|
-                                user.get_obj(v)
+                                if v != nil
+                                    player.get_obj(v) 
+                                    msg += "\n<div class='gain' style='color:#990000'>你得到了一#{v.unit}#{v.dname}!</div>"
+                                end
                             }
                         else
                             break
@@ -104,8 +108,8 @@ class Yunbiao < Quest
                     end
                     p "===>msg=#{msg}"
                     r = player.query_quest("yunbiao")
-                       if win
-                           add_progress(38, {:user=>player})
+                       if win == 1
+                           add_progress(38)
                        else
                            r[:progress] = 0
                            msg += "<div>你眼见不是对手, 只好放弃了镖车。</div>"
@@ -125,7 +129,7 @@ class Yunbiao < Quest
             add_exp = 100 + rand(player.ext[:luck])
             levelup = player.get_exp(add_exp)
             gold_bonus= 100
-            player.ext[:gold] += gold
+            player.ext[:gold] += gold_bonus
             msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span>, Gold<span style='color:#990000'>+#{gold_bonus}</span></div>"
             if levelup
                 msg +="<div style='color:#990000'>你的等级提升了!</div>"

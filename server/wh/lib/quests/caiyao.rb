@@ -134,7 +134,7 @@ class Caiyao < Quest
             else
             #msg = "你很用力的挖"
      
-                if (pp  > luck + 70)
+                if (pp  > luck + 90)
                     ar = npc_list
                     index = (rand(ar.size*2) + rand(ar.size*2))/2
                     if index >= ar.size
