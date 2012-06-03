@@ -266,4 +266,7 @@
     
 
 }
+- (void) setOnClose:(id)c sel:(SEL) sel{
+    [btnClose addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+}
 @end

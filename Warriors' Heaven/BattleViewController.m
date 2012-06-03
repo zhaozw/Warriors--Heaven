@@ -49,7 +49,7 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
 
-
+    [vcBoss setOnClose:self sel:@selector(onCloseBossView:)];
     [vcBoss view].hidden = YES;
     [vcPlayer view].hidden = YES;
     [vcPlayer setOnFight:self sel:@selector(onFight:)];
@@ -635,5 +635,12 @@
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }
 
-
+- (void) onListHeroesReturn:(NSObject*) data{
+    heroList = data;
+    [self loadPlayers];
+}
+- (void) onCloseBossView:(UIButton*) bnt{
+    WHHttpClient* client = [[WHHttpClient alloc] init:self];
+    [client sendHttpRequest:@"/wh/listHeroes" selector:@selector(onListHeroesReturn:) json:YES showWaiting:YES];
+}
 @end

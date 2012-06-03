@@ -368,12 +368,15 @@ class WhController < ApplicationController
         end
         ret = {
                :player=>r,
-               :hero=>listHeroes
+               :hero=>_listHeroes
          }
         render :text=>ret.to_json
         
     end
     
+    def listHeroes
+        render :text=>_listHeroes.to_json
+    end
  
     
 
@@ -607,7 +610,7 @@ class WhController < ApplicationController
             "msg"  => render_to_string(:layout=>false)
         }
         winner = 0
-        winner = 1 if !result
+        winner = 1 if result ==1
         b = Battle.new({
             :attacker =>  user_data[:user],
             :defenser =>  enemy[:user],
@@ -620,7 +623,7 @@ class WhController < ApplicationController
         
        # enemy.ext.save
        p "===>enemy zhanyi #{enemy.ext[:zhanyi]}"
-        if (winner==0 && enemy.ext[:zhanyi] >= 0)
+        if (result==0 && enemy.ext[:zhanyi] >= 0)
             enemy.ext[:zhanyi] -= 30
         end
         p "===>enemy zhanyi #{enemy.ext[:zhanyi]}, winner=#{winner}"
@@ -683,7 +686,7 @@ class WhController < ApplicationController
 
 
         
-    def listHeroes
+    def _listHeroes
         l = user_data.ext[:level].to_i
         h_level = getNextStageLevel(l)
         list = hero_list

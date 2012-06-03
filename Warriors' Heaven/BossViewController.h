@@ -35,4 +35,5 @@
 - (void) setOnFight:(id)c  sel:(SEL) sel;
 - (void) loadPlayer:(id) data;
 - (void) loadEq:(NSArray*) eqs;
+- (void) setOnClose:(id)c sel:(SEL) sel;
 @end
