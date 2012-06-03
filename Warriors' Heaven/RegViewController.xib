@@ -50,7 +50,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">logo16-1.jpg</string>
+							<string key="NSResourceName">logo17-7.jpg</string>
 						</object>
 					</object>
 					<object class="IBUILabel" id="751916481">
@@ -709,7 +709,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="button1.png">{92, 39}</string>
 			<string key="logo0012.png">{300, 167}</string>
-			<string key="logo16-1.jpg">{768, 768}</string>
+			<string key="logo17-7.jpg">{768, 768}</string>
 			<string key="p_0.png">{50, 50}</string>
 			<string key="p_1.png">{50, 50}</string>
 			<string key="p_2.png">{50, 50}</string>

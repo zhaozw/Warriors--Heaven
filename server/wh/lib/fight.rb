@@ -614,6 +614,7 @@ end
                  # attacker get potential point
                  if attacker[:canGain] && rand(attacker.tmp[:it]+1) > 10
                         context_a[:gain][:pot] += 1
+                        attacker.tmp[:pot] += 1
                         msg += "<!--1--><div class='rgain'>"
                         msg += "<br/> 潜能<span>+1</span></span>"
                

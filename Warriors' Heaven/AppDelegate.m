@@ -65,7 +65,8 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
+    
 //    debug = TRUE;
     port = @"80";
     bUserEqNeedUpdated = FALSE;
