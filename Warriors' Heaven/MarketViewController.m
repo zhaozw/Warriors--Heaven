@@ -12,7 +12,7 @@
 #import "EGOImageButton.h"
 #import "AppDelegate.h"
 
-#import "InAppPurchaseManager.h"
+
 
 @implementation MarketViewController
 @synthesize btEquipment;
@@ -93,13 +93,13 @@
    [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
     [self updateData];
     
-   
+        iapm = [[InAppPurchaseManager alloc] init];
     
     
 }
 
 - (void) onInAppPurchase:(UIButton*) btn{
-    InAppPurchaseManager* iapm = [[InAppPurchaseManager alloc] init];
+
     [iapm requestProUpgradeProductData];
 }
 - (void)viewDidUnload

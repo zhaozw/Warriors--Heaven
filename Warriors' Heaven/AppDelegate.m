@@ -65,7 +65,7 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-    host = @"homeserver.joyqom.com";
+//    host = @"homeserver.joyqom.com";
     
 //    debug = TRUE;
     port = @"80";
@@ -264,6 +264,7 @@
 //    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
+    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh'
     if (!session_id || debug){
 //    if (true){
 /*        // show registeration

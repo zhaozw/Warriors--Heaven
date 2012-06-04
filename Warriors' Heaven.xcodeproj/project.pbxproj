@@ -28,12 +28,12 @@
 		5A205FF61548684B0048A0C1 /* ObjDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A205FF41548684A0048A0C1 /* ObjDetailViewController.xib */; };
 		5A205FF9154881DB0048A0C1 /* bg10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A205FF8154881DB0048A0C1 /* bg10.jpg */; };
 		5A205FFF155186100048A0C1 /* gold.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A205FFE1551860E0048A0C1 /* gold.png */; };
-		5A20600715526B190048A0C1 /* Character.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600015526B160048A0C1 /* Character.png */; };
+		5A20600715526B190048A0C1 /* tab_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600015526B160048A0C1 /* tab_character.png */; };
 		5A20600815526B190048A0C1 /* tab_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600115526B170048A0C1 /* tab_home.png */; };
 		5A20600915526B190048A0C1 /* tab_team.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600215526B170048A0C1 /* tab_team.png */; };
 		5A20600A15526B190048A0C1 /* tab_fight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600315526B170048A0C1 /* tab_fight.png */; };
-		5A20600B15526B190048A0C1 /* tab_mission.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600415526B180048A0C1 /* tab_mission.png */; };
-		5A20600C15526B190048A0C1 /* tab_training.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600515526B180048A0C1 /* tab_training.png */; };
+		5A20600B15526B190048A0C1 /* tab_quest.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600415526B180048A0C1 /* tab_quest.png */; };
+		5A20600C15526B190048A0C1 /* tab_train.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600515526B180048A0C1 /* tab_train.png */; };
 		5A20600D15526B190048A0C1 /* tab_shop.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A20600615526B190048A0C1 /* tab_shop.png */; };
 		5A2060101552803A0048A0C1 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A20600F155280380048A0C1 /* PDColoredProgressView.m */; };
 		5A2060121552804C0048A0C1 /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2060111552804A0048A0C1 /* drawing.m */; };
@@ -218,12 +218,12 @@
 		5A205FF41548684A0048A0C1 /* ObjDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ObjDetailViewController.xib; sourceTree = "<group>"; };
 		5A205FF8154881DB0048A0C1 /* bg10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg10.jpg; sourceTree = "<group>"; };
 		5A205FFE1551860E0048A0C1 /* gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gold.png; sourceTree = "<group>"; };
-		5A20600015526B160048A0C1 /* Character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Character.png; sourceTree = "<group>"; };
+		5A20600015526B160048A0C1 /* tab_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_character.png; sourceTree = "<group>"; };
 		5A20600115526B170048A0C1 /* tab_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_home.png; sourceTree = "<group>"; };
 		5A20600215526B170048A0C1 /* tab_team.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_team.png; sourceTree = "<group>"; };
 		5A20600315526B170048A0C1 /* tab_fight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_fight.png; sourceTree = "<group>"; };
-		5A20600415526B180048A0C1 /* tab_mission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_mission.png; sourceTree = "<group>"; };
-		5A20600515526B180048A0C1 /* tab_training.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_training.png; sourceTree = "<group>"; };
+		5A20600415526B180048A0C1 /* tab_quest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_quest.png; sourceTree = "<group>"; };
+		5A20600515526B180048A0C1 /* tab_train.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_train.png; sourceTree = "<group>"; };
 		5A20600615526B190048A0C1 /* tab_shop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_shop.png; sourceTree = "<group>"; };
 		5A20600E155280360048A0C1 /* PDColoredProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDColoredProgressView.h; sourceTree = "<group>"; };
 		5A20600F155280380048A0C1 /* PDColoredProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDColoredProgressView.m; sourceTree = "<group>"; };
@@ -641,12 +641,12 @@
 				5AC06A0B1522EB610021B7FB /* tab_shop1.png */,
 				5AC06A0D1522ECA20021B7FB /* tab_quest1.jpg */,
 				5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */,
-				5A20600015526B160048A0C1 /* Character.png */,
+				5A20600015526B160048A0C1 /* tab_character.png */,
 				5A20600115526B170048A0C1 /* tab_home.png */,
 				5A20600215526B170048A0C1 /* tab_team.png */,
 				5A20600315526B170048A0C1 /* tab_fight.png */,
-				5A20600415526B180048A0C1 /* tab_mission.png */,
-				5A20600515526B180048A0C1 /* tab_training.png */,
+				5A20600415526B180048A0C1 /* tab_quest.png */,
+				5A20600515526B180048A0C1 /* tab_train.png */,
 				5A20600615526B190048A0C1 /* tab_shop.png */,
 				5A016F181578D7CA002D2B2A /* tab_rank.png */,
 			);
@@ -961,12 +961,12 @@
 				5A205FF61548684B0048A0C1 /* ObjDetailViewController.xib in Resources */,
 				5A205FF9154881DB0048A0C1 /* bg10.jpg in Resources */,
 				5A205FFF155186100048A0C1 /* gold.png in Resources */,
-				5A20600715526B190048A0C1 /* Character.png in Resources */,
+				5A20600715526B190048A0C1 /* tab_character.png in Resources */,
 				5A20600815526B190048A0C1 /* tab_home.png in Resources */,
 				5A20600915526B190048A0C1 /* tab_team.png in Resources */,
 				5A20600A15526B190048A0C1 /* tab_fight.png in Resources */,
-				5A20600B15526B190048A0C1 /* tab_mission.png in Resources */,
-				5A20600C15526B190048A0C1 /* tab_training.png in Resources */,
+				5A20600B15526B190048A0C1 /* tab_quest.png in Resources */,
+				5A20600C15526B190048A0C1 /* tab_train.png in Resources */,
 				5A20600D15526B190048A0C1 /* tab_shop.png in Resources */,
 				5A20601A155296180048A0C1 /* shelf.jpg in Resources */,
 				5A20601D1552979B0048A0C1 /* shelf3.jpg in Resources */,
@@ -1097,7 +1097,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = wh;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1118,7 +1117,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PRODUCT_NAME = wh;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
