@@ -3,6 +3,7 @@ require 'objects/special/special.rb'
 class Meihuazhuang  < Special
     def initialize
         super
+        set("max_hp", 1000)
         set("hp", 1000)
     end
   def dname

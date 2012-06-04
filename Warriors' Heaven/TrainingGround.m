@@ -61,6 +61,7 @@
      ad = [UIApplication sharedApplication].delegate;
     currentPractisingSkill = -1;
     willPractiseSkill = -1;
+    practiseRate = 1;
     lbUsername.text = [[ad getDataUser] valueForKey:@"user"];
     
     pv_tp = [[NSMutableArray alloc] init];
@@ -527,6 +528,7 @@
 }
 
 - (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot{
+//    practiseRate = 1;
     self->usepot = _usepot;
 
     self->currentPractisingSkill = [self findSkillIndexByName:skillname];
@@ -600,42 +602,43 @@
     NSString* name = [skill valueForKey:@"skname"];
     NSLog(@"skillname is %@", name);
     int tp = [[skill valueForKey:@"tp"] intValue];
-    if (pot == 0 || usepot == 0){
+    if (pot <= 0 || usepot <= 0 || jingli <=0){
         // stop practise
         NSLog(@"stop practise");
                WHHttpClient* client = [[WHHttpClient alloc] init:self];
         NSString* url = [[NSString alloc] initWithFormat:@"/wh/stopPractise?skill=%@", name];
         [client setRetry:YES];
-        [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:NO];
+        [client sendHttpRequest:url selector:@selector(onStopPractiseReturn:) json:YES showWaiting:YES];
         return;
         
     }
-    int rate = 1; // consume 1 pot per second 
-   
-    id fixture;
+//    int rate = 1; // consume 1 pot per second 
+    int rate = practiseRate;
     
-    if ([name isEqualToString:@"parry"]){
-         fixture   = [ad getDataUserextProp:@"muren"];
-        if (fixture){
-            int fx_v = [fixture intValue];
-            if (fx_v >0)
-                rate = rate / 2;
-        }
-    }else if ([name isEqualToString:@"unarmed"]){
-        fixture   = [ad getDataUserextProp:@"shadai"];
-        if (fixture){
-            int fx_v = [fixture intValue];
-            if (fx_v >0)
-                rate = rate / 2;
-        }
-    }else if ([name isEqualToString:@"dodge"]){
-        fixture   = [ad getDataUserextProp:@"meihuazhuang"];
-        if (fixture){
-            int fx_v = [fixture intValue];
-            if (fx_v >0)
-                rate = rate / 2;
-        }
-    }
+//    id fixture;
+//    
+//    if ([name isEqualToString:@"parry"]){
+//         fixture   = [ad getDataUserextProp:@"muren"];
+//        if (fixture){
+//            int fx_v = [fixture intValue];
+//            if (fx_v >0)
+//                rate = rate / 2;
+//        }
+//    }else if ([name isEqualToString:@"unarmed"]){
+//        fixture   = [ad getDataUserextProp:@"shadai"];
+//        if (fixture){
+//            int fx_v = [fixture intValue];
+//            if (fx_v >0)
+//                rate = rate / 2;
+//        }
+//    }else if ([name isEqualToString:@"dodge"]){
+//        fixture   = [ad getDataUserextProp:@"meihuazhuang"];
+//        if (fixture){
+//            int fx_v = [fixture intValue];
+//            if (fx_v >0)
+//                rate = rate / 2;
+//        }
+//    }
     usepot -= rate;
     pot-=rate;
     tp += rate;
@@ -648,7 +651,19 @@
     int level = [[skill valueForKey:@"level"] intValue];
     float process = ((float)tp)/((level+1)*(level+1));
     [((UIProgressView*)([pv_tp objectAtIndex:currentPractisingSkill])) setProgress:process];
+    [((UILabel*)([lb_level_list objectAtIndex:currentPractisingSkill])) setText:[NSString stringWithFormat:@"%d/Level %d", tp, level]];
     
+}
+
+- (void) updateSingleSkill:(NSObject*) data{
+    if ( data == nil)
+        return;
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [userskills objectAtIndex:currentPractisingSkill] ;
+    NSObject* new_userskill = data;
+    if (new_userskill)
+        [skill setValue:new_userskill forKey:@"userskill"];
+    NSLog(@"USERSKILLS: %@", [ad getDataUserskills]);
 }
 - (void) onStopPractiseReturn:(NSObject*) data{
     NSString* error = [data valueForKey:@"error"];
@@ -659,12 +674,7 @@
         [ad showMsg:suc type:0 hasCloseButton:YES];
         NSObject* ext = [data valueForKey:@"userext"];
         [[[ad getDataUser] valueForKey:@"userext"] setValue:ext forKey:@"userext"];
-        NSArray* userskills = [ad getDataUserskills];
-        NSObject* skill = [userskills objectAtIndex:currentPractisingSkill] ;
-        NSObject* new_userskill = [data valueForKey:@"userskill"];
-        if (new_userskill)
-            [skill setValue:new_userskill forKey:@"userskill"];
-        NSLog(@"USERSKILLS: %@", [ad getDataUserskills]);
+        [self updateSingleSkill:[data valueForKey:@"userskill"]];
         UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
         if (btn){
             [btn setTitle:@"修炼" forState:UIControlStateNormal];
@@ -675,28 +685,26 @@
     }
     
     currentPractisingSkill = -1;
+    practiseRate = 1;
     
     [ad reloadStatus];
     [self reloadSkills];
 }
 - (void) onStartPractiseReturn:(NSObject*) data{
-    NSString* error = [data valueForKey:@"error"];
-    if (error){
-        [ad showMsg:error type:1 hasCloseButton:YES];
-        currentPractisingSkill = -1;
-        return;
-    }
-    
-    else{
-         NSString* suc = [data valueForKey:@"OK"];
-         
-        [ad showMsg:suc type:0 hasCloseButton:YES];
+    BOOL ret = [ad processReturnData:data];
+    if (!ret){
+         currentPractisingSkill = -1;
+    }else{
+        practiseRate = [[data valueForKey:@"rate"] intValue];
         int usepot = [[data valueForKey:@"usepot"] intValue];
         if (usepot > 0)
             [self _startPractise:[data valueForKey:@"skill"] _usepot:usepot];
         UILabel* lbStatus = [lb_status_list objectAtIndex:currentPractisingSkill];
         lbStatus.text = @"修炼中";
     }
+    
+    [self updateSingleSkill:[data valueForKey:@"userskill"]];  
+
     [self reloadSkills];
     [ad setUserBusy:TRUE];
 

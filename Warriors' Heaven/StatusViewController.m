@@ -92,7 +92,7 @@
        NSLog(@"Status view did appear");
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     NSObject* json = [ad getDataUserext];
-    NSLog(@"USEREXT: %@", [json JSONRepresentation]);
+//    NSLog(@"USEREXT: %@", [json JSONRepresentation]);
     if (json){
 //        json = [json valueForKey:@"userext"];
         // NSNumber* exp = [json  valueForKey:@"exp"];
@@ -115,6 +115,8 @@
         [pvStam setProgress:((float)[[json valueForKey:@"stam"] intValue])/[ [json valueForKey:@"maxst"] intValue]];
         lbJingli.text = [NSString stringWithFormat:@"%d/%d", jingli, max_jl];
         [pvJingli setProgress:((float)jingli) / max_jl ];
+    }else{
+        [ad updateUserData];
     }
 
 }

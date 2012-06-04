@@ -89,6 +89,7 @@ class WhController < ApplicationController
          user_data[:hero]={
              :legendImage => npc.legendImage
          }
+         p "user_data:#{user_data}"
          render :text=>user_data.to_json
          
          user_data.check_save
@@ -483,11 +484,14 @@ class WhController < ApplicationController
         return
 =end
         return if !check_session or !user_data
-         
+        
         recoverPlayer(user_data.ext)
         
+        if (user_data.ext.get_prop("pending") != nil)
+            
+        end
        if (user_data.ext[:hp] <= 0)
-           error("你的hp不够，不适合战斗")
+           error("你的hp不够，不适合战斗", {:user=>user_data})
            return
        end
         
@@ -497,7 +501,7 @@ class WhController < ApplicationController
             "你的体力不够，别浪费服务器资源了"
             ]
         if (user_data.ext[:stam] <= 0)
-            error(rmsg[rand(1)])
+            error(rmsg[rand(1)], {:user=>user_data})
             return
         end
         
@@ -1174,6 +1178,7 @@ class WhController < ApplicationController
         ret = {
             :userskill=>rs[0],
             :user => ud
+            # :rate =>player.calc_practise_rate(skill_name)
         }
         p ud.to_json
         p rs[0].to_json
@@ -1224,13 +1229,15 @@ class WhController < ApplicationController
     
     def startPractise
         return if !check_session || !user_data
+        p "userdata1=#{user_data.ext.inspect}"
         player.recover
         pending = user_data.ext.get_prop("pending")
-        
+   
         player= Player.new
         player.set_data(user_data)
-        skill = player.query_skill(params[:skill])
         
+        skill = player.query_skill(params[:skill])
+                p "userdata2=#{user_data.ext.inspect}"
         if ( pending )
             if (pending.class == String)
                 pending = JSON.parse(pending)
@@ -1244,9 +1251,11 @@ class WhController < ApplicationController
                 end
             end
         end
-  
+   
         if ( user_data.ext[:pot] <= 0)
-            error("你的潜能不够, 无法提高")
+            # p "ext=#{user_data.inspect}"
+            user_data.check_save
+            error("你的潜能不够, 无法提高", {:user=>user_data})
             return
         end
         if params[:userpot]
@@ -1305,9 +1314,10 @@ class WhController < ApplicationController
             user_data.ext.set_prop("pending", pending)
             user_data.ext[:lastact] = "practise"
             user_data.check_save
-            success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot})
+            success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot, :rate=>player.calc_practise_rate(params[:skill])})
         else
-            error("你的战斗经验似乎不够!")
+            user_data.check_save
+            error("你的战斗经验似乎不够!", JSON.parse(skill.to_json))
         end
         return
     end
@@ -1404,7 +1414,7 @@ class WhController < ApplicationController
         user_data.ext.set_prop("pending", _pending)
         
   
-        _skill = JSON.parse(skill.to_json) # convert to has
+        _skill = JSON.parse(skill.to_json) # convert to hash
         _ext = JSON.parse(user_data.ext.to_json)
         _ret = _skill.merge(_ext)
         

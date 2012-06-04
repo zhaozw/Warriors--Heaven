@@ -19,4 +19,11 @@ class Equipment < ActiveRecord::Base
     
     end
     
+    def before_save()
+        s = self[:_obj]
+        if s
+            self[:prop] = s.vars.to_json
+        end
+        
+    end
 end

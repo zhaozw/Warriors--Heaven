@@ -39,11 +39,13 @@ class Yezhu < Npcorc
     end
     
     def setup_skill  
-        set_skill("beastunarmed", 20, 0)
-        set_skill("parry", 20, 0)
-        set_skill("dodge", 20, 0)
-        set_skill("fencing", 20, 0)
-        set_skill("daofa", 20, 0)
+        full_skill = cacl_fullskill(tmp[:level])
+        
+        set_skill("beastunarmed", full_skill, 0)
+        set_skill("parry", full_skill, 0)
+        set_skill("dodge", full_skill, 0)
+        # set_skill("fencing", full_skill, 0)
+        # set_skill("daofa", full_skill, 0)
 =begin
        @skills =[
        #    "unarmed" =>

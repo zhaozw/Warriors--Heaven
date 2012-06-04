@@ -16,6 +16,7 @@
     int currentPractisingSkill;
     int willPractiseSkill;
     int usepot;
+    int practiseRate;
 }
 @property (strong, retain) AppDelegate *ad;
 @property (strong, nonatomic) IBOutlet UILabel *lbPotential;
@@ -48,4 +49,6 @@
 
 - (void) _startPractise:(NSString *)skillname usepot:(int)usepot;
 - (int) findSkillIndexByName:(NSString*) name;
+//- (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot;
+
 @end

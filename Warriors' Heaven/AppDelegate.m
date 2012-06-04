@@ -951,4 +951,27 @@
     NSLog(@"root: %@", [self getDataUser]);
 }
 
+- (BOOL) processReturnData:(NSObject*) data{
+    NSString* error = [data valueForKey:@"error"];
+    BOOL ret = FALSE;
+    if (error){
+        [self showMsg:error type:1 hasCloseButton:YES];
+        ret = FALSE;
+    }
+    
+    else{
+        NSString* suc = [data valueForKey:@"OK"];
+        [self showMsg:suc type:0 hasCloseButton:YES];
+        ret = TRUE;
+        
+    }
+    
+    id userdata = [data valueForKey:@"user"];
+    if (userdata){
+        [self setData_user:userdata];
+    }
+    return ret;
+    
+}
+
 @end

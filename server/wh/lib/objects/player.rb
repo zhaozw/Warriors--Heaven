@@ -308,7 +308,36 @@ include Pc
         p "recover finish: hp:#{ ext[:hp]}, st:#{ext[:stam]}, jingli:#{ext[:jingli]}"
  
     end
+    # skillname: skill short name - "parry", "dodge" ...
+    def fixname_for_skill(skillname)
+        case skillname
+        when "unarmed": return "objects/special/shadai"
+        when "dodge": return "objects/special/meihuazhuang"
+        when "parry": return "objects/special/muren"
+        end
+        return nil
+    end
+    def skill_fixture(skillname)
+          fix = nil
     
+         # p"=>>skillname=#{skillname}"
+        fixname = fixname_for_skill(skillname)
+        if fixname != nil
+            fix = query_obj(fixname)
+            
+        end
+        return fix
+    end
+    def calc_practise_rate(skillname, base_rate = 1)
+        rate = base_rate
+        # skillname = skill[:skname]
+        fix = skill_fixture(skillname)
+        p "fix for #{skillname} #{fix.inspect}"
+        if fix !=nil
+            rate = rate*2
+        end
+        return rate
+    end
     def practise(skill, sec,c =nil)
         # skill = query_skill(skillname)
         skillname = skill[:skname]
@@ -321,34 +350,9 @@ include Pc
         
         rate = 1 # consume 1 pot per second
         
-        fix = nil
-        # rate_add_fix = nil
-        p"=>>skillname=#{skillname}"
-        if (skillname == "unarmed")
-            rate_fix = "shadai"
-            fix = query_obj("objects/special/shadai")
-            if fix && fix.hp > 0
-                # rate_add_fix = ext.get_prop("shadai")
-                
-            # if rate_add_fix && rate_add_fix > 0
-                rate = rate *2
-            end
-        elsif (skillname == "parry")
-             # rate_fix = "muren"
-            #          rate_add_fix = ext.get_prop("muren")
-            #          rate = rate * 2 if rate_add_fix && rate_add_fix > 0
-            fix = query_obj("objects/special/muren")
-            if fix && fix.hp > 0
-                rate = rate *2
-            end
-        elsif skillname == "dodge"
-            # rate_fix = "meihuazhuang"
-            # rate_add_fix = ext.get_prop("meihuazhuang")
-            #          rate = rate * 2 if rate_add_fix && rate_add_fix >0
-            fix = query_obj("objects/special/meihuazhuang")
-            if fix && fix.hp > 0
-                rate = rate *2
-            end
+        fix = skill_fixture(skillname)
+        if fix != nil
+            rate = calc_practise_rate(skill)
         end
         
         usepot= rate * sec
@@ -508,4 +512,8 @@ include Pc
      def query_all_obj
          data.query_all_obj
      end
+     
+
+     
+     
 end

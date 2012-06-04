@@ -15,11 +15,11 @@ class Object
     end
     
     def set(n, v)
-        @var[n] = v
+        @var[n.to_sym] = v
     end
     
     def get(n)
-        @var[n]
+        @var[n.to_sym]
     end
     
     def vars
@@ -28,6 +28,19 @@ class Object
     
     def set_data(obj) 
        @obj = obj
+       @obj[:_obj] = self
+       prop = obj[:prop]
+       if prop != nil
+           if prop.class == String
+               prop = JSON.parse(prop)
+           end
+           p "==>prop0=#{prop}"
+           if prop != nil
+              prop.each {|k,v|
+                  @var[k.to_sym] = v
+                  }
+           end 
+       end
        after_setdata
     end
     
@@ -84,19 +97,24 @@ class Object
     end
     
     def hp(h=nil)
-        if data
-            _h= getProp("hp") 
-            if h != nil
-                _h = h
-                setProp("hp", _h)
-            end
-            return _h
-        else
-            return 0
+        # if data
+        #            _h= getProp("hp") 
+        #            if h != nil
+        #                _h = h
+        #                setProp("hp", _h)
+        #            end
+        #            return _h
+        #        else
+        #            return 0
+        #        end
+        if h
+            set("hp", h)
         end
+        return get("hp")
     end
     
     def to_hash
+        p "=>to_hash: #{self.inspect}"
         hash = {
             :dname=>dname,
             :image=>image,
@@ -118,8 +136,10 @@ class Object
         #         }
        
        if (data)
-      
-            hash = hash.merge(data.attributes)
+            attrs = data.attributes
+            attrs.delete("_obj")
+            # p "==>attrs=#{attrs.inspect}"
+            hash = hash.merge(attrs)
         else
 
         end

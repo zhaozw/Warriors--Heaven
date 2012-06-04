@@ -127,4 +127,5 @@
 - (NSObject*) setDataUserskills:(NSArray*) ar;
 + (id) getProp:(NSObject*)prop name:(NSString*)name;
 - (void) float_msg;
+- (BOOL) processReturnData:(NSObject*) data;
 @end

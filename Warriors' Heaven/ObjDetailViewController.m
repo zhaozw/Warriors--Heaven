@@ -115,10 +115,12 @@
     [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
     [lbDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
     [lbRank setText:[[eq valueForKey:@"rank"] stringValue]];
-    id nodeHp = [AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"];
-    if (nodeHp && [eq valueForKey:@"max_hp"]){
-        int hp = [nodeHp intValue];
-        int percentage = hp  *100/[ [eq valueForKey:@"max_hp"] intValue];
+//    id nodeHP = [AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"];
+    id nodeHP = [eq valueForKey:@"hp"];
+    id nodeMaxHP = [eq valueForKey:@"max_hp"];
+    if (nodeHP && nodeMaxHP){
+        int hp = [nodeHP intValue];
+        int percentage = hp  *100/[ nodeMaxHP intValue];
         [lbHp setText:[NSString stringWithFormat:@"%d%%", percentage]];
     }else{
          [lbHp setText:@"N/A"];

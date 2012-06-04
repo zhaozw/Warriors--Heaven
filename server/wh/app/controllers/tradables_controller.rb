@@ -102,8 +102,9 @@ class TradablesController < ApplicationController
                      found_available =0
                end
             else item[:obtype] == 2 or item[:obtype] == 4
-                r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and eqtype=2 or eqtype=4")
+                r = ActiveRecord::Base.connection.execute("select count(*) from equipment where owner=#{uid} and (eqtype=2 or eqtype=4)")
                 count = r.fetch_row[0].to_i
+                p "item count #{count}"
             #    p session[:userdata]
                 if (count+1 > user_data.ext.get_prop("max_item").to_i)
                     # error("There is not availabe slots for new item. You can buy more slot.")
