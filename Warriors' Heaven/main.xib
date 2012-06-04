@@ -65,7 +65,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="1029629242">
+					<object class="IBUIImageView" id="266325989">
 						<reference key="NSNextResponder" ref="256857941"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{170, 410}, {149, 19}}</string>
@@ -101,7 +101,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{44, 102}, {72, 37}}</string>
 								<reference key="NSSuperview" ref="992761348"/>
-								<reference key="NSNextKeyView" ref="1029629242"/>
+								<reference key="NSNextKeyView" ref="266325989"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -670,7 +670,7 @@
 							<reference ref="1027779286"/>
 							<reference ref="992761348"/>
 							<reference ref="1042609738"/>
-							<reference ref="1029629242"/>
+							<reference ref="266325989"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -896,7 +896,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">80</int>
-						<reference key="object" ref="1029629242"/>
+						<reference key="object" ref="266325989"/>
 						<reference key="parent" ref="256857941"/>
 					</object>
 				</array>

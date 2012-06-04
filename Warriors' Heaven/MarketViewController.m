@@ -12,6 +12,8 @@
 #import "EGOImageButton.h"
 #import "AppDelegate.h"
 
+#import "InAppPurchaseManager.h"
+
 @implementation MarketViewController
 @synthesize btEquipment;
 @synthesize btFixure;
@@ -54,6 +56,7 @@
     btnSale = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, 60, 320, 39)];
     [[self view] addSubview:btnSale];
     [btnSale setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/images/sale.jpg", ad.host, ad.port]]];
+    [btnSale addTarget:self action:@selector(onInAppPurchase:) forControlEvents:UIControlEventTouchUpInside];
     
 //    item_list = [[NSMutableArray alloc ] init];
     currentSelectedList = 1; // equipment
@@ -90,9 +93,15 @@
    [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
     [self updateData];
     
+   
+    
     
 }
 
+- (void) onInAppPurchase:(UIButton*) btn{
+    InAppPurchaseManager* iapm = [[InAppPurchaseManager alloc] init];
+    [iapm requestProUpgradeProductData];
+}
 - (void)viewDidUnload
 {
     [self setBtEquipment:nil];
