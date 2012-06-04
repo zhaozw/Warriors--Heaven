@@ -1,0 +1,20 @@
+<html>
+<body>
+	
+	<div style="height:480px;width:320px">
+		<% for a in 0..@iap_list.size %>
+		<div style="float:left;width:160px;padding:50 50">
+			<a href="<%=form_authenticity_token%>"><%=@iap_list[a][:name]%></a>
+			<span class="price"><%=@iap_list[a][:price]%></span>
+		</div>
+		<% a = a+1 %>
+		<div style="float:left;width:160px;padding:50 50">
+			<a href="<%=form_authenticity_token%>"><%=@iap_list[a][:name]%></a>
+			<span class="price"><%=@iap_list[a][:price]%></span>
+		</div>
+		<div style="clear:both"></both>
+		<%end%>
+	</div>
+	
+</body>
+</html>

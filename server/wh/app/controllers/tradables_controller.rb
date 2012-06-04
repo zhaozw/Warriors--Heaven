@@ -199,6 +199,65 @@ class TradablesController < ApplicationController
       render :text=>ret.to_json
       user_data.check_save
     end
+    
+    def listProduct
+        list_normal_price =[
+            {
+                :name=>"1000Gold",
+                :price=>"CN¥6.00"
+            },
+            {
+                :name=>"5000Gold"
+                  :price=>"CN¥18.00"
+            },
+                        {
+                :name=>"8000Gold",
+                  :price=>"CN¥25.00"
+            },
+                        {
+                :name=>"10000Gold",
+                  :price=>"CN¥30.00"
+            },
+                        {
+                :name=>"20000Gold",
+                  :price=>"CN¥40.00"
+            },
+                        {
+                :name=>"50000Gold",
+                  :price=>"CN¥98.00"
+            }
+            
+            ]
+            
+            list_onsale= [
+              {
+                :name=>"2000Gold",
+                :price=>"CN¥6.00"
+            },
+            {
+                :name=>"5000Gold"
+                  :price=>"CN¥12.00"
+            },
+                        {
+                :name=>"8000Gold",
+                  :price=>"CN¥25.00"
+            },
+                        {
+                :name=>"10000Gold",
+                  :price=>"CN¥30.00"
+            },
+                        {
+                :name=>"20000Gold",
+                  :price=>"CN¥40.00"
+            },
+                        {
+                :name=>"50000Gold",
+                  :price=>"CN¥98.00"
+            }
+            ]
+            @iap_list = list_onsale
+            
+    end
 =begin
   # GET /tradables
   # GET /tradables.xml
