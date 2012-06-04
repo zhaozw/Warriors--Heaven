@@ -11,7 +11,10 @@
 #import "StatusViewController.h"
 //#import "TrainingGround.h"
 #import "HomeViewController.h"
+#import "PurchaseViewController.h"
+
 @class HomeViewController;
+@class PurchaseViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     DotHide_TabBarController *tabBarController;
     UIViewController *viewcontroller;
@@ -83,6 +86,7 @@
 
 @property (strong, nonatomic) IBOutlet UIWebView *vBattleMsg;
 @property (strong, nonatomic) IBOutlet UIView *vBattleMsgBg;
+@property (unsafe_unretained, nonatomic) IBOutlet PurchaseViewController *vcPurchase;
 
 - (IBAction)closeFightMsg:(id)sender;
 
@@ -128,4 +132,6 @@
 + (id) getProp:(NSObject*)prop name:(NSString*)name;
 - (void) float_msg;
 - (BOOL) processReturnData:(NSObject*) data;
+
+- (void) showPurchaseView;
 @end

@@ -93,14 +93,15 @@
    [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
     [self updateData];
     
-        iapm = [[InAppPurchaseManager alloc] init];
+//        iapm = [[InAppPurchaseManager alloc] init];
     
     
 }
 
 - (void) onInAppPurchase:(UIButton*) btn{
 
-    [iapm requestProUpgradeProductData];
+//    [iapm requestProUpgradeProductData];
+    [ad showPurchaseView];
 }
 - (void)viewDidUnload
 {

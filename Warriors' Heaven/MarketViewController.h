@@ -15,7 +15,7 @@
 @interface MarketViewController : UIViewController{
     int currentSelectedList;
     NSArray* item_list;
-    InAppPurchaseManager* iapm;
+//    InAppPurchaseManager* iapm;
     EGOImageButton* btnSale;
 //    NSArray* eq_list;
 //    NSArray* fixture_list;

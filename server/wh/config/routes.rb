@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :userquests
 
-  map.resources :tradables
+  # map.resources :tradables
 
   map.resources :equipment
 

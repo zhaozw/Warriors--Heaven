@@ -1,0 +1,50 @@
+<html>
+<body style="background:transparent;background-color:transparent;">
+	<style>
+	img { border-width:0;text-decoration:none;}
+	div.price {text-decoration:none;}
+	a{text-decoration:none;}
+	div{letter-spacing:0.3mm;color:white;/*ccolor:#ffeeaa;olor:#FFEE99;*/font-size:10pt;font-weight:600;}
+	/*　 a:link { text-decoration:none;color: blue}
+　　 a:active { text-decoration:none}
+　　 a:hover { text-decoration:none;color: red} 
+　　 a:visited { text-decoration: none;color: green}*/
+	</style>
+	
+	<div style="height:480px;width:320px;">
+		<div style="position:absolute;left:0;top:0;z-index:0;">
+			<img style="z-index:0;" src="/images/purchase_board.png" />
+		</div>
+		<div style="position:absolute;z-index:100;margin-top:76px;margin-left:80px;">
+			<% a=0%>
+			<%while a <@iap_list.size do %>
+			<% product = @iap_list[a]%>
+			<div style="width:200px;padding:0;margin-bottom:13px;height:52px;overflow:auto;border:0px solid green">
+				<a href="<%="id=#{product[:id]}&#{request_forgery_protection_token.to_s}=#{form_authenticity_token}"%>">
+				<img src="/images/gold.png" id="gold" class="gold" style="margin-top:10px;height:35px;float:left;"></img>
+				<div style="border:0px solid red;float:left;margin-left:5px;<% if !product[:onsale]%>
+				 margin-top:10px;
+				<% else %>
+				 margin-top:-1px;	
+				<% end %>
+				">
+					<%=@iap_list[a][:name]%>
+					<div class="price"><%=@iap_list[a][:price]%></div>
+					<% if product[:onsale]%>
+					<div style="margin-top:-18px"><img src="/images/slash.png"  style="width:39px;"></img></div>
+					<div class="price"><%="#{product[:onsale]}(#{product[:discount]})"%></div>
+					<%end%>
+				</div>
+				</a>
+			</div>
+
+		
+
+			<div style="clear:both"></div>
+				<%a = a+1%>
+			<%end%>
+		</div>
+	</div>
+	
+</body>
+</html>

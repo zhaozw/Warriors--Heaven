@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "InAppPurchaseManager.h"
 
-@interface PurchaseViewController : UIViewController
+@class AppDelegate;
+@interface PurchaseViewController : UIViewController<UIWebViewDelegate>{
+    AppDelegate * ad ;
+    InAppPurchaseManager* iapm;
+}
+@property (strong, nonatomic) IBOutlet UIWebView *vwPurchase;
+- (IBAction)onClose:(id)sender;
+
 
 @end

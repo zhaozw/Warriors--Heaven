@@ -1,0 +1,50 @@
+<html>
+<body>
+	<style>
+	img { border-width:0;text-decoration:none;}
+	div.price {text-decoration:none;}
+	a{text-decoration:none;}
+	/*　 a:link { text-decoration:none;color: blue}
+　　 a:active { text-decoration:none}
+　　 a:hover { text-decoration:none;color: red} 
+　　 a:visited { text-decoration: none;color: green}*/
+	</style>
+	
+	<div style="height:480px;width:320px;">
+		<% a=0%>
+		<%while a <@iap_list.size do %>
+		<% product = @iap_list[a]%>
+		<div style="float:left;width:160px;padding:50 50">
+			<a href="<%="id=#{product[:id]}&#{request_forgery_protection_token.to_s}=#{form_authenticity_token}"%>">
+			<img src="/images/gold.png" id="gold" class="gold" style="height:50px;"></img><%=@iap_list[a][:name]%>
+			
+			<div class="price"><%=@iap_list[a][:price]%></div>
+			<% if product[:onsale]%>
+			<div style="margin-top:-18px"><img src="/images/slash.png"  style="width:39px;"></img></div>
+			<div class="price"><%="#{product[:onsale]}(#{product[:discount]})"%></div>
+			<%end%>
+			</a>
+		</div>
+		<% a = a+1 
+		 
+				product = @iap_list[a]
+		%>
+		
+		<div style="float:left;width:160px;padding:50 50">
+			<%=%>
+			<a href="<%="id=#{product[:id]}&#{request_forgery_protection_token.to_s}=#{form_authenticity_token}"%>">
+			<img src="/images/gold.png" style="height:50px;"></img><%=@iap_list[a][:name]%>
+			<div class="price"><%=@iap_list[a][:price]%></div>
+			<% if product[:onsale]%>
+			<div style="margin-top:-18px"><img src="/images/slash.png" style="width:39px;"></img></div>
+			<div class="price"><%="#{product[:onsale]}(#{product[:discount]})"%></div>
+			<%end%>
+			</a>
+		</div>
+		<div style="clear:both"></both>
+			<%a = a+1%>
+		<%end%>
+	</div>
+	
+</body>
+</html>

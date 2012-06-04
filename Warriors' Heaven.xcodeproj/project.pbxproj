@@ -453,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				5AFD8DE51500EAEE0066ECBA /* main.xib */,
+				5A016F1C157A4CAC002D2B2A /* PurchaseViewController.xib */,
 				5A388C4B15366D93008395BB /* RegViewController.xib */,
 				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
 				5A25E28F1504D2530046C67D /* BattleViewController.xib */,
@@ -473,6 +474,8 @@
 		5A25E2971504D4800046C67D /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				5A016F1A157A4CA7002D2B2A /* PurchaseViewController.h */,
+				5A016F1B157A4CAA002D2B2A /* PurchaseViewController.m */,
 				5A388C4D15366DA3008395BB /* RegViewController.h */,
 				5A388C4E15366DA3008395BB /* RegViewController.m */,
 				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
@@ -755,9 +758,6 @@
 				5A0B7F721519966500FC0898 /* Reachability.m */,
 				5AA8C2D8150814DB001C5BD3 /* WHHttpClient.h */,
 				5AA8C2D9150814DB001C5BD3 /* WHHttpClient.m */,
-				5A016F1A157A4CA7002D2B2A /* PurchaseViewController.h */,
-				5A016F1B157A4CAA002D2B2A /* PurchaseViewController.m */,
-				5A016F1C157A4CAC002D2B2A /* PurchaseViewController.xib */,
 				5AA8C2B11508047C001C5BD3 /* json */,
 				5AFD8D741500E6ED0066ECBA /* AppDelegate.h */,
 				5AFD8D751500E6ED0066ECBA /* AppDelegate.m */,
