@@ -576,6 +576,12 @@ end
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
              msg += "dp:#{dodge_power} ap:#{attack_power}"
+    
+            attacker_exp_bonus = 0
+            attacker_pot_bonus = 0
+            defenser_exp_bonus = 0
+            defenser_pot_bonus = 0
+            
              if rand(attack_power+dodge_power) < dodge_power # miss
                  #
                  # attack missed, dodge succeeded
@@ -586,30 +592,43 @@ end
                #  query_skill(defenser[:dodge_skill][:skill][:skname], "doDodge", defenser[:dodge_skill][:skill], context_d)
                  msg +=  line "<br/>\n"+translate_msg(context_d[:msg], context_d)
                  
-                 # improve dodge skill
-                 if (defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10)
+                 if defenser[:canGain]
+                     gain_point =0
+                     if  dodge_power < attack_power
+                         defenser_exp_bonus += 1
+                     end
+                 
+                     # improve dodge skill
+                     if (rand(defenser.tmp[:it]+1) > 10)
                     
-                    context_d[:gain][:exp] += 1
-                    defenser.tmp[:exp] += 1
+                        defenser_exp_bonus += 1
+                
+                        defenser_pot_bonus += 1
+          
                     
-                    context_d[:gain][:pot] += 1
-                    defenser.tmp[:pot] += 1
-                    
-                    gain_point = 1
+                        gain_point += 1
+
+                   
+                     end
+            
+                    context_d[:gain][:exp] += defenser_exp_bonus
+                    defenser.tmp[:exp] += defenser_exp_bonus
+                    context_d[:gain][:pot] += defenser_pot_bonus
+                    defenser.tmp[:pot] += defenser_pot_bonus
+                
                     # context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:point] += gain_point
                     gain_skill_point(context_d[:gain], defenser[:dodge_skill][:skill], gain_point)
-                    if (defenser[:canGain])
-                        msg += "<!--1--><div class='rgain'>"
-                        msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
-                        if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
-                             context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
-                             msg +="<br/> #{defenser[:dodge_skill][:skill].dname} level up !"
-                         end
-                         msg += "</div><!--0-->"
-                    end
+            
+                    msg += "<!--1--><div class='rgain'>"
+                    msg += "<br/> 战斗经验<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                    if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
+                         context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
+                         msg +="<br/> #{defenser[:dodge_skill][:skill].dname} level up !"
+                     end
+                     msg += "</div><!--0-->"
+                
+                end
          
-                   
-                 end
                  
                  # attacker get potential point
                  if attacker[:canGain] && rand(attacker.tmp[:it]+1) > 10
@@ -651,7 +670,7 @@ end
                  #         end
                  #    end
                  # else
-                 
+
                  # check parry power
                  if (!defenser[:defense_skill])     
                      parry_power = 0 
@@ -703,22 +722,39 @@ end
                      #
                      defenser.tmp[:willperform] += defenser.tmp[:maxhp]/10
                      msg += line doParry(defenser[:defense_skill], context_d, parry_power)
-                     if (defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10)
-                         context_d[:gain][:exp] += 1
-                         defenser.tmp[:exp] += 1
-                         context_d[:gain][:pot] += 1
-                         defenser.tmp[:pot] += 1
-                         gain_point = 1
+                     gain_point = 0
+                     if defenser[:canGain] 
+                         if parray_power < attack_power
+                            defenser_exp_bonus += 1
+                         end
+                         if (rand(defenser.tmp[:it]+1) > 10)
+                            defenser_pot_bonus +=1
+                            defenser_exp_bonus +=1
+                            gain_point += 1
+                        end 
+                         context_d[:gain][:exp] += defenser_exp_bonus
+                         defenser.tmp[:exp] += defenser_exp_bonus
+                         context_d[:gain][:pot] += defenser_pot_bonus
+                         defenser.tmp[:pot] += defenser_pot_bonus
+               
                          # context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
                          gain_skill_point(context_d[:gain], defenser[:defense_skill][:skill], gain_point)
                          msg += start_line "<div class='rgain'>"
-                         msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                         msg += "<br/> 战斗经验<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                          if (improve_skill(defenser, defenser[:defense_skill][:skill][:skname], gain_point) )
                              context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:level] +=1
                              msg +="<br/><span> #{defenser[:defense_skill][:skill][:skname]} level up !</span>"
                          end
-                         msg += end_line "</div>"
-                    end   
+                         msg += end_line "</div>"  
+                    end
+                    # attacker get potential point
+                     if attacker[:canGain] && rand(attacker.tmp[:it]+1) > 10
+                            context_a[:gain][:pot] += 1
+                            attacker.tmp[:pot] += 1
+                            msg += "<!--1--><div class='rgain'>"
+                            msg += "<br/> 潜能<span>+1</span>"
+                            msg += "</div><!--0-->"
+                     end
                     damage += 2 # RESULT_PARRY
                 else
                     #
@@ -727,23 +763,51 @@ end
                     # do damage
                     context_a[:damage] = damage
                     msg += line doDamage(_attack_skill, context_a, attack_power)
-                    if ( rand(attacker.tmp[:it]+1) > 10)
-                        context_a[:gain][:exp] += 1
-                        attacker.tmp[:exp] += 1
-                        context_a[:gain][:pot] += 1
-                        attacker.tmp[:pot] += 1
-                        gain_point = 1
-                        gain_skill_point(context_a[:gain], _attack_skill, gain_point)
-                        # context_a[:gain][:skills][_attack_skill[:skname]][:point] += gain_point
-                        if attacker[:canGain]
-                            msg += start_line "<div class='rgain'>"
-                            msg += "<br/> 战斗经验<span>+1</span> 潜能<span>+1</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
-                            if (improve_skill(attacker, _attack_skill[:skname], gain_point) )
-                                context_a[:gain][:skills][_attack_skill[:skname]][:level] +=1
-                                msg +="<br/> <span>#{_attack_skill[:skname]} level up !</span>"
-                            end
-                            msg += end_line "</div>"
+                    
+                    if attacker[:canGain]
+                        
+                        gain_point = 0 # skill improvment point
+                        
+                        if attack_power < dodge_power # weak but win
+                            attacker_exp_bonus += 1
                         end
+                        
+                        if attack_power < parry_power
+                            attacker_exp_bonus += 1
+                        end
+                    
+                        if ( rand(attacker.tmp[:it]+1) > 10)
+                        
+                            attacker_exp_bonus += 1
+                            attacker_pot_bonus += 1
+                            gain_point +=1
+                            # context_a[:gain][:skills][_attack_skill[:skname]][:point] += gain_point
+
+                        end
+                        
+                        context_a[:gain][:exp] += attacker_exp_bonus
+                        attacker.tmp[:exp] += attacker_exp_bonus
+                        context_a[:gain][:pot] += attacker_pot_bonus
+                        attacker.tmp[:pot] += attacker_pot_bonus   
+                
+                        gain_skill_point(context_a[:gain], _attack_skill, gain_point)
+             
+                        msg += start_line "<div class='rgain'>"
+                        msg += "<br/> 战斗经验<span>+#{attacker_exp_bonus}</span> 潜能<span>#{attacker_pot_bonus}</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                        if (improve_skill(attacker, _attack_skill[:skname], gain_point) )
+                            context_a[:gain][:skills][_attack_skill[:skname]][:level] +=1
+                            msg +="<br/> <span>#{_attack_skill[:skname]} level up !</span>"
+                        end
+                        msg += end_line "</div>"
+                    
+                    end
+                    
+                    if defenser[:canGain] && rand(defenser.tmp[:it]+1) > 10
+                            context_d[:gain][:pot] += 1
+                            defenser.tmp[:pot] += 1
+                            msg += "<!--1--><div class='rgain'>"
+                            msg += "<br/> 潜能<span>+1</span>"
+                            msg += "</div><!--0-->"
                     end
                 end # failed in parrying
                 
