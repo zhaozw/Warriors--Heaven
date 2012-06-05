@@ -38,4 +38,6 @@ enum{
 - (void) restoreTransaction: (SKPaymentTransaction *)transaction;  
 -(void)provideContent:(NSString *)product;  
 -(void)recordTransaction:(NSString *)product;  
+
+- (void) purchase:(NSString*) pid;
 @end

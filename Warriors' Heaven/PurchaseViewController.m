@@ -70,14 +70,26 @@
     if ( [url isEqualToString:@"/quests"]){
         [[ad tabBarController] selectTab:6];
         return false;
-    }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:foo//"]){
+    }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:iap//"]){
         //        [self floatWebView];
         NSString* surl = [[[request.URL absoluteString] substringFromIndex:18] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         
-        NSArray* aurl = [surl componentsSeparatedByString:@"<br\/>"];
-        [[ad floatMsg] addObjectsFromArray:aurl];
-        
+        NSArray* aurl = [surl componentsSeparatedByString:@"&"];
+        if ([aurl count] >=2){
+            NSString* param1 = [aurl objectAtIndex:0];
+            NSArray* params = [param1 componentsSeparatedByString:@"="];
+            if ([params count]>=2){
+                NSString* product = [params objectAtIndex:1];
+                if (product){
+                    product = [NSString stringWithFormat:@"com.joyqom.wh.%@", product];
+                    [iapm purchase:product];
+                    
+                }
+            }
+        }
+            
+    
         //            NSLog(@"%@",[request.URL absoluteString]);
         //         NSLog(surl);
         //            NSLog(@"%d", [aurl count]);

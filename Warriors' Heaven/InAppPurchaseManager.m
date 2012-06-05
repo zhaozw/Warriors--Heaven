@@ -74,8 +74,15 @@ normal:                  onsale:
     // we will release the request object in the delegate callback
 }
 
+- (void) purchase:(NSString*) pid{
+    SKPayment *payment = nil; 
+    NSLog(@"---------发送购买请求------------");    
+    [[SKPaymentQueue defaultQueue] addPayment:payment];  
+}
+
 #pragma mark -
 #pragma mark SKProductsRequestDelegate methods
+
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {

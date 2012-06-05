@@ -20,7 +20,7 @@
 			<%while a <@iap_list.size do %>
 			<% product = @iap_list[a]%>
 			<div style="width:200px;padding:0;margin-bottom:13px;height:52px;overflow:auto;border:0px solid green">
-				<a href="<%="id=#{product[:id]}&#{request_forgery_protection_token.to_s}=#{form_authenticity_token}"%>">
+				<a href="myspecialurl:iap//<%="id=#{product[:id]}&#{request_forgery_protection_token.to_s}=#{form_authenticity_token}"%>">
 				<img src="/images/gold.png" id="gold" class="gold" style="margin-top:10px;height:35px;float:left;"></img>
 				<div style="border:0px solid red;float:left;margin-left:5px;<% if !product[:onsale]%>
 				 margin-top:10px;

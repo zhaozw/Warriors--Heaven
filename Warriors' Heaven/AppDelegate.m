@@ -66,7 +66,14 @@
 //   host = @"127.0.0.1";
   host = @"wh.joyqom.com";
     //    host = @"192.168.1.119";
-//    host = @"homeserver.joyqom.com";
+//    id debug_local = [[[NSProcessInfo processInfo] environment] objectForKey:@"DEBUG_LOCAL"];
+//    if (debug_local) {
+//        host = @"homeserver.joyqom.com";
+//    }
+    UIUserInterfaceIdiom device = [UIDevice currentDevice];
+    if (device == 82924768)
+        host = @"homeserver.joyqom.com";
+
     
 //    debug = TRUE;
     port = @"80";
@@ -266,7 +273,7 @@
 //    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
-    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh'
+    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
 //    session_id = @"772b5e7546e46b854b248f86a4d84d8e";
     if (!session_id || debug){
 //    if (true){
