@@ -12,7 +12,7 @@ class Lingzhi < Herb
     end
     
     def intro
-        "大补元气 HP+100%"
+        "大补元气 HP+70%"
     end
     
     def weight
@@ -36,6 +36,6 @@ class Lingzhi < Herb
         context[:msg]="你服下一#{unit}#{dname}，顿时觉得精神百倍，力气大增！"
    end 
        def price
-        200
+        100
     end
 end

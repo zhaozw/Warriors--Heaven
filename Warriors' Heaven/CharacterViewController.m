@@ -543,7 +543,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [lbItemName setTextColor:[UIColor whiteColor]];
     [lbItemName setBackgroundColor:[UIColor clearColor]];
     
-    lbItemEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, 18)];
+    lbItemEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 200, 18)];
     [vItemInfoView addSubview:lbItemEffect];
     [lbItemEffect setOpaque:NO];
     [lbItemEffect setAdjustsFontSizeToFitWidth:YES];

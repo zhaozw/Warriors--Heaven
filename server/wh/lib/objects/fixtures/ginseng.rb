@@ -12,7 +12,7 @@ class Ginseng < Herb
     end
     
     def intro
-        "大补元气 HP+70%"
+        "大补元气 HP+50% 精力恢复100%"
     end
     
     def weight
@@ -36,6 +36,6 @@ class Ginseng < Herb
         context[:msg]="你服下一棵人参，顿时觉得精神百倍，力气大增！"
    end 
        def price
-        50
+        100
     end
 end

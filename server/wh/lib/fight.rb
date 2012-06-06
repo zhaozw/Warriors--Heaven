@@ -724,7 +724,7 @@ end
                      msg += line doParry(defenser[:defense_skill], context_d, parry_power)
                      gain_point = 0
                      if defenser[:canGain] 
-                         if parray_power < attack_power
+                         if parry_power < attack_power
                             defenser_exp_bonus += 1
                          end
                          if (rand(defenser.tmp[:it]+1) > 10)
