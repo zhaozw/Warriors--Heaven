@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
  ad = [UIApplication sharedApplication].delegate;
-    iapm_list = [[NSMutableArray alloc] init];
+//    iapm_list = [[NSMutableArray alloc] init];
 //    vwPurchase.delegate = self;
     iapm = [[InAppPurchaseManager alloc] init];
     [iapm setCallback:self sel:@selector(onPurchaseFinished)];
@@ -92,10 +92,12 @@
                     if (stoken){
                         NSArray* ar = [stoken componentsSeparatedByString:@"="]; // authority_token, yyyyy
                         if (ar && [ar count] >=2){
-                            InAppPurchaseManager*   iapm1 = [[InAppPurchaseManager alloc] init];
-                            [iapm_list addObject:iapm1];
-                            [iapm1 purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
-                            
+//                            InAppPurchaseManager*   iapm1 = [[InAppPurchaseManager alloc] init];
+//                            [iapm_list addObject:iapm1];
+//                            [iapm1 purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
+//                       
+                            [iapm purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
+
                         }
                     }
          

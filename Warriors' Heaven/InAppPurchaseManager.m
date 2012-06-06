@@ -222,7 +222,7 @@ normal:                  onsale:
 {    
         int h = transaction.payment.hash;
     NSLog(@"-----completeTransaction(%d)--------", h);    
-          [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+//          [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     // Your application should implement these two methods.    
     NSString *product = transaction.payment.productIdentifier;  
     NSString *pid = @"";
@@ -235,7 +235,7 @@ normal:                  onsale:
 //            [self provideContent:bookid];    
         pid = [tt lastObject];
         if ([pid length]>0) {
-            NSLog(@"------request game server-------");
+            NSLog(@"------request game server(%@/%@)-------", tt, pid);
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client setRetry:YES];
       
@@ -250,7 +250,7 @@ normal:                  onsale:
 //                    if ([pid isEqualToString:_pid]){
 //                    
 //            NSString *params=[NSString stringWithFormat:@"id=%@&%@=%@", pid,tname ,tname];
-            NSString* url = [NSString stringWithFormat:@"http://%@:%@/tradables/purchase?tid=%@&c=%@", ad.host, ad.port, transaction.transactionIdentifier, [self calcKey:transaction.transactionIdentifier]];
+            NSString* url = [NSString stringWithFormat:@"http://%@:%@/tradables/purchase?pid=%@&tid=%@&c=%@", ad.host, ad.port, pid, transaction.transactionIdentifier, [self calcKey:transaction.transactionIdentifier]];
             [client sendHttpRequest:url selector:@selector(onPurchaseReturn:) json:YES showWaiting:YES];
 //            while (!response) {
 //                sleep(100);
@@ -258,9 +258,9 @@ normal:                  onsale:
 //            [caller performSelector:sel];
 //             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 //            NSString* tname= [transaction.payment valueForKey:@"tname"];
-            if ([response valueForKey:@"OK"]){
-                [[SKPaymentQueue defaultQueue] finishTransaction: transaction]; 
-            }
+//            if ([response valueForKey:@"OK"]){
+//                [[SKPaymentQueue defaultQueue] finishTransaction: transaction]; 
+//            }
                         
                         
                         
@@ -292,15 +292,17 @@ normal:                  onsale:
 }
 - (NSString*) calcKey:(NSString* )tid{
     NSString* sid = ad.session_id;
-    NSString* sid1 = [sid substringToIndex:15];
+    NSString* sid1 = [sid substringToIndex:16];
     NSObject* sid2 = [sid substringFromIndex:16];
+  
     int uid = [[[ad getDataUser] valueForKey:@"id"] intValue];
     NSString* sid3 = [NSString stringWithFormat:@"%@%d%@", sid1, uid, sid2];
-    sid1 = [sid3 substringToIndex:16];
+    NSLog(@"sid=%@,id1=%@, sid@=%@,sid3=%@", sid,sid1, sid2, sid3);
+    sid1 = [sid3 substringToIndex:17];
     sid2 = [sid3 substringFromIndex:17];
     sid3 = [NSString stringWithFormat:@"%@%@%@", sid1, tid, sid2];
     NSString* md5 = [self md5HexDigest:sid3];
-    NSLog(@"sid3=%@", sid3);
+    NSLog(@"uid=%d,id1=%@, sid@=%@,sid3=%@", uid ,sid1, sid2, sid3);
     return md5;
 }
 /*
@@ -330,9 +332,17 @@ normal:                  onsale:
 */
 - (void) onPurchaseReturn:(NSObject*) data{
     response = data;
-    
+
     if ([data valueForKey:@"OK"]){
-//        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];  
+        NSString* tid = [data valueForKey:@"tid"];
+        NSArray* ts =  [[SKPaymentQueue defaultQueue]  transactions ];
+        for (int i=0; i< [ts count]; i++){
+            SKPaymentTransaction* t = [ts objectAtIndex:i];
+            if ([t.transactionIdentifier isEqualToString:tid]){
+                [[SKPaymentQueue defaultQueue] finishTransaction:t];
+                break;
+            }
+        }
         [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES];
     }
 }

@@ -79,6 +79,8 @@
     port = @"80";
     bUserEqNeedUpdated = FALSE;
 //    bUpadtingStatus = false;
+    
+
     return self;
 }
 
@@ -274,8 +276,8 @@
     
 //    if (true){
 //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
-//    session_id = @"772b5e7546e46b854b248f86a4d84d8e";
-    session_id = nil;
+    session_id = @"772b5e7546e46b854b248f86a4d84d8e";
+//    session_id = nil;
     if (!session_id || debug){
 //    if (true){
 /*        // show registeration
@@ -304,8 +306,15 @@
 //        if (data_user == NULL || [data_user valueForKey:@"user"] == NULL || [[self getDataUser] valueForKey:@"race"] == NULL){
 //            data_user = NULL;
         
+        // clear cookie
+        NSString* url=  [NSString stringWithFormat:@"http://%@:%@/", host, port];
+        NSArray *cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+                            cookiesForURL:[NSURL URLWithString:url] ];
+        if (cookies)
+            for (int i = 0; i < [cookies count]; i++)
+                [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] deleteCookie:[cookies objectAtIndex:i]];
         
-        
+    
             WHHttpClient* client = [[WHHttpClient alloc] init:self];
             [client setRetry:YES];    
             [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
@@ -360,6 +369,13 @@
             host = [server_assigned valueForKey:@"server"];
             port = [server_assigned valueForKey:@"port"] ;
         }
+        // clear cookie
+        NSString* url=  [NSString stringWithFormat:@"http://%@:%@/", host, port];
+        NSArray *cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+                            cookiesForURL:[NSURL URLWithString:url] ];
+        if (cookies)
+            for (int i = 0; i < [cookies count]; i++)
+                [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] deleteCookie:[cookies objectAtIndex:i]];
     }
 }
 - (void) hideWelcomeView{

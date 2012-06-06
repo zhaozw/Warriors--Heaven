@@ -86,10 +86,10 @@
 //	}
 }
 - (void) viewWillAppear:(BOOL) animated{
-    NSLog(@"Status view will appear");
+//    NSLog(@"Status view will appear");
 }
 - (void) viewDidAppear:(BOOL) animated{
-       NSLog(@"Status view did appear");
+//       NSLog(@"Status view did appear");
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     NSObject* json = [ad getDataUserext];
 //    NSLog(@"USEREXT: %@", [json JSONRepresentation]);

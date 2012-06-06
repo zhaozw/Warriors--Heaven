@@ -291,9 +291,9 @@ class TradablesController < ApplicationController
         #fb878cea0081ca975738417cfc17a71a
         sid = user_data[:sid]
         p sid
-       k = sid.to(15)+user_data[:id].to_s+sid[16..32] 
+       k = sid.to(15)+user_data[:id].to_s+sid[16..sid.size-1] 
        p k
-       k = k.to(16)+c+k[17..32] 
+       k = k.to(16)+c+k[17..k.size-1] 
        p k
        a =  MD5.hexdigest(k)   
        p a.to_s
@@ -318,7 +318,7 @@ class TradablesController < ApplicationController
         #     end
         # end
         if encroptT(params[:tid]) == params[:c]
-             success("done")
+             success("done", {:tid =>params[:tid]})
          else
              error("找不到该记录！")
          end
