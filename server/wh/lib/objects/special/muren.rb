@@ -31,5 +31,9 @@ class Muren  < Special
   def price
       1000
   end
+  
+  def sell_price
+      price * get("hp") / get("max_hp")
+  end
 
 end

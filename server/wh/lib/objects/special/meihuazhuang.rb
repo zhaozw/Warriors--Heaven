@@ -25,5 +25,11 @@ class Meihuazhuang  < Special
   def effect
       "加速你的轻功练习速度"
   end
+  def price
+      1000
+  end
 
+    def sell_price
+      price * get("hp") / get("max_hp")
+  end
 end

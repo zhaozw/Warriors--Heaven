@@ -131,8 +131,9 @@
     filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, filepath];
     [vImage setImageURL:[NSURL URLWithString:filepath]];
      int price = [[eq valueForKey:@"price"] intValue];
+    int sell_price = [[eq valueForKey:@"sell_price"] intValue];
     if ([viewType isEqualToString:@"sell"])
-        price = price /2;
+        price = sell_price;
    
     lbPrice.text = [[NSNumber numberWithInt:price] stringValue];
     [self view].hidden = NO;

@@ -121,6 +121,7 @@ class Object
             :effect=>effect,
             :desc=>desc,
             :price=>price,
+            :sell_price=>sell_price,
             :weight=>weight,
             :rank=>rank,
             :unit=>unit
@@ -169,6 +170,15 @@ class Object
     
     def price
         0
+    end
+    
+    def sell_price
+        if price > 0
+            return price * 0.5
+        else
+            return 0
+        end
+        
     end
     
     def id
