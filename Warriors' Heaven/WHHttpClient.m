@@ -12,7 +12,8 @@
 
 @implementation WHHttpClient
 
-- (id) init:(UIView*)_view {
+- (id) init:(id)_view {
+    sync = FALSE;
     self->view = _view;
     return self;
 }
@@ -24,6 +25,9 @@
 //- (void) checkNetworkStatus{
 //    
 //}
+- (void) setSync:(BOOL) _sync{
+    sync = _sync;
+}
 - (void) postHttpRequest:(NSString*)cmd data:(NSString*)data selector:(SEL)s json:(BOOL)bJSON  showWaiting:(BOOL)bWait{
     _selector = s;
     _bJSON= bJSON;
@@ -53,7 +57,7 @@
     
     
     if(bWait && [ad isWaiting]){
-        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(sendHttpRequest:selector:showWaiting:)];
+        NSMethodSignature *signature  = [WHHttpClient instanceMethodSignatureForSelector:@selector(postHttpRequest:selector:json:showWaiting:)];
         NSInvocation      *invocation = [NSInvocation invocationWithMethodSignature:signature];
         
         [invocation setTarget:self];                    // index 0 (hidden)
@@ -78,8 +82,19 @@
     [request setValue:[[NSNumber numberWithInt:[postData length]]stringValue] forHTTPHeaderField:@"Content-Length"]; 
     [request setHTTPBody:postData];  
     
-    if (ad.session_id != nil)
-    [request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
+//    if (ad.session_id != nil)
+//        [request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
+    
+    // set cookie
+    NSArray                 *cookies;
+    NSDictionary            *cookieHeaders;
+    cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+               cookiesForURL:request.URL];
+    
+//    NSLog(@"%@ cookies = %@", request.URL, cookies);
+    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
+    NSString* cookie = [ cookieHeaders objectForKey: @"Cookie" ];   
+    
     if (cookie)
         [request addValue:cookie forHTTPHeaderField:@"Cookie"];
     else{ // first request, set session id in cookie
@@ -170,6 +185,15 @@
    
     //if (ad.session_id != nil)
     //[request addValue:ad.session_id forHTTPHeaderField:@"Cookie"];
+    NSArray                 *cookies;
+    NSDictionary            *cookieHeaders;
+    cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+               cookiesForURL:request.URL];
+    
+
+        NSLog(@"%@ cookies = %@", request.URL, cookies);
+    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
+    NSString* cookie = [ cookieHeaders objectForKey: @"Cookie" ];   
     if (cookie)
         [request addValue:cookie forHTTPHeaderField:@"Cookie"];
     else{ // first request
@@ -203,6 +227,37 @@
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];
     NSLog(@"HTTP HEADER %@", fields);
+    
+    NSLog(@"POLiCY %d", [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] cookieAcceptPolicy]);
+    if ([[ NSHTTPCookieStorage sharedHTTPCookieStorage ] cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways)
+    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+    NSArray* _cookies =  [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[HTTPResponse URL] ];
+    
+    NSArray *cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+               cookiesForURL:[HTTPResponse URL] ];
+    NSString* homeUrl = [NSString stringWithFormat:@"http://%@:%@/", HTTPResponse.URL.host, HTTPResponse.URL.port];
+//    if (cookies)
+//    for (int i = 0; i < [cookies count]; i++)
+//        [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] deleteCookie:[cookies objectAtIndex:i]];
+//    
+    [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+     setCookies: _cookies forURL: [HTTPResponse URL] mainDocumentURL: [NSURL URLWithString:homeUrl ] ];
+    NSLog(@"%@ cookie2:%@", [HTTPResponse URL] ,_cookies);
+//    {
+//    NSArray                 *cookies;
+//    NSDictionary            *cookieHeaders;
+//    cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+//               cookiesForURL:[HTTPResponse URL] ];
+//    
+//    //        if (!cookies){
+//    //            
+//    //        }
+//    NSLog(@"%@ cookies = %@", [HTTPResponse URL], cookies);
+//        
+//    }
+//    
+    
+//    cookie = _cookies;
 /* 
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];

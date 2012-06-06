@@ -7,14 +7,17 @@
 //
 
 #import "InAppPurchaseManager.h"
-#define ProductID_IAP1kGold @"com.joyqom.wh.gold"           // 1000 gold for $0.99 1/1000
-#define ProductID_IAP2kGold @"com.joyqom.wh.2000gold"       // 2000 gold for $0.99 0.5/1000 (only on sale)
+#import "WHHttpClient.h"
+#import <CommonCrypto/CommonDigest.h>
+
+#define ProductID_IAP1kGold @"com.joyqom.wh.iap.gold"           // 1000 gold for $0.99 1/1000
+#define ProductID_IAP2kGold @"com.joyqom.wh.iap.2000gold"       // 2000 gold for $0.99 0.5/1000 (only on sale)
 //#define ProductID_IAP1kGold @"com.joyqom.wh.2500gold"       // 2500 gold for $1.99 0.8/1000
-#define ProductID_IAP5kGold @"com.joyqom.wh.5000gold"       // 5000 gold for $2.99 0.6/1000 ($1.99 0.4/1000 on sale)
-#define ProductID_IAP8kGold @"com.joyqom.wh.8000gold"       // 8000 gold for $3.99 0.5/1000
-#define ProductID_IAP10kGold @"com.joyqom.wh.10000gold"      // 10000 gold for $4.99 0.5/1000
-#define ProductID_IAP20kGold @"com.joyqom.wh.20000gold"      // 20000 gold for $7.99 0.4/1000
-#define ProductID_IAP50kGold @"com.joyqom.wh.50000gold"      // 50000 gold for $14.99 0.3/1000
+#define ProductID_IAP5kGold @"com.joyqom.wh.iap.5000gold"       // 5000 gold for $2.99 0.6/1000 ($1.99 0.4/1000 on sale)
+#define ProductID_IAP8kGold @"com.joyqom.wh.iap.8000gold"       // 8000 gold for $3.99 0.5/1000
+#define ProductID_IAP10kGold @"com.joyqom.wh.iap.10000gold"      // 10000 gold for $4.99 0.5/1000
+#define ProductID_IAP20kGold @"com.joyqom.wh.iap.20000gold"      // 20000 gold for $7.99 0.4/1000
+#define ProductID_IAP50kGold @"com.joyqom.wh.iap.50000gold"      // 50000 gold for $14.99 0.3/1000
 
 /* ---------------------
 normal:                  onsale:
@@ -33,7 +36,12 @@ normal:                  onsale:
     if ((self = [super init])) {   
            [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
+    ad = [UIApplication sharedApplication].delegate;
     return self;
+}
+- (void) setCallback:(id)_id sel:(SEL)_sel{
+    caller = _id;
+    sel = _sel;
 }
 // testuser1 Jujujuju1
 - (void)requestProUpgradeProductData
@@ -74,10 +82,28 @@ normal:                  onsale:
     // we will release the request object in the delegate callback
 }
 
-- (void) purchase:(NSString*) pid{
+- (void) purchase:(NSString*) pid tname:(NSString*)tname tvalue:(NSString*)tvalue{
     SKPayment *payment = nil; 
-    NSLog(@"---------发送购买请求------------");    
+    token_name = tname;
+    token_value = tvalue;
+    
+    payment  = [SKPayment paymentWithProductIdentifier:pid]; 
+        int h = payment.hash;
+    NSLog(@"---------发送购买请求(id=%@)(%d)------------", pid, h);    
     [[SKPaymentQueue defaultQueue] addPayment:payment];  
+//    [payment setValue:tname forKey:@"tname"];
+    NSObject* iapt_list = [ad readLocalProp:@"iap_transaction"];
+    if (!iapt_list) {
+        iapt_list = [[NSMutableDictionary alloc] init];
+    }
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:pid forKey:@"pid"];
+    [dict setValue:tname forKey:@"tname"];
+    [dict setValue:tvalue forKey:@"tvalue"];
+
+    [iapt_list setValue:dict forKey:[NSString stringWithFormat:@"%d", payment.hash]];
+    [ad saveLocalProp:@"iap_transaction" v:iapt_list];
+    
 }
 
 #pragma mark -
@@ -158,14 +184,15 @@ normal:                  onsale:
         {     
             case SKPaymentTransactionStatePurchased:{//交易完成     
                 [self completeTransaction:transaction];    
-                NSLog(@"-----交易完成 --------");    
-                NSLog(@"不允许程序内付费购买");     
-                UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"Alert"     
+                NSLog(@"-----交易完成 --------%@" );    
+       
+                
+/*                UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"Alert"     
                                                                     message:@"Himi说你购买成功啦～娃哈哈"                                                          
                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];    
                 
                 [alerView show];    
-               
+               */
                 break; 
             }
             case SKPaymentTransactionStateFailed:{//交易失败     
@@ -193,24 +220,122 @@ normal:                  onsale:
 - (void) completeTransaction: (SKPaymentTransaction *)transaction    
 
 {    
-    NSLog(@"-----completeTransaction--------");    
+        int h = transaction.payment.hash;
+    NSLog(@"-----completeTransaction(%d)--------", h);    
+          [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     // Your application should implement these two methods.    
-    NSString *product = transaction.payment.productIdentifier;    
+    NSString *product = transaction.payment.productIdentifier;  
+    NSString *pid = @"";
     if ([product length] > 0) {    
         
         NSArray *tt = [product componentsSeparatedByString:@"."];    
-        NSString *bookid = [tt lastObject];    
-        if ([bookid length] > 0) {    
-            [self recordTransaction:bookid];    
-            [self provideContent:bookid];    
-        }    
+//        NSString *bookid = [tt lastObject];    
+//        if ([bookid length] > 0) {    
+//            [self recordTransaction:bookid];    
+//            [self provideContent:bookid];    
+        pid = [tt lastObject];
+        if ([pid length]>0) {
+            NSLog(@"------request game server-------");
+            WHHttpClient* client = [[WHHttpClient alloc] init:self];
+            [client setRetry:YES];
+      
+//            NSObject* iapt_list = [ad readLocalProp:@"iap_transaction"];
+//            if (iapt_list) {
+                
+//             NSMutableDictionary* dict = [iapt_list valueForKey:[NSString stringWithFormat:@"%d", transaction.payment.hash]];
+//                if (dict){
+//                    NSString* tname  = [dict valueForKey:@"tname"];
+//                    NSString* tvalue = [dict valueForKey:@"tvalue"];
+//                    NSString* _pid = [dict valueForKey:@"pid"];
+//                    if ([pid isEqualToString:_pid]){
+//                    
+//            NSString *params=[NSString stringWithFormat:@"id=%@&%@=%@", pid,tname ,tname];
+            NSString* url = [NSString stringWithFormat:@"http://%@:%@/tradables/purchase?tid=%@&c=%@", ad.host, ad.port, transaction.transactionIdentifier, [self calcKey:transaction.transactionIdentifier]];
+            [client sendHttpRequest:url selector:@selector(onPurchaseReturn:) json:YES showWaiting:YES];
+//            while (!response) {
+//                sleep(100);
+//            }
+//            [caller performSelector:sel];
+//             [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+//            NSString* tname= [transaction.payment valueForKey:@"tname"];
+            if ([response valueForKey:@"OK"]){
+                [[SKPaymentQueue defaultQueue] finishTransaction: transaction]; 
+            }
+                        
+                        
+                        
+//                    }
+//                }
+            }
+              
+//        }
+            
+//        }    
     }    
     
     // Remove the transaction from the payment queue.    
     
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];    
+     
     
+
 }    
+- (NSString*)md5HexDigest:(NSString*)input {
+    const char* str = [input UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, strlen(str), result);
+    
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+- (NSString*) calcKey:(NSString* )tid{
+    NSString* sid = ad.session_id;
+    NSString* sid1 = [sid substringToIndex:15];
+    NSObject* sid2 = [sid substringFromIndex:16];
+    int uid = [[[ad getDataUser] valueForKey:@"id"] intValue];
+    NSString* sid3 = [NSString stringWithFormat:@"%@%d%@", sid1, uid, sid2];
+    sid1 = [sid3 substringToIndex:16];
+    sid2 = [sid3 substringFromIndex:17];
+    sid3 = [NSString stringWithFormat:@"%@%@%@", sid1, tid, sid2];
+    NSString* md5 = [self md5HexDigest:sid3];
+    NSLog(@"sid3=%@", sid3);
+    return md5;
+}
+/*
+- (void) onGetTReturn:(NSObject*) data{
+    
+    if ([data valueForKey:@"OK"]){ 
+        NSString* k = [data valueForKey:@"k"];
+        if (k && [k length]>0){
+            // calc screct
+            NSString* sid = [ad.session_id];
+            NSString* sid1 = [sid substringToIndex:15];
+            NSObject* sid2 = [sid substringFromIndex:16];
+            int uid = [[[ad getDataUser] valueForKey:@"id"] intValue];
+            NSString* sid3 = [NSString stringWithFormat:@"%@%d%@", sid1, uid, sid2];
+            sid1 = [sid3 substringToIndex:16];
+            sid2 = [sid3 substringFromIndex:17];
+            sid3 = [NSString stringWithFormat:@"%@%@%@", sid1, k, sid2];
+            
+            
+            WHHttpClient* client = [[WHHttpClient alloc] init:self];
+            [client setRetry:YES];
+            NSString* url = [NSString stringWithFormat:@"http://%@:%@/tradables/purchase?tid=%@&c=%@", ad.host, ad.port, transaction.transactionIdentifier];
+            [client sendHttpRequest:url data:params selector:@selector(onPurchaseReturn:) json:YES showWaiting:YES];
+        }
+    }
+}
+*/
+- (void) onPurchaseReturn:(NSObject*) data{
+    response = data;
+    
+    if ([data valueForKey:@"OK"]){
+//        [[SKPaymentQueue defaultQueue] finishTransaction: transaction];  
+        [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES];
+    }
+}
 
 //记录交易    
 -(void)recordTransaction:(NSString *)product{    

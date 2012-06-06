@@ -250,8 +250,22 @@
   //  [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
     
     NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+//    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary", ad.host, ad.port, ad.session_id];
     NSLog(url);
-    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+//    NSArray                 *cookies;
+//    NSDictionary            *cookieHeaders;
+//     cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+//               cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", ad.host, ad.port]]];
+//
+//    if (!cookies){
+//        
+//    }
+//    NSLog(@"cookies = %@", cookies);
+//    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
+//    NSLog(@"cookies1 = %@", cookieHeaders);
+//    [ req setValue: [ cookieHeaders objectForKey: @"Cookie" ]    forHTTPHeaderField: @"Cookie" ];
+
     [vSummary loadRequest:req];
 
 }

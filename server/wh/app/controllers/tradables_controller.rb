@@ -1,4 +1,6 @@
 #require "objects/equipments/equipment.rb"
+require "rubyutility.rb"
+require 'md5'   
 class TradablesController < ApplicationController
     
     
@@ -269,6 +271,58 @@ class TradablesController < ApplicationController
             @iap_list = list_onsale
             # render :template=>"tradables/listProduct2"
             render :template=>"tradables/listProduct2.html.erb"
+    end
+    def getT
+        if params[:tid] != nil && params[:tid].size>0
+            k = generate_password(32)
+            r = Iapkey.new({
+                :uid=>user_data[:id],
+                :sid=>user_data[:sid],
+                :key=>k,
+                :tid=>params[:tid]
+            })
+            r.save!
+        end
+        success("done", {:k=>k})
+    end
+    def encroptT(c)
+        p "===>111"
+        #d61eabe4211dc8abfa2097c4e8008b17
+        #fb878cea0081ca975738417cfc17a71a
+        sid = user_data[:sid]
+        p sid
+       k = sid.to(15)+user_data[:id].to_s+sid[16..32] 
+       p k
+       k = k.to(16)+c+k[17..32] 
+       p k
+       a =  MD5.hexdigest(k)   
+       p a.to_s
+       return a
+        
+    end
+    def purchase
+        #c = FnnatNprm8MMODTehd44j54YnTBYkTJ2
+        #sid =ce17b7dbc51f7fc56bb6482c9a7dd9a1
+        return if !check_session or !user_data
+        # rs =  Iapkey.find_by_sql("select * from iapkeys where tid='#{params[:tid]}'")
+        # if rs && rs.size > 0
+        #     r = rs[0]
+        #     if r
+        #         c = params[:c]
+        #         a =  encroptT(r[:key])
+        #         if a == c
+        #       
+        #         success("done", {:sid=>user_data[:sid], :a=>a})
+        #         return
+        #           end
+        #     end
+        # end
+        if encroptT(params[:tid]) == params[:c]
+             success("done")
+         else
+             error("找不到该记录！")
+         end
+  
     end
 =begin
   # GET /tradables

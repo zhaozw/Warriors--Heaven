@@ -71,7 +71,7 @@
 //        host = @"homeserver.joyqom.com";
 //    }
     UIUserInterfaceIdiom device = [UIDevice currentDevice];
-    if (device == 82924768)
+//    if (device == 82924768)
         host = @"homeserver.joyqom.com";
 
     
@@ -273,8 +273,9 @@
 //    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
-    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
+//    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
 //    session_id = @"772b5e7546e46b854b248f86a4d84d8e";
+    session_id = nil;
     if (!session_id || debug){
 //    if (true){
 /*        // show registeration

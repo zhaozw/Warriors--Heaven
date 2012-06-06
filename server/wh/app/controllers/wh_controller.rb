@@ -183,11 +183,12 @@ class WhController < ApplicationController
         
         sid = ActiveSupport::SecureRandom.hex(16)
         cookies[:_wh_session] = {
-               :value => sid,
-               :expires => 1.year.from_now,
-               :domain => request.host
-           }
-        session[:username] = params[:name]
+                  :value => sid,
+                  :expires => 1.year.from_now,
+                  :domain => request.host
+              }
+        # session[:username] = params[:name]
+      
         p "=====>>>#{session['_wh_session']}"
         sex =  (params[:profile].to_i+1)/2 - (params[:profile].to_i) /2  # odd:1 even:0
         r = User.new({
@@ -213,6 +214,8 @@ class WhController < ApplicationController
             end
             return 
         end
+         session[:sid] = sid
+        session[:uid] = r.id
         
         # init userext
         ext = Userext.new({
@@ -284,8 +287,7 @@ class WhController < ApplicationController
         r[:userskills].push(skill)
         
         
-        
-        
+       
         
         render :text=>r.to_json
         

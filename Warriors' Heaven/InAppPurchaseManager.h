@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+
+#import "AppDelegate.h"
+
+@class AppDelegate;
 #define kInAppPurchaseManagerProductsFetchedNotification@"kInAppPurchaseManagerProductsFetchedNotification"
 enum{  
     IAP1000G=10,  
@@ -18,11 +22,18 @@ enum{
     IAP20000G,
     IAP50000G,
 }buyCoinsTag;  
+
 @interface InAppPurchaseManager : NSObject <SKProductsRequestDelegate,SKPaymentTransactionObserver>  
 {
      int buyType;  
 //    SKProduct *proUpgradeProduct;
 //    SKProductsRequest *productsRequest;
+    id caller;
+    SEL sel;
+    NSString* token_name;
+    NSString* token_value;
+    AppDelegate *ad;
+    NSObject* response;
 }
 //+(CCScene *) scene;    
 - (void) requestProUpgradeProductData;  
@@ -39,5 +50,7 @@ enum{
 -(void)provideContent:(NSString *)product;  
 -(void)recordTransaction:(NSString *)product;  
 
-- (void) purchase:(NSString*) pid;
+- (void) purchase:(NSString*) pid  tname:(NSString*)tname tvalue:(NSString*)tvalue;
+- (void) setCallback:(id)_id sel:(SEL)_sel;
+- (NSString*) calcKey:(NSString* )tid;
 @end

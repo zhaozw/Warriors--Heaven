@@ -11,9 +11,11 @@
 #import "InAppPurchaseManager.h"
 
 @class AppDelegate;
+@class InAppPurchaseManager;
 @interface PurchaseViewController : UIViewController<UIWebViewDelegate>{
     AppDelegate * ad ;
     InAppPurchaseManager* iapm;
+    NSMutableArray* iapm_list;
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vwPurchase;
 - (IBAction)onClose:(id)sender;

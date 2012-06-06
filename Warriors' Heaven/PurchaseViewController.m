@@ -36,12 +36,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
  ad = [UIApplication sharedApplication].delegate;
+    iapm_list = [[NSMutableArray alloc] init];
 //    vwPurchase.delegate = self;
     iapm = [[InAppPurchaseManager alloc] init];
+    [iapm setCallback:self sel:@selector(onPurchaseFinished)];
     [self view].backgroundColor = [UIColor clearColor];
     vwPurchase.backgroundColor = [UIColor clearColor];
 }
 
+- (void) onPurChaseFinished{
+    
+}
 - (void)viewDidUnload
 {
     [self setVwPurchase:nil];
@@ -77,13 +82,23 @@
         
         NSArray* aurl = [surl componentsSeparatedByString:@"&"];
         if ([aurl count] >=2){
-            NSString* param1 = [aurl objectAtIndex:0];
+            NSString* param1 = [aurl objectAtIndex:0]; // id=xxx
             NSArray* params = [param1 componentsSeparatedByString:@"="];
             if ([params count]>=2){
-                NSString* product = [params objectAtIndex:1];
+                NSString* product = [params objectAtIndex:1]; // xxx
                 if (product){
-                    product = [NSString stringWithFormat:@"com.joyqom.wh.%@", product];
-                    [iapm purchase:product];
+                    product = [NSString stringWithFormat:@"com.joycom.wh.iap.%@", product];
+                    NSString* stoken = [aurl objectAtIndex:1];
+                    if (stoken){
+                        NSArray* ar = [stoken componentsSeparatedByString:@"="]; // authority_token, yyyyy
+                        if (ar && [ar count] >=2){
+                            InAppPurchaseManager*   iapm1 = [[InAppPurchaseManager alloc] init];
+                            [iapm_list addObject:iapm1];
+                            [iapm1 purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
+                            
+                        }
+                    }
+         
                     
                 }
             }

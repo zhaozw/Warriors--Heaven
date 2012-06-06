@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @interface WHHttpClient : NSObject{
-    UIView   *view;
+    id   view;
     // handle http request
     NSMutableData* buf;
     NSString * cookie;
+//    NSArray* cookies;
     SEL _selector; // callback after finishing receive data
     SEL response; // callback to handle response 
     BOOL _bJSON;
     NSString* _cmd;
     BOOL retry;
     BOOL _bWait;
+    BOOL sync;
     
 }
 - (id) init:(UIView*)_view;

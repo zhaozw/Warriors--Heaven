@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     end
     
     def check_session
-       # p "===>session=#{session}"
+       p "===>session id=#{session[:sid]} session uid = #{session[:uid]}"
        p "cookies[:_wh_session] = #{cookies[:_wh_session] }"
         # 
         # after uesr first register, the _wh_session will be set in user's cookie
@@ -86,14 +86,24 @@ class ApplicationController < ActionController::Base
      #  p request.host
    #    p "====>>>>dda29"
        # set cookie first, because this is used to generate sid when write memcached
-           cookies[:_wh_session] = {
-               :value => params[:sid],
-               :expires => 1.year.from_now,
-               :domain => request.host
-           }
+           if cookies[:_wh_session] == nil or cookies[:_wh_session] != params[:sid] # first time, or manually change session to other session
+               
+               cookies[:_wh_session] = {
+                   :value => params[:sid],
+                   :expires => 1.year.from_now,
+                   :domain => request.host
+               }
+               session[:uid] = nil
+           end
         #   p "====>>>>dda69"+params[:sid]
        #    p "====>>>>dda79"+session[:sid]
-            session[:sid] = params[:sid]
+            if (session[:sid] == nil || params[:sid] != session[:sid] )
+                session[:sid] = params[:sid]
+                session[:uid] = nil
+             end
+             
+            # @sid = params[:sid]
+
            # cookies[:_wh_session] = params[:sid]
         #   p "====>>>>dda39"
         else
@@ -108,6 +118,7 @@ class ApplicationController < ActionController::Base
                     end
                 end  
                 session[:sid] = sid
+                session[:uid] = nil
             end
         end
        # p "====>>>>dda9"
