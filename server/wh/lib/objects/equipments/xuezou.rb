@@ -34,7 +34,7 @@ class Xuezou  < Blade
     end
 
     def damage
-        120
+        50
     end
      
     def price

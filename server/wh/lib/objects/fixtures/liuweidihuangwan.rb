@@ -12,11 +12,11 @@ class Liuweidihuangwan < Fixture
     end
     
     def desc
-        "由地黄，茯苓等制成，可以提高精力"
+        "由地黄，茯苓等制成，可以提高精力. 据说久服可使人聪慧。"
     end
     
     def intro
-        "增加精力"
+        "增加精力 精力恢复00%"
     end
     
     def weight

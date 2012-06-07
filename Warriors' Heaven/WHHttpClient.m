@@ -191,7 +191,7 @@
                cookiesForURL:request.URL];
     
 
-        NSLog(@"%@ cookies = %@", request.URL, cookies);
+//        NSLog(@"%@ cookies = %@", request.URL, cookies);
     cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
     NSString* cookie = [ cookieHeaders objectForKey: @"Cookie" ];   
     if (cookie)
@@ -226,9 +226,9 @@
     NSLog(@"Recieve http respnse %@, %@", aResponse.MIMEType, aResponse);
     NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)aResponse;
     NSDictionary *fields = [HTTPResponse allHeaderFields];
-    NSLog(@"HTTP HEADER %@", fields);
+//    NSLog(@"HTTP HEADER %@", fields);
     
-    NSLog(@"POLiCY %d", [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] cookieAcceptPolicy]);
+//    NSLog(@"POLiCY %d", [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] cookieAcceptPolicy]);
     if ([[ NSHTTPCookieStorage sharedHTTPCookieStorage ] cookieAcceptPolicy] != NSHTTPCookieAcceptPolicyAlways)
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     NSArray* _cookies =  [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[HTTPResponse URL] ];
@@ -242,7 +242,7 @@
 //    
     [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
      setCookies: _cookies forURL: [HTTPResponse URL] mainDocumentURL: [NSURL URLWithString:homeUrl ] ];
-    NSLog(@"%@ cookie2:%@", [HTTPResponse URL] ,_cookies);
+//    NSLog(@"%@ cookie2:%@", [HTTPResponse URL] ,_cookies);
 //    {
 //    NSArray                 *cookies;
 //    NSDictionary            *cookieHeaders;

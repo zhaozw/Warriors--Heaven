@@ -75,7 +75,7 @@
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
- 
+    [ad showStatusView:YES];
     // setup season image and date time
     vSeasonImag.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/other/spring.png", ad.host, ad.port]];
     

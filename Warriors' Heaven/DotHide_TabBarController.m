@@ -23,7 +23,7 @@
 		firstTime = NO;
 	}
 	tabBarView = [[DHTabBar alloc] initWithBackgroundImage:bgImage
-												 ViewCount:8
+												 ViewCount:9
 											ViewController:self];
 	[self.view addSubview:tabBarView];
 	self.moreNavigationController.navigationBarHidden = YES;

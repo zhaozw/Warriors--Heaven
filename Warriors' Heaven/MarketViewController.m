@@ -22,6 +22,7 @@
 @synthesize vFixure;
 @synthesize vPremierEq;
 @synthesize btSpecial;
+@synthesize btnCharge;
 @synthesize vSpecial;
 @synthesize currentSelectedList;
 @synthesize btCurrentSelected;
@@ -53,10 +54,11 @@
     // Do any additional setup after loading the view from its nib.
     
     ad = [UIApplication sharedApplication].delegate;
-    btnSale = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, 60, 320, 39)];
+    btnSale = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, 61, 320, 41)];
     [[self view] addSubview:btnSale];
     [btnSale setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/images/sale.jpg", ad.host, ad.port]]];
     [btnSale addTarget:self action:@selector(onInAppPurchase:) forControlEvents:UIControlEventTouchUpInside];
+    [btnCharge addTarget:self action:@selector(onInAppPurchase:) forControlEvents:UIControlEventTouchUpInside];
     
 //    item_list = [[NSMutableArray alloc ] init];
     currentSelectedList = 1; // equipment
@@ -115,6 +117,7 @@
     [self setBtSpecial:nil];
     [self setVSpecial:nil];
     [self setBtSpecial:nil];
+    [self setBtnCharge:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -179,7 +182,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+        [ad showStatusView:YES];
+//    AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [ad setBgImg:[UIImage imageNamed:@"bg_market.jpg"] ];
 //   
 //    if (currentSelectedList == 1)
@@ -402,6 +406,12 @@
     r.size.height = 10+ count_sp*(row_height+row_margin);
     vSpecial.frame = r;
     
+     r = vEquipment.frame;
+    
+    if (r.size.height+130 > 480){
+        UIScrollView* scv = [self view];
+        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+    }
     
 //    v.hidden = NO;
 //    r = v.frame;

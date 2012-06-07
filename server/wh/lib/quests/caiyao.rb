@@ -122,7 +122,7 @@ class Caiyao < Quest
                         exp_bonus = 10+rand(user.tmp[:luck])/10
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
-                        msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
+                        msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;经验+#{exp_bonus}</span></div>\n"
                         if (levelup>0)
                             msg+="<div><span style='color:#990000'>你的等级提升了!</div>"
                         end

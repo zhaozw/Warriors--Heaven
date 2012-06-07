@@ -110,10 +110,11 @@ class WhController < ApplicationController
                 skill = player.query_skill(pending["skill"])
          p "==>pending skill = #{pending["skill"]}, #{skill.inspect}"       
         up = player.practise(skill, t_span, context)
-        ret = pending.clone
+
         if up[:usepot] >= pending["usepot"].to_i
             ret = {}
         else
+            ret = pending.clone
             ret["t"] = Time.now.to_i
             ret["usepot"] = pending["usepot"].to_i - up[:usepot]
         end
@@ -489,8 +490,11 @@ class WhController < ApplicationController
         
         recoverPlayer(user_data.ext)
         
-        if (user_data.ext.get_prop("pending") != nil)
-            
+        pending = user_data.ext.get_prop("pending")
+        p "==>pending: #{pending.inspect}"
+        if (pending != nil && pending["act"] != nil)
+            error("你正忙着", {:user=>user_data})
+           return
         end
        if (user_data.ext[:hp] <= 0)
            error("你的hp不够，不适合战斗", {:user=>user_data})
@@ -629,7 +633,7 @@ class WhController < ApplicationController
         
        # enemy.ext.save
        p "===>enemy zhanyi #{enemy.ext[:zhanyi]}"
-        if (result==0 && enemy.ext[:zhanyi] >= 0)
+        if (result==1 && enemy.ext[:zhanyi] >= 0)
             enemy.ext[:zhanyi] -= 30
         end
         p "===>enemy zhanyi #{enemy.ext[:zhanyi]}, winner=#{winner}"
@@ -1245,21 +1249,35 @@ class WhController < ApplicationController
                 pending = JSON.parse(pending)
             end
   
+  
             if (pending["act"] != nil and pending["msg"]!=nil)
+                # give a chance to fix it when client failed on stopping practise
                 _pending = check_practise(pending)
-                if _pending &&_pending[:usepot] && _pending[:usepot] > 0
-                    error ("你正忙着#{pending['msg']}呢!")
-                    return
-                end
+                # if _pending &&_pending[:usepot] && _pending[:usepot] > 0
+                    user_data.ext.set_prop("pending", _pending) # update it
+                # else
+                #     user_data.ext.set_prop("pending", {}) # stop it
+                # end
+                user_data.check_save
+                error ("你正忙着#{pending['msg']}呢!")
+                return
+                # end
             end
         end
-   
+      p "userdata3=#{user_data.ext.inspect}"
         if ( user_data.ext[:pot] <= 0)
             # p "ext=#{user_data.inspect}"
             user_data.check_save
             error("你的潜能不够, 无法提高", {:user=>user_data})
             return
         end
+        
+        if user_data.ext[:jingli] <= 0
+            user_data.check_save
+            error("你的精力不够, 无法修炼", {:user=>user_data})
+            return
+        end
+        
         if params[:userpot]
             usepot = params[:usepot].to_i
             if (usepot > user_data.ext[:pot])
@@ -1350,6 +1368,7 @@ class WhController < ApplicationController
                 
         skillname = pending["skill"]
         if skillname != _skillname
+            p "==>skillname=#{skillname}, but _skillname=#{_skillname}"
             error "你正在修炼的不是这项技能"
             return
         end
@@ -1413,7 +1432,8 @@ class WhController < ApplicationController
         #         pending = {}
         c = {:msg=>""}
         _pending = check_practise(pending, c)
-        user_data.ext.set_prop("pending", _pending)
+        # user_data.ext.set_prop("pending", _pending)
+        user_data.ext.set_prop("pending", {}) # stop it
         
   
         _skill = JSON.parse(skill.to_json) # convert to hash

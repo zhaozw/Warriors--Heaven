@@ -1,15 +1,14 @@
 //
-//  RankViewController.m
+//  HelpViewController.m
 //  Warriors' Heaven
 //
-//  Created by juweihua on 6/1/12.
+//  Created by juweihua on 6/7/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "RankViewController.h"
+#import "HelpViewController.h"
 
-@implementation RankViewController
-@synthesize vRankWeb;
+@implementation HelpViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,14 +33,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    vRankWeb.frame = CGRectMake(0, 0, 320, 480-49);
-    [self view ].frame = CGRectMake(0, 0, 320, 480);
-    
+    ad = [UIApplication sharedApplication].delegate;
+    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
+    wvContent.backgroundColor = [UIColor clearColor];
+    [[self view ] addSubview:wvContent];
 }
+
 
 - (void)viewDidUnload
 {
-    [self setVRankWeb:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -54,13 +54,8 @@
 }
 
 - (void) viewDidAppear:(BOOL) animated{
-    AppDelegate* ad = [UIApplication sharedApplication].delegate;
-    NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
-      [ad showStatusView:FALSE];
-    [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
-//    vRankWeb.backgroundColor = [UIColor redColor];
-        vRankWeb.frame = CGRectMake(0, 0, 320, 480);
+    [ad showStatusView:FALSE];
+    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/help.html", ad.host, ad.port]]]];
     
 }
-
 @end

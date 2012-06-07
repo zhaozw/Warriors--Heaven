@@ -21,6 +21,7 @@
 //    NSArray* fixture_list;
 //    NSArray* prem_list;
 }
+@property (strong, nonatomic) IBOutlet UIButton *btnCharge;
 
 @property (strong, nonatomic) IBOutlet UIView *vSpecial;
 @property (strong, nonatomic) IBOutlet UIButton *btSpecial;

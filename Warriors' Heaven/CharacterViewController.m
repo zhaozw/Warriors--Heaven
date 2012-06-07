@@ -1022,6 +1022,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     
 }
 -(void)viewWillAppear:(BOOL)animated {
+    [ad showStatusView:YES];
     NSLog(@"character view update");
     [self reloadEqUI];
     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
@@ -1117,7 +1118,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //                [woren_eq_list replaceObjectAtIndex:worneq_selected.tag withObject:eq];
 //                [eq_list replaceObjectAtIndex:btn.tag withObject:eq2];
             }else{
-                [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
+//                [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
+                [ad showMsg:@"该装备不适合穿在这里" type:1 hasCloseButton:YES];
+
             }
         }
   
@@ -1221,7 +1224,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         worneq_selected = NULL;
         sloteq_selected = NULL;
         }else{
-            [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
+//            [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
+            [ad showMsg:@"该装备不适合穿在这里" type:1 hasCloseButton:YES];
             worneq_selected = NULL;
 //            sloteq_selected = NULL;
         }

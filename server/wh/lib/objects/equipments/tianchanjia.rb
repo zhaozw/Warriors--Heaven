@@ -27,7 +27,7 @@ class Tianchanjia  < Armo
   end
   
   def rank
-      4
+      5
   end
     
   def effect
@@ -39,6 +39,6 @@ class Tianchanjia  < Armo
   end
     
   def defense
-      10
+      100
   end
 end

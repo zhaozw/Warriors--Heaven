@@ -619,6 +619,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+        [ad showStatusView:YES];
     if ([ad readLocalProp:@"showBoss"] == NULL){
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];

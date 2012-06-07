@@ -46,6 +46,7 @@
 - (IBAction)onSelectLibrary:(id)sender;
 - (void) reloadSkills;
 - (IBAction)onSelectStatus:(id)sender;
+- (void) reloadPot;
 
 - (void) _startPractise:(NSString *)skillname usepot:(int)usepot;
 - (int) findSkillIndexByName:(NSString*) name;

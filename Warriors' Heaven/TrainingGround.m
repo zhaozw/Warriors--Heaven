@@ -272,6 +272,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [ad showStatusView:YES];
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [ad setBgImg:[UIImage imageNamed:@"traininggrd.jpg"] ];
     
@@ -487,9 +488,11 @@
     CGRect rect = vBasicSkillsList.frame;
     rect.size.height = y_b;
     [vBasicSkillsList setFrame:rect];
+    
     rect = vCommonSkillsList.frame;
     rect.size.height = y_c;
     [vCommonSkillsList setFrame:rect];
+    
     rect = vPremierSkillsList.frame;
     rect.size.height = y_p;
     [vPremierSkillsList setFrame:rect];
@@ -523,6 +526,7 @@
     ad.bUserSkillNeedUpdate = NO;
     // e.g. 
     //     [{"userskill":{"skdname":"dodge","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"dodge","id":2,"enabled":1,"tp":0,"skid":2}},{"userskill":{"skdname":"parry","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"parry","id":3,"enabled":1,"tp":0,"skid":3}},{"userskill":{"skdname":"unarmed","created_at":null,"updated_at":null,"sid":"d434740f4ff4a5e758d4f340d7a5f467","level":0,"uid":1,"skname":"unarmed","id":1,"enabled":1,"tp":0,"skid":1}}]
+    [self foldAll];
     [self reloadSkills];
 
 }
@@ -687,6 +691,7 @@
     currentPractisingSkill = -1;
     practiseRate = 1;
     
+    [self reloadPot];
     [ad reloadStatus];
     [self reloadSkills];
 }
@@ -701,12 +706,13 @@
             [self _startPractise:[data valueForKey:@"skill"] _usepot:usepot];
         UILabel* lbStatus = [lb_status_list objectAtIndex:currentPractisingSkill];
         lbStatus.text = @"修炼中";
+        [self updateSingleSkill:[data valueForKey:@"userskill"]];  
+        
+        [self reloadSkills];
+        [ad setUserBusy:TRUE];
     }
     
-    [self updateSingleSkill:[data valueForKey:@"userskill"]];  
 
-    [self reloadSkills];
-    [ad setUserBusy:TRUE];
 
 }
 
@@ -805,11 +811,14 @@
     
     [[ad.data_user valueForKey:@"user"] setValue:userext forKey:@"userext"];
     NSLog(@"%@", ad.data_user);
-    int pot = [[[ad getDataUserext] valueForKey:@"pot"] intValue];
-    lbPotential.text = [NSString stringWithFormat:@"%d", pot];
+
     [ad reloadStatus];
     
         
+}
+- (void) reloadPot{
+    int pot = [[[ad getDataUserext] valueForKey:@"pot"] intValue];
+    lbPotential.text = [NSString stringWithFormat:@"%d", pot];
 }
 - (void)viewDidAppear:(BOOL)animated{
     

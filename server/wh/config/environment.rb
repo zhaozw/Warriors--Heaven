@@ -44,8 +44,8 @@ Rails::Initializer.run do |config|
   config.action_controller.session = {
     :key => 'wh',
     :secret=>'4a9e7a59871177d8cfc7798c2ffb24c6a9f1a066ebd8fcc6a96e7827b3f36fcdf17907512e52b8259ae36af2f89cbf858b48421a33842b6f686ccb80e816412f',
-  #  :expire_after => 86400*30*100
-    :expire_after => 2.years
+   :expire_after => 86400*30*100
+    # :expire_after => 2.years
     }
 
 =begin

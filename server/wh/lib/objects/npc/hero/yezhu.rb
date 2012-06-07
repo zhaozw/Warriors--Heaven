@@ -80,7 +80,7 @@ class Yezhu < Npcorc
     end
     
     def image
-        "obj/npc/yezhu.jpg"
+        "obj/npc/yezhu.png"
     end
     
     def homeImage

@@ -263,6 +263,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+        [ad showStatusView:YES];
     [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
 }
 

@@ -95,6 +95,7 @@
 }
 
 - (void) viewWillAppear:(BOOL) animated{
+    [ad showStatusView:YES];
     NSLog(@"Team view will appear");
 //    if (!needReload)
 //        return;
