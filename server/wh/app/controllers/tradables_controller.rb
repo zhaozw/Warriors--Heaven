@@ -318,7 +318,9 @@ class TradablesController < ApplicationController
         #     end
         # end
         if encroptT(params[:tid]) == params[:c]
-             success("done", {:tid =>params[:tid]})
+            user_data.ext[:gold] += 1000
+            user_data.check_save
+             success("购买成功! ", {:tid =>params[:tid], :userext=>user_data.ext})
          else
              error("找不到该记录！")
          end

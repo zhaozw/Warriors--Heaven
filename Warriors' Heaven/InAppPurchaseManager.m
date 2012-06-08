@@ -200,7 +200,7 @@ normal:                  onsale:
              [self failedTransaction:transaction];    
                 NSLog(@"-----交易失败 --------");    
                 UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"     
-                                                                     message:@"Himi说你购买失败，请重新尝试购买～"                                                          
+                                                                     message:@"购买失败，请重新尝试购买～"                                                          
                                                                     delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];    
                 
                 [alerView2 show];    
@@ -335,6 +335,12 @@ normal:                  onsale:
     response = data;
 
     if ([data valueForKey:@"OK"]){
+        id ext = [data valueForKey:@"userext"];
+        if (ext)
+        {
+            [ad setDataUserExt:ext];
+            [ad saveDataUser];
+        }
         NSString* tid = [data valueForKey:@"tid"];
         NSArray* ts =  [[SKPaymentQueue defaultQueue]  transactions ];
         for (int i=0; i< [ts count]; i++){
@@ -344,6 +350,7 @@ normal:                  onsale:
                 break;
             }
         }
+        
         [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES];
     }
 }

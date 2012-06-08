@@ -167,6 +167,7 @@
 		5AFAE619157FF682002C9905 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFAE617157FF681002C9905 /* HelpViewController.m */; };
 		5AFAE61A157FF682002C9905 /* HelpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE618157FF682002C9905 /* HelpViewController.xib */; };
 		5AFAE61C15806DF2002C9905 /* charge.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE61B15806DF2002C9905 /* charge.png */; };
+		5AFAE6241581B314002C9905 /* bg25.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE6231581B30A002C9905 /* bg25.jpg */; };
 		5AFD8D641500E6ED0066ECBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D631500E6ED0066ECBA /* UIKit.framework */; };
 		5AFD8D661500E6ED0066ECBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D651500E6ED0066ECBA /* Foundation.framework */; };
 		5AFD8D681500E6ED0066ECBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFD8D671500E6ED0066ECBA /* CoreGraphics.framework */; };
@@ -388,6 +389,7 @@
 		5AFAE617157FF681002C9905 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		5AFAE618157FF682002C9905 /* HelpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HelpViewController.xib; sourceTree = "<group>"; };
 		5AFAE61B15806DF2002C9905 /* charge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = charge.png; sourceTree = "<group>"; };
+		5AFAE6231581B30A002C9905 /* bg25.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg25.jpg; sourceTree = "<group>"; };
 		5AFD8D5F1500E6ED0066ECBA /* Warriors' Heaven.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Warriors' Heaven.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AFD8D631500E6ED0066ECBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5AFD8D651500E6ED0066ECBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -678,6 +680,7 @@
 				5A016F0B15747815002D2B2A /* msgbg.png */,
 				5ACC6BE7151EA8EB00C83551 /* bg_12.png */,
 				5AAA2FF2152C637E002E6FCF /* bg_task_title.png */,
+				5AFAE6231581B30A002C9905 /* bg25.jpg */,
 				5ADF4D3B1546810500D2D44F /* bg2.jpg */,
 				5A20602715530CEC0048A0C1 /* board1.png */,
 				5AEC68A11557540A00B868DF /* flag.png */,
@@ -994,6 +997,7 @@
 				5AFAE615157FF646002C9905 /* tab_rank.png in Resources */,
 				5AFAE61A157FF682002C9905 /* HelpViewController.xib in Resources */,
 				5AFAE61C15806DF2002C9905 /* charge.png in Resources */,
+				5AFAE6241581B314002C9905 /* bg25.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1098,7 +1102,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1107,6 +1111,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

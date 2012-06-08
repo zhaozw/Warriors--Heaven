@@ -36,7 +36,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUIViewController" id="444300152">
+			<object class="IBUIViewController" id="246499961">
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="IBUIInterfaceOrientation">1</int>
@@ -279,7 +279,7 @@
 					</object>
 					<object class="IBUIImageView" id="826214278">
 						<reference key="NSNextResponder" ref="185252677"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{0, 65}, {320, 56}}</string>
 						<reference key="NSSuperview" ref="185252677"/>
 						<reference key="NSNextKeyView" ref="1005787170"/>
@@ -359,7 +359,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vcPlayer</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="444300152"/>
+						<reference key="destination" ref="246499961"/>
 					</object>
 					<int key="connectionID">30</int>
 				</object>
@@ -505,7 +505,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
-						<reference key="object" ref="444300152"/>
+						<reference key="object" ref="246499961"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
