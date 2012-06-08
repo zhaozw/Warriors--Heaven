@@ -55,7 +55,7 @@
 
 - (void) viewDidAppear:(BOOL) animated{
     [ad showStatusView:FALSE];
-    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/help.html", ad.host, ad.port]]]];
+    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard.html", ad.host, ad.port]]]];
     
 }
 @end

@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "ObjDetailViewController.h"
 
+@class ObjDetailViewController;
 @interface CharacterViewController : UIViewController{
     NSMutableArray* eq_slots;
     NSMutableArray* eq_buttons; 
@@ -91,6 +92,7 @@
 @property (nonatomic, retain)   UIButton* btItemDetail;
 @property (nonatomic, retain) NSMutableArray* item_buttons; // the array hold all egoimagebutton for item
 @property (strong, retain) AppDelegate * ad;
+@property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 
 @property (strong, nonatomic) IBOutlet ObjDetailViewController *vcObjDetail;
 
@@ -107,4 +109,5 @@
 -(void)viewWillAppear:(BOOL)animated ;
 - (void) reloadEq;
 - (void) reloadEqUI;
+- (void) setStatus:(NSString*) s;
 @end

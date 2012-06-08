@@ -17,6 +17,7 @@
     UIView* vHeroList;
     NSArray* playerList;
     NSArray* heroList;
+    BOOL bFirstShow;
 }
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 @property (strong, nonatomic) IBOutlet BossViewController *vcPlayer;

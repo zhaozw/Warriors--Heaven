@@ -620,7 +620,9 @@ class WhController < ApplicationController
             "msg"  => render_to_string(:layout=>false)
         }
         winner = 0
-        winner = 1 if result ==1
+        winner = 0 if result ==1
+        winner = 1 if result ==0
+        winner = -1 if result ==-1
         b = Battle.new({
             :attacker =>  user_data[:user],
             :defenser =>  enemy[:user],
@@ -719,7 +721,7 @@ class WhController < ApplicationController
             npc = create_npc(params[:heroname])
             _hero_name = params[:heroname]
         else
-            npc = create_npc("objects/npc/hero/#{hero_name}")
+            npc = create_npc("#{hero_name}")
             _hero_name = hero_name
         end
         eqs = npc.query_all_wearings.values

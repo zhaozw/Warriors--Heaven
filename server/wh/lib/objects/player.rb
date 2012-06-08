@@ -338,6 +338,8 @@ include Pc
         end
         return rate
     end
+    
+    # do practise only using time, withouth specific "usepot"
     def practise(skill, sec,c =nil)
         # skill = query_skill(skillname)
         skillname = skill[:skname]

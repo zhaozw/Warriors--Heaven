@@ -13,6 +13,7 @@
 
 @implementation TeamViewController
 @synthesize btJoinTeam;
+@synthesize vcPlayer;
 @synthesize vMyTeam;
 @synthesize vJoinedTeams;
 @synthesize currentSelectedList;
@@ -69,7 +70,10 @@
     [LightView createLabel:CGRectMake(120, margin_top+20, 30, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
     lbTeamPower = [LightView createLabel:CGRectMake(155, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
     
+    
 
+    [vcPlayer view].hidden = YES;
+    [vcPlayer setOnFight:nil sel:nil];
     
     
     
@@ -83,6 +87,7 @@
     [self setTfTeamCode:nil];
     [self setBtMyTeam:nil];
     [self setBtJoinTeam:nil];
+    [self setVcPlayer:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -113,14 +118,19 @@
     NSObject * team = [data valueForKey:@"team"];
 //    NSObject* members = [team valueForKey:@"members"];
     
-    NSObject* members = team;
+    members = team;
     team = [[team valueForKey:@"data"] valueForKey:@"team"];
     NSLog(@"TEAM:%@", team);
     
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
     UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
-    UIButton* bt = [LightView createButton:CGRectMake(120, 0, 120, 35) parent:banner text:@"邀请好友加入战队" tag:0];
-    [bt setBackgroundImage:[UIImage imageNamed:@"btn_blue_light.png"] forState:UIControlStateNormal];
+    UIButton* bt = [LightView createButton:CGRectMake(120, 0, 110, 39) parent:banner text:@"邀请好友加入战队" tag:0];
+//    [bt.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:13.0f]];
+//    [bt.titleLabel setTextColor:[UIColor greenColor]];
+    UIImage *imageNormal = [UIImage imageNamed:@"btn_green_light.png"];
+    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:8 topCapHeight:8];
+    [bt setBackgroundImage:stretchableImageNormal forState:UIControlStateNormal];
+    [bt addTarget:self action:@selector(onInvite:) forControlEvents:UIControlEventTouchUpInside];
     
     int count = 0;
     for (int i = 0; i< 8; i++){
@@ -135,6 +145,8 @@
         
         LightRowView * lrv = [vMyTeam addRowView:sUser logo:userProfile btTitle:@"Delete" btnTag:i];
         [[lrv button:0] addTarget:self action:@selector(onDeleteMember:) forControlEvents:UIControlEventTouchUpInside];
+        lrv.vLogo.tag = i;
+        [lrv.vLogo addTarget:self action:@selector(onTouchMember:) forControlEvents:UIControlEventTouchUpInside];
         
 //        lrv.lbTitle.backgroundColor = [UIColor redColor];
         count++;
@@ -149,6 +161,20 @@
 //    [vJoinedTeams removeAllRow];
 }
 
+- (void) onTouchMember:(UIButton*) btn{
+    int i = btn.tag;
+    if (members){
+        NSObject* player = [members valueForKey:[[NSNumber numberWithInt:i] stringValue]];
+        if (player){
+            [vcPlayer loadPlayer:player];
+        }
+    }
+    
+}
+- (void) onInvite:(UIButton*)btn{
+    NSString* helpUrl = [NSString stringWithFormat:@"http://%@:%@/help_invite.html", ad.host, ad.port];
+    [ad showHelpView:helpUrl frame:CGRectMake(0, 0, 320, 480-49)];
+}
 - (void) onDelMemberReturn:(NSObject*)data{
     
 }

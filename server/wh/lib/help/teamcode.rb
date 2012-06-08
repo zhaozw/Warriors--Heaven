@@ -1,7 +1,7 @@
 require 'help/help.rb'
 class Teamcode < Game::Help
     def image
-        "/images/quest_bg.png"
+        ""
     end
     
     def dname

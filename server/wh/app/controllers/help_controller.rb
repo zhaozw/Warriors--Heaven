@@ -16,5 +16,7 @@ class HelpController < ApplicationController
         if (cat == "team")
             @o = loadGameObject("help/#{name}")
         end
+        
+        # render :template=>"help/index.html.erb"
     end
 end

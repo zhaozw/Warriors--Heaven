@@ -92,17 +92,18 @@ normal:                  onsale:
     NSLog(@"---------发送购买请求(id=%@)(%d)------------", pid, h);    
     [[SKPaymentQueue defaultQueue] addPayment:payment];  
 //    [payment setValue:tname forKey:@"tname"];
-    NSObject* iapt_list = [ad readLocalProp:@"iap_transaction"];
-    if (!iapt_list) {
-        iapt_list = [[NSMutableDictionary alloc] init];
-    }
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setValue:pid forKey:@"pid"];
-    [dict setValue:tname forKey:@"tname"];
-    [dict setValue:tvalue forKey:@"tvalue"];
+    
+//    NSObject* iapt_list = [ad readLocalProp:@"iap_transaction"];
+//    if (!iapt_list) {
+//        iapt_list = [[NSMutableDictionary alloc] init];
+//    }
+//    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+//    [dict setValue:pid forKey:@"pid"];
+//    [dict setValue:tname forKey:@"tname"];
+//    [dict setValue:tvalue forKey:@"tvalue"];
 
-    [iapt_list setValue:dict forKey:[NSString stringWithFormat:@"%d", payment.hash]];
-    [ad saveLocalProp:@"iap_transaction" v:iapt_list];
+//    [iapt_list setValue:dict forKey:[NSString stringWithFormat:@"%d", payment.hash]];
+//    [ad saveLocalProp:@"iap_transaction" v:iapt_list];
     
 }
 

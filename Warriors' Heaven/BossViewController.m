@@ -181,6 +181,8 @@
     if (c && sel){
         [btnFight removeTarget:self action:@selector(onFight:) forControlEvents:UIControlEventTouchUpInside];
         [btnFight addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+    }else{
+        btnFight.hidden = YES;
     }
 }
                     

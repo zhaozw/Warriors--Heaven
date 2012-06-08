@@ -23,6 +23,7 @@ class CreateUserexts < ActiveRecord::Migration
       t.integer :jingli  # spirit energe
       t.integer :max_jl
       t.integer :zhanyi, :default=>100 # will to fight
+      t.string  :sstatus, :default=>nil
 
       t.timestamps
     end

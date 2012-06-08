@@ -152,6 +152,8 @@
 }
 - (void) onHeroReturn:(NSObject*) data{
     [vcBoss loadHero:data];
+    if (bFirstShow)
+        bFirstShow = FALSE;
 }
 
 - (void) loadPlayers{
@@ -172,6 +174,7 @@
         NSObject* json = [d valueForKey:@"userext"];
         NSNumber *uid = [json valueForKey:@"uid"];
         NSString* name = [json valueForKey:@"name"];
+        NSString* title = [json valueForKey:@"title"];
         NSString* level = [[json valueForKey:@"level"] stringValue];
         int profile = [[json valueForKey:@"profile"] intValue];
         //        y = 100+ i*(row_height+row_margin);
@@ -217,7 +220,19 @@
         [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", name]];
         [row addSubview:lbInfo];
         
-        UILabel* lbLevel = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 100, 30)];
+        
+        UILabel* lbTitle = [[UILabel alloc]initWithFrame:CGRectMake(60, 22, 100, 30)];
+        [lbTitle setOpaque:NO];
+       
+        [lbTitle setAdjustsFontSizeToFitWidth:YES];
+        [lbTitle setFont:[UIFont fontWithName:@"Heiti TC" size:12.0f]];
+        [lbTitle setTextColor:[UIColor greenColor]];
+        [lbTitle setBackgroundColor:[UIColor clearColor]];
+        [lbTitle setText:[[NSString alloc] initWithFormat:@"%@", title]];
+        [row addSubview:lbTitle];
+
+        
+        UILabel* lbLevel = [[UILabel alloc]initWithFrame:CGRectMake(60, 35, 100, 30)];
         [lbLevel setOpaque:NO];
         [lbLevel setAdjustsFontSizeToFitWidth:NO];
         //[lbLevel setMinimumFontSize:8.0f];
@@ -326,7 +341,11 @@
     heroList = [data valueForKey:@"hero"];
     [self loadPlayers];
     [self loadHeroes];
-    vHeroes .hidden = YES;
+
+    if (bFirstShow)
+        vPlayers .hidden = YES;
+    else
+        vHeroes .hidden = YES;
 }
 
 - (id) findPlayerById:(int) uid{
@@ -619,19 +638,22 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-        [ad showStatusView:YES];
+    [ad showStatusView:YES];
+    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+    
     if ([ad readLocalProp:@"showBoss"] == NULL){
+        bFirstShow = TRUE;
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
         [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
-      
         [ad saveLocalProp:@"showBoss" v:@"1"];
+        vHeroes.hidden = NO;
     }
     else{
         [vcBoss view ].hidden = YES;
     }
 
-    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }

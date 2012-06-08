@@ -22,6 +22,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize vcCharacter;
 @synthesize vcStatus;
 @synthesize viewcontroller;
 @synthesize tabBarController;
@@ -49,6 +50,8 @@
 @synthesize tmRecoverStart;
 
 
+@synthesize lbCompnayName;
+@synthesize vCompanyLogo;
 @synthesize bUserEqNeedUpdated;
 @synthesize floatMsg;
 
@@ -165,15 +168,15 @@
 
     
     // init help view
-    vHelp.frame = CGRectMake(0, 60, 320, 480-60-49);
+    vHelp.frame = CGRectMake(0, 0, 320, 480-60-49);
     vHelp.backgroundColor = [UIColor clearColor];
-    vHelpWebView.frame = CGRectMake(0, 0, 320, 480-60-49);
+    vHelpWebView.frame = CGRectMake(0, 60, 320, 480-60-49);
     vHelpWebView.backgroundColor = [UIColor clearColor];
     [vHelpWebView setOpaque:NO];
 
     btCloseHelpView.backgroundColor = [UIColor clearColor];
     [btCloseHelpView setBackgroundImage:[UIImage imageNamed:@"btn_close.png"] forState:UIControlStateNormal];
-    btCloseHelpView.frame = CGRectMake(320-25, 0, 25, 25);
+    btCloseHelpView.frame = CGRectMake(320-30, 0, 30, 30);
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
     
@@ -275,11 +278,27 @@
 //    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    if (true){
-    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
-    session_id = @"772b5e7546e46b854b248f86a4d84d8e";
+//    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
+//    [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
+//    [self setSessionId:@"8800a9ef2d3c91569eff59ed68349e46"];  // user '一灯‘ on product server
+//    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
+    
+//    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa"
+    session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
+//    session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
+//    session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
+//    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
+//    session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
+//    session_id = @"f0a28ae6cc681d3f50ae4f281cab9218"; // user 'king'
+//    session_id = @"1320346951bf2bc6293fb70cc2a71a05"; // user 'queen'
+//    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
+//    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
 //    session_id = nil;
-//    [self setSessionId:@"512298b206ac82df11e370f4021736d0"];
+
+//    [self saveLocalProp:@"showBoss" v:NULL];
+
+    
     if (!session_id || debug){
 //    if (true){
 /*        // show registeration
@@ -331,6 +350,8 @@
         bShowingWelcome = TRUE;
         vWelcome.backgroundColor = [UIColor whiteColor];
         vWelcome.opaque = YES;
+//        [vWelcome addSubview:vCompanyLogo];
+//        [vWelcome addSubview:lbCompnayName];
         [window bringSubviewToFront:vWelcome];
         tabBarController.view.hidden = YES;
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
@@ -394,17 +415,29 @@
 
 - (void) reloadStatus{
     [vcStatus viewDidAppear:YES ];
+
 }
 
-- (void) showHelpView:(NSString*) url{
+
+- (void) showHelpView:(NSString*) url       {
+// vHelpWebView.frame = CGRectMake(0, 60, 320, 480-60-49);
+//        btCloseHelpView.frame = CGRectMake(320-25, 60, 25, 25);
+    [self showHelpView:url frame: CGRectMake(0, 60, 320, 480-60-49)];
+}
+
+- (void) showHelpView:(NSString*) url frame:(CGRect)frame{       
+    vHelpWebView.frame = frame;
+    btCloseHelpView.frame = CGRectMake(frame.origin.x+frame.size.width-30, frame.origin.y, 30, 30);
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     [vHelpWebView loadRequest:req];
+    
     vHelp.hidden = NO;
     [window bringSubviewToFront:vHelp];
 }
 
 - (void) closeHelpView:(UIButton*) btn{
     vHelp.hidden = YES;
+    [vHelpWebView loadHTMLString:@"" baseURL:nil];
 }
 
 - (void) updateUserext{

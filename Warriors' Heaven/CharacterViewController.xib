@@ -88,7 +88,7 @@
 						<string key="NSFrame">{{-1, 163}, {60, 60}}</string>
 						<reference key="NSSuperview" ref="876876585"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="619140309"/>
+						<reference key="NSNextKeyView" ref="36143047"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
@@ -412,6 +412,39 @@
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
+					<object class="IBUILabel" id="36143047">
+						<reference key="NSNextResponder" ref="876876585"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{67, 173}, {100, 21}}</string>
+						<reference key="NSSuperview" ref="876876585"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="619140309"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<string key="IBUIText"/>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC45MTYwNTgzOTQyIDAuODg2ODYxMzEzOSAwLjg5NDE2MDU4MzkAA</bytes>
+						</object>
+						<nil key="IBUIHighlightedColor"/>
+						<int key="IBUIBaselineAdjustment">1</int>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">3</int>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">STHeitiTC-Light</string>
+							<string key="family">Heiti TC</string>
+							<int key="traits">0</int>
+							<double key="pointSize">13</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">STHeitiTC-Light</string>
+							<double key="NSSize">13</double>
+							<int key="NSfFlags">16</int>
+						</object>
+					</object>
 				</array>
 				<string key="NSFrameSize">{381, 561}</string>
 				<reference key="NSSuperview"/>
@@ -565,6 +598,14 @@
 					<int key="connectionID">61</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbStatus</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="36143047"/>
+					</object>
+					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">onSave:</string>
 						<reference key="source" ref="462014951"/>
@@ -624,6 +665,7 @@
 							<reference ref="340007985"/>
 							<reference ref="619140309"/>
 							<reference ref="462014951"/>
+							<reference ref="36143047"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -737,6 +779,11 @@
 						<reference key="object" ref="210480462"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">63</int>
+						<reference key="object" ref="36143047"/>
+						<reference key="parent" ref="876876585"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -769,6 +816,7 @@
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="60.CustomClassName">ObjDetailViewController</string>
 				<string key="60.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="63.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -777,7 +825,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">61</int>
+			<int key="maxID">64</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -796,6 +844,7 @@
 						</object>
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="lbStatus">UILabel</string>
 						<string key="vEqInfoView">UIView</string>
 						<string key="vEq_arm">UIImageView</string>
 						<string key="vEq_armo">UIImageView</string>
@@ -824,6 +873,10 @@
 						<string key="vcStatus">StatusViewController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="lbStatus">
+							<string key="name">lbStatus</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="vEqInfoView">
 							<string key="name">vEqInfoView</string>
 							<string key="candidateClassName">UIView</string>

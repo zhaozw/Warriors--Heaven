@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EGOImageView.h"
+#import "EGOImageButton.h"
 
 @interface LightRowView : UIImageView
-@property (nonatomic, strong) EGOImageView * vLogo;
+@property (nonatomic, strong) EGOImageButton * vLogo;
 @property (nonatomic, strong) NSMutableArray * arButtons;
 @property (nonatomic, strong) UILabel * lbTitle;
 @property (nonatomic, strong) UILabel * lbInfo;

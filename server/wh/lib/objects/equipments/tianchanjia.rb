@@ -3,7 +3,7 @@ require 'objects/equipments/weapon.rb'
 class Tianchanjia  < Armo
     def initialize
         super
-        set("hp", 100)
+        set("hp", 1000)
     end
   def dname
     "天蚕甲"

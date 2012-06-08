@@ -57,6 +57,7 @@
 @synthesize pos_list;
 //@synthesize woren_eq_list;
 @synthesize ad;
+@synthesize lbStatus;
 @synthesize vcObjDetail;
 @synthesize item_list;
 
@@ -685,6 +686,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [self setVItemBg:nil];
     [self setVProfile:nil];
     [self setVcObjDetail:nil];
+    [self setLbStatus:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -1026,7 +1028,11 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSLog(@"character view update");
     [self reloadEqUI];
     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
-
+    NSString* status = [[ad getDataUserext] valueForKey:@"sstatus"];
+    if (status != NULL && status != nil && status !=[NSNull null])
+        [self setStatus:status];
+    else
+        [self setStatus:@""];
     if (ad.bUserEqNeedUpdated) {
         WHHttpClient* client = [[WHHttpClient alloc] init:self];
         [client sendHttpRequest:@"/usereqs" selector:@selector(onLoadEq:) json:YES showWaiting:YES];
@@ -1312,5 +1318,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         return;
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:[NSString stringWithFormat:@"/usereqs/use?id=%d", [[eq valueForKey:@"id"] intValue]] selector:@selector(onUseReturn:) json:YES showWaiting:YES];
+}
+- (void) setStatus:(NSString*) s{
+    if (s != NULL && s != nil && s != [NSNull null])
+        lbStatus.text = s;
 }
 @end

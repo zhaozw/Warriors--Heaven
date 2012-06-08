@@ -34,9 +34,10 @@
 }
 - (void) create:(CGRect)frame title:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag{
     self.frame = frame;
-    vLogo = [[EGOImageView alloc] initWithFrame:CGRectMake(1, 5, 50, 50)];
+    vLogo = [[EGOImageButton alloc] initWithFrame:CGRectMake(1, 5, 50, 50)];
+    vLogo.tag = btnTag;
 //    [vLogo setImageURL:[NSURL URLWithString:logo]];
-    [vLogo setImage:[UIImage imageNamed:logo]];
+    [vLogo setImage:[UIImage imageNamed:logo] forState:UIControlStateNormal];
     [self addSubview:vLogo];
     
     lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 80, 25)];

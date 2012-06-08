@@ -12,9 +12,13 @@
 //#import "TrainingGround.h"
 #import "HomeViewController.h"
 #import "PurchaseViewController.h"
+#import "CharacterViewController.h"
+
 
 @class HomeViewController;
 @class PurchaseViewController;
+@class CharacterViewController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
     DotHide_TabBarController *tabBarController;
     UIViewController *viewcontroller;
@@ -46,6 +50,8 @@
     NSMutableArray* floatMsg;
     BOOL debug;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbCompnayName;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vCompanyLogo;
 @property (nonatomic, assign)    BOOL bUserEqNeedUpdated; // need update locally
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vWelcome;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
@@ -73,6 +79,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (unsafe_unretained, nonatomic) IBOutlet CharacterViewController *vcCharacter;
 
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 //@property (nonatomic, retain) UIImageView *bgView;
@@ -110,6 +117,7 @@
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt;
 //- (void) addFloatMsg:(NSString*)msg;
 - (void) showHelpView:(NSString*) url;
+- (void) showHelpView:(NSString*) url frame:(CGRect)frame;
 - (void) showStatusView:(BOOL)bShow;
 - (void) setSessionId:(NSString *)session_id;
 - (void) initUI;

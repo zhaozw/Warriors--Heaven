@@ -175,7 +175,7 @@ class Wudujiao < Quest
                     :prop =>{
                         :wudu=>[],
                         :zhongyuan=>[],
-                        :battle_count=>battlecount.to_i # 第x次无毒教战役
+                        :battle_count=>battlecount.to_i+1 # 第x次无毒教战役
                     }.to_json
                 })
                 g.save!
@@ -222,7 +222,8 @@ class Wudujiao < Quest
                     data.set_prop("join", "zhongyuan")
                     team_zhongyuan.push(player.id)
                     q.set_prop("zhongyuan", team_zhongyuan)
-                    # q.savenum = team_zhongyuan.size
+                    q.save
+                    num = team_zhongyuan.size
                     msg += "<div>左冷禅拱手说道：多谢英雄前来助战，请稍事休息，等大伙汇集齐了便一同出发！</div>"
                     per = num*100/full
                     if per > 80
@@ -261,7 +262,10 @@ class Wudujiao < Quest
                 p "====>zhanyikaishi2,team_wudu size #{team_wudu.size}, team zhongyuan size #{team_zhongyuan.size}"
                 
              # check can start fight
-             if team_wudu.size >= full and team_zhongyuan.size >=full
+             # quest_created_at = Time.parse(q[:created_at])
+             time_diff = Time.now - q[:created_at]
+             p "time_diff=#{time_diff}"
+             if (team_wudu.size >= full and team_zhongyuan.size >=full and time_diff > timeup) or (team_wudu.size >= max and team_zhongyuan.size >=max) 
                  p "====>zhanyikaishi1"
                  q[:stat] = 1 # fighting
                  q.save
@@ -284,7 +288,7 @@ class Wudujiao < Quest
                      end
                     p "====>平定五毒教战役开始"
                       # ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config)
-                     msg2 = "<div>平定五毒教战役开始</di>"
+                     msg2 = "<div>平定五毒教战役开始！</div>"
                      team1 = []
                      team2 = []
                      msg2+="<div>五毒教出场阵容:</div>"
@@ -341,14 +345,15 @@ class Wudujiao < Quest
                         bonus_gold = t.tmp[:contrib][:score] 
                         bonus_exp  = t.tmp[:contrib][:score] 
                         if win ==0
-                            bonus_gold += 20
+                            bonus_gold += 20 + bonus_gold/5  # wudujiao has mofre gold bonus
                             bonus_exp += 10 
                         end
                         t.get_exp(bonus_exp)
                         t.receive_gold(bonus_gold)
                         c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"      
-                        send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
-                        
+                        if win ==0
+                            send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+                        end
                         qdata=t.query_quest("wudujiao")
                         gain = {
                             :bonus_gold=>bonus_gold,
@@ -360,7 +365,10 @@ class Wudujiao < Quest
                         
                         index_t += 1
                     end
-                    
+                    if win == 0
+                        send_msg(-2, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林.</div>")
+                    end
+                        
                     c[:msg] += "<div>中原武林贡献榜</div>"
                     index_t =1
                     for t in team2
@@ -368,7 +376,7 @@ class Wudujiao < Quest
                         bonus_exp  = t.tmp[:contrib][:score]
                         if win ==1 
                             bonus_gold += 20
-                            bonus_exp += 10 
+                            bonus_exp += 10 + bonus_exp/5  # zhongyuan has more exp bonus 
                         end
                         t.get_exp(bonus_exp)
                         t.receive_gold(bonus_gold)
@@ -385,6 +393,9 @@ class Wudujiao < Quest
                         
                      
                         index_t += 1
+                    end
+                    if win == 1
+                          send_msg(-2, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教.</div>")
                     end
                     
                     id = q[:id].to_i
@@ -430,9 +441,19 @@ class Wudujiao < Quest
     def logo
        "/game/quests/wudujiao.jpg" 
     end
+    
+    # if exceed full and time is up, battle can start
+    # if exceed max, then battle start 
     def full
         4
     end
+    def max
+        10
+    end
+    def timeup
+        3600 *10 # second
+    end
+    
     def globalq(qid)
         if !@q
             @q = Globalquest.find(qid.to_i)

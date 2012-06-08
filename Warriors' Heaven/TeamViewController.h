@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "LightView.h"
 #import "AppDelegate.h"
+#import "BossViewController.h"
 
-@interface TeamViewController : UIViewController
+@class BossViewController;
+@interface TeamViewController : UIViewController{
+    id members;
+}
 @property(nonatomic, assign)     int currentSelectedList;
 @property(nonatomic, assign) BOOL needReload;
 
 - (IBAction)onSelectTab1:(id)sender;
 - (IBAction)onSelectTab2:(id)sender;
+@property (strong, nonatomic) IBOutlet BossViewController *vcPlayer;
 @property (strong, nonatomic) IBOutlet LightView *vMyTeam;
 @property (strong, nonatomic) IBOutlet LightView *vJoinedTeams;
 @property (strong, retain) AppDelegate *ad;

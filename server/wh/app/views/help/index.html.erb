@@ -1,7 +1,7 @@
 <html>
 <body style="background:url(/images/bg_bamboo.png);background-size:320px 44px;">
 	<div style="margin:10 20">
-	<% if @o.image != nil%>
+	<% if @o.image != nil && @o.image.size>0%>
 	<div id="image" style="position:absolute;left:33;top:3;width:50;height:50;">
 	<img src="<%=@o.image %>" style="width:50;"/>
 	</div> 
