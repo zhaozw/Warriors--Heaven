@@ -377,13 +377,13 @@
             [row addSubview:vImage];
         }
         
-        if (![cat isEqualToString:@"premier"]){
-            UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-            pvTP.frame = CGRectMake(90, 10, 80, 10);
-            float process = ((float)tp)/((level+1)*(level+1));
-            [pvTP setProgress:process];
-            [pv_tp addObject:pvTP];
-            [row addSubview:pvTP];
+       
+        UIProgressView * pvTP = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        pvTP.frame = CGRectMake(90, 10, 80, 10);
+        float process = ((float)tp)/((level+1)*(level+1));
+        [pvTP setProgress:process];
+        [pv_tp addObject:pvTP];
+        [row addSubview:pvTP];
              
         UILabel* lbSkillStatus = [[UILabel alloc] initWithFrame:CGRectMake(100, 5, 80, row_height-10)];
         [lbSkillStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -404,25 +404,34 @@
 //        [lbSkillStatus2 setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_status_list addObject:lbSkillStatus2];
         [row addSubview:lbSkillStatus2];
-        }
 
-        if (![cat isEqualToString:@"premier"]){
-            UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
-            [btPractise setBackgroundColor:[UIColor clearColor]];
-            [btPractise setOpaque:NO];
-            [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-            [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-            [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
-            [btPractise setTag:i];
-            [btPractise setShowsTouchWhenHighlighted:YES];
-    //        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
-             [btPractise addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
-            [btn_practise_list addObject:btPractise];
-            btPractise.frame = CGRectMake(250, 0, 70, row_height-10);
-            [row addSubview:btPractise];
+
+
+        UIButton * btPractise = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btPractise setBackgroundImage:[UIImage imageNamed:@"btn_green_light"]  forState:UIControlStateNormal];
+        [btPractise setBackgroundColor:[UIColor clearColor]];
+        [btPractise setOpaque:NO];
+        [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
+        [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
+        [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
+        [btPractise setTag:i];
+        [btPractise setShowsTouchWhenHighlighted:YES];
+//        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
+         [btPractise addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
+        [btn_practise_list addObject:btPractise];
+        btPractise.frame = CGRectMake(250, 0, 70, row_height-10);
+        [row addSubview:btPractise];  
+        
+        
+        
+        if ([cat isEqualToString:@"premier"]){
+            lbSkillStatus2.hidden = YES;
+            lbSkillStatus.hidden = YES;
+            pvTP.hidden = YES;
+            btPractise.hidden = YES;
         }
-       
+        
+        
         if ([cat isEqualToString:@"basic"]){
             count_b ++;
             [vBasicSkillsList addSubview:row];

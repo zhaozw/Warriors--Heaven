@@ -49,6 +49,7 @@
     UIWebView* wvMsgFloat;
     NSMutableArray* floatMsg;
     BOOL debug;
+    BOOL debug_reg;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbCompnayName;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vCompanyLogo;
@@ -142,4 +143,5 @@
 - (BOOL) processReturnData:(NSObject*) data;
 
 - (void) showPurchaseView;
+- (void) initData;
 @end

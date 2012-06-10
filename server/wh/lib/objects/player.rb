@@ -322,10 +322,11 @@ include Pc
     
          # p"=>>skillname=#{skillname}"
         fixname = fixname_for_skill(skillname)
+        p "===>fixname of #{skillname} is #{fixname}"
         if fixname != nil
             fix = query_obj(fixname)
-            
         end
+    p "==> query fix #{fixname} return #{fix}"
         return fix
     end
     def calc_practise_rate(skillname, base_rate = 1)
@@ -354,7 +355,7 @@ include Pc
         
         fix = skill_fixture(skillname)
         if fix != nil
-            rate = calc_practise_rate(skill)
+            rate = calc_practise_rate(skillname)
         end
         
         usepot= rate * sec
@@ -423,6 +424,7 @@ include Pc
             end
             
         end
+        p "=>practise userpot=#{usepot}, rate=#{rate}"
         return {:usepot=>usepot, :levelup=>levelup, :addtp=>usepot, :cost_jingli=>cost_jingli}
     end
     # remove and delete record

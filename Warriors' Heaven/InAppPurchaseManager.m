@@ -48,7 +48,7 @@ normal:                  onsale:
 {
     NSLog(@"---------请求对应的产品信息------------");    
     NSArray *product = nil;    
-    switch (buyType) {    
+  /*  switch (buyType) {    
         case IAP1000G:    
             product=[[NSArray alloc] initWithObjects:ProductID_IAP1kGold,nil];    
             break;    
@@ -73,11 +73,17 @@ normal:                  onsale:
         default:    
             break;    
     }    
-    NSSet *nsset = [NSSet setWithArray:product];    
-    NSSet *productIdentifiers = [NSSet setWithObject:@"com.joycom.wh.iap.gold" ];
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-    productsRequest.delegate = self;
-    [productsRequest start];
+//    NSSet *nsset = [NSSet setWithArray:product];    */
+//    NSSet *productIdentifiers = [NSSet setWithObject:@"com.joycom.wh.iap.gold" ];
+//    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+//    productsRequest.delegate = self;
+//    [productsRequest start];
+    
+//    NSSet *productIdentifiers = [NSSet setWithObject:@"com.joycom.wh.iap.gold" ];
+//    productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+//    productsRequest.delegate = self;
+//    [productsRequest start];
+    
     
     // we will release the request object in the delegate callback
 }
@@ -137,7 +143,7 @@ normal:                  onsale:
     NSLog(@"-----------收到产品反馈信息--------------");    
     NSArray *myProduct = response.products;
     NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);    
-    NSLog(@"产品付费数量: %d", [myProduct count]);    
+    NSLog(@"产品付费数量: %d", [myProduct count]);
     // populate UI     
     for(SKProduct *product in myProduct){    
         NSLog(@"product info");    

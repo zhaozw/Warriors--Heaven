@@ -242,7 +242,7 @@
 //    
     [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
      setCookies: _cookies forURL: [HTTPResponse URL] mainDocumentURL: [NSURL URLWithString:homeUrl ] ];
-//    NSLog(@"%@ cookie2:%@", [HTTPResponse URL] ,_cookies);
+    NSLog(@"%@ cookie2:%@", [HTTPResponse URL] ,_cookies);
 //    {
 //    NSArray                 *cookies;
 //    NSDictionary            *cookieHeaders;
