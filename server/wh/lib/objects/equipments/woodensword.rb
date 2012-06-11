@@ -46,5 +46,7 @@ class Woodensword  < Weapon
   def price
       20
   end
-  
+    def unlock_level
+      0
+  end
 end

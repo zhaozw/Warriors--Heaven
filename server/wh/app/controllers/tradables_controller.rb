@@ -5,11 +5,8 @@ class TradablesController < ApplicationController
     
     
     def index
-        sid = cookies[:_wh_session]    
-      # for test
-      if (params[:sid])
-          sid = params[:sid]
-      end
+        return if !check_session or !user_data
+ 
       type = params[:type]
         # if (!type)
         #       error("You didn't specify item type")
@@ -38,10 +35,18 @@ class TradablesController < ApplicationController
             # t[:image] = _t.image
             # t[:rank] = _t.rank
             # t[:price] = _t.price
+            if _t.unlock_level > user_data.ext[:level]
+               _t = {
+                   :image=>"obj/equipments/locked.png",
+                   :rank=>_t.rank,
+                   :dname=> "Locked"
+               } 
+            end
+            
             ret.push(_t)
         end
                 
-        ret.sort_by{|u|
+        ret = ret.sort_by{|u|
             u[:rank].to_i
         }
         render :text=>ret.to_json

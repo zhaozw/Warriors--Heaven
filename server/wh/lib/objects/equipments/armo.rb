@@ -5,6 +5,7 @@ class Armo  < Weapon
         super
         set("hp", 100)
     end
+  
   def unit
       "件"
   end
@@ -42,5 +43,9 @@ class Armo  < Weapon
     
   def defense
       10
+  end
+  
+  def unlock_level
+      1
   end
 end

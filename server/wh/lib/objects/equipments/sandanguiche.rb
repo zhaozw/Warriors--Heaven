@@ -39,4 +39,7 @@ class Sandaiguiche  < Weapon
     def price
       100
   end
+    def unlock_level
+      10
+  end
 end

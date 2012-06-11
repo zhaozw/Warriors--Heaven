@@ -42,4 +42,7 @@ class Tianchanjia  < Armo
   def defense
       100
   end
+    def unlock_level
+      30
+  end
 end

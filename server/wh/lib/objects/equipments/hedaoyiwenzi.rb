@@ -36,4 +36,7 @@ class Hedaoyiwenzi  < Blade
   def damage
       80
   end
+    def unlock_level
+      30
+  end
 end

@@ -40,4 +40,7 @@ class Buyi  < Armo
   def defense
       10
   end
+    def unlock_level
+      0
+  end
 end

@@ -30,7 +30,9 @@ class Equipment  < Game::Object
   def dname
       ""
   end
-
+  def unlock_level
+      (rank-1)*10
+  end
 =begin
     def to_json(*opt)
      # p "skill to json"

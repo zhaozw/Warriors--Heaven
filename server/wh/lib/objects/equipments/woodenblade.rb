@@ -1,22 +1,23 @@
 require 'objects/equipments/weapon.rb'
 
-class Sword  < Weapon
-
-
+class Woodenblade  < Weapon
         def initialize
         super
         set("hp", 100)
     end
-  def dname
-    "铁剑"
-  end
-    
-  def skill_type
-      "fencing"
+    def unit
+        "柄"
+    end
+    def dname
+    "木刀"
   end
   
   def desc
-      "这是一把普通的铁剑"
+      "这是一把硬木制作的刀"
+  end
+  
+  def skill_type
+      "daofa"
   end
   
   def wearOn
@@ -24,28 +25,25 @@ class Sword  < Weapon
   end
   
   def weight
-      7
-  end
-
-  def image
-      "obj/equipments/sword.jpg"
-  end
-  
-  def effect
-      "Damage +10"
-  end
-  def rank
       2
   end
   
+  def image
+      "obj/equipments/woodenblade.png"
+  end
+  
+  def rank
+      1
+  end
+
   def damage
-      10
+      3
   end
   
   def price
-      100
+      20
   end
     def unlock_level
-      1
+      0
   end
 end

@@ -29,4 +29,7 @@ class Ring  < Weapon
     def price
       100
   end
+    def unlock_level
+      1
+  end
 end

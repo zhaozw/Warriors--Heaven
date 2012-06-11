@@ -40,5 +40,7 @@ class Cap  < Weapon
   def defense
       5
   end
-  
+    def unlock_level
+      1
+  end
 end
