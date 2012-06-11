@@ -207,7 +207,7 @@ class Wudujiao < Quest
       elsif action =="restart"
           data.set_prop("quest_id", nil)
           context[:room] = self.room
-          data.save!
+          # data.save!
           return
         
       else  
@@ -305,7 +305,7 @@ class Wudujiao < Quest
              end
 
         
-            data.save!
+            # data.save!
         end
 
 

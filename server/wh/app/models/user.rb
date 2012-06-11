@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
     end
 =end
 
-    def setUserext(ext)
-        self[:userext] = ext
+    def setUserext(ext1)
+        self[:userext] = ext1
      #   self[:userext][:_p] = self
     end
     
@@ -176,21 +176,42 @@ class User < ActiveRecord::Base
     #     q[:progress] += add_progress
     # end
     
-
-    def query_quest(quest)
+    def query_all_quests()
         if (!self[:userquests])
            self[:userquests] = {}; 
        end
-       if (!self[:userquests][quest])
+        rs = Userquest.find_by_sql("select * from userquests where  uid=#{self[:id]}")
+        rs.each{|r|
+                self[:userquests][r[:name].to_sym] = r
+            
+        }
+        set_cached(false)
+    
+        
+        
+       # self[:userquests][:_p] = self
+        #self[:userquests][quest][:_p] = self
+       return self[:userquests]
+       
+    end
+    
+
+    def query_quest(quest)
+
+        if (!self[:userquests])
+           self[:userquests] = {}; 
+       end
+       if (!self[:userquests][quest.to_sym])
            rs = Userquest.find_by_sql("select * from userquests where name='#{quest}' and uid=#{self[:id]}") 
             if (rs[0])
-                  self[:userquests][quest] = rs[0]
+                  self[:userquests][quest.to_sym] = rs[0]
+                  set_cached(false)
               end
         end
         
        # self[:userquests][:_p] = self
         #self[:userquests][quest][:_p] = self
-       return self[:userquests][quest]
+       return self[:userquests][quest.to_sym]
        
     end
     
@@ -218,8 +239,8 @@ class User < ActiveRecord::Base
     end
     
     def cache
-        @cached= true
-       # self[:cached] = true
+        # @cached= true
+       self[:cached] = true
         $memcached.set(self[:id].to_s, self)
         p "==>cached"
     end

@@ -27,6 +27,11 @@ class WhController < ApplicationController
         #render :text=>cookies.to_json+session.to_json#+env[ENV_SESSION_KEY]
         render :text=>"fdsf"
     end
+    
+    def test1
+         return if !check_session or !user_data
+         render :text => user_data.to_json
+     end
     def index
 
         p "cookie=#{cookies}"

@@ -16,8 +16,8 @@ class QuestController < ApplicationController
         unasked = []
         asked =[]
         list = QuestController.list
-        userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
-        
+        # userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
+        userquests = user_data.query_all_quests
         i =0 
         for q in list
             p q.inspect
@@ -28,9 +28,11 @@ class QuestController < ApplicationController
                "desc"=> quest.desc,
                "image"=> quest.logo
            }
-           userquest = player.query_quest(q)
-           if userquest != nil
-               row[:progress] = userquest[:progress]
+           # userquest = player.query_quest(q)
+           # if userquest != nil
+           p "===>userquests=#{userquests.keys}, q=#{q}, #{userquests.keys.include?q}"
+           if userquests.keys.include?q.to_sym
+               row[:progress] = userquests[q.to_sym][:progress]
                asked.push(row)
            else
                unasked.push(row)
@@ -44,6 +46,7 @@ class QuestController < ApplicationController
         }
         
         render :text=> ret.to_json
+        user_data.check_save
     end
     
     
@@ -105,7 +108,7 @@ class QuestController < ApplicationController
         
          p "==>ret=#{@quest.action_list.inspect}"
     
-        
+        user_data.check_save
     end
     
     def doAction

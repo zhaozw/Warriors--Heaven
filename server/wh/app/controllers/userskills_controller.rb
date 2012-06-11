@@ -2,19 +2,21 @@ require "utility.rb"
 class UserskillsController < ApplicationController
     
     def index
-      uid = params[:uid]
-        sid = cookies[:_wh_session]
-        if uid
-            ret = Userskill.find_by_sql("select * from userskills where uid=#{uid}")
-        else
-            ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
-        end
-        
-        for r in ret
-            s = load_skill(r[:skname])
-            r[:dname] = s.dname
-            r[:category] = s.category
-        end
+      # uid = params[:uid]
+        # sid = cookies[:_wh_session]
+        # if uid
+        #     ret = Userskill.find_by_sql("select * from userskills where uid=#{uid}")
+        # else
+        #     ret = Userskill.find_by_sql("select * from userskills where sid='#{sid}'")
+        # end
+        # 
+        # for r in ret
+        #     s = load_skill(r[:skname])
+        #     r[:dname] = s.dname
+        #     r[:category] = s.category
+        # end
+        return if !check_session or !user_data
+        ret = user_data.query_all_skills
         render :text=>ret.to_json
     end
 =begin  
