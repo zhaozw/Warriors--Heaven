@@ -227,7 +227,9 @@ class Wudujiao < Quest
                 
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
-                else
+               elsif team_zhongyuan.size >= max
+                    msg += "<div>左冷禅道：多谢阁下，我们的帮手已经够了。</div>"
+                elsif
                     data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "zhongyuan")
                     team_zhongyuan.push(player.id)
@@ -248,7 +250,9 @@ class Wudujiao < Quest
             elsif action == "join_wudu"
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
-                else
+                elsif team_wudu.size >= max
+                    msg += "<div>苗人女子道：我们的帮手已经够了，英雄请回吧。</div>"
+                elsif
                     data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "wudu")
                     team_wudu.push(player.id)
@@ -469,8 +473,8 @@ class Wudujiao < Quest
     # if exceed full and time is up, battle can start
     # if exceed max, then battle start 
     def full
-        # 3
-        1
+        5
+        # 1
     end
     def max
         10
