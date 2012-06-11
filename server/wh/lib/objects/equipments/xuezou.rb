@@ -3,6 +3,7 @@ require 'objects/equipments/blade.rb'
 class Xuezou  < Blade
         def initialize
         super
+                set("max_hp", 1200)
         set("hp", 1200)
     end
     def dname
@@ -10,7 +11,7 @@ class Xuezou  < Blade
     end
 
     def desc
-        "　“良快刀50工”之一。黑漆太刀持、乱刃小丁子。为罗格镇的武器店的镇店之宝，武器店老板受索隆与三代鬼彻比试运气之举所震慑，将此镇店之宝免费赠与索隆"
+        "　“良快刀50工”之一。为罗格镇武器店的镇店之宝，武器店老板受索隆与三代鬼彻比试运气之举所震慑，将此镇店之宝免费赠与索隆"
     end
 
     def skill_type
@@ -39,5 +40,13 @@ class Xuezou  < Blade
      
     def price
       500
+    end
+    
+    def intro
+        "　“良快刀50工”之一。为罗格镇武器店的镇店之宝，"
+    end
+    
+    def effect
+      "Damage +100"
     end
 end

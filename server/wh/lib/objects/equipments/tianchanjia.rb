@@ -3,6 +3,7 @@ require 'objects/equipments/weapon.rb'
 class Tianchanjia  < Armo
     def initialize
         super
+        set("max_hp", 1000)
         set("hp", 1000)
     end
   def dname
@@ -31,7 +32,7 @@ class Tianchanjia  < Armo
   end
     
   def effect
-      "deffence +5"
+      "defence +#{defense}\nload +#{weight}"
   end
   
   def price

@@ -120,11 +120,11 @@ class Wudujiao < Quest
                     },
                     ]
             elsif q[:stat] == 1
-                  return  {
+                  return  [{
                         :name=>"check_result",
                         :dname=>"查看战役直播"
                     
-                    }
+                    }]
                  
             else
                 return []
@@ -140,10 +140,16 @@ class Wudujiao < Quest
            
        q = nil
        qid = data.get_prop("quest_id")
+       # if qid
+       #     q = globalq(qid)
+       #     if q[:stat] > 1]
+       #         qid=nil
+       #     end
+       # end
        if !qid # havn't join team
             
             # try to join
-            r = player.query_quest("caiyao")
+            # r = player.query_quest("wudujiao")
 =begin
            if !r or r[:progress] < 100
 
@@ -169,7 +175,7 @@ class Wudujiao < Quest
             rs2 =  ActiveRecord::Base.connection.execute("select count(*) from globalquests where name='wudujiao'")
             battlecount = rs2.fetch_row[0].to_i
             if !rs or rs.size == 0 # not globalquest
-                g = Globalquest.new({
+                q = Globalquest.new({
                     :name=>"wudujiao",
                     :stat=>0,
                     :prop =>{
@@ -178,20 +184,22 @@ class Wudujiao < Quest
                         :battle_count=>battlecount.to_i+1 # 第x次无毒教战役
                     }.to_json
                 })
-                g.save!
-                data.set_prop("quest_id", g.id)
+                q.save!
+                data.set_prop("quest_id", q.id)
             else    # globalquest existing
                  data.set_prop("quest_id", rs[0].id)
-        
+                 # r = rs[0]
+                 q = rs[0]
+                 p "===>q1 = #{q.inspect}"
             end
-            r = rs[0]
-            q = r
+    
       end
       
-      if q==nil
-          q = globalq(qid)
-      end
-                             p "====>zhanyikaishi22"           
+      # if q==nil
+      #     q = globalq(qid)
+      # end
+      
+      p "====>zhanyikaishi22, #{q.inspect}"           
       if action=="check_result"
           
           context[:script]="location.replace('/wh/teamfight?id=#{qid}');"
@@ -199,6 +207,7 @@ class Wudujiao < Quest
       elsif action =="restart"
           data.set_prop("quest_id", nil)
           context[:room] = self.room
+          data.save!
           return
         
       else  
@@ -219,10 +228,11 @@ class Wudujiao < Quest
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
                 else
+                    data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "zhongyuan")
                     team_zhongyuan.push(player.id)
                     q.set_prop("zhongyuan", team_zhongyuan)
-                    q.save
+                    q.save!
                     num = team_zhongyuan.size
                     msg += "<div>左冷禅拱手说道：多谢英雄前来助战，请稍事休息，等大伙汇集齐了便一同出发！</div>"
                     per = num*100/full
@@ -239,6 +249,7 @@ class Wudujiao < Quest
                 if team_joined 
                     msg += "<div>你已经加入过#{team_joined}了</div>"
                 else
+                    data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "wudu")
                     team_wudu.push(player.id)
                     q.set_prop("wudu", team_wudu)
@@ -268,7 +279,7 @@ class Wudujiao < Quest
              if (team_wudu.size >= full and team_zhongyuan.size >=full and time_diff > timeup) or (team_wudu.size >= max and team_zhongyuan.size >=max) 
                  p "====>zhanyikaishi1"
                  q[:stat] = 1 # fighting
-                 q.save
+                 q.save!
                  Process.detach fork{
                      db_reconnected = false
                      puts "waiting for db reconnect"
@@ -286,148 +297,15 @@ class Wudujiao < Quest
                         end
                         i -=1
                      end
-                    p "====>平定五毒教战役开始"
-                      # ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config)
-                     msg2 = "<div>平定五毒教战役开始！</div>"
-                     team1 = []
-                     team2 = []
-                     msg2+="<div>五毒教出场阵容:</div>"
-                     team_wudu.each {|u|
-                         user = User.get(u)
-                         player = Player.new
-                         player.set_data(user)
-                        
-                         player.tmp[:contrib]={
-                             :score =>0,
-                             :win => 0
-                         }
-                         team1.push(player)
-                         msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
-                    }
-                    msg2+="<p/>"
-                    msg2+="<div>中原武林出场阵容:</div>"
-                    team_zhongyuan.each {|u|
-                         user = User.get(u)
-                         player = Player.new
-                         player.set_data(user)
-                      
-                         player.tmp[:contrib]={
-                             :score =>0,
-                             :win => 0
-                         }
-                         team2.push(player)
-                         msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
-                  
-                    }
-                    
-                    c = {:msg=>msg2,
-                        :team1win=>0,
-                        :team2win=>0,
-                        :observer=>self
-                        }
-                    win = team_fight(team1, team2, c)
-                    q.set_prop("win", win)
-                    if win == -1
-                        c[:msg] += "<div>平局!</div>"
-                    elsif win == 0
-               
-                        c[:msg] += "<div>五毒教获胜!</div>"
-                    elsif win == 1
-                        c[:msg] += "<div>中原武林获胜!</div>"
-                    end
-                    
-                    team1.sort_by {|u| u.tmp[:contrib][:score].to_i} 
-                    team2.sort_by {|u| u.tmp[:contrib][:score].to_i} 
-                    
-                    c[:msg] += "<div>五毒教贡献榜</div>"
-                    index_t =1
-                    for t in team1 
-                        bonus_gold = t.tmp[:contrib][:score] 
-                        bonus_exp  = t.tmp[:contrib][:score] 
-                        if win ==0
-                            bonus_gold += 20 + bonus_gold/5  # wudujiao has mofre gold bonus
-                            bonus_exp += 10 
-                        end
-                        t.get_exp(bonus_exp)
-                        t.receive_gold(bonus_gold)
-                        c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"      
-                        if win ==0
-                            send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
-                        end
-                        qdata=t.query_quest("wudujiao")
-                        gain = {
-                            :bonus_gold=>bonus_gold,
-                            :bonus_exp=> bonus_exp
-                        }
-                        qdata.set_prop("gain", gain)
-                        set_flag(t.id, "db_changed")
-                        
-                        
-                        index_t += 1
-                    end
-                    if win == 0
-                        send_msg(-2, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林.</div>")
-                    end
-                        
-                    c[:msg] += "<div>中原武林贡献榜</div>"
-                    index_t =1
-                    for t in team2
-                        bonus_gold = t.tmp[:contrib][:score] 
-                        bonus_exp  = t.tmp[:contrib][:score]
-                        if win ==1 
-                            bonus_gold += 20
-                            bonus_exp += 10 + bonus_exp/5  # zhongyuan has more exp bonus 
-                        end
-                        t.get_exp(bonus_exp)
-                        t.receive_gold(bonus_gold)
-                        c[:msg] += "<div><div style='float:left;width:60px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"
-                        send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.</div>")
-                        
-                        qdata=t.query_quest("wudujiao")
-                        gain = {
-                            :bonus_gold=>bonus_gold,
-                            :bonus_exp=> bonus_exp
-                        }
-                        qdata.set_prop("gain", gain)
-                        set_flag(t.id, "db_changed")
-                        
-                     
-                        index_t += 1
-                    end
-                    if win == 1
-                          send_msg(-2, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教.</div>")
-                    end
-                    
-                    id = q[:id].to_i
-                    dir = id/100
-                     dir = "/var/wh/globalquest/#{dir.to_s}"
-                     begin
-                         FileUtils.makedirs(dir)
-                         aFile = File.new("#{dir}/#{id}","a")
-                         p "==>team fight result #{c[:msg]}"
-                         aFile.puts c[:msg]
-                         aFile.close
-                     rescue Exception=>e
-                         logger.error e
-                     end
-                                   
-                    team1.each{|p|p.data.check_save}
-                    team2.each{|p|p.data.check_save}
-                    q[:stat] = 2
-                    q[:finishedat] = Time.now
-                    q.save
-                    p "==>q:#{q.changed?}- #{q.inspect}"
-                    
-                    p "====> 战役结束 <====="
-                    
-                     
+                       
                  }
                  msg = msg+ "<div>战役开始!</div>"
                  # sleep 1000
+                  doBattle (q)
              end
 
         
-     
+            data.save!
         end
 
 
@@ -438,6 +316,152 @@ class Wudujiao < Quest
          p context.inspect
          
     end
+    
+    # async team fight
+    # q: globalquest
+    def doBattle(q)
+        setGlobalQuest(q)
+        Userext.connection.reconnect! 
+        p "====>平定五毒教战役开始"
+        team_zhongyuan = q.get_prop("zhongyuan")
+        team_wudu =q.get_prop("wudu")
+     
+          # ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config)
+         msg2 = "<div>平定五毒教战役开始！</div>"
+         team1 = []
+         team2 = []
+         msg2+="<div>五毒教出场阵容:</div>"
+         team_wudu.each {|u|
+             user = User.get(u)
+             player = Player.new
+             player.set_data(user)
+            
+             player.tmp[:contrib]={
+                 :score =>0,
+                 :win => 0
+             }
+             team1.push(player)
+             msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
+        }
+        msg2+="<p/>"
+        msg2+="<div>中原武林出场阵容:</div>"
+        team_zhongyuan.each {|u|
+             user = User.get(u)
+             player = Player.new
+             player.set_data(user)
+          
+             player.tmp[:contrib]={
+                 :score =>0,
+                 :win => 0
+             }
+             team2.push(player)
+             msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
+      
+        }
+        
+        c = {:msg=>msg2,
+            :team1win=>0,
+            :team2win=>0,
+            :observer=>self
+            }
+        win = team_fight(team1, team2, c)
+        q.set_prop("win", win)
+        if win == -1
+            c[:msg] += "<div>平局!</div>"
+        elsif win == 0
+   
+            c[:msg] += "<div>五毒教获胜!</div>"
+        elsif win == 1
+            c[:msg] += "<div>中原武林获胜!</div>"
+        end
+        
+        team1.sort_by {|u| u.tmp[:contrib][:score].to_i} 
+        team2.sort_by {|u| u.tmp[:contrib][:score].to_i} 
+        
+        c[:msg] += "<div>五毒教贡献榜</div>"
+        index_t =1
+        for t in team1 
+            bonus_gold = t.tmp[:contrib][:score] 
+            bonus_exp  = t.tmp[:contrib][:score] 
+            if win ==0
+                bonus_gold += 20 + bonus_gold/5  # wudujiao has mofre gold bonus
+                bonus_exp += 10 
+            end
+            t.get_exp(bonus_exp)
+            t.receive_gold(bonus_gold)
+            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"      
+          
+            if win ==0
+                send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+            end
+            qdata=t.query_quest("wudujiao")
+            gain = {
+                :bonus_gold=>bonus_gold,
+                :bonus_exp=> bonus_exp
+            }
+            qdata.set_prop("gain", gain)
+            set_flag(t.id, "db_changed")
+            
+            
+            index_t += 1
+        end
+        if win == 0
+            send_msg(-2, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林.</div>")
+        end
+            
+        c[:msg] += "<div>中原武林贡献榜</div>"
+        index_t =1
+        for t in team2
+            bonus_gold = t.tmp[:contrib][:score] 
+            bonus_exp  = t.tmp[:contrib][:score]
+            if win ==1 
+                bonus_gold += 20
+                bonus_exp += 10 + bonus_exp/5  # zhongyuan has more exp bonus 
+            end
+            t.get_exp(bonus_exp)
+            t.receive_gold(bonus_gold)
+            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"
+            send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.</div>")
+            
+            qdata=t.query_quest("wudujiao")
+            gain = {
+                :bonus_gold=>bonus_gold,
+                :bonus_exp=> bonus_exp
+            }
+            qdata.set_prop("gain", gain)
+            set_flag(t.id, "db_changed")
+            
+         
+            index_t += 1
+        end
+        if win == 1
+              send_msg(-2, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教.</div>")
+        end
+        
+        id = q[:id].to_i
+        dir = id/100
+         dir = "/var/wh/globalquest/#{dir.to_s}"
+         begin
+             FileUtils.makedirs(dir)
+             aFile = File.new("#{dir}/#{id}","a")
+             p "==>team fight result #{c[:msg]}"
+             aFile.puts c[:msg]
+             aFile.close
+         rescue Exception=>e
+             logger.error e
+         end
+                       
+        team1.each{|p|p.data.check_save}
+        team2.each{|p|p.data.check_save}
+        q[:stat] = 2
+        q[:finishedat] = Time.now
+        q.save
+        p "==>q:#{q.changed?}- #{q.inspect}"
+        
+        p "====> 战役结束 <====="
+        
+                     
+    end
     def logo
        "/game/quests/wudujiao.jpg" 
     end
@@ -445,13 +469,15 @@ class Wudujiao < Quest
     # if exceed full and time is up, battle can start
     # if exceed max, then battle start 
     def full
-        4
+        # 3
+        1
     end
     def max
         10
     end
     def timeup
         3600 *10 # second
+        # 10
     end
     
     def globalq(qid)
@@ -462,11 +488,13 @@ class Wudujiao < Quest
     end
     
     def notify(context)
+        
         if context[:count]  == nil
             context[:count] =0
         end
         
-        q = globalq(data.get_prop("quest_id"))
+        p "@q=#{@q.inspect}"
+        q = @q
         if q
             q.set_prop("team1win", context[:team1win])
             q.set_prop("team2win", context[:team2win])

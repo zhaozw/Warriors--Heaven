@@ -412,7 +412,7 @@ include Pc
         if fix
             
             if fix.hp-usepot <=0
-                delete_obj(f)
+                delete_obj(fix)
                 if c
                     c[:msg] += "你的#{fix.dname}损坏了！\n"
                 end

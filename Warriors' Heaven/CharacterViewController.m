@@ -504,7 +504,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     [lbName setTextColor:[UIColor whiteColor]];
     [lbName setBackgroundColor:[UIColor clearColor]];
     
-    lbEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 100, 18)];
+    lbEffect = [[UILabel alloc]initWithFrame:CGRectMake(50, 0, 200, 18)];
     [vEqInfoView addSubview:lbEffect];
     [lbEffect setOpaque:NO];
     [lbEffect setAdjustsFontSizeToFitWidth:YES];
@@ -1153,9 +1153,9 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             [lbName setText:str];
             CGSize size = [str sizeWithFont:lbName.font];
             lbName.frame = CGRectMake(0, 0, size.width, 18);
-            lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
+            lbEffect.frame = CGRectMake(size.width+5, 0, 200, 18);
             [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
-            [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+            [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"intro"]]];
             [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
             btEqDetail.tag = btn.tag;
             btEqDetail.hidden = NO;
@@ -1253,12 +1253,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
             [lbName setText:str];
             CGSize size = [str sizeWithFont:lbName.font];
             lbName.frame = CGRectMake(0, 0, size.width, 18);
-            lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
+            lbEffect.frame = CGRectMake(size.width+5, 0, 200, 18);
             [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
            
             btEqDetail.hidden = NO;
             btEqDetail.tag = btn.tag;
-            [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+            [lbLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"intro"]]];
             [vLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
         }
 
@@ -1283,7 +1283,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         btItemDetail.hidden = NO;
         btItemDetail.tag = btn.tag;
         
-        [lbItemLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
+        [lbItemLongDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"intro"]]];
         [vItemLongDescContainer scrollRectToVisible:CGRectMake(0, 0, 2, 2) animated:NO];
         CGRect r = btn.superview.frame;
         r.origin.x += 60;

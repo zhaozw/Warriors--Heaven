@@ -4,5 +4,6 @@ require 'memcache.rb'
             :memcache_server => 'localhost:11211'
     }
 
-       
-    $memcached= MemCache.new(mcd_default_options[:memcache_server], mcd_default_options)
+if (!$memcached)  
+$memcached= MemCache.new(mcd_default_options[:memcache_server], mcd_default_options)
+end

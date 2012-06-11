@@ -102,12 +102,12 @@
     
     //    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa"
         session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
-    //    session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
-    //    session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
-    //    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
-    //    session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
-    //    session_id = @"f0a28ae6cc681d3f50ae4f281cab9218"; // user 'king'
-    //    session_id = @"1320346951bf2bc6293fb70cc2a71a05"; // user 'queen'
+        session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
+//        session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
+//    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
+//        session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
+//        session_id = @"f0a28ae6cc681d3f50ae4f281cab9218"; // user 'king'
+//        session_id = @"1320346951bf2bc6293fb70cc2a71a05"; // user 'queen'
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
@@ -303,7 +303,7 @@
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
     [client1 setRetry:YES];  
 //    [client1 setResponseHandler:@selector(handleServerListError:)];
-    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+//    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 
 //[window bringSubviewToFront:vMsgFloat];
@@ -329,6 +329,8 @@
 
 
 - (void) initData{
+      [self setTest];
+    
     
     // clear cookie
     NSString* url=  [NSString stringWithFormat:@"http://%@:%@/", host, port];
@@ -339,7 +341,7 @@
             [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] deleteCookie:[cookies objectAtIndex:i]];
     
     //    if (true){
-    [self setTest];
+  
     //    [self saveLocalProp:@"showBoss" v:NULL];
     
     
@@ -361,7 +363,7 @@
         
         //    [self checkNetworkStatus];
         
-        data_user = [self readUserObject];
+//        data_user = [self readUserObject];
         
         
         

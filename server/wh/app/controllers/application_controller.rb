@@ -76,6 +76,11 @@ class ApplicationController < ActionController::Base
     def check_session
        p "===>session id=#{session[:sid]} session uid = #{session[:uid]}"
        p "cookies[:_wh_session] = #{cookies[:_wh_session] }"
+       
+       if cookies[:_wh_session] 
+          session[:sid] = cookies[:_wh_session] 
+          session[:uid] = nil
+      end
         # 
         # after uesr first register, the _wh_session will be set in user's cookie
         # which will send by all afteraward quest

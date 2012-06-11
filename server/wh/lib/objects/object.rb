@@ -120,6 +120,7 @@ class Object
             :image=>image,
             :effect=>effect,
             :desc=>desc,
+            :intro=>intro,
             :price=>price,
             :sell_price=>sell_price,
             :weight=>weight,

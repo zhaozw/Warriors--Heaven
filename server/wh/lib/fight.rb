@@ -575,7 +575,7 @@ end
                 end
              p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
-             msg += "dp:#{dodge_power} ap:#{attack_power}"
+             # msg += "dp:#{dodge_power} ap:#{attack_power}"
     
             attacker_exp_bonus = 0
             attacker_pot_bonus = 0
@@ -715,7 +715,7 @@ end
                  
                  # 
                  _perp = rand(parry_power  + attack_power  )
-                  msg += "pp:#{parry_power}  _perp=#{_perp}"
+                  # msg += "pp:#{parry_power}  _perp=#{_perp}"
                  if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded
@@ -815,7 +815,7 @@ end
             end # hit, check parry
              
              # show status
-             msg += line ( status_lines(attacker, defenser))
+             msg += line( status_lines(attacker, defenser))
             
              
              translate_msg(msg, context_a)

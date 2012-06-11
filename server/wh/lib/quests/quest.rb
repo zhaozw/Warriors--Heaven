@@ -6,6 +6,10 @@ class Quest
         @p = player
     end
     
+    def setGlobalQuest(q)
+        @q = q
+    end
+    
     # set userquest record
     def setData(d)
         @d = d
