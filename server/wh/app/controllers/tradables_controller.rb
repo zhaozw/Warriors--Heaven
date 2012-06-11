@@ -24,7 +24,7 @@ class TradablesController < ApplicationController
             render :text=>"{}"
             return
         end
-        
+
         ret = []
         for t in ts
             _t = Equipment.load_equipment(t[:name], t)
@@ -40,7 +40,10 @@ class TradablesController < ApplicationController
             # t[:price] = _t.price
             ret.push(_t)
         end
-        
+                
+        ret.sort_by{|u|
+            u[:rank].to_i
+        }
         render :text=>ret.to_json
     end
     
