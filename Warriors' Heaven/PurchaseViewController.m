@@ -117,5 +117,6 @@
 }
 - (IBAction)onClose:(id)sender {
     [self view ].hidden = YES;
+    [vwPurchase loadHTMLString:@"" baseURL:nil];
 }
 @end

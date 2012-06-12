@@ -14,7 +14,9 @@ class CreateTradables < ActiveRecord::Migration
     
   end
 =begin
+    
     insert into tradables values (null, 'objects/equipments/woodensword', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/woodenblade', 1, 10, 100, 0, 0, null, null, null);
 
     insert into tradables values (null, 'objects/equipments/sword', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/blade', 1, 10, 100, 0, 0, null, null, null);
@@ -24,6 +26,12 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/armo', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/buyi', 1, 10, 100, 0, 0, null, null, null);
 
+    insert into tradables values (null, 'objects/equipments/ningbijian', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/yanlingjia', 1, 10, 100, 0, 0, null, null, null);
+  
+    insert into tradables values (null, 'objects/equipments/xuantiejian', 1, 10, 100, 0, 0, null, null, null);
+ insert into tradables values (null, 'objects/equipments/chiyoutongkai', 1, 10, 100, 0, 0, null, null, null);
+ 
     insert into tradables values (null, 'objects/fixtures/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/fixtures/jiuhuayuluwan', 2, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/fixtures/yudongheishidan', 2, 10, 100, 0, 0, null, null, null);

@@ -39,7 +39,7 @@ class Xuezou  < Blade
     end
      
     def price
-      500
+      1000
     end
     
     def intro

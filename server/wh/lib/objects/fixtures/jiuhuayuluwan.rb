@@ -34,7 +34,7 @@ class Jiuhuayuluwan < Fixture
     end
     
     def rank
-        1
+        4
     end
     
     def image
@@ -42,7 +42,7 @@ class Jiuhuayuluwan < Fixture
     end
     
     def price
-        50
+        100
     end
     
     def use(context)

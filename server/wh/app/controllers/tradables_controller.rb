@@ -35,11 +35,16 @@ class TradablesController < ApplicationController
             # t[:image] = _t.image
             # t[:rank] = _t.rank
             # t[:price] = _t.price
-            if _t.unlock_level > user_data.ext[:level]
+            # p "obtype #{_t.data.obtype}, unlock level #{_t.unlock_level}"
+            if _t.data.obtype <3 && _t.unlock_level > user_data.ext[:level]
                _t = {
-                   :image=>"obj/equipments/locked.png",
+                   :image=>"obj/equipments/unknowitem.jpg",
                    :rank=>_t.rank,
-                   :dname=> "Locked"
+                   :dname=> "解锁条件:等级>#{_t.unlock_level}",
+                   :obtype=>_t.data.obtype,
+                   :price=>_t.price,
+                   :effect=>"",
+                   :desc=>""
                } 
             end
             

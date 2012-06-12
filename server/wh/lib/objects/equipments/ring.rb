@@ -24,7 +24,7 @@ class Ring  < Weapon
       "obj/equipments/ring.jpg"
   end
     def rank
-      4
+      2
   end
     def price
       100

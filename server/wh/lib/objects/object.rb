@@ -218,5 +218,12 @@ class Object
     def useonbuy # for tradables
         false
     end
+    def unlock_level
+        if obj_type == "special"
+            return 0
+        else
+            return (rank-1)*5
+        end
+    end
 end
 end

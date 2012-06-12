@@ -34,7 +34,7 @@ class Yudongheishidan < Fixture
     end
     
     def rank
-        1
+        2
     end
     
     def image

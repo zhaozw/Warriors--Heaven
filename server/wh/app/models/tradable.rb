@@ -13,8 +13,8 @@ class Tradable < ActiveRecord::Base
             t[:image] = _t.image
             t[:rank] = _t.rank
         rescue Exception =>e
-            logger.error e.inpsect
-            p e.insepct
+            logger.error e.inspect
+            p e.inspect
         end
     end
     def []=(k,v)

@@ -12,15 +12,18 @@ class Lingzhi < Herb
     end
     
     def intro
-        "大补元气 HP+70%"
+        "大补元气 HP+70% 精力全满"
     end
     
     def weight
         1
     end
     
+    def effect
+        "大补元气 HP+70% 精力全满"
+    end
     def rank
-        5
+        4
     end
     
     def image

@@ -16,7 +16,11 @@ class Liuweidihuangwan < Fixture
     end
     
     def intro
-        "增加精力 精力恢复00%"
+        "增加精力 精力恢复100%"
+    end
+    
+    def effect
+        "增加精力 精力恢复100%"
     end
     
     def weight
@@ -24,7 +28,7 @@ class Liuweidihuangwan < Fixture
     end
     
     def rank
-        5
+        3
     end
     
     def image

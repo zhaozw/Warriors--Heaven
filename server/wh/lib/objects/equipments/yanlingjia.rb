@@ -1,17 +1,19 @@
 require 'objects/equipments/armo.rb'
 
-
-class Buyi  < Armo
+class Yanlingjia  < Armo
     def initialize
         super
-        set("hp", 50)
+        set("hp", 100)
     end
+  
+  
+  
   def dname
-    "布衣"
+    "雁翎甲"
   end
   
   def desc
-      "这是一件最普通粗布上衣"
+      "传说天宫饲养的大雁所掉落的羽毛制成。柔软而又坚固。"
   end
 
     
@@ -24,26 +26,26 @@ class Buyi  < Armo
   end
   
   def image
-      "obj/equipments/buyi.png"
+      "obj/equipments/yanlingjia.jpg?v=1"
   end
   
   def rank
-      1
+      3
   end
     
   def effect
-      "deffence +5"
+      "deffence +20"
   end
   
 
     
   def defense
-      10
+      20
   end
-    def unlock_level
-      0
-  end
+  
+
+  
   def price
-      10
+      200
   end
 end

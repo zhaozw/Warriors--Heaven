@@ -1,6 +1,6 @@
 require 'objects/equipments/weapon.rb'
 
-class Sword  < Weapon
+class Xuantiejian  < Sword
 
 
         def initialize
@@ -8,15 +8,11 @@ class Sword  < Weapon
         set("hp", 100)
     end
   def dname
-    "铁剑"
+    "玄铁剑"
   end
-    
-  def skill_type
-      "fencing"
-  end
-  
+
   def desc
-      "这是一把普通的铁剑"
+      "上古玄铁制成，重九九八十一斤，剑长逾三尺，通体深黑，却隐隐透出红光"
   end
   
   def wearOn
@@ -24,26 +20,30 @@ class Sword  < Weapon
   end
   
   def weight
-      7
+      81
   end
 
   def image
-      "obj/equipments/sword.jpg?r=1"
+      "obj/equipments/xuantiejian.jpg"
   end
   
   def effect
-      "Damage +30"
+      "Damage +50"
   end
+  
   def rank
-      2
+      4
   end
   
   def damage
-      30
+      50
   end
   
   def price
-      100
+      500
   end
-
+  
+  # def unlock_level
+  #       10
+  #   end
 end

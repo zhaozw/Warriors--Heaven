@@ -22,7 +22,7 @@ class Cap  < Weapon
   end
   
   def image
-      "obj/equipments/cap.jpg"
+      "obj/equipments/cap.jpg?r=1"
   end
 
   def rank

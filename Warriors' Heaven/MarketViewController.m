@@ -194,6 +194,8 @@
 //    else if (currentSelectedList == 3){
 //         [client sendHttpRequest:@"/tradables?type=3" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 //    }
+    if (canUpdateData)
+        [self updateData];
 
 }
 
@@ -215,9 +217,15 @@
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/tradables" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }
+- (void) setCanUpdateData{
+    canUpdateData = YES;
+}
 - (void) onReceiveStatus:(NSArray*) data{
     // start next update in 24 hours
-    [self performSelector:@selector(updateData) withObject:NULL afterDelay:3600*24];
+//    [self performSelector:@selector(updateData) withObject:NULL afterDelay:3600*24];
+    canUpdateData = FALSE;
+    [self performSelector:@selector(setCanUpdateData) withObject:NULL afterDelay:10];
+    
      AppDelegate * ad = [UIApplication sharedApplication].delegate;
     item_list = data;
     UIView* v = NULL;
@@ -237,7 +245,22 @@
 //        vFixure.hidden = YES;
 //    }
 //    
-    NSArray* svs = [v subviews];
+    NSArray* svs = [vEquipment subviews];
+    for (int i =0; i< [svs count]; i++){
+        UIView* sv = [svs objectAtIndex:i];
+        [sv removeFromSuperview];
+    }
+    svs = [vFixure subviews];
+    for (int i =0; i< [svs count]; i++){
+        UIView* sv = [svs objectAtIndex:i];
+        [sv removeFromSuperview];
+    }
+    svs = [vPremierEq subviews];
+    for (int i =0; i< [svs count]; i++){
+        UIView* sv = [svs objectAtIndex:i];
+        [sv removeFromSuperview];
+    }
+    svs = [vSpecial subviews];
     for (int i =0; i< [svs count]; i++){
         UIView* sv = [svs objectAtIndex:i];
         [sv removeFromSuperview];
@@ -295,7 +318,7 @@
         UIImageView* rowbg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 320, row_height)];
         rowbg.userInteractionEnabled = YES;
         rowbg.backgroundColor = [UIColor grayColor];
-        rowbg.image = [UIImage imageNamed:@"shelf7.jpg"];
+//        rowbg.image = [UIImage imageNamed:@"shelf7.jpg"];
         rowbg.alpha = 0.2f;
         [row addSubview:rowbg];
         //        [row setAlpha:0.6f];
@@ -332,7 +355,7 @@
         [logo setFrame:CGRectMake(1, 5, 50, 50)];
         [row addSubview:logo];
         
-        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 100, 15)];
+        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 200, 15)];
         [lbInfo setOpaque:NO];
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
 //        [lbInfo setAdjustsFontSizeToFitWidth:YES];

@@ -105,7 +105,7 @@
         session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
 //        session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
 //    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
-//        session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
+       session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
 //        session_id = @"f0a28ae6cc681d3f50ae4f281cab9218"; // user 'king'
 //        session_id = @"1320346951bf2bc6293fb70cc2a71a05"; // user 'queen'
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'

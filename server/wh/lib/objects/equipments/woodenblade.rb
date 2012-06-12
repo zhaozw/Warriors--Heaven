@@ -29,7 +29,7 @@ class Woodenblade  < Weapon
   end
   
   def image
-      "obj/equipments/woodenblade.png"
+      "obj/equipments/woodenblade.png?1"
   end
   
   def rank

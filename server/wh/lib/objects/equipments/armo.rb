@@ -1,6 +1,6 @@
-require 'objects/equipments/weapon.rb'
+require 'objects/equipments/equipment.rb'
 
-class Armo  < Weapon
+class Armo  < Game::Equipment
     def initialize
         super
         set("hp", 100)
@@ -45,7 +45,9 @@ class Armo  < Weapon
       10
   end
   
-  def unlock_level
-      1
+
+  
+  def price
+      100
   end
 end
