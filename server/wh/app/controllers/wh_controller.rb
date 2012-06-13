@@ -293,7 +293,27 @@ class WhController < ApplicationController
         r[:userskills].push(skill)
         
         
-       
+       if params[:tc] && params[:tc].size >0
+           # give bonus
+            team = Team.find_by_sql("select * from teams where code='#{params[:tc]}'")
+            if (team &&  team.size>0)
+                owner = User.get(team[0][:owner])
+                if owner
+                    for i in 0..5
+                        o = create_fixure("objects/fixtures/jinchuangyao")
+                       if o
+                           owner.get_obj(o)
+                       end
+                    end
+                    owner.ext[:gold] += 200
+                    o = create_fixure("objects/equipments/blade")
+                    owner.get_obj(o) if o
+                    owner.check_save
+                    set_flag(owner.id, "db_changed")
+                end
+            end
+          
+       end
         
         render :text=>r.to_json
         

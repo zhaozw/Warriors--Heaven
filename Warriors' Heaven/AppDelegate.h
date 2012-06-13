@@ -143,5 +143,5 @@
 - (BOOL) processReturnData:(NSObject*) data;
 
 - (void) showPurchaseView;
-- (void) initData;
+- (bool) initData;
 @end

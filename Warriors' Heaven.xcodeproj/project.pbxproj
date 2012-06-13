@@ -474,11 +474,11 @@
 			children = (
 				5A016F1A157A4CA7002D2B2A /* PurchaseViewController.h */,
 				5A016F1B157A4CAA002D2B2A /* PurchaseViewController.m */,
-				5A388C4D15366DA3008395BB /* RegViewController.h */,
 				5AFD8DE7150233600066ECBA /* HomeViewController.h */,
 				5AFD8DE8150233600066ECBA /* HomeViewController.m */,
 				5A25E28D1504D2520046C67D /* BattleViewController.h */,
 				5A25E28E1504D2530046C67D /* BattleViewController.m */,
+				5A388C4D15366DA3008395BB /* RegViewController.h */,
 				5A388C4E15366DA3008395BB /* RegViewController.m */,
 				5A56CE46155B0CBA00C9F146 /* BossViewController.h */,
 				5A56CE47155B0CBB00C9F146 /* BossViewController.m */,

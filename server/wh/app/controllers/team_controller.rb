@@ -1,15 +1,19 @@
 require 'rubyutility.rb'
 class TeamController < ApplicationController
-    def create_team
-        return if !check_session
-        
-        t = Team.new({
-            :owner  => session[:uid],
+    def _create_team(uid)
+         t = Team.new({
+            :owner  => uid,
             :code   => generate_password(6).upcase,
             :power  => 0,
             :prop   => "{}"     
         })
         t.save!
+        return t
+    end
+    def create_team
+        return if !check_session
+        t = _create_team(session[:uid])
+     
         render :text=>"ok"
     end
     def index
@@ -90,8 +94,16 @@ class TeamController < ApplicationController
     
     end
 
-
-
+    def invite
+        return if !check_session or !user_data
+        teams = Team.find_by_sql("select * from teams where owner='#{user_data.id}'")
+        if teams && teams.size>0
+            @team = teams[0]
+        else
+           @team =  _create_team(session[:uid])
+        end
+    end
+    
     def join
         return unless check_session and user_data
         code = params[:code]

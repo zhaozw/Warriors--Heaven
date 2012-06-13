@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *lbError;
 @property (strong, nonatomic) IBOutlet UITextField *tName;
+@property (strong, nonatomic) IBOutlet UITextField *lbTeamCode;
 
 - (IBAction)onCreate:(id)sender;
 - (BOOL) textFieldShouldReturn:(UITextField *)textField;

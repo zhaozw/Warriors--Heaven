@@ -70,10 +70,14 @@ class TradablesController < ApplicationController
             return
         end
         max_eq = user_data.ext.get_prop("max_eq").to_i
+        if max_eq < 5
+            user_data.ext.set_prop("max_eq", 5)
+            max_eq = 5
+        end
         eqslot = user_data.ext.get_prop("eqslot")
             
         found_available = -1
-        p eqslot
+        p "max_eq=#{max_eq}, eqslot=#{eqslot.inspect}"
         if eqslot
             if (eqslot.class == String)
                 eqslots = JSON.parse(eqslot)

@@ -14,6 +14,7 @@
 
 @synthesize lbError;
 @synthesize tName;
+@synthesize lbTeamCode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +48,7 @@
 {
     [self setTName:nil];
     [self setLbError:nil];
+    [self setLbTeamCode:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -70,6 +72,13 @@
         lbError.text = @"Name cannot be empty";
         return;
     }
+    NSString * tc = lbTeamCode.text;
+    if (tc == NULL || tc == [NSNull null])
+        tc = @"";
+    else
+        tc = [tc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    
     
     if (currentSelectedSex <0){
         lbError.text = @"Please choose your character.";
@@ -78,7 +87,7 @@
    
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
 //    [client setResponseHandler:@selector(onResponse::)];
-    NSString* url = [NSString stringWithFormat:@"/wh/reg?name=%@&profile=%d", name, currentSelectedSex];
+    NSString* url = [NSString stringWithFormat:@"/wh/reg?name=%@&profile=%d&tc=%@", name, currentSelectedSex, tc];
     
     [client sendHttpRequest:url selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
     
@@ -136,9 +145,31 @@
     }
 
 }
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+	if (lbTeamCode == textField) {
+		NSTimeInterval animationDuration = 0.30f;
+		[UIView beginAnimations:@"ResizeForKeyBoard" context:nil];
+		[UIView setAnimationDuration:animationDuration];
+		float width = self.view.frame.size.width;
+		float height = self.view.frame.size.height;
+		CGRect rect = CGRectMake(0.0f, -70,width,height);
+		self.view.frame = rect;
+		[UIView commitAnimations];
+        
+	}
+}
 
 // hide system keyboard when user click "return"
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+	
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame = rect;
+	
+    [UIView commitAnimations];
     [textField resignFirstResponder];
     return YES;
 }
