@@ -92,12 +92,71 @@
 //    [vBg setImage:[UIImage imageNamed:@"fight_result.png"]];
     
     
+//    NSMutableArray *pos_map = [[NSMutableArray alloc] initWithObjects:@"head"
+//                               ,@"head"
+//                               ,@"neck"
+//                               ,@"handright"
+//                               ,@"arm"
+//                               ,@"fingerright"
+//                               ,@"handleft"
+//                               ,@"fingerleft"
+//                               ,@"foot"
+//                               ,@"leg"
+//                               ,@"body"
+//                               ,nil];
     
     NSArray* eqs = [ext valueForKey:@"equipments"];
-      [self loadEq:eqs];
-    
-    
+//    NSMutableArray* carrying = [[NSMutableArray alloc] init];
+//    NSString* prop = [ext valueForKey:@"prop"];
+//    NSObject* js = [prop JSONValue];
+//    NSObject* es = [js valueForKey:@"eqslot"];
+//    NSObject* eqslot = es;
+//    if ([es isKindOfClass:[NSString class]])
+//        eqslot = [(NSString*)es JSONValue];
+//    
+//    if (eqslot){
+//        //        NSObject* epslot = [sepslot JSONValue];
+//        int epid = -1;
+//      
+//        for (int i = 0; i< [pos_map count]; i++) {
+//            
+//            NSString* pos = [pos_map objectAtIndex:i];
+//            NSString* v = [eqslot valueForKey:pos];
+//            if ([v isKindOfClass:[NSString class]]){
+//                NSArray *vs =[v componentsSeparatedByString:@"@"];
+//                epid = [[vs objectAtIndex:1] intValue];
+//            }else
+//                epid = [v intValue];
+//            
+//            if (epid <=0)
+//                continue;
+//     
+//            id obj = NULL;
+//            for (int j= 0; j<[eqs count]; j++){
+//                id o = [eqs objectAtIndex:j];
+//                int _id1 = [[o valueForKey:@"id"] intValue];
+//                if (_id1 == epid){
+//                    obj = o;
+//                    break;
+//                }
+//            }
+//            
+//            if (obj == NULL)
+//                continue;
+//            
+//            [carrying addObject:obj];
+//                     
+//        }
+//    }
 
+    
+    
+    
+      
+//    [self loadEq:carrying];
+    
+    
+    [self loadEq:eqs];
     
     //  [aiv setAlpha:0.0f];
     NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);

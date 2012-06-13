@@ -274,6 +274,7 @@
     rect.size.height = h;
     vPlayers.frame = rect;
     vPlayers.hidden = NO;
+    ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+100-480);
 }
 
 - (void) loadHeroes{
