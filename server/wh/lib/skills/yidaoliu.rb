@@ -66,7 +66,8 @@ class Yidaoliu < Daofa
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :name=>"飞龙火焰",
                :action =>"$N一刀直劈,刀光凌厉，如烈焰奔腾。",
                :damage =>20
@@ -74,7 +75,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>20,
+               # :level=>20,
+               :level=>10,
                :name=>"鹰波",
                :action =>"$N一剑轻削，轻柔如风，无影无踪",
                :damage =>20
@@ -82,7 +84,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>30,
+               # :level=>30,
+               :level=>20,
                :name=>"贰斩",
                :action =>"$N翻手倒刺，以退为守，暗藏杀机",
                :damage =>20
@@ -90,7 +93,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>50,
+               # :level=>50,
+               :level=>30,
                :name=>"砂纹",
                :action =>"$N追步平刺，如松之劲，如风之轻，刚柔兼济",
                :damage =>20
@@ -98,7 +102,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>70,
+               # :level=>70,
+               :level=>50,
                :name=>"魔熊",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -106,7 +111,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>100,
+               # :level=>100,
+               :level=>70,
                :name=>"居合斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -114,7 +120,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>130,
+               # :level=>130,
+               :level=>100,
                :name=>"龙卷风",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -122,7 +129,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>170,
+               # :level=>170,
+               :level=>130,
                :name=>"鬼斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -130,7 +138,8 @@ class Yidaoliu < Daofa
                
            },
            {
-               :level=>200,
+               # :level=>200,
+               :level=>170,
                :name=>"艳美魔夜不眠鬼斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20

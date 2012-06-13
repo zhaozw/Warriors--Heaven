@@ -67,7 +67,8 @@ class Konglingjian < Fencing
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :name=>"青山不改",
                :action =>"$N一剑直劈，招式厚重，犹如重重青山",
                :damage =>20
@@ -75,7 +76,8 @@ class Konglingjian < Fencing
                
            },
            {
-               :level=>20,
+               # :level=>20,
+               :level=>10,
                :name=>"晓风残月",
                :action =>"$N一剑轻削，轻柔如风，无影无踪",
                :damage =>20
@@ -83,7 +85,8 @@ class Konglingjian < Fencing
                
            },
            {
-               :level=>30,
+               # :level=>30,
+               :level=>20,
                :name=>"恰似温柔",
                :action =>"$N翻手倒刺，以退为守，暗藏杀机",
                :damage =>20
@@ -91,7 +94,8 @@ class Konglingjian < Fencing
                
            },
            {
-               :level=>50,
+               # :level=>50,
+               :level=>30,
                :name=>"何去何从",
                :action =>"$N追步平刺，如松之劲，如风之轻，刚柔兼济",
                :damage =>20
@@ -99,7 +103,8 @@ class Konglingjian < Fencing
                
            },
            {
-               :level=>80,
+               # :level=>80,
+               :level=>50,
                :name=>"空来空去",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20

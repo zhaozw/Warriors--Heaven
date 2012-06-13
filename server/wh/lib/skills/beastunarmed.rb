@@ -52,28 +52,32 @@ class Beastunarmed < Game::Skill
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :action =>"$N往$n的$l狠狠地咬去",
                :damage =>20
                #:damage_type=>""
                
            },
            {
-               :level=>20,
+               # :level=>20,
+               :level=>10,
                :action =>"$N挥动利爪，狠狠的抓向$n的$l",
                :damage =>30
                #:damage_type=>""
                
            },
            {
-               :level=>30,
+               # :level=>30,
+               :level=>20,
                :action =>"$N跳起来，向$n的$l猛扑过去",
                :damage =>30
                #:damage_type=>""
                
            },
            {
-               :level=>50,
+               # :level=>50,
+               :level=>30,
                :action =>"$N忽然转过身，尾巴向$n的$l扫去",
                :damage =>50
                #:damage_type=>""

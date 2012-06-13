@@ -70,7 +70,8 @@ class Qishangquan < Game::Skill
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :name=>"裂肺诀",
                :action =>"$N深吸一口气，左拳使出七伤拳总诀中的「伤肺诀」，双拳飘忽不定，某人顿时感觉一股阴之力迎面而柔来。",
                :damage =>20
@@ -78,7 +79,8 @@ class Qishangquan < Game::Skill
                
            },
            {
-               :level=>20,
+               # :level=>20,
+               :level=>10,
                :name=>"断肝肠",
                :action =>"$N右拳使出七伤拳总诀中的「摧肝肠诀」，双拳刚中有柔，向$n击去",
                :damage =>20,
@@ -86,7 +88,8 @@ class Qishangquan < Game::Skill
                
            },
            {
-               :level=>30,
+               # :level=>30,
+               :level=>20,
                :name=>"脏离诀",
                :action =>"$N凝神定气，使出七伤拳总诀中的「藏离诀」，双拳柔中有刚，打出一股内缩之力！向$n击去",
                :damage =>20
@@ -94,7 +97,8 @@ class Qishangquan < Game::Skill
                
            },
            {
-               :level=>50,
+               # :level=>50,
+               :level=>30,
                :name=>"精失诀",
                :action =>"$N凝神定气，使出七伤拳总诀中的「精失诀」，双拳势如雷霆，将力道直向$n送去",
                :damage =>20
@@ -102,7 +106,8 @@ class Qishangquan < Game::Skill
                
            },
            {
-               :level=>80,
+               # :level=>80,
+               :level=>50,
                :name=>"意惚恍",
                :action =>"$N凝神定气，使出七伤拳总诀中的「意恍惚诀」，向$n送出一股横出之力！",
                :damage =>20
@@ -110,7 +115,8 @@ class Qishangquan < Game::Skill
                
            },
            {
-               :level=>120,
+               # :level=>120,
+               :level=>80,
                :name=>"魄飞扬",
                :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
                :damage =>20

@@ -67,7 +67,8 @@ class Liefengdaofa < Daofa
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :name=>"气盖河山",
                :action =>"$N运刀如风，一招「气盖河山」，刀势霸道之极，向着$n周身各处猛砍猛劈",
                :damage =>20
@@ -75,7 +76,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>20,
+               # :level=>20,
+               :level=>10,
                :name=>"天地乍合",
                :action =>"$N一着「天地乍合」，突然抢进$n近侧，迅猛地驱刀连斩，攻式顿然合成一个圆圈",
                :damage =>20
@@ -83,7 +85,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>30,
+               # :level=>30,
+               :level=>20,
                :name=>"贰斩",
                :action =>"$N翻手倒刺，以退为守，暗藏杀机",
                :damage =>20
@@ -91,7 +94,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>50,
+               # :level=>50,
+               :level=>30,
                :name=>"砂纹",
                :action =>"$N追步平刺，如松之劲，如风之轻，刚柔兼济",
                :damage =>20
@@ -99,7 +103,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>70,
+               # :level=>70,
+               :level=>50,
                :name=>"魔熊",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -107,7 +112,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>100,
+               # :level=>100,
+               :level=>70,
                :name=>"居合斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -115,7 +121,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>130,
+               # :level=>130,
+               :level=>100,
                :name=>"龙卷风",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -123,7 +130,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>170,
+               # :level=>170,
+               :level=>130,
                :name=>"鬼斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20
@@ -131,7 +139,8 @@ class Liefengdaofa < Daofa
                
            },
            {
-               :level=>200,
+               # :level=>200,
+               :level=>170,
                :name=>"艳美魔夜不眠鬼斩",
                :action =>"$N一剑横撩，宛如松涛阵阵袭来，让人无处可逃",
                :damage =>20

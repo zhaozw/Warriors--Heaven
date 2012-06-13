@@ -43,7 +43,8 @@ class Fencing < Game::Skill
                #:damage_type=>""
            },
            {
-               :level=>10,
+               # :level=>10,
+               :level=>5,
                :action =>"$N举剑向$n的$l狠狠地挥去",
                :damage =>20
                #:damage_type=>""
