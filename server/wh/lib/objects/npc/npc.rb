@@ -16,7 +16,9 @@ module Npc
     def setup_skill
         @skills = {}
     end
-
+    def setup_temp
+        @temp = {}
+    end
     
     def setup
         setup_temp
@@ -131,6 +133,18 @@ module Npc
              :race=>race
          })
      end
+     
+    def get(n)
+        tmp[n.to_sym]
+    end
+    
+    def set(n,v)
+       tmp[n.to_sym] = v
+    end
+    
+    def var
+        tmp
+    end
 
   
 end

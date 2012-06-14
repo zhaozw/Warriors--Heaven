@@ -635,7 +635,7 @@ end
                         context_a[:gain][:pot] += 1
                         attacker.tmp[:pot] += 1
                         msg += "<!--1--><div class='rgain'>"
-                        msg += "<br/> 潜能<span>+1</span></span>"
+                        msg += "潜能<span>+1</span></span>"
                
                         msg += "</div><!--0-->"
                  end
@@ -752,7 +752,7 @@ end
                             context_a[:gain][:pot] += 1
                             attacker.tmp[:pot] += 1
                             msg += "<!--1--><div class='rgain'>"
-                            msg += "<br/> 潜能<span>+1</span>"
+                            msg += "潜能<span>+1</span>"
                             msg += "</div><!--0-->"
                      end
                     damage += 2 # RESULT_PARRY
@@ -806,7 +806,7 @@ end
                             context_d[:gain][:pot] += 1
                             defenser.tmp[:pot] += 1
                             msg += "<!--1--><div class='rgain'>"
-                            msg += "<br/> 潜能<span>+1</span>"
+                            msg += "潜能<span>+1</span>"
                             msg += "</div><!--0-->"
                     end
                 end # failed in parrying
@@ -1196,7 +1196,7 @@ end
          
             
              if (defenser.tmp[:hp] <=0 )
-                 msg += line "<br/>#{defenser.name}战斗不能"
+                 msg += line "<div>#{defenser.name}战斗不能</div>"
                  winner = attacker
                  break;
              end

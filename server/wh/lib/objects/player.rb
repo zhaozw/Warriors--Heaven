@@ -472,7 +472,7 @@ include Pc
                  ext[:level] += 1
                  ext[:exp] = 0
                  ext[:title] = update_title1(self)
-                 
+                 send_msg(id, "<div>你的江湖称号已改为“#{ext[:title]}”</div>")
                  # improve maxhp, max jingli, max_stam
                  srand(Time.now.to_i)
                  mh_bonus = rand(ext[:level]/2 )
@@ -504,7 +504,19 @@ include Pc
      def query_all_obj
          data.query_all_obj
      end
-     
+    def get(n)
+        if data
+            data[:userext][n.to_sym]
+        end
+    end
+    def set(n,v)
+        if data
+            data[:userext][n.to_sym] = v
+        end
+    end
+    def var
+        data[:userext]
+    end
 
      
      

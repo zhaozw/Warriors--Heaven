@@ -44,7 +44,7 @@ class Jinchuangyao < Fixture
     def use(context)
         p = context[:player]
         # p.ext[:hp] += p.ext[:maxhp]/5
-        p.ext[:hp] += 20/
+        p.ext[:hp] += 20
         
         p.delete_obj(self)
         context[:msg]="你服下一包金疮药, 伤处渐渐愈合！"

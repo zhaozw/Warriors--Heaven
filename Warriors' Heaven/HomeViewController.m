@@ -83,7 +83,10 @@
     if (ad.data_user){
         NSObject* json = [ad.data_user valueForKey:@"user"];
         lbUserName.text = [json valueForKey:@"user"];
-        lbTitle.text = [json valueForKey:@"title"];
+//        lbTitle.text = [json valueForKey:@"title"];
+        id title = [[ad getDataUserext] valueForKey:@"title"];
+        if (title != [NSNull null])
+            lbTitle.text = title;
         
         // show badges
         vBadge.frame = CGRectMake(20, 200, 250, 35);
@@ -443,7 +446,18 @@
     
         
         NSArray* aurl = [surl componentsSeparatedByString:@"<br\/>"];
-        [[ad floatMsg] addObjectsFromArray:aurl];
+        NSMutableArray * ar = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [aurl count]; i++){
+            NSString* s =[aurl objectAtIndex:i];
+            if (s != NULL && s != [NSNull null] && [s length] >0){
+                s = [s stringByReplacingOccurrencesOfString:@"<div>" withString:@""];
+                s = [s stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
+                 [ar addObject:s];
+              
+            }
+        }
+  
+        [[ad floatMsg] addObjectsFromArray:ar];
         
 //            NSLog(@"%@",[request.URL absoluteString]);
 //         NSLog(surl);
@@ -453,4 +467,27 @@
         
     return YES;
 }
+
+//- (void) reload{
+//    if (ad.data_user){
+//        NSObject* json = [ad.data_user valueForKey:@"user"];
+//        lbUserName.text = [json valueForKey:@"user"];
+//        //        lbTitle.text = [json valueForKey:@"title"];
+//        lbTitle.text = [[ad getDataUserext] valueForKey:@"title"];
+//        // show badges
+//        vBadge.frame = CGRectMake(20, 200, 250, 35);
+//        [vBadge setBackgroundColor:[UIColor clearColor]];
+//        NSArray* badges = [[ad getDataUserext] valueForKey:@"badges"];
+//        for (int i = 0; i < [badges count]; i++){
+//            NSObject* b = [badges objectAtIndex:i];
+//            NSString * image = [b valueForKey:@"image"];
+//            EGOImageButton * btn_badge = [[EGOImageButton alloc] initWithFrame:CGRectMake(35*i,0, 35, 35)];
+//            [btn_badge setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@%@", ad.host, ad.port, image]]];
+//            [btn_badge addTarget:self action:@selector(showHelpForBadge:) forControlEvents:UIControlEventTouchUpInside];
+//            btn_badge.tag = i;
+//            [vBadge addSubview:btn_badge];
+//        }
+//        
+//    }
+//}
 @end

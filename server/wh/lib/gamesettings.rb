@@ -8,7 +8,7 @@ def default_male_title_list
             :name=>"新人"
         },
         {
-            :level=>5,
+            :level=>1,
             :name=>"武者"
         },
         {
@@ -45,13 +45,15 @@ def titleForLevel(level, gender)
     
     if gender == 0
         list = default_female_title_list
-    elsif gender == 1
+    # elsif gender == 1
+    else
         list = default_male_title_list
     end
     
+    p "===>update_title5 level=#{level}, gender=#{gender}, list=#{list.inspect}"
     for i in 0..list.size-1
-        if list[i][:level] >level
-            return list[i-1][:name]
+        if list[i][:level] >=level
+            return list[i][:name]
         end
     end
     
@@ -59,17 +61,17 @@ def titleForLevel(level, gender)
         
 end
 
-# set first title
-def setTitle1(c)
-    title = c.tmp[:title]
-    t = titleForLevel(c.tmp[:level], c.tmp[:sex])
-    if title!= nil and title.size>0
-        titles = title.split(" ")
-        if titles.size>1 and title2[1]!=nil and title2[1].size>0
-            t += " "+ titles[1]
-        end
-    end
-end
+# # set first title
+# def setTitle1(c)
+#     title = c.tmp[:title]
+#     t = titleForLevel(c.tmp[:level], c.tmp[:sex])
+#     if title!= nil and title.size>0
+#         titles = title.split(" ")
+#         if titles.size>1 and title2[1]!=nil and title2[1].size>0
+#             t += " "+ titles[1]
+#         end
+#     end
+# end
 
 
 #==============================#

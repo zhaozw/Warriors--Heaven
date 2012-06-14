@@ -244,7 +244,8 @@ class WhController < ApplicationController
             :pot  =>  100,
             :it   =>  20,
             :max_jl => 100,
-            :jingli => 100
+            :jingli => 100,
+            :title=>"新人"
         })
         ext.save!
         r[:userext] = ext
@@ -347,7 +348,7 @@ class WhController < ApplicationController
             return
         end
         # pagesize = 30
-       r = Userext.find_by_sql(" select profile, userexts.race, sex, title, uid, lastact, userexts.updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, userexts.sid, fame,  dext, str, luck from users, userexts  where users.id=userexts.uid and userexts.sid<>'#{session[:sid]}' and userexts.zhanyi>30 and userexts.level>#{user_data.ext[:level]-1} order by userexts.level limit #{start}, #{pagesize}")
+       r = Userext.find_by_sql(" select profile, userexts.race, sex, userexts.title, uid, lastact, userexts.updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, userexts.sid, fame,  dext, str, luck from users, userexts  where users.id=userexts.uid and userexts.sid<>'#{session[:sid]}' and userexts.zhanyi>30 and userexts.level>#{user_data.ext[:level]-1} order by userexts.level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""

@@ -113,7 +113,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 
 }
 - (NSString *) readSessionId{
@@ -525,7 +525,7 @@
     
    
     [self startRecover];
-    [self query_msg];
+//    [self query_msg];
     [self float_msg];
     
 }
@@ -588,7 +588,16 @@
  
     if ([msg count] >0){
 //        [self showMsg:data type:1 hasCloseButton:NO];
-        [floatMsg addObjectsFromArray:msg];
+        NSMutableArray * ar = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [msg count]; i++){
+            NSString* s =[msg objectAtIndex:i];
+            if (s != NULL && s != [NSNull null] && [s length] >0){
+                s = [s stringByReplacingOccurrencesOfString:@"<div>" withString:@""];
+                s = [s stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
+                [ar addObject:s];
+            }
+        }
+        [floatMsg addObjectsFromArray:ar];
     }
     
     [self performSelector:@selector(query_msg) withObject:NULL afterDelay:600];

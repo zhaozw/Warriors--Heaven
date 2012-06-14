@@ -24,6 +24,7 @@ class CreateUserexts < ActiveRecord::Migration
       t.integer :max_jl
       t.integer :zhanyi, :default=>100 # will to fight
       t.string  :sstatus, :default=>nil
+      t.string :title, :default=>nil
 
       t.timestamps
     end
@@ -55,8 +56,15 @@ insert into userexts values(null, 30, "Panny",        100, 0, 9, '', '{}', 'b88f
 insert into userexts values(null, 31, "新佑卫门",         100, 0, 8, '', '{}', 'f0a28ae6cc681d3f50ae4f281cab9218', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
 insert into userexts values(null, 32, "川上奈美子",        100, 0, 7, '', '{"max_eq":"5", "max_item":10, "badges":[{"name":"badge1", "dname":"一级铁十字勋章", "image":"/game/badges100, /badge1.png"}]}', '1320346951bf2bc6293fb70cc2a71a05', 100, 100, 100, 100, 20, 20, 50, 0, '', 10, 20, 100, 100, 100, null, null);
 
-
-
+update userexts set title="新人" where level <5;
+update userexts,users set userexts.title="武者" where users.id=userexts.uid and users.sex=1 and userexts.level>=5 and userexts.level<10;
+update userexts,users set userexts.title="女武者" where users.id=userexts.uid and users.sex=0 and userexts.level>=5 and userexts.level<10;
+update userexts,users set userexts.title="少侠" where users.id=userexts.uid and users.sex=1 and userexts.level>=10 and userexts.level<20;
+update userexts,users set userexts.title="女少侠" where users.id=userexts.uid and users.sex=0 and userexts.level>=10 and userexts.level<20;
+update userexts set title="剑侠" where name="燕北天";
+update userexts set title="大师" where name="一灯";
+update userexts set title="一代宗师" where name="张三疯";
+update userexts set title="拳术世家" where name="taiseng";
 #update userexts set prop='{"hand_weapon":"sword"}'  where uid=4;
 =end                                
   def self.down

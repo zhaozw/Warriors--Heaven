@@ -139,6 +139,10 @@
         [ad setFirstCallReturn:YES];
         [ad hideWelcomeView];
         [ad initUI];
+        
+        [ad startRecover]; 
+//        [ad query_msg];
+        [ad float_msg];
     }else{
         lbError.text = [data valueForKey:@"error"];
         return;

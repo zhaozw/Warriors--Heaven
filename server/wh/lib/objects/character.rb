@@ -45,4 +45,14 @@ module Character
         # return @temp[nam]
         return tmp[name.to_sym]
     end
+    def get(n)
+        if data
+            data[n.to_sym]
+        end
+    end
+    def set(n,v)
+        if data
+            data[n.to_sym] = v
+        end
+    end
 end

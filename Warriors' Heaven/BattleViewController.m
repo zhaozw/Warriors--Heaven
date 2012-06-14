@@ -274,7 +274,9 @@
     rect.size.height = h;
     vPlayers.frame = rect;
     vPlayers.hidden = NO;
-    ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+100-480);
+//    vPlayers.backgroundColor = [UIColor redColor];
+    if (rect.size.height+60 > 480)
+        ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+60-480);
 }
 
 - (void) loadHeroes{

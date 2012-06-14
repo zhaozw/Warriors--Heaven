@@ -224,7 +224,7 @@
     // start next update in 24 hours
 //    [self performSelector:@selector(updateData) withObject:NULL afterDelay:3600*24];
     canUpdateData = FALSE;
-    [self performSelector:@selector(setCanUpdateData) withObject:NULL afterDelay:10];
+    [self performSelector:@selector(setCanUpdateData) withObject:NULL afterDelay:180];
     
      AppDelegate * ad = [UIApplication sharedApplication].delegate;
     item_list = data;

@@ -156,6 +156,7 @@ class Hunt < Quest
             
                     if data[:progress] >= 100 && 
                         exp_bonus = 10+rand(user.tmp[:luck])/10
+                        exp_bonus *=2
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
                         msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
@@ -170,7 +171,6 @@ class Hunt < Quest
                 # user.ext[:stam] -=5
                 msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
             else
-            #msg = "你很用力的挖"
      
                 if (pp > luck+80)
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"

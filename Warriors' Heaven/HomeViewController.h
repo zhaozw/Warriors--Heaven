@@ -67,4 +67,5 @@
 - (void) onReceiveStatus:(NSObject*) json;
 - (void) recoverWebView;
 - (void) floatWebView;
+//- (void) reload;
 @end

@@ -174,14 +174,17 @@ end
 #==============================#
     # set first title
 def update_title1(c)
-    title = c.tmp[:title]
-    t = titleForLevel(c.tmp[:level], c.tmp[:sex])
+    # p "===>update_title1 #{c.tmp.inspect}"
+    title = c.var[:title]
+    t = titleForLevel(c.var[:level], c.var[:sex])
+     # p "===>update_title2 #{t}"
     if title!= nil and title.size>0
         titles = title.split(" ")
         if titles.size>1 and title2[1]!=nil and title2[1].size>0
             t += " "+ titles[1]
         end
     end
+ # p "===>update_title3 #{t}"
     return t
 end
 def update_title2(c, title)
@@ -339,7 +342,8 @@ end
              aFile.puts content
              aFile.close
          rescue Exception=>e
-             logger.error e
+             # logger.error e
+             p e.inspect
          end
     end
     def get_msg_file(ch)
@@ -495,7 +499,7 @@ end
                         t = Time.parse(md[1])
                         # p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
                         # p "context time #{time.to_f}"
-                         p "md1=#{md[1].inspect}==>md2=#{md[2].inspect}"
+                         # p "md1=#{md[1].inspect}==>md2=#{md[2].inspect}"
                         # p t <=> time
                          p "sys_msg=#{sys_msg},#{md[1].to(15)} "
                    

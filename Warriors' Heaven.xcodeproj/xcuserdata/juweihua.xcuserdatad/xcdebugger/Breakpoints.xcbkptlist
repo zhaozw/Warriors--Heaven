@@ -203,11 +203,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "359745397.302162"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
          landmarkName = "@implementation HomeViewController"
          landmarkType = "3">
       </FileBreakpoint>
@@ -245,11 +245,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "362"
-         endingLineNumber = "362"
+         startingLineNumber = "365"
+         endingLineNumber = "365"
          landmarkName = "@implementation HomeViewController"
          landmarkType = "3">
       </FileBreakpoint>
@@ -371,11 +371,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "359745397.302162"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "184"
-         endingLineNumber = "184"
+         startingLineNumber = "187"
+         endingLineNumber = "187"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -399,11 +399,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "581"
-         endingLineNumber = "581"
+         startingLineNumber = "583"
+         endingLineNumber = "583"
          landmarkName = "-onFight:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -441,11 +441,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "615"
-         endingLineNumber = "615"
+         startingLineNumber = "624"
+         endingLineNumber = "624"
          landmarkName = "-showNetworkDown"
          landmarkType = "5">
       </FileBreakpoint>
@@ -497,11 +497,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
+         startingLineNumber = "307"
+         endingLineNumber = "307"
          landmarkName = "-onReceiveStatus:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -511,11 +511,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "393"
-         endingLineNumber = "393"
+         startingLineNumber = "395"
+         endingLineNumber = "395"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -525,11 +525,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "423"
-         endingLineNumber = "423"
+         startingLineNumber = "425"
+         endingLineNumber = "425"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -539,11 +539,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "453"
-         endingLineNumber = "453"
+         startingLineNumber = "455"
+         endingLineNumber = "455"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -889,11 +889,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "857"
-         endingLineNumber = "857"
+         startingLineNumber = "866"
+         endingLineNumber = "866"
          landmarkName = "@implementation AppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -959,11 +959,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "359745397.302162"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "94"
+         endingLineNumber = "94"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -973,11 +973,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "359745397.302162"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "121"
-         endingLineNumber = "121"
+         startingLineNumber = "124"
+         endingLineNumber = "124"
          landmarkName = "-showHelpForBadge:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1085,11 +1085,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "866"
-         endingLineNumber = "866"
+         startingLineNumber = "875"
+         endingLineNumber = "875"
          landmarkName = "-getDataUser"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1197,11 +1197,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "359745397.302162"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "97"
-         endingLineNumber = "97"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-viewDidAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1309,11 +1309,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "603"
-         endingLineNumber = "603"
+         startingLineNumber = "612"
+         endingLineNumber = "612"
          landmarkName = "-showWaiting:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1323,11 +1323,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "609"
-         endingLineNumber = "609"
+         startingLineNumber = "618"
+         endingLineNumber = "618"
          landmarkName = "-isWaiting"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1785,11 +1785,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "370"
-         endingLineNumber = "370"
+         startingLineNumber = "372"
+         endingLineNumber = "372"
          landmarkName = "-showFight:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1939,11 +1939,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1013"
-         endingLineNumber = "1013"
+         startingLineNumber = "1022"
+         endingLineNumber = "1022"
          landmarkName = "-startRecover"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2023,11 +2023,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "604"
-         endingLineNumber = "604"
+         startingLineNumber = "606"
+         endingLineNumber = "606"
          landmarkName = "-onFight:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2037,11 +2037,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "381"
-         endingLineNumber = "381"
+         startingLineNumber = "383"
+         endingLineNumber = "383"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2191,11 +2191,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "952"
-         endingLineNumber = "952"
+         startingLineNumber = "961"
+         endingLineNumber = "961"
          landmarkName = "-recover:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2373,11 +2373,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "645"
-         endingLineNumber = "645"
+         startingLineNumber = "654"
+         endingLineNumber = "654"
          landmarkName = "-showMsg:type:hasCloseButton:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2415,11 +2415,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "591"
-         endingLineNumber = "591"
+         startingLineNumber = "593"
+         endingLineNumber = "593"
          landmarkName = "-onFight:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2429,11 +2429,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "971"
-         endingLineNumber = "971"
+         startingLineNumber = "980"
+         endingLineNumber = "980"
          landmarkName = "-recover:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2443,11 +2443,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "623"
-         endingLineNumber = "623"
+         startingLineNumber = "632"
+         endingLineNumber = "632"
          landmarkName = "-showMsg:type:hasCloseButton:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2791,11 +2791,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "544"
-         endingLineNumber = "544"
+         startingLineNumber = "546"
+         endingLineNumber = "546"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2805,11 +2805,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "520"
-         endingLineNumber = "520"
+         startingLineNumber = "522"
+         endingLineNumber = "522"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2917,11 +2917,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "434"
-         endingLineNumber = "434"
+         startingLineNumber = "437"
+         endingLineNumber = "437"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -2931,11 +2931,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "454"
-         endingLineNumber = "454"
+         startingLineNumber = "468"
+         endingLineNumber = "468"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3225,11 +3225,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "844"
-         endingLineNumber = "844"
+         startingLineNumber = "853"
+         endingLineNumber = "853"
          landmarkName = "-showFightMsg:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3267,11 +3267,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1055"
-         endingLineNumber = "1055"
+         startingLineNumber = "1064"
+         endingLineNumber = "1064"
          landmarkName = "-checkUpdated:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3435,11 +3435,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "350"
-         endingLineNumber = "350"
+         startingLineNumber = "352"
+         endingLineNumber = "352"
          landmarkName = "-onReceiveStatus:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3449,11 +3449,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "322"
-         endingLineNumber = "322"
+         startingLineNumber = "324"
+         endingLineNumber = "324"
          landmarkName = "-loadHeroes"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3463,11 +3463,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "324"
-         endingLineNumber = "324"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
          landmarkName = "-loadHeroes"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3533,11 +3533,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "658"
-         endingLineNumber = "658"
+         startingLineNumber = "660"
+         endingLineNumber = "660"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3547,11 +3547,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "278"
-         endingLineNumber = "278"
+         startingLineNumber = "280"
+         endingLineNumber = "280"
          landmarkName = "-loadPlayers"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3575,11 +3575,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/AppDelegate.m"
-         timestampString = "361331207.320427"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "591"
-         endingLineNumber = "591"
+         startingLineNumber = "600"
+         endingLineNumber = "600"
          landmarkName = "-onGetMsgReturn:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3757,11 +3757,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
+         startingLineNumber = "289"
+         endingLineNumber = "289"
          landmarkName = "-floatWebView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3771,11 +3771,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360636221.780331"
+         timestampString = "361342319.248983"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "452"
-         endingLineNumber = "452"
+         startingLineNumber = "466"
+         endingLineNumber = "466"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3869,11 +3869,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "515"
-         endingLineNumber = "515"
+         startingLineNumber = "517"
+         endingLineNumber = "517"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3883,11 +3883,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "521"
-         endingLineNumber = "521"
+         startingLineNumber = "523"
+         endingLineNumber = "523"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -3897,11 +3897,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "530"
-         endingLineNumber = "530"
+         startingLineNumber = "532"
+         endingLineNumber = "532"
          landmarkName = "-onFightResult:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -4233,11 +4233,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/HomeViewController.m"
-         timestampString = "360632326.774328"
+         timestampString = "361336511.581378"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "252"
-         endingLineNumber = "252"
+         startingLineNumber = "255"
+         endingLineNumber = "255"
          landmarkName = "-viewDidLoad"
          landmarkType = "5">
       </FileBreakpoint>
@@ -4415,11 +4415,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "649"
-         endingLineNumber = "649"
+         startingLineNumber = "651"
+         endingLineNumber = "651"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -4429,11 +4429,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/BattleViewController.m"
-         timestampString = "361315116.2738"
+         timestampString = "361338211.056416"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "643"
-         endingLineNumber = "643"
+         startingLineNumber = "645"
+         endingLineNumber = "645"
          landmarkName = "-viewWillAppear:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -4695,11 +4695,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Warriors&apos; Heaven/RegViewController.m"
-         timestampString = "361239125.940975"
+         timestampString = "361341310.603063"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
          landmarkName = "-textFieldDidBeginEditing:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -4715,6 +4715,104 @@
          startingLineNumber = "73"
          endingLineNumber = "73"
          landmarkName = "-loadPlayer:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/HomeViewController.m"
+         timestampString = "361336682.975462"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "77"
+         endingLineNumber = "77"
+         landmarkName = "-viewDidAppear:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/BattleViewController.m"
+         timestampString = "361338198.046903"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "278"
+         endingLineNumber = "278"
+         landmarkName = "-loadPlayers"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/AppDelegate.m"
+         timestampString = "361339562.38631"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "527"
+         endingLineNumber = "527"
+         landmarkName = "-onReceiveStatus:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/HomeViewController.m"
+         timestampString = "361340884.644304"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "440"
+         endingLineNumber = "440"
+         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/HomeViewController.m"
+         timestampString = "361342319.248983"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "459"
+         endingLineNumber = "459"
+         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/HomeViewController.m"
+         timestampString = "361341967.969157"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "453"
+         endingLineNumber = "453"
+         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Warriors&apos; Heaven/HomeViewController.m"
+         timestampString = "361341986.199828"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "450"
+         endingLineNumber = "450"
+         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

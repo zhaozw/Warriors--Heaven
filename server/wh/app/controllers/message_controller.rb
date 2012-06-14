@@ -22,10 +22,10 @@ class MessageController < ApplicationController
         #     @t = Time.at(t.to_i)
         # end
         
-        @ch = params[:ch]
-        if !@ch
-            @ch = "public_user"
-        end
+        # @ch = params[:ch]
+        #    if !@ch
+        #        @ch = "public_user"
+        #    end
         
         @type = params[:type]
         if !@type 
