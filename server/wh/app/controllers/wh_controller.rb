@@ -346,25 +346,26 @@ class WhController < ApplicationController
             error("session not exist")
             return
         end
-        pagesize = 30
+        # pagesize = 30
        r = Userext.find_by_sql(" select profile, userexts.race, sex, title, uid, lastact, userexts.updated_at, zhanyi, name, hp, maxhp, gold, exp, level, prop, userexts.sid, fame,  dext, str, luck from users, userexts  where users.id=userexts.uid and userexts.sid<>'#{session[:sid]}' and userexts.zhanyi>30 and userexts.level>#{user_data.ext[:level]-1} order by userexts.level limit #{start}, #{pagesize}")
        if (r.size >0)
            for rr in r
                rr[:status] = ""
-               
-               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 10
+               # p "=>last act=#{rr[:lastact]}"
+               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 # in one minute
                    if (rr[:lastact] == "fight")
                        rr[:status] = "战斗中"
                    elsif (rr[:lastact] == "practise")
-                       rr[:status] = "练习中"
+                       rr[:status] = "修炼中"
                    elsif (rr[:lastact] == "research")
                        rr[:status] = "研究中"
                    elsif (rr[:lastact] == "buy")
                        rr[:status] = "shopping中"
                    elsif (rr[:lastact] == "sell")
                        rr[:status] = "交易中"
-                   elsif (rr[:lastact] =~ /quest_.*/)
-                       rr[:status] = "#{rr[:lastact].form(6)}"
+                   # elsif (/quest_.*/ =~ rr[:lastact] !=nil )
+                    elsif (rr[:lastact].start_with?("quest_"))
+                       rr[:status] = "#{rr[:lastact].from(6)}中"
                    elsif (rr[:lastact] = "idle")
                        rr[:status] = "发呆中"
                    elsif 
@@ -517,7 +518,7 @@ class WhController < ApplicationController
         return if !check_session or !user_data
         
         recoverPlayer(user_data.ext)
-        
+        user_data.ext[:lastact] = "fight"
         pending = user_data.ext.get_prop("pending")
         p "==>pending: #{pending.inspect}"
         if (pending != nil && pending["act"] != nil)

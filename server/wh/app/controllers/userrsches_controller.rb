@@ -121,7 +121,8 @@ class UserrschesController < ApplicationController
     end
 =end
     def research
-           
+        return if !check_session or !user_data
+        user_data.ext[:lastact] = "research"
         use_pot = params[:pot] # use how much potential
         if (!use_pot)
             use_pot = 1

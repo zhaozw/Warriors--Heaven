@@ -1,3 +1,81 @@
+#==============================#
+#           Title system       #
+#==============================#
+def default_male_title_list
+    [
+        {
+            :level=>0,
+            :name=>"新人"
+        },
+        {
+            :level=>5,
+            :name=>"武者"
+        },
+        {
+            :level=>10,
+            :name=>"少侠"
+        },
+        {
+            :level=>20,
+            :name=>"侠客"
+        }
+    ]
+end
+def default_female_title_list
+    [
+        {
+            :level=>0,
+            :name=>"新人"
+        },
+        {
+            :level=>5,
+            :name=>"女武者"
+        },
+        {
+            :level=>10,
+            :name=>"女少侠"
+        },
+        {
+            :level=>20,
+            :name=>"女侠"
+        }
+    ]
+end
+def titleForLevel(level, gender)
+    
+    if gender == 0
+        list = default_female_title_list
+    elsif gender == 1
+        list = default_male_title_list
+    end
+    
+    for i in 0..list.size-1
+        if list[i][:level] >level
+            return list[i-1][:name]
+        end
+    end
+    
+    return ""
+        
+end
+
+# set first title
+def setTitle1(c)
+    title = c.tmp[:title]
+    t = titleForLevel(c.tmp[:level], c.tmp[:sex])
+    if title!= nil and title.size>0
+        titles = title.split(" ")
+        if titles.size>1 and title2[1]!=nil and title2[1].size>0
+            t += " "+ titles[1]
+        end
+    end
+end
+
+
+#==============================#
+#           LEVEL BOSS         #
+#==============================#
+
 def levelBosses
     {
         "5" => [

@@ -12,7 +12,7 @@ class Shanyao < Herb
     end
     
     def intro
-        "大补元气 HP+70%"
+        desc
     end
     
     def weight

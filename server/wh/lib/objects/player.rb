@@ -98,7 +98,9 @@ include Pc
               :fame    =>@obj[:userext][:fame],
               :race    =>@obj[:userext][:race],
               :pot     =>@obj[:userext][:pot],
-              :gold    =>@obj[:userext][:gold]
+              :gold    =>@obj[:userext][:gold],
+              :title =>@obj[:userext][:title],
+              :sex=>@obj[:sex]
           }
           prop =  JSON.parse(@obj[:userext][:prop])
           prop.each {|k,v|
@@ -123,25 +125,7 @@ include Pc
     def query_all_skills
         return @obj.query_all_skills
     end
-    def set_temp(n, v)
-        if !@temp
-            setup_temp
-        end
-        @temp[n.to_sym] = v
-    end
-    def query_temp(name)
-        # if (@obj[name])
-        #     return @obj[name]
-        # end
-        # if (@obj.ext[name]) 
-        #     return @obj.ext[name]
-        # end
-        # if !@temp
-        #     setup_temp
-        # end
-        # return @temp[nam]
-        return tmp[name.to_sym]
-    end
+
     def query_wearing(position)
         if ! @setup_wearing 
             setup_wearing
@@ -487,6 +471,10 @@ include Pc
              else
                  ext[:level] += 1
                  ext[:exp] = 0
+                 ext[:title] = update_title1(self)
+                 
+                 # improve maxhp, max jingli, max_stam
+                 srand(Time.now.to_i)
                  mh_bonus = rand(ext[:level]/2 )
                  mh_bonus = ext[:level]/3 if mh_bonus <= ext[:level]/3
                  ext[:maxhp] += mh_bonus

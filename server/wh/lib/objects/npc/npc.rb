@@ -12,15 +12,11 @@ module Npc
     def isUser
         false
     end
-    def tmp
-        @temp
-    end
+
     def setup_skill
         @skills = {}
     end
-    def setup_temp
-        @temp = {}
-    end
+
     
     def setup
         setup_temp
@@ -78,21 +74,21 @@ module Npc
 =end
     end
     
-    def query_temp(name)
-        # if (!@temp)
-        #     setup_temp
-        # end
-        # return @temp[name]
-        return tmp[name.to_sym]
-    end
-    
-    def set_temp(name, value)
-        # if (!@temp)
-        #     setup_temp
-        # end
-        # @temp[name] = value
-        @temp[name.to_sym] = value
-    end
+    # def query_temp(name)
+    #       # if (!@temp)
+    #       #     setup_temp
+    #       # end
+    #       # return @temp[name]
+    #       return tmp[name.to_sym]
+    #   end
+    #   
+    #   def set_temp(name, value)
+    #       # if (!@temp)
+    #       #     setup_temp
+    #       # end
+    #       # @temp[name] = value
+    #       @temp[name.to_sym] = value
+    #   end
     
     # def set_equipment(position, eq)
     #     if (!@eqs)

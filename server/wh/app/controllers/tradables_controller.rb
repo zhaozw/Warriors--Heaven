@@ -60,6 +60,7 @@ class TradablesController < ApplicationController
     def buy
         return if !check_session or !user_data
         player.recover
+        user_data.ext[:lastact] = "buy"
         uid = session[:uid]
         item_id = params[:id]
         item = Tradable.find(item_id)
@@ -67,6 +68,7 @@ class TradablesController < ApplicationController
         
         if (item[:number] < 1)
             error("There is not enough number of item in stock. Please buy later.")
+            user_data.check_save
             return
         end
         max_eq = user_data.ext.get_prop("max_eq").to_i

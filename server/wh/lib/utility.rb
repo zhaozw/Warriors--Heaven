@@ -169,6 +169,27 @@ end
         return re  
     end
     
+#==============================#
+#           Title system       #
+#==============================#
+    # set first title
+def update_title1(c)
+    title = c.tmp[:title]
+    t = titleForLevel(c.tmp[:level], c.tmp[:sex])
+    if title!= nil and title.size>0
+        titles = title.split(" ")
+        if titles.size>1 and title2[1]!=nil and title2[1].size>0
+            t += " "+ titles[1]
+        end
+    end
+    return t
+end
+def update_title2(c, title)
+   
+    t = titleForLevel(c.tmp[:level], c.tmp[:sex])
+    
+    return "#{t} #{title}"
+end
     #=====================
     # skill related
     #=====================

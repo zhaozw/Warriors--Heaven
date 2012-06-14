@@ -45,9 +45,17 @@ class Armo  < Game::Equipment
       10
   end
   
-
+  def unlock_level
+         p "==>self class is #{self.class}"
+      if self.class.to_s =='Armo'
+          return 1
+      else
+          return super
+      end
+  end
   
   def price
       100
   end
+  
 end

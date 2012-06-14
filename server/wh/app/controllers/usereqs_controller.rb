@@ -66,8 +66,9 @@ class UsereqsController < ApplicationController
     end
     
     def sell
-
+        return if !check_session or !user_data
          player.recover
+         user_data.ext[:lastact] = "sell"
          eqs = Equipment.find(params[:id])
          eq = eqs
          if eq[:owner] != user_data[:id]

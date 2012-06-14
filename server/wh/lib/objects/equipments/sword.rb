@@ -45,5 +45,13 @@ class Sword  < Weapon
   def price
       100
   end
-
+  def unlock_level
+      p "==>self class is #{self.class}"
+      if self.class.to_s=='Sword'
+          return 1
+      else
+          return super
+      end
+  end
+  
 end

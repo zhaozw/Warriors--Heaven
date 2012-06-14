@@ -72,9 +72,8 @@
 - (void) loadPlayer:(id) data{
     if (!data)
         return;
-    for (int i = 0; i <[vEquipment.subviews count]; i++){
-        [[vEquipment.subviews objectAtIndex:i] removeFromSuperview];
-    }
+    [LightView removeAllSubview:vEquipment];
+
     
     id ext = [data valueForKey:@"userext"];
     NSString *title = [ext valueForKey:@"title"];

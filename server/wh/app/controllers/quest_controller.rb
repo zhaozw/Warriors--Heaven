@@ -107,7 +107,7 @@ class QuestController < ApplicationController
         end 
         
          p "==>ret=#{@quest.action_list.inspect}"
-    
+         user_data.ext[:lastact] = "quest_#{@quest.dname}"
         user_data.check_save
     end
     
