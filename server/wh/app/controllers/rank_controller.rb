@@ -6,4 +6,6 @@ class RankController < ApplicationController
         end
         
     end
+    def rankmoney
+    end
 end

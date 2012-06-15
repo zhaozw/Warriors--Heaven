@@ -1,21 +1,27 @@
 require "utility.rb"
 require 'memcache.rb'
-    mcd_default_options = {
-            :namespace => 'game:user',
-            :memcache_server => 'localhost:11211'
-    }
+
+# create memcached manually
+mcd_default_options = {
+        :namespace => 'game:user',
+        :memcache_server => 'localhost:11211'
+}
 
 if (!$memcached)  
 $memcached= MemCache.new(mcd_default_options[:memcache_server], mcd_default_options)
 end
- Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
+
+# load lib class manually
+Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
             load(f)
              p "load #{f}"
          }
+         
+# monitor global quest
 Process.detach fork{
     while(1)
-        sleep (3600) # per hour
-        p "."
+
+        # p "."
         Process.detach fork{
             Globalquest.connection.reconnect! 
 
@@ -37,6 +43,42 @@ Process.detach fork{
             }
 
         }
+        sleep (1800) # per hour
+    end
+}
 
+Process.detach fork{
+    # recover rails db environment
+    Userext.connection.reconnect! 
+    while(1)
+      
+        # richers
+        rs = Userext.find_by_sql("select * from users, userexts where users.id=userexts.uid order by gold desc limit 10")
+        view = ActionView::Base.new(Rails::Configuration.new.view_path)
+        page = view.render(:file=>"rank/rankmoney", :locals=>{:rs=>rs})
+        begin
+             aFile = File.new("public/rank_money.html","w+")
+             aFile.puts page
+             aFile.close
+        rescue Exception=>e
+             # logger.error e
+             p e.inspect
+        end
+        
+        
+        # highthand
+        rs = Userext.find_by_sql("select * from users, userexts where users.id=userexts.uid order by level desc limit 10")
+        view = ActionView::Base.new(Rails::Configuration.new.view_path)
+        page = view.render(:file=>"rank/ranklevel", :locals=>{:rs=>rs})
+        begin
+             aFile = File.new("public/rank_level.html","w+")
+             aFile.puts page
+             aFile.close
+        rescue Exception=>e
+             # logger.error e
+             p e.inspect
+        end
+        
+        sleep (3600*24) # per day
     end
 }

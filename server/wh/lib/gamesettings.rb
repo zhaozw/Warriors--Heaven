@@ -8,7 +8,7 @@ def default_male_title_list
             :name=>"新人"
         },
         {
-            :level=>1,
+            :level=>5,
             :name=>"武者"
         },
         {

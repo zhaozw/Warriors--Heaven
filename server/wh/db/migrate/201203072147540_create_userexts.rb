@@ -28,7 +28,8 @@ class CreateUserexts < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+     add_index(:userexts, ["gold"])
+    add_index(:userexts, ["level"]})
     add_index(:userexts, ["uid"], {:unique=>true})
     add_index(:userexts, ["sid"], {:unique=>true})
   end

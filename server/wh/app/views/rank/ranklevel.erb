@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="content-type" content = "text/ html; charset=UTF-8" />
+</head>
+<style>
+.row { width:220px;}
+.playername{ float:left;width:100px;border:0px solid red;}
+</style>
+<body bgcolor="white" style="padding:0;margin:0;">
+<img src="/images/btn_back.png" onclick="history.back()" style="position:absolute;left:6;top:6;z-index:100;width:70px;" />
+<div style="position:absolute;left:0;top:0;	">
+<div style="background:url(/images/scrolltop.png);width:320px;height:42px;font-size:13pt;text-align:center;">
+	
+	<div style="margin-top:0px;padding-top:10px;letter-spacing:10px;font-weight:bold;color:#ffff88;">高手榜
+	</div>
+
+</div>
+<div style="background:url(/images/scrollbody.png);width:320px;padding:10 50;">
+	<% require "rubyutility.rb" %>
+	<% index=1 %>
+	<% for r in rs %>
+	<div class="row">
+		<div style="float:left;width:60px;">
+			第<%=i_to_ch(index)%>名:
+		</div>
+		<div style="" class="playername">
+			<%=r[:name]%>
+		</div>
+		<div style="clear:both;"></div>
+		<div style="float:right;" class="">
+			Level&nbsp;	<%=r[:level]%> 
+		</div>
+		<div style="clear:both;"></div>
+	</div>
+	<% index += 1%>
+	<% end %>
+	
+</div>
+<div style="background:url(/images/scrollbottom.png);width:320px;height:58px;"></div>
+</div>
+</body>
+</html>
