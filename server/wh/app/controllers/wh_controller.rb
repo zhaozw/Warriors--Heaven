@@ -1498,4 +1498,9 @@ class WhController < ApplicationController
 
         @fight_result =r
     end
+    
+    # compatable for 1.0.0
+    def rank
+        redirect_to "/rank"
+    end
 end

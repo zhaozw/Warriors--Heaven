@@ -11,7 +11,7 @@ class CreateTradables < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+    add_index(:tradables, ["name"], {:unique=>true})
   end
 =begin
     
@@ -30,7 +30,7 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/yanlingjia', 1, 10, 100, 0, 0, null, null, null);
   
     insert into tradables values (null, 'objects/equipments/xuantiejian', 1, 10, 100, 0, 0, null, null, null);
- insert into tradables values (null, 'objects/equipments/chiyoutongkai', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/chiyoutongkai', 1, 10, 100, 0, 0, null, null, null);
  
     insert into tradables values (null, 'objects/fixtures/jinchuangyao', 2, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/fixtures/jiuhuayuluwan', 2, 10, 100, 0, 0, null, null, null);
