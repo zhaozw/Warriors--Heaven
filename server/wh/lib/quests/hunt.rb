@@ -156,7 +156,7 @@ class Hunt < Quest
             
                     if data[:progress] >= 100 && 
                         exp_bonus = 10+rand(user.tmp[:luck])/10
-                        exp_bonus *=2
+                        exp_bonus *=5
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
                         msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
