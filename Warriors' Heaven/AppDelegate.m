@@ -12,7 +12,7 @@
 #import "SBJson.h"
 #import "TrainingGround.h"
 #import "LightView.h"
-
+#import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
 @synthesize vcPurchase;
@@ -213,9 +213,10 @@
     btCloseHelpView.frame = CGRectMake(320-30, 0, 30, 30);
     [btCloseHelpView addTarget:self action:@selector(closeHelpView:) forControlEvents:UIControlEventTouchUpInside];
     vHelp.hidden = YES;
-    
+    vHelpWebView.delegate = self;
     [vcStatus view].frame = CGRectMake(0, 0, 320, 65);
     
+    controller = [[MFMailComposeViewController alloc] init];
 
     [window addSubview:[vcPurchase view]];
     [vcPurchase view].hidden = YES;
@@ -1097,4 +1098,35 @@
     [vcPurchase view].hidden = NO;
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"%@", request);
+    NSString* url = [request.URL absoluteString];
+    if ( [url hasPrefix:@"mailto://teamcode/"]){
+        NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
+        if ([MFMailComposeViewController canSendMail]){
+   
+     
+        controller.mailComposeDelegate = vcStatus;
+        [controller setSubject:@"快来加入我的战队"];
+         NSString* m = [NSString stringWithFormat:@"%@", tc];
+        [controller setMessageBody:m isHTML:NO];
+//            [vcStatus presentModalViewController:controller animated:YES];
+//        [window.rootViewController presentModalViewController:controller animated:YES];
+            [window addSubview:controller.view];
+            [window bringSubviewToFront:controller.view];
+//        [window bringSubviewToFront:[vcHome view]];
+//        [[vcStatus view] bringSubviewToFront:[controller view]];
+//        [self vHelp].hidden = YES;
+        }else{
+            NSString* surl = @"mailto://";
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:surl]];
+        }
+        return false;
+    }else if ([url hasPrefix:@"safari://"]){
+        NSString* surl = [[request.URL absoluteString] substringFromIndex:9] ;
+
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:surl]];
+    }
+    return TRUE;
+}
 @end

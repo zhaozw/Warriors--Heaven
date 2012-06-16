@@ -19,7 +19,7 @@
 @class PurchaseViewController;
 @class CharacterViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIWebViewDelegate>{
     DotHide_TabBarController *tabBarController;
     UIViewController *viewcontroller;
     UIWindow *window;
@@ -50,6 +50,7 @@
     NSMutableArray* floatMsg;
     BOOL debug;
     BOOL debug_reg;
+    MFMailComposeViewController* controller ;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbCompnayName;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vCompanyLogo;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PDColoredProgressView.h"
-
+#import <MessageUI/MFMailComposeViewController.h>
 @interface StatusViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *lbGold;
 @property (strong, nonatomic) IBOutlet UIProgressView *pvJingli;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "InAppPurchaseManager.h"
+#import "TestIap.h"
 
 @class AppDelegate;
 @class InAppPurchaseManager;
@@ -16,6 +17,8 @@
     AppDelegate * ad ;
     InAppPurchaseManager* iapm;
 //    NSMutableArray* iapm_list;
+    TestIap * iaptest;
+    
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vwPurchase;
 - (IBAction)onClose:(id)sender;

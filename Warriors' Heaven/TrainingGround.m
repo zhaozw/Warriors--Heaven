@@ -552,6 +552,8 @@
         [btn addTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self performSelector:@selector(practiseThread) withObject:NULL afterDelay:1];
+//    [self performSelectorInBackground:@selector(practiseThread) withObject:NULL];
+     
 }
 - (void)startPractise:(UIButton*) btn{
     NSLog(@"train skill");

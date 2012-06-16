@@ -251,4 +251,8 @@
     [tfTeamCode resignFirstResponder];
     return YES;
 }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return TRUE;
+}
 @end

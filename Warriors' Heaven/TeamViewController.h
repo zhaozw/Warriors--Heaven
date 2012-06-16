@@ -12,14 +12,13 @@
 #import "BossViewController.h"
 
 @class BossViewController;
-@interface TeamViewController : UIViewController{
+@interface TeamViewController :  UIViewController<UIWebViewDelegate>{
     id members;
 }
 @property(nonatomic, assign)     int currentSelectedList;
 @property(nonatomic, assign) BOOL needReload;
 
-- (IBAction)onSelectTab1:(id)sender;
-- (IBAction)onSelectTab2:(id)sender;
+
 @property (strong, nonatomic) IBOutlet BossViewController *vcPlayer;
 @property (strong, nonatomic) IBOutlet LightView *vMyTeam;
 @property (strong, nonatomic) IBOutlet LightView *vJoinedTeams;
@@ -29,8 +28,11 @@
 @property (strong, nonatomic) UILabel *lbTeamPower;
 @property (strong, nonatomic) UILabel *lbTeamCode;
 @property (strong, nonatomic) IBOutlet UIButton *btMyTeam;
+@property (strong, nonatomic) IBOutlet UIButton *btJoinTeam;
+
+- (IBAction)onSelectTab1:(id)sender;
+- (IBAction)onSelectTab2:(id)sender;
 - (IBAction)onJoinTeam:(id)sender;
 - (IBAction)onHelpTeamCode:(id)sender;
-@property (strong, nonatomic) IBOutlet UIButton *btJoinTeam;
 - (BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

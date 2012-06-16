@@ -10,6 +10,7 @@
 #import "StatusViewController.h"
 #import "AppDelegate.h"
 #import "EGOImageView.h"
+
 @class AppDelegate;
 @interface HomeViewController : UIViewController<UIWebViewDelegate>{
     UIImageView * bgView;

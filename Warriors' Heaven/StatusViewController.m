@@ -152,4 +152,32 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error;
+{
+    if (result == MFMailComposeResultSent) {
+        NSLog(@"It's away!");
+    }
+    controller.view.hidden = YES;
+//    [self dismissModalViewControllerAnimated:NO];
+//    [[self parentViewController] dismissModalViewControllerAnimated:YES];
+//    if ([[self parentViewController] respondsToSelector:@selector(dismissModalViewControllerAnimated:)]){
+//        
+//        [[self parentViewController] dismissModalViewControllerAnimated:YES];
+//        
+//    } else {
+//        
+//        [[self presentingViewController] dismissModalViewControllerAnimated:YES ];
+//    }
+    
+    AppDelegate * ad = [UIApplication sharedApplication].delegate;
+//    [self resignFirstResponder] ;
+//    ad.window.userInteractionEnabled = YES;
+    [ad.window.rootViewController dismissModalViewControllerAnimated:YES];
+    [ad showMsg:@"Send Mail OK" type:0 hasCloseButton:YES];
+//    [[controller view] removeFromSuperview];
+//    [controller removeFromParentViewController];
+}
+
 @end

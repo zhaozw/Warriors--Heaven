@@ -97,6 +97,8 @@
 //                            [iapm1 purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
 //                       
                             [iapm purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
+//                            iaptest = [[TestIap alloc] init];
+//                            [iaptest requestProUpgradeProductData];
 
                         }
                     }
