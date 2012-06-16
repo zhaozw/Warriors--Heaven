@@ -12,10 +12,10 @@ $memcached= MemCache.new(mcd_default_options[:memcache_server], mcd_default_opti
 end
 
 # load lib class manually
-Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
-            load(f)
-             p "load #{f}"
-         }
+#Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
+#           load(f)
+#           p "load #{f}"
+#      }
          
 # monitor global quest
 Process.detach fork{
