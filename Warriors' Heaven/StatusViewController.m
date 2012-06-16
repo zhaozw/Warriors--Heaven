@@ -175,7 +175,7 @@
 //    [self resignFirstResponder] ;
 //    ad.window.userInteractionEnabled = YES;
     [ad.window.rootViewController dismissModalViewControllerAnimated:YES];
-    [ad showMsg:@"Send Mail OK" type:0 hasCloseButton:YES];
+//    [ad showMsg:@"Send Mail OK" type:0 hasCloseButton:YES];
 //    [[controller view] removeFromSuperview];
 //    [controller removeFromParentViewController];
 }

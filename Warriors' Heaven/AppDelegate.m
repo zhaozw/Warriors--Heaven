@@ -217,7 +217,9 @@
     [vcStatus view].frame = CGRectMake(0, 0, 320, 65);
     
     controller = [[MFMailComposeViewController alloc] init];
-
+[window addSubview:controller.view];
+    controller.view.hidden = YES;
+    
     [window addSubview:[vcPurchase view]];
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
@@ -1112,7 +1114,8 @@
         [controller setMessageBody:m isHTML:NO];
 //            [vcStatus presentModalViewController:controller animated:YES];
 //        [window.rootViewController presentModalViewController:controller animated:YES];
-            [window addSubview:controller.view];
+            
+            controller.view.hidden = NO;
             [window bringSubviewToFront:controller.view];
 //        [window bringSubviewToFront:[vcHome view]];
 //        [[vcStatus view] bringSubviewToFront:[controller view]];
