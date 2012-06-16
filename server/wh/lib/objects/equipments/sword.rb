@@ -32,14 +32,14 @@ class Sword  < Weapon
   end
   
   def effect
-      "Damage +30"
+      "Damage +20"
   end
   def rank
       2
   end
   
   def damage
-      30
+      20
   end
   
   def price

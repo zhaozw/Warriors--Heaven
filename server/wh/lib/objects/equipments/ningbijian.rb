@@ -28,14 +28,14 @@ class Ningbijian  < Sword
   end
   
   def effect
-      "Damage +10"
+      "Damage +30"
   end
   def rank
       3
   end
   
   def damage
-      10
+      30
   end
   
   def price

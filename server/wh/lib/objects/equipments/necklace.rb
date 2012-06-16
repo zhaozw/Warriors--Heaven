@@ -16,8 +16,13 @@ class Necklace  < Weapon
   def wearOn
       "neck"
   end
-  
-def weight
+  def effect
+      "luck +2"
+  end
+  def luck
+      2
+  end
+  def weight
       0
   end
     def image

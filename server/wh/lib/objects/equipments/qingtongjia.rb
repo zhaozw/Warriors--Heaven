@@ -1,6 +1,6 @@
 require 'objects/equipments/armo.rb'
 
-class Yanlingjia  < Armo
+class Qingtongjia  < Armo
     def initialize
         super
         set("hp", 100)
@@ -9,11 +9,11 @@ class Yanlingjia  < Armo
   
   
   def dname
-    "雁翎甲"
+    "青铜甲"
   end
   
   def desc
-      "传说天宫饲养的大雁所掉落的羽毛制成。柔软而又坚固。"
+      "青铜制成的坚固甲胄"
   end
 
     
@@ -26,26 +26,26 @@ class Yanlingjia  < Armo
   end
   
   def image
-      "obj/equipments/yanlingjia.jpg?v=2"
+      "obj/equipments/qingtongjia.jpg?v=1"
   end
   
   def rank
-      5
+      3
   end
     
   def effect
-      "deffence +120"
+      "defence +20"
   end
   
 
     
   def defense
-      120
+      20
   end
   
 
   
   def price
-      8000
+      200
   end
 end

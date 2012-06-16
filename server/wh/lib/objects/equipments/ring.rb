@@ -16,7 +16,9 @@ class Ring  < Weapon
   def wearOn
       "finger"
   end
-
+  def luck
+      1
+  end
   def weight
       0
   end
@@ -25,6 +27,12 @@ class Ring  < Weapon
   end
     def rank
       2
+  end
+  def effect
+      "Damage +3\nLuck +1"
+  end
+  def damage
+      3
   end
     def price
       100

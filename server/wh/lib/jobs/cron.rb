@@ -1,6 +1,7 @@
 require "utility.rb"
 require 'memcache.rb'
 
+def launch_jobs
 # create memcached manually
 mcd_default_options = {
         :namespace => 'game:user',
@@ -12,7 +13,7 @@ $memcached= MemCache.new(mcd_default_options[:memcache_server], mcd_default_opti
 end
 
 # load lib class manually
-#Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
+# Dir["#{File.dirname(__FILE__)}/../../lib/**/*.rb"].each { |f| 
 #           load(f)
 #           p "load #{f}"
 #      }
@@ -82,3 +83,5 @@ Process.detach fork{
         sleep (3600*24) # per day
     end
 }
+
+end

@@ -24,7 +24,7 @@ class Tianchanjia  < Armo
   end
   
   def image
-      "obj/equipments/tiancanjia.jpg"
+      "obj/equipments/tiancanjia.jpg?t=1"
   end
   
   def rank

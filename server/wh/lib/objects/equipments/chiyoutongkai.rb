@@ -34,7 +34,7 @@ class Chiyoutongkai  < Armo
   end
     
   def effect
-      "deffence +35"
+      "defence +35"
   end
   
 

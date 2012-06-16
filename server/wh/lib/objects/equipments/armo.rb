@@ -36,7 +36,7 @@ class Armo  < Game::Equipment
   end
     
   def effect
-      "deffence +5"
+      "defence +10"
   end
   
 

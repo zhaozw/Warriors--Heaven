@@ -141,7 +141,8 @@ class TradablesController < ApplicationController
         # price = item[:price]
         price = obj.price
         if (gold -price <0)
-            error("Sorry, you don't have enough gold.")
+            # error("Sorry, you don't have enough gold.")
+            error("你的Gold不够 ! \n（现在钱庄促销中6¥购买2000Gold哦）")
             return
         end
         

@@ -36,8 +36,11 @@ class Blade  < Weapon
       2
   end
 
+def effect
+    "Damage +20"
+end
   def damage
-      10
+      20
   end
   
   def price
