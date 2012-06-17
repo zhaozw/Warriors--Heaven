@@ -10,7 +10,7 @@ def create_obj(path)
         when "special":eqtype=4
         when "fixture":eqtype=2
         when "equipment":eqtype=1
-        when "premium":eqtype=4
+        when "premium":eqtype=3
     end
     prop={
         :hp=>r.hp

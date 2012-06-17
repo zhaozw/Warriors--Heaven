@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
         end
         
     end
-    
+=begin    
     # get item (eqtype=2)
     def get_item(o)
         # Usereq.new({
@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
         end
         
     end
-    
+=end    
     # def update_quest(name, add_progress)
     #     q = query_quest(name)
     #     q[:progress] += add_progress
@@ -347,7 +347,7 @@ class User < ActiveRecord::Base
                 
             }
         end
-        
+=begin        
         if self[:items]
             for us in self[:items]
                 if (us.data)
@@ -360,6 +360,7 @@ class User < ActiveRecord::Base
                 end
             end
         end
+=end
         if self[:objects]
             for us in self[:objects]
                 if (us.data)
@@ -473,6 +474,7 @@ class User < ActiveRecord::Base
             
         return self[:objects]
     end
+    
     def query_all_equipments
         if !self[:equipments]
             load_equipments
@@ -502,19 +504,19 @@ class User < ActiveRecord::Base
     
     def remove_obj(obj)
         o = query_obj_by_id(obj.data[:id])
-              p "==>items33330:#{self[:items].inspect}"
+              # p "==>items33330:#{self[:items].inspect}"
         if !o
             return nil
         end
-              p "==>items33331:#{obj[:eqtype]}"
+              # p "==>items33331:#{obj[:eqtype]}"
         if obj[:eqtype].to_i ==1
             unwear_equipment(obj)
         else
-            p "==>items3333:#{self[:items].inspect}"
-            if (self[:items])
-                 self[:items].delete(o)
-                 p "==>items3:#{self[:items].inspect}"
-             end
+            # p "==>items3333:#{self[:items].inspect}"
+            # if (self[:items])
+                 # self[:items].delete(o)
+                 # p "==>items3:#{self[:items].inspect}"
+             # end
         end
         
         if (self[:objects])
@@ -524,7 +526,7 @@ class User < ActiveRecord::Base
         obj[:owner]=nil   
         o[:owner]=nil   
         self[:cached] = false         
-        p "==>items21:#{self[:items].inspect}"
+        # p "==>items21:#{self[:items].inspect}"
         return o
     end
     
@@ -565,7 +567,7 @@ class User < ActiveRecord::Base
         end
         
     end
-    
+=begin    
     def load_items
         # eqs = Equipment.find_by_sql("select * from equipment where owner=#{self[:id]} and eqtype=2")
         eqs = query_all_obj
@@ -576,6 +578,7 @@ class User < ActiveRecord::Base
             self[:items].push(eq) if eq.data[:eqtype].to_i==2
         end
     end
+
     def query_items
         p "=>items=#{self[:items]}"
         # if !self[:items]
@@ -583,6 +586,21 @@ class User < ActiveRecord::Base
         # end
         return self[:items]
     end
+=end
+
+    def query_items
+           # eqs = query_all_obj
+          # p "eqs=#{eqs.inspect}"
+        # self[:items] =[]
+        ret =[]
+        for eq in eqs 
+            # p "eq=#{eq.inspect}"
+            # self[:items].push(eq) if eq.data[:eqtype].to_i==2
+            ret.push(eq) if eq.data[:eqtype].to_i==2
+        end
+        return ret
+    end
+    
     def query_obj_by_id(id)
         p "==>query obj by id #{id}"
         eqs = query_all_obj
