@@ -589,7 +589,7 @@ class User < ActiveRecord::Base
 =end
 
     def query_items
-           # eqs = query_all_obj
+        eqs = query_all_obj
           # p "eqs=#{eqs.inspect}"
         # self[:items] =[]
         ret =[]

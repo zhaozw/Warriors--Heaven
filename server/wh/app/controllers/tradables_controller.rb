@@ -66,11 +66,23 @@ class TradablesController < ApplicationController
         item = Tradable.find(item_id)
         obj = load_obj(item[:name], item)
         
+        # check stock
         if (item[:number] < 1)
             error("There is not enough number of item in stock. Please buy later.")
             user_data.check_save
             return
         end
+        
+        # check whether user can buy
+        context = {
+            :c=>player,
+            :m=>""
+        }
+        if !obj.userCanGet?(context)
+            error(context[:m])
+            return
+        end
+        
         max_eq = user_data.ext.get_prop("max_eq").to_i
         if max_eq < 5
             user_data.ext.set_prop("max_eq", 5)
@@ -103,22 +115,29 @@ class TradablesController < ApplicationController
                # end
 
                if (eqslot)
+                   
                    if eqslot.class==String
                        eqslot = JSON.parse(eqslot)
                    end
                        p "===> eqslot: #{eqslot.inspect}, #{eqslot['0']}"
+                       num = 0
                    for i in 0..max_eq-1
                        p "===>slot[#{i}] #{eqslots[i.to_s]}"
                        if !eqslots[i.to_s]
                            found_available = i
                            break
                         end
+                        num+=1
                    end
                    if found_available < 0
                        # error("There is not availabe slot for new equipment. You can buy more slot.")
                        error("你的装备栏已经满了.你可以购买更多装备栏。")
                        return
                    end
+                    if (num >= 30)
+                        error("您的装备数量已达上限")
+                    return
+                end
                else
                      found_available =0
                end
@@ -130,6 +149,10 @@ class TradablesController < ApplicationController
                 if (count+1 > user_data.ext.get_prop("max_item").to_i)
                     # error("There is not availabe slots for new item. You can buy more slot.")
                     error("你的物品栏已经满了.你可以购买更多物品栏。")
+                    return
+                end
+                if (count >= 30)
+                    error("您的物品数量已达上限")
                     return
                 end
             end

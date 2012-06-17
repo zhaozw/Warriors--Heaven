@@ -177,15 +177,23 @@ include Pc
     end
     
     def get_obj(o)
-        if obj.data[:eqtype] == 2 && query_items.size >=30
+        items = query_items
+        eqs = query_equipments
+        if o.data[:eqtype] == 2 && items.size >=30
             send_msg(id, "你的物品数量已达上限，只好放弃了#{o.dname}")
             return
         end
-        if obj.data[:eqtype] == 1 && query_equipments.size >=30
+        if o.data[:eqtype] == 1 && eqs.size >=30
             send_msg(id, "你的物品数量已达上限，只好放弃了#{o.dname}")
             return
         end
             
+        if o.data[:eqtype] == 2 && items.size == 29
+            send_msg(id, "警告:您的物品数量已达上限，下次将无法获得物品")
+        end
+        if o.data[:eqtype] == 1 && eqs.size == 29
+            send_msg(id, "警告:您的物品数量已达上限，下次将无法获得装备")
+        end
         @obj.get_obj(o)
     end
     

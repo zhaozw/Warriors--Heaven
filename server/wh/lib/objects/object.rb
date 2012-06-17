@@ -225,5 +225,8 @@ class Object
             return (rank-1)*5
         end
     end
+    def userCanGet?(c)
+        true
+    end
 end
 end

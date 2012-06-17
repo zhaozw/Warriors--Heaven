@@ -36,4 +36,13 @@ class Additemslot  < Special
   def useonbuy
       true
   end
+  
+  def userCanGet?(context)
+      if (context[:c].ext.get_prop("max_item").to_i >= 30)
+          context[:m] = "您的物品栏数量以上限, 无法再增加."
+          return false
+      end
+      return true
+  end
+
 end
