@@ -121,7 +121,8 @@
     if (nodeHP && nodeMaxHP){
         int hp = [nodeHP intValue];
         int percentage = hp  *100/[ nodeMaxHP intValue];
-        [lbHp setText:[NSString stringWithFormat:@"%d%%", percentage]];
+//        [lbHp setText:[NSString stringWithFormat:@"%d%%", percentage]];
+        [lbHp setText:[NSString stringWithFormat:@"%d", hp]];
     }else{
          [lbHp setText:@"N/A"];
     }

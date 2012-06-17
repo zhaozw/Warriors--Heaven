@@ -1110,7 +1110,7 @@
      
         controller.mailComposeDelegate = vcStatus;
         [controller setSubject:@"快来加入我的战队"];
-         NSString* m = [NSString stringWithFormat:@"%@", tc];
+         NSString* m = [NSString stringWithFormat:@"Hi, \n快来玩IPhone游戏《侠客行》吧，加入我们的战队就可获得装备哦。记住注册时填写我的Code \"%@\" ^_^.", tc];
         [controller setMessageBody:m isHTML:NO];
 //            [vcStatus presentModalViewController:controller animated:YES];
 //        [window.rootViewController presentModalViewController:controller animated:YES];

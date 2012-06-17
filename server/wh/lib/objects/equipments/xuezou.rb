@@ -31,7 +31,7 @@ class Xuezou  < Blade
     end
 
     def rank
-        3
+        5
     end
 
     def damage
@@ -47,6 +47,6 @@ class Xuezou  < Blade
     end
     
     def effect
-      "Damage +100"
+      "Damage +50"
     end
 end
