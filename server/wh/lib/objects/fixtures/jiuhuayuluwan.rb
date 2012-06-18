@@ -52,6 +52,9 @@ class Jiuhuayuluwan < Fixture
         p.delete_obj(self)
         context[:msg]="你服下一#{unit}#{dname}, 觉得一股清气贯通全身！"
     end
+        def unlock_level
+            0
+        end
     
 end
 

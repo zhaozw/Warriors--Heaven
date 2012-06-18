@@ -14,15 +14,15 @@ class Jinchuangyao < Fixture
     end
     
     def desc
-        "这是一盒金疮药，可以用来治疗外伤."
+        intro
     end
     
     def intro
-        "治疗外伤 HP+20"
+       "这是一盒金疮药，可以用来治疗外伤."
     end
     
     def effect
-        "治疗外伤 HP+50"
+        "治疗外伤 HP+20"
     end
     
     def weight

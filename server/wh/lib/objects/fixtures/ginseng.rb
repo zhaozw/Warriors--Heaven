@@ -38,4 +38,7 @@ class Ginseng < Herb
        def price
         100
     end
+        def unlock_level
+            0
+        end
 end

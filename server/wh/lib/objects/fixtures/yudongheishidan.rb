@@ -52,6 +52,8 @@ class Yudongheishidan < Fixture
         p.delete_obj(self)
         context[:msg]="你服下一#{unit}#{dname}, 伤处渐渐愈合！"
     end
-    
+        def unlock_level
+            0
+        end
 end
 

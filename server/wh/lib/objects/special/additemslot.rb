@@ -39,7 +39,7 @@ class Additemslot  < Special
   
   def userCanGet?(context)
       if (context[:c].ext.get_prop("max_item").to_i >= 30)
-          context[:m] = "您的物品栏数量以上限, 无法再增加."
+          context[:m] = "您的物品栏数量已达上限, 无法再增加."
           return false
       end
       return true

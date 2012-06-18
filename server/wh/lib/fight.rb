@@ -211,7 +211,7 @@ end
       if attacker.tmp[:main_weapon]
           weapon = attacker.tmp[:main_weapon].dname
       end
-      msg = msg.gsub(/\$l/, limb).gsub(/\$w/, weapon)
+      msg = msg.gsub(/\$l/, limb).gsub(/\$w/, "<span class='weapon'>#{weapon}</span>")
            if (attacker[:isUser])
                 m = msg.gsub(/\$N/, "你").gsub(/\$n/, defenser.name).gsub(/\$p/, "他")
             elsif (defenser[:isUser])
@@ -219,7 +219,7 @@ end
             else
                 m = msg.gsub(/\$N/, "<span class='npc'>#{attacker.name}</span>").gsub(/\$n/, defenser.name).gsub(/\$p/, "你")
             end
-        p m
+        # p m
         return  m
     end
       
@@ -433,7 +433,7 @@ end
     # Usage:  attack parry dodge
     #
     def skill_power(skillname, player, usage)
-        p "==>calc #{player.name}skill power of #{skillname} for #{usage}:"
+        p "==>calc #{player.name} skill power of #{skillname} for #{usage}:"
        skill =  player.query_skill(skillname)
        if (skill == nil)
            #logger.info("user #{player[:id]}-#{player.ext[:name]} doesn't have skill '#{skillname}'")
@@ -441,32 +441,43 @@ end
        end
        # p = skill.power(context)
        level = skill.data[:level]
-       p "=>level=#{level} apply_attack=#{player.tmp[:apply_attack]}"
+       p "=>level=#{level} apply_attack=#{player.tmp[:apply_attack]} apply_dodge=#{player.tmp[:apply_dodge]}"
        
        if (usage == "attack" && player.tmp[:apply_attack] !=  nil)
            level += player.tmp[:apply_attack]
        end
        
         if (usage == "dodge" && player.tmp[:apply_dodge] != nil)
-           level += player.tmp[:apply_dodge]
+           # level += player.tmp[:apply_dodge]
+             level = level * ( (100 + player.tmp[:apply_dodge]/10 ).to_f / 100 )
        end  
        
        # if (usage == "parry" && player.tmp[:apply_defense] != nil)
        #      level += player.tmp[:apply_dodge]
        #  end      
-       
+        jingli_bonus = 50 + player.tmp[:jingli]/ (player.tmp[:max_jl]+1) * 50
+        if (jingli_bonus > 150)
+             jingli_bonus = 150
+        end
+      
+       total_exp = calc_total_exp(player.tmp[:level])
+             p "level=#{level} jingli_bonus=#{jingli_bonus}, total exp #{total_exp}"
+       if( level<1 ) 
+           return (total_exp/20 * (jingli_bonus/10) )
+       end
+
         p =level**3/3 
         str  = player.tmp[:str]
         dext = player.tmp[:dext]
-         p "===>#{player.tmp.inspect}"
-        total_exp = calc_total_exp(player.tmp[:level])
-        p "==>total exp #{total_exp}"
+         # p "===>#{player.tmp.inspect}"
+  
+        p "==>p=#{p}, level=#{level} str=#{str} dext=#{dext} "
         if (usage == "attack" || usage == "parry")
             p =   (p + total_exp +1) / 30 * (( str+1)/10)
         else
             p =   (p + total_exp +1) / 30 * (( dext+1)/10)
         end
-        
+          p "==>skill power=#{p}"
        if p <= 0
            return 1
        else
@@ -506,8 +517,12 @@ end
         context[:msg] += a[rand(a.length)] + "(<span class='attr'>体力</span><span class='damage'>-#{cs}</span>)"
         
     end
-   def __fight(attacker, defenser)  # one round
+   def __fight(attacker, defenser, context)  # one round
         msg = ""
+        style_c = context[:style] 
+        context[:round] += 1
+        msg += "\n<div class=\"#{style_c}\">\n"
+        
         
         context_a = {
                     :user => attacker,
@@ -517,9 +532,12 @@ end
                     :msg => ""
         }
         if (attacker.tmp[:stam] <= 0 )
-            msg = line translate_msg("$N的体力不够， 无法发起进攻", context_a) 
-            return msg
-        end
+                msg += line translate_msg("$N的体力不够， 无法发起进攻", context_a) 
+                
+                
+            
+           
+        else
 
                 # do attack
                 damage = 0
@@ -531,7 +549,9 @@ end
                     :gain => defenser[:gain],
                     :msg => ""
             }
-            
+            if context[:riposte]
+                     msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
+            end
             # perform ?
               _perp= rand(attacker.tmp[:maxhp])
             p "==>#{attacker.name} willperform:#{ attacker.tmp[:willperform]}, _perp=#{_perp}, perform=#{attacker.tmp[:perform].inspect}"
@@ -564,25 +584,34 @@ end
              p "attack skill #{_attack_skill[:skname]} level=#{_attack_skill[:level]}\n"
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
-           #  attack_speed = query_skill(attacker[:attack_skill][:skill][:skname], "power", attacker[:attack_skill][:skill], context_a)
-                attack_power = skill_power(_attack_skill[:skname], context_a[:user], "attack")
-           #  defenser_speed = query_skill(defenser[:dodge_skill][:skill][:skname], "power", defenser[:dodge_skill][:skill], context_d)
-              if (defenser.tmp[:stam]<=0)
+             attack_power = skill_power(_attack_skill[:skname], attacker, "attack")
+             if context[:combo] != nil
+                 attack_power /= 2**(context[:combo]+1) 
+             end
+          
+              # if no stam or is type of riposte, dp = 0
+              if (defenser.tmp[:stam]<=0 )
                   dodge_power = 0
                   msg += line "<br/>\n$n的体力不够，无法闪躲"
-              else
-                dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], context_d[:user], "dodge") + defenser.tmp[:apply_dodge]/10
+                 
+              elsif context[:riposte]
+                  dodge_power = 0
+                   context[:riposte] = false
+                     msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
+                else
+                    dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], defenser, "dodge") + defenser.tmp[:apply_dodge]/10
                 end
-             p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
-             p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
-             # msg += "dp:#{dodge_power} ap:#{attack_power}"
+             # p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
+             # p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
+              msg += "<!--1-->dp:#{dodge_power} ap:#{attack_power}<!--0-->"
     
             attacker_exp_bonus = 0
             attacker_pot_bonus = 0
             defenser_exp_bonus = 0
             defenser_pot_bonus = 0
-            
-             if rand(attack_power+dodge_power) < dodge_power # miss
+            hurt = false
+            r_apdp = rand(attack_power+dodge_power)
+             if  r_apdp < dodge_power # miss
                  #
                  # attack missed, dodge succeeded
                  #
@@ -638,6 +667,11 @@ end
                         msg += "潜能<span>+1</span></span>"
                
                         msg += "</div><!--0-->"
+                 end
+                 
+                 if rand(dodge_power - r_apdp) > attack_power
+                     msg += "<!--1--><div>#{line translate_msg("$N一击不中，露出了破绽！", context_a)}</div><!--0-->"
+                     context[:riposte] = true
                  end
                  
                  damage += 1 #  result_dodge                         
@@ -715,7 +749,7 @@ end
                  
                  # 
                  _perp = rand(parry_power  + attack_power  )
-                  # msg += "pp:#{parry_power}  _perp=#{_perp}"
+                  msg += "<!--1-->pp:#{parry_power}  _perp=#{_perp}<!--0-->"
                  if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded
@@ -761,6 +795,7 @@ end
                     # failed in parrying
                     #
                     # do damage
+                    hurt = true
                     context_a[:damage] = damage
                     msg += line doDamage(_attack_skill, context_a, attack_power)
                     
@@ -809,16 +844,99 @@ end
                             msg += "潜能<span>+1</span>"
                             msg += "</div><!--0-->"
                     end
+                    
+
                 end # failed in parrying
                 
          
             end # hit, check parry
              
-             # show status
-             msg += line( status_lines(attacker, defenser))
+            if !hurt
+                if context[:combo] != nil && context[:combo]>0
+                    msg = "<!--1--><br/><div class='warn_1'>#{attacker.name}#{context[:combo]+1 }连击!</div><br/><!--0-->" + msg
+                    context[:combo] = nil
+                end
+            end
             
+  
+      end
+            # show status
+             msg += line( status_lines(attacker, defenser))         
+             translate_msg(msg, context_a)      
+             msg += "</div>\n"
              
-             translate_msg(msg, context_a)
+            # exit ?
+            will_return = false
+            r_msg = ""
+            if context[:round] >=100
+                r_msg += line "<div>双方已战斗了100回合!</div>"
+                 will_return = true
+                # return msg
+            end
+             
+            if (defenser.tmp[:hp] <=0 )
+                 r_msg += line "<div>#{defenser.name}战斗不能</div>"
+                 context[:winner] = attacker
+                        will_return = true
+                 # return msg
+           
+             end
+      
+             if (defenser.tmp[:stam] <=0 && attacker.tmp[:stam]<=0)
+                 r_msg += line "<div>双方都已经精疲力尽了!</div>"
+                  will_return = true
+                 # return msg
+             end
+             
+             if will_return
+                 if context[:combo] != nil # wow ! finish with combo 
+                     msg = msg+"<!--1--><br/><div class='warn_1'>#{attacker.name}#{context[:combo]+2 }连击!</div><br/><!--0-->" + r_msg
+                 else
+                     msg = msg + r_msg
+                 end
+                 return msg
+             end
+             
+            # next round !
+                
+                # recalculate apply varaibles, because perform may make change
+                 calc_apply_var(attacker)
+                 calc_apply_var(defenser)
+            
+                    # 
+                    #  combo ?
+                    #
+                    
+                    if rand(r_apdp - dodge_power) > dodge_power
+                 
+                        if context[:combo] != nil 
+                            context[:combo] += 1
+                        else
+                            context[:combo] = 0
+                        end
+                        # attacker.tmp[:apply_attack] -= r_apdp
+                            
+                          msg += line "<div class='warn_1'>#{attacker.name}乘#{defenser.name}手忙脚乱，发动连续进攻！</div>"
+                          # no swap
+                          msg += __fight(attacker, defenser, context)
+                          return msg
+                     end 
+             
+                # swap attacker and defenser
+        
+                if style_c == "user"
+                   style_c = "enemy"
+                else
+                    style_c = "user"
+                end
+                context[:style] = style_c
+        
+              
+                msg += __fight(defenser,attacker,context)
+            
+       
+            return msg
+             
     end
     def status_lines(attacker, defenser)
         msg =""
@@ -1178,6 +1296,7 @@ end
           msg += status_lines(attacker, defenser)
        
         winner = nil
+=begin
         while (i < 100 ) # max 100 turn
             if  style_c == "user"
                style_c = "enemy"
@@ -1187,9 +1306,7 @@ end
             
              # msg += "<!--1--><div class=\"#{style_c}\">\n#{__fight(attacker, defenser)}\n</div>\n";
              msg += "\n<div class=\"#{style_c}\">\n#{__fight(attacker, defenser)}</div>\n"
-             # recalculate apply varaibles, because perform may make change
-             calc_apply_var(p1)
-             calc_apply_var(p2)
+     
              
             i = i+1
             
@@ -1214,8 +1331,16 @@ end
       
       
         end  #while
-        
-        context[:round] = i
+=end        
+        f_context={
+            :style=>style_c,
+            :round=>0,
+            :winner=>nil
+        }
+        msg += __fight(attacker, defenser, f_context)
+        i = f_context[:round]
+        winner = f_context[:winner]
+        context[:round] = f_context[:round]
         #
         # save to db # TODO should the enemy also save gain ?
         #

@@ -178,7 +178,7 @@ include Pc
     
     def get_obj(o)
         items = query_items
-        eqs = query_equipments
+        eqs = query_all_equipments
         if o.data[:eqtype] == 2 && items.size >=30
             send_msg(id, "你的物品数量已达上限，只好放弃了#{o.dname}")
             return
