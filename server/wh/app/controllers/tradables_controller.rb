@@ -277,36 +277,36 @@ class TradablesController < ApplicationController
 
             list_onsale= [
               {
-                  :id=>"com.joycom.wh.iap.2000gold",
+                  :id=>"com.joycom.xkx.iap.2000gold",
                 :name=>"2000Gold",
                 :price=>"CN¥12",
                 :onsale=>"CN¥6",
                 :discount=>"-50%"
             },
             {
-                     :id=>"com.joycom.wh.iap.5000gold",
+                     :id=>"com.joycom.xkx.iap.5000gold",
                 :name=>"5000Gold",
                 :price=>"CN¥18",
                 :onsale=>"CN¥12",
                 :discount=>"-33%"
             },
                         {
-                                 :id=>"com.joycom.wh.iap.8000gold",
+                                 :id=>"com.joycom.xkx.iap.8000gold",
                 :name=>"8000Gold",
                   :price=>"CN¥25"
             },
                         {
-                                 :id=>"com.joycom.wh.iap.10000gold",
+                                 :id=>"com.joycom.xkx.iap.10000gold",
                 :name=>"10000Gold",
                   :price=>"CN¥30"
             },
                         {
-                                 :id=>"com.joycom.wh.iap.20000gold",
+                                 :id=>"com.joycom.xkx.iap.20000gold",
                 :name=>"20000Gold",
                   :price=>"CN¥40"
             },
                         {
-                                 :id=>"com.joycom.wh.iap.50000gold",
+                                 :id=>"com.joycom.xkx.iap.50000gold",
                 :name=>"50000Gold",
                   :price=>"CN¥98"
             }
@@ -363,13 +363,13 @@ class TradablesController < ApplicationController
         if encroptT(params[:tid]) == params[:c]
             g = 0
             case params[:pid]
-                when "com.joycom.wh.iap.gold":      g= 1000
-                when "com.joycom.wh.iap.2000gold":  g=2000
-                when "com.joycom.wh.iap.5000gold":  g= 5000
-                when "com.joycom.wh.iap.8000gold":  g= 8000
-                when "com.joycom.wh.iap.10000glod":  g=10000
-                when "com.joycom.wh.iap.20000gold": g= 20000
-                when "com.joycom.wh.iap.50000gold": g= 50000
+                when "com.joycom.xkx.iap.gold":      g= 1000
+                when "com.joycom.xkx.iap.2000gold":  g=2000
+                when "com.joycom.xkx.iap.5000gold":  g= 5000
+                when "com.joycom.xkx.iap.8000gold":  g= 8000
+                when "com.joycom.xkx.iap.10000glod":  g=10000
+                when "com.joycom.xkx.iap.20000gold": g= 20000
+                when "com.joycom.xkx.iap.50000gold": g= 50000
                 when "gold":      g= 1000
                 when "2000gold":  g=2000
                 when "5000gold":  g= 5000

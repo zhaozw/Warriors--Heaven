@@ -44,3 +44,11 @@ title by job
 ->游戏提供主线成就和等级Boss,可以让投入的玩家迅速成长和获得成就。游戏也提供各种不同的职业和成就,可以让不同玩家获得不同的乐趣。
 
 是浪漫江湖,还是铁血生涯, 由你决定!
+
+
+In app purchase
+1. How to see in app purchase section again
+create new iap product
+2. How to restore iap product from "developer action needed" to "ready to submit"
+change description
+3. testing doesn't need iap product be selected in "in app purchase" section

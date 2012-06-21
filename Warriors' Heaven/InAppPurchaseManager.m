@@ -98,6 +98,7 @@ normal:                  onsale:
         int h = payment.hash;
     NSLog(@"---------发送购买请求(id=%@)(%d)------------", pid, h);    
     [[SKPaymentQueue defaultQueue] addPayment:payment];  
+    [ad showWaiting:YES];
 //    [payment setValue:tname forKey:@"tname"];
     
 //    NSObject* iapt_list = [ad readLocalProp:@"iap_transaction"];
@@ -185,6 +186,7 @@ normal:                  onsale:
 }
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions//交易结果    
 {    
+    [ad showWaiting:NO];
     NSLog(@"-----paymentQueue--------");    
     for (SKPaymentTransaction *transaction in transactions)    
     {    
