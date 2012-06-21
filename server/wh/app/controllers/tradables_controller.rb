@@ -303,7 +303,7 @@ class TradablesController < ApplicationController
                         {
                                  :id=>"com.joycom.xkx.iap.20000gold",
                 :name=>"20000Gold",
-                  :price=>"CN¥40"
+                  :price=>"CN¥50"
             },
                         {
                                  :id=>"com.joycom.xkx.iap.50000gold",
