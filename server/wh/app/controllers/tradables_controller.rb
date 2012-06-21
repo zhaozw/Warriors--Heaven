@@ -362,14 +362,14 @@ class TradablesController < ApplicationController
         # end
         if encroptT(params[:tid]) == params[:c]
             g = 0
-            when params[:pid]
-                case "com.joycom.wh.iap.gold":      g= 1000
-                case "com.joycom.wh.iap.2000gold":  g=2000
-                case "com.joycom.wh.iap.5000gold":  g= 5000
-                case "com.joycom.wh.iap.8000gold":  g= 8000
-                case "com.joycom.wh.iap.10000glod":  g=10000
-                case "com.joycom.wh.iap.20000gold": g= 20000
-                case "com.joycom.wh.iap.50000gold": g= 50000
+            case params[:pid]
+                when "com.joycom.wh.iap.gold":      g= 1000
+                when "com.joycom.wh.iap.2000gold":  g=2000
+                when "com.joycom.wh.iap.5000gold":  g= 5000
+                when "com.joycom.wh.iap.8000gold":  g= 8000
+                when "com.joycom.wh.iap.10000glod":  g=10000
+                when "com.joycom.wh.iap.20000gold": g= 20000
+                when "com.joycom.wh.iap.50000gold": g= 50000
             end
             user_data.ext[:gold] += g
             user_data.check_save
