@@ -194,7 +194,7 @@ normal:                  onsale:
         {     
             case SKPaymentTransactionStatePurchased:{//交易完成     
                 [self completeTransaction:transaction];    
-                NSLog(@"-----交易完成 --------%@" );    
+//                NSLog(@"-----交易完成 --------%@" );    
        
                 
 /*                UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"Alert"     

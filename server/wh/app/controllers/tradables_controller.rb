@@ -367,14 +367,14 @@ class TradablesController < ApplicationController
                 when "com.joycom.xkx.iap.2000gold":  g=2000
                 when "com.joycom.xkx.iap.5000gold":  g= 5000
                 when "com.joycom.xkx.iap.8000gold":  g= 8000
-                when "com.joycom.xkx.iap.10000glod":  g=10000
+                when "com.joycom.xkx.iap.10000gold":  g=10000
                 when "com.joycom.xkx.iap.20000gold": g= 20000
                 when "com.joycom.xkx.iap.50000gold": g= 50000
                 when "gold":      g= 1000
                 when "2000gold":  g=2000
                 when "5000gold":  g= 5000
                 when "8000gold":  g= 8000
-                when "10000glod":  g=10000
+                when "10000gold":  g=10000
                 when "20000gold": g= 20000
                 when "50000gold": g= 50000
             end
