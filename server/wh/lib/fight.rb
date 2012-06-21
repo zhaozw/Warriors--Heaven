@@ -907,7 +907,7 @@ end
                     #  combo ?
                     #
                     
-                    if hurt && rand(r_apdp - dodge_power) > dodge_powers*2
+                    if hurt && rand(r_apdp - dodge_power) > dodge_power*2
                  
                         if context[:combo] != nil 
                             context[:combo] += 1

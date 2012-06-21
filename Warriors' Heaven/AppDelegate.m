@@ -101,24 +101,24 @@
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
-    //    [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
+//        [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
     //    [self setSessionId:@"8800a9ef2d3c91569eff59ed68349e46"];  // user '一灯‘ on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
     //    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa"
-        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
-        session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
+//        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
+//        session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
 //        session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
-    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
-       session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
-    session_id = @"aa00586901918d30390e4bff784e4812"; //user fadfas
-    session_id = @"7355655bed8f48ad49b7441524e33265"; //user dddafasd
+//    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
+//       session_id = @"0fa72802944f6dc81e9a970f888c9de0"; // user '漫画'
+//    session_id = @"aa00586901918d30390e4bff784e4812"; //user fadfas
+//    session_id = @"7355655bed8f48ad49b7441524e33265"; //user dddafasd
 //        session_id = @"f0a28ae6cc681d3f50ae4f281cab9218"; // user 'king'
 //        session_id = @"1320346951bf2bc6293fb70cc2a71a05"; // user 'queen'
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 
 }
 - (NSString *) readSessionId{
@@ -337,7 +337,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie
