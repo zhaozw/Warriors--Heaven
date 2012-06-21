@@ -277,36 +277,36 @@ class TradablesController < ApplicationController
 
             list_onsale= [
               {
-                  :id=>"2000gold",
+                  :id=>"com.joycom.wh.iap.2000gold",
                 :name=>"2000Gold",
                 :price=>"CN¥12",
                 :onsale=>"CN¥6",
                 :discount=>"-50%"
             },
             {
-                     :id=>"5000gold",
+                     :id=>"com.joycom.wh.iap.5000gold",
                 :name=>"5000Gold",
                 :price=>"CN¥18",
                 :onsale=>"CN¥12",
                 :discount=>"-33%"
             },
                         {
-                                 :id=>"8000gold",
+                                 :id=>"com.joycom.wh.iap.8000gold",
                 :name=>"8000Gold",
                   :price=>"CN¥25"
             },
                         {
-                                 :id=>"10000gold",
+                                 :id=>"com.joycom.wh.iap.10000gold",
                 :name=>"10000Gold",
                   :price=>"CN¥30"
             },
                         {
-                                 :id=>"20000gold",
+                                 :id=>"com.joycom.wh.iap.20000gold",
                 :name=>"20000Gold",
                   :price=>"CN¥40"
             },
                         {
-                                 :id=>"50000gold",
+                                 :id=>"com.joycom.wh.iap.50000gold",
                 :name=>"50000Gold",
                   :price=>"CN¥98"
             }
@@ -361,9 +361,19 @@ class TradablesController < ApplicationController
         #     end
         # end
         if encroptT(params[:tid]) == params[:c]
-            user_data.ext[:gold] += 1000
+            g = 0
+            when params[:pid]
+                case "com.joycom.wh.iap.gold":      g= 1000
+                case "com.joycom.wh.iap.2000gold":  g=2000
+                case "com.joycom.wh.iap.5000gold":  g= 5000
+                case "com.joycom.wh.iap.8000gold":  g= 8000
+                case "com.joycom.wh.iap.10000glod":  g=10000
+                case "com.joycom.wh.iap.20000gold": g= 20000
+                case "com.joycom.wh.iap.50000gold": g= 50000
+            end
+            user_data.ext[:gold] += g
             user_data.check_save
-             success("购买成功! ", {:tid =>params[:tid], :userext=>user_data.ext})
+             success("购买成功! Gold +#{g}", {:tid =>params[:tid], :userext=>user_data.ext})
          else
              error("找不到该记录！")
          end

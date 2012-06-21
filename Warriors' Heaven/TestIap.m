@@ -12,7 +12,7 @@
 
 - (void)requestProUpgradeProductData
 {
-    NSSet *productIdentifiers = [NSSet setWithObject:@"com.joycom.wh.iap.gold"];
+    NSSet *productIdentifiers = [NSSet setWithObjects:@"com.joycom.wh.iap.gold", @"com.joycom.wh.iap.2000gold", @"com.joycom.wh.iap.5000gold", @"com.joycom.wh.iap.8000gold", @"com.joycom.wh.iap.10000gold", @"com.joycom.wh.iap.20000gold", @"com.joycom.wh.iap.50000gold", nil ];
     productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];
@@ -26,13 +26,16 @@
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
     NSArray *products = response.products;
-    proUpgradeProduct = [products count] == 1 ? [products objectAtIndex:0]: nil;
-    if (proUpgradeProduct)
-    {
-        NSLog(@"Product title: %@" , proUpgradeProduct.localizedTitle);
-        NSLog(@"Product description: %@" , proUpgradeProduct.localizedDescription);
-        NSLog(@"Product price: %@" , proUpgradeProduct.price);
-        NSLog(@"Product id: %@" , proUpgradeProduct.productIdentifier);
+//    proUpgradeProduct = [products count] == 1 ? [products objectAtIndex:0]: nil;
+//    proUpgradeProduct = [products objectAtIndex:0];
+    for (SKProduct* p in products){
+        if (p)
+        {
+            NSLog(@"Product title: %@" , p.localizedTitle);
+            NSLog(@"Product description: %@" , p.localizedDescription);
+            NSLog(@"Product price: %@" , p.price);
+            NSLog(@"Product id: %@" , p.productIdentifier);
+        }
     }
     
     for (NSString *invalidProductId in response.invalidProductIdentifiers)

@@ -87,7 +87,7 @@
             if ([params count]>=2){
                 NSString* product = [params objectAtIndex:1]; // xxx
                 if (product){
-                    product = [NSString stringWithFormat:@"com.joycom.wh.iap.%@", product];
+//                    product = [NSString stringWithFormat:@"com.joycom.wh.iap.%@", product];
                     NSString* stoken = [aurl objectAtIndex:1];
                     if (stoken){
                         NSArray* ar = [stoken componentsSeparatedByString:@"="]; // authority_token, yyyyy
@@ -96,9 +96,10 @@
 //                            [iapm_list addObject:iapm1];
 //                            [iapm1 purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
 //                       
-                            [iapm purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
-//                            iaptest = [[TestIap alloc] init];
-//                            [iaptest requestProUpgradeProductData];
+ 
+                            iaptest = [[TestIap alloc] init];
+                            [iaptest requestProUpgradeProductData];
+                           [iapm purchase:product tname:[ar objectAtIndex:0] tvalue:[ar objectAtIndex:1]];
 
                         }
                     }

@@ -93,7 +93,7 @@ normal:                  onsale:
     token_name = tname;
     token_value = tvalue;
     
-    pid = @"com.joycom.wh.iap.gold";
+//    pid = @"com.joycom.wh.iap.gold";
     payment  = [SKPayment paymentWithProductIdentifier:pid]; 
         int h = payment.hash;
     NSLog(@"---------发送购买请求(id=%@)(%d)------------", pid, h);    
