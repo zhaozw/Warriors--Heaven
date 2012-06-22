@@ -1,1 +1,1 @@
-script/crond production
+nohup script/crond production
