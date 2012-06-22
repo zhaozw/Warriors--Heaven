@@ -592,7 +592,7 @@ end
              p "attack_power=#{attack_power}, combo = #{context[:combo].inspect}"
              if context[:combo] != nil
                  attack_power /= 2**(context[:combo]+1) 
-             endwh
+             end
             p "attack_power2=#{attack_power}"
              attack_power = 1 if attack_power == 0
        
