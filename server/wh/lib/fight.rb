@@ -592,7 +592,7 @@ end
              p "attack_power=#{attack_power}, combo = #{context[:combo].inspect}"
              if context[:combo] != nil
                  attack_power /= 2**(context[:combo]+1) 
-             end
+             endwh
             p "attack_power2=#{attack_power}"
              attack_power = 1 if attack_power == 0
        
@@ -613,7 +613,7 @@ end
              # p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              # p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
              p "dodge_power=#{dodge_power}"
-              msg += "<!--1-->dp:#{dodge_power} ap:#{attack_power}<!--0-->"
+              # msg += "<!--1-->dp:#{dodge_power} ap:#{attack_power}<!--0-->"
     
             attacker_exp_bonus = 0
             attacker_pot_bonus = 0
@@ -759,7 +759,7 @@ end
                  
                  # 
                  _perp = rand(parry_power  + attack_power  )
-                  msg += "<!--1-->pp:#{parry_power}  _perp=#{_perp}<!--0-->"
+                  # msg += "<!--1-->pp:#{parry_power}  _perp=#{_perp}<!--0-->"
                  if ( _perp >= attack_power ) # can parry
                      #
                      # parry succeeded
