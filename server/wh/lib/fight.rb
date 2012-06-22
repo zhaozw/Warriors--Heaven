@@ -176,10 +176,10 @@ end
     end
     
     def choosBestDefenseSkill(context, weapon_type)
-        attack_skill = chooseBestSkill(context, "parry", nil, "defense")
+        _skill = chooseBestSkill(context, "parry", weapon_type, "defense")
     
         # p "==> defense of #{attack_skill[:skill][:skname]}: #{attack_skill['defense']}"
-        return attack_skill
+        return _skill
     end
     
    #
@@ -887,7 +887,7 @@ end
              
             if (defenser.tmp[:hp] <=0 )
                  r_msg += line "<div>#{defenser.name}战斗不能</div>"
-                 context[:winner] = attacker
+                 # context[:winner] = attacker
                         will_return = true
                  # return msg
            
@@ -1346,12 +1346,20 @@ end
         f_context={
             :style=>style_c,
             :round=>0,
-            :winner=>nil
+            # :winner=>nil
         }
         msg += __fight(attacker, defenser, f_context)
         i = f_context[:round]
-        winner = f_context[:winner]
+        # winner = f_context[:winner]
         context[:round] = f_context[:round]
+        
+        if (p1.tmp[:hp] >= 0 and p2.tmp[:hp] >=0) ||  (p1.tmp[:hp] < 0 and p2.tmp[:hp] <0)
+            winner = nil
+        elsif p1.tmp[:hp] >=0 
+            winner = p1
+        else 
+            winner = p2
+        end
         #
         # save to db # TODO should the enemy also save gain ?
         #
