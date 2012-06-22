@@ -95,6 +95,7 @@
 */
 
 - (void) setTest{
+    return;
     debug = TRUE;
       host = @"homeserver.joyqom.com";
         port = @"80";
@@ -216,9 +217,9 @@
     vHelpWebView.delegate = self;
     [vcStatus view].frame = CGRectMake(0, 0, 320, 65);
     
-    controller = [[MFMailComposeViewController alloc] init];
-[window addSubview:controller.view];
-    controller.view.hidden = YES;
+//    controller = [[MFMailComposeViewController alloc] init];
+//[window addSubview:controller.view];
+//    controller.view.hidden = YES;
     
     [window addSubview:[vcPurchase view]];
     [vcPurchase view].hidden = YES;
@@ -1107,15 +1108,16 @@
         NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
         if ([MFMailComposeViewController canSendMail]){
    
-     
+            controller = [[MFMailComposeViewController alloc] init];
+    
         controller.mailComposeDelegate = vcStatus;
         [controller setSubject:@"快来加入我的战队"];
          NSString* m = [NSString stringWithFormat:@"Hi, \n快来玩IPhone游戏《侠客行》吧，加入我们的战队就可获得装备哦。记住注册时填写我的Code \"%@\" ^_^.", tc];
         [controller setMessageBody:m isHTML:NO];
 //            [vcStatus presentModalViewController:controller animated:YES];
 //        [window.rootViewController presentModalViewController:controller animated:YES];
-            
-            controller.view.hidden = NO;
+                        [window addSubview:controller.view];        
+//            controller.view.hidden = NO;
             [window bringSubviewToFront:controller.view];
 //        [window bringSubviewToFront:[vcHome view]];
 //        [[vcStatus view] bringSubviewToFront:[controller view]];
@@ -1127,8 +1129,10 @@
         return false;
     }else if ([url hasPrefix:@"safari://"]){
         NSString* surl = [[request.URL absoluteString] substringFromIndex:9] ;
-
+//        surl = [surl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        surl = [surl stringByReplacingOccurrencesOfString:@":://" withString:@"://"]; 
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:surl]];
+        return FALSE;
     }
     return TRUE;
 }
