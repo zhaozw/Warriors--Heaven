@@ -1388,7 +1388,7 @@ end
                 msg +=  "#{attacker.name}和#{defenser.name}战成平手!"
             end
         else
-            if attacker == p1
+            if winner == p1
                 win = 1
             else
                 win = 0
