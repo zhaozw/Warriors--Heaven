@@ -89,7 +89,41 @@ class TeamController < ApplicationController
 #        }
     #    user_data[:team] = ret
     
-        render :text=>{:team=>team}.to_json
+        ret = { 
+            :data=>team[:data]
+            
+        }
+        for index in 0..7 
+            t = team[index.to_s]
+            if t
+                ret[index.to_s] = t[:userext]
+                rr = ret[index.to_s]
+                if rr[:title] == nil
+                    rr[:title] = ""
+                end
+                rr[:equipments] = []
+               prop = rr[:prop]
+               eqslot = get_prop(prop, "eqslot")
+               if eqslot
+                   if eqslot.class == String
+                       eqslot = JSON.parse(eqslot)
+                   end
+               
+                   eqslot.each {|k,v|
+                       if k[0] < 48 or k[0] > 57
+                           if v.class==String
+                               vs = v.split("@")
+                               eqname=vs[0]
+                               eq = load_obj(eqname)
+                               rr[:equipments].push(eq)
+                           end
+                       end
+                   } 
+               end
+            end
+        end
+        # render :text=>{:team=>team}.to_json
+        render :text=>{:team=>ret}.to_json
         return
     
     end

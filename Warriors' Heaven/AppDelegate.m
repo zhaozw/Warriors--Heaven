@@ -105,8 +105,8 @@
     //    [self setSessionId:@"8800a9ef2d3c91569eff59ed68349e46"];  // user '一灯‘ on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
-    //    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa"
-//        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
+    //    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa'
+        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
 //        session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
 //        session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
 //    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
@@ -118,7 +118,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 
 }
 - (NSString *) readSessionId{

@@ -73,7 +73,7 @@
     if (!data)
         return;
     [LightView removeAllSubview:vEquipment];
-
+    NSLog(@"%@", [data JSONRepresentation]);
     
     id ext = [data valueForKey:@"userext"];
     NSString *title = [ext valueForKey:@"title"];
@@ -85,7 +85,8 @@
     lbTitle.text = name;
     lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = @"";
-    lbTitle2.text = title;
+    if (title != NULL && title != [NSNull null] && [title length]>0)
+        lbTitle2.text = title;
     btnFight.tag = uid;
     
 //    [vBg setImage:[UIImage imageNamed:@"fight_result.png"]];
