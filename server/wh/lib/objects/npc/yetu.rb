@@ -28,6 +28,8 @@ class Yetu < Npcorc
            :maxhp =>50,
            :stam    =>200,
            :maxst   =>200,
+           :jingli => 200,
+           :max_jl =>200,
            :str     =>10,
            :dext    =>30,
            :luck    =>30,

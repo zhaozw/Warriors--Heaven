@@ -28,6 +28,8 @@ class Snake < Npcorc
            :maxhp =>100,
            :stam    =>200,
            :maxst   =>200,
+           :jingli => 200,
+           :max_jl =>200,
            :str     =>10,
            :dext    =>50,
            :luck    =>30,

@@ -27,6 +27,8 @@ class Gangster < Npchuman
            :fame    =>0,
            :race    =>"human",
            :pot     =>0,
+           :jingli => 200,
+           :max_jl =>200,
            :it      =>10
        }
     end

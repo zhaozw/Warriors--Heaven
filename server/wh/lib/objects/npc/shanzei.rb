@@ -22,6 +22,8 @@ class Shanzei < Npchuman
            :maxhp =>100,
            :stam    =>100,
            :maxst   =>100,
+           :jingli => 200,
+           :max_jl =>200,
            :str     =>30,
            :dext    =>20,
            :luck    =>40,
