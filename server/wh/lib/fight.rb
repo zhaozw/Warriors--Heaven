@@ -605,7 +605,7 @@ end
               elsif context[:riposte] != nil && context[:riposte]==true
                   dodge_power = 0
                    context[:riposte] = false
-                     msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
+                     # msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
                       p "==>dodge_power2"
               else
                     dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], defenser, "dodge") + defenser.tmp[:apply_dodge]/10
