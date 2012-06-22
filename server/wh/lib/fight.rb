@@ -463,9 +463,10 @@ end
        total_exp = calc_total_exp(player.tmp[:level])
              p "level=#{level} jingli_bonus=#{jingli_bonus}, total exp #{total_exp}"
        if( level<1 ) 
-           return (total_exp/20 * (jingli_bonus/10) )
+           return (total_exp/20.0 * (jingli_bonus/10) ).to_i
        end
 
+       p 
         p =level**3/3 
         str  = player.tmp[:str]
         dext = player.tmp[:dext]
@@ -477,8 +478,11 @@ end
         else
             p =   (p + total_exp +1) / 30 * (( dext+1)/10)
         end
+    
+          p = p.to_i
           p "==>skill power=#{p}"
-       if p <= 0
+        
+       if p <= 1
            return 1
        else
            return p
@@ -585,24 +589,30 @@ end
              p "dodage skill #{defenser[:dodge_skill][:skill][:skname]} level=#{defenser[:dodge_skill][:skill][:level]}\n"
     
              attack_power = skill_power(_attack_skill[:skname], attacker, "attack")
+             p "attack_power=#{attack_power}, combo = #{context[:combo].inspect}"
              if context[:combo] != nil
                  attack_power /= 2**(context[:combo]+1) 
              end
-          
+            p "attack_power2=#{attack_power}"
+             attack_power = 1 if attack_power == 0
+       
               # if no stam or is type of riposte, dp = 0
               if (defenser.tmp[:stam]<=0 )
                   dodge_power = 0
-                  msg += line "<br/>\n$n的体力不够，无法闪躲"
+                  msg += line translate_msg("<br/>\n$n的体力不够，无法闪躲", context_a)
+                  p "==>dodge_power1"
                  
-              elsif context[:riposte]
+              elsif context[:riposte] != nil && context[:riposte]==true
                   dodge_power = 0
                    context[:riposte] = false
                      msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
-                else
+                      p "==>dodge_power2"
+              else
                     dodge_power = skill_power(defenser[:dodge_skill][:skill][:skname], defenser, "dodge") + defenser.tmp[:apply_dodge]/10
-                end
+              end
              # p "attack_power(#{attacker[:user]}) speed=#{attack_power}\n"
              # p "defense_power(#{defenser[:user]}) speed=#{dodge_power}\n"
+             p "dodge_power=#{dodge_power}"
               msg += "<!--1-->dp:#{dodge_power} ap:#{attack_power}<!--0-->"
     
             attacker_exp_bonus = 0
@@ -714,7 +724,7 @@ end
                
                      if (defenser.tmp[:stam]<=0)
                          parry_power = 0
-                         msg += line "<br/>\n$n的体力不够，无法招架"
+                         msg += line translate_msg("<br/>\n$n的体力不够，无法招架", context_a)
                      else
                          # if attacker has weapon but defenser hasn't, pp=0
                          if ((attacker.query_wearing("handright")||attacker.query_wearing("handleft")) && !(defenser.query_wearing("handright") || defenser.query_wearing("handleft")) )
@@ -854,8 +864,9 @@ end
             if !hurt
                 if context[:combo] != nil && context[:combo]>0
                     msg = "<!--1--><br/><div class='warn_1'>#{attacker.name}#{context[:combo]+1 }连击!</div><br/><!--0-->" + msg
-                    context[:combo] = nil
+                    
                 end
+                context[:combo] = nil if context[:combo] != nil
             end
             
   
