@@ -96,14 +96,25 @@ class TeamController < ApplicationController
         for index in 0..7 
             t = team[index.to_s]
             if t
-                ret[index.to_s] = t[:userext]
-                rr = ret[index.to_s]
+                ret[index.to_s] = {
+                    :user=>{
+                        :id => t[:id],
+                        :user=> t[:user],
+                        :profile=>t[:profile]
+                        },
+                    :userext=>  t[:userext].attributes
+                }
+              
+                rr = ret[index.to_s][:userext]
                 if rr[:title] == nil
                     rr[:title] = ""
                 end
                 rr[:equipments] = []
-               prop = rr[:prop]
+                # p "==>rr=#{rr.inspect}"
+               prop = rr["prop"]
+               # p "==>prop=#{prop.inspect}"
                eqslot = get_prop(prop, "eqslot")
+               # p "==>eqslot=#{eqslot.inspect}"
                if eqslot
                    if eqslot.class == String
                        eqslot = JSON.parse(eqslot)

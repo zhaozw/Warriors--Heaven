@@ -85,7 +85,7 @@
     lbTitle.text = name;
     lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = @"";
-    if (title != NULL && title != [NSNull null] && [title length]>0)
+    if (title != NULL && title != [NSNull null] )
         lbTitle2.text = title;
     btnFight.tag = uid;
     
