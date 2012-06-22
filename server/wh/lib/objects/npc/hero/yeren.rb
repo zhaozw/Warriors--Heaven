@@ -28,6 +28,8 @@ class Yeren < Npchuman
            :maxhp =>200,
            :stam    =>200,
            :maxst   =>200,
+           :jingli => 200,
+           :max_jl =>200,
            :str     =>60,
            :dext    =>20,
            :luck    =>50,

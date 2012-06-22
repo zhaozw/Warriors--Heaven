@@ -28,6 +28,8 @@ class Lanfenghuang < Npchuman
            :maxhp =>200,
            :stam    =>200,
            :maxst   =>200,
+           :jingli => 200,
+           :max_jl =>200,
            :str     =>30,
            :dext    =>40,
            :luck    =>50,
