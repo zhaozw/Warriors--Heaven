@@ -71,9 +71,13 @@
     [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
     vQuestContainer.hidden = YES;
     vQuestContainer.backgroundColor = [UIColor clearColor];
+//    vQuestContainer.alpha = 0.5f;
+    
+//    [self view].alpha = 0.5f;
     vQuestContainer.opaque = NO;
     vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
     [[ad window] addSubview:vQuestContainer];
+//    [[UIApplication sharedApplication].keyWindow addSubview:vQuestContainer];
     vQuestContainer.userInteractionEnabled = YES;
     vQuestRoom.userInteractionEnabled = YES;
     vQuestRoom.frame = CGRectMake(0,0, 320, 490);
@@ -82,7 +86,7 @@
     [wvLoadingQuest setBackgroundColor:[UIColor clearColor]];
     [wvLoadingQuest setOpaque:NO];
     [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
-
+//    [wvLoadingQuest setHidden: YES];
     [self retrieveQuests];
     
 }
@@ -100,6 +104,7 @@
     [self retrieveQuests];
     [ad updateUserext];
     ad.bUserEqNeedUpdated = YES;
+    [self view].hidden = NO;
  
 }
 
@@ -236,9 +241,12 @@
     NSObject* q = [askedQuests objectAtIndex:i];
     NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"]];
     [vQuestRoom loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    [self view].hidden = YES;
       vQuestContainer.hidden = NO;
    
      [ad showStatusView:NO];
+//    [[ad window] makeKeyAndVisible];
+//    [vQuestRoom becomeFirstResponder];
     
 //     currentWorkingQuest = i;
 }

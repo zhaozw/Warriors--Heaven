@@ -95,7 +95,7 @@
 */
 
 - (void) setTest{
-    return;
+//    return;
     debug = TRUE;
       host = @"homeserver.joyqom.com";
         port = @"80";
@@ -225,6 +225,7 @@
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
+        [window makeKeyAndVisible];
     
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -233,9 +234,13 @@
     // Override point for customization after application launch.
     
     
+    // －－>20120623 comment-out because it will cause keyboard of web view not show
     // full screen
-    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f;
+//    self.window.windowLevel = UIWindowLevelStatusBar + 1.0f; 
+    // <--
+    
     //self.window.backgroundColor = [UIColor whiteColor];
+//    [window setRootViewController: tabBarController];
     
     requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     
@@ -331,6 +336,7 @@
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     }
     
+//    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];
 
     return YES;

@@ -8,7 +8,8 @@ class QuestController < ApplicationController
             "yaowanggu",
             "yunbiao",
             # "xiakedao", # 侠客岛任务
-            "hunt"
+            "hunt",
+            "poem"
         ]
     end
     def index
@@ -108,7 +109,8 @@ class QuestController < ApplicationController
         
          p "==>ret=#{@quest.action_list.inspect}"
          user_data.ext[:lastact] = "quest_#{@quest.dname}"
-        user_data.check_save
+         render
+         user_data.check_save
     end
     
     def doAction
@@ -133,7 +135,7 @@ class QuestController < ApplicationController
         player.recover
 
         
-        @action_context = {:action=>params[:action1], :user=>player, :msg=>""}
+        @action_context = {:action=>params[:action1], :params=>params, :user=>player, :msg=>""}
         @q.onAction(@action_context)
         user_data.check_save
         p @action_context.inspect

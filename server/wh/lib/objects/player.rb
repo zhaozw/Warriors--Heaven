@@ -341,6 +341,9 @@ include Pc
         return rate
     end
     
+    def improve_userskill(skillname, tp)
+         improve_skill(self, skillname, tp)
+    end
     # do practise only using time, withouth specific "usepot"
     def practise(skill, sec,c =nil)
         # skill = query_skill(skillname)

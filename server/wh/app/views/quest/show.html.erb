@@ -25,12 +25,19 @@ function showWaiting(show){
 	else
 		$("#waitingbg").css("display", "none");	
 }
-function doAction(action_name){
+function doAction(action_name, p){
 //	alert(action_name);
+	// alert(p);
 	showWaiting(true);
+	if (!p)
+		p="";
+	else
+		p = p+"&";
+		
+		
 	$.ajax({
 			type: "post",
-			url: "/quest/doAction"+"?t="+ new Date().getTime(),
+			url: "/quest/doAction"+"?"+p+"t="+ new Date().getTime(),
 			data: {
 				quest: '<%=@quest_name %>',
 				action1: action_name,
@@ -72,7 +79,7 @@ function apply(){
 				for (i=0;i < data.actions.length;i++){
 					a = data.actions[i];
 					// alert (a.dname);
-					s+="<button type='button' class='action_button' style=\"font-size:12pt;padding:0;\" onclick=\"doAction('"+a.name+"')\">"+a.dname+"</button>";
+					s+="<button type='button' class='action_button' style=\"font-size:12pt;padding:0;\" onclick=\"doAction('"+a.name+"', '')\">"+a.dname+"</button>";
 				}
 				// alert("s="+s);
 				$("div#action_list").html(s);
@@ -174,7 +181,7 @@ function apply(){
 		if @quest.action_list
 			for action in @quest.action_list
 		 %>
-		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>')"><%=action[:dname] %></button>
+		<button type='button' class='action_button' style="font-size:12pt;padding:0;" onclick="doAction('<%=action[:name] %>', '')"><%=action[:dname] %></button>
 		<% end 
 		end
 		%>
