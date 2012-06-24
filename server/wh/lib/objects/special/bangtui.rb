@@ -12,7 +12,7 @@ class Shadai  < Special
   end
   
   def desc
-     "一副灌了铁砂的bangtui"
+     "一副灌了铁砂的绑腿"
   end
 
   def image
