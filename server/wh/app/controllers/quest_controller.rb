@@ -8,15 +8,33 @@ class QuestController < ApplicationController
             "yaowanggu",
             "yunbiao",
             # "xiakedao", # 侠客岛任务
+            "hunt"
+        ]
+    end
+    def self.list2
+        [
+
+            "caiyao",   #采药任务
+            "poem",
+            "wudujiao",  #无毒教任务
+            "yaowanggu",
+            "yunbiao",
+            # "xiakedao", # 侠客岛任务
             "hunt",
-            "poem"
+          
         ]
     end
     def index
         check_session
         unasked = []
         asked =[]
-        list = QuestController.list
+        if params[:v]
+            if params[:v]=2
+                list = QuestController.list2
+            end
+        else
+            list = QuestController.list
+        end
         # userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
         userquests = user_data.query_all_quests
         i =0 

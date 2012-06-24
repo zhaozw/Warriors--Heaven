@@ -93,7 +93,7 @@
 
 - (void) retrieveQuests{
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
-    [client sendHttpRequest:@"/quest" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
+    [client sendHttpRequest:@"/quest?v=2" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }
 
 - (void) closeQuest:(UIButton*) btn{
