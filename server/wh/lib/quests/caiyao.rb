@@ -111,6 +111,22 @@ class Caiyao < Quest
                 
                 user.get_obj(o)
                 msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
+             
+                skill = player.query_skill("caoyao")
+                if !skill
+                    p "===>create caoyao skill"
+                    player.set_skill("caoyao", 0, 0)
+                else
+                  
+                    tp = rand(10)
+                    lu = player.improve_userskill("caoyao", tp)
+                    msg += "<div class='gain'>你的草药学有所提高(+#{tp})</div>"
+                    if lu
+                        msg += "<div class='gain'>你草药学的等级提高了!</div>"
+                    end
+                end
+             
+             
                 r = user.query_quest("caiyao")
                 progress = 10
                 if (r[:progress] < 100)
