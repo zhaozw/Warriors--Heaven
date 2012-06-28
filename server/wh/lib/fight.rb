@@ -918,7 +918,7 @@ end
                     #  combo ?
                     #
                     
-                    if hurt && rand(r_apdp - dodge_power) > dodge_power*2
+                    if hurt && attacker.tmp[:level]>=5 && rand(r_apdp - dodge_power) > dodge_power*3 
                  
                         if context[:combo] != nil 
                             context[:combo] += 1
@@ -927,7 +927,7 @@ end
                         end
                         # attacker.tmp[:apply_attack] -= r_apdp
                             
-                          msg += line translate_msg("<div class='warn_1'>$N乘$n手忙脚乱，发动连续进攻！</div>", context_a)
+                          msg += line translate_msg("<br/><div class='warn_1'>$N乘$n手忙脚乱，发动连续进攻！</div>", context_a)
                           # no swap
                           msg += __fight(attacker, defenser, context)
                           return msg
