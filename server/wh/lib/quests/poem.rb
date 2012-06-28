@@ -20,7 +20,7 @@ class Poem < Quest
     end
     
     def logo
-       "/game/quests/hunt.jpg" 
+       "/game/quests/tangshi.jpg?v=2" 
     end
     
     def action_list

@@ -55,6 +55,7 @@ def launch_jobs
         while(1)
       
             # richers
+            p "===> produce rank for richers"
             rs = Userext.find_by_sql("select * from users, userexts where users.id=userexts.uid order by gold desc limit 10")
             view = ActionView::Base.new(Rails::Configuration.new.view_path)
             page = view.render(:file=>"rank/rankmoney", :locals=>{:rs=>rs})
@@ -66,9 +67,10 @@ def launch_jobs
                  # logger.error e
                  p e.inspect
             end
-        
+            sleep(1)
         
             # highthand
+            p "===> produce rank for highthand"
             rs = Userext.find_by_sql("select * from users, userexts where users.id=userexts.uid order by level desc limit 10")
             view = ActionView::Base.new(Rails::Configuration.new.view_path)
             page = view.render(:file=>"rank/ranklevel", :locals=>{:rs=>rs})
@@ -80,7 +82,25 @@ def launch_jobs
                  # logger.error e
                  p e.inspect
             end
+            sleep(1)
         
+            # literature
+            p "===> produce rank for literature"
+            rs = Userext.find_by_sql("select * from users,userskills where skname='literature' and userskills.uid=users.id order by userskills.level desc limit 10")
+            view = ActionView::Base.new(Rails::Configuration.new.view_path)
+            page = view.render(:file=>"rank/rankliterature", :locals=>{:rs=>rs})
+            begin
+                 aFile = File.new("public/rank_literature.html","w+")
+                 aFile.puts page
+                 aFile.close
+            rescue Exception=>e
+                 # logger.error e
+                 p e.inspect
+            end
+            sleep(1)
+            
+            
+                    
             sleep (3600*24) # per day
         end
     }
