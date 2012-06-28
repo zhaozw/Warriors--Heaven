@@ -1048,9 +1048,15 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
      [btn setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
     
     if (sloteq_selected != btn){
-        [sloteq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-        sloteq_selected = btn;
+        if (sloteq_selected){
+            [sloteq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+            [sloteq_selected setBackgroundColor:[UIColor clearColor]];
+        }
+     
+//        sloteq_selected = btn;
     }
+    
+    
 //    for (int i= 0; i < [eq_buttons count]; i++){
 //        UIButton* b = [eq_buttons objectAtIndex:i];
 //        if (b && b!= btn){
@@ -1059,10 +1065,11 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //             [b setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
 //        }
 //    }
-//    EGOImageButton* _btn = btn;
-//    if (_btn.imageURL != NULL) {
-//        sloteq_selected = btn;
-//    }
+    EGOImageButton* _btn = btn;
+    if (_btn.imageURL != NULL) {
+        [btn setBackgroundColor:[UIColor yellowColor]];
+        sloteq_selected = btn;
+    }
 }
 
 
@@ -1167,11 +1174,17 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 
 - (void) highlightButton2:(UIButton*)btn{
     [btn setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
-    if (worneq_selected && worneq_selected != btn)
-        [worneq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    if (worneq_selected && worneq_selected != btn){
+        if (worneq_selected){
+            [worneq_selected setImageEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+            [worneq_selected setBackgroundColor:[UIColor clearColor]];
+        }
+    }
     EGOImageButton* _btn = (EGOImageButton*)btn;
-    if (_btn.imageURL)
+    if (_btn.imageURL){
         worneq_selected = btn;
+        [btn setBackgroundColor:[UIColor yellowColor]];
+    }
     else
         worneq_selected = NULL;
 }
