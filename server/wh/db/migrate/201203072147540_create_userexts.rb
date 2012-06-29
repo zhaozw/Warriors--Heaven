@@ -25,6 +25,7 @@ class CreateUserexts < ActiveRecord::Migration
       t.integer :zhanyi, :default=>100 # will to fight
       t.string  :sstatus, :default=>nil
       t.string :title, :default=>nil
+      t.integer :shen
 
       t.timestamps
     end

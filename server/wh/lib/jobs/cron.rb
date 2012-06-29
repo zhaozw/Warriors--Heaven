@@ -45,6 +45,9 @@ def launch_jobs
                 }
 
             }
+            # test
+            break
+            
             sleep (1800) # per hour
         end
     }
@@ -113,8 +116,25 @@ def launch_jobs
                  p e.inspect
             end
             sleep(1)
-                        
-                    
+            
+            # yunbiao
+            p "===> produce rank for yunbiao"
+            rs = Userext.find_by_sql("select * from users,ranks where users.id=ranks.uid order by c0 desc limit 10")
+            view = ActionView::Base.new(Rails::Configuration.new.view_path)
+            page = view.render(:file=>"rank/rankyunbiao", :locals=>{:rs=>rs})
+            begin
+                 aFile = File.new("public/rank_yunbiao.html","w+")
+                 aFile.puts page
+                 aFile.close
+            rescue Exception=>e
+                 # logger.error e
+                 p e.inspect
+            end
+            sleep(1)            
+            
+            # test
+            break
+            
             sleep (3600*24) # per day
         end
     }

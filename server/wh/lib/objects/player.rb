@@ -342,7 +342,7 @@ include Pc
     end
     
     def improve_userskill(skillname, tp)
-         improve_skill(self, skillname, tp)
+         r =improve_skill(self, skillname, tp)
     end
     # do practise only using time, withouth specific "usepot"
     def practise(skill, sec,c =nil)
@@ -538,6 +538,21 @@ include Pc
         data[:userext]
     end
 
-     
+    def addTitle(t)
+        s = ext[:title]
+        if s && s.size > 0
+            ar = s.split(" ") 
+            ar.each {|v|
+                if v == t
+                    return
+                end
+            }
+            s += " #{t}"
+        else
+            s = "#{t}"
+        end
+
+        ext[:title] = s
+    end 
      
 end

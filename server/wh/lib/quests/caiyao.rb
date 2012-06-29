@@ -119,10 +119,13 @@ class Caiyao < Quest
                 else
                   
                     tp = rand(10)
-                    lu = player.improve_userskill("caoyao", tp)
-                    msg += "<div class='gain'>你的草药学有所提高(+#{tp})</div>"
-                    if lu
-                        msg += "<div class='gain'>你草药学的等级提高了!</div>"
+                    if tp > 0
+                        lu = player.improve_userskill("caoyao", tp)
+                        msg += "<div class='gain'>你的草药学有所提高(+#{tp})</div>"
+                    
+                        if lu
+                            msg += "<div class='gain'>你草药学的等级提高了!</div>"
+                        end
                     end
                 end
              

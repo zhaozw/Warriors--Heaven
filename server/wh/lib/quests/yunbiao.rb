@@ -71,7 +71,8 @@ class Yunbiao < Quest
         
         msg = ""
         if (action=="go")
-            if rand(100) < player.tmp[:luck]
+            # if rand(100) < player.tmp[:luck]
+            if true
                 msg += "<div class='row'>你把镖旗一扬，趟子手高喊着‘我～武～威～扬’，车轮沉沉压过地面，引来不少注目</div>"
                 r = data
                 add_progress(10)
@@ -133,6 +134,45 @@ class Yunbiao < Quest
             msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span>, Gold<span style='color:#990000'>+#{gold_bonus}</span></div>"
             if levelup
                 msg +="<div style='color:#990000'>你的等级提升了!</div>"
+            end
+            rs = Rank.find_by_sql("select * from ranks where uid=#{player.id}")
+            r = nil
+            if !rs || rs.size==0
+                r = Rank.new({
+                    :uid=>player.id,
+                    :c0=>1,
+                    :c1=>0,
+                    :c2=>0,
+                    :c3=>0,
+                    :c4=>0,
+                    :c5=>0,
+                    :c6=>0,
+                    :c7=>0,
+                    :c8=>0,
+                    :c9=>0   
+                })
+                r.save!
+            else
+                r = rs[0]
+                r[:c0] += 1
+                r.save!
+            end
+            if r
+                if r[:c0] < 10
+                    player.addTitle("趟子手")
+                elsif r[:c0] < 20
+                    player.addTitle("初级镖师")
+                elsif r[:c0] < 30
+                    player.addTitle("副镖师")
+                elsif r[:c0] < 40
+                    player.addTitle("镖师")
+                elsif r[:c0] < 50 
+                    player.addTitle("大镖师")
+                elsif r[:c0] < 60
+                    player.addTitle("金牌镖师")
+                elsif r[:c0] 
+                    player.addTitle("总镖师") 
+                end
             end
             context[:room] = self.room
         end

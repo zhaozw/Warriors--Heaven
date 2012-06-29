@@ -503,6 +503,9 @@ end
             else
                 skill[:level] += 1
                 skill[:tp] = 0
+                title = title_from_skill(skillname, skill[:level])
+                player.addTitle(title) if title != nil
+                
                 return true
             end
         end

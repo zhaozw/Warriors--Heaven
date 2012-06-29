@@ -61,12 +61,37 @@ def titleForLevel(level, gender)
         
 end
 
+def title_from_skill(skill, level)
+    t = nil
+    case skill
+    when "caoyao"
+        if level < 5
+            t = "小药童"
+        elsif level < 10
+            t = "药童"
+        elsif level < 20
+            t = "初级药师"
+        elsif level < 30
+            t = "药师"
+        elsif level < 40
+            t = "名医"
+        elsif level < 50
+            t = "大国医"
+        elsif level < 80
+            t = "药王"
+        elsif 
+            t = "医仙"
+        end
+    end
+            
+    return t
+end
 # # set first title
 # def setTitle1(c)
 #     title = c.tmp[:title]
 #     t = titleForLevel(c.tmp[:level], c.tmp[:sex])
 #     if title!= nil and title.size>0
-#         titles = title.split(" ")
+#         titles = title.split(" "), 
 #         if titles.size>1 and title2[1]!=nil and title2[1].size>0
 #             t += " "+ titles[1]
 #         end

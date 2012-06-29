@@ -156,7 +156,7 @@ class QuestController < ApplicationController
         @action_context = {:action=>params[:action1], :params=>params, :user=>player, :msg=>""}
         @q.onAction(@action_context)
         user_data.check_save
-        p @action_context.inspect
+        # p @action_context.inspect
         ret = {
             :msg=>@action_context[:msg],
             :progress=>@user.query_quest(quest_name)[:progress],
