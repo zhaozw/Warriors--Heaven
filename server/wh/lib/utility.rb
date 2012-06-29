@@ -180,7 +180,7 @@ def update_title1(c)
      # p "===>update_title2 #{t}"
     if title!= nil and title.size>0
         titles = title.split(" ")
-        if titles.size>1 and title2[1]!=nil and title2[1].size>0
+        if titles.size>1 and titles[1]!=nil and titles[1].size>0
             t += " "+ titles[1]
         end
     end
@@ -301,7 +301,7 @@ end
         # drop object
         objs = p1.query_carrying
          r = rand(objs.size*2)
-         if r < objs.size && objs.obj_type !="equipment" and objs.obj_type != "special"
+         if r < objs.size && objs[r].obj_type !="equipment" and objs[r].obj_type != "special"
              move_obj(objs[r], p1, p2)
              drop.push(objs[r])
          end

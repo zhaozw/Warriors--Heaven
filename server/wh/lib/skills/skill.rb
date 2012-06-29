@@ -165,7 +165,8 @@ class Skill
    # end
 
 
-   
+   	def hit(context)
+    end
 end
 end
 

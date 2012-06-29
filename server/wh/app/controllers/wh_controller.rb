@@ -468,6 +468,9 @@ class WhController < ApplicationController
             if (ext[:hp] > ext[:maxhp])
                 ext[:hp] = ext[:maxhp]
             end
+            if (ext[:hp] < 0-ext[:maxhp]*2)
+                ext[:hp] = 0-ext[:maxhp]*2
+            end
         end
         
         

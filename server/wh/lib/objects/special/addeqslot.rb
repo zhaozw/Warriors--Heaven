@@ -35,7 +35,7 @@ class Addeqslot  < Special
   end
   
   def userCanGet?(context)
-      if (context[:c].ext.get_prop("max_eq").to_i >= 30)
+      if (context[:c].ext.get_prop("max_eq").to_i >= g_maxeq)
           context[:m] = "您的装备栏数量以上限, 无法再增加."
           return false
       end

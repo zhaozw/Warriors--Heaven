@@ -48,9 +48,11 @@ class Jiuhuayuluwan < Fixture
     def use(context)
         p = context[:player]
         p.ext[:hp] = p.ext[:maxhp]
+        p.release_poisoned
         
         p.delete_obj(self)
         context[:msg]="你服下一#{unit}#{dname}, 觉得一股清气贯通全身！"
+        
     end
         def unlock_level
             0

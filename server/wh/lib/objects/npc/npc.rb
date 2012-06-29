@@ -145,6 +145,25 @@ module Npc
     def var
         tmp
     end
-
+    
+    def ext
+        tmp
+    end
+     def release_poisoned
+         # ext.delete_prop("poisoned")
+     end
+     def set_poisoned(poison_name, amount)
+         # ext.set_prop("poisoned", {:name=>poison_name, :amount=>amount, :time=>Time.now})
+     end
+     def get_poisoned
+         # return ext.get_prop("poisoned")
+         return nil
+     end
   
+    def get_prop
+        return nil
+    end
+    def set_prop
+        
+    end
 end

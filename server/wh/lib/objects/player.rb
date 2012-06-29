@@ -179,19 +179,19 @@ include Pc
     def get_obj(o)
         items = query_items
         eqs = query_all_equipments
-        if o.data[:eqtype] == 2 && items.size >=30
+        if o.data[:eqtype] == 2 && items.size >=g_maxitem
             send_msg(id, "你的物品数量已达上限，只好放弃了#{o.dname}")
             return
         end
-        if o.data[:eqtype] == 1 && eqs.size >=30
+        if o.data[:eqtype] == 1 && eqs.size >=g_maxeq
             send_msg(id, "你的物品数量已达上限，只好放弃了#{o.dname}")
             return
         end
             
-        if o.data[:eqtype] == 2 && items.size == 29
+        if o.data[:eqtype] == 2 && items.size == g_maxitem-1
             send_msg(id, "警告:您的物品数量已达上限，下次将无法获得物品")
         end
-        if o.data[:eqtype] == 1 && eqs.size == 29
+        if o.data[:eqtype] == 1 && eqs.size == g_maxeq-1
             send_msg(id, "警告:您的物品数量已达上限，下次将无法获得装备")
         end
         @obj.get_obj(o)
@@ -220,15 +220,15 @@ include Pc
         @obj.query_quest(quest)
     end
     
-    def hp
-        diff = Time.now - ext[:updated_at]
-        if ext[:hp] < ext[:maxhp]
-            ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
-            if (ext[:hp] > ext[:maxhp])
-                ext[:hp] = ext[:maxhp]
-            end
-        end
-    end
+    # def hp
+    #     diff = Time.now - ext[:updated_at]
+    #     if ext[:hp] < ext[:maxhp]
+    #         ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
+    #         if (ext[:hp] > ext[:maxhp])
+    #             ext[:hp] = ext[:maxhp]
+    #         end
+    #     end
+    # end
 
     def stam
         diff = Time.now - ext[:updated_at]
@@ -261,7 +261,50 @@ include Pc
     def query_all_equipments
         @obj.query_all_equipments
     end
-    
+      
+     def check_poison()
+         p = self
+        r = p.get_poisoned
+        return "" if !r
+        
+        if r.class == String
+            r = JSON.parse(r)
+        end
+        am = r['amount'].to_i
+        if am > 0
+            # m = "<div class='poisoned'>"
+            m = "<br/>\n<span class='poisoned'>"
+            if (r['name'] == "蛇毒")
+                m += "$N觉得伤口逐渐发麻,"
+            elsif (r['name'] == "情花毒")
+                m += "$N觉得被情花刺破之处一阵剧痛"
+            end
+            m += "#{r['name']}发作了！"
+
+            p.tmp[:hp] -= am
+        
+            m+="(hp-#{am})</span><br/>"
+            u = Time.now.to_i - r['time'].to_i
+            p "==>check_poison: span time #{u}"
+        
+            if (u>10)
+                _am = am - am*u/1000
+                if _am >0
+                    if _am != am
+                        r['amount'] = am
+                        r['time'] = Time.now.to_i
+                        p.set_prop("poisoned",r)
+                    end
+                else
+                    p.release_poisoned
+                end
+            end
+        else
+            p.release_poisoned
+        end
+            
+        return m
+    end
     def recover
 
         if ext[:updated_at]
@@ -270,6 +313,7 @@ include Pc
             diff = 10000000000
         end
     
+        
         rate = 100 # recover 1/100 of max per second
         
         # hasMuren = ext.get_prop("hasMuren")
@@ -284,6 +328,9 @@ include Pc
             ext[:hp] += ext[:maxhp] * diff /200  # maxhp/20 * (diff/10)
             if (ext[:hp] > ext[:maxhp])
                 ext[:hp] = ext[:maxhp]
+            end
+            if (ext[:hp] < 0-ext[:maxhp]*2)
+                ext[:hp] = 0-ext[:maxhp]*2
             end
         end
         
@@ -554,5 +601,71 @@ include Pc
 
         ext[:title] = s
     end 
+     def removeTitle(t)
+        s = ext[:title]
+        ar2 = []
+        if s && s.size > 0
+            ar = s.split(" ") 
+            ar.each {|v|
+                if v != t
+                   ar2.push(v)
+                end
+            }
+            s = ar2.join(" ")
+        else
+            s=""
+        end
+
+        ext[:title] = s
+    end
+    def removeStatus(t)
+        s = ext[:sstatus]
+        ar2 = []
+        if s && s.size > 0
+            ar = s.split(" ") 
+            ar.each {|v|
+                if v != t
+                   ar2.push(v)
+                end
+            }
+            s = ar2.join(" ")
+        else
+            s=""
+        end
+
+        ext[:sstatus] = s
+    end
+    def addStatus(t)
+        s = ext[:sstatus]
+        if s && s.size > 0
+            ar = s.split(" ") 
+            ar.each {|v|
+                if v == t
+                    return
+                end
+            }
+            s += " #{t}"
+        else
+            s = "#{t}"
+        end
+
+        ext[:sstatus] = s
+    end
      
+     def release_poisoned
+         ext.delete_prop("poisoned")
+         removeStatus("中毒中")
+     end
+     def set_poisoned(poison_name, amount)
+         ext.set_prop("poisoned", {:name=>poison_name, :amount=>amount, :time=>Time.now.to_i})
+     end
+     def get_poisoned
+         return ext.get_prop("poisoned")
+     end
+     def get_prop(n)
+         ext.get_prop(n)
+     end
+     def set_prop(n,v)
+         ext.set_prop(n,v)
+     end
 end

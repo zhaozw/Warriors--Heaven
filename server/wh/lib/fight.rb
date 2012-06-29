@@ -188,7 +188,8 @@ end
    # $p=> defenesr的人称代词
    # $w => weapon
     def translate_msg(msg, context)
-    
+        return "" if msg==nil
+        return msg if context==nil
         attacker = context[:user]
       #  p attacker[:name] 
       #  p msg
@@ -395,6 +396,13 @@ end
         context[:user].tmp[:stam] -= cs
         m = damage_msg(d, skill.type) + "(<span class='attr'>Hp</span>:<span class='damage'>-#{d}</span>)(<span class='attr'>体力</span>:<span class='damage'>-#{cs}</span>)"
         # m = skill.doDamage(context)
+        
+        
+        # call skill hit to give special effect
+        _c = {:msg=>"", :attacker=>context[:user], :defenser=>context[:target], :action=>context[:action]}
+        skill.hit(_c)
+        m += line translate_msg(_c[:msg],context)        
+        
         return "<br/>\n"+translate_msg(m, context)
         # return "<br/>\n"+translate_msg(m1+m, context)
     end
@@ -524,12 +532,15 @@ end
         context[:msg] += a[rand(a.length)] + "(<span class='attr'>体力</span><span class='damage'>-#{cs}</span>)"
         
     end
+    
+
    def __fight(attacker, defenser, context)  # one round
         msg = ""
         style_c = context[:style] 
         context[:round] += 1
         msg += "\n<div class=\"#{style_c}\">\n"
         
+      
         
         context_a = {
                     :user => attacker,
@@ -538,6 +549,17 @@ end
                     :gain => attacker[:gain],
                     :msg => ""
         }
+       context_d = {
+                :user => defenser,
+               # :thisskill => defenser[:dodge_skill][:skill],
+                :skills=>   defenser.query_all_skills,
+                :target => attacker,
+                :gain => defenser[:gain],
+                :msg => ""
+        }
+        msg += line translate_msg(attacker.check_poison, context_a)
+        msg += line translate_msg(defenser.check_poison, context_d)
+        
         if (attacker.tmp[:stam] <= 0 )
                 msg += line translate_msg("$N的体力不够， 无法发起进攻", context_a) 
                 
@@ -548,14 +570,7 @@ end
 
                 # do attack
                 damage = 0
-            context_d = {
-                    :user => defenser,
-                   # :thisskill => defenser[:dodge_skill][:skill],
-                    :skills=>   defenser.query_all_skills,
-                    :target => attacker,
-                    :gain => defenser[:gain],
-                    :msg => ""
-            }
+         
             if context[:riposte]
                      msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
             end

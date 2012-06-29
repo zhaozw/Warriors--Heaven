@@ -47,9 +47,9 @@ class Hunt < Quest
     
     def beast_list
         [ # from expensive to cheap
-            "objects/npc/tiger",
+            # "objects/npc/tiger",
             "objects/npc/snake",
-            "objects/npc/yetu"
+            # "objects/npc/yetu"
         ]
     end
     
@@ -142,7 +142,9 @@ class Hunt < Quest
                     drop = rand_drop(npc,player)
                     if drop
                         for dr in drop
-                            msg += "\n<div class='gain' style='color:#990000'>你得到了一#{dr.unit}#{dr.dname}!</div>"
+                            if dr
+                                msg += "\n<div class='gain' style='color:#990000'>你得到了一#{dr.unit}#{dr.dname}!</div>"
+                            end
                         end
                     end
                     progress = 10
@@ -172,7 +174,8 @@ class Hunt < Quest
                 msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
             else
      
-                if (pp > luck+80)
+                # if (pp > luck+80)
+                    if false
                     msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])

@@ -218,30 +218,40 @@
         vSummary.frame = CGRectMake(26, 26, 269, 175);
 //    [self recoverWebView];
 
+//    int left_seasonimg=230+5;
+//    int left_month = 240;
+
+    int left_seasonimg=5;
+    int left_month = 5;
     
-    vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(230+5, 5, 50, 50)];
-    vSeasonImag.alpha = 0.3f;
+    int top_sessonimg=5;
+    int height = 20;
+    int width= 30;
+    
+    vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(left_seasonimg, top_sessonimg, 50, 50)];
+    vSeasonImag.alpha = 0.39f;
     [vProfileBg addSubview:vSeasonImag];
     
     Lunar * lunar_day = [Lunar LunarForSolar:[NSDate date]];
     
     
-    lbMonth = [LightView createLabel:CGRectMake(180+60, 5+55, 30, 20) parent:vProfileBg text:lunar_day.sMonthName textColor: [UIColor yellowColor]];
+    lbMonth = [LightView createLabel:CGRectMake(left_month, top_sessonimg+55, width, height) parent:vProfileBg text:lunar_day.sMonthName textColor: [UIColor yellowColor]];
     
     lbMonth.alpha = 0.6f;
     [vProfileBg bringSubviewToFront:lbMonth];
     
-    lbDate = [LightView createLabel:CGRectMake(180+90, 5+55, 30, 20) parent:vProfileBg text:lunar_day.sDayname textColor: [UIColor colorWithRed:1.0f green:0.8f blue:0.8f alpha:1.0f]];
+    lbDate = [LightView createLabel:CGRectMake(left_month+width, top_sessonimg+55, width, height) parent:vProfileBg text:lunar_day.sDayname textColor: [UIColor colorWithRed:1.0f green:0.8f blue:0.8f alpha:1.0f]];
     lbDate.alpha = 0.6f;
     [vProfileBg bringSubviewToFront:lbDate];
     
     // 节气
-    lbTiming = [LightView createLabel:CGRectMake(180+60, 25+55, 30, 20) parent:vProfileBg text:lunar_day.sJieqi textColor: [UIColor colorWithRed:0.8f green:1.0f blue:0.8f alpha:1.0f]];
+    lbTiming = [LightView createLabel:CGRectMake(left_month, top_sessonimg+55+height, width, height) parent:vProfileBg text:lunar_day.sJieqi textColor: [UIColor colorWithRed:0.8f green:1.0f blue:0.8f alpha:1.0f]];
     lbTiming.alpha = 0.6f;
     [vProfileBg bringSubviewToFront:lbTiming];
     
-    lbTimingInfo = [LightView createLabel:CGRectMake(180+90, 25+55, 30, 20) parent:vProfileBg text:@"晴" textColor: [UIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f]];
-    lbTimingInfo.alpha = 0.6f;
+//    lbTimingInfo = [LightView createLabel:CGRectMake(left_month+width, top_sessonimg+55+height, width, height) parent:vProfileBg text:@"晴" textColor: [UIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f]];
+//    lbTimingInfo.alpha = 0.6f;
+    
     [vProfileBg bringSubviewToFront:lbTimingInfo];
     
     // test http

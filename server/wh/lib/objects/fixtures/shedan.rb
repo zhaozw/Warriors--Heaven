@@ -26,7 +26,7 @@ class Shedan < Fixture
     end
     
     def image
-        "obj/fixtures/shedan.jpg"
+        "obj/fixtures/shedan.png"
     end
     
         def use(context)

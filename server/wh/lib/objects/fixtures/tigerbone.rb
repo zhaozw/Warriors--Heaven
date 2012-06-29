@@ -1,13 +1,13 @@
 require 'objects/fixtures/herb.rb'
 
 
-class Shedan < Fixture
+class Tigerbone < Fixture
     
     def dname
-        "虎皮"
+        "虎骨"
     end
     def unit
-        "张"
+        "副"
     end
     def desc
         "这是一#{unit}#{dname}，可以入药"

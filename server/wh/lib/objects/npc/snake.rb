@@ -6,7 +6,9 @@ class Snake < Npcorc
        "毒蛇"
    end
    
-   
+   def unit
+       "条"
+   end
    def title
        "猛兽" 
    end
@@ -23,7 +25,7 @@ class Snake < Npcorc
         
        @temp ={
            :exp =>0,
-           :level => 5,
+           :level => 50,
            :hp => 50,
            :maxhp =>100,
            :stam    =>200,
@@ -41,7 +43,7 @@ class Snake < Npcorc
     end
     
     def setup_skill  
-        set_skill("beastunarmed", 20, 0)
+        set_skill("poisonsnake", 200, 0)
         set_skill("parry", 20, 0)
         set_skill("dodge", 20, 0)
     
@@ -75,7 +77,7 @@ class Snake < Npcorc
     
     
     def setup_equipment
-              carry("objects/fixtures/shedan")
+              carry(create_obj("objects/fixtures/shedan"))
     end
     
     def image

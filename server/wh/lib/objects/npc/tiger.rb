@@ -78,7 +78,7 @@ class Tiger < Npcorc
     
     
     def setup_equipment
-      carry("objects/fixtures/tigerskin")
+      carry(create_obj("objects/fixtures/tigerbone"))
     end
     
     def image

@@ -1,3 +1,10 @@
+
+def g_maxitem
+    50
+end
+def g_maxeq
+    30
+end
 #==============================#
 #           Title system       #
 #==============================#
@@ -79,7 +86,7 @@ def title_from_skill(skill, level)
             t = "大国医"
         elsif level < 80
             t = "药王"
-        elsif 
+        else
             t = "医仙"
         end
     end

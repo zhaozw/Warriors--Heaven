@@ -71,8 +71,8 @@ class Yunbiao < Quest
         
         msg = ""
         if (action=="go")
-            # if rand(100) < player.tmp[:luck]
-            if true
+            if rand(100) < player.tmp[:luck]
+            # if true
                 msg += "<div class='row'>你把镖旗一扬，趟子手高喊着‘我～武～威～扬’，车轮沉沉压过地面，引来不少注目</div>"
                 r = data
                 add_progress(10)

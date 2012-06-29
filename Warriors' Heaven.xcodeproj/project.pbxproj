@@ -456,12 +456,12 @@
 			isa = PBXGroup;
 			children = (
 				5AFD8DE51500EAEE0066ECBA /* main.xib */,
-				5A016F1C157A4CAC002D2B2A /* PurchaseViewController.xib */,
 				5A388C4B15366D93008395BB /* RegViewController.xib */,
 				5AFD8DE9150233600066ECBA /* HomeViewController.xib */,
 				5A25E28F1504D2530046C67D /* BattleViewController.xib */,
 				5A25E2851504CC260046C67D /* CharacterViewController.xib */,
 				5A027425151E9BEA0083706E /* MarketViewController.xib */,
+				5A016F1C157A4CAC002D2B2A /* PurchaseViewController.xib */,
 				5A205FF41548684A0048A0C1 /* ObjDetailViewController.xib */,
 				5A25E28A1504CC9A0046C67D /* StatusViewController.xib */,
 				5A47AC4C1516C44400C050FB /* TrainingGround.xib */,
