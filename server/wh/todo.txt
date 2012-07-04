@@ -52,3 +52,22 @@ create new iap product
 2. How to restore iap product from "developer action needed" to "ready to submit"
 change description
 3. testing doesn't need iap product be selected in "in app purchase" section
+
+
+1. Sorry I forgot change the icon. I will change it immediately.
+
+2. The "locked" items is ONLY locked by game level, not by gold or any kind of purchase, and will be unlocked as long as user get to specified level.(Please see attacked screenshot "locked.jpg" and translation). It's very usual in game, e.g. The new plant in game "Plant vs Zombie" or the new magic in game "Samurai vs Zombie". It has nothing to do with gold or any kind of purchase. User's game level is ONLY unlock condition. (The price beside the locked item is the gold number user will use to buy it after it's unlocked, which is same purpose as unlocked item. The price is not for unlocking. The ONLY unlock condition is user's game level. Please see attached screenshot and translation). But anyway, if now this kind of feature is not allowed any more, we can remove it.
+
+3. In fact the "invitation code" is "Team Code", which is the identifier of the team user create in game. When new user create his character with a team code (optional), he will get gift from the team owner. The item that has a question mark is not "locked item", but is a "random item" as gift. Once user join the team and get this gift, then he will see what the item is, which doesn't need "unlock", it just means "random". The Chinese word for the name of the item with question mark means "random". Please see screenshot with translation I attached (dj.fcpqcym1.jpg). Thanks !
+
+4. I'v uploaded screenshots showing how to make purchase in game, Please check it. Thank you !
+
+Please let me know after your reconsideration:
+1. Do I have to remove the "locked item" (which is ONLY locked by user's game level ) ?
+2. Do I have to remove the "random item" ?
+3. Do I have to remove "Team code" ? (Team code is the only way for user to join other's team, if this is not allowed, the whole team features in game will be removed ...)
+
+Thank you very much !
+
+Best Regards,
+Ju Weihua

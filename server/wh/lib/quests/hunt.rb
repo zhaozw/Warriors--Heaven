@@ -47,9 +47,9 @@ class Hunt < Quest
     
     def beast_list
         [ # from expensive to cheap
-            # "objects/npc/tiger",
+            "objects/npc/tiger",
             "objects/npc/snake",
-            # "objects/npc/yetu"
+            "objects/npc/yetu"
         ]
     end
     
