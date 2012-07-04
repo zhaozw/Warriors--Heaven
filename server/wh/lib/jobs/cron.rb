@@ -46,7 +46,7 @@ def launch_jobs
 
             }
             # test
-            break
+            # break
             
             sleep (1800) # per hour
         end
@@ -133,7 +133,7 @@ def launch_jobs
             sleep(1)            
             
             # test
-            break
+            # break
             
             sleep (3600*24) # per day
         end

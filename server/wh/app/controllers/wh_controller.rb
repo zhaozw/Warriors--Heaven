@@ -1268,7 +1268,7 @@ class WhController < ApplicationController
         @rate = @total_win*100.0/@battle_count
         
        r = ActiveRecord::Base.connection.execute("select count(*) from userquests where uid=#{session[:uid]}")
-       @quest_count = QuestController.list.size - r.fetch_row[0].to_i
+       @quest_count = QuestController.list2.size - r.fetch_row[0].to_i
         
     end
     

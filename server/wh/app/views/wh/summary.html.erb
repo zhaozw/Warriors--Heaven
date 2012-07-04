@@ -7,12 +7,14 @@
 	<div>
 	你的累计战斗胜率为<span style="color:red"><%="%0.2f"%[@rate]%>%</span>
 	</div>
-	<div>
-	恭喜你！你获了得<span style="color:brown">一级铁十字勋章</span>和<span style="color:brown">初级剑侠</span>的称号!
-	</div>
+	<!--div>
+	<恭喜你！你获了得<span style="color:brown">一级铁十字勋章</span>和<span style="color:brown">初级剑侠</span>的称号!
+	</div-->
+	<% if @quest_count> 0 %>
 	<div>
 	还有<%=@quest_count%>个<a href="/quests">任务</a>,3个<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">荣誉勋章</a>和2个<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">头衔</a>等着你去获取呢!
 	</div>
+	<% end %>
 	</div><!-- main -->
 	
 </body>
