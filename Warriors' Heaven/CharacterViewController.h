@@ -68,7 +68,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *vEq_armo;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_cap;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_neck;
-@property (strong, nonatomic) IBOutlet UIImageView *vProfile;
+@property (strong, nonatomic) IBOutlet EGOImageView *vProfile;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_handright;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_arm;
 @property (strong, nonatomic) IBOutlet EGOImageButton *vEqbtn_fingersRight;

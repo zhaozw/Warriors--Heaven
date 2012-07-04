@@ -32,7 +32,7 @@
 - (IBAction)onTouchTeam:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
-@property (strong, nonatomic) IBOutlet UIImageView *playerProfile;
+@property (strong, nonatomic) IBOutlet EGOImageView *playerProfile;
 @property (nonatomic, retain) UIImageView *bgView;
 - (void)sendHttpRequest:(NSString*)cmd;
 -(void)viewWillAppear:(BOOL)animated;

@@ -284,6 +284,30 @@
     return c;
 }
 
++(id) createEGOButton:(CGRect)frame parent:(UIView*)parent img:(NSString*)img text:(NSString*)text tag:(int)tag{
+    EGOImageButton* btn_ask = [EGOImageButton buttonWithType:UIButtonTypeCustom];
+//    UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    
+    [parent addSubview:btn_ask];
+    btn_ask.frame = frame;
+    
+    [btn_ask setTitle:text forState:UIControlStateNormal];
+    
+    if (img != NULL && img.length > 0){
+        if ([img hasPrefix:@"http"])
+            [btn_ask setImageURL:[NSURL URLWithString:img]];
+        else
+            [btn_ask setBackgroundImage:[UIImage imageNamed:img] forState:UIControlStateNormal];
+    }else
+        [btn_ask setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
+    //    [btn_ask addTarget:vc action: NSSelectorFromString(callback) forControlEvents:UIControlEventTouchUpInside];
+    [btn_ask.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:12.0f]];
+    [btn_ask.titleLabel setTextColor:[UIColor whiteColor]];
+    btn_ask.tag = tag;
+    return btn_ask;
+    
+}
 +(id) createButton:(CGRect)frame parent:(UIView*)parent text:(NSString*) text tag:(int)tag{
 
     UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];

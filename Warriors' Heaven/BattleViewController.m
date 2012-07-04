@@ -200,8 +200,17 @@
          //        UIImage * img = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://127.0.0.1/images/home.jpg"] options:NSDataReadingMappedIfSafe error:&error]];
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
-        UIButton* logo = [LightView createButton:CGRectMake(1, 5, 50, 50) parent:row text:@"" tag:[uid intValue]];
-        [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
+   
+          NSString* sProf = @"";
+        if (profile > 5){
+            sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%d.png", ad.host, ad.port, profile];
+//            [logo setImageURL:[NSURL URLWithString:sProf]];
+        }
+        else 
+            sProf = [NSString stringWithFormat:@"p_%d.png", profile];
+//            [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
+        EGOImageButton* logo = [LightView createEGOButton:CGRectMake(1, 5, 50, 50) parent:row  img:sProf text:@"" tag:[uid intValue]];
+        
         [logo addTarget:self action:@selector(onSelectPlayer:) forControlEvents:UIControlEventTouchUpInside];
         //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
         [logo setContentMode:UIViewContentModeScaleAspectFit];

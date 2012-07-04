@@ -102,12 +102,12 @@
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
-//        [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
+        [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
     //    [self setSessionId:@"8800a9ef2d3c91569eff59ed68349e46"];  // user '一灯‘ on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
     //    session_id = @"772b5e7546e46b854b248f86a4d84d8e"; // user 'dsfadfa'
-        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
+//        session_id = @"ce17b7dbc51f7fc56bb6482c9a7dd9a1"; // user 'kkk'
 //        session_id = @"40d2e044df294a37a604a9458e621018"; // user '燕北天'
 //        session_id = @"41ef1b384cebdee01dc752b94f113db3"; // user 'vhd'
 //    session_id = @"2d784425b2355425b5042330c8badc65"; // user 'gg'
@@ -119,7 +119,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 
 }
 - (NSString *) readSessionId{
@@ -344,7 +344,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
@@ -1118,7 +1118,7 @@
     
         controller.mailComposeDelegate = vcStatus;
         [controller setSubject:@"快来加入我的战队"];
-         NSString* m = [NSString stringWithFormat:@"Hi, \n快来玩IPhone游戏《侠客行》吧，加入我们的战队就可获得装备哦。记住注册时填写我的Code \"%@\" ^_^.", tc];
+         NSString* m = [NSString stringWithFormat:@"Hi, \n快来玩IPhone游戏《侠客行》吧，加入我们的战队就可获得装备哦。记住注册时填写我的战队Code \"%@\" ^_^.", tc];
         [controller setMessageBody:m isHTML:NO];
 //            [vcStatus presentModalViewController:controller animated:YES];
 //        [window.rootViewController presentModalViewController:controller animated:YES];

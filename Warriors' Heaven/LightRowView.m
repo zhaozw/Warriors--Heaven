@@ -36,8 +36,12 @@
     self.frame = frame;
     vLogo = [[EGOImageButton alloc] initWithFrame:CGRectMake(1, 5, 50, 50)];
     vLogo.tag = btnTag;
-//    [vLogo setImageURL:[NSURL URLWithString:logo]];
-    [vLogo setImage:[UIImage imageNamed:logo] forState:UIControlStateNormal];
+    if (logo !=NULL){
+        if ([logo hasPrefix:@"http"])
+            [vLogo setImageURL:[NSURL URLWithString:logo]];
+        else
+            [vLogo setImage:[UIImage imageNamed:logo] forState:UIControlStateNormal];
+    }
     [self addSubview:vLogo];
     
     lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(60, 15, 80, 25)];

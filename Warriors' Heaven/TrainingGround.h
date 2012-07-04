@@ -33,7 +33,7 @@
 @property (strong, nonatomic) IBOutlet UIButton * bt_common_skill;
 @property (strong, nonatomic) IBOutlet UIButton * bt_premier_skill;
 @property (strong, nonatomic) IBOutlet UIButton * bt_basic_skill;
-@property (strong, nonatomic) IBOutlet UIImageView *vProfile;
+@property (strong, nonatomic) IBOutlet EGOImageView *vProfile;
 - (IBAction)onSelectTrainingGround:(id)sender;
 - (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot;
 

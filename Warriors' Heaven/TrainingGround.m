@@ -78,8 +78,23 @@
     [self.view addSubview:vcResearch.view];
     
     
-    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
-    [vProfile setImage:[UIImage imageNamed:prof]];
+//    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
+//    [vProfile setImage:[UIImage imageNamed:prof]];
+    
+    // set player profile
+    id prof = [[ad getDataUser] valueForKey:@"profile"];
+    int iProf = 0;
+    if (prof != NULL && prof != [NSNull null] )
+        iProf = [prof intValue];
+    
+    if (iProf > 5){
+        NSString* sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%db.png", ad.host, ad.port, iProf];
+        [vProfile setImageURL:[NSURL URLWithString:sProf]];
+    }else{
+        NSString* sProf = [NSString stringWithFormat:@"p_%db.png", iProf];
+        
+        [vProfile setImage:[UIImage imageNamed:sProf]];
+    }
     
     
     //  UIImageView skillsView = [[UIImageView alloc] initWithImage:UIImage imageNamed:@"skillview.png")];

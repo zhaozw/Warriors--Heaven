@@ -81,7 +81,11 @@
     NSString * name = [ext valueForKey:@"name"];
     int level = [[ext valueForKey:@"level"] intValue];
     int profile = [[ext valueForKey:@"profile"] intValue];
-    [vImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%db.png", profile]]];
+    if (profile > 5) {
+        NSString* sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%db.png", ad.host, ad.port, profile];
+        [vImage setImageURL:[NSURL URLWithString:sProf]];
+    }else
+        [vImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%db.png", profile]]];
     lbTitle.text = name;
     lbLevel.text = [NSString stringWithFormat:@"%d", level];
     lbDesc.text = @"";

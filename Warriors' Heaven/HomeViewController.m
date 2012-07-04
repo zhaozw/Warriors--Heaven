@@ -107,8 +107,19 @@
     }
     
     // set player profile
-    NSString* prof = [NSString stringWithFormat:@"p_%@b.png", [[ad getDataUser] valueForKey:@"profile"]];
-    [playerProfile setImage:[UIImage imageNamed:prof]];
+    id prof = [[ad getDataUser] valueForKey:@"profile"];
+    int iProf = 0;
+    if (prof != NULL && prof != [NSNull null] )
+        iProf = [prof intValue];
+    
+    if (iProf > 5){
+        NSString* sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%db.png", ad.host, ad.port, iProf];
+        [playerProfile setImageURL:[NSURL URLWithString:sProf]];
+    }else{
+        NSString* sProf = [NSString stringWithFormat:@"p_%db.png", iProf];
+        
+        [playerProfile setImage:[UIImage imageNamed:sProf]];
+    }
 
     //[vcStatus viewDidAppear:NO];
 

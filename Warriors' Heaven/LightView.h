@@ -26,7 +26,7 @@
 -(UIImageView*) createImageViewAsRow:(NSString*) img frame:(CGRect)frame;
 - (void) removeAllRow;
 - (id) addRowView:(NSString*)title logo:(NSString*)logo btTitle:(NSString*)btTitle  btnTag:(int)btnTag;
-
++(id) createEGOButton:(CGRect)frame parent:(UIView*)parent img:(NSString*)img text:(NSString*) text tag:(int)tag;
 +(id) createButton:(CGRect)frame parent:(UIView*)parent text:(NSString*) text tag:(int)tag;
 - (void) deleteRow:(UIView*) r;
 + (void) removeAllSubview:(UIView*)v;

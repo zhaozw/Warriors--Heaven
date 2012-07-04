@@ -141,8 +141,11 @@
         int userId = [[user valueForKey:@"id"] intValue];
         NSString* sUser = [user valueForKey:@"user"];
         int profile = [[user valueForKey:@"profile"] intValue];
-        NSString* userProfile = [NSString stringWithFormat:@"p_%d.png", profile];
         
+        NSString* userProfile = [NSString stringWithFormat:@"p_%d.png", profile];
+        if (profile > 5)
+            userProfile = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%d.png", ad.host, ad.port, profile];            
+
         LightRowView * lrv = [vMyTeam addRowView:sUser logo:userProfile btTitle:@"Delete" btnTag:i];
         [[lrv button:0] addTarget:self action:@selector(onDeleteMember:) forControlEvents:UIControlEventTouchUpInside];
         lrv.vLogo.tag = i;
