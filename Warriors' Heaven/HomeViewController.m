@@ -495,6 +495,7 @@
 //        NSLog(@"%@",request.URL);
     }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:help//"]){
         NSString* surl = [[request.URL absoluteString] substringFromIndex:19];
+        surl = [surl stringByReplacingOccurrencesOfString:@":://" withString:@"://"];
         [ad showHelpView:surl frame:CGRectMake(0, 0, 320, 480-49)];
     }
         
