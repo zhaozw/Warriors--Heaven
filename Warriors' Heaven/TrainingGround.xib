@@ -83,7 +83,7 @@
 					<object class="IBUIButton" id="889050373">
 						<reference key="NSNextResponder" ref="50073969"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{38, 164}, {72, 37}}</string>
+						<string key="NSFrame">{{31, 164}, {79, 37}}</string>
 						<reference key="NSSuperview" ref="50073969"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="414065736"/>
@@ -92,7 +92,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">状态</string>
+						<string key="IBUINormalTitle">ステートス</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="260265424">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -109,13 +109,13 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button1.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="980208986">
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
-							<double key="pointSize">15</double>
+							<double key="pointSize">13</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="339777873">
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">15</double>
+							<double key="NSSize">13</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
@@ -139,8 +139,15 @@
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="585733028"/>
 						<reference key="IBUINormalBackgroundImage" ref="507716420"/>
-						<reference key="IBUIFontDescription" ref="980208986"/>
-						<reference key="IBUIFont" ref="339777873"/>
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="980208986">
+							<int key="type">2</int>
+							<double key="pointSize">15</double>
+						</object>
+						<object class="NSFont" key="IBUIFont" id="425366022">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
+						</object>
 					</object>
 					<object class="IBUIButton" id="302873387">
 						<reference key="NSNextResponder" ref="50073969"/>
@@ -154,13 +161,13 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">藏经阁</string>
+						<string key="IBUINormalTitle">図書館</string>
 						<reference key="IBUIHighlightedTitleColor" ref="260265424"/>
 						<reference key="IBUINormalTitleColor" ref="478807676"/>
 						<reference key="IBUINormalTitleShadowColor" ref="585733028"/>
 						<reference key="IBUINormalBackgroundImage" ref="507716420"/>
 						<reference key="IBUIFontDescription" ref="980208986"/>
-						<reference key="IBUIFont" ref="339777873"/>
+						<reference key="IBUIFont" ref="425366022"/>
 					</object>
 					<object class="IBUILabel" id="378282613">
 						<reference key="NSNextResponder" ref="50073969"/>
@@ -222,7 +229,7 @@
 					<object class="IBUILabel" id="766156798">
 						<reference key="NSNextResponder" ref="50073969"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{235, 116}, {42, 21}}</string>
+						<string key="NSFrame">{{239, 116}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="50073969"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="889050373"/>
@@ -258,7 +265,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">潜能</string>
+						<string key="IBUIText">潜在能力</string>
 						<reference key="IBUITextColor" ref="1060469605"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
@@ -626,7 +633,7 @@
 						<string key="vCommonSkillsList">UIView</string>
 						<string key="vPremierSkill">UIView</string>
 						<string key="vPremierSkillsList">UIView</string>
-						<string key="vProfile">UIImageView</string>
+						<string key="vProfile">EGOImageView</string>
 						<string key="vcResearch">ResearchViewController</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -680,7 +687,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="vProfile">
 							<string key="name">vProfile</string>
-							<string key="candidateClassName">UIImageView</string>
+							<string key="candidateClassName">EGOImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="vcResearch">
 							<string key="name">vcResearch</string>

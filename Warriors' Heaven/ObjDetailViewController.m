@@ -101,7 +101,7 @@
         viewType = @"sell";
         [btTrade setTitle:@"卖出" forState:UIControlStateNormal];
 //        [btTrade addTarget:[self parentViewController] action:@selector(onSell1:) forControlEvents:UIControlEventTouchUpInside];
-         slbPrice.text = @"卖出价格";
+         slbPrice.text = @"売却価格";
     }
 }
 - (void) loadObjDetail:(NSObject*) o{

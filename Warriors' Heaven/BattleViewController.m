@@ -70,7 +70,7 @@
     vTitleView.frame = CGRectMake(0, 0, 320, 39);
     vTitleView.userInteractionEnabled = YES;
     [vPlayers addSubview: vTitleView];
-    UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"请选择要挑战的玩家" textColor:[UIColor yellowColor]];
+    UILabel* lbTitle = [LightView createLabel:CGRectMake(5, 2, 200, 30) parent:vTitleView text:@"挑戦したいプレーヤーを選んでください" textColor:[UIColor yellowColor]];
     [lbTitle setFont: [UIFont fontWithName:@"Helvetica" size:15.0f]];
 
 
@@ -542,9 +542,9 @@
                 continue;
             NSString* s = NULL;
             if (win)
-                s = [NSString stringWithFormat:@"你获得了%d%@‘%@’", amount, unit, dname];
+                s = [NSString stringWithFormat:@"○○を貰った%d%@‘%@’", amount, unit, dname];
             else
-                s = [NSString stringWithFormat:@"你失去了%d%@'%@‘", amount, unit, dname];
+                s = [NSString stringWithFormat:@"○○を失った%d%@'%@‘", amount, unit, dname];
             [LightView createLabel:CGRectMake(30, y, 200, 30) parent:resultView text:s textColor:[UIColor redColor]];
              y += 30;
         }
@@ -553,11 +553,11 @@
     
     [LightView createImageView:@"line1.png" frame:CGRectMake(0, y+5, 320, 2) parent:resultView];
     int round = [[data valueForKey:@"round"] intValue];
-    [[LightView createLabel:CGRectMake(30, y+10, 100, 30) parent:resultView text:[NSString stringWithFormat:@"%d回合", round] textColor:[UIColor blackColor]] setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
+    [[LightView createLabel:CGRectMake(30, y+10, 100, 30) parent:resultView text:[NSString stringWithFormat:@"%d本目", round] textColor:[UIColor blackColor]] setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     // show fight procedure button
     UIButton * btn_play = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn_play setFrame:CGRectMake(80, 360, 70, 35)];
-    [btn_play setTitle:@"观看" forState: UIControlStateNormal];
+    [btn_play setTitle:@"見る" forState: UIControlStateNormal];
     [btn_play addTarget:self action:@selector(showFight:) forControlEvents:UIControlEventTouchUpInside];
     [btn_play.titleLabel setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
     [btn_play setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
@@ -598,11 +598,11 @@
         int hp = [[ext valueForKey:@"hp"] intValue];
         int stam = [[ext valueForKey:@"stam"] intValue];
         if (hp < 0 ){
-            [ad showMsg:@"你的hp不够，好好休息吧" type:1 hasCloseButton:YES];   
+            [ad showMsg:@"あなたのHPが足りないので、ゆっくり休めてね。" type:1 hasCloseButton:YES];   
             return;
         }
         if (stam <0){
-            [ad showMsg:@"你的体力不够，好好休息吧" type:1 hasCloseButton:YES];   
+            [ad showMsg:@"あなたの体力が足りないので、ゆっくり休めてね。" type:1 hasCloseButton:YES];   
             return;
         }
                     

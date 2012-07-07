@@ -193,7 +193,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     int height = 18;
     int row_margin =5;
     UIColor *tColor = [UIColor yellowColor];
-    createLabel(CGRectMake(margin_left+0, margin_top+0, 30, height), vProp, @"力量", tColor);
+    createLabel(CGRectMake(margin_left+0, margin_top+0, 30, height), vProp, @"力", tColor);
     lbStrength = createLabel(CGRectMake(margin_left+40, margin_top+0, 30, height), vProp, @"0", NULL);
     
     createLabel(CGRectMake(margin_left+110, margin_top+0, 30, height), vProp, @"敏捷", tColor);
@@ -202,10 +202,10 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     createLabel(CGRectMake(margin_left+220, margin_top+0, 30, height), vProp, @"悟性", tColor);
     lbIntellegence = createLabel(CGRectMake(margin_left+260, margin_top+0, 30, height), vProp, @"0", NULL);
     
-    createLabel(CGRectMake(margin_left+0, margin_top+row_margin*1+20, 30, height), vProp, @"负荷", tColor);
+    createLabel(CGRectMake(margin_left+0, margin_top+row_margin*1+20, 30, height), vProp, @"負荷", tColor);
     lbWeight = createLabel(CGRectMake(margin_left+40, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
     
-    createLabel(CGRectMake(margin_left+110, margin_top+row_margin*1+20, 30, height), vProp, @"攻击", tColor);
+    createLabel(CGRectMake(margin_left+110, margin_top+row_margin*1+20, 40, height), vProp, @"ダメージ", tColor);
     lbDamage = createLabel(CGRectMake(margin_left+150, margin_top+row_margin*1+20, 30, height), vProp, @"0", NULL);
     
     
@@ -1148,7 +1148,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //                [eq_list replaceObjectAtIndex:btn.tag withObject:eq2];
             }else{
 //                [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
-                [ad showMsg:@"该装备不适合穿在这里" type:1 hasCloseButton:YES];
+                [ad showMsg:@"この装備はここで使えない" type:1 hasCloseButton:YES];
 
             }
         }

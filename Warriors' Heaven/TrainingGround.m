@@ -121,7 +121,7 @@
     [bt_basic_skill setOpaque:NO];
     [[bt_basic_skill titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
     [bt_basic_skill setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-    [bt_basic_skill setTitle:@"基础技" forState:UIControlStateNormal];
+    [bt_basic_skill setTitle:@"基本技" forState:UIControlStateNormal];
     [bt_basic_skill setTag:1];
     [bt_basic_skill addTarget:self action:@selector(selectedSkillBt:) forControlEvents:UIControlEventTouchUpInside];
     [vBasicSkill addSubview:bt_basic_skill];
@@ -151,7 +151,7 @@
     [bt_common_skill setOpaque:NO];
     [[bt_common_skill titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
     [bt_common_skill setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-    [bt_common_skill setTitle:@"高级技" forState:UIControlStateNormal];
+    [bt_common_skill setTitle:@"高級技" forState:UIControlStateNormal];
     [bt_common_skill setTag:2];
     [bt_common_skill addTarget:self action:@selector(selectedSkillBt:) forControlEvents:UIControlEventTouchUpInside];
     [vCommonSkill addSubview:bt_common_skill];
@@ -171,7 +171,7 @@
     [bt_premier_skill setOpaque:NO];
     [[bt_premier_skill titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
     [bt_premier_skill setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-    [bt_premier_skill setTitle:@"必杀技" forState:UIControlStateNormal];
+    [bt_premier_skill setTitle:@"必殺技" forState:UIControlStateNormal];
     [bt_premier_skill setTag:3];
     [bt_premier_skill addTarget:self action:@selector(selectedSkillBt:) forControlEvents:UIControlEventTouchUpInside];
     [vPremierSkill addSubview:bt_premier_skill];
@@ -415,7 +415,7 @@
         [lbSkillStatus2 setBackgroundColor:[UIColor clearColor]];
         [lbSkillStatus2 setOpaque:NO];
         if (currentPractisingSkill == i)
-            lbSkillStatus2.text = @"修炼中";
+            lbSkillStatus2.text = @"練習中";
 //        [lbSkillStatus2 setText:[[NSString alloc] initWithFormat:@"%@/%@", [[o valueForKey:@"tp"] stringValue], [[o valueForKey:@"level"] stringValue]]];
         [lb_status_list addObject:lbSkillStatus2];
         [row addSubview:lbSkillStatus2];
@@ -428,7 +428,7 @@
         [btPractise setOpaque:NO];
         [[btPractise titleLabel] setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
         [btPractise setTitleColor:[UIColor colorWithRed:88 green:33 blue:0 alpha:1] forState:UIControlStateNormal];
-        [btPractise setTitle:@"修炼" forState:UIControlStateNormal];
+        [btPractise setTitle:@"練習" forState:UIControlStateNormal];
         [btPractise setTag:i];
         [btPractise setShowsTouchWhenHighlighted:YES];
 //        [btPractise addTarget:self action:@selector(practiseSkill:) forControlEvents:UIControlEventTouchUpInside];
@@ -536,9 +536,9 @@
 //    vCommonSkillsList.hidden = YES;
 //    vPremierSkillsList.hidden = YES;
     
-    [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基础技 (%d)", count_b] forState:UIControlStateNormal];
-    [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高级技 (%d)", count_c] forState:UIControlStateNormal];
-    [bt_premier_skill setTitle:[[NSString alloc] initWithFormat:@"必杀技 (%d)", count_p] forState:UIControlStateNormal];
+    [bt_basic_skill setTitle:[[NSString alloc] initWithFormat:@"基本技 (%d)", count_b] forState:UIControlStateNormal];
+    [bt_common_skill setTitle:[[NSString alloc] initWithFormat:@"高級技 (%d)", count_c] forState:UIControlStateNormal];
+    [bt_premier_skill setTitle:[[NSString alloc] initWithFormat:@"必殺技 (%d)", count_p] forState:UIControlStateNormal];
 }
 
 - (IBAction)onSelectStatus:(id)sender {
@@ -583,19 +583,19 @@
     int pot = [[ext valueForKey:@"pot"] intValue];
     if (pot <= 0){
         currentPractisingSkill =-1; // in case training didn't stop properly
-        [ad showMsg:@"你没有潜能，无法提高" type:1 hasCloseButton:NO];
+        [ad showMsg:@"潜在能力が無いので、アップできない" type:1 hasCloseButton:NO];
         return;
     }
     if (jingli <= 0){
-        [ad showMsg:@"你的精力不够，无法集中精神，休息一下吧" type:1 hasCloseButton:NO];
+        [ad showMsg:@"体力が足りないので、集中できず、少し休もう。" type:1 hasCloseButton:NO];
         return;
     }
     if (stam <= 0){
-        [ad showMsg:@"你觉得腰酸背痛，体力似乎不够充足，休息一下再练吧" type:1 hasCloseButton:NO];
+        [ad showMsg:@"腰がだるいし、背中も痛いので、体力はまだ足りないようで、休憩してから練習しよう。" type:1 hasCloseButton:NO];
         return;
     }
     if (currentPractisingSkill != -1){      
-        [ad showMsg:@"你正在修炼" type:1 hasCloseButton:NO];
+        [ad showMsg:@"あなたはトレーニングしている。" type:1 hasCloseButton:NO];
         return;
     }
     NSArray* userskills = [ad getDataUserskills];
@@ -707,7 +707,7 @@
         [self updateSingleSkill:[data valueForKey:@"userskill"]];
         UIButton* btn = [btn_practise_list objectAtIndex:currentPractisingSkill];
         if (btn){
-            [btn setTitle:@"修炼" forState:UIControlStateNormal];
+            [btn setTitle:@"練習" forState:UIControlStateNormal];
             [btn removeTarget:self action:@selector(stopPractise:) forControlEvents:UIControlEventTouchUpInside];
             [btn addTarget:self action:@selector(startPractise:) forControlEvents:UIControlEventTouchUpInside];
         }
@@ -731,7 +731,7 @@
         if (usepot > 0)
             [self _startPractise:[data valueForKey:@"skill"] _usepot:usepot];
         UILabel* lbStatus = [lb_status_list objectAtIndex:currentPractisingSkill];
-        lbStatus.text = @"修炼中";
+        lbStatus.text = @"練習中";
         [self updateSingleSkill:[data valueForKey:@"userskill"]];  
         
         [self reloadSkills];
@@ -768,11 +768,11 @@
     int jingli = [[ext valueForKey:@"jingli"] intValue];
     int stam = [[ext valueForKey:@"stam"] intValue];
     if (jingli < 0){
-        [ad showMsg:@"你的精力不够，无法集中精神，休息一下吧" type:1 hasCloseButton:NO];
+        [ad showMsg:@"体力が足りないので、集中できず、少し休もう。" type:1 hasCloseButton:NO];
         return;
     }
     if (stam < 0){
-        [ad showMsg:@"你觉得腰酸背痛，体力似乎不够充足，休息一下再练吧" type:1 hasCloseButton:NO];
+        [ad showMsg:@"腰がだるいし、背中も痛いので、体力はまだ足りないようで、休憩してから練習しよう。" type:1 hasCloseButton:NO];
         return;
     }
     NSArray* userskills = [ad getDataUserskills];

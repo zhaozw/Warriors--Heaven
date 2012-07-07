@@ -61,13 +61,13 @@
     needReload =TRUE;
     
     int margin_top = 70;
-    [LightView createLabel:CGRectMake(30, margin_top, 60, 20) parent:[self view] text:@"战队Code" textColor:[UIColor yellowColor]];
+    [LightView createLabel:CGRectMake(30, margin_top, 60, 20) parent:[self view] text:@"チーム Code" textColor:[UIColor yellowColor]];
     lbTeamCode = [LightView createLabel:CGRectMake(90, margin_top, 60, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];    
     
-    [LightView createLabel:CGRectMake(30, margin_top+20, 60, 20) parent:[self view] text:@"战队成员" textColor:[UIColor yellowColor]];
+    [LightView createLabel:CGRectMake(30, margin_top+20, 60, 20) parent:[self view] text:@"チームメンバー数" textColor:[UIColor yellowColor]];
     lbMemberNumber = [LightView createLabel:CGRectMake(90, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
     
-    [LightView createLabel:CGRectMake(120, margin_top+20, 30, 20) parent:[self view] text:@"战力" textColor:[UIColor yellowColor]];
+    [LightView createLabel:CGRectMake(120, margin_top+20, 30, 20) parent:[self view] text:@"戦力" textColor:[UIColor yellowColor]];
     lbTeamPower = [LightView createLabel:CGRectMake(155, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
     
     
@@ -124,7 +124,7 @@
     
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
     UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
-    UIButton* bt = [LightView createButton:CGRectMake(120, 0, 110, 39) parent:banner text:@"招募战友" tag:0];
+    UIButton* bt = [LightView createButton:CGRectMake(120, 0, 110, 39) parent:banner text:@"戦友募集" tag:0];
 //    [bt.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:13.0f]];
 //    [bt.titleLabel setTextColor:[UIColor greenColor]];
     UIImage *imageNormal = [UIImage imageNamed:@"btn_green_light.png"];
@@ -154,7 +154,7 @@
 //        lrv.lbTitle.backgroundColor = [UIColor redColor];
         count++;
     }
-    lb.text = [NSString stringWithFormat:@"目前你有%d个战友", count];
+    lb.text = [NSString stringWithFormat:@"現在、%dの戦友がいる", count];
     lbTeamCode.text = [team valueForKey:@"code"];
     lbMemberNumber.text  = [[NSNumber numberWithInt:count] stringValue];
     lbTeamPower.text = [ [team valueForKey:@"power"] stringValue];

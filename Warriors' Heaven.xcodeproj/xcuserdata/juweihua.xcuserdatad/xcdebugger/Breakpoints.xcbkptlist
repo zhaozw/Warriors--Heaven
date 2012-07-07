@@ -194,8 +194,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "38"
          endingLineNumber = "38"
-         landmarkName = "-initWithNibName:bundle:"
-         landmarkType = "5">
+         landmarkName = "@implementation HomeViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -376,8 +376,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "199"
          endingLineNumber = "199"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
+         landmarkName = "@implementation HomeViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -404,8 +404,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "592"
          endingLineNumber = "592"
-         landmarkName = "-onFight:"
-         landmarkType = "5">
+         landmarkName = "@implementation BattleViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -1790,8 +1790,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "381"
          endingLineNumber = "381"
-         landmarkName = "-showFight:"
-         landmarkType = "5">
+         landmarkName = "@implementation BattleViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -2922,8 +2922,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "467"
          endingLineNumber = "467"
-         landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
-         landmarkType = "5">
+         landmarkName = "@implementation HomeViewController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -3762,7 +3762,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "319"
          endingLineNumber = "319"
-         landmarkName = "-floatWebView"
+         landmarkName = "-hideWebView"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

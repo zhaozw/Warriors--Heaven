@@ -79,7 +79,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{80, 172}, {160, 188}}</string>
 						<reference key="NSSuperview" ref="1042672067"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -110,7 +109,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">装备</string>
+						<string key="IBUINormalTitle">装備</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="756237075">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -187,7 +186,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">高级装备</string>
+						<string key="IBUINormalTitle">高級装備</string>
 						<reference key="IBUIHighlightedTitleColor" ref="756237075"/>
 						<reference key="IBUINormalTitleColor" ref="706315637"/>
 						<reference key="IBUINormalTitleShadowColor" ref="20713762"/>
