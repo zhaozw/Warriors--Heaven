@@ -36,6 +36,7 @@ class TradablesController < ApplicationController
             # t[:rank] = _t.rank
             # t[:price] = _t.price
             # p "obtype #{_t.data.obtype}, unlock level #{_t.unlock_level}"
+=begin
             if _t.data.obtype <3 && _t.unlock_level > user_data.ext[:level]
                _t = {
                    :image=>"obj/equipments/unknowitem.jpg",
@@ -47,7 +48,7 @@ class TradablesController < ApplicationController
                    :desc=>""
                } 
             end
-            
+=end            
             ret.push(_t)
         end
                 
