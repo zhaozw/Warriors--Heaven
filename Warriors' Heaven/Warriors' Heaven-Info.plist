@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>侠客行</string>
+	<string>侠客行の江湖争霸伝</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -16,7 +16,7 @@
 		<string>logo72x72.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.joycom.xkx</string>
+	<string>com.joycom.xkxj</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
