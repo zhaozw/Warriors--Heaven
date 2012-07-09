@@ -151,13 +151,15 @@ module Npc
     end
      def release_poisoned
          # ext.delete_prop("poisoned")
+         temp[:poisoned]
      end
      def set_poisoned(poison_name, amount)
          # ext.set_prop("poisoned", {:name=>poison_name, :amount=>amount, :time=>Time.now})
+         ext[:poisoned] = {:name=>poison_name, :amount=>amount, :time=>Time.now}
      end
      def get_poisoned
          # return ext.get_prop("poisoned")
-         return nil
+         return ext[:poisoned]
      end
   
     def get_prop
