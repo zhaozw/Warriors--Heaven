@@ -361,7 +361,7 @@ end
             id=-2 if ch == "rumor"
         end
  
-        dir = "/var/wh/message/#{dir.to_s}"  
+        dir = "#{G_FILEROOT}/message/#{dir.to_s}"  
         FileUtils.makedirs(dir)   
         fname = "#{dir}/#{id}"
         return fname
@@ -556,13 +556,13 @@ end
     def delete_flag(uid, f)
         id = uid.to_i
         dir = id/100
-        fname = "/var/wh/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        fname = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
         File.delete(fname)
     end
     def get_flag(uid, f)
         id = uid.to_i
         dir = id/100
-        fname = "/var/wh/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        fname = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
         if FileTest::exists?(fname) 
             return true
         else 
@@ -572,7 +572,7 @@ end
     def set_flag(uid, f)
         id = uid.to_i
          dir = id/100
-        dir = "/var/wh/userdata/#{dir.to_s}/#{id}/flag"
+        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag"
         FileUtils.makedirs(dir)
         fname = "#{dir}/#{f}" 
         begin
@@ -590,7 +590,7 @@ end
         json = {}
         id = uid.to_i
          dir = id/100
-        dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
+        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
         p "filename #{fname}"
@@ -622,7 +622,7 @@ end
         p "save_filedata json=#{json}"
         id = uid.to_i
          dir = id/100
-        dir = "/var/wh/userdata/#{dir.to_s}/#{id}"
+        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
         begin

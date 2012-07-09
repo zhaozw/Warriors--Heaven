@@ -1,4 +1,6 @@
-
+def G_FILEROOT
+    "/var/whj"
+end
 def g_maxitem
     50
 end

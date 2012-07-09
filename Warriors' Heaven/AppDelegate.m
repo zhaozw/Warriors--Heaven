@@ -67,7 +67,7 @@
 //host = @"192.168.0.24";
 //    host = @"localhost";
 //   host = @"127.0.0.1";
-  host = @"wh.joyqom.com";
+  host = @"whj.joyqom.com";
     //    host = @"192.168.1.119";
 //    id debug_local = [[[NSProcessInfo processInfo] environment] objectForKey:@"DEBUG_LOCAL"];
 //    if (debug_local) {
@@ -120,7 +120,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+  session_id = nil; // test register new user
 
 }
 - (NSString *) readSessionId{

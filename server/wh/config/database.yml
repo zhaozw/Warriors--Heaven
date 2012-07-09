@@ -2,7 +2,7 @@
 #   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development:
   adapter:  mysql
-  database: wh_dev
+  database: whj_dev
   host: localhost
   username: root
   password: 
@@ -22,7 +22,7 @@ test:
 
 production:
   adapter:  mysql
-  database: wh
+  database: whj
   host: localhost
   username: root
   password: Ft05ab

@@ -444,7 +444,7 @@ class Wudujiao < Quest
         
         id = q[:id].to_i
         dir = id/100
-         dir = "/var/wh/globalquest/#{dir.to_s}"
+         dir = "#{G_FILEROOT}/globalquest/#{dir.to_s}"
          begin
              FileUtils.makedirs(dir)
              aFile = File.new("#{dir}/#{id}","a")
@@ -504,7 +504,7 @@ class Wudujiao < Quest
             q.set_prop("team2win", context[:team2win])
             id = q[:id].to_i
             dir = id/100
-            dir = "/var/wh/globalquest/#{dir.to_s}"
+            dir = "#{G_FILEROOT}/globalquest/#{dir.to_s}"
             begin
               FileUtils.makedirs(dir)
               aFile = File.new("#{dir}/#{id}_#{context[:count]}","a")
