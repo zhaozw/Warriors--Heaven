@@ -597,7 +597,7 @@ end
           #  dname = attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname
           #   msg += "<br/>\n【#{dname}】"+translate_msg(context_a[:msg], context_a)
                
-               msg += line  "<br/>\n"+translate_msg(action_msg(_attack_skill, context_a[:action]), context_a)
+               msg += line  "<br/>\n<!--#{style_c}-->"+translate_msg(action_msg(_attack_skill, context_a[:action]), context_a)
               
              #
              # hit ?
