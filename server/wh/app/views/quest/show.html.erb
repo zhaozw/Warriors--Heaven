@@ -122,7 +122,7 @@ function apply(){
 	function onTimer(){
 		if (line_number >= TextArray.length)
 			return;
-			
+			alert(TextArray[line_number]);
 	 	$("#result").html( $("#result").html()+TextArray[line_number]);
 		line_number +=1;
 		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));

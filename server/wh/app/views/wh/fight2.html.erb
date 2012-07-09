@@ -28,9 +28,9 @@ img.player {height:100px;}
 	<div id="bg" style="background-color:transparent;opacity:1;z-index:-1;position:absolute;left:-5;top:-5;width:350px;height: 430px;">
 			<!--img id="bg" src="/images/quest_bg.png" style="margin:10 0;height:480px;width:350px;"/-->
 	</div>
-	<img class="player" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].data[:profile].to_i}m.png"%>' />
+	<img class="player" id="p1" style="position:absolute;left:10px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p1].data[:profile].to_i}m.png"%>' />
 	<img class="player" style="position:absolute;left:130px;top:20;" src='<%="#{@serverurl}/images/vs.png"%>' />
-	<img class="player" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].data[:profile].to_i}m.png"%>' />
+	<img class="player" id="p2" style="position:absolute;left:200px;top:0;" src='<%="#{@serverurl}/game/profile/p_#{@context[:p2].data[:profile].to_i}m.png"%>' />
 	<div class="playername" style="left:50px;">
 		<%=@context[:p1].name%>
 	</div>
@@ -67,7 +67,7 @@ img.player {height:100px;}
 	var stop = false;
 	var finished = false;
 	var fullblood_p1 = <%=@full_hp_p1%>
-var fullblood_p2 = <%=@full_hp_p2%>
+	var fullblood_p2 = <%=@full_hp_p2%>
 	function playorstop(){
 		if (stop){
 			$("#play").attr("src", "/images/stop.png");
@@ -127,6 +127,8 @@ var fullblood_p2 = <%=@full_hp_p2%>
 	//	var p1_maxhp = <%=@context[:p1].ext[:maxhp] %>
 	//	var p2_maxhp = <%=@context[:p2].ext[:maxhp] %>
 	
+	var hp_p1;
+	var hp_p2;
 	function setBloodbar(s){
 				// sreg = "<div class=\"status\">[\s\S]*?<div class='st_lines' id='p"+p1_id+"'>.*?<span class='attr'>hp<\/span>:(\d+)";
 		sreg ="<div class=\"st_lines\" id=\"p"+p1_id+"\">.*?<span class=\"attr\">hp<\/span>:<span class=\"st_v\">(.*?)</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</div>";
@@ -139,12 +141,17 @@ var fullblood_p2 = <%=@full_hp_p2%>
 			hp = d[1]
 			if (hp<0)
 				hp =0;
+		//	if (hp_p1-hp > 5){
+		//		shakeP1();
+		//	}
 			width = 120*hp/fullblood_p1;
 			$("#p1bbar").width(width);
 			if (width < 30){
 					$("#p1bbar").css("background-image", "url('/images/bloodbar_red.jpg')");
 			}else
 				$("#p1bbar").css("background-image", "url('/images/bloodbar_green.jpg')");
+				
+			hp_p1 = hp;
 		}
 		
 		sreg ="<div class=\"st_lines\" id=\"p"+p2_id+"\">.*?<span class=\"attr\">hp<\/span>:<span class=\"st_v\">(.*?)</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</span><span class=\"attr\">.*?</span>:<span class=\"st_v\">.*?</span></div>";	
@@ -156,6 +163,9 @@ var fullblood_p2 = <%=@full_hp_p2%>
 			hp = d[1];
 			if (hp<0)
 				hp =0;
+	//		if (hp_p2-hp > 5){
+	//			shakeP2();
+	//		}
 			width = 120*hp/fullblood_p2;
 			$("#p2bbar").width(width);	
 			$("#p2bbar").css("margin-left", 1+120-width);	
@@ -164,6 +174,7 @@ var fullblood_p2 = <%=@full_hp_p2%>
 			}else{
 					$("#p2bbar").css("background-image", "url('/images/bloodbar_green.jpg')");
 			}
+			hp_p2 = hp;
 		}	
 		
 		
@@ -174,6 +185,7 @@ var fullblood_p2 = <%=@full_hp_p2%>
 		// s=s.replace(/<div class=\"st_lines\" id=\"p.*?\">.*?<\/div>/m, "");
 		return s;
 	}
+	var current_c=0;
 	function onTimer(){
 		if (stop)
 			return;
@@ -184,9 +196,36 @@ var fullblood_p2 = <%=@full_hp_p2%>
 			return;
 		}
 		s = TextArray[line_number];
+		
+	//	sreg =	"\(<span class=\"attr\">Hp<\/span>:<span class=\"damage\">(.*?)<\/span>\)";
+		
+	//	reg = new RegExp(sreg ,"gm");
+//		alert(s);
+		reg = /<!--user-->/g;
+		if (reg.exec(s)){
+			current_c = 0;
+		}
+		reg =  /<!--enemy-->/g;
+		if (reg.exec(s)){
+			current_c = 1;
+		}
+		
+		reg = /\(<span class=\"attr\">Hp<\/span>:<span class=\"damage\">(.*?)<\/span>\)/g;
+	 	d = reg.exec(s);
+		if (d){
+			if (d[1] < -5){
+				if (current_c == 0)
+					shakeP1(d[1]);
+				else 
+					shakeP2(d[1]);
+			}
+				
+		}
+		
+		
 		s= setBloodbar(s);
 		
-		
+
 		$("#result").html( $("#result").html()+s);
 		line_number +=1;
 		$("#result").attr("scrollTop",$("#result").attr('scrollHeight'));
@@ -196,10 +235,84 @@ var fullblood_p2 = <%=@full_hp_p2%>
 	
  showTextWithTimer($("#c").html());
 
-	
-	
-	
+	var shakeTimerP1;
+	var shakeTimerP2;
+	var shakeStageP1=0;
+	var shakeStageP2=0;
 
+	function shakeP1(d){
+   //   if (d >-10){
+   //   	d = 3;
+   //   }else if (d >-20 ){
+   //   	d = 4;
+   //   }else if (d >-50 ){
+   //   	d = 5;
+   //   }else if (d >-80 ){
+   //   	d = 6;
+   //   }
+   //   d = -d/2;
+   //   if (d>20)
+   //   	d = 20;
+			d = 6;
+		node = $("#p1");
+		left = parseInt( node.css("left"));
+		if (shakeStageP1 == 0 || shakeStageP1==2){
+			left -= d;
+				
+			node.css("left", left+"px");
+			//	alert(left);
+		}else if (shakeStageP1 == 1){
+				
+			left += d*2;
+			node.css("left", left+"px");
+		}
+
+		shakeStageP1 ++;
+		if (shakeStageP1 == 3){
+			shakeStageP1 = 0;
+			clearInterval(shakeTimerP1);
+		}else if (shakeStageP1 == 1){
+			shakeTimerP1 = setInterval("shakeP1("+d+");", 50);
+		//	alert(shakeStageP1);
+		}
+	
+	}
+	
+	function shakeP2(d){
+	   // alert("shake2");
+	   // if (d >-10){
+	   // 	d = 3;
+	   // }else if (d >-20 ){
+	   // 	d = 4;
+	   // }else if (d >-50 ){
+	   // 	d = 5;
+	   // }else if (d >-80 ){
+	   // 	d = 6;
+	   // }
+	d = 6;
+		node = $("#p2");
+		left = parseInt( node.css("left"));
+		if (shakeStageP2 == 0 || shakeStageP2==2){
+			left -= d;
+				
+			node.css("left", left+"px");
+			//	alert(left);
+		}else if (shakeStageP2 == 1){
+				
+			left += d*2;
+			node.css("left", left+"px");
+		}
+
+		shakeStageP2 ++;
+		if (shakeStageP2 == 3){
+			shakeStageP2 = 0;
+			clearInterval(shakeTimerP2);
+		}else if (shakeStageP2 == 1){
+			shakeTimerP2 = setInterval("shakeP2("+d+");", 50);
+		//	alert(shakeStageP1);
+		}
+	
+	}
 
 
 </script>
