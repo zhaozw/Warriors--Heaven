@@ -107,8 +107,12 @@ var fullblood_p2 = <%=@full_hp_p2%>
 		reg =/<!--1-->([\s\S])*?<!--0-->/ig;
 		while ((res = reg.exec(msg)) != null)  
 		{  
-  		// alert(res);
-			TextArray.push(res[0]);
+  	//	 alert(res);
+		 l = res[0].replace(/<!--1-->/g, "").replace(/<!--0-->/g, "").replace(/^\s+|\s+$/g, "");
+	//	alert(l);
+		 if (l != "")
+		//	if (res[0] != nil && res[0] != "" && res[0].replace(/^\s+|\s+$/g, "") != "")
+				TextArray.push(res[0]);
 		}  
 
 

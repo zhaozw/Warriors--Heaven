@@ -166,4 +166,50 @@ class LivingObject < Game::Object
     def hasWeapon?
         return query_all_weapons.size > 0
     end
+    
+    
+ 
+    def check_poison
+         p = self
+        r = p.get_poisoned
+        return "" if !r
+        
+        if r.class == String
+            r = JSON.parse(r)
+        end
+        am = r['amount'].to_i
+        if am > 0
+            # m = "<div class='poisoned'>"
+            m = "<br/>\n<span class='poisoned'>"
+            if (r['name'] == "蛇毒")
+                m += "$N觉得伤口逐渐发麻,"
+            elsif (r['name'] == "情花毒")
+                m += "$N觉得被情花刺破之处一阵剧痛"
+            end
+            m += "#{r['name']}发作了！"
+
+            p.tmp[:hp] -= am
+        
+            m+="(hp-#{am})</span><br/>"
+            u = Time.now.to_i - r['time'].to_i
+            p "==>check_poison: span time #{u}"
+        
+            if (u>10)
+                _am = am - am*u/1000
+                if _am >0
+                    if _am != am
+                        r['amount'] = am
+                        r['time'] = Time.now.to_i
+                        p.set_prop("poisoned",r)
+                    end
+                else
+                    p.release_poisoned
+                end
+            end
+        else
+            p.release_poisoned
+        end
+            
+        return m
+    end
 end

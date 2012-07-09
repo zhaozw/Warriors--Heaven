@@ -98,6 +98,7 @@
     
     debug = TRUE;
 //      host = @"homeserver.joyqom.com";
+    host = @"localhost";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
