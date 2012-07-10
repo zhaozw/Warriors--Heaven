@@ -30,7 +30,7 @@ class Shedan < Fixture
     end
     
         def use(context)
-        context[:msg] = "你不要乱吃啊！"
+        context[:msg] = "めちゃくちゃに食べないでよ！"
     end
         def price
         100

@@ -6,11 +6,11 @@ class Necklace  < Weapon
         set("hp", 100)
     end
     def dname
-    "项链"
+    "ネックレス"
   end
   
   def desc
-      "这是一个果核做的项链"
+      "これは果物のさねより作られたネックレスである"
   end
   
   def wearOn

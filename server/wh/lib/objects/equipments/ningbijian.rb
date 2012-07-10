@@ -8,7 +8,7 @@ class Ningbijian  < Sword
         set("hp", 100)
     end
   def dname
-    "凝碧剑"
+    "凝碧剣"
   end
 
   def desc

@@ -8,7 +8,7 @@ class Sword  < Weapon
         set("hp", 100)
     end
   def dname
-    "铁剑"
+    "鉄の剣"
   end
     
   def skill_type
@@ -16,7 +16,7 @@ class Sword  < Weapon
   end
   
   def desc
-      "这是一把普通的铁剑"
+      "これは普通の鉄の剣である"
   end
   
   def wearOn

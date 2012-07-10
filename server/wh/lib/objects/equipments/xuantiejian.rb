@@ -8,11 +8,11 @@ class Xuantiejian  < Sword
         set("hp", 100)
     end
   def dname
-    "玄铁剑"
+    "神鉄の剣"
   end
 
   def desc
-      "上古玄铁制成，重九九八十一斤，剑长逾三尺，通体深黑，却隐隐透出红光"
+      "鉄より作られ、81斤、3尺である。全体黒いが、赤い光も通っているようである"
   end
   
   def wearOn

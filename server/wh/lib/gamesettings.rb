@@ -1,4 +1,4 @@
-def G_FILEROOT
+def g_FILEROOT
     "/var/whj"
 end
 def g_maxitem

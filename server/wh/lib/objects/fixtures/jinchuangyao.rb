@@ -13,6 +13,10 @@ class Jinchuangyao < Fixture
         "金疮药"
     end
     
+    def unit
+        "包"
+    end
+    
     def desc
         intro
     end
@@ -47,7 +51,7 @@ class Jinchuangyao < Fixture
         p.ext[:hp] += 20
         
         p.delete_obj(self)
-        context[:msg]="你服下一包金疮药, 伤处渐渐愈合！"
+        context[:msg]="あなたは1#{unit}#{dname}を食べたら、傷口がだんだんふさがった！！"
     end
     
 end

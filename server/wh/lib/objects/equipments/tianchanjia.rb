@@ -11,7 +11,7 @@ class Tianchanjia  < Armo
   end
   
   def desc
-      "西域天蚕丝制成的宝甲"
+      "西域のやままゆの絹糸より作られたかっちゅうである"
   end
 
     

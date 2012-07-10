@@ -6,7 +6,7 @@ class Ring  < Weapon
         set("hp", 100)
     end
     def dname
-    "铜戒指"
+    "銅の指輪"
   end
   
   def desc

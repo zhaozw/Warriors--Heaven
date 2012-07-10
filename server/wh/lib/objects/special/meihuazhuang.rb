@@ -7,7 +7,7 @@ class Meihuazhuang  < Special
         set("hp", 1000)
     end
   def dname
-    "梅花桩"
+    "梅花樁"
   end
   
   def desc
@@ -23,7 +23,7 @@ class Meihuazhuang  < Special
   end
     
   def effect
-      "加速你的轻功练习速度"
+      "あなたのダッジ練習スピードをアップ"
   end
   def price
       1000

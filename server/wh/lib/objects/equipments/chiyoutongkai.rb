@@ -9,11 +9,11 @@ class Chiyoutongkai  < Armo
   
   
   def dname
-    "蚩尤铜铠"
+    "蚩尤铜鎧"
   end
   
   def desc
-      "传说中霸王蚩尤穿过的盔甲,青铜制成，坚固无比。"
+      "（伝説の覇者が入ってたかっちゅうだ。青銅より構成され、凄く硬い."
   end
 
     

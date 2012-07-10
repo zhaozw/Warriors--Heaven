@@ -9,11 +9,11 @@ class Woodenblade  < Weapon
         "柄"
     end
     def dname
-    "木刀"
+    "木の刀"
   end
   
   def desc
-      "这是一把硬木制作的刀"
+      "これは硬い木より作られた刀である"
   end
   
   def skill_type

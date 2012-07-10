@@ -41,7 +41,7 @@ class TradablesController < ApplicationController
                _t = {
                    :image=>"obj/equipments/unknowitem.jpg",
                    :rank=>_t.rank,
-                   :dname=> "解锁条件:等级>#{_t.unlock_level}",
+                   :dname=> "ロックオフ条件:レベル>#{_t.unlock_level}",
                    :obtype=>_t.data.obtype,
                    :price=>_t.price,
                    :effect=>"",
@@ -132,11 +132,11 @@ class TradablesController < ApplicationController
                    end
                    if found_available < 0
                        # error("There is not availabe slot for new equipment. You can buy more slot.")
-                       error("你的装备栏已经满了.你可以购买更多装备栏。")
+                       error("あなたの装備枠は既にいっぱいであるが、更に多い装備枠を買っても良いよ。")
                        return
                    end
                     if (num >= 30)
-                        error("您的装备数量已达上限")
+                        error("あなたの装備数は既に上限に達した")
                     return
                 end
                else
@@ -149,11 +149,11 @@ class TradablesController < ApplicationController
             #    p session[:userdata]
                 if (count+1 > user_data.ext.get_prop("max_item").to_i)
                     # error("There is not availabe slots for new item. You can buy more slot.")
-                    error("你的物品栏已经满了.你可以购买更多物品栏。")
+                    error("あなたの品物枠は既にいっぱいであるが、更に多い品物枠を買っても良いよ。")
                     return
                 end
                 if (count >= 30)
-                    error("您的物品数量已达上限")
+                    error("あなたの品物数は既に上限に達した。")
                     return
                 end
             end
@@ -166,7 +166,7 @@ class TradablesController < ApplicationController
         price = obj.price
         if (gold -price <0)
             # error("Sorry, you don't have enough gold.")
-            error("你的Gold不够 ! \n（现在钱庄促销中6¥购买2000Gold哦）")
+            error("あなたのGoldは足りない！\n （ただ今、銭荘がキャンペーン実施中。6￥で2000Goldを買えるよ。）")
             return
         end
         
@@ -238,7 +238,7 @@ class TradablesController < ApplicationController
        # eq = Equipment.load_equipment(item[:name], item)
        ret = {
            # :gold=>user_data.ext[:gold],
-           :msg =>"您购买了 #{item[:dname]}  !\n Gold -#{price}",
+           :msg =>"あなたが #{item[:dname]}を買った !\n Gold -#{price}",
            :updated=>user_data.ext
        }
       # success("You bought #{item[:dname]} successfully !\n Gold -#{price}")
@@ -381,9 +381,9 @@ class TradablesController < ApplicationController
             end
             user_data.ext[:gold] += g
             user_data.check_save
-             success("购买成功! Gold +#{g}", {:tid =>params[:tid], :userext=>user_data.ext})
+             success("成功に購入! Gold +#{g}", {:tid =>params[:tid], :userext=>user_data.ext})
          else
-             error("找不到该记录！")
+             error("この記録は見当たらない！")
          end
   
     end

@@ -51,7 +51,7 @@ class Jiuhuayuluwan < Fixture
         p.release_poisoned
         
         p.delete_obj(self)
-        context[:msg]="你服下一#{unit}#{dname}, 觉得一股清气贯通全身！"
+        context[:msg]="あなたは1#{unit}#{dname}を食べたら、全身一新になった！"
         
     end
         def unlock_level

@@ -12,7 +12,7 @@ class Fuling < Herb
     end
     
     def intro
-        "大补元气 HP+70%"
+        "HP+70%"
     end
     
     def weight
@@ -28,7 +28,7 @@ class Fuling < Herb
     end
     
         def use(context)
-        context[:msg] = "你不要乱吃啊！"
+        context[:msg] = "めちゃくちゃに食べないでよ！"
     end
         def price
         10

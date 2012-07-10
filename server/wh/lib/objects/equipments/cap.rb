@@ -6,11 +6,11 @@ class Cap  < Weapon
         set("hp", 100)
     end
   def dname
-    "铁头盔"
+    "鉄のヘルメット"
   end
   
   def desc
-      "这是一个铁质的头盔"
+      "これは鉄のヘルメットである"
   end
   
   def wearOn

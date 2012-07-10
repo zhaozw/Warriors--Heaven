@@ -10,7 +10,7 @@ class Rename  < Special
   end
   
   def desc
-     "可以用来修改你的名字"
+     "あなたの名前変更に使える"
   end
 
   def image
@@ -22,7 +22,7 @@ class Rename  < Special
   end
     
   def effect
-      "可以用来修改你的名字"
+      "あなたの名前変更に使える"
   end
   def price
       1000

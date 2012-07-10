@@ -6,11 +6,11 @@ class Addeqslot  < Special
        false
    end
   def dname
-    "装备栏"
+    "装備栏"
   end
   
   def desc
-      "添加5个装备栏"
+      "装備欄五つ増加"
   end
 
 
@@ -36,7 +36,7 @@ class Addeqslot  < Special
   
   def userCanGet?(context)
       if (context[:c].ext.get_prop("max_eq").to_i >= g_maxeq)
-          context[:m] = "您的装备栏数量以上限, 无法再增加."
+          context[:m] = "あなたの装備欄は既に上限なので、これ以上増加できない。"
           return false
       end
       return true

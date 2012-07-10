@@ -62,7 +62,7 @@ class UsereqsController < ApplicationController
         user_data.check_save
       #  p request_origin
         # render :text=>user_data.ext.to_json
-        success("保存成功!", {:userext=>user_data.ext})
+        success("成功に保存!", {:userext=>user_data.ext})
     end
     
     def sell
@@ -74,7 +74,7 @@ class UsereqsController < ApplicationController
          if eq[:owner] != user_data[:id]
             user_data.invalidate_all_obj(true)
             user_data.check_save
-            error ("交易失败！ 该物品不属于你。", {:usereqs=>user_data.query_all_obj})
+            error ("取引失敗！この品物はあなたに属しない", {:usereqs=>user_data.query_all_obj})
              return
          end
          obj = load_obj(eq[:eqname], eq)
@@ -92,7 +92,7 @@ class UsereqsController < ApplicationController
          ret = {
              :id=>params[:id],
              :gold=>user_data.ext[:gold],
-             :msg=>"交易成功. \nGold +#{obj.price.to_i / 2}"
+             :msg=>"取引成功. \nGold +#{obj.price.to_i / 2}"
          }
          render :text=>ret.to_json
          # success("Trade is successful")
@@ -108,7 +108,7 @@ class UsereqsController < ApplicationController
 
         context= {
             :player => player,
-            :msg =>"使用成功"
+            :msg =>"成功に使用"
         }
         obj.use(context)
         

@@ -29,7 +29,7 @@ class Gold < Game::Object
     end
     
     def use(context)
-        context[:msg] = "你不要乱吃啊！"
+        context[:msg] = "めちゃくちゃに食べないでよ！"
     end
     
     def price

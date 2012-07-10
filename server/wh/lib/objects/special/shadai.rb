@@ -7,7 +7,7 @@ class Shadai  < Special
         set("hp", 1000)
     end
   def dname
-    "沙袋"
+    "砂袋"
   end
   
   def desc
@@ -23,7 +23,7 @@ class Shadai  < Special
   end
     
   def effect
-      "可以用来提高基本拳脚的练习效率"
+      "基本拳法の練習効率アップに使える"
   end
   def price
       1000

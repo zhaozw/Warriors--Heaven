@@ -22,7 +22,7 @@ class Yudongheishidan < Fixture
     end
     
     def intro
-        "崆峒派疗伤圣药，专治七伤拳引起的内伤。"
+        "崆峒派の非常に良い薬で、七傷拳でなった内部器官の傷に一番効く。"
     end
     
     def effect
@@ -50,7 +50,7 @@ class Yudongheishidan < Fixture
         p.ext[:hp] += p.ext[:maxhp]/5
         
         p.delete_obj(self)
-        context[:msg]="你服下一#{unit}#{dname}, 伤处渐渐愈合！"
+        context[:msg]="あなたは1#{unit}#{dname}を食べたら、傷口がだんだんふさがった！"
     end
         def unlock_level
             0

@@ -1,3 +1,5 @@
+require "gamesettings.rb"
+
 def create_npc(path)
     o = loadGameObject(path)
     return o
@@ -361,7 +363,7 @@ end
             id=-2 if ch == "rumor"
         end
  
-        dir = "#{G_FILEROOT}/message/#{dir.to_s}"  
+        dir = "#{g_FILEROOT}/message/#{dir.to_s}"  
         FileUtils.makedirs(dir)   
         fname = "#{dir}/#{id}"
         return fname
@@ -556,13 +558,13 @@ end
     def delete_flag(uid, f)
         id = uid.to_i
         dir = id/100
-        fname = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        fname = "#{g_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
         File.delete(fname)
     end
     def get_flag(uid, f)
         id = uid.to_i
         dir = id/100
-        fname = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
+        fname = "#{g_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag/#{f}"
         if FileTest::exists?(fname) 
             return true
         else 
@@ -572,7 +574,7 @@ end
     def set_flag(uid, f)
         id = uid.to_i
          dir = id/100
-        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag"
+        dir = "#{g_FILEROOT}/userdata/#{dir.to_s}/#{id}/flag"
         FileUtils.makedirs(dir)
         fname = "#{dir}/#{f}" 
         begin
@@ -590,7 +592,7 @@ end
         json = {}
         id = uid.to_i
          dir = id/100
-        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}"
+        dir = "#{g_FILEROOT}/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
         p "filename #{fname}"
@@ -622,7 +624,7 @@ end
         p "save_filedata json=#{json}"
         id = uid.to_i
          dir = id/100
-        dir = "#{G_FILEROOT}/userdata/#{dir.to_s}/#{id}"
+        dir = "#{g_FILEROOT}/userdata/#{dir.to_s}/#{id}"
         FileUtils.makedirs(dir)
         fname = "#{dir}/jsondata" 
         begin

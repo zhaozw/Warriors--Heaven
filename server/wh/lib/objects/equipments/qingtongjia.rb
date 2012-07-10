@@ -9,11 +9,11 @@ class Qingtongjia  < Armo
   
   
   def dname
-    "青铜甲"
+    "青銅甲"
   end
   
   def desc
-      "青铜制成的坚固甲胄"
+      "青銅より作られた固いかっちゅう。"
   end
 
     

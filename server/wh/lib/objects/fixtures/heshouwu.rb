@@ -26,8 +26,8 @@ class Heshouwu < Herb
     def image
         "obj/fixtures/shouwu.jpg"
     end
-        def use(context)
-        context[:msg] = "你不要乱吃啊！"
+    def use(context)
+        context[:msg] = "めちゃくちゃに食べないでよ！"
     end
     
     def price

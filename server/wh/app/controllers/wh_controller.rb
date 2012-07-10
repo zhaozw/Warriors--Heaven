@@ -127,9 +127,9 @@ class WhController < ApplicationController
         p "=>up=#{up.inspect}, #{context.inspect}"
         if (context)
             if (up[:levelup] )
-                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}, 恭喜你的#{skill.dname}等级提高了!"
+                 context[:msg]+="トレーニング終了，#{up[:usepot]}点潜在能力が消耗された, 精力-#{up[:cost_jingli]}, 技術点増加#{up[:addtp]}, あなたの#{skill.dname}がレベルアップ！おめでとう！"
             else
-                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}"
+                 context[:msg]+="トレーニング終了，#{up[:usepot]}点潜在能力が消耗された, 精力-#{up[:cost_jingli]}, 技術点増加#{up[:addtp]}"
             end 
         end
         
@@ -214,7 +214,7 @@ class WhController < ApplicationController
         rescue  Exception=>e
             p e
             if /Mysql::Error: Duplicate entry/.match(e)
-                error ("名字已被使用")
+                error ("名前は既に登録された")
             else
                 error("Cannot create user with name #{params[:name]}")
             end
@@ -359,20 +359,20 @@ class WhController < ApplicationController
                # p "=>last act=#{rr[:lastact]}"
                if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 # in one minute
                    if (rr[:lastact] == "fight")
-                       rr[:status] = "战斗中"
+                       rr[:status] = "戦い中"
                    elsif (rr[:lastact] == "practise")
                        rr[:status] = "修炼中"
                    elsif (rr[:lastact] == "research")
                        rr[:status] = "研究中"
                    elsif (rr[:lastact] == "buy")
-                       rr[:status] = "shopping中"
+                       rr[:status] = "ショッピング中"
                    elsif (rr[:lastact] == "sell")
-                       rr[:status] = "交易中"
+                       rr[:status] = "取引している"
                    # elsif (/quest_.*/ =~ rr[:lastact] !=nil )
                     elsif (rr[:lastact].start_with?("quest_"))
                        rr[:status] = "#{rr[:lastact].from(6)}中"
                    elsif (rr[:lastact] = "idle")
-                       rr[:status] = "发呆中"
+                       rr[:status] = "ぼんやりしている"
                    elsif 
                        rr[:status] = ""
                    end
@@ -530,18 +530,18 @@ class WhController < ApplicationController
         pending = user_data.ext.get_prop("pending")
         p "==>pending: #{pending.inspect}"
         if (pending != nil && pending["act"] != nil)
-            error("你正忙着", {:user=>user_data})
+            error("あなたは忙しい中", {:user=>user_data})
            return
         end
        if (user_data.ext[:hp] <= 0)
-           error("你的hp不够，不适合战斗", {:user=>user_data})
+           error("あなたhpが足りないので、戦いに適合せず", {:user=>user_data})
            return
        end
         
         srand(Time.now.to_i)
         rmsg = [
-            "你的体力不够，好好休息下再来吧",
-            "你的体力不够，别浪费服务器资源了"
+            "あなたの体力が足りないので、ゆっくりやんでから来てね",
+            "あなたの体力が足りないので、サーバーの資源を無駄にしないでね"
             ]
         if (user_data.ext[:stam] <= 0)
             error(rmsg[rand(1)], {:user=>user_data})
@@ -1313,7 +1313,7 @@ class WhController < ApplicationController
         
         if user_data.ext[:jingli] <= 0
             user_data.check_save
-            error("你的精力不够, 无法修炼", {:user=>user_data})
+            error("あなたの精力が足りないので、練習できない。", {:user=>user_data})
             return
         end
         
@@ -1376,7 +1376,7 @@ class WhController < ApplicationController
             success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot, :rate=>player.calc_practise_rate(params[:skill])})
         else
             user_data.check_save
-            error("你的战斗经验似乎不够!", JSON.parse(skill.to_json))
+            error("あなたの戦い経験はまだ足りないみたい!", JSON.parse(skill.to_json))
         end
         return
     end
@@ -1390,7 +1390,7 @@ class WhController < ApplicationController
         player.set_data(user_data)
         pending = user_data.ext.get_prop("pending")
         if !pending 
-            error "你不在修炼任何技能"
+            error "あなたはどんな技術でも練習できない"
             return
         end
         
@@ -1408,7 +1408,7 @@ class WhController < ApplicationController
         skillname = pending["skill"]
         if skillname != _skillname
             p "==>skillname=#{skillname}, but _skillname=#{_skillname}"
-            error "你正在修炼的不是这项技能"
+            error "あなたが練習しているのはこの技術ではない"
             return
         end
         skill = user_data.query_skill(skillname)

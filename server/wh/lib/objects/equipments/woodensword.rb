@@ -9,7 +9,7 @@ class Woodensword  < Weapon
     end
     
   def dname
-    "木剑"
+    "木の剣"
   end
     
   def skill_type
@@ -17,7 +17,7 @@ class Woodensword  < Weapon
   end
   
   def desc
-      "这是一把普通的硬木制成的剑"
+      "これは普通の硬い木より作られた剣である"
   end
   
   def wearOn

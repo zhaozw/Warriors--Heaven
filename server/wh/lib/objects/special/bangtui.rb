@@ -8,11 +8,11 @@ class Shadai  < Special
     end
     
   def dname
-    "绑腿"
+    "ゲートル"
   end
   
   def desc
-     "一副灌了铁砂的绑腿"
+     "金網が入ってるゲートル"
   end
 
   def image

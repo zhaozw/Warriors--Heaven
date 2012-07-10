@@ -442,9 +442,9 @@
         if ([o isEqualToString:@"pot"])
             strName = @"潜能";
         else if ([o isEqualToString:@"level"])
-            strName = @"等级";
+            strName = @"レベル";
         else if ([o isEqualToString:@"exp"])
-            strName = @"经验";
+            strName = @"経験";
             
         [lbKey setText:strName];
         [lbKey setContentMode:UIViewContentModeLeft];

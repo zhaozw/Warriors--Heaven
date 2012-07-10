@@ -98,7 +98,7 @@
     
     debug = TRUE;
 //      host = @"homeserver.joyqom.com";
-//    host = @"localhost";
+    host = @"localhost";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -678,17 +678,17 @@
     switch ([r currentReachabilityStatus]) {
         case ReachableViaWWAN:
             // 你的设备使用3G网络
-            NSLog(@"使用3G网络");
+            NSLog(@"3Gネットワークを使う");
             networkStatus = 1;
             break;
         case ReachableViaWiFi:
             // 你的设备使用WiFi网络
-            NSLog(@"使用wifi网络");        
+            NSLog(@"WIFIネットワークを使う");        
             networkStatus = 2;
             break;
         case NotReachable:
             // 你的设备没有网络连接
-            NSLog(@"没有网络");
+            NSLog(@"ネットワーク無し");
 //            if (networkStatus != 0){
 //                networkStatus = 0;
 //                [self showNetworkDown];

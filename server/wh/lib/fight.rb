@@ -243,43 +243,43 @@ end
     #             return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!(Hp-#{d})"   
     #         end
     #     else
-    #         return "对$n造成#{d}点伤害"
+    #         return "对$nに#{d}点の傷をつけた"
     #     end
     # end
       def damage_msg(d, weapon_type)
         if d == 0
-            return "结果没有对$n造成任何伤害"
+            return "結果は$nに全然傷つけていない"
         end
         # msg = ""
         p "==>weapon type #{weapon_type}"
         case weapon_type
         when "unarmed"
             if (d < 10)
-                return "只把$n打的退了半步，毫发无损!"
+                return "$nが打たれて、後に半歩退いただけで、全然大丈夫"
             elsif (d < 20)
-                return "[砰]的一声把$n击退了好几步，差点摔倒!"
+                return "ばたんという音で、$nが何歩も退いてしまい、転びそうにもなった！"
             elsif (d < 20)  
-                return "结果一击命中，$n闷哼了一声显然吃了不小的亏!"
+                return "一発で命中され、$nが苦しそうにうなってた。明らかに大変そう！"
             elsif (d < 50)
-                return "重重的击中了$n, $n【哇】的吐出了一口鲜血!"
+                return "強くアタックされ、$nがげえと一口の血を吐いていた！!"
             else
-                return "只听见【砰】的一声巨响，$n象稻草般的飞了出去!"   
+                return "ばたんという大きい音で、$nが稲みたく飛んでしまった！"   
             end
         when "fencing"        
 	    	if ( d < 10 ) 
-	    	    return "结果只是轻轻地划破$p的皮肉。"
+	    	    return "の皮が軽く切られただけだ。"
     		elsif ( d < 20 ) 
-    		    return "结果在$p$l划出一道细长血痕。"
+    		    return "$pの$lに細長い傷が付けられてしまった。"
     		elsif ( d < 40 ) 
-    		    return "结果「嗤」一声划出一道伤口！"
+    		    return "傷が付けられてしまった！"
     		elsif ( d < 80 ) 
-    		    return "结果「嗤」地一声划出一道血淋淋的伤口！"
+    		    return "生々しい傷が付けられてしまった！"
     		elsif ( d < 160 ) 
-    		    return "结果「嗤」地一声划出一道又长又深的伤口，溅得$N满脸鲜血！"
-    		else return "结果只听见$n一声惨嚎，$w已在$p$l划出一道深及见骨的可怕伤口！！"
+    		    return "長くて深い傷が付けられてしまい、$Nの顔に血がいっぱい跳ね上がられていた！"
+    		else return "$nが大声で叫んでいた。$wは既に$p$Iに骨が見えるぐらいで怖い傷をつけた！！"
     	    end
         else
-            return "对$n造成<span class='damage'>#{d}</span>点伤害"
+            return "$nに<span class='damage'>#{d}</span>点の傷をつけた"
         end
    
         # return msg
@@ -289,7 +289,7 @@ end
     def action_msg(skill, action)
         a = action
         if skill.category == 'premier'
-            return "【<span class='bishaji'>必杀技</span>•<span class='performname'>#{skill.dname}</span>】<br/><span class='perform'>#{a[:action]}</span>" 
+            return "【<span class='bishaji'>必殺技</span>•<span class='performname'>#{skill.dname}</span>】<br/><span class='perform'>#{a[:action]}</span>" 
         else
             return "【<span class='skillname'>#{skill.dname}</span> 第#{a[:index]+1}式 <span class='zhaoshiname'>#{a[:name]}</span>】<br/>#{a[:action]}" 
         end
@@ -432,7 +432,7 @@ end
         # cost stamina
         cs = cost_stam(pp)
         context[:user].tmp[:stam] -= cs
-        context[:msg] += "结果被$N挡开"
+        context[:msg] += "$Nに避けられた"
         return "<br/>\n"+translate_msg(context[:msg], context)+"(<span class='attr'>体力</span><span class='damage'>-#{cs}</span>)"
     end
     
@@ -561,7 +561,7 @@ end
         msg += line translate_msg(defenser.check_poison, context_d)
         
         if (attacker.tmp[:stam] <= 0 )
-                msg += line translate_msg("$N的体力不够， 无法发起进攻", context_a) 
+                msg += line translate_msg("$Nの体力が足りないので、進撃できない", context_a) 
                 
                 
             
@@ -617,7 +617,7 @@ end
               # if no stam or is type of riposte, dp = 0
               if (defenser.tmp[:stam]<=0 )
                   dodge_power = 0
-                  msg += line translate_msg("<br/>\n$n的体力不够，无法闪躲", context_a)
+                  msg += line translate_msg("<br/>\n$nの体力が足りないので、逃げれない", context_a)
                   p "==>dodge_power1"
                  
               elsif context[:riposte] != nil && context[:riposte]==true
@@ -677,7 +677,7 @@ end
                     gain_skill_point(context_d[:gain], defenser[:dodge_skill][:skill], gain_point)
             
                     msg += "<!--1--><div class='rgain'>"
-                    msg += "<br/> 战斗经验<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                    msg += "<br/> 戦う経験<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:dodge_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                     if (improve_skill(defenser, defenser[:dodge_skill][:skill][:skname], gain_point) )
                          context_d[:gain][:skills][defenser[:dodge_skill][:skill][:skname]][:level] +=1
                          msg +="<br/> #{defenser[:dodge_skill][:skill].dname} level up !"
@@ -698,7 +698,7 @@ end
                  end
                  
                  if rand(dodge_power - r_apdp) > attack_power
-                     msg += "<!--1--><div>#{line translate_msg("$N一击不中，露出了破绽！", context_a)}</div><!--0-->"
+                     msg += "<!--1--><div>#{line translate_msg("$Nが一回で当たらず、ばきゃくをあらわした！", context_a)}</div><!--0-->"
                      context[:riposte] = true
                  end
                  
@@ -724,7 +724,7 @@ end
                  #        gain_point = 1
                  #        context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:point] += gain_point
                  #        if attacker.isUser
-                 #            msg += "<br/> 战斗经验+1 潜能+1 #{attack.query_skill(attacker[:attack_skill][:skill][:skname]).dname}+#{gain_point}"
+                 #            msg += "<br/> 戦う経験+1 潜能+1 #{attack.query_skill(attacker[:attack_skill][:skill][:skname]).dname}+#{gain_point}"
                  #            if (improve_skill(attacker, attacker[:attack_skill][:skill][:skname], gain_point) )
                  #                 context_a[:gain][:skills][attacker[:attack_skill][:skill][:skname]][:level] +=1
                  #                msg +="<br/> #{attacker[:attack_skill][:skill][:skname]} level up !"
@@ -742,7 +742,7 @@ end
                
                      if (defenser.tmp[:stam]<=0)
                          parry_power = 0
-                         msg += line translate_msg("<br/>\n$n的体力不够，无法招架", context_a)
+                         msg += line translate_msg("<br/>\n$nの体力が足りないので、対応できない", context_a)
                      else
                          # if attacker has weapon but defenser hasn't, pp=0
                          if ((attacker.query_wearing("handright")||attacker.query_wearing("handleft")) && !(defenser.query_wearing("handright") || defenser.query_wearing("handleft")) )
@@ -802,7 +802,7 @@ end
                          # context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:point] += gain_point
                          gain_skill_point(context_d[:gain], defenser[:defense_skill][:skill], gain_point)
                          msg += start_line "<div class='rgain'>"
-                         msg += "<br/> 战斗经验<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                         msg += "<br/> 戦う経験<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                          if (improve_skill(defenser, defenser[:defense_skill][:skill][:skname], gain_point) )
                              context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:level] +=1
                              msg +="<br/><span> #{defenser[:defense_skill][:skill][:skname]} level up !</span>"
@@ -856,7 +856,7 @@ end
                         gain_skill_point(context_a[:gain], _attack_skill, gain_point)
              
                         msg += start_line "<div class='rgain'>"
-                        msg += "<br/> 战斗经验<span>+#{attacker_exp_bonus}</span> 潜能<span>#{attacker_pot_bonus}</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
+                        msg += "<br/> 戦う経験<span>+#{attacker_exp_bonus}</span> 潜能<span>+#{attacker_pot_bonus}</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                         if (improve_skill(attacker, _attack_skill[:skname], gain_point) )
                             context_a[:gain][:skills][_attack_skill[:skname]][:level] +=1
                             msg +="<br/> <span>#{_attack_skill[:skname]} level up !</span>"
@@ -881,7 +881,7 @@ end
              
             if !hurt
                 if context[:combo] != nil && context[:combo]>0
-                    msg = "<!--1--><br/><div class='warn_1'>#{attacker.name}#{context[:combo]+1 }连击!</div><br/><!--0-->" + msg
+                    msg = "<!--1--><br/><div class='warn_1'>#{attacker.name}<span style='font-size:15pt;'>#{context[:combo]+1 }</span>HITS!</div><br/><!--0-->" + msg
                     
                 end
                 context[:combo] = nil if context[:combo] != nil
@@ -898,13 +898,13 @@ end
             will_return = false
             r_msg = ""
             if context[:round] >=100
-                r_msg += line "<div>双方已战斗了100回合!</div>"
+                r_msg += line "<div>両方が既に100回も戦った!</div>"
                  will_return = true
                 # return msg
             end
              
             if (defenser.tmp[:hp] <=0 )
-                 r_msg += line "<div>#{defenser.name}战斗不能</div>"
+                 r_msg += line "<div>#{defenser.name}戦闘不能</div>"
                  # context[:winner] = attacker
                         will_return = true
                  # return msg
@@ -912,7 +912,7 @@ end
              end
       
              if (defenser.tmp[:stam] <=0 && attacker.tmp[:stam]<=0)
-                 r_msg += line "<div>双方都已经精疲力尽了!</div>"
+                 r_msg += line "<div>両方とも精も根も尽き果てる!</div>"
                   will_return = true
                  # return msg
              end
@@ -945,7 +945,7 @@ end
                         end
                         # attacker.tmp[:apply_attack] -= r_apdp
                             
-                          msg += line translate_msg("<br/><div class='warn_1'>$N乘$n手忙脚乱，发动连续进攻！</div>", context_a)
+                          msg += line translate_msg("<br/><div class='warn_1'>$Nは$nがてんてこまいしているところに、連続進撃した。！</div>", context_a)
                           # no swap
                           msg += __fight(attacker, defenser, context)
                           return msg
@@ -1136,7 +1136,7 @@ end
         end
         
         p "attacker is #{attacker.name}"
-        msg += translate_msg(line("<div>$N抢先发动进攻!</div>"), {:user=>attacker, :target=>defenser})
+        msg += translate_msg(line("<div>$Nが先発的に進撃!</div>"), {:user=>attacker, :target=>defenser})
         
         
         # what weapon attacker is wielding
@@ -1342,13 +1342,13 @@ end
          
             
              if (defenser.tmp[:hp] <=0 )
-                 msg += line "<div>#{defenser.name}战斗不能</div>"
+                 msg += line "<div>#{defenser.name}戦闘能</div>"
                  winner = attacker
                  break;
              end
              
              if (defenser.tmp[:stam] <=0 && attacker.tmp[:stam]<=0)
-                 msg += line "<div>双方都已经精疲力尽了!</div>"
+                 msg += line "<div>両方とも精も根も尽き果てる!</div>"
                  break;
              end
              
@@ -1399,11 +1399,11 @@ end
         if !winner
             win = -1
             if attacker[:isUser]
-                msg +=  "你和#{defenser.name}战成平手!}"
+                msg +=  "あなたが#{defenser.name}引き分けになった!}"
             elsif defenser[:isUser]
-                msg +=  "你和#{attacker.name}战成平手!"
+                msg +=  "あなたが#{attacker.name}引き分けになった!"
             else
-                msg +=  "#{attacker.name}和#{defenser.name}战成平手!"
+                msg +=  "#{attacker.name}和#{defenser.name}引き分けになった!"
             end
         else
             if winner == p1
@@ -1495,7 +1495,7 @@ end
                     p2.tmp[:contrib][:score] += calc_zhanli(p1)*p1_hp_delta
                 end
                 
-                context[:msg] += "<div><span class='user'>#{p1.name}稍作休息，体力有所恢复...</span></div>"
+                context[:msg] += "<div><span class='user'>#{p1.name}がちょっと休んで、体力はある程度戻ってきた...</span></div>"
                 p1.tmp[:hp] += p1_hp_delta/3
                 p1.tmp[:stam] += p1_hp_delta/2
                 index_player_team2 += 1

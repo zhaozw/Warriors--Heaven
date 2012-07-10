@@ -24,10 +24,7 @@ class Zexie < Herb
         "obj/fixtures/zexie.jpg"
     end
     
-    def use(context)
-        context[:msg] = "你不要乱吃啊！"
-    end
-    
+
     def price
         5
     end

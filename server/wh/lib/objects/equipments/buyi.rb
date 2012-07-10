@@ -7,11 +7,11 @@ class Buyi  < Armo
         set("hp", 50)
     end
   def dname
-    "布衣"
+    "布の服"
   end
   
   def desc
-      "这是一件最普通粗布上衣"
+      "これは最も普通の粗布上着である"
   end
 
     

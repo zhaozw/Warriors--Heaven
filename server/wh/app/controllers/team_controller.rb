@@ -158,7 +158,7 @@ class TeamController < ApplicationController
             return
         end 
         if (team[0][:owner] == session[:uid])
-            error("你已经在自己的战队中了")
+            error("あなたは既に自分のチームにいる")
             return
         end
         
@@ -175,14 +175,14 @@ class TeamController < ApplicationController
                vac = i
          
             elsif prop[i.to_s] == session[:uid]
-                error("你已经是该战队的成员啦")
+                error("あなたは既にこのチームのメンバーだよ")
                 return
             end
         end
         
   
         if  vac==-1
-            error ("对不起， 该战队已满，请寻找其他战队加入")
+            error ("ごめん、このチームは既に満員だ。他のチームに参加してね")
             return
         end
         
@@ -197,7 +197,7 @@ class TeamController < ApplicationController
             mu.cache
         end
         
-        success("恭喜!您已成功加入该战队")
+        success("このチームに成功に参加した。おめでとう！")
         return
  
     end

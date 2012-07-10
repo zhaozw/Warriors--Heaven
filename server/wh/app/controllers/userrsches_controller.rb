@@ -209,10 +209,10 @@ class UserrschesController < ApplicationController
         ret = list
         dname = load_skill(skill_name).dname
         if bFinish
-            ret[:msg] = "恭喜你参透了武功秘笈“#{dname}”!"
+            ret[:msg] = "武功“#{dname}”の秘密を完全に分かった。おめでとう!"
             ret[:add_skill] = user_data.query_skill(skill_name)
         else
-            ret[:msg] = "你对书中的内容有所领悟"
+            ret[:msg] = "あなたは本の中の内容について、ある程度分かった."
         end
         render :text=>ret.to_json
     end

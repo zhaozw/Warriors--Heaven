@@ -40,7 +40,7 @@ class Liuweidihuangwan < Fixture
         p.ext[:jingli] = p.ext[:max_jl]
         
         p.delete_obj(self)
-        context[:msg]="你服下一颗六位地黄丸，顿时觉得精力充沛！"
+        context[:msg]="あなたは#{dname}を食べたら、元気いっぱいになった。！"
         
     end
     

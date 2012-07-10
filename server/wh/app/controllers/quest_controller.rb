@@ -74,7 +74,7 @@ class QuestController < ApplicationController
         quest_name = params[:name]
         r = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]} and name='#{quest_name}'")
         if r and r.size >0
-            error ("你已经领取过该任务了")
+            error ("あなたが既にこの任務を担当していた")
             return
         end
         quest = load_quest(quest_name)
@@ -106,7 +106,7 @@ class QuestController < ApplicationController
         @quest.setPlayer(player)
         data = player.query_quest(@quest_name)
         if (data==nil)
-            render :text=>"任务不存在"
+            render :text=>"任務は存在しせず"
             return
         end
         @quest.setData(data)

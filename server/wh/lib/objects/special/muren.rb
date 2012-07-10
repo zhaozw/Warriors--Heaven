@@ -25,7 +25,7 @@ class Muren  < Special
   end
     
   def effect
-      "加速你的基本招架练习速度"
+      "あなたの基本守り連休スピードをアップ"
   end
   
   def price

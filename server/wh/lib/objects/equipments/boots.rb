@@ -13,7 +13,7 @@ class Boots  < Weapon
   end
   
   def desc
-      "这是一双普通武士穿的布靴"
+      "これは普通の武士の布靴である"
   end
   
   def wearOn

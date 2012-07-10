@@ -13,7 +13,7 @@ class Blade  < Weapon
   end
   
   def desc
-      "这是一个雪亮的钢刀"
+      "これはぴかぴか光っている刀である"
   end
   
   def skill_type
