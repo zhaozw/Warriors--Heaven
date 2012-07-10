@@ -805,7 +805,7 @@ end
                          msg += "<br/> 战斗经验<span>+#{defenser_exp_bonus}</span> 潜能<span>+#{defenser_pot_bonus}</span> #{defenser.query_skill(defenser[:defense_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                          if (improve_skill(defenser, defenser[:defense_skill][:skill][:skname], gain_point) )
                              context_d[:gain][:skills][defenser[:defense_skill][:skill][:skname]][:level] +=1
-                             msg +="<br/><span> #{defenser[:defense_skill][:skill][:skname]} level up !</span>"
+                             msg +="<br/><span> #{defenser[:defense_skill][[:skill].dname} level up !</span>"
                          end
                          msg += end_line "</div>"  
                     end
@@ -859,7 +859,7 @@ end
                         msg += "<br/> 战斗经验<span>+#{attacker_exp_bonus}</span> 潜能<span>#{attacker_pot_bonus}</span> #{attacker.query_skill(attacker[:attack_skill][:skill][:skname]).dname}<span>+#{gain_point}</span>"
                         if (improve_skill(attacker, _attack_skill[:skname], gain_point) )
                             context_a[:gain][:skills][_attack_skill[:skname]][:level] +=1
-                            msg +="<br/> <span>#{_attack_skill[:skname]} level up !</span>"
+                            msg +="<br/> <span>#{_attack_skill.dname} level up !</span>"
                         end
                         msg += end_line "</div>"
                     
