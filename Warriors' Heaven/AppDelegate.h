@@ -52,6 +52,10 @@
     BOOL debug_reg;
     MFMailComposeViewController* controller ;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbBattleResultTitle;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *vPreface;
+- (IBAction)onClosePreface:(id)sender;
+@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *wvPreface;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbCompnayName;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vCompanyLogo;
 @property (nonatomic, assign)    BOOL bUserEqNeedUpdated; // need update locally

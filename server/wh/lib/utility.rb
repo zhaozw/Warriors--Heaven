@@ -385,7 +385,7 @@ end
         ["chat", "rumor"]
     end
     def system_channel
-        ["sys", "rumor"]
+        ["sys", "rumor", "chat"]
     end
     def query_msg(uid, ch_array, delete=false)
         d = ""
