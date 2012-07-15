@@ -15,6 +15,8 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize lbBattleResultTitle;
+@synthesize vPreface;
 @synthesize vcPurchase;
 
 @synthesize window;
@@ -50,6 +52,7 @@
 @synthesize tmRecoverStart;
 
 
+@synthesize wvPreface;
 @synthesize lbCompnayName;
 @synthesize vCompanyLogo;
 @synthesize bUserEqNeedUpdated;
@@ -228,7 +231,27 @@
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
-        [window makeKeyAndVisible];
+    
+    
+    id intro = [self readLocalProp:@"introduced"];
+    if (intro == NULL ){
+        // show Preface
+        vPreface.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface.html", host, port];
+        [wvPreface loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];  
+        [wvPreface setDelegate:self];
+        [window bringSubviewToFront:vPreface];
+//        [self saveLocalProp:@"introduced" v:@"1"];
+        vPreface.hidden = NO;
+
+
+    }else{
+        vPreface.hidden = YES;
+    }
+    
+    
+    
+    [window makeKeyAndVisible];
     
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -374,8 +397,10 @@
          [vTitle setText:@"Please choose name and sex for your character"];
          [vReg addSubview:vTitle];
          */
+
         [window addSubview:vReg.view];
         [window bringSubviewToFront:vReg.view];
+    
         return FALSE;
         
     }else{
@@ -1113,7 +1138,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSLog(@"%@", request);
     NSString* url = [request.URL absoluteString];
-    if ( [url hasPrefix:@"mailto://teamcode/"]){
+    NSString* path = [request.URL path];
+    if ( [path isEqualToString:@"/clientaction/closeintro"]){
+        vPreface.hidden = YES;
+        return FALSE;
+    }else if ( [url hasPrefix:@"mailto://teamcode/"]){
         NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
         if ([MFMailComposeViewController canSendMail]){
    
@@ -1144,5 +1173,8 @@
         return FALSE;
     }
     return TRUE;
+}
+- (IBAction)onClosePreface:(id)sender {
+       vPreface.hidden = NO;
 }
 @end
