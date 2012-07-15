@@ -1101,7 +1101,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E01B4A62-20B0-4C2E-846B-90E081793561";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1122,7 +1122,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A89AB815-AAFE-40FE-BD91-425423B72BC4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2CCC0825-11DE-4692-A436-549039E7EC5E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -1137,7 +1137,7 @@
 				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
 				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E01B4A62-20B0-4C2E-846B-90E081793561";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1145,12 +1145,12 @@
 		5AFD8D7E1500E6ED0066ECBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WEIHUA JU (E2JD46H66A)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: JOYCOM PTE. LTD.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
 				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2CCC0825-11DE-4692-A436-549039E7EC5E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
