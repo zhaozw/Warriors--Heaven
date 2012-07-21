@@ -51,7 +51,19 @@
                               @"2012-06-05 00:00:00", 
                               @"2012-06-21 00:00:00",
                               @"2012-07-07 00:00:00", 
-                              @"2012-07-22 00:00:00", nil];
+                              @"2012-07-22 00:00:00", 
+                              @"2012-08-07 00:00:00", 
+                            @"2012-08-23 00:00:00", 
+                               @"2012-09-07 00:00:00", 
+                               @"2012-09-22 00:00:00", 
+                               @"2012-10-08 00:00:00", 
+                               @"2012-10-23 00:00:00", 
+                               @"2012-11-07 00:00:00", 
+                               @"2012-11-23 00:00:00", 
+                               @"2012-12-06 00:00:00", 
+                               @"2012-12-21 00:00:00", 
+                               
+                               nil];
     
     NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
     
@@ -62,8 +74,10 @@
     for (int i = 5; i< [cJieqiStartDay count]; i++){
         NSDate* d = [nsdf2 dateFromString:[cJieqiStartDay objectAtIndex:i]];
         if ( [date compare:d] == NSOrderedAscending) // earlier than d
-            return [cJieqi objectAtIndex:i-1];
+            return [cJieqi objectAtIndex:(i-1)%24];
     }
+    
+    return @"";
 
 }
 
