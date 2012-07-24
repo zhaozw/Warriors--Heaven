@@ -21,7 +21,7 @@ class Unarmed < Game::Skill
    end
    
    def dname #display name
-     "基本拳脚"
+     "基本拳法"
    end
 
 
@@ -47,14 +47,14 @@ class Unarmed < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N一拳挥向$n的$l",
+               :action =>"$Nが$nの$lにげんこつを振り上げた",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :action =>"$N往$n的$l狠狠地踢了一脚",
+               :action =>"$Nが$nの$lに強くキックした",
                :damage =>20
                #:damage_type=>""
                
@@ -62,7 +62,7 @@ class Unarmed < Game::Skill
            {
                # :level=>20,
                :level=>10,
-               :action =>"$N往$n的$l狠狠地踢了一脚",
+               :action =>"$Nが$nの$lに強くキックした",
                :damage =>30
                #:damage_type=>""
                
@@ -70,7 +70,7 @@ class Unarmed < Game::Skill
            {
                # :level=>30,
                :level=>20,
-               :action =>"$N挥拳攻击$n的$l",
+               :action =>"$Nが$nのSlにげんこつでアタックした",
                :damage =>30
                #:damage_type=>""
                
@@ -78,7 +78,7 @@ class Unarmed < Game::Skill
            {
                # :level=>50,
                :level=>30,
-               :action =>"$N往$n的$l一抓",
+               :action =>"SNが$nの$lを掴む,
                :damage =>50
                #:damage_type=>""
                
@@ -86,7 +86,7 @@ class Unarmed < Game::Skill
            {
                # :level=>70,
                :level=>50,
-               :action =>"$N提起拳头往$n的$l捶去",
+               :action =>"$Nがげんこつで$nの$lをたたく",
                :damage =>50
                #:damage_type=>""
                
@@ -94,14 +94,14 @@ class Unarmed < Game::Skill
            {
                # :level=>90,
                :level=>70,
-               :action =>"$N对准$n的$l用力挥出一拳",
+               :action =>"$Nが$nの$lを定めて強くげんこつを振り上げた",
                :damage =>90
                #:damage_type=>""
                
            },
           {
                :level=>100,
-               :action =>"$N往$n的$l狠狠地踢了一脚",
+               :action =>"$Nが$nの$lに強くキックした",
                :damage =>100
                #:damage_type=>""
                

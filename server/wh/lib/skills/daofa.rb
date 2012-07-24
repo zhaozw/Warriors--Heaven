@@ -26,14 +26,14 @@ class Daofa < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N一刀劈向$n的$l",
+               :action =>"$Nが刀で$nの$Iを割った",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :action =>"$N举刀向$n的$l狠狠地砍去",
+               :action =>"$Nが刀を上げて、$nの$Iに強く割った",
                :damage =>20
                #:damage_type=>""
                

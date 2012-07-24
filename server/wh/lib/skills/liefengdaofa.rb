@@ -12,7 +12,7 @@ class Liefengdaofa < Daofa
 
    
    def dname
-       "烈风刀法"
+       "烈風刀法"
    end
    
    def desc
@@ -62,7 +62,7 @@ class Liefengdaofa < Daofa
            {
                :level=>0,
                :name=>"呵壁问天",
-               :action =>"$N大喝一声，手中$w大开大阖，连连挥刀使出「呵壁问天」，斩向$n的$l",
+               :action =>"$Nが大声を上げて、続けざまに刀を振り、$nの$Iを切った",
                :damage => 10
                #:damage_type=>""
            },
@@ -70,7 +70,7 @@ class Liefengdaofa < Daofa
                # :level=>10,
                :level=>5,
                :name=>"气盖河山",
-               :action =>"$N运刀如风，一招「气盖河山」，刀势霸道之极，向着$n周身各处猛砍猛劈",
+               :action =>"$Nが素早く刀を振っていた。勢いが非常に強くて、$nの周辺に激しく切っていた",
                :damage =>20
                #:damage_type=>""
                
@@ -79,7 +79,7 @@ class Liefengdaofa < Daofa
                # :level=>20,
                :level=>10,
                :name=>"天地乍合",
-               :action =>"$N一着「天地乍合」，突然抢进$n近侧，迅猛地驱刀连斩，攻式顿然合成一个圆圈",
+               :action =>"$Nが急に$nの近くまで行って、素早く刀で強く切っていた",
                :damage =>20
                #:damage_type=>""
                
@@ -88,7 +88,8 @@ class Liefengdaofa < Daofa
                # :level=>30,
                :level=>20,
                :name=>"贰斩",
-               :action =>"$N翻手倒刺，以退为守，暗藏杀机",
+               :action =>"$Nが手を背の後に回して刺した。守るために後退したが、殺意をひそかに隠れてい
+る",
                :damage =>20
                #:damage_type=>""
                

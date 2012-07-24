@@ -21,7 +21,7 @@ class Beastunarmed < Game::Skill
    end
    
    def dname #display name
-     "猛兽攻击"
+     "猛獣アタック"
    end
 
 
@@ -47,14 +47,14 @@ class Beastunarmed < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N一头顶向$n的$l",
+               :action =>"$Nが$nの$l頭で突いた",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :action =>"$N往$n的$l狠狠地咬去",
+               :action =>"$Nが$nの$lに強く噛んでた",
                :damage =>20
                #:damage_type=>""
                
@@ -62,7 +62,7 @@ class Beastunarmed < Game::Skill
            {
                # :level=>20,
                :level=>10,
-               :action =>"$N挥动利爪，狠狠的抓向$n的$l",
+               :action =>"$Nが爪を高く上げて振り、強く$nの$lにつかんだ",
                :damage =>30
                #:damage_type=>""
                
@@ -70,7 +70,7 @@ class Beastunarmed < Game::Skill
            {
                # :level=>30,
                :level=>20,
-               :action =>"$N跳起来，向$n的$l猛扑过去",
+               :action =>"$Nが飛んで、$nの$lに飛びかかった",
                :damage =>30
                #:damage_type=>""
                
@@ -78,21 +78,23 @@ class Beastunarmed < Game::Skill
            {
                # :level=>50,
                :level=>30,
-               :action =>"$N忽然转过身，尾巴向$n的$l扫去",
+               :action =>"$Nが急に方向を変え、しっぽで$nの$lをアタック",
                :damage =>50
                #:damage_type=>""
                
            },
            {
                :level=>70,
-               :action =>"$N用后爪刨了一下地面，忽然低吼一声向$n扑来，咬向你的$l",
+               :action =>"$Nが後爪で地面を掘り、急に低い声で叫んで、$nに飛びかかり、あなたの$lを噛ん
+だ",
                :damage =>50
                #:damage_type=>""
                
            },
            {
                :level=>90,
-               :action =>"$N怒吼一声，直震得树叶发颤，在$n一愣的功夫, 已扑了上来",
+               :action =>"$Nが怒号して、木の葉まで震動させた。$nがぼっとしているところに、既に飛びかか
+れた",
                :damage =>90
                #:damage_type=>""
                

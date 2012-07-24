@@ -21,7 +21,7 @@ class Literature < Game::Skill
    end
    
    def dname #display name
-     "读书写字"
+     "読書習字"
    end
 
 

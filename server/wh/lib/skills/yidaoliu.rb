@@ -61,15 +61,15 @@ class Yidaoliu < Daofa
            {
                :level=>0,
                :name=>"断云斩",
-               :action =>"刀光一闪，$w拦腰劈向$n",
+               :action =>"光ってて、$wが$nの腰部を切った",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :name=>"飞龙火焰",
-               :action =>"$N一刀直劈,刀光凌厉，如烈焰奔腾。",
+               :name=>"飛ぶ龍火炎",
+               :action =>"$Nが刀でストレートに切り、光が激しく、まるで激しい炎が燃えてるようだ",
                :damage =>20
                #:damage_type=>""
                
@@ -78,7 +78,7 @@ class Yidaoliu < Daofa
                # :level=>20,
                :level=>10,
                :name=>"鹰波",
-               :action =>"$N一剑轻削，轻柔如风，无影无踪",
+               :action =>"$Nが剣で軽く切り、柔らかくてまるでかすかな風のように、影も形もない。",
                :damage =>20
                #:damage_type=>""
                
@@ -87,7 +87,8 @@ class Yidaoliu < Daofa
                # :level=>30,
                :level=>20,
                :name=>"贰斩",
-               :action =>"$N翻手倒刺，以退为守，暗藏杀机",
+               :action =>"$Nが手を背の後に回して刺した。守るために後退したが、殺意をひそかに隠れてい
+る。",
                :damage =>20
                #:damage_type=>""
                

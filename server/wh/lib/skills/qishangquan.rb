@@ -12,7 +12,7 @@ class Qishangquan < Game::Skill
    end
    
    def dname
-       "七伤拳"
+       "7つ 傷拳"
    end
    
    def desc
@@ -38,7 +38,7 @@ class Qishangquan < Game::Skill
        skill = user.query_skill("unarmed")
       
        if (!skill or skill.data[:level] <=10 )
-           context[:msg] += "你的基本拳脚功夫还不够，无法参悟书中奥义"
+           context[:msg] += "あなたの基本拳法の工夫はまだ足りないので、本の奥義を理解できない"
            return false
        end
        return true
@@ -65,7 +65,8 @@ class Qishangquan < Game::Skill
            {
                :level=>0,
                :name=>"催心诀",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「催心诀，双拳一股刚猛之力$n击去",
+               :action =>"$Nが精神を集中して、7つ傷つく拳法の「催心诀」すパターンを使い、両手合わせて$nを
+アタックした",
                :damage => 10
                #:damage_type=>""
            },
@@ -73,7 +74,8 @@ class Qishangquan < Game::Skill
                # :level=>10,
                :level=>5,
                :name=>"裂肺诀",
-               :action =>"$N深吸一口气，左拳使出七伤拳总诀中的「伤肺诀」，双拳飘忽不定，某人顿时感觉一股阴之力迎面而柔来。",
+               :action =>"$Nが深呼吸して、7つ傷づく拳法の「裂肺诀」すパターンを使い、両手が軽やかに流れてい
+る風みたいが、ひそかに強い力が真正面からやってきた。",
                :damage =>20
                #:damage_type=>""
                
@@ -81,8 +83,9 @@ class Qishangquan < Game::Skill
            {
                # :level=>20,
                :level=>10,
-               :name=>"断肝肠",
-               :action =>"$N右拳使出七伤拳总诀中的「摧肝肠诀」，双拳刚中有柔，向$n击去",
+               :name=>"断腸",
+               :action =>"$Nが右手で7つ傷つく拳法の「断腸」パターンを使い、強硬や温和をあわせ、$nをアタ
+ックした",
                :damage =>20,
                #:damage_type=>""
                
@@ -91,7 +94,8 @@ class Qishangquan < Game::Skill
                # :level=>30,
                :level=>20,
                :name=>"脏离诀",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「藏离诀」，双拳柔中有刚，打出一股内缩之力！向$n击去",
+               :action =>"$Nが精神を集中して、7つ傷つく拳法の「脏离诀」パターンを使い、強硬や温和をあわせ、
+$nをアタックした",
                :damage =>20
                #:damage_type=>""
                
@@ -100,7 +104,8 @@ class Qishangquan < Game::Skill
                # :level=>50,
                :level=>30,
                :name=>"精失诀",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「精失诀」，双拳势如雷霆，将力道直向$n送去",
+               :action =>"$Nが精神を集中して、7つ傷つく拳法の「精失诀」パターンを使い、両手が激しい威力で$nを
+アタックした",
                :damage =>20
                #:damage_type=>""
                
@@ -109,7 +114,8 @@ class Qishangquan < Game::Skill
                # :level=>80,
                :level=>50,
                :name=>"意惚恍",
-               :action =>"$N凝神定气，使出七伤拳总诀中的「意恍惚诀」，向$n送出一股横出之力！",
+               :action =>"$Nが精神を集中して、7つ傷つく拳法の「意惚恍」パターンを使い、$nに強
+くアタックした！",
                :damage =>20
                #:damage_type=>""
                
@@ -117,8 +123,9 @@ class Qishangquan < Game::Skill
            {
                # :level=>120,
                :level=>80,
-               :name=>"魄飞扬",
-               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
+               :name=>"魂魄飛ぶ",
+               :action =>"あなたが大声を上げて、7つ傷つく拳法最後の「魂魄飛ぶ」というパターンを使い、
+左右連続で強く$nをアタックした！",
                :damage =>20
                #:damage_type=>""
                

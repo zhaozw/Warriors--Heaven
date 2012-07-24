@@ -34,7 +34,7 @@ class Xunlei < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N在电光火石之间攻出五拳，击向$n",
+               :action =>"$Nがあっという間で5拳を上げて、$nをアタックした",
                :damage => 50,
                :cost_stam => 20
                #:damage_type=>""

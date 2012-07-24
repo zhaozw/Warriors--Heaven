@@ -21,7 +21,7 @@ class Caoyao < Game::Skill
    end
    
    def dname #display name
-     "草药学"
+     "草薬学"
    end
 
 

@@ -13,7 +13,7 @@ class Parry < Game::Skill
    end
    
    def dname
-      "基本招架" 
+      "基本受け止め" 
    end
    
    # def power(context)

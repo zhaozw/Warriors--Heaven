@@ -14,7 +14,7 @@ class Fencing < Game::Skill
    end
    
    def dname
-       "基本剑法"
+       "基本剣法"
    end
    
    # def damage(context)
@@ -38,14 +38,14 @@ class Fencing < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N一剑刺向$n的$l",
+               :action =>"$Nが$nの$lに突き刺した",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :action =>"$N举剑向$n的$l狠狠地挥去",
+               :action =>"$Nが剣をあげて、$nの$I強く振った。",
                :damage =>20
                #:damage_type=>""
                

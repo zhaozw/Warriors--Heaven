@@ -21,7 +21,7 @@ class Poisonsnake < Game::Skill
    end
    
    def dname #display name
-     "毒蛇攻击"
+     "毒ヘビアタック"
    end
 
 
@@ -39,14 +39,14 @@ class Poisonsnake < Game::Skill
        [
            {
                :level=>0,
-               :action =>"$N盘成一个圈，忽然一口咬向$n的$l",
+               :action =>"$Nが丸く回って、急に$nの$Iに一口噛んでいた",
                :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :action =>"$N吐了吐红信，往$n的$l狠狠地咬去",
+               :action =>"$Nが舌を出し、$nの$Iに強く噛んでいた",
                :damage =>20
                #:damage_type=>""
                

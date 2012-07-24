@@ -56,7 +56,7 @@
 					<object class="IBUILabel" id="751916481">
 						<reference key="NSNextResponder" ref="549739859"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{66, 132}, {298, 21}}</string>
+						<string key="NSFrame">{{66, 132}, {253, 21}}</string>
 						<reference key="NSSuperview" ref="549739859"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="548395913"/>
@@ -65,7 +65,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">请设置你的角色和名字</string>
+						<string key="IBUIText">キャラクターを設置してください</string>
 						<object class="NSColor" key="IBUITextColor" id="317560647">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -164,7 +164,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">角色</string>
+						<string key="IBUIText">キャラクタ</string>
 						<reference key="IBUITextColor" ref="317560647"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
