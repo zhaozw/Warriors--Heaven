@@ -4,7 +4,7 @@ require 'objects/player.rb'
 
 class Yaowanggu < Quest 
     def dname
-       "药王谷" 
+       "薬キング谷" 
     end
     
     def desc

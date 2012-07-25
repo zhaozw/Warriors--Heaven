@@ -1107,7 +1107,7 @@ end
         
     
     
-        msg += line "<div> 战斗开始!</div>"
+        msg += line "<div> 戦闘開始!</div>"
      
         # calculate temporary fight prop
         # p1.tmp[:apply_damage] = p1.query_weapon_damage

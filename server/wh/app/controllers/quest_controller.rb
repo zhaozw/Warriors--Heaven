@@ -15,7 +15,7 @@ class QuestController < ApplicationController
         [
 
             "caiyao",   #采药任务
-            "poem",
+            # "poem",
             "wudujiao",  #无毒教任务
             "yaowanggu",
             "yunbiao",

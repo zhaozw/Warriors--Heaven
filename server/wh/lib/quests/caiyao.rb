@@ -4,7 +4,7 @@ require 'objects/player.rb'
 
 class Caiyao < Quest 
     def dname
-       "采药" 
+       "ハーブ" 
     end
     
     def desc

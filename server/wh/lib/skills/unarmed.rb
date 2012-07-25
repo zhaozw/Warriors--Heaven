@@ -48,14 +48,14 @@ class Unarmed < Game::Skill
            {
                :level=>0,
                :action =>"$Nが$nの$lにげんこつを振り上げた",
-               :damage => 10
+               :damage => 10,
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
                :action =>"$Nが$nの$lに強くキックした",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -63,7 +63,7 @@ class Unarmed < Game::Skill
                # :level=>20,
                :level=>10,
                :action =>"$Nが$nの$lに強くキックした",
-               :damage =>30
+               :damage =>30,
                #:damage_type=>""
                
            },
@@ -71,15 +71,15 @@ class Unarmed < Game::Skill
                # :level=>30,
                :level=>20,
                :action =>"$Nが$nのSlにげんこつでアタックした",
-               :damage =>30
+               :damage =>30,
                #:damage_type=>""
                
            },
            {
                # :level=>50,
                :level=>30,
-               :action =>"SNが$nの$lを掴む,
-               :damage =>50
+               :action =>"SNが$nの$lを掴む",
+               :damage =>50,
                #:damage_type=>""
                
            },
@@ -87,7 +87,7 @@ class Unarmed < Game::Skill
                # :level=>70,
                :level=>50,
                :action =>"$Nがげんこつで$nの$lをたたく",
-               :damage =>50
+               :damage =>50,
                #:damage_type=>""
                
            },
@@ -95,14 +95,14 @@ class Unarmed < Game::Skill
                # :level=>90,
                :level=>70,
                :action =>"$Nが$nの$lを定めて強くげんこつを振り上げた",
-               :damage =>90
+               :damage =>90,
                #:damage_type=>""
                
            },
           {
                :level=>100,
                :action =>"$Nが$nの$lに強くキックした",
-               :damage =>100
+               :damage =>100,
                #:damage_type=>""
                
            }

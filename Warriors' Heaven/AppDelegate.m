@@ -98,10 +98,10 @@
 */
 
 - (void) setTest{
-    
-    debug = TRUE;
+        debug = TRUE;
 //      host = @"homeserver.joyqom.com";
     host = @"localhost";
+    host= @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -364,7 +364,7 @@
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
     [client1 setRetry:YES];  
     //    [client1 setResponseHandler:@selector(handleServerListError:)];
-    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/whj/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];

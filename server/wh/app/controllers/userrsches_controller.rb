@@ -81,11 +81,11 @@ class UserrschesController < ApplicationController
         if t == 'daofa'
             return "刀法"
         elsif t == 'fencing' || t=='sword'
-            return "剑法"
+            return "剣法"
         elsif t == 'unarmed'
             return "拳法"
         elsif t == 'dodge'
-            return "轻功"
+            return "避け"
         elsif t== 'heal'
             return '愈法'
         end

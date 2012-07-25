@@ -372,6 +372,7 @@
         
         UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, row_height-10)];
         [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
+        [lbSkillTitle setMinimumFontSize:8.0f];
         [lbSkillTitle setTextColor:[UIColor whiteColor]];
         [lbSkillTitle setBackgroundColor:[UIColor clearColor]];
         [lbSkillTitle setOpaque:NO];

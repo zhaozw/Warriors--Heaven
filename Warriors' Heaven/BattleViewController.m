@@ -115,7 +115,7 @@
     [btBack setBackgroundImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
     [btBack addTarget:self action:@selector(showPlayers:) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel* lbTitleHeroView = [LightView createLabel:CGRectMake(150, 0, 100, 33) parent:vTitleView2 text:@"挑战英雄" textColor:[UIColor colorWithRed:1.0 green:0.9 blue:0.2 alpha:1]];
+    UILabel* lbTitleHeroView = [LightView createLabel:CGRectMake(150, 0, 100, 33) parent:vTitleView2 text:@"英雄に挑戦" textColor:[UIColor colorWithRed:1.0 green:0.9 blue:0.2 alpha:1]];
     [lbTitleHeroView setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
     
  /*   UIButton* btPlayer = [LightView createButton:CGRectMake(0, 0, 160, 39) parent:vTitleView text:@"玩家" tag:0];

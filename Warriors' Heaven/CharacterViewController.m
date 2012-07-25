@@ -1260,7 +1260,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
         sloteq_selected = NULL;
         }else{
 //            [ad showMsg:@"You cannot wear it on this position" type:1 hasCloseButton:YES];
-            [ad showMsg:@"该装备不适合穿在这里" type:1 hasCloseButton:YES];
+            [ad showMsg:@"この装備はここで使えない" type:1 hasCloseButton:YES];
             worneq_selected = NULL;
 //            sloteq_selected = NULL;
         }

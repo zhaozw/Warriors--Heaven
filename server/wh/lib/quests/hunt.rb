@@ -4,7 +4,7 @@ require 'objects/player.rb'
 
 class Hunt < Quest 
     def dname
-       "打猎" 
+       "狩猟" 
     end
     
     def desc

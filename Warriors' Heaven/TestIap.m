@@ -12,7 +12,7 @@
 
 - (void)requestProUpgradeProductData
 {
-    NSSet *productIdentifiers = [NSSet setWithObjects:@"com.joycom.wh.iap.gold", @"com.joycom.wh.iap.2000gold", @"com.joycom.wh.iap.5000gold", @"com.joycom.wh.iap.8000gold", @"com.joycom.wh.iap.10000gold", @"com.joycom.wh.iap.20000gold", @"com.joycom.wh.iap.50000gold", @"com.joycom.xkx.iap.1000gold", @"com.joycom.xkx.iap.2000gold", @"com.joycom.xkx.iap.5000gold", @"com.joycom.xkx.iap.8000gold", @"com.joycom.xkx.iap.10000gold", @"com.joycom.xkx.iap.20000gold", @"com.joycom.xkx.iap.50000gold", nil ];
+    NSSet *productIdentifiers = [NSSet setWithObjects:@"com.joycom.whj.iap.gold", @"com.joycom.whj.iap.2000gold", @"com.joycom.wh.iap.5000gold", @"com.joycom.wh.iap.8000gold", @"com.joycom.wh.iap.10000gold", @"com.joycom.wh.iap.20000gold", @"com.joycom.wh.iap.50000gold", @"com.joycom.xkx.iap.1000gold", @"com.joycom.xkx.iap.2000gold", @"com.joycom.xkx.iap.5000gold", @"com.joycom.xkx.iap.8000gold", @"com.joycom.xkx.iap.10000gold", @"com.joycom.xkx.iap.20000gold", @"com.joycom.xkx.iap.50000gold", nil ];
     productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];

@@ -92,14 +92,14 @@
      NSObject* p = [self parentViewController];
     if ([type isEqualToString:@"buy"]){
         viewType = @"buy";
-        [btTrade setTitle:@"购买" forState:UIControlStateNormal];
+        [btTrade setTitle:@"購入" forState:UIControlStateNormal];
 //        [btTrade addTarget:[self parentViewController] action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
-        slbPrice.text = @"买入价格";
+        slbPrice.text = @"購入価格";
     }
     else if ([type isEqualToString:@"sell"]){
        
         viewType = @"sell";
-        [btTrade setTitle:@"卖出" forState:UIControlStateNormal];
+        [btTrade setTitle:@"売却" forState:UIControlStateNormal];
 //        [btTrade addTarget:[self parentViewController] action:@selector(onSell1:) forControlEvents:UIControlEventTouchUpInside];
          slbPrice.text = @"売却価格";
     }

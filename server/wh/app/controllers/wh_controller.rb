@@ -1373,7 +1373,7 @@ class WhController < ApplicationController
             user_data.ext.set_prop("pending", pending)
             user_data.ext[:lastact] = "practise"
             user_data.check_save
-            success("你开始修炼#{skill.dname}", {:skill=>params[:skill], :usepot=>usepot, :rate=>player.calc_practise_rate(params[:skill])})
+            success("あなたは#{skill.dname}の練習を始めた", {:skill=>params[:skill], :usepot=>usepot, :rate=>player.calc_practise_rate(params[:skill])})
         else
             user_data.check_save
             error("あなたの戦い経験はまだ足りないみたい!", JSON.parse(skill.to_json))

@@ -123,7 +123,7 @@
     NSLog(@"TEAM:%@", team);
     
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
-    UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
+    UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 120, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
     UIButton* bt = [LightView createButton:CGRectMake(120, 0, 110, 39) parent:banner text:@"戦友募集" tag:0];
 //    [bt.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:13.0f]];
 //    [bt.titleLabel setTextColor:[UIColor greenColor]];
