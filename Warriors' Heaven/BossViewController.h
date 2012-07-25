@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 
 @interface BossViewController : UIViewController{
-    EGOImageView* vBg;
+//    EGOImageView* vBg;
     EGOImageView* vImage;
     NSString* hero;
 }

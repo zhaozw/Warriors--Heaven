@@ -73,7 +73,7 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
     
-    [self addChildViewController:vcResearch];
+//    [self addChildViewController:vcResearch];
     vcResearch.view.hidden = YES;
     [self.view addSubview:vcResearch.view];
     
@@ -909,7 +909,7 @@
     CGRect rect3 = skillsView.frame;
     int scrollSize = rect3.size.height+200 - 480;
 //    skillsView.backgroundColor = [UIColor redColor];
-    [self viewWillAppear:NO];
+//    [self viewWillAppear:NO];
     if (scrollSize > 0 ){
 //        UIScrollView* sv = [self view ].superview;
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];

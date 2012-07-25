@@ -240,7 +240,9 @@
         NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface.html", host, port];
         [wvPreface loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];  
         [wvPreface setDelegate:self];
+
         [window bringSubviewToFront:vPreface];
+        
 //        [self saveLocalProp:@"introduced" v:@"1"];
         vPreface.hidden = NO;
 
@@ -341,11 +343,7 @@
     NSLog(@"load session id %@", session_id);
     
     
-    // get server list
-    WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
-    [client1 setRetry:YES];  
-//    [client1 setResponseHandler:@selector(handleServerListError:)];
-    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+
     
 
 //[window bringSubviewToFront:vMsgFloat];
@@ -361,6 +359,12 @@
         tabBarController.view.hidden = YES;
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     }
+    
+    // get server list
+    WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
+    [client1 setRetry:YES];  
+    //    [client1 setResponseHandler:@selector(handleServerListError:)];
+    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];
@@ -468,11 +472,11 @@
             id _port =  [server_assigned valueForKey:@"port"];
             if (_port && _port != [NSNull null])
                 if (!debug)
-                if (!bFirstCallReturn || ![host isEqualToString:[server_assigned valueForKey:@"server"]] || [port intValue] != [_port intValue]){
-                    host = [server_assigned valueForKey:@"server"];
-                    port = _port;
-                    [self initData];
-                }
+                    if (!bFirstCallReturn || ![host isEqualToString:[server_assigned valueForKey:@"server"]] || [port intValue] != [_port intValue]){
+                        host = [server_assigned valueForKey:@"server"];
+                        port = _port;
+                        [self initData];
+                    }
           
         }
         
