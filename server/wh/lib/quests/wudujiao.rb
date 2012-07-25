@@ -2,7 +2,7 @@ require "quests/quest.rb"
 require "fight.rb"
 class Wudujiao < Quest 
     def dname
-       "平定五毒教"
+       "五毒教"
     end
     
     def desc

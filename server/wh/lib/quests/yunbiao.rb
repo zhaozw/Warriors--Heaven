@@ -4,7 +4,7 @@ require 'objects/player.rb'
 
 class Yunbiao < Quest 
     def dname
-       "运镖" 
+       "護衛" 
     end
     
     def desc
