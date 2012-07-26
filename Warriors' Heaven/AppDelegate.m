@@ -241,7 +241,7 @@
 
         [window bringSubviewToFront:vPreface];
         
-//        [self saveLocalProp:@"introduced" v:@"1"];
+        [self saveLocalProp:@"introduced" v:@"1"];
         vPreface.hidden = NO;
 
 

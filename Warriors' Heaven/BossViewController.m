@@ -207,9 +207,7 @@
 - (void) loadHero:(NSObject*) data{
     if (!data)
         return;
-    for (int i = 0; i <[vEquipment.subviews count]; i++){
-        [[vEquipment.subviews objectAtIndex:i] removeFromSuperview];
-    }
+    [LightView removeAllSubview:vEquipment];
     hero = [data valueForKey:@"name"];
     NSString* name = [data valueForKey:@"dname"];
     NSString* title = [data valueForKey:@"title"];
