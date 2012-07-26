@@ -2,17 +2,17 @@
 <body style="background-color: transparent; font-size:10pt;">
 	<div id="main" style="height:170px;overflow:scroll;">
 	<div>
-	你昨天一共收到<%=@battle_count_last_day %>次挑战，胜<span style="color:red" ><%=@win_count_last_day %></span>, 负<span style="color:blue"><%=@battle_count_last_day - @win_count_last_day %></span>.
+	昨日、あなたは<%=@battle_count_last_day %>回挑戦を受けた。勝<span style="color:red" ><%=@win_count_last_day %></span>、負<span style="color:blue"><%=@battle_count_last_day - @win_count_last_day %></span>。
 	</div>
 	<div>
-	你的累计战斗胜率为<span style="color:red"><%="%0.2f"%[@rate]%>%</span>
+	あなたの累次戦い勝ち率は<span style="color:red"><%="%0.2f"%[@rate]%>%</span>
 	</div>
 	<!--div>
 	<恭喜你！你获了得<span style="color:brown">一级铁十字勋章</span>和<span style="color:brown">初级剑侠</span>的称号!
 	</div-->
 	<% if @quest_count> 0 %>
 	<div>
-	还有<%=@quest_count%>个<a href="/quests">任务</a>,3个<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">荣誉勋章</a>和2个<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">头衔</a>等着你去获取呢!
+	また<%=@quest_count%>つの<a href="/quests">任務</a>,3つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">栄誉勲章</a>や2つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">肩書</a>きがあなたを待っているよ！!
 	</div>
 	<% end %>
 	</div><!-- main -->

@@ -572,7 +572,7 @@ end
                 damage = 0
          
             if context[:riposte]
-                     msg += line "<br/>\n#{attacker.name}乘机发动进攻!"
+                     msg += line "<br/>\n#{attacker.name}がチャンスを利用、進撃!"
             end
             # perform ?
               _perp= rand(attacker.tmp[:maxhp])

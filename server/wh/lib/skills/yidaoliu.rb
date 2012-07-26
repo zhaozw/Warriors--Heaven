@@ -60,7 +60,7 @@ class Yidaoliu < Daofa
        [
            {
                :level=>0,
-               :name=>"断云斩",
+               :name=>"断雲斬",
                :action =>"光ってて、$wが$nの腰部を切った",
                :damage => 10
                #:damage_type=>""
@@ -77,7 +77,7 @@ class Yidaoliu < Daofa
            {
                # :level=>20,
                :level=>10,
-               :name=>"鹰波",
+               :name=>"鷹波",
                :action =>"$Nが剣で軽く切り、柔らかくてまるでかすかな風のように、影も形もない。",
                :damage =>20
                #:damage_type=>""
@@ -86,7 +86,7 @@ class Yidaoliu < Daofa
            {
                # :level=>30,
                :level=>20,
-               :name=>"贰斩",
+               :name=>"　弐斬",
                :action =>"$Nが手を背の後に回して刺した。守るために後退したが、殺意をひそかに隠れてい
 る。",
                :damage =>20
@@ -96,8 +96,9 @@ class Yidaoliu < Daofa
            {
                # :level=>50,
                :level=>30,
-               :name=>"砂纹",
-               :action =>"$N追步平刺，如松之劲，如风之轻，刚柔兼济",
+               :name=>"砂紋",
+               :action =>"追いついて刺し、まるで松のように強い、風のように柔らかい、強硬や温和な面両方
+ある",
                :damage =>20
                #:damage_type=>""
                

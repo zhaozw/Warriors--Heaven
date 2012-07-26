@@ -292,10 +292,10 @@
     int count = [heroList count];
     int row_height = 50;
     int row_margin = 1;
-    int margin_top = 0;
+    int margin_top = 39;
     int margin = 1;
     //    int y = 300;˙
-    int y = margin_top;
+    int y = 0;
     
     [LightView removeAllSubview:vHeroList];
     

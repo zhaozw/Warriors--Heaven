@@ -83,7 +83,9 @@ class Liefengdaofa < Daofa
                :damage =>20
                #:damage_type=>""
                
-           },
+           }
+=begin
+         ,
            {
                # :level=>30,
                :level=>20,
@@ -148,6 +150,7 @@ class Liefengdaofa < Daofa
                #:damage_type=>""
                
            }
+=end
           ]
    end
 
