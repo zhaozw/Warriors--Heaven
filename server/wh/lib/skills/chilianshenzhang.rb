@@ -1,5 +1,5 @@
-require 'skills/skill.rb'
-class Shendaotianxinliu < Game::Skill 
+require 'skills/unarmed.rb'
+class Chilianshenzhang < Unarmed 
 #基本剑法
    def for
        return "attack unarmed"
@@ -12,12 +12,12 @@ class Shendaotianxinliu < Game::Skill
    end
    
    def dname
-       "神道天心流"
+       "赤练神掌"
    end
    
    def desc
-       ""
-   end
+      "传说中女魔头李莫愁的成名武功，掌中带毒，令江湖人士闻风丧胆。"
+  end
    
    def needResearchPoint
        100
@@ -28,11 +28,12 @@ class Shendaotianxinliu < Game::Skill
    end
    
    def mengpai
-       "kongtong" # 崆峒派
+       "五毒教" # 崆峒派
    end
    
    
    def checkResearchCondition(context)
+
        user = context[:user]
        skill = user.query_skill("unarmed")
       
@@ -44,53 +45,53 @@ class Shendaotianxinliu < Game::Skill
    end
    
 
-  
-   # def damage(context)   # only for calculation, "render" function will make real damage
-   #     user = context[:user]
-   #     a = getAction
-   #     d = a[:damage] + user.tmp[:str]
-   #    
-   # end
-   #  
+=begin  
+   def damage(context)   # only for calculation, "render" function will make real damage
+       user = context[:user]
+       a = getAction
+       d = a[:damage] + user.tmp[:str]
+      
+   end
+    
 
   
    def defense(context)
        thisskill = @skill
        return thisskill[:level]
    end
-
-   def attack_actions # from pishi-poyu quan
+=end
+   def attack_actions
        [
            {
                :level=>0,
-               :name=>"花弁手",
-               :action =>"身子微躬、右拳左掌合着一揖，突然随势向前疾探，打向$n$l",
-               :damage => 10,
+               :name=>"",
+               :action =>"$N双手一翻，两掌带着淡淡的蓝光，直向$n拍去。",
+               :damage => 10
                #:damage_type=>""
            },
            {
                # :level=>10,
                :level=>5,
-               :name=>"浮　葉",
-               :action =>"$N左掌虚抚，右拳“嗖”地一声从掌风中猛穿出来，击向$n的$l",
-               :damage =>20,
+               :name=>"",
+               :action =>"$N左掌虚晃，右掌直出，犹如毒蛇一般直迫$n的胸前。",
+               :damage =>20
                #:damage_type=>""
                
            },
            {
                # :level=>20,
                :level=>10,
-               :name=>"風揺枝",
-               :action =>"$N气沉丹田，身向前俯，双掌「铁闩横门」，带着隐隐风雷之声缓缓地推向$n",
-               :damage =>20
+               :name=>"",
+               :action =>"$N双掌翻飞，四周迷茫着一股暗淡的雾气，排向$n的全身",
+               :damage =>20,
                #:damage_type=>""
                
            },
            {
                # :level=>30,
                :level=>20,
-               :name=>"桐之葉",
-               :action =>"$N腾空飞起，一式「千斤坠地」，对着$n雷霆般地猛捣数拳，拳风猛烈重如山",
+               :name=>"",
+               :action =>"$N两掌一分，左掌如蝎，右掌似蛇，同时向$n击过去",
                :damage =>20
                #:damage_type=>""
                
@@ -98,50 +99,26 @@ class Shendaotianxinliu < Game::Skill
            {
                # :level=>50,
                :level=>30,
-               :name=>"龍　 風",
-               :action =>"忽然$n转到$N身后，$N一式「傍花拂柳」，守中带攻的背对反手一拳迅捷回击",
-               :damage =>20,
+               :name=>"",
+               :action =>"$N默运内力，双掌忽然变黑，带着一股阴风只扑$n的全身",
+               :damage =>20
                #:damage_type=>""
                
            },
+=begin
            {
-               # :level=>70,
+               # :level=>80,
                :level=>50,
-               :name=>"万 雷",
-               :action =>"$N闪电般一招「金刚挚尾」，急冲到$n身前，抓向膻中大穴，欲将$n提起丢掷！",
-               :damage =>20,
+               :name=>"意惚恍",
+               :action =>"$N凝神定气，使出七伤拳总诀中的「意恍惚诀」，向$n送出一股横出之力！",
+               :damage =>20
                #:damage_type=>""
                
            },
            {
-               # :level=>90,
+               # :level=>120,
                :level=>80,
-               :name=>"片　 雲",
-               :action =>"$N双拳连捣，使出「封闭手」，带动重重拳影，翻山蹈海般地盖向$n周身上下！",
-               :damage =>20
-               #:damage_type=>""
-               
-           },
-           {
-               :level=>120,
-               :name=>"燕　返",
-               :action =>"$N拳势如雷似电，一式「粉石碎玉」，荡起虎虎拳风，力拔千钧的笔直捣往$n$l！",
-               :damage =>20
-               #:damage_type=>""
-               
-           },
-=begin 
-           {
-               :level=>150,
-               :name=>"七里引",
-               :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
-               :damage =>20
-               #:damage_type=>""
-               
-           },
-           {
-               :level=>180,
-               :name=>"雪　崩",
+               :name=>"魄飞扬",
                :action =>"$N你大喝一声，须发俱张，使出「七伤总诀」中的最后一诀【魄飞扬】，左右双拳连续击出，威猛无俦，打向$n！",
                :damage =>20
                #:damage_type=>""
@@ -150,7 +127,7 @@ class Shendaotianxinliu < Game::Skill
 =end
           ]
    end
-
+=begin
    def getAction
       level = @skill[:level]
       actions = attack_actions
@@ -211,5 +188,5 @@ class Shendaotianxinliu < Game::Skill
         end
         context[:msg] += action_msg(a)
    end
-
+=end
 end
