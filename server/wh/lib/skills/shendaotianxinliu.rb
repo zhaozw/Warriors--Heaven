@@ -64,7 +64,7 @@ class Shendaotianxinliu < Game::Skill
            {
                :level=>0,
                :name=>"花弁手",
-               :action =>"身子微躬、右拳左掌合着一揖，突然随势向前疾探，打向$n$l",
+               :action =>"$N身子微躬、右拳左掌合着一揖，突然随势向前疾探，打向$n$l",
                :damage => 10,
                #:damage_type=>""
            },
