@@ -401,8 +401,13 @@ class WhController < ApplicationController
        
             # js = r.to_json
         else
+<<<<<<< HEAD
            # error("record not found")
           #  return
+=======
+            # error("record not found")
+            # return
+>>>>>>> master
         end
         ret = {
                :player=>r,

@@ -54,7 +54,11 @@ class Unarmed < Game::Skill
            {
                # :level=>10,
                :level=>5,
+<<<<<<< HEAD
                :action =>"$Nが$nの$lに強くキックした",
+=======
+               :action =>"$N往$n的$l狠狠地踢了一脚",
+>>>>>>> master
                :damage =>20,
                #:damage_type=>""
                
@@ -62,7 +66,11 @@ class Unarmed < Game::Skill
            {
                # :level=>20,
                :level=>10,
+<<<<<<< HEAD
                :action =>"$Nが$nの$lに強くキックした",
+=======
+               :action =>"$N往$n的$l狠狠地踢了一脚",
+>>>>>>> master
                :damage =>30,
                #:damage_type=>""
                
@@ -70,7 +78,11 @@ class Unarmed < Game::Skill
            {
                # :level=>30,
                :level=>20,
+<<<<<<< HEAD
                :action =>"$Nが$nのSlにげんこつでアタックした",
+=======
+               :action =>"$N挥拳攻击$n的$l",
+>>>>>>> master
                :damage =>30,
                #:damage_type=>""
                
@@ -78,7 +90,11 @@ class Unarmed < Game::Skill
            {
                # :level=>50,
                :level=>30,
+<<<<<<< HEAD
                :action =>"SNが$nの$lを掴む",
+=======
+               :action =>"$N往$n的$l一抓",
+>>>>>>> master
                :damage =>50,
                #:damage_type=>""
                
@@ -86,7 +102,11 @@ class Unarmed < Game::Skill
            {
                # :level=>70,
                :level=>50,
+<<<<<<< HEAD
                :action =>"$Nがげんこつで$nの$lをたたく",
+=======
+               :action =>"$N提起拳头往$n的$l捶去",
+>>>>>>> master
                :damage =>50,
                #:damage_type=>""
                
@@ -94,14 +114,22 @@ class Unarmed < Game::Skill
            {
                # :level=>90,
                :level=>70,
+<<<<<<< HEAD
                :action =>"$Nが$nの$lを定めて強くげんこつを振り上げた",
+=======
+               :action =>"$N对准$n的$l用力挥出一拳",
+>>>>>>> master
                :damage =>90,
                #:damage_type=>""
                
            },
           {
                :level=>100,
+<<<<<<< HEAD
                :action =>"$Nが$nの$lに強くキックした",
+=======
+               :action =>"$N往$n的$l狠狠地踢了一脚",
+>>>>>>> master
                :damage =>100,
                #:damage_type=>""
                

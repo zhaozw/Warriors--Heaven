@@ -144,10 +144,11 @@
             vMengpai.alpha = 0.8f;
 //            vUnRead.currentY += 23;
             NSString* strMengpai = @"";
-            if ([sMengpai isEqualToString:@"kongtong"])
-                              strMengpai = @"崆峒系";
-                              else if ([sMengpai isEqualToString:@"dongying"])
-                              strMengpai = @"东瀛系";
+//            if ([sMengpai isEqualToString:@"kongtong"])
+//                              strMengpai = @"崆峒系";
+//                              else if ([sMengpai isEqualToString:@"dongying"])
+//                              strMengpai = @"东瀛系";
+            strMengpai = sMengpai;
             [LightView createLabel:CGRectMake(5, 0, 100, 18) parent:vMengpai text:strMengpai textColor:[UIColor colorWithRed:0.9f green:0.9f blue:0.9f alpha:1.0f]];
             for (int i = 0; i< [books count]; i++){
                 NSObject* row = [[NSMutableDictionary alloc] init];
