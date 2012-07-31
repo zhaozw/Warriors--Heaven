@@ -6,7 +6,7 @@ def launch_jobs
     # create memcached manually
     mcd_default_options = {
             :namespace => 'game:user',
-            :memcache_server => 'localhost:11211'
+            :memcache_server => 'localhost:11212'
     }
 
     if (!$memcached)  
