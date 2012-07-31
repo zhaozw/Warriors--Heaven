@@ -15,6 +15,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize lbVersion;
 @synthesize lbBattleResultTitle;
 @synthesize vPreface;
 @synthesize vcPurchase;
@@ -99,9 +100,9 @@
 
 - (void) setTest{
     
-    debug = TRUE;
+//    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
-    host = @"localhost";
+//    host = @"localhost";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -123,7 +124,8 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
+//    [self setSessionId:session_id];
 
 }
 - (NSString *) readSessionId{
@@ -141,8 +143,8 @@
 
 }
 - (void) setSessionId:(NSString *)sid{
-    if (!sid)
-        return;
+//    if (!sid)
+//        return;
     session_id = sid;
     NSArray *Array = [NSArray arrayWithObjects:sid, nil];
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
@@ -353,6 +355,7 @@
         vWelcome.opaque = YES;
         //        [vWelcome addSubview:vCompanyLogo];
         //        [vWelcome addSubview:lbCompnayName];
+        [vWelcome addSubview:lbVersion];
         [window bringSubviewToFront:vWelcome];
         tabBarController.view.hidden = YES;
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
@@ -372,7 +375,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie

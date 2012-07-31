@@ -129,6 +129,19 @@
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
 
+    // check network status
+    if (ad.networkStatus == 0){
+        [ad checkNetworkStatus];
+        if (ad.networkStatus == 0){
+            [ad showNetworkDown];
+            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
+            NSLog(@"Network down");
+            if (retry){
+                [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+            }
+            return;
+        }
+    }
 
        
     
@@ -149,10 +162,7 @@
         return;
     }
     
-    // display waiting dialog
-    if (bWait)
-        [ad showWaiting:YES];
-    
+   
     // set flag
     NSString* o = [[ad requests] valueForKey:cmd];
     if (!o || [o isEqualToString:@"0"])
@@ -162,19 +172,6 @@
         return;
     }
     
-    // check network status
-    if (ad.networkStatus == 0){
-        [ad checkNetworkStatus];
-        if (ad.networkStatus == 0){
-            [ad showNetworkDown];
-            //        [NSTimer scheduledTimerWithTimeInterval:(1.0)target:self selector:@selector(checkNetworkStatus) userInfo:nil repeats:YES];	
-            NSLog(@"Network down");
-            if (retry){
-                [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
-            }
-            return;
-        }
-    }
 
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
@@ -210,6 +207,12 @@
         }
     }
 
+    
+    // display waiting dialog
+    if (bWait)
+        [ad showWaiting:YES];
+ 
+    
     //  NSMutableData* buf = [[NSMutableData alloc] initWithLength:0];
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     NSLog(@"send cmd to http server: %@", cmd);

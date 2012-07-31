@@ -52,6 +52,7 @@
     BOOL debug_reg;
     MFMailComposeViewController* controller ;
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbVersion;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbBattleResultTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vPreface;
 - (IBAction)onClosePreface:(id)sender;
