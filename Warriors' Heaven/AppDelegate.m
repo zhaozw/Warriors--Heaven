@@ -262,7 +262,7 @@
 //    wvPreface.hidden = YES;
     
     [wvPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
-        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface.html", host, port];
+        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface_j.html", host, port];
         [wvPreface loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];  
         [wvPreface setDelegate:self];
     

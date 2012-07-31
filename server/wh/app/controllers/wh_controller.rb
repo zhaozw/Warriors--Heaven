@@ -127,9 +127,9 @@ class WhController < ApplicationController
         p "=>up=#{up.inspect}, #{context.inspect}"
         if (context)
             if (up[:levelup] )
-                 context[:msg]+="トレーニング終了，#{up[:usepot]}点潜在能力が消耗された, 精力-#{up[:cost_jingli]}, 技術点増加#{up[:addtp]}, あなたの#{skill.dname}がレベルアップ！おめでとう！"
+                 context[:msg]+="トレーニング終了，潜能-#{up[:usepot]}, 精力-#{up[:cost_jingli]}, 技術点+#{up[:addtp]}, あなたの#{skill.dname}がレベルアップ！おめでとう！"
             else
-                 context[:msg]+="トレーニング終了，#{up[:usepot]}点潜在能力が消耗された, 精力-#{up[:cost_jingli]}, 技術点増加#{up[:addtp]}"
+                 context[:msg]+="トレーニング終了，潜能-#{up[:usepot]}, 精力-#{up[:cost_jingli]}, 技術点+#{up[:addtp]}"
             end 
         end
         
@@ -1402,7 +1402,7 @@ class WhController < ApplicationController
         end
         
         if !pending["act"] or pending["act"]!='practise' or !pending["msg"]
-            error "你不在修炼任何技能"
+            error "あなたはどんな技術でも練習できない。"
             return
         end
         

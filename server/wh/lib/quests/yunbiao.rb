@@ -29,7 +29,7 @@ class Yunbiao < Quest
         if r[:progress] < 100
             return "高风亮对你说道：这批红货送到慕容庄主那里，务必按时送到，路上小心土匪。"
         else
-            return "任务已完成。"
+            return "任務完成。"
         end
     end
     
@@ -50,7 +50,7 @@ class Yunbiao < Quest
         else
             return [ { 
                 :name=>"redo",
-                :dname =>"再次领取任务"
+                :dname =>"改めて任務を受け取る"
             }]
         end
  
@@ -61,11 +61,11 @@ class Yunbiao < Quest
         action = context[:action]
      
           if player.ext[:hp] <0 
-               context[:msg]="<div>你的HP太低了, 先休息一下吧 !</div>"
+               context[:msg]="<div>あなたhpが足りないので, ゆっくり休めてね!</div>"
             return
         end  
         if player.ext[:stam] <0 
-            context[:msg]="<div>你的体力不够， 休息休息吧 !</div>"
+            context[:msg]="<div>あなたの体力が足りないので、ゆっくり休めてね!</div>"
             return
         end
         

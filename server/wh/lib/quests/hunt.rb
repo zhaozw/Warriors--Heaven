@@ -8,14 +8,14 @@ class Hunt < Quest
     end
     
     def desc
-       "听说附近山中常有野兽出没，更有人被老虎所伤，官府已贴出告示，招募义士为附近消除虎患。" 
+       "近くの山にいつも野獣が出没し、虎に傷つけられた人もいるようなので、官庁が掲示を貼り、虎災害を削除するボランティアを募集している。" 
     end
     
     def type
     end
     
     def room
-        "这是座深山老林，千年高树遮住了阳光，树下都是丛生的灌木，需边走边劈断拦路的枝条。时而听到悉悉索索，似乎是野兔轻轻的跳过。"
+        "これは奥山原始林で、千年の高い木が日差しを隠し、木の下は群生の潅木である。歩きながら、道を遮る枝を切らないといけない。偶に野兎が飛んでいるような音も聞こえた。"
     end
     
     def logo
@@ -29,7 +29,7 @@ class Hunt < Quest
             a=   [
                 {
                 :name=>"restart",
-                :dname=>"重新领取任务"
+                :dname=>"改めて任務を受け取る"
             }
         ]
         return a
@@ -38,7 +38,7 @@ class Hunt < Quest
             a =             [
                 {
                     :name=>"search",
-                    :dname=>"寻找猎物"
+                    :dname=>"獲物探す"
                 }
             ]
             return a
@@ -59,7 +59,7 @@ class Hunt < Quest
         if !wl
             wr =  player.query_wearing("handright")
             if !wr
-                context[:msg] = "你打算空手去打猎?"
+                context[:msg] = "あなたは手ぶらで狩るつもり?"
                 return false
             end
         end
@@ -79,13 +79,13 @@ class Hunt < Quest
         end
           if player.ext[:hp] <0 
      
-               context[:msg]="<div>你的HP太低了, 先休息一下吧 !</div>"
+               context[:msg]="<div>あなたhpが足りないので, ゆっくり休めてね!</div>"
      
             return
         end  
         if player.ext[:stam] <0 
         
-                context[:msg]="<div>你的体力不够， 休息休息吧 !</div>"
+                context[:msg]="<div>あなたの体力が足りないので、ゆっくり休めてね!</div>"
          
             return
         end
@@ -93,7 +93,7 @@ class Hunt < Quest
         weapons = user.query_all_weapons
         p "=>weapons: #{weapons.values[0].inspect}"
         if weapons.size == 0
-             context[:msg]="<div>你没有武器，无法打猎 !</div>"
+             context[:msg]="<div>あなたは武器がないので、狩れない!</div>"
             return 
         end
         p action
@@ -119,7 +119,7 @@ class Hunt < Quest
                 p "==>index #{index}"
                 r = beast_list[index]
                 npc = create_npc(r)
-                    msg += "<div>忽然跳出一#{npc.unit}#{npc.name}，看样子要杀了你！</div>"
+                    msg += "<div>突然、一匹の#{npc.name}が跳んできた、あなたを殺そうとしている！</div>"
                 npc.set_temp("level", user.ext[:level])
                 player[:isUser] = true
                 player[:canGain] = true
@@ -127,10 +127,10 @@ class Hunt < Quest
                 win = _fight(player, npc, _context)
                 msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "").gsub(/<div class=.status.>.*?<\/div>/mi, "")
                 if (player[:gain][:exp] >0)
-                    msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
+                    msg += "\n<div class='gain' style='color:#990000'>あなたの経験値が増加した<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                 end
                 if (player[:gain][:level] > 0)
-                    msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
+                    msg += "\n<div class='gain' style='color:#990000'>あなたのレベルがアップされた!</div>"
                 end
            
                 p "===>msg=#{msg}"
@@ -161,9 +161,9 @@ class Hunt < Quest
                         exp_bonus *=5
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
-                        msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
+                        msg += "<div><span style='color:#990000'>任務完成!</span><span>&nbsp;Exp +#{exp_bonus}</span></div>\n"
                         if (levelup)
-                            msg+="<div><span style='color:#990000'>你的等级提升了!</div>"
+                            msg+="<div><span style='color:#990000'>あなたのレベルがアップされた!</div>"
                         end
 
                     end
@@ -171,12 +171,12 @@ class Hunt < Quest
              
                 
                 # user.ext[:stam] -=5
-                msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
+                msg += "<div class='gain'>あなたの潜在能力が増加された。</div>" if give_pot(player)
             else
      
                 # if (pp > luck+80)
                     if false
-                    msg = "<div>忽然跳出一个蒙面山贼，看样子要杀了你！</div>"
+                    msg = "<div>突然、顔を覆った泥棒がが跳んできた、あなたを殺そうとしている！</div>"
                     npc = create_npc("objects/npc/shanzei")
                     npc.set_temp("level", user.ext[:level])
          
@@ -186,10 +186,10 @@ class Hunt < Quest
                     win = _fight(player, npc, _context)
                     msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "")
                     if (player[:gain][:exp] >0)
-                        msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
+                        msg += "\n<div class='gain' style='color:#990000'>あなたの経験値が増加した<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                     end
                     if (player[:gain][:level] > 0)
-                        msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
+                        msg += "\n<div class='gain' style='color:#990000'>あなたのレベルがアップされた!</div>"
                     end
                
                     p "===>msg=#{msg}"
@@ -201,7 +201,7 @@ class Hunt < Quest
                         drop = drop_all(npc,player)
                         if drop
                             for dr in drop
-                                msg += "\n<div class='gain' style='color:#990000'>你得到了一#{dr.unit}#{dr.dname}!</div>"
+                                msg += "\n<div class='gain' style='color:#990000'>あなたが一つの#{dr.unit}#{dr.dname}をゲットした!</div>"
                             end
                         end
                         
@@ -211,7 +211,7 @@ class Hunt < Quest
                     msg = hunting_msg[rand(hunting_msg.size)] % weapons.values[0].dname
                     
                     user.ext[:stam] -=5
-                    msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
+                    msg += "<div class='gain'>あなたの潜在能力が増加された。</div>" if give_pot(player)
                 end
             end
         else # action != "dig"
@@ -222,9 +222,9 @@ class Hunt < Quest
     end
     def hunting_msg
         [
-            "<div>你不断挥动着%s劈砍灌木，向树林深处走去。</div>",
-            "<div>你隐蔽在灌木中，耐心的等待猎物出现。</div>",
-            "<div>太阳慢慢的西斜了，森林中的光线也越来越暗。你不断的寻找着地上动物经过的踪迹。</div>"
+            "<div>あなたがずっと%sを振り、潅木を切りながら、林の奥へ行った。</div>",
+            "<div>あなたが潅木に隠れ、根気強く獲物を待っていた。</div>",
+            "<div>お日様がゆっくり西に傾いた。林の中の光もますます暗くなっている。あなたが絶えずに地面の動物の跡を探していた。</div>"
         ]
     end
     def give_pot(p1)
