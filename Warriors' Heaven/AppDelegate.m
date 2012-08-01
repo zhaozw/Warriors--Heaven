@@ -242,7 +242,7 @@
     
     
     id intro = [self readLocalProp:@"introduced"];
-//    if (intro == NULL ){
+    if (intro == NULL ){
         // show Preface
     
   
@@ -275,9 +275,9 @@
         vPreface.hidden = NO;
 
 
-//    }else{
-//        vPreface.hidden = YES;
-//    }
+    }else{
+        vPreface.hidden = YES;
+    }
     
     
     

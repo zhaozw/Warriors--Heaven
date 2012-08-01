@@ -12,7 +12,7 @@ class Chilianshenzhang < Unarmed
    end
    
    def dname
-       "赤练神掌"
+       "赤練神掌"
    end
    
    def desc
@@ -65,7 +65,7 @@ class Chilianshenzhang < Unarmed
            {
                :level=>0,
                :name=>"",
-               :action =>"$N双手一翻，两掌带着淡淡的蓝光，直向$n拍去。",
+               :action =>"$Nが両手を裏返しにして、浅い青い光で$nをアタックした。",
                :damage => 10
                #:damage_type=>""
            },
@@ -73,7 +73,7 @@ class Chilianshenzhang < Unarmed
                # :level=>10,
                :level=>5,
                :name=>"",
-               :action =>"$N左掌虚晃，右掌直出，犹如毒蛇一般直迫$n的胸前。",
+               :action =>"$Nは左手が形するだけで、右手が毒ヘビのようにストレートに$nの胸をアタックした。",
                :damage =>20
                #:damage_type=>""
                
@@ -82,7 +82,7 @@ class Chilianshenzhang < Unarmed
                # :level=>20,
                :level=>10,
                :name=>"",
-               :action =>"$N双掌翻飞，四周迷茫着一股暗淡的雾气，排向$n的全身",
+               :action =>"$Nが両手を裏返しにして、体の周辺に暗い霧と一緒に、$nをアタックした。",
                :damage =>20,
                #:damage_type=>""
                
@@ -91,7 +91,7 @@ class Chilianshenzhang < Unarmed
                # :level=>30,
                :level=>20,
                :name=>"",
-               :action =>"$N两掌一分，左掌如蝎，右掌似蛇，同时向$n击过去",
+               :action =>"$Nは両手を分けて、左手がさそりのようで、右手がへびのようで、同時に$nをアタックした。",
                :damage =>20
                #:damage_type=>""
                
@@ -100,7 +100,7 @@ class Chilianshenzhang < Unarmed
                # :level=>50,
                :level=>30,
                :name=>"",
-               :action =>"$N默运内力，双掌忽然变黑，带着一股阴风只扑$n的全身",
+               :action =>"$Nが静かに内力を使い、両手が急に暗くなり、寒い風と一緒に$nの全身をアタックした。",
                :damage =>20
                #:damage_type=>""
                

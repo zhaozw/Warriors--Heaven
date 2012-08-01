@@ -60,8 +60,8 @@ class Poisonsnake < Game::Skill
 		defenser = context[:defenser]
 		action = context[:action]
 		defenser.addStatus("中毒中")
-		context[:msg]="<div class='poisoned'>$n觉得伤口逐渐发麻, 你中毒了! </div>"
-		defenser.set_poisoned("蛇毒", 10)
+		context[:msg]="<div class='poisoned'>$nは傷口が痺れていると感じ、中毒してしまった！ </div>"
+		defenser.set_poisoned("へびの毒", 10)
 	end
  
    
