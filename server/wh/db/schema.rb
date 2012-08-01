@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 201203072147540) do
+ActiveRecord::Schema.define(:version => 20120629173416) do
 
   create_table "battles", :force => true do |t|
     t.string   "attacker"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
+  add_index "battles", ["attacker"], :name => "index_battles_on_attacker"
+  add_index "battles", ["defenser"], :name => "index_battles_on_defenser"
+  add_index "battles", ["ftype"], :name => "index_battles_on_ftype"
+  add_index "battles", ["status"], :name => "index_battles_on_status"
+  add_index "battles", ["updated_at"], :name => "index_battles_on_updated_at"
+  add_index "battles", ["winner"], :name => "index_battles_on_winner"
+
   create_table "equipment", :force => true do |t|
     t.string   "eqname"
     t.string   "eqtype"
@@ -30,6 +37,8 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "equipment", ["owner"], :name => "index_equipment_on_owner"
 
   create_table "globalquests", :force => true do |t|
     t.string   "name"
@@ -80,7 +89,7 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
   add_index "ranks", ["uid"], :name => "index_ranks_on_uid", :unique => true
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+    t.string   "session_id", :default => "", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -121,7 +130,7 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
-  add_index "tradables", ["name"], :name => "idx_tr_name", :unique => true
+  add_index "tradables", ["name"], :name => "index_tradables_on_name", :unique => true
 
   create_table "usereqs", :force => true do |t|
     t.integer  "uid"
@@ -134,12 +143,16 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
+  add_index "usereqs", ["sid"], :name => "index_usereqs_on_sid", :unique => true
+  add_index "usereqs", ["uid"], :name => "index_usereqs_on_uid", :unique => true
+
   create_table "userexts", :force => true do |t|
     t.integer  "uid"
     t.string   "name"
     t.integer  "gold"
     t.integer  "exp"
     t.integer  "level"
+    t.string   "lastact"
     t.text     "prop"
     t.string   "sid"
     t.integer  "hp"
@@ -156,28 +169,31 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.integer  "jingli"
     t.integer  "max_jl"
     t.integer  "zhanyi",     :default => 100
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "lastact"
     t.string   "sstatus"
     t.string   "title"
-    t.integer  "shen"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "shen",       :default => 100
   end
 
-  add_index "userexts", ["gold"], :name => "idx_gold"
-  add_index "userexts", ["level"], :name => "idx_level"
+  add_index "userexts", ["gold"], :name => "index_userexts_on_gold"
+  add_index "userexts", ["level"], :name => "index_userexts_on_level"
   add_index "userexts", ["shen"], :name => "index_userexts_on_shen"
+  add_index "userexts", ["sid"], :name => "index_userexts_on_sid", :unique => true
+  add_index "userexts", ["uid"], :name => "index_userexts_on_uid", :unique => true
 
   create_table "userquests", :force => true do |t|
     t.string   "sid"
     t.integer  "uid"
     t.string   "name"
     t.integer  "progress"
+    t.integer  "count"
     t.text     "prop"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "count"
   end
+
+  add_index "userquests", ["uid"], :name => "index_userquests_on_uid"
 
   create_table "userrsches", :force => true do |t|
     t.integer  "uid"
@@ -188,7 +204,8 @@ ActiveRecord::Schema.define(:version => 201203072147540) do
     t.datetime "updated_at"
   end
 
-  add_index "userrsches", ["uid", "sid", "skname"], :name => "idx1", :unique => true
+  add_index "userrsches", ["uid", "sid", "skname"], :name => "index_userrsches_on_uid_and_sid_and_skname", :unique => true
+  add_index "userrsches", ["uid"], :name => "index_userrsches_on_uid", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "user"
