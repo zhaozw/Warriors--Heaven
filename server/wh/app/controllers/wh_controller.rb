@@ -127,6 +127,7 @@ class WhController < ApplicationController
         p "=>up=#{up.inspect}, #{context.inspect}"
         if (context)
             if (up[:levelup] )
+                
                  context[:msg]+="トレーニング終了，潜能-#{up[:usepot]}, 精力-#{up[:cost_jingli]}, 技術点+#{up[:addtp]}, あなたの#{skill.dname}がレベルアップ！おめでとう！"
             else
                  context[:msg]+="トレーニング終了，潜能-#{up[:usepot]}, 精力-#{up[:cost_jingli]}, 技術点+#{up[:addtp]}"

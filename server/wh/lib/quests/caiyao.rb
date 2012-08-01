@@ -149,7 +149,7 @@ class Caiyao < Quest
                     end
                 end
                 user.ext[:stam] -=5
-                msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
+                msg += "<div class='gain'>あなたの潜在能力が増加された。</div>" if give_pot(player)
             else
             #msg = "你很用力的挖"
      
@@ -163,7 +163,7 @@ class Caiyao < Quest
                     npc_name = ar[index]
                     npc = create_npc(npc_name)
                     npc.set_temp("level", user.ext[:level])
-                    msg = "<div>忽然跳出一#{npc.unit}#{npc.name}，看样子要杀了你！</div>"
+                    msg = "<div>突然、一匹の#{npc.name}が跳んできた、あなたを殺そうとしている！</div>"
                     
                    if npc_name == "objects/npc/shanzei"
                         full_skill_level = cacl_fullskill(user.ext[:level])
@@ -179,16 +179,16 @@ class Caiyao < Quest
                     win = _fight(player, npc, _context)
                     msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "").gsub(/<div class=.status.>.*?<\/div>/mi, "")
                     if (player[:gain][:exp] >0)
-                        msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
+                        msg += "\n<div class='gain' style='color:#990000'>あなたの経験値が増加<span style='color:red'>#{player[:gain][:exp]}</span>した</div>"
                     end
                     if (player[:gain][:level] > 0)
-                        msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
+                        msg += "\n<div class='gain' style='color:#990000'>あなたのレベルがアップされた!</div>"
                     end
                     
                     if (player[:gain][:skills])
                         player[:gain][:skills].each{|k,v|
                             if v[:point] > 0
-                                msg +=  "\n<div class='gain' style='color:#990000'>你的#{v[:dname]}提升了#{v[:point]}点!</div>"
+                                msg +=  "\n<div class='gain' style='color:#990000'>あなたの#{v[:dname]}がアップ#{v[:point]} pointされた!</div>"
                             end
                         }
                     end
@@ -210,7 +210,7 @@ class Caiyao < Quest
                 else
                     msg = "<div>あなたが鋤で周辺の潅木雑草を動かし、薬草があるかどうかをゆっくり探している。</div>"
                     user.ext[:stam] -=5
-                    msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
+                    msg += "<div class='gain'>あなたの潜在能力が増加された。</div>" if give_pot(player)
                 end
             end
         else # action != "dig"
