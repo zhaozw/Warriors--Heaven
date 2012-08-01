@@ -103,8 +103,8 @@
     
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
-    host = @"localhost";
-    host = @"192.168.0.10";
+//    host = @"localhost";
+//    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -126,7 +126,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -236,7 +236,7 @@
     
     
     id intro = [self readLocalProp:@"introduced"];
-//    if (intro == NULL ){
+    if (intro == NULL ){
         // show Preface
     
   
@@ -269,9 +269,9 @@
         vPreface.hidden = NO;
 
 
-//    }else{
-//        vPreface.hidden = YES;
-//    }
+    }else{
+        vPreface.hidden = YES;
+    }
     
     
     
