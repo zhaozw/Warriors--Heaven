@@ -904,7 +904,7 @@ end
             end
              
             if (defenser.tmp[:hp] <=0 )
-                 r_msg += line "<div>#{defenser.name}战斗不能</div>"
+                 r_msg += line "<br/><div>#{defenser.name}战斗不能</div>"
                  # context[:winner] = attacker
                         will_return = true
                  # return msg
@@ -1412,11 +1412,11 @@ end
                 win = 0
             end
             if (winner[:isUser])
-                msg +=  "You(#{winner.name}) Win !"
+                msg +=  "You(#{winner.name}) <span class='f_win'>Win</span> !"
             elsif (defenser[:isUser])
-                msg +=  "You(#{defenser.name}) Lose !"
+                msg +=  "You(#{defenser.name}) <span class='f_lose'>Lose</span> !"
             else
-                msg +=  "#{winner.name} Win !"
+                msg +=  "#{winner.name} <span class='f_win'>Win</span> !"
             end
         end
         p attacker.tmp
