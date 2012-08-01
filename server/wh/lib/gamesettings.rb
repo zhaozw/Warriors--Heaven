@@ -18,11 +18,11 @@ def default_male_title_list
         },
         {
             :level=>5,
-            :name=>"武者"
+            :name=>"武人"
         },
         {
             :level=>10,
-            :name=>"少侠"
+            :name=>"少年侠"
         },
         {
             :level=>20,
@@ -38,11 +38,11 @@ def default_female_title_list
         },
         {
             :level=>5,
-            :name=>"女武者"
+            :name=>"女武人"
         },
         {
             :level=>10,
-            :name=>"女少侠"
+            :name=>"女少年侠"
         },
         {
             :level=>20,
@@ -75,21 +75,21 @@ def title_from_skill(skill, level)
     case skill
     when "caoyao"
         if level < 5
-            t = "小药童"
+            t = "児童薬師"
         elsif level < 10
-            t = "药童"
+            t = "薬師"
         elsif level < 20
-            t = "初级药师"
+            t = "初級薬師"
         elsif level < 30
-            t = "药师"
+            t = "薬師"
         elsif level < 40
-            t = "名医"
+            t = "有名医者"
         elsif level < 50
             t = "大国医"
         elsif level < 80
-            t = "药王"
+            t = "薬王"
         else
-            t = "医仙"
+            t = "高級医者"
         end
     end
             

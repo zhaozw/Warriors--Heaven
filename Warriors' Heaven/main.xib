@@ -48,6 +48,20 @@
 						<reference key="NSNextResponder" ref="256857941"/>
 						<int key="NSvFlags">-2147483356</int>
 						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIWebView" id="631416441">
+								<reference key="NSNextResponder" ref="88111708"/>
+								<int key="NSvFlags">-2147483356</int>
+								<string key="NSFrame">{{40, 176}, {240, 128}}</string>
+								<reference key="NSSuperview" ref="88111708"/>
+								<reference key="NSWindow"/>
+								<object class="NSColor" key="IBUIBackgroundColor" id="735217951">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
+								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIDataDetectorTypes">1</int>
+								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
+							</object>
 							<object class="IBUIWebView" id="498066852">
 								<reference key="NSNextResponder" ref="88111708"/>
 								<int key="NSvFlags">292</int>
@@ -119,10 +133,7 @@
 								<reference key="NSSuperview" ref="992761348"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="17460649"/>
-								<object class="NSColor" key="IBUIBackgroundColor" id="735217951">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
-								</object>
+								<reference key="IBUIBackgroundColor" ref="735217951"/>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIDataDetectorTypes">1</int>
 								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
@@ -369,7 +380,6 @@
 						<string key="NSFrame">{{217, 460}, {100, 18}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -1105,6 +1115,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="498066852"/>
 							<reference ref="534025076"/>
+							<reference ref="631416441"/>
 						</array>
 						<reference key="parent" ref="256857941"/>
 					</object>
@@ -1116,6 +1127,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">90</int>
 						<reference key="object" ref="534025076"/>
+						<reference key="parent" ref="88111708"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">95</int>
+						<reference key="object" ref="631416441"/>
 						<reference key="parent" ref="88111708"/>
 					</object>
 				</array>
@@ -1182,12 +1198,13 @@
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="90.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="91.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">94</int>
+			<int key="maxID">95</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1215,6 +1232,7 @@
 						<string key="lbAlertMsg">UILabel</string>
 						<string key="lbBattleResultTitle">UILabel</string>
 						<string key="lbCompnayName">UILabel</string>
+						<string key="lbVersion">UILabel</string>
 						<string key="tabBarController">DotHide_TabBarController</string>
 						<string key="vAlertImg">UIImageView</string>
 						<string key="vBattleMsg">UIWebView</string>
@@ -1232,6 +1250,7 @@
 						<string key="vcStatus">StatusViewController</string>
 						<string key="viewcontroller">UIViewController</string>
 						<string key="window">UIWindow</string>
+						<string key="wvLoadingPreface">UIWebView</string>
 						<string key="wvPreface">UIWebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1257,6 +1276,10 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="lbCompnayName">
 							<string key="name">lbCompnayName</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lbVersion">
+							<string key="name">lbVersion</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tabBarController">
@@ -1326,6 +1349,10 @@
 						<object class="IBToOneOutletInfo" key="window">
 							<string key="name">window</string>
 							<string key="candidateClassName">UIWindow</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="wvLoadingPreface">
+							<string key="name">wvLoadingPreface</string>
+							<string key="candidateClassName">UIWebView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="wvPreface">
 							<string key="name">wvPreface</string>

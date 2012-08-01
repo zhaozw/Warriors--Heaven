@@ -64,7 +64,7 @@ class Shendaotianxinliu < Game::Skill
            {
                :level=>0,
                :name=>"花弁手",
-               :action =>"$N身子微躬、右拳左掌合着一揖，突然随势向前疾探，打向$n$l",
+               # :action =>"$Nが体を少し曲げ、両手合わせて急に$nの$lをアタックした",
                :damage => 10,
                #:damage_type=>""
            },
@@ -72,7 +72,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>10,
                :level=>5,
                :name=>"浮　葉",
-               :action =>"$N左掌虚抚，右拳“嗖”地一声从掌风中猛穿出来，击向$n的$l",
+       #        :action =>"$Nは左手が形するだけで、右手が素早く強く$nの$lにアタックした。",
                :damage =>20,
                #:damage_type=>""
                
@@ -81,7 +81,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>20,
                :level=>10,
                :name=>"風揺枝",
-               :action =>"$N气沉丹田，身向前俯，双掌「铁闩横门」，带着隐隐风雷之声缓缓地推向$n",
+          #     :action =>"$Nが丹田に力を入れ、体を前にかがめて、ゆっくりと$nを押していた。",
                :damage =>20
                #:damage_type=>""
                
@@ -90,7 +90,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>30,
                :level=>20,
                :name=>"桐之葉",
-               :action =>"$N腾空飞起，一式「千斤坠地」，对着$n雷霆般地猛捣数拳，拳风猛烈重如山",
+             #  :action =>"$Nが飛び跳ねて、「千斤墜地」を使い、$nに激しく握りこぶしを振り、凄く強そうだ。",
                :damage =>20
                #:damage_type=>""
                
@@ -99,7 +99,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>50,
                :level=>30,
                :name=>"龍　 風",
-               :action =>"忽然$n转到$N身后，$N一式「傍花拂柳」，守中带攻的背对反手一拳迅捷回击",
+              # :action =>"$nが急に$Nの後に行き、$Nが「傍花拂柳」を使い、守りながら、反対手ですぐアタックした。",
                :damage =>20,
                #:damage_type=>""
                
@@ -108,7 +108,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>70,
                :level=>50,
                :name=>"万 雷",
-               :action =>"$N闪电般一招「金刚挚尾」，急冲到$n身前，抓向膻中大穴，欲将$n提起丢掷！",
+              # :action =>"$Nが稲妻のように早く「金剛摯尾」を使い、$nの前に来て、$nをつかみ、捨てようとしていた。！",
                :damage =>20,
                #:damage_type=>""
                
@@ -117,7 +117,7 @@ class Shendaotianxinliu < Game::Skill
                # :level=>90,
                :level=>80,
                :name=>"片　 雲",
-               :action =>"$N双拳连捣，使出「封闭手」，带动重重拳影，翻山蹈海般地盖向$n周身上下！",
+            #   :action =>"$Nが両手連続で、「封閉手」を使い、$nの体全体をアタックした。！",
                :damage =>20
                #:damage_type=>""
                
@@ -125,7 +125,7 @@ class Shendaotianxinliu < Game::Skill
            {
                :level=>120,
                :name=>"燕　返",
-               :action =>"$N拳势如雷似电，一式「粉石碎玉」，荡起虎虎拳风，力拔千钧的笔直捣往$n$l！",
+             #  :action =>"$Nが雷電のように早く握りこぶしを振り、「粉石碎玉」を使い、力強く$n$Iをアタックした！",
                :damage =>20
                #:damage_type=>""
                

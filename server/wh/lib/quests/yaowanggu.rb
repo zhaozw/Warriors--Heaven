@@ -4,18 +4,18 @@ require 'objects/player.rb'
 
 class Yaowanggu < Quest 
     def dname
-       "薬キング谷" 
+       "薬王谷" 
     end
     
     def desc
-       "药王谷藏有各种医学秘籍，想要配制丹药的武林人士，无不来这里询问" 
+        "薬王谷に各種類の医学の貴重の本があるので、薬を作りたい人々は皆ここに問い合わせに来る。"
     end
     
     def type
     end
     
     def room
-        "你想要什么?"
+        "あなたは何がほしいのか?"
     end
     
     def logo
@@ -59,8 +59,8 @@ class Yaowanggu < Quest
                  shanzhuyu  and
                  mudan      
                 )
-                     msg += "<div class='row'>程灵素说：阁下请稍等，我现在就去炮制药丸.</div>"
-                     msg += "<div class='row'>过不多久, 药童便出来，递上一颗黑黑的药丸.</div>"
+                     msg += "<div class='row'>「閣下、ちょっと待ってください。これから丸薬を作ってくる。」と程霊素が言った。</div>"
+                     msg += "<div class='row'>まもなく、アシスタントが出てきて、黒い丸薬を渡した。</div>"
                      
                      wan = create_fixure("objects/fixtures/liuweidihuangwan")
                      user.delete_obj(dihuang)
@@ -71,7 +71,7 @@ class Yaowanggu < Quest
                      user.delete_obj(fuling)
               
                      user.get_obj(wan)
-                     msg += "<div class='row'>你得到一颗<span style='color:red'>六位帝黄丸</span>!</div>"
+                     msg += "<div class='row'>あなたが1錠<span style='color:red'>六味帝黄丸</span>を貰った!</div>"
                      r = user.query_quest("yaowanggu")
                      if !r[:progress]
                          r[:pregress] =0
@@ -81,7 +81,8 @@ class Yaowanggu < Quest
                          add_progress(20)
                      end
                  else
-                     msg += "<div class='row'>程灵素说：此方为熟地黄八钱，山萸肉、干山药各四钱，泽泻、牡丹皮、白茯苓各三钱, 可滋肾补肝. 阁下的药材似乎还差几味。</div>"
+                     msg += "<div class='row'>「この処方は黄八銭と言い、山萸肉、干した山芋各20グラム、澤瀉、牡丹皮、白茯苓各15グラムより構成されている。腎臓や肝臓にいい。閣下の薬種はまだ何か足りないようだ。」と程霊素が言った。
+</div>"
                  end
         elsif  # action = "qixin"
             r = user.query_quest("yaowanggu")
@@ -94,9 +95,9 @@ class Yaowanggu < Quest
             end
             if s<3
                 m = [
-                    "<div class='row'>程灵素说:‘天下第一毒物’七心海棠？我这里没有，阁下还是去其他地方找吧.</div>",
-                    "<div class='row'>石万嗔大吃一惊，叫道：“怎么啦？七心海棠，七心海棠？难道死丫头种成了七心海棠</div>",
-                    "<div class='row'>石万嗔双手在空中乱抓乱扑，大叫：“七心海棠，七心海棠！”冲出庙去。只听他凄厉的叫声渐渐远去，静夜之中，虽然隔了良久，还听得他的叫声隐隐从旷野间传来，有如发狂的野兽呼叫一般：“七心海棠！七心海棠！”</div>"
+                    "<div class='row'>「天下第一毒物七心海棠なのか。ここにはないよ。閣下、他のところで探してみてください。」と程霊素が言った。</div>",
+                    # "<div class='row'>石万嗔大吃一惊，叫道：“怎么啦？七心海棠，七心海棠？难道死丫头种成了七心海棠</div>",
+                #    "<div class='row'>石万嗔双手在空中乱抓乱扑，大叫：“七心海棠，七心海棠！”冲出庙去。只听他凄厉的叫声渐渐远去，静夜之中，虽然隔了良久，还听得他的叫声隐隐从旷野间传来，有如发狂的野兽呼叫一般：“七心海棠！七心海棠！”</div>"
                     ]
                 msg += m[s]
                 r.set_prop("qixin", s+1)

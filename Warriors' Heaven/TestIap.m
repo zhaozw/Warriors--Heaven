@@ -13,7 +13,9 @@
 - (void)requestProUpgradeProductData
 {
 
+
     NSSet *productIdentifiers = [NSSet setWithObjects: @"com.joycom.xkxj.iap.1000gold", @"com.joycom.xkxj.iap.2000gold", @"com.joycom.xkxj.iap.5000gold", @"com.joycom.xkxj.iap.8000gold", @"com.joycom.xkxj.iap.10000gold", @"com.joycom.xkxj.iap.20000gold", @"com.joycom.xkxj.iap.50000gold", nil ];
+
 
     productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
     productsRequest.delegate = self;

@@ -15,6 +15,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize wvLoadingPreface;
 @synthesize lbVersion;
 @synthesize lbBattleResultTitle;
 @synthesize vPreface;
@@ -102,6 +103,8 @@
 
         debug = TRUE;
 //      host = @"homeserver.joyqom.com";
+
+
 //    host = @"localhost";
     host= @"192.168.0.10";
 
@@ -128,7 +131,11 @@
     
 
 
+
+
   session_id = nil; // test register new user
+
+
 
 }
 - (NSString *) readSessionId{
@@ -239,11 +246,31 @@
     id intro = [self readLocalProp:@"introduced"];
     if (intro == NULL ){
         // show Preface
-        vPreface.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface.html", host, port];
+    
+  
+    vPreface.backgroundColor = [UIColor clearColor];
+    vPreface.opaque = NO;
+    wvPreface.backgroundColor = [UIColor clearColor];
+    wvPreface.opaque = NO;
+    [wvLoadingPreface setBackgroundColor:[UIColor clearColor]];
+    [wvLoadingPreface setOpaque:NO];   
+
+//    wvLoadingPreface.hidden = YES;
+   
+//        [wvLoadingPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+        
+//        vPreface.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+
+//    wvPreface.hidden = YES;
+    
+    [wvPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface_j.html", host, port];
         [wvPreface loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];  
         [wvPreface setDelegate:self];
-
+    
+    
+        [vPreface bringSubviewToFront:wvPreface];
+    
         [window bringSubviewToFront:vPreface];
         
         [self saveLocalProp:@"introduced" v:@"1"];
@@ -378,7 +405,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie

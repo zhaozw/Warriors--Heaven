@@ -4,18 +4,18 @@ require 'objects/player.rb'
 
 class Caiyao < Quest 
     def dname
-       "ハーブ" 
+       "薬草を採集" 
     end
     
     def desc
-       "行走江湖，必须懂得如何采到必备的草药，以备不时只需." 
+       "世の中にいながら、何かのため、どうやって必要な薬草を採集するのを分らないといけない." 
     end
     
     def type
     end
     
     def room
-        "这是一片山中的树林，可能生长着各种草药.听说运气好的话，还能挖到人参等珍贵的药材。"
+        "これは山にある林で、各種の薬草が生長している。運がよければ、人参など珍しい薬種が掘れるかもしれない。"
     end
     
     def logo
@@ -29,7 +29,7 @@ class Caiyao < Quest
             a=   [
                 {
                 :name=>"restart",
-                :dname=>"重新领取任务"
+                :dname=>"改めて任務を受け取る"
             }
         ]
         return a
@@ -38,7 +38,7 @@ class Caiyao < Quest
             a =             [
                 {
                     :name=>"dig",
-                    :dname=>"挖"
+                    :dname=>"掘る"
                 }
             ]
             return a
@@ -75,13 +75,13 @@ class Caiyao < Quest
         end
           if player.ext[:hp] <0 
      
-               context[:msg]="<div>你的HP太低了, 先休息一下吧 !</div>"
+               context[:msg]="<div>あなたhpが足りないので, ゆっくり休めてね!</div>"
      
             return
         end  
         if player.ext[:stam] <0 
         
-                context[:msg]="<div>你的体力不够， 休息休息吧 !</div>"
+                context[:msg]="<div>あなたの体力が足りないので、ゆっくり休めてね!</div>"
          
             return
         end
@@ -110,7 +110,7 @@ class Caiyao < Quest
                 o = create_fixure(r)
                 
                 user.get_obj(o)
-                msg = "<div><span style='color:#990000'>你挖到了一株<span style='color:red'>#{o.dname}</span></span> !</div>"
+                msg = "<div><span style='color:#990000'>あなたが一つの<span style='color:red'>#{o.dname}</span>を掘った</span> !</div>"
              
                 skill = player.query_skill("caoyao")
                 if !skill
@@ -121,10 +121,10 @@ class Caiyao < Quest
                     tp = rand(10)
                     if tp > 0
                         lu = player.improve_userskill("caoyao", tp)
-                        msg += "<div class='gain'>你的草药学有所提高(+#{tp})</div>"
+                        msg += "<div class='gain'>あなたの薬草学がある程度アップした(+#{tp})</div>"
                     
                         if lu
-                            msg += "<div class='gain'>你草药学的等级提高了!</div>"
+                            msg += "<div class='gain'>あなたの薬草学レベルがアップした!</div>"
                         end
                     end
                 end
@@ -141,7 +141,7 @@ class Caiyao < Quest
                         exp_bonus = 10+rand(user.tmp[:luck])/10
                         # levelup = user.add_exp(exp_bonus)
                         levelup = user.get_exp(exp_bonus)
-                        msg += "<div><span style='color:#990000'>任务完成!</span><span>&nbsp;经验+#{exp_bonus}</span></div>\n"
+                        msg += "<div><span style='color:#990000'>任務完成!</span><span>&nbsp;经验+#{exp_bonus}</span></div>\n"
                         if (levelup>0)
                             msg+="<div><span style='color:#990000'>你的等级提升了!</div>"
                         end
@@ -208,7 +208,7 @@ class Caiyao < Quest
                         
                     end
                 else
-                    msg = "<div>你用药锄拨动着四周的灌木杂草，仔细地看有没有草药。</div>"
+                    msg = "<div>あなたが鋤で周辺の潅木雑草を動かし、薬草があるかどうかをゆっくり探している。</div>"
                     user.ext[:stam] -=5
                     msg += "<div class='gain'>你的潜能增加了。</div>" if give_pot(player)
                 end

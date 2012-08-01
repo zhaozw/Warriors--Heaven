@@ -30,7 +30,7 @@ class Poem < Quest
             a=   [
                 {
                 :name=>"restart",
-                :dname=>"重新领取任务"
+                :dname=>"改めて任務を受け取る"
             }
         ]
         return a

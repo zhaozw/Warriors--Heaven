@@ -4,11 +4,11 @@ require 'objects/player.rb'
 
 class Yunbiao < Quest 
     def dname
-       "護衛" 
+       "運送護衛" 
     end
     
     def desc
-       "江南第一镖局‘神威镖局’公开招聘镖师和趟子手，武艺出众的江湖侠客不妨一试" 
+       "江南第一運送店「神威運送店」がメンバーを募集しているので、武芸に優れている方々は試してみないか。" 
     end
     
     def type
@@ -19,7 +19,7 @@ class Yunbiao < Quest
         team = player.query_team
         p "==>team#{team.inspect}"
         if team.values.size < 2
-            context[:msg] = "你必须有2名以上队友"
+            context[:msg] = "2名以上のチームメンバーが必須だ"
             return false
         end
         return true
@@ -27,9 +27,9 @@ class Yunbiao < Quest
     def room
         r = data
         if r[:progress] < 100
-            return "高风亮对你说道：这批红货送到慕容庄主那里，务必按时送到，路上小心土匪。"
+            return "「この赤い荷物を慕容荘主の所に運送してください。必ず時間通りに出発してください。悪者に気をつけてください。」と高風亮があなたに言った。"
         else
-            return "任务已完成。"
+            return "任務完成。"
         end
     end
     
@@ -50,7 +50,7 @@ class Yunbiao < Quest
         else
             return [ { 
                 :name=>"redo",
-                :dname =>"再次领取任务"
+                :dname =>"改めて任務を受け取る"
             }]
         end
  
@@ -61,11 +61,11 @@ class Yunbiao < Quest
         action = context[:action]
      
           if player.ext[:hp] <0 
-               context[:msg]="<div>你的HP太低了, 先休息一下吧 !</div>"
+               context[:msg]="<div>あなたhpが足りないので, ゆっくり休めてね!</div>"
             return
         end  
         if player.ext[:stam] <0 
-            context[:msg]="<div>你的体力不够， 休息休息吧 !</div>"
+            context[:msg]="<div>あなたの体力が足りないので、ゆっくり休めてね!</div>"
             return
         end
         
@@ -73,13 +73,13 @@ class Yunbiao < Quest
         if (action=="go")
             if rand(100) < player.tmp[:luck]
             # if true
-                msg += "<div class='row'>你把镖旗一扬，趟子手高喊着‘我～武～威～扬’，车轮沉沉压过地面，引来不少注目</div>"
+                msg += "<div class='row'>あなたが旗を揚げ、チームメンバーが大きな声で「私～武～威～揚」と叫んでいた。地面が車輪の下敷きになり、沢山の人々に注目された。</div>"
                 r = data
                 add_progress(10)
               
             else
 
-                    msg = "<div>忽然跳出3个蒙面人，看样子要劫镖！</div>"
+                    msg = "<div>突然、顔を覆った3人が現れてきて、荷物を強奪としていた。！</div>"
                     for i in 0..2
                         npc = create_npc("objects/npc/gangster")
                         npc.set_temp("level", player.ext[:level])
@@ -89,10 +89,10 @@ class Yunbiao < Quest
                         win = _fight(player, npc, _context)
                         msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "").gsub(/<div class=.status.>.*?<\/div>/mi, "")
                         if (player[:gain][:exp] >0)
-                            msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
+                            msg += "\n<div class='gain' style='color:#990000'>あなたの経験値が増加した<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                         end
                         if (player[:gain][:level] > 0)
-                            msg += "\n<div class='gain' style='color:#990000'>你的等级提升了!</div>"
+                            msg += "\n<div class='gain' style='color:#990000'>あなたのレベルがアップされた!</div>"
                         end
                         p "==>win=#{win}"
                         if (win == 1)
@@ -100,7 +100,7 @@ class Yunbiao < Quest
                                 eqs.each {|k,v|
                                 if v != nil
                                     player.get_obj(v) 
-                                    msg += "\n<div class='gain' style='color:#990000'>你得到了一#{v.unit}#{v.dname}!</div>"
+                                    msg += "\n<div class='gain' style='color:#990000'>あなたが一つの#{v.dname}をゲットした!</div>"
                                 end
                             }
                         else
@@ -113,7 +113,7 @@ class Yunbiao < Quest
                            add_progress(38)
                        else
                            r[:progress] = 0
-                           msg += "<div>你眼见不是对手, 只好放弃了镖车。</div>"
+                           msg += "<div>あなたが相手になれないと分り、車を放棄してしまった。</div>"
                        end
                        
     
@@ -126,14 +126,14 @@ class Yunbiao < Quest
         
         p "===>progress #{data.inspect}"
         if data[:progress] >= 100
-            msg += "<div> 你终于来到慕容山庄前，庄里的伙计正在那里等着。拍了拍你的肩膀，兄弟辛苦了！</div>"
+            msg += "<div>あなたがやっと慕容山荘の前に来た。お店の店員がそこで待っていた。あなたの肩を叩き、お疲れ様！</div>"
             add_exp = 100 + rand(player.ext[:luck])
             levelup = player.get_exp(add_exp)
             gold_bonus= 100
             player.ext[:gold] += gold_bonus
-            msg +="<div >恭喜你完成了运镖任务. 经验<span style='color:#990000'>+#{add_exp}</span>, Gold<span style='color:#990000'>+#{gold_bonus}</span></div>"
+            msg +="<div >護衛任務完成、おめでとう. 、経験<span style='color:#990000'>+#{add_exp}</span>, Gold<span style='color:#990000'>+#{gold_bonus}</span></div>"
             if levelup
-                msg +="<div style='color:#990000'>你的等级提升了!</div>"
+                msg +="<div style='color:#990000'>あなたのレベルがアップされた!</div>"
             end
             rs = Rank.find_by_sql("select * from ranks where uid=#{player.id}")
             r = nil
@@ -159,19 +159,19 @@ class Yunbiao < Quest
             end
             if r
                 if r[:c0] < 10
-                    player.addTitle("趟子手")
+                    player.addTitle("従者")
                 elsif r[:c0] < 20
-                    player.addTitle("初级镖师")
+                    player.addTitle("初級師匠")
                 elsif r[:c0] < 30
-                    player.addTitle("副镖师")
+                    player.addTitle("副師匠")
                 elsif r[:c0] < 40
-                    player.addTitle("镖师")
+                    player.addTitle("師匠")
                 elsif r[:c0] < 50 
-                    player.addTitle("大镖师")
+                    player.addTitle("大師匠")
                 elsif r[:c0] < 60
-                    player.addTitle("金牌镖师")
+                    player.addTitle("ゴールデン師匠")
                 elsif r[:c0] 
-                    player.addTitle("总镖师") 
+                    player.addTitle("総師匠") 
                 end
             end
             context[:room] = self.room

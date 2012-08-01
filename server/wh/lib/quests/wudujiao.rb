@@ -6,7 +6,7 @@ class Wudujiao < Quest
     end
     
     def desc
-       "云南五毒教，以用毒出名，最近来到中原挑战各大门派，急需人手应付" 
+       "雲南五毒教は毒使いで有名。最近、中原にやってきて、各流派をチャレンジしているので、人手が必要である。" 
     end
     
     def type
@@ -17,17 +17,17 @@ class Wudujiao < Quest
        qid = data.get_prop("quest_id")
        p "==>qid=#{qid.inspect}"
        if !qid
-           return "这里通往五毒教的必经之路，前面就是黑压压的大山，向右是一条官道，远处人声马嘶，似乎聚集了很多人，应该就是中原武林人士临时集结之所。"
+           return "ここは五毒教への必ず通らなければならない道である。前は黒山のような大山で、右は一つの道で、遠くには人や馬の音で賑やかで、沢山の人が集まっているようだ。中原武術界の人々が臨時に集まっている所だろう。"
        end
        
        q = globalq(qid)
        msg = ""
         if q[:stat] == 0
             if  data.get_prop("join") == "zhongyuan"
-                msg += "<div>这是一个临时搭建的帐篷，供中原群雄休息。</div>"
+                msg += "<div>これは臨時的に作ったテントで、中原群雄の休憩のために使われる。</div>"
          
             else
-                msg += "<div>这是一个敞亮的大厅, 供五毒教教众和外援们休息。</div>"
+                msg += "<div>これは広いロビーで、五毒教のメンバーや外部からの援助</div>"
 
             end
 
@@ -35,16 +35,16 @@ class Wudujiao < Quest
             return msg
         elsif q[:stat] == 1
             
-            return "战役进行中。目前五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team2win")}阵"
+            return "戦い進行中。現在、五毒教は#{q.get_prop("team1win")}回勝ち、中原武術界は#{q.get_prop("team2win")}回勝ち。"
         elsif q[:stat] == 2
             win = q.get_prop('win')
             r = ""
             case win
-                when -1: r="不分胜负!"
-                when 0: r="五毒教获胜!"
-                when 1: r="中原武林获胜!"
+                when -1: r="勝負がつかない!"
+                when 0: r="五毒教が勝った!"
+                when 1: r="中原武術界が勝った!"
             end
-            return "战役已经结束。五毒教胜#{q.get_prop("team1win")}阵，中原武林胜#{q.get_prop("team2win")}阵.#{r}"
+            return "戦いが終了。五毒教が#{q.get_prop("team1win")}回勝ち、中原武術界が#{q.get_prop("team2win")}回勝ち。#{r}"
         end
     end
     
@@ -66,19 +66,19 @@ class Wudujiao < Quest
                 per = num*100/full
             end
             if per > 80
-                msg += "<div>你看了看周围，已经基本没有空座，看来战役快开始了。"
+                msg += "<div>あなたが周辺を見て、空いている席が基本的になさそうなので、戦いはそろそろ始まるだろう。"
             elsif per > 50
-                msg += "<div>你看了看周围，似乎还有不少座位空着，看样子等一会儿。"
+                msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるようで、もう少し待つだろう。"
             else
-                msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
+                msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるので、早く着いてしまったから、目を閉じて休憩する。"
             end
 
            elsif q[:stat] == 2
                gain = data.get_prop("gain")
                b_exp = get_prop(gain, "bonus_exp")
                b_gold = get_prop(gain, "bonus_gold")
-               msg += "<div>你获得了#{b_exp}点经验的战役奖励！"
-               msg += "<div>你获得了#{b_gold}gold的战役奖励！"
+               msg += "<div>戦い奨励として、あなたが#{b_exp}点経験をゲットした！"
+               msg += "<div>戦い奨励として、あなたが#{b_gold}goldをゲットした！"
         end
          return msg
     end
@@ -96,11 +96,11 @@ class Wudujiao < Quest
              return         [
             {
                 :name=>"join_wudu",
-                :dname=>"加入五毒教"
+                :dname=>"五毒教に加入"
             },
             {
                 :name=>"join_zhongyuan",
-                :dname=>"加入中原武林"
+                :dname=>"中原武術界に加入"
             },
         ]
         else
@@ -110,19 +110,19 @@ class Wudujiao < Quest
                 return [
                     {
                         :name=>"check_result",
-                        :dname=>"战役实况录像"
+                        :dname=>"戦い実況録画"
                     
                     },
                     {
                         :name=>"restart",
-                        :dname=>"重新获取任务"
+                        :dname=>"改めて任務を受け取る"
                     
                     },
                     ]
             elsif q[:stat] == 1
                   return  [{
                         :name=>"check_result",
-                        :dname=>"查看战役直播"
+                        :dname=>"戦い生放送をチェック"
                     
                     }]
                  
@@ -217,7 +217,7 @@ class Wudujiao < Quest
             team_wudu =q.get_prop("wudu")
             team_joined = nil
             if team_zhongyuan.include?(player.id) 
-                team_joined = "中原武林"
+                team_joined = "中原武術界"
             elsif  team_wudu.include?(player.id) 
                 team_joined = "五毒教"
             end
@@ -226,9 +226,9 @@ class Wudujiao < Quest
             if action == "join_zhongyuan"
                 
                 if team_joined 
-                    msg += "<div>你已经加入过#{team_joined}了</div>"
+                    msg += "<div>あなたが既に#{team_joined}に加入した了</div>"
                elsif team_zhongyuan.size >= max
-                    msg += "<div>左冷禅道：多谢阁下，我们的帮手已经够了。</div>"
+                    msg += "<div>左冷禅道：閣下、どうもありがとう。私達の手伝いが既に十分。</div>"
                 elsif
                     data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "zhongyuan")
@@ -236,22 +236,22 @@ class Wudujiao < Quest
                     q.set_prop("zhongyuan", team_zhongyuan)
                     q.save!
                     num = team_zhongyuan.size
-                    msg += "<div>左冷禅拱手说道：多谢英雄前来助战，请稍事休息，等大伙汇集齐了便一同出发！</div>"
+                    msg += "<div>「英雄が助けに来てくれて、どうも有難う。ちょっと休憩してください。皆が集まってから一緒に出発しよう！」と左冷禅道拱手の礼をしてから言った。</div>"
                     per = num*100/full
                     if per > 80
-                        msg += "<div>你看了看周围，已经基本没有空座，看来战役快开始了。"
+                        msg += "<div>あなたが周辺を見て、空いている席が基本的になさそうなので、戦いはそろそろ始まるだろう。"
                     elsif per > 50
-                        msg += "<div>你看了看周围，似乎还有不少座位空着，看样子等一会儿。"
+                        msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるようで、もう少し待つだろう。"
                     elsif per > 20
-                        msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
+                        msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるので、早く着いてしまったから、目を閉じて休憩する。"
                     end
 
                 end
             elsif action == "join_wudu"
                 if team_joined 
-                    msg += "<div>你已经加入过#{team_joined}了</div>"
+                    msg += "<div>あなたが既に#{team_joined}に加入した</div>"
                 elsif team_wudu.size >= max
-                    msg += "<div>苗人女子道：我们的帮手已经够了，英雄请回吧。</div>"
+                    msg += "<div>「私達の手伝いが既に十分なので、英雄、お帰りください。」と苗人女子が言った。</div>"
                 elsif
                     data.set_prop("quest_id", q[:id])
                     data.set_prop("join", "wudu")
@@ -259,14 +259,14 @@ class Wudujiao < Quest
                     q.set_prop("wudu", team_wudu)
                     q.save
                     num = team_wudu.size
-                    msg += "<div>苗人女子拍手乐道：好好，我们又多了一个帮手，阁下坐一哈子，等我们教主号令。</div>"
+                    msg += "<div>「よしよし、もう１人の手伝いがいてくれる。閣下、どうぞ少し座ってください。我々教主の命令を待ってください。」と苗人女子が拍手して言った。</div>"
                     per = num*100/full
                     if per > 80
-                        msg += "<div>你看了看周围，已经基本没有空座，看来战役快开始了。"
+                        msg += "<div>あなたが周辺を見て、空いている席が基本的になさそうなので、戦いはそろそろ始まるだろう。"
                     elsif per > 50
-                        msg += "<div>你看了看周围，似乎还有不少座位空着，看样子先等一会儿。"
+                        msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるようで、もう少し待つだろう。"
                     elsif per > 20
-                        msg += "<div>你看了看周围，空着不少座位，看来你来的早了，于是闭目养神。"
+                        msg += "<div>あなたが周辺を見て、空いている席がまだ沢山あるので、早く着いてしまったから、目を閉じて休憩する。"
                     end
                    
                 end
@@ -303,7 +303,7 @@ class Wudujiao < Quest
                      end
                        
                  }
-                 msg = msg+ "<div>战役开始!</div>"
+                 msg = msg+ "<div>戦い開始!</div>"
                  # sleep 1000
                   doBattle (q)
              end
@@ -331,10 +331,10 @@ class Wudujiao < Quest
         team_wudu =q.get_prop("wudu")
      
           # ActiveRecord::Base.establish_connection(ActiveRecord::Base.connection_config)
-         msg2 = "<div>平定五毒教战役开始！</div>"
+         msg2 = "<div>五毒教を平定する戦いが開始！</div>"
          team1 = []
          team2 = []
-         msg2+="<div>五毒教出场阵容:</div>"
+         msg2+="<div>五毒教登場陣容:</div>"
          team_wudu.each {|u|
              user = User.get(u)
              player = Player.new
@@ -348,7 +348,7 @@ class Wudujiao < Quest
              msg2 += "<div><span class='title'>#{user[:title]}</span><span class='user'>#{user[:user]}</span></div>"
         }
         msg2+="<p/>"
-        msg2+="<div>中原武林出场阵容:</div>"
+        msg2+="<div>中原武術界登場陣容:</div>"
         team_zhongyuan.each {|u|
              user = User.get(u)
              player = Player.new
@@ -371,18 +371,18 @@ class Wudujiao < Quest
         win = team_fight(team1, team2, c)
         q.set_prop("win", win)
         if win == -1
-            c[:msg] += "<div>平局!</div>"
+            c[:msg] += "<div>ドロー!</div>"
         elsif win == 0
    
-            c[:msg] += "<div>五毒教获胜!</div>"
+            c[:msg] += "<div>五毒教が勝った!</div>"
         elsif win == 1
-            c[:msg] += "<div>中原武林获胜!</div>"
+            c[:msg] += "<div>中原武術界が勝った!</div>"
         end
         
         team1.sort_by {|u| u.tmp[:contrib][:score].to_i} 
         team2.sort_by {|u| u.tmp[:contrib][:score].to_i} 
         
-        c[:msg] += "<div>五毒教贡献榜</div>"
+        c[:msg] += "<div>五毒教貢献ランキング</div>"
         index_t =1
         for t in team1 
             bonus_gold = t.tmp[:contrib][:score] 
@@ -393,10 +393,10 @@ class Wudujiao < Quest
             end
             t.get_exp(bonus_exp)
             t.receive_gold(bonus_gold)
-            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"      
+            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name}が</div><div style='float:left;width:35px;'>#{t.tmp[:contrib][:win]}回勝った</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点経験</div>が奨励としてもらった<div style='clear:both'></div>"      
           
             if win ==0
-                send_msg(t.id, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.")
+                send_msg(t.id, "<div>五毒教が第#{q.get_prop("battle_count")}回の五毒教戦い中に中原武術界を勝った. 戦い貢献ランキングに第#{index_t}位に位置するので, #{bonus_gold}gold, #{bonus_exp}点経験をもらった.")
             end
             qdata=t.query_quest("wudujiao")
             gain = {
@@ -410,10 +410,10 @@ class Wudujiao < Quest
             index_t += 1
         end
         if win == 0
-            send_msg(-2, "<div>五毒教在第#{q.get_prop("battle_count")}次五毒教战役中战胜了中原武林.</div>")
+            send_msg(-2, "<div>五毒教が第#{q.get_prop("battle_count")}回の五毒教戦い中に中原武術界を勝った.</div>")
         end
             
-        c[:msg] += "<div>中原武林贡献榜</div>"
+        c[:msg] += "<div>中原武術界貢献ランキング</div>"
         index_t =1
         for t in team2
             bonus_gold = t.tmp[:contrib][:score] 
@@ -424,8 +424,8 @@ class Wudujiao < Quest
             end
             t.get_exp(bonus_exp)
             t.receive_gold(bonus_gold)
-            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name} </div><div style='float:left;width:35px;'>胜#{t.tmp[:contrib][:win]}场</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点经验</div><div style='clear:both'></div>"
-            send_msg(t.id, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教. 你在战役中的贡献排名第#{index_t}, 获得#{bonus_gold}gold, #{bonus_exp}点经验.</div>")
+            c[:msg] += "<div><div style='float:left;width:95px;'>#{t.name} が</div><div style='float:left;width:35px;'>#{t.tmp[:contrib][:win]}回勝った</div><!--div style='float:left;width:35px;'>得分#{t.tmp[:contrib][:score]}</div--><div style='float:left;width:80px;'>奖励#{bonus_gold}gold</div><div style='float:left;width:70px;'>#{bonus_exp}点経験</div>が奨励としてもらった<div style='clear:both'></div>"
+            send_msg(t.id, "<div>中原武術界が第#{q.get_prop("battle_count")}回の五毒教戦い中に五毒教を勝った. 戦い貢献ランキングに第#{index_t}位に位置するので, #{bonus_gold}gold, #{bonus_exp}点経験をもらった.</div>")
             
             qdata=t.query_quest("wudujiao")
             gain = {
@@ -439,7 +439,7 @@ class Wudujiao < Quest
             index_t += 1
         end
         if win == 1
-              send_msg(-2, "<div>中原武林在第#{q.get_prop("battle_count")}次五毒教战役中战胜了五毒教.</div>")
+              send_msg(-2, "<div>中原武術界が第#{q.get_prop("battle_count")}回の五毒教戦い中に五毒教を勝った.</div>")
         end
         
         id = q[:id].to_i
