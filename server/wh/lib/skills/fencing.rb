@@ -17,6 +17,8 @@ class Fencing < Game::Skill
        "基本剑法"
    end
    
+ 
+   
    # def damage(context)
    #     userext = context[:user].ext
    #     thisskill =  @skill

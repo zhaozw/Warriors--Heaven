@@ -9,7 +9,8 @@ ActionController::Routing::Routes.draw do |map|
 
  # map.resources :usereqs
 
-  map.resources :userskills
+
+  # map.resources :userskills
 
   map.resources :skills
 

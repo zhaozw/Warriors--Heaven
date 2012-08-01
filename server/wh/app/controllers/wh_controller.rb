@@ -127,7 +127,17 @@ class WhController < ApplicationController
         p "=>up=#{up.inspect}, #{context.inspect}"
         if (context)
             if (up[:levelup] )
-                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}, 恭喜你的#{skill.dname}等级提高了!"
+                 context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}, 恭喜你的#{skill.dname}等级提高了! "
+                 for a in skill.attack_actions
+                     if skill[:level] == a[:level]
+                         if a[:name] && a[:name]!=""
+                             context[:msg]+="你学会了新招式【#{a[:name]}】."
+                         else
+                             context[:msg]+="你学会了新招式。"
+                         end
+                         
+                     end
+                 end
             else
                  context[:msg]+="修练完毕，消耗#{up[:usepot]}点潜能, 精力-#{up[:cost_jingli]}, 技能点增加#{up[:addtp]}"
             end 

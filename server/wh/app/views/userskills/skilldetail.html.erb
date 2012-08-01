@@ -1,0 +1,38 @@
+<html>
+<head>
+</head>
+
+<body style="background:transparent;background-color:transparent;">
+	<div id="bg" style="z-index:-1;position:absolute;left:0;top:0;width:320px;height: 430px;">
+		<img id="bg" src="/images/quest_bg.png" style="margin:10 0;height:480px;"/>
+	</div>
+
+<div style="margin:20px;">
+	<div>
+		<div style="font-size:13pt;"><%=getSkillType(@skill.type)%>•<%=@skill.dname%></div>
+		<div style="color:#990000;margin-top:2px;">目前等级：<%=@skill[:level]%> &nbsp; 熟练度:<%=@skill[:tp]%></div>
+		<div><%=@skill.desc%></div>
+	</div>
+	<%  
+	index = 1
+	for a in @skill.attack_actions
+	%>
+	<% if @skill[:level] <= a[:level]%>
+	<div style="float:left;color:#666666;margin-top:10px;">
+	<%else%>
+	<div style="float:left;color:#0;margin-top:10px;">
+	<%end%>
+		<div>第<%=i_to_ch(index)%>式 &nbsp; <!--span>a[:name]</span--><span><%=a[:name]%></span> <span>Level要求: <%=a[:level]%></span></div>
+		<div>Damage +<%=a[:damage]%></div>
+
+		
+	</div>
+		<% if @skill[:level] > a[:level]%>
+				<img src="/images/defeated.png" style="float:right;margin-top:10px;height:35px;width:50px;" />
+		<%end%>
+	<div style="clear:both"></div>
+	<% index += 1 %>
+	<% end %>
+
+	</div>
+</body>

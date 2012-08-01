@@ -126,7 +126,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -358,7 +358,7 @@
     //    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     [lbAlertMsg setMinimumFontSize:0.1f];
     [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
-    [lbAlertMsg setNumberOfLines:3];
+    [lbAlertMsg setNumberOfLines:5];
     [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
     session_id = [self readSessionId];

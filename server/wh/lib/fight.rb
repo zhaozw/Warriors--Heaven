@@ -903,7 +903,7 @@ end
                 # return msg
             end
              
-            if (defenser.tmp[:hp] <=0 )
+            if (defenser.tmp[:hp] <0 )
                  r_msg += line "<br/><div>#{defenser.name}战斗不能</div>"
                  # context[:winner] = attacker
                         will_return = true

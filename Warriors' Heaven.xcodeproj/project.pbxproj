@@ -189,6 +189,8 @@
 		5AFD8DFB1502A2EA0066ECBA /* TabBarGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF71502A2EA0066ECBA /* TabBarGradient.png */; };
 		5AFD8DFC1502A2EA0066ECBA /* TabBarGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */; };
 		5AFD8E091502DFAB0066ECBA /* reportboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFD8E081502DFAB0066ECBA /* reportboard.png */; };
+		5AFDEF5615C9C14500D89272 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDEF5415C9C13F00D89272 /* WebViewController.m */; };
+		5AFDEF5715C9C14500D89272 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AFDEF5515C9C14100D89272 /* WebViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -421,6 +423,9 @@
 		5AFD8DF71502A2EA0066ECBA /* TabBarGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarGradient.png; sourceTree = "<group>"; };
 		5AFD8DF81502A2EA0066ECBA /* TabBarGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarGradient@2x.png"; sourceTree = "<group>"; };
 		5AFD8E081502DFAB0066ECBA /* reportboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportboard.png; sourceTree = "<group>"; };
+		5AFDEF5315C9C13D00D89272 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		5AFDEF5415C9C13F00D89272 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		5AFDEF5515C9C14100D89272 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -470,6 +475,7 @@
 				5AAA2FEB152C58D6002E6FCF /* QuestViewController.xib */,
 				5A56CE48155B0CBC00C9F146 /* BossViewController.xib */,
 				5A016F0F1578CD9F002D2B2A /* RankViewController.xib */,
+				5AFDEF5515C9C14100D89272 /* WebViewController.xib */,
 				5AFAE618157FF682002C9905 /* HelpViewController.xib */,
 			);
 			name = view;
@@ -496,6 +502,8 @@
 				5A25E2891504CC9A0046C67D /* StatusViewController.m */,
 				5A47AC4A1516C44400C050FB /* TrainingGround.h */,
 				5A47AC4B1516C44400C050FB /* TrainingGround.m */,
+				5AFDEF5315C9C13D00D89272 /* WebViewController.h */,
+				5AFDEF5415C9C13F00D89272 /* WebViewController.m */,
 				5A388C45153647E2008395BB /* ResearchViewController.h */,
 				5A388C46153647E2008395BB /* ResearchViewController.m */,
 				5AA8626C153C05D50099EE98 /* TeamViewController.h */,
@@ -1007,6 +1015,7 @@
 				5AFAE61A157FF682002C9905 /* HelpViewController.xib in Resources */,
 				5AFAE61C15806DF2002C9905 /* charge.png in Resources */,
 				5AFAE6241581B314002C9905 /* bg25.jpg in Resources */,
+				5AFDEF5715C9C14500D89272 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1063,6 +1072,7 @@
 				5A8704E0157C5D2A009436B2 /* InAppPurchaseManager.m in Sources */,
 				5AFAE619157FF682002C9905 /* HelpViewController.m in Sources */,
 				5A8F23F6158C58C400B4C041 /* TestIap.m in Sources */,
+				5AFDEF5615C9C14500D89272 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,8 +1146,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
 				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1149,8 +1161,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Warriors' Heaven/Warriors' Heaven-Prefix.pch";
 				INFOPLIST_FILE = "Warriors' Heaven/Warriors' Heaven-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
