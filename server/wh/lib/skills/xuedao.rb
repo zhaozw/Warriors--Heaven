@@ -66,7 +66,7 @@ class Xuedao < Daofa
                :level=>0,
                :name=>"磨歯吮血",
                :action =>"$Nが「磨歯吮血」を使い、刀を口に噛んで、$nの周辺でぐるぐる回って、ばきゃくを見付かり、急に前に進み、刀を取り、ストレートに切った。",
-               :damage => 10
+               :damage => 10,
                #:damage_type=>""
            },
            {
@@ -74,7 +74,7 @@ class Xuedao < Daofa
                :level=>5,
                :name=>"批紙削腐",
                :action =>"$Nが腰で力を使い、前に一歩半進み、急に足を戻り、しゃがむして$nの下に2回切った。即ち「批紙削腐」という。",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -82,7 +82,7 @@ class Xuedao < Daofa
                # :level=>20,
                :level=>10,
                :name=>"流星経天",
-               :action =>"$Nが手を上げ、「流星経天」を使い、手の中の刀が飛び出して、光と一緒に、$nの$lへ行った。,
+               :action =>"$Nが手を上げ、「流星経天」を使い、手の中の刀が飛び出して、光と一緒に、$nの$lへ行った。",
                :damage =>20,
                #:damage_type=>""
                
@@ -92,7 +92,7 @@ class Xuedao < Daofa
                :level=>20,
                :name=>"血跡万里",
                :action =>"$Nが「血跡万里」を使い、もとの場所で回り、手を背の後ろに回し、$nの$lに刺さった。",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -101,7 +101,7 @@ class Xuedao < Daofa
                :level=>30,
                :name=>"偸天換日",
                :action =>"$Nは両手反対で刀の先端を握り、体の前に合わせて、急に左肩が少し沈んで、「偸天換日」を使い、左手が右腕の下から出て、$nの視線を移させ、右手から刀で$nの$lを強く刺した。",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -111,7 +111,7 @@ class Xuedao < Daofa
                :level=>50,
                :name=>"血洗天河",
                :action =>"$Nは急に刀を鞘に収め、相手に近づき、半部跪き、手を背の後ろに回し、「血洗天河」を使い、刀の光が$nの下から頭蓋骨まで行った。",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -120,7 +120,7 @@ class Xuedao < Daofa
                :level=>80,
                :name=>"血流漫面",
                :action =>"$Nは「血流漫面」を使い、刀の光が風と一緒に、$nの顔に向いて切った。",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            }
