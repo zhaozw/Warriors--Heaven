@@ -25,10 +25,12 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/necklace', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/armo', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/buyi', 1, 10, 100, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/boots', 1, 10, 100, 0, 0, null, null, null);
 
     insert into tradables values (null, 'objects/equipments/ningbijian', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/qingtongjia', 1, 10, 100, 0, 0, null, null, null);
-  
+    insert into tradables values (null, 'objects/equipments/yufenglv', 1, 10, 100, 0, 0, null, null, null);
+
     insert into tradables values (null, 'objects/equipments/xuantiejian', 1, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/chiyoutongkai', 1, 10, 100, 0, 0, null, null, null);
  
@@ -41,6 +43,9 @@ class CreateTradables < ActiveRecord::Migration
     insert into tradables values (null, 'objects/equipments/xuezou', 3, 10, 10, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/tianchanjia', 3, 10, 10, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/equipments/yanlingjia', 3, 10, 10, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/zhenwujian', 3, 10, 10, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/jinshejian', 3, 10, 10, 0, 0, null, null, null);
+    insert into tradables values (null, 'objects/equipments/heidaoqiushui', 3, 10, 10, 0, 0, null, null, null);
 
     insert into tradables values (null, 'objects/special/rename', 4, 10, 100, 0, 0, null, null, null);
     insert into tradables values (null, 'objects/special/muren', 4, 10, 100, 0, 0, null, null, null);

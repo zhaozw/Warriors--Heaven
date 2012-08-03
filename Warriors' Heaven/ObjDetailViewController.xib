@@ -195,7 +195,7 @@
 					<object class="IBUILabel" id="352832164">
 						<reference key="NSNextResponder" ref="654612757"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 238}, {50, 21}}</string>
+						<string key="NSFrame">{{20, 253}, {50, 21}}</string>
 						<reference key="NSSuperview" ref="654612757"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="304367231"/>
@@ -218,19 +218,19 @@
 					<object class="IBUILabel" id="185568767">
 						<reference key="NSNextResponder" ref="654612757"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{105, 207}, {200, 27}}</string>
+						<string key="NSFrame">{{105, 207}, {200, 46}}</string>
 						<reference key="NSSuperview" ref="654612757"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="352832164"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">9</int>
+						<int key="IBUIContentMode">5</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Effect</string>
 						<reference key="IBUITextColor" ref="612152175"/>
 						<nil key="IBUIHighlightedColor"/>
-						<int key="IBUIBaselineAdjustment">1</int>
+						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUINumberOfLines">3</int>
 						<reference key="IBUIFontDescription" ref="76236161"/>
@@ -239,7 +239,7 @@
 					<object class="IBUILabel" id="304367231">
 						<reference key="NSNextResponder" ref="654612757"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{105, 235}, {200, 27}}</string>
+						<string key="NSFrame">{{105, 250}, {200, 27}}</string>
 						<reference key="NSSuperview" ref="654612757"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="804124796"/>

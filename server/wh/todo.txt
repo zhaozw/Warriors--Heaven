@@ -3,7 +3,7 @@
 3. lock skill by level
 4. kill and fight
 5. job for marriage
-6. job for tangshi
+6. job for tangshi (done)
 7. title system 
 title by level
 title by job
@@ -12,21 +12,23 @@ title by job
 9. status in fighting list（done）
 10。 show team power in fighting
 11. set busy
-12. poisoned
+12. poisoned (done)
 13. hp bonus same with jingli bonus and stamina bonus when level up（done）
 14. company logo
-15. add title in player list
+15. add title in player list (done)
 16. more eq
 木剑，弹弓
 17. throwing skill
 18. msg not show in summary
-19. unasked task number is -1
+19. unasked task number is -1 (done)
 20. 连击和破绽反击 (done)
 21. training stop when app enter background
 22. sometimes msg only get by summary, but no display in floating msg bar
 23. skill for modao  
 24. shen and mo
 25. 幕府任务
+26. 玄冰碧火酒
+27. fight player to get gold, do quest get equipment
 
 侠客行是一款新型的手机RPG网游。以虚拟的超时代多种族“江湖”为背景。玩家可以学习和练习技能,与其他玩家切磋或者PK,或者 与NPC作战。
 ->游戏提供丰富的道具和装备供玩家选择,道具也是任务的重要部分。许多任务是依赖道具的,同时做任务也可以得到许多特殊道具。

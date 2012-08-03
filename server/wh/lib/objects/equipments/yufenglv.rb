@@ -1,6 +1,6 @@
-require 'objects/equipments/equipment.rb'
+require 'objects/equipments/boots.rb'
 
-class Boots  < Weapon
+class Yufenglv  < Boots
         def initialize
         super
         set("hp", 100)
@@ -9,45 +9,47 @@ class Boots  < Weapon
         "双"
     end
     def dname
-    "布靴"
+    "御风履"
   end
   
   def desc
-      "这是一双普通武士穿的布靴"
+      "玄阴地火炼制而成，有“乘风游八荒”之美誉"
   end
   
   def wearOn
       "foot"
   end
-  
+
   def effect
-      "defense +2
-damage +1
-dodge +3"
+      "defense +5
+damage +3
+dodge +3
+fdfa1
+dfasfa2
+dsfasf3"
   end
   
   def defense
-      2
+      5
   end
   def damage
-      1
+      3
   end
-  
   def weight
       2
   end
     def image
-      "obj/equipments/buxue.png"
+      "obj/equipments/yufenglv.jpg"
   end
   
     def rank
-      1
+      2
   end
       def price
-      100
+      200
   end
     def unlock_level
-      1
+      5
   end
 
 end

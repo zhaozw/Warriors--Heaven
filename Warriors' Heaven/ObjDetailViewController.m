@@ -112,7 +112,15 @@
 //    CGSize size = [str sizeWithFont:lbName.font];
 //    lbName.frame = CGRectMake(0, 0, size.width, 18);
 //    lbEffect.frame = CGRectMake(size.width+5, 0, 100, 18);
-    [lbEffect setText:[NSString stringWithFormat:@"%@", [eq valueForKey:@"effect"]]];
+    NSString* sEffect = [eq valueForKey:@"effect"];
+    CGRect rect = lbEffect.frame;
+    CGSize maximumSize = CGSizeMake(200, 46);
+    CGSize dateStringSize = [sEffect sizeWithFont:lbEffect.font 
+                                   constrainedToSize:maximumSize 
+                                       lineBreakMode:lbEffect.lineBreakMode];
+    CGRect dateFrame = CGRectMake(rect.origin.x, rect.origin.y, 200, dateStringSize.height);
+    lbEffect.frame = dateFrame;
+    [lbEffect setText:[NSString stringWithFormat:@"%@", sEffect]];
     [lbDesc setText:[[NSString alloc] initWithFormat:@"%@", [eq valueForKey:@"desc"]]];
     [lbRank setText:[[eq valueForKey:@"rank"] stringValue]];
 //    id nodeHP = [AppDelegate getProp:[eq valueForKey:@"prop"] name:@"hp"];
