@@ -1,4 +1,4 @@
-require 'objects/npc/npc.rb'
+require 'objects/npc/npcorc.rb'
 
 
 class Yetu < Npcorc

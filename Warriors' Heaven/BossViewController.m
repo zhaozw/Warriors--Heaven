@@ -51,12 +51,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    vBg = [[EGOImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+  //  vBg = [[EGOImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     vImage = [[EGOImageView alloc] initWithFrame:CGRectMake(5, 5, 130, 130)];
     vImage.contentMode = UIViewContentModeScaleAspectFit;
-    [[self view ]addSubview:vBg];
+   // [[self view ]addSubview:vBg];
     [[self view ] addSubview:vImage];
-    [[self view] sendSubviewToBack:vBg];
+//    [[self view] sendSubviewToBack:vBg];
     [vWebBG setBackgroundColor:[UIColor clearColor]];
     [vWebBG setOpaque:NO];
     [[ad window] addSubview:[self view]];
@@ -207,9 +207,7 @@
 - (void) loadHero:(NSObject*) data{
     if (!data)
         return;
-    for (int i = 0; i <[vEquipment.subviews count]; i++){
-        [[vEquipment.subviews objectAtIndex:i] removeFromSuperview];
-    }
+    [LightView removeAllSubview:vEquipment];
     hero = [data valueForKey:@"name"];
     NSString* name = [data valueForKey:@"dname"];
     NSString* title = [data valueForKey:@"title"];
@@ -231,7 +229,10 @@
     }else if ([race isEqualToString:@"mag"]){
         lbRace.text = @"魔族";
     }
-    [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
+   // [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
+    NSString *sHomeImageUrl = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage];
+     [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0\" width='320' height='480' src = \"%@\"></body></html>", sHomeImageUrl] baseURL:Nil] ;
+//    [vWebBG loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]]];
     [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
 
     [self loadEq:eqs];

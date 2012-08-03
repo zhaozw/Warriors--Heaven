@@ -55,7 +55,7 @@ class Unarmed < Game::Skill
                # :level=>10,
                :level=>5,
                :action =>"$N往$n的$l狠狠地踢了一脚",
-               :damage =>20
+               :damage =>20,
                #:damage_type=>""
                
            },
@@ -63,7 +63,7 @@ class Unarmed < Game::Skill
                # :level=>20,
                :level=>10,
                :action =>"$N往$n的$l狠狠地踢了一脚",
-               :damage =>30
+               :damage =>30,
                #:damage_type=>""
                
            },
@@ -71,7 +71,7 @@ class Unarmed < Game::Skill
                # :level=>30,
                :level=>20,
                :action =>"$N挥拳攻击$n的$l",
-               :damage =>30
+               :damage =>30,
                #:damage_type=>""
                
            },
@@ -79,7 +79,7 @@ class Unarmed < Game::Skill
                # :level=>50,
                :level=>30,
                :action =>"$N往$n的$l一抓",
-               :damage =>50
+               :damage =>50,
                #:damage_type=>""
                
            },
@@ -87,7 +87,7 @@ class Unarmed < Game::Skill
                # :level=>70,
                :level=>50,
                :action =>"$N提起拳头往$n的$l捶去",
-               :damage =>50
+               :damage =>50,
                #:damage_type=>""
                
            },
@@ -95,14 +95,14 @@ class Unarmed < Game::Skill
                # :level=>90,
                :level=>70,
                :action =>"$N对准$n的$l用力挥出一拳",
-               :damage =>90
+               :damage =>90,
                #:damage_type=>""
                
            },
           {
                :level=>100,
                :action =>"$N往$n的$l狠狠地踢了一脚",
-               :damage =>100
+               :damage =>100,
                #:damage_type=>""
                
            }

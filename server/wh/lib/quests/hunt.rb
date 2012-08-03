@@ -125,7 +125,7 @@ class Hunt < Quest
                 player[:canGain] = true
                 _context = {:msg=>""}
                 win = _fight(player, npc, _context)
-                msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "")
+                msg +=  _context[:msg].gsub(/<div class='st_lines'.*?<\/div>/i, "").gsub(/<div class=.status.>.*?<\/div>/mi, "")
                 if (player[:gain][:exp] >0)
                     msg += "\n<div class='gain' style='color:#990000'>你的经验值增加了<span style='color:red'>#{player[:gain][:exp]}</span></div>"
                 end

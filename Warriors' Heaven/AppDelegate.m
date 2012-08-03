@@ -15,6 +15,10 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize wvLoadingPreface;
+@synthesize lbVersion;
+@synthesize lbBattleResultTitle;
+@synthesize vPreface;
 @synthesize vcPurchase;
 
 @synthesize window;
@@ -50,6 +54,7 @@
 @synthesize tmRecoverStart;
 
 
+@synthesize wvPreface;
 @synthesize lbCompnayName;
 @synthesize vCompanyLogo;
 @synthesize bUserEqNeedUpdated;
@@ -96,13 +101,15 @@
 
 - (void) setTest{
     
-    debug = TRUE;
+//    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
+//    host = @"localhost";
+    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
-        [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
+    //    [self setSessionId:@"512298b206ac82df11e370f4021736d0"]; // user 'Spring' on product server
     //    [self setSessionId:@"8800a9ef2d3c91569eff59ed68349e46"];  // user '一灯‘ on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
     
@@ -119,7 +126,8 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
+//    [self setSessionId:session_id];
 
 }
 - (NSString *) readSessionId{
@@ -137,8 +145,8 @@
 
 }
 - (void) setSessionId:(NSString *)sid{
-    if (!sid)
-        return;
+//    if (!sid)
+//        return;
     session_id = sid;
     NSArray *Array = [NSArray arrayWithObjects:sid, nil];
     NSUserDefaults *SaveDefaults = [NSUserDefaults standardUserDefaults];
@@ -225,7 +233,49 @@
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
-        [window makeKeyAndVisible];
+    
+    
+    id intro = [self readLocalProp:@"introduced"];
+    if (intro == NULL ){
+        // show Preface
+    
+  
+    vPreface.backgroundColor = [UIColor clearColor];
+    vPreface.opaque = NO;
+    wvPreface.backgroundColor = [UIColor clearColor];
+    wvPreface.opaque = NO;
+    [wvLoadingPreface setBackgroundColor:[UIColor clearColor]];
+    [wvLoadingPreface setOpaque:NO];   
+
+//    wvLoadingPreface.hidden = YES;
+   
+//        [wvLoadingPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+        
+//        vPreface.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+
+//    wvPreface.hidden = YES;
+    
+    [wvPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+        NSString * surl = [NSString stringWithFormat:@"http://%@:%@/game/preface.html", host, port];
+        [wvPreface loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];  
+        [wvPreface setDelegate:self];
+    
+    
+        [vPreface bringSubviewToFront:wvPreface];
+    
+        [window bringSubviewToFront:vPreface];
+        
+        [self saveLocalProp:@"introduced" v:@"1"];
+        vPreface.hidden = NO;
+
+
+    }else{
+        vPreface.hidden = YES;
+    }
+    
+    
+    
+    [window makeKeyAndVisible];
     
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -308,18 +358,14 @@
     //    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     [lbAlertMsg setMinimumFontSize:0.1f];
     [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
-    [lbAlertMsg setNumberOfLines:3];
+    [lbAlertMsg setNumberOfLines:5];
     [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
     session_id = [self readSessionId];
     NSLog(@"load session id %@", session_id);
     
     
-    // get server list
-    WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
-    [client1 setRetry:YES];  
-//    [client1 setResponseHandler:@selector(handleServerListError:)];
-    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+
     
 
 //[window bringSubviewToFront:vMsgFloat];
@@ -331,10 +377,17 @@
         vWelcome.opaque = YES;
         //        [vWelcome addSubview:vCompanyLogo];
         //        [vWelcome addSubview:lbCompnayName];
+        [vWelcome addSubview:lbVersion];
         [window bringSubviewToFront:vWelcome];
         tabBarController.view.hidden = YES;
         [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
     }
+    
+    // get server list
+    WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
+    [client1 setRetry:YES];  
+    //    [client1 setResponseHandler:@selector(handleServerListError:)];
+    [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
     
 //    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];
@@ -371,8 +424,10 @@
          [vTitle setText:@"Please choose name and sex for your character"];
          [vReg addSubview:vTitle];
          */
+
         [window addSubview:vReg.view];
         [window bringSubviewToFront:vReg.view];
+    
         return FALSE;
         
     }else{
@@ -440,11 +495,11 @@
             id _port =  [server_assigned valueForKey:@"port"];
             if (_port && _port != [NSNull null])
                 if (!debug)
-                if (!bFirstCallReturn || ![host isEqualToString:[server_assigned valueForKey:@"server"]] || [port intValue] != [_port intValue]){
-                    host = [server_assigned valueForKey:@"server"];
-                    port = _port;
-                    [self initData];
-                }
+                    if (!bFirstCallReturn || ![host isEqualToString:[server_assigned valueForKey:@"server"]] || [port intValue] != [_port intValue]){
+                        host = [server_assigned valueForKey:@"server"];
+                        port = _port;
+                        [self initData];
+                    }
           
         }
         
@@ -1110,7 +1165,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSLog(@"%@", request);
     NSString* url = [request.URL absoluteString];
-    if ( [url hasPrefix:@"mailto://teamcode/"]){
+    NSString* path = [request.URL path];
+    if ( [path isEqualToString:@"/clientaction/closeintro"]){
+        vPreface.hidden = YES;
+        return FALSE;
+    }else if ( [url hasPrefix:@"mailto://teamcode/"]){
         NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
         if ([MFMailComposeViewController canSendMail]){
    
@@ -1141,5 +1200,8 @@
         return FALSE;
     }
     return TRUE;
+}
+- (IBAction)onClosePreface:(id)sender {
+       vPreface.hidden = NO;
 }
 @end

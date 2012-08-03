@@ -26,15 +26,22 @@ class Heidaoqiushui < Blade
   end
   
   def image
-      "obj/equipments/blade.jpg"
+      "obj/equipments/heidaoqiushui.jpg"
   end
   
   def rank
-      2
+      5
+  end
+  
+  def effect
+      "damage +80"
   end
 
   def damage
       80
+  end
+  def price
+      2000
   end
     def unlock_level
       20

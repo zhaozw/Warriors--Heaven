@@ -20,11 +20,24 @@ class Boots  < Weapon
       "foot"
   end
   
+  def effect
+      "defense +2
+damage +1
+dodge +3"
+  end
+  
+  def defense
+      2
+  end
+  def damage
+      1
+  end
+  
   def weight
       2
   end
     def image
-      "obj/equipments/boots.jpg"
+      "obj/equipments/buxue.png"
   end
   
     def rank

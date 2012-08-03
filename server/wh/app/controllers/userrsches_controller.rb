@@ -2,16 +2,18 @@ class UserrschesController < ApplicationController
     
     def list
         list = {
-            "dongying"=>["yidaoliu", "shendaotianxinliu",  ],
-            "kongtong"=>["konglingjian","qishangquan","liefengdaofa"],
+            "东瀛系"=>["yidaoliu", "shendaotianxinliu",  ],
+            "崆峒派"=>["konglingjian","qishangquan","liefengdaofa"],
+            "五毒教"=>["chilianshenzhang", "xuedao"],
           #  "longxiang"=>[]
             }
         
         
 
         unread_list = {
-            "kongtong"=>[],
-            "dongying"=>[]
+            "崆峒派"=>[],
+            "东瀛系"=>[],
+            "五毒教"=>[]
         }
         read_list = []
         if (!user_data[:userrsch])

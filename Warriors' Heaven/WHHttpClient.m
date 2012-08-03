@@ -128,6 +128,7 @@
     _bWait = bWait;
     
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
+
     // check network status
     if (ad.networkStatus == 0){
         [ad checkNetworkStatus];
@@ -161,6 +162,7 @@
         return;
     }
     
+   
     // set flag
     NSString* o = [[ad requests] valueForKey:cmd];
     if (!o || [o isEqualToString:@"0"])
@@ -169,6 +171,7 @@
         NSLog(@"Duplicate quest not responding");
         return;
     }
+    
 
     // send request
     self->buf = [[NSMutableData alloc] initWithLength:0];
@@ -203,9 +206,13 @@
             [request addValue:c forHTTPHeaderField:@"Cookie"];
         }
     }
+
+    
     // display waiting dialog
     if (bWait)
         [ad showWaiting:YES];
+ 
+    
     //  NSMutableData* buf = [[NSMutableData alloc] initWithLength:0];
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     NSLog(@"send cmd to http server: %@", cmd);

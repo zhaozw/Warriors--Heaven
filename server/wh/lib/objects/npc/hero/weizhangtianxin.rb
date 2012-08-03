@@ -103,7 +103,9 @@ class Weizhangtianxin < Npchuman
     end
     
     def homeImage
-        "obj/npc/weizhangtianxin_home.gif"
+
+        # "obj/npc/weizhangtianxin_home.gif"
+        "obj/npc/battle_player001.gif"
     end
     
     def legendImage

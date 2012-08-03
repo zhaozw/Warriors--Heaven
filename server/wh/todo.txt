@@ -3,7 +3,7 @@
 3. lock skill by level
 4. kill and fight
 5. job for marriage
-6. job for tangshi
+6. job for tangshi (done)
 7. title system 
 title by level
 title by job
@@ -12,18 +12,23 @@ title by job
 9. status in fighting list（done）
 10。 show team power in fighting
 11. set busy
-12. poisoned
+12. poisoned (done)
 13. hp bonus same with jingli bonus and stamina bonus when level up（done）
 14. company logo
-15. add title in player list
+15. add title in player list (done)
 16. more eq
 木剑，弹弓
 17. throwing skill
 18. msg not show in summary
-19. unasked task number is -1
-20. 连击和破绽反击
+19. unasked task number is -1 (done)
+20. 连击和破绽反击 (done)
 21. training stop when app enter background
 22. sometimes msg only get by summary, but no display in floating msg bar
+23. skill for modao  
+24. shen and mo
+25. 幕府任务
+26. 玄冰碧火酒
+27. fight player to get gold, do quest get equipment
 
 侠客行是一款新型的手机RPG网游。以虚拟的超时代多种族“江湖”为背景。玩家可以学习和练习技能,与其他玩家切磋或者PK,或者 与NPC作战。
 ->游戏提供丰富的道具和装备供玩家选择,道具也是任务的重要部分。许多任务是依赖道具的,同时做任务也可以得到许多特殊道具。
@@ -35,15 +40,19 @@ title by job
 是浪漫江湖,还是铁血生涯, 由你决定!
 
 侠客行是一款新型的手机RPG网游。以虚拟的超时代多种族“江湖”为背景。如果你喜欢无忧无虑的挖药练功PK做任务,这是一款适合你的游戏!
-->游戏提供丰富的道具和装备供玩家选择,道具同时也是任务的重要部分。许多任务依赖道具,同时做任务也可以获得丰富的奖励和道具。
+->游戏有强大的战斗系统：支持必杀技，支持破绽反击！连击！支持多人混战模式，擂台模式，支持队友加油和援助暴击！
+->游戏提供多达数十种技能，玩家任意选择！
+->游戏有丰富的道具和装备供玩家选择.
 ->游戏提供丰富的任务系统,开放的情节线索:挖药,送信,运镖。。。任务与任务之间有相关性和依赖性,令人乐此不疲。
 ->游戏针对网页游戏玩家提供离线练级方式和离线任务。玩家只需要触一下屏开始任务,就可以过任意时间后再回来查看结果。离线任务是和许多玩家自动进行。例如“五毒教任务”,是两队玩家在人数满以后自动运行的战役,结束后两方按战役结果和贡献发送奖励。
-->强大的战斗系统：支持必杀技，支持破绽反击！ 连击！支持多人混战，支持队友加油和援助暴击！
-->游戏可以组队作战和完成任务。玩家最多可以有八位队友。现在邀请好友加入你的战队可以获得金疮药钢刀装备等丰厚奖励！
-->废除了传统的门派系统，开放所有技能，玩家可以任意修炼自己喜欢的技能组合。
-->游戏提供主线成就和等级Boss,可以让投入的玩家迅速成长和获得成就。游戏也提供各种不同的职业和成就,可以让不同玩家获得不同的乐趣。
+->晚间可以组队作战和做任务。玩家最多可以有八位队友。现在邀请好友加入你的战队可以获得金疮药钢刀装备等丰厚奖励！
+->游戏提供主线成就和等级Boss,可以让投入的玩家迅速成长获得成就感,也提供各种多种职业和成就,可以让不同类型的玩家获得不同的乐趣。
 
-是浪漫江湖,还是铁血生涯, 由你决定!
+是游戏江湖,还是铁血生涯, 由你决定!
+
+300年以前的古代中国，国家经常陷于混乱, 到处有强盗肆疟, 土匪行凶。
+有一群人，他们有高超的武术，超乎常人的毅力和维护正义的信念，他们保护弱小，刺杀贪官恶霸，消灭强盗山贼，他们就是传说中的--"侠客"
+但是，很多人有了高超武艺却帮助魔道，欺负百姓和杀害侠客。作为“侠客”的你，起来战斗吧！
 
 
 In app purchase

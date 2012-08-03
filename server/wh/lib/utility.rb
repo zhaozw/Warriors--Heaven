@@ -169,6 +169,16 @@ end
         return re  
     end
     
+    def getSkillType(type)
+        case type
+        when "daofa": "刀法"
+        when "fencing": "剑法"
+        when "unarmed": "徒手"
+        when "parry": "招架"
+        when "dodge": "轻功"
+        end
+    end
+    
 #==============================#
 #           Title system       #
 #==============================#
@@ -385,7 +395,7 @@ end
         ["chat", "rumor"]
     end
     def system_channel
-        ["sys", "rumor"]
+        ["sys", "rumor", "chat"]
     end
     def query_msg(uid, ch_array, delete=false)
         d = ""

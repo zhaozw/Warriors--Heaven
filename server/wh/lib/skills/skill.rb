@@ -167,6 +167,16 @@ class Skill
 
    	def hit(context)
     end
+    
+    def attack_actions
+        []
+    end
+    
+    def desc
+        ""
+    end
+    
+
 end
 end
 
