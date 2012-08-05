@@ -29,6 +29,7 @@ title by job
 25. 幕府任务
 26. 玄冰碧火酒
 27. fight player to get gold, do quest get equipment
+28. shop list UI improve
 
 侠客行是一款新型的手机RPG网游。以虚拟的超时代多种族“江湖”为背景。玩家可以学习和练习技能,与其他玩家切磋或者PK,或者 与NPC作战。
 ->游戏提供丰富的道具和装备供玩家选择,道具也是任务的重要部分。许多任务是依赖道具的,同时做任务也可以得到许多特殊道具。

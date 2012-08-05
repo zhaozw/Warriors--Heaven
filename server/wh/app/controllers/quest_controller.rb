@@ -28,13 +28,13 @@ class QuestController < ApplicationController
         check_session
         unasked = []
         asked =[]
-        if params[:v]
-            if params[:v]=2
+        # if params[:v]
+        #     if params[:v]=2
                 list = QuestController.list2
-            end
-        else
-            list = QuestController.list
-        end
+          #   end
+          # else
+          #     list = QuestController.list
+          # end
         # userquests = Userquest.find_by_sql("select * from userquests where uid=#{session[:uid]}")
         userquests = user_data.query_all_quests
         i =0 
