@@ -127,16 +127,7 @@ class Poem < Quest
     end
     
     def onAsk(context)
-        player = context[:user]
-        wl = player.query_wearing("handleft")
-        if !wl
-            wr =  player.query_wearing("handright")
-            if !wr
-                context[:msg] = "你打算空手去打猎?"
-                return false
-            end
-        end
-
+      
         return true
     end
     def onAction(context)
