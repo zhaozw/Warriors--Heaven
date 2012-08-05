@@ -104,7 +104,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-    host = @"192.168.0.10";
+//    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -126,7 +126,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -244,6 +244,7 @@
     vPreface.opaque = NO;
     wvPreface.backgroundColor = [UIColor clearColor];
     wvPreface.opaque = NO;
+//    [wvLoadingPreface setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f]];
     [wvLoadingPreface setBackgroundColor:[UIColor clearColor]];
     [wvLoadingPreface setOpaque:NO];   
 
@@ -397,7 +398,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
