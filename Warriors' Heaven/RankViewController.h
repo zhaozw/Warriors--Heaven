@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface RankViewController : UIViewController
+@interface RankViewController : UIViewController<UIWebViewDelegate>{
+    UIActivityIndicatorView *activityIndicator;
+    UIAlertView* myAlert;
+}
 @property (strong, nonatomic) IBOutlet UIWebView *vRankWeb;
 
 @end

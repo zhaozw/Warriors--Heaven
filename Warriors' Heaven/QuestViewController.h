@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface QuestViewController : UIViewController{
+@interface QuestViewController : UIViewController<UIWebViewDelegate>{
 //    int currentWorkingQuest;
+    UIWebView* wvMap;
 }
 @property (strong, nonatomic) IBOutlet UIView *vAskedQuest;
 @property (strong, nonatomic) IBOutlet UIView *vUnaskedQuest;

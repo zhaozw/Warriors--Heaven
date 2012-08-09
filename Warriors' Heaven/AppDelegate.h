@@ -51,6 +51,7 @@
     BOOL debug;
     BOOL debug_reg;
     MFMailComposeViewController* controller ;
+    UIWebView* wvMap;
 }
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbVersion;

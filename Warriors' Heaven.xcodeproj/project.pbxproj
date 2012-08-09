@@ -104,6 +104,8 @@
 		5A9C75A71542A9F900275F04 /* p_0m.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9C75A61542A9F900275F04 /* p_0m.png */; };
 		5A9C75A91542AA1C00275F04 /* p_2m.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9C75A81542AA1B00275F04 /* p_2m.png */; };
 		5A9C75AB1542AA4A00275F04 /* p_5m.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9C75AA1542AA4A00275F04 /* p_5m.png */; };
+		5AA65FE515D06F3B0041C7FE /* map_yangzhou.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */; };
+		5AA65FEC15D336E50041C7FE /* map_yangzhou.html in Resources */ = {isa = PBXBuildFile; fileRef = 5AA65FEB15D336E50041C7FE /* map_yangzhou.html */; };
 		5AA8626F153C05D50099EE98 /* TeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA8626D153C05D50099EE98 /* TeamViewController.m */; };
 		5AA86270153C05D50099EE98 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA8626E153C05D50099EE98 /* TeamViewController.xib */; };
 		5AA86273153C08090099EE98 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AA86272153C08090099EE98 /* warning.png */; };
@@ -307,6 +309,8 @@
 		5A9C75A61542A9F900275F04 /* p_0m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p_0m.png; sourceTree = "<group>"; };
 		5A9C75A81542AA1B00275F04 /* p_2m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p_2m.png; sourceTree = "<group>"; };
 		5A9C75AA1542AA4A00275F04 /* p_5m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = p_5m.png; sourceTree = "<group>"; };
+		5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map_yangzhou.jpg; sourceTree = "<group>"; };
+		5AA65FEB15D336E50041C7FE /* map_yangzhou.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = map_yangzhou.html; sourceTree = "<group>"; };
 		5AA8626C153C05D50099EE98 /* TeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamViewController.h; sourceTree = "<group>"; };
 		5AA8626D153C05D50099EE98 /* TeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamViewController.m; sourceTree = "<group>"; };
 		5AA8626E153C05D50099EE98 /* TeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
@@ -523,6 +527,7 @@
 		5A9C75AC1542B2F500275F04 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */,
 				5A02741C151E98BA0083706E /* btn_01.png */,
 				5A027416151C271F0083706E /* btn_wood.png */,
 				5A02741A151E978C0083706E /* btn_03.png */,
@@ -833,6 +838,7 @@
 				5A47AC511516DFD300C050FB /* traininggrd.jpg */,
 				5A47AC551516F08200C050FB /* traininggrd2.jpg */,
 				5A646A87156E61460040EECD /* defeated.png */,
+				5AA65FEB15D336E50041C7FE /* map_yangzhou.html */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -1016,6 +1022,8 @@
 				5AFAE61C15806DF2002C9905 /* charge.png in Resources */,
 				5AFAE6241581B314002C9905 /* bg25.jpg in Resources */,
 				5AFDEF5715C9C14500D89272 /* WebViewController.xib in Resources */,
+				5AA65FE515D06F3B0041C7FE /* map_yangzhou.jpg in Resources */,
+				5AA65FEC15D336E50041C7FE /* map_yangzhou.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

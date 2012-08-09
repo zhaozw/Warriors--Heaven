@@ -26,6 +26,11 @@ function showWaiting(show){
 		$("#waitingbg").css("display", "none");	
 }
 function doAction(action_name, p){
+	
+	if (action_name.indexOf("map://") == 0){
+		window.location = action_name;
+		return;
+	}
 //	alert(action_name);
 	// alert(p);
 	showWaiting(true);

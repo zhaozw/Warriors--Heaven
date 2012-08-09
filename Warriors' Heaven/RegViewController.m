@@ -72,6 +72,10 @@
         lbError.text = @"Name cannot be empty";
         return;
     }
+    if (name.length > 10){
+        lbError.text = @"Name is too long";
+        return;
+    }
     NSString * tc = lbTeamCode.text;
     if (tc == NULL || tc == [NSNull null])
         tc = @"";

@@ -23,6 +23,8 @@
     UIView *waiting;
     NSString * cookie;
     int hideWebViewCount;
+   UIWebView* wvMap;
+    UIImageView* vMap;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *vBadge;
 @property (strong, retain) AppDelegate *ad;

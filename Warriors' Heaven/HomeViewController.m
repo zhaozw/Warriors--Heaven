@@ -300,6 +300,61 @@
 //    [ req setValue: [ cookieHeaders objectForKey: @"Cookie" ]    forHTTPHeaderField: @"Cookie" ];
 
     [vSummary loadRequest:req];
+    // show map 
+    /* 
+        use UIWebView
+     */
+    /*
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
+    wvMap.userInteractionEnabled = TRUE;
+    wvMap.delegate = self;
+    //    [[self view] addSubview:wvMap];
+    [self.view addSubview:wvMap];
+    wvMap.backgroundColor = [UIColor whiteColor];
+    wvMap.opaque = NO;
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"jpg"];
+    //    imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];  
+    //    imagePath = [imagePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];  
+    imagePath = [imagePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //      imagePath = [imagePath stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];  
+    NSString* html  = [NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><!--script src='/javascripts/map.js' ></script--><img src = \"file://%@\" /></body></html>",imagePath];
+    NSLog(@"html=%@",html);
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]];
+    //    [wvMap loadHTMLString:html baseURL:url];
+    NSString *map_yangzhou_html = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"html"];
+    map_yangzhou_html = [map_yangzhou_html stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"html path=%@", map_yangzhou_html);
+    [wvMap loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", map_yangzhou_html]]]];
+    //    wvMap.scrollView.showsVerticalScrollIndicator = NO;
+    //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+    wvMap.hidden = NO;
+    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+    wvMap.scrollView.showsVerticalScrollIndicator = NO;
+//    wvMap.scrollView.contentSize = CGSizeMake(1000, 1000);
+//    [[wvMap scrollView] scrollRectToVisible:CGRectMake(600, 600, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
+//    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
+     */
+    
+    //
+    //    USE UIImageView
+    //
+    UIImage *imgMap = [UIImage imageNamed:@"map_yangzhou.jpg"];
+    vMap = [[UIImageView alloc]  initWithImage:imgMap];
+  
+    [self.view addSubview:vMap];
+    vMap.frame = CGRectMake(0, 0, 1369, 1512);
+    vMap.opaque = YES;
+    vMap.userInteractionEnabled = YES;
+    vMap.contentMode = UIViewContentModeTopLeft;
+    UIScrollView* sv =  (UIScrollView*)self.view;
+    sv.showsVerticalScrollIndicator = NO;
+    sv.showsHorizontalScrollIndicator = NO;
+    CGSize size = imgMap.size;
+    sv.contentSize =  CGSizeMake(imgMap.size.width-320, imgMap.size.height-480) ;
+    
+    vMap.userInteractionEnabled = YES;  
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
+    [vMap addGestureRecognizer:singleTap];  
 
 }
 
@@ -497,6 +552,12 @@
         NSString* surl = [[request.URL absoluteString] substringFromIndex:19];
         surl = [surl stringByReplacingOccurrencesOfString:@":://" withString:@"://"];
         [ad showHelpView:surl frame:CGRectMake(0, 0, 320, 480-49)];
+    }else if ( [url hasPrefix:@"/clientaction/gototab/"]){
+        NSString* tab = [url substringFromIndex:22];
+        int iTab = [tab intValue];
+        if (iTab >0)
+            [[ad tabBarController] selectTab:iTab];
+        return FALSE;
     }
         
     return YES;
@@ -525,5 +586,43 @@
 //    }
 //}
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [[wvMap scrollView] scrollRectToVisible:CGRectMake(299, 260, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
+//    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
+}
 
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
+    UITouch *touch = [[event allTouches] anyObject];  
+    
+    if (touch.view == vMap){
+        NSLog(@"FDSFA");
+    }
+        
+}
+
+
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
+    CGPoint p = [gestureRecognizer locationInView:vMap];
+    
+    int cords[20][5] ={
+        {393,419,495,500,1}, 
+        {761,945,822,1012,7}
+    };
+    int t = 0;
+    int i = 0;
+    int size =2;
+    for ( i = 0; i< size; i++){
+        if (p.x > cords[i][0] && p.x < cords[i][2] && p.y >cords[i][1] && p.y < cords[i][3]){
+            break;
+        }
+    }
+
+    if (i<size){
+        int tab = cords[i][4];
+        [[ad tabBarController] selectTab:tab];
+    }
+        
+    
+
+}  
 @end

@@ -104,7 +104,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-//    host = @"192.168.0.10";
+    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -126,7 +126,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -234,10 +234,11 @@
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
     
-    
+/*
     id intro = [self readLocalProp:@"introduced"];
     if (intro == NULL ){
-        // show Preface
+    
+    // show Preface
     
   
     vPreface.backgroundColor = [UIColor clearColor];
@@ -273,8 +274,34 @@
     }else{
         vPreface.hidden = YES;
     }
+   */ 
+ /*   
+    // show map
     
-    
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49-65)];
+    wvMap.userInteractionEnabled = TRUE;
+    wvMap.delegate = self;
+    //    [[self view] addSubview:wvMap];
+    [self.window addSubview:wvMap];
+    wvMap.backgroundColor = [UIColor whiteColor];
+    wvMap.opaque = NO;
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"jpg"];
+//    imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];  
+//    imagePath = [imagePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];  
+    imagePath = [imagePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//      imagePath = [imagePath stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];  
+    NSString* html  = [NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><!--script src='/javascripts/map.js' ></script--><img src = \"file://%@\" /></body></html>",imagePath];
+    NSLog(@"html=%@",html);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]];
+//    [wvMap loadHTMLString:html baseURL:url];
+        NSString *map_yangzhou_html = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"html"];
+    map_yangzhou_html = [map_yangzhou_html stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"html path=%@", map_yangzhou_html);
+    [wvMap loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", map_yangzhou_html]]]];
+    //    wvMap.scrollView.showsVerticalScrollIndicator = NO;
+    //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+    wvMap.hidden = NO;
+    */
     
     [window makeKeyAndVisible];
     
@@ -398,7 +425,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie
@@ -1170,7 +1197,12 @@
     if ( [path isEqualToString:@"/clientaction/closeintro"]){
         vPreface.hidden = YES;
         return FALSE;
-    }else if ( [url hasPrefix:@"mailto://teamcode/"]){
+    }/*else if ( [path hasPrefix:@"/clientaction/gototab/"]){
+        NSString* tab = [path substringToIndex:22];
+        int iTab = [tab intValue];
+        [[self tabBarController] selectTab:iTab];
+    }*/
+    else if ( [url hasPrefix:@"mailto://teamcode/"]){
         NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
         if ([MFMailComposeViewController canSendMail]){
    
