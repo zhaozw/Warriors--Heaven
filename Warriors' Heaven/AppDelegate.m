@@ -126,7 +126,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -237,6 +237,7 @@
 /*
     id intro = [self readLocalProp:@"introduced"];
     if (intro == NULL ){
+//    if (TRUE){
     
     // show Preface
     
@@ -249,7 +250,7 @@
     [wvLoadingPreface setBackgroundColor:[UIColor clearColor]];
     [wvLoadingPreface setOpaque:NO];   
 
-//    wvLoadingPreface.hidden = YES;
+    wvLoadingPreface.hidden = YES;
    
 //        [wvLoadingPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
         
@@ -274,7 +275,7 @@
     }else{
         vPreface.hidden = YES;
     }
-   */ 
+   */
  /*   
     // show map
     
@@ -1236,5 +1237,32 @@
 }
 - (IBAction)onClosePreface:(id)sender {
        vPreface.hidden = NO;
+}
+//开始加载数据
+- (void)webViewDidStartLoad:(UIWebView *)webView {    
+//    [activityIndicator startAnimating];         
+    if (myAlert==nil){        
+        myAlert = [[UIAlertView alloc] initWithTitle:nil 
+                                             message: @"Loading"
+                                            delegate: self
+                                   cancelButtonTitle: nil
+                                   otherButtonTitles: nil];
+        
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+        [myAlert addSubview:activityView];
+        [activityView startAnimating];
+        [myAlert show];
+    }
+    [self showWaiting:YES];
+}
+
+//数据加载完
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+//    [activityIndicator stopAnimating];    
+//    UIView *view = (UIView *)[self.view viewWithTag:103];
+//    [view removeFromSuperview];
+    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+      [self showWaiting:NO];
 }
 @end

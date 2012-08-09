@@ -335,6 +335,7 @@
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
      */
     
+/*
     //
     //    USE UIImageView
     //
@@ -350,12 +351,18 @@
     sv.showsVerticalScrollIndicator = NO;
     sv.showsHorizontalScrollIndicator = NO;
     CGSize size = imgMap.size;
-    sv.contentSize =  CGSizeMake(imgMap.size.width-320, imgMap.size.height-480) ;
+    sv.contentSize =  CGSizeMake(imgMap.size.width-320, imgMap.size.height-480);
+//    float f1 = sv.decelerationRate;
+//    [sv setDecelerationRate:UIScrollViewDecelerationRateFast];
+//    float f = sv.decelerationRate;
+    sv.bounces = NO;
+    
     
     vMap.userInteractionEnabled = YES;  
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
     [vMap addGestureRecognizer:singleTap];  
-
+    
+*/
 }
 
 - (void) recoverWebView{
@@ -622,7 +629,10 @@
         [[ad tabBarController] selectTab:tab];
     }
         
-    
-
 }  
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{  
+    [scrollView setContentOffset:scrollView.contentOffset animated:YES];   
+}
+
 @end

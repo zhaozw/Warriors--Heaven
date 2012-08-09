@@ -80,7 +80,7 @@
     [activityIndicator startAnimating];         
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"正在讀取網路資料"
+                                             message: @"Loading"
                                             delegate: self
                                    cancelButtonTitle: nil
                                    otherButtonTitles: nil];

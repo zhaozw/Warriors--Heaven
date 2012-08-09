@@ -12,6 +12,7 @@
 #import "WHHttpClient.h"
 #import "SBJson.h"
 #import "LightView.h"
+#import "QuartzCore/CAAnimation.h"
 
 @implementation CharacterViewController
 @synthesize vcStatus;
@@ -1037,9 +1038,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     lbDext.text = [[ext valueForKey:@"dext"] stringValue];
     lbStrength.text = [[ext valueForKey:@"str"] stringValue];
     lbIntellegence.text = [[ext valueForKey:@"it"] stringValue];
+
     
 }
 -(void)viewWillAppear:(BOOL)animated {
+
+    
     [ad showStatusView:YES];
     NSLog(@"character view update");
     [self reloadEqUI];

@@ -130,9 +130,62 @@
 
 //切换tabbar
 - (void)selectedTab:(UIButton *)button{
+    int old_index = self.currentSelectedIndex;
 	self.currentSelectedIndex = button.tag;
 	viewController.selectedIndex = self.currentSelectedIndex;
 	[self performSelector:@selector(slideTabBg:) withObject:button];
+ 
+        UIViewController* vc1 = [self.viewController.viewControllers objectAtIndex:old_index ]; 
+    UIViewController* vc2 = [self.viewController.viewControllers objectAtIndex:self.currentSelectedIndex ]; 
+    if (old_index != self.currentSelectedIndex){
+        
+        
+    //    if (old_index == 0){
+    //      /*  [UIView beginAnimations:@"curlup" context:nil];//开始一个动画块，第一个参数为动画块标识
+    ////         [UIView setAnimationDelegate:self];
+    //        [UIView setAnimationDuration:2.0f];//设置动画的持续时间
+    //        
+    ////        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//设置动画块中的动画属性变化的曲线，此方法必须在beginAnimations方法和commitAnimations，默认即为UIViewAnimationCurveEaseInOut效果。详细请参见UIViewAnimationCurve
+    //        
+    ////        [UIView setAnimationRepeatAutoreverses:NO];//设置是否自动反转当前的动画效果
+    //        
+    //        
+    //        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:vc1.view cache:YES];//设置过渡的动画效果，此处第一个参数可使用上面5种动画效果
+    //        
+    //        
+    ////        [vc2.view exchangeSubviewAtIndex:1 withSubviewAtIndex:0];//页面翻转
+    //        
+    //        [UIView commitAnimations];//提交动画
+    //       */
+    //        CATransition *animation  = [CATransition animation ];  
+    //        [animation  setDuration:0.3f];   
+    //        [animation  setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];   
+    //        [animation  setType :@"pageCurl"];  
+    //        [animation  setSubtype: kCATransitionFromBottom];  
+    //        [vc1.view.layer addAnimation:animation  forKey:@"Reveal" ]; 
+    
+        if (self.currentSelectedIndex == 3){
+        }else{
+        CATransition *animation = [CATransition animation];
+            
+        animation.duration = 0.2f;
+            
+            //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.type = kCATransitionPush;//设置上面4种动画效果
+        //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+
+          if (old_index < self.currentSelectedIndex){     
+              animation.subtype = kCATransitionFromRight;
+          }else if (old_index > self.currentSelectedIndex) {
+              animation.subtype = kCATransitionFromLeft;
+          }
+        
+     
+        
+
+         [vc2.view.layer addAnimation:animation forKey:@"animationID"]; 
+        }
+    }
 }
 
 
