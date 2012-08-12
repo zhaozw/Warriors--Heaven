@@ -12,6 +12,7 @@
 @interface RankViewController : UIViewController<UIWebViewDelegate>{
     UIActivityIndicatorView *activityIndicator;
     UIAlertView* myAlert;
+    BOOL anim;
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vRankWeb;
 

@@ -43,6 +43,11 @@
     [self view].backgroundColor = [UIColor clearColor];
     vwPurchase.backgroundColor = [UIColor clearColor];
     vwPurchase.delegate = self;
+    
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+//    [activityIndicator setCenter:self.view.center];
+//    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+//    [self.view addSubview:activityIndicator];
 }
 
 - (void) onPurChaseFinished{
@@ -125,7 +130,7 @@
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-    [activityIndicator startAnimating];         
+//    [activityIndicator startAnimating];         
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                              message: @"Loading"
@@ -136,16 +141,18 @@
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
         [myAlert addSubview:activityView];
-        [activityView startAnimating];
-        [myAlert show];
-    }
+      [activityView startAnimating];
+   
+    [myAlert show];
+     } 
 }
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [activityIndicator stopAnimating];    
+//    [activityIndicator stopAnimating];    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
 }
 @end

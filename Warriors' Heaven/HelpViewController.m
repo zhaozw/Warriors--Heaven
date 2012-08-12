@@ -37,6 +37,12 @@
     wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
     wvContent.backgroundColor = [UIColor clearColor];
     [[self view ] addSubview:wvContent];
+    wvContent.delegate = self;
+    
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+//    [activityIndicator setCenter:self.view.center];
+//    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+//    [self.view addSubview:activityIndicator];
 }
 
 
@@ -60,10 +66,10 @@
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-    [activityIndicator startAnimating];         
+//    [activityIndicator startAnimating];         
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"Loading"
+                                             message: @"Loading Data"
                                             delegate: self
                                    cancelButtonTitle: nil
                                    otherButtonTitles: nil];
@@ -78,9 +84,10 @@
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [activityIndicator stopAnimating];    
+//    [activityIndicator stopAnimating];    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+      myAlert = NULL;
 }
 @end

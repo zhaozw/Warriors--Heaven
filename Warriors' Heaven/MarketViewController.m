@@ -23,6 +23,7 @@
 @synthesize vPremierEq;
 @synthesize btSpecial;
 @synthesize btnCharge;
+@synthesize vMenuBar;
 @synthesize vSpecial;
 @synthesize currentSelectedList;
 @synthesize btCurrentSelected;
@@ -48,11 +49,12 @@
 
 #pragma mark - View lifecycle
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+//    self.AutomaticallyForwardAppearanceAndRotationMethodsToChildViewControllers = NO;
     ad = [UIApplication sharedApplication].delegate;
     btnSale = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, 61, 320, 41)];
     [[self view] addSubview:btnSale];
@@ -118,6 +120,7 @@
     [self setVSpecial:nil];
     [self setBtSpecial:nil];
     [self setBtnCharge:nil];
+    [self setVMenuBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -150,23 +153,27 @@
         vFixure.hidden = YES;
         vPremierEq.hidden = YES;
         vSpecial.hidden = YES;
+        vMenuBar.image = [UIImage imageNamed:@"woodbar_1.png"];
     } 
     else if (currentSelectedList == 2){
         v = vFixure;
         vEquipment.hidden = YES;
         vPremierEq.hidden = YES;
         vSpecial.hidden = YES;
+                vMenuBar.image = [UIImage imageNamed:@"woodbar_2.png"];
     }
     else if (currentSelectedList == 3){
         v = vPremierEq;
         vEquipment.hidden = YES;
         vFixure.hidden = YES;
         vSpecial.hidden = YES;
+                vMenuBar.image = [UIImage imageNamed:@"woodbar_3.png"];
     }else if (currentSelectedList == 4){
         v = vSpecial;
         vEquipment.hidden = YES;
         vFixure.hidden = YES;
         vPremierEq.hidden = YES;
+                vMenuBar.image = [UIImage imageNamed:@"woodbar_4.png"];
     }    
     
     v.hidden = NO;
@@ -184,7 +191,9 @@
 - (void)viewWillAppear:(BOOL)animated {
         [ad showStatusView:YES];
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
-    [ad setBgImg:[UIImage imageNamed:@"bg_market.jpg"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"bg_market.jpg"] ];
+//      [ad setBgImg:[UIImage imageNamed:@"woodboard.jpg"]];
+     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"]];
 //   
 //    if (currentSelectedList == 1)
 //        [client sendHttpRequest:@"/tradables?type=1" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
@@ -317,9 +326,10 @@
         
         UIImageView* rowbg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 320, row_height)];
         rowbg.userInteractionEnabled = YES;
-        rowbg.backgroundColor = [UIColor grayColor];
+        rowbg.backgroundColor = [UIColor clearColor];
 //        rowbg.image = [UIImage imageNamed:@"shelf7.jpg"];
-        rowbg.alpha = 0.2f;
+        rowbg.image = [UIImage imageNamed:@"woodpanel.png"];
+//        rowbg.alpha = 0.2f;
         [row addSubview:rowbg];
         //        [row setAlpha:0.6f];
         /* NSString *host = [(AppDelegate*)[UIApplication sharedApplication].delegate host];
@@ -352,10 +362,10 @@
         [logo addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];
         [logo setTag:_id];
         logo.backgroundColor = [UIColor clearColor];
-        [logo setFrame:CGRectMake(1, 5, 50, 50)];
+        [logo setFrame:CGRectMake(10, 5, 50, 50)];
         [row addSubview:logo];
         
-        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(60, 5, 200, 15)];
+        UILabel* lbInfo = [[UILabel alloc]initWithFrame:CGRectMake(70, 5, 200, 15)];
         [lbInfo setOpaque:NO];
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
 //        [lbInfo setAdjustsFontSizeToFitWidth:YES];
@@ -365,7 +375,7 @@
         [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", dname]];
         [row addSubview:lbInfo];
         
-        UILabel* lbPrice = [[UILabel alloc]initWithFrame:CGRectMake(60, 20, 100, 15)];
+        UILabel* lbPrice = [[UILabel alloc]initWithFrame:CGRectMake(70, 20, 100, 15)];
         [lbPrice setOpaque:NO];
         [lbPrice setAdjustsFontSizeToFitWidth:NO];
         //[lbLevel setMinimumFontSize:8.0f];
@@ -377,7 +387,7 @@
         
 //        UIImageView* vRank = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
         UIView* vRank = [[UIView alloc] init];
-        vRank.frame = CGRectMake(60, 35, 15*rank, 15);
+        vRank.frame = CGRectMake(70, 35, 15*rank, 15);
         [vRank setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"star.png"]]];
         [vRank setOpaque:NO];
         [row addSubview:vRank];

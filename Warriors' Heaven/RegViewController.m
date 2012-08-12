@@ -183,11 +183,11 @@
 }
 
 - (void) highlightButton:(UIButton*)bt{
-    bt.backgroundColor = [UIColor redColor];
-    [bt setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
+   // bt.backgroundColor = [UIColor redColor];
+    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 2.0f)];
     if (btSelectedSex){
-        btSelectedSex.backgroundColor = [UIColor clearColor];
-        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+ //       btSelectedSex.backgroundColor = [UIColor clearColor];
+        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 1, 1)];
     }
     btSelectedSex = bt;
 }

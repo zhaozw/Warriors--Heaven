@@ -226,8 +226,8 @@
     [vSummary setOpaque:NO];
 
     [viewReport setUserInteractionEnabled:YES];
-     [viewReport addSubview:vSummary];
-        vSummary.frame = CGRectMake(26, 26, 269, 175);
+    [viewReport addSubview:vSummary];
+    vSummary.frame = CGRectMake(26, 56, 269, 175);
     
     int content_start_y = 68;
     int margin_left = 8; // the left of vProfileBg

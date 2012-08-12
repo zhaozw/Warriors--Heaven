@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -400,7 +400,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="1048035412"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button2.png</string>
+							<string key="NSResourceName">button1.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -869,7 +869,7 @@
 						<string key="vEqbtn_trousers">EGOImageButton</string>
 						<string key="vEquipment">UIImageView</string>
 						<string key="vItemBg">UIImageView</string>
-						<string key="vProfile">UIImageView</string>
+						<string key="vProfile">EGOImageView</string>
 						<string key="vcObjDetail">ObjDetailViewController</string>
 						<string key="vcStatus">StatusViewController</string>
 					</dictionary>
@@ -972,7 +972,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="vProfile">
 							<string key="name">vProfile</string>
-							<string key="candidateClassName">UIImageView</string>
+							<string key="candidateClassName">EGOImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="vcObjDetail">
 							<string key="name">vcObjDetail</string>
@@ -1158,7 +1158,7 @@
 			<string key="armo_ring.jpg">{116, 112}</string>
 			<string key="armo_trousers.jpg">{116, 112}</string>
 			<string key="bg_12.png">{280, 52}</string>
-			<string key="button2.png">{138, 52}</string>
+			<string key="button1.png">{92, 39}</string>
 			<string key="default_player_m.png">{159, 113}</string>
 			<string key="mediumbutton.png">{109, 55}</string>
 		</dictionary>

@@ -228,8 +228,8 @@
 //    controller = [[MFMailComposeViewController alloc] init];
 //[window addSubview:controller.view];
 //    controller.view.hidden = YES;
-    
-    [window addSubview:[vcPurchase view]];
+
+//    [window addSubview:[vcPurchase view]];
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
@@ -378,12 +378,14 @@
     [self->vAlert setBackgroundColor:[UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f]];
 //    [self->vAlert setAlpha:0.5f]; 
     [vNetworkStatus removeFromSuperview];
+    vNetworkStatus.image = [UIImage imageNamed:@"bg_dlg.png"];
+    vNetworkStatus.backgroundColor = [UIColor clearColor];
     [vAlert addSubview:vNetworkStatus];
     vAlert.hidden = YES;
     [window addSubview:vAlert];
     
     
-    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+//    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     //    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     [lbAlertMsg setMinimumFontSize:0.1f];
     [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
@@ -1187,6 +1189,7 @@
 }
 
 - (void) showPurchaseView{
+    [window addSubview:[vcPurchase view]];
     [vcPurchase viewWillAppear:NO];
     [vcPurchase view].hidden = NO;
 }
@@ -1264,5 +1267,8 @@
 //    [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
       [self showWaiting:NO];
+}
+-(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
+    return NO;
 }
 @end

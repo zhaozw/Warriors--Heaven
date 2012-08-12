@@ -44,11 +44,11 @@
     [view setAlpha:0.8];
     [self.view addSubview:view];
     
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-    [activityIndicator setCenter:view.center];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
-    [view addSubview:activityIndicator];
-    
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+//    [activityIndicator setCenter:view.center];
+//    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+//    [view addSubview:activityIndicator];
+    anim = YES;
 }
 
 - (void)viewDidUnload
@@ -72,15 +72,17 @@
     [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
 //    vRankWeb.backgroundColor = [UIColor redColor];
         vRankWeb.frame = CGRectMake(0, 0, 320, 480);
-    
+    anim = YES;
 }
 
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-    [activityIndicator startAnimating];         
+    if (!anim)
+        return;
+//    [activityIndicator startAnimating];         
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"Loading"
+                                             message: @"Loading Rank"
                                             delegate: self
                                    cancelButtonTitle: nil
                                    otherButtonTitles: nil];
@@ -95,9 +97,13 @@
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [activityIndicator stopAnimating];    
+    if (!anim)
+        return;
+//    [activityIndicator stopAnimating];    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
      [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
+    anim = NO;
 }
 @end

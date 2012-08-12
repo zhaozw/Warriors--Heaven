@@ -158,7 +158,7 @@
 
 - (void) loadPlayers{
     int count = [playerList count]; 
-    int row_height = 70;
+    int row_height = 65;
     int row_margin = 1;
     int margin_top = 39;
     //    int y = 300;
@@ -201,6 +201,13 @@
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
    
+        if (i > 0){
+            // splitter line
+        UIImageView* vLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line1.png"]];
+        vLine.frame = CGRectMake(0, 0, 320, 2);
+            [row addSubview:vLine];
+        }
+        
           NSString* sProf = @"";
         if (profile > 5){
             sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%d.png", ad.host, ad.port, profile];
@@ -209,7 +216,7 @@
         else 
             sProf = [NSString stringWithFormat:@"p_%d.png", profile];
 //            [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
-        EGOImageButton* logo = [LightView createEGOButton:CGRectMake(1, 5, 50, 50) parent:row  img:sProf text:@"" tag:[uid intValue]];
+        EGOImageButton* logo = [LightView createEGOButton:CGRectMake(1, 8, 50, 50) parent:row  img:sProf text:@"" tag:[uid intValue]];
         
         [logo addTarget:self action:@selector(onSelectPlayer:) forControlEvents:UIControlEventTouchUpInside];
         //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
@@ -224,7 +231,9 @@
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
         [lbInfo setAdjustsFontSizeToFitWidth:YES];
         [lbInfo setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-        [lbInfo setTextColor:[UIColor whiteColor]];
+//        [lbInfo setTextColor:[UIColor whiteColor]];
+        [lbInfo setTextColor:[UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f]];
+
         [lbInfo setBackgroundColor:[UIColor clearColor]];
         [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", name]];
         [row addSubview:lbInfo];
@@ -235,7 +244,8 @@
        
         [lbTitle setAdjustsFontSizeToFitWidth:YES];
         [lbTitle setFont:[UIFont fontWithName:@"Heiti TC" size:12.0f]];
-        [lbTitle setTextColor:[UIColor greenColor]];
+//        [lbTitle setTextColor:[UIColor greenColor]];
+        [lbTitle setTextColor:[UIColor colorWithRed:0.9f green:0.3f blue:0.3f alpha:100.0f]];
         [lbTitle setBackgroundColor:[UIColor clearColor]];
         [lbTitle setText:[[NSString alloc] initWithFormat:@"%@", title]];
         [row addSubview:lbTitle];
@@ -246,7 +256,8 @@
         [lbLevel setAdjustsFontSizeToFitWidth:NO];
         //[lbLevel setMinimumFontSize:8.0f];
         [lbLevel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [lbLevel setTextColor:[UIColor yellowColor]];
+//        [lbLevel setTextColor:[UIColor yellowColor]];
+        [lbLevel setTextColor:[UIColor colorWithRed:0.5f green:0.5f blue:0.1f alpha:1.0f]];
         [lbLevel setBackgroundColor:[UIColor clearColor]];
         [lbLevel setText:[[NSString alloc] initWithFormat:@"Level %@", level]];
         [row addSubview:lbLevel];
@@ -274,6 +285,8 @@
         [btn setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
         [btn setTag:[uid intValue]];
         [row addSubview:btn];   
+        
+       
         
         [vPlayers addSubview:row];
         [players addObject:row];
@@ -651,7 +664,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [ad showStatusView:YES];
-    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+      [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+//     [ad setBgImg:[UIImage imageNamed:@"bg_task_content.png"]];
     
     if ([ad readLocalProp:@"showBoss"] == NULL){
         bFirstShow = TRUE;

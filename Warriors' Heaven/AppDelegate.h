@@ -69,7 +69,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
 @property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
-@property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
+@property (strong, nonatomic) IBOutlet UIImageView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbAlertMsg;
