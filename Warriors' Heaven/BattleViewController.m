@@ -238,8 +238,9 @@
 
         [lbInfo setBackgroundColor:[UIColor clearColor]];
         [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", name]];
-//        lbInfo.numberOfLines = 1;
+        lbInfo.numberOfLines = 1;
         lbInfo.lineBreakMode = UILineBreakModeCharacterWrap|UILineBreakModeTailTruncation;  
+        lbInfo.minimumFontSize = 9;
         [row addSubview:lbInfo];
         
         
