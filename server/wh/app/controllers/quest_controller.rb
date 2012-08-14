@@ -21,7 +21,7 @@ class QuestController < ApplicationController
             "yunbiao",
             # "xiakedao", # 侠客岛任务
             "hunt",
-            "songxin"
+            # "songxin"
           
         ]
     end
