@@ -154,4 +154,5 @@
 
 - (void) showPurchaseView;
 - (bool) initData;
+- (void) closeHelpView:(UIButton*) btn;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "HelpViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation HelpViewController
 
@@ -38,11 +39,16 @@
     wvContent.backgroundColor = [UIColor clearColor];
     [[self view ] addSubview:wvContent];
     wvContent.delegate = self;
-    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+//    [view setTag:103];
+//    [view setBackgroundColor:[UIColor blackColor]];
+//    [view setAlpha:0.8];
+//    [self.view addSubview:view];
 //    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
 //    [activityIndicator setCenter:self.view.center];
 //    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
 //    [self.view addSubview:activityIndicator];
+    anim = YES;
 }
 
 
@@ -66,7 +72,10 @@
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-//    [activityIndicator startAnimating];         
+//    [activityIndicator startAnimating];  
+    if (!anim)
+        return;
+        self.view.hidden = YES;
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                              message: @"Loading Data"
@@ -84,10 +93,28 @@
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    
+    if (!anim)
+        return;
 //    [activityIndicator stopAnimating];    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
       myAlert = NULL;
+        self.view.hidden = NO;
+    CATransition *animation = [CATransition animation];
+    
+    animation.duration = 0.2f;
+    
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionPush;//设置上面4种动画效果
+    //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+    
+    animation.subtype = kCATransitionFromRight;
+    
+    [self.view.layer addAnimation:animation forKey:@"animationID"];
+    
+    anim = NO;
+
 }
 @end

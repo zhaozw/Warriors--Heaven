@@ -7,7 +7,7 @@
 //
 
 #import "RankViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 @implementation RankViewController
 @synthesize vRankWeb;
 
@@ -35,14 +35,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     vRankWeb.frame = CGRectMake(0, 0, 320, 480-49);
+    vRankWeb.backgroundColor = [UIColor clearColor];
     [self view ].frame = CGRectMake(0, 0, 320, 480);
     vRankWeb.delegate = self;
     vRankWeb.opaque = NO;
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    [view setTag:103];
-    [view setBackgroundColor:[UIColor blackColor]];
-    [view setAlpha:0.8];
-    [self.view addSubview:view];
+    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+
+    
+    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+//    [view setTag:103];
+//    [view setBackgroundColor:[UIColor blackColor]];
+//    [view setAlpha:0.8];
+//    [self.view addSubview:view];
+
     
 //    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
 //    [activityIndicator setCenter:view.center];
@@ -66,20 +72,24 @@
 }
 
 - (void) viewDidAppear:(BOOL) animated{
-    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+        AppDelegate* ad = [UIApplication sharedApplication].delegate;
+    [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"]];
+
     NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
       [ad showStatusView:FALSE];
     [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
 //    vRankWeb.backgroundColor = [UIColor redColor];
         vRankWeb.frame = CGRectMake(0, 0, 320, 480);
     anim = YES;
+    
 }
 
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
     if (!anim)
         return;
-//    [activityIndicator startAnimating];         
+//    [activityIndicator startAnimating];    
+    self.view.hidden = YES;
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                              message: @"Loading Rank"
@@ -105,5 +115,18 @@
      [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
     anim = NO;
+    self.view.hidden = NO;
+    
+    CATransition *animation = [CATransition animation];
+    
+    animation.duration = 0.2f;
+    
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionPush;//设置上面4种动画效果
+    //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+
+        animation.subtype = kCATransitionFromRight;
+ 
+    [self.view.layer addAnimation:animation forKey:@"animationID"];
 }
 @end

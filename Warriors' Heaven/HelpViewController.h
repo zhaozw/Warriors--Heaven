@@ -15,6 +15,7 @@
     
     UIActivityIndicatorView *activityIndicator;
     UIAlertView* myAlert;
+        BOOL anim;
 }
 
 @end

@@ -104,7 +104,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-    host = @"192.168.0.10";
+//    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -213,6 +213,7 @@
     // init help view
     vHelp.frame = CGRectMake(0, 0, 320, 480-60-49);
     vHelp.backgroundColor = [UIColor clearColor];
+    vHelpWebView.tag = 1000;
     vHelpWebView.frame = CGRectMake(0, 60, 320, 480-60-49);
     vHelpWebView.backgroundColor = [UIColor clearColor];
     [vHelpWebView setOpaque:NO];
@@ -354,7 +355,7 @@
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(120, 200, 50, 50 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(125, 200, 50, 50 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
@@ -1243,7 +1244,9 @@
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-//    [activityIndicator startAnimating];         
+//    [activityIndicator startAnimating];       
+//    if (webView.tag == 1000)
+//        vHelp.hidden = YES;
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                              message: @"Loading"
@@ -1257,7 +1260,7 @@
         [activityView startAnimating];
         [myAlert show];
     }
-    [self showWaiting:YES];
+//    [self showWaiting:YES];
 }
 
 //数据加载完
@@ -1266,7 +1269,10 @@
 //    UIView *view = (UIView *)[self.view viewWithTag:103];
 //    [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
-      [self showWaiting:NO];
+//      [self showWaiting:NO];
+//    if (webView.tag == 1000)
+//        vHelp.hidden = NO;
+//    
 }
 -(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
     return NO;

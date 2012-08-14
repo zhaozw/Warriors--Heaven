@@ -234,6 +234,7 @@
         
         UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
+        [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [row addSubview: btn_ask];
         [btn_ask setTitle:@"Ask" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];

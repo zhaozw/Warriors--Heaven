@@ -9,6 +9,8 @@
 #import "DHTabBar.h"
 #import "DotHide_TabBarController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
+
 @interface DHTabBar (Private)
 
 -(UIImage*) tabBarImage:(UIImage*)startImage size:(CGSize)targetSize backgroundImage:(UIImage*)backgroundImage;
@@ -130,6 +132,8 @@
 
 //切换tabbar
 - (void)selectedTab:(UIButton *)button{
+    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+    [ad closeHelpView:NULL];
     int old_index = self.currentSelectedIndex;
 	self.currentSelectedIndex = button.tag;
 	viewController.selectedIndex = self.currentSelectedIndex;

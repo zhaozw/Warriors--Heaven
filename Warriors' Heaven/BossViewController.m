@@ -60,13 +60,19 @@
     [vWebBG setBackgroundColor:[UIColor clearColor]];
     [vWebBG setOpaque:NO];
     [[ad window] addSubview:[self view]];
-    
+    vWebBG.delegate = self;
 //    vEquipment.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
 //    UIView* v = [[UIView alloc] initWithFrame:CGRectMake(5, 139, 310, 300)];
 //    [v addSubview:lbDesc];
 //    [v addSubview:vEquipment];
 //    [v addSubview:lbEq];
 //    [v addSubview:btnClose];
+    
+    vWaitBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    [self.view addSubview:vWaitBG];
+    vWaitBG.backgroundColor = [UIColor blackColor];
+    vWaitBG.hidden = YES;
+    vWaitBG.alpha =0.9;
 }
 
 - (void) loadPlayer:(id) data{
@@ -334,5 +340,39 @@
 }
 - (void) setOnClose:(id)c sel:(SEL) sel{
     [btnClose addTarget:c action:sel forControlEvents:UIControlEventTouchUpInside];
+}
+
+//开始加载数据
+- (void)webViewDidStartLoad:(UIWebView *)webView {    
+    [ad showWaiting:YES];
+//    return;
+//    vWaitBG.hidden = NO;
+//    [self.view bringSubviewToFront:vWaitBG];
+    self.view.hidden = YES;
+//    if (myAlert==nil){        
+//        myAlert = [[UIAlertView alloc] initWithTitle:nil 
+//                                             message: @"Loading"
+//                                            delegate: self
+//                                   cancelButtonTitle: nil
+//                                   otherButtonTitles: nil];
+//        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+//        [myAlert addSubview:activityView];
+//        [activityView startAnimating];
+//        [myAlert show];
+//    }
+}
+
+//数据加载完
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [ad showWaiting:NO];
+//    return;
+//    vWaitBG.hidden = YES;
+
+//    UIView *view = (UIView *)[self.view viewWithTag:103];
+//    [view removeFromSuperview];
+//    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+//    myAlert = NULL;
+    self.view.hidden =    NO;
 }
 @end

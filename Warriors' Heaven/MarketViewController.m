@@ -357,6 +357,7 @@
         NSLog(@"filepath=%@", filepath);
 //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.jpg", i] ] ];
         EGOImageButton* logo = [[EGOImageButton alloc] init];
+//        [logo setPlaceholderImage:[UIImage imageNamed:@"wait_transparent.gif"]];
         [logo setImageURL:[NSURL URLWithString:filepath]];
         [logo setContentMode:UIViewContentModeScaleAspectFit];
         [logo addTarget:self action:@selector(selectItem:) forControlEvents:UIControlEventTouchUpInside];

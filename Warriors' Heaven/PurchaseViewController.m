@@ -44,6 +44,7 @@
     vwPurchase.backgroundColor = [UIColor clearColor];
     vwPurchase.delegate = self;
     
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
 //    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
 //    [activityIndicator setCenter:self.view.center];
 //    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];

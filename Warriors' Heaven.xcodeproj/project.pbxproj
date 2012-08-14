@@ -178,6 +178,14 @@
 		5AF3E2C115D729FC00897A08 /* bg_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2C015D729FC00897A08 /* bg_profile.png */; };
 		5AF3E2C515D7514700897A08 /* btn_reg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2C415D7514700897A08 /* btn_reg.png */; };
 		5AF3E2C715D753C500897A08 /* bg_reg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2C615D753C400897A08 /* bg_reg2.jpg */; };
+		5AF3E2CB15D8A61D00897A08 /* battleteam.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2CA15D8A61D00897A08 /* battleteam.png */; };
+		5AF3E2CD15D8B03D00897A08 /* battleteam1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2CC15D8B03D00897A08 /* battleteam1.png */; };
+		5AF3E2CF15D8B2E900897A08 /* battleteam3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2CE15D8B2E900897A08 /* battleteam3.png */; };
+		5AF3E2D315D8B89600897A08 /* bg_teaminfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2D215D8B89500897A08 /* bg_teaminfo.png */; };
+		5AF3E2D515D8BE9B00897A08 /* unknown2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2D415D8BE9A00897A08 /* unknown2.jpg */; };
+		5AF3E2D715D8DE0E00897A08 /* btn_reg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2D615D8DE0E00897A08 /* btn_reg2.png */; };
+		5AF3E2DD15D9461700897A08 /* bg_profile2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2DC15D9461700897A08 /* bg_profile2.png */; };
+		5AF3E2DF15D9497000897A08 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AF3E2DE15D9497000897A08 /* loading.png */; };
 		5AFAE60A157FF5AE002C9905 /* tab_character.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE602157FF5AD002C9905 /* tab_character.png */; };
 		5AFAE60B157FF5AE002C9905 /* tab_fight.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE603157FF5AD002C9905 /* tab_fight.png */; };
 		5AFAE60C157FF5AE002C9905 /* tab_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AFAE604157FF5AD002C9905 /* tab_home.png */; };
@@ -425,6 +433,14 @@
 		5AF3E2C015D729FC00897A08 /* bg_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile.png; sourceTree = "<group>"; };
 		5AF3E2C415D7514700897A08 /* btn_reg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_reg.png; sourceTree = "<group>"; };
 		5AF3E2C615D753C400897A08 /* bg_reg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_reg2.jpg; sourceTree = "<group>"; };
+		5AF3E2CA15D8A61D00897A08 /* battleteam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battleteam.png; sourceTree = "<group>"; };
+		5AF3E2CC15D8B03D00897A08 /* battleteam1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battleteam1.png; sourceTree = "<group>"; };
+		5AF3E2CE15D8B2E900897A08 /* battleteam3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battleteam3.png; sourceTree = "<group>"; };
+		5AF3E2D215D8B89500897A08 /* bg_teaminfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_teaminfo.png; sourceTree = "<group>"; };
+		5AF3E2D415D8BE9A00897A08 /* unknown2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unknown2.jpg; sourceTree = "<group>"; };
+		5AF3E2D615D8DE0E00897A08 /* btn_reg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_reg2.png; sourceTree = "<group>"; };
+		5AF3E2DC15D9461700897A08 /* bg_profile2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_profile2.png; sourceTree = "<group>"; };
+		5AF3E2DE15D9497000897A08 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		5AFAE602157FF5AD002C9905 /* tab_character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_character.png; sourceTree = "<group>"; };
 		5AFAE603157FF5AD002C9905 /* tab_fight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_fight.png; sourceTree = "<group>"; };
 		5AFAE604157FF5AD002C9905 /* tab_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_home.png; sourceTree = "<group>"; };
@@ -565,6 +581,10 @@
 		5A9C75AC1542B2F500275F04 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				5AF3E2CC15D8B03D00897A08 /* battleteam1.png */,
+				5AF3E2CE15D8B2E900897A08 /* battleteam3.png */,
+				5AF3E2CA15D8A61D00897A08 /* battleteam.png */,
+				5AF3E2D615D8DE0E00897A08 /* btn_reg2.png */,
 				5AF3E2C415D7514700897A08 /* btn_reg.png */,
 				5AF3E2BC15D7252200897A08 /* btn_stamp.png */,
 				5AF3E2BE15D725DB00897A08 /* btn_stamp1.png */,
@@ -715,6 +735,8 @@
 			isa = PBXGroup;
 			children = (
 				5AF3E2C015D729FC00897A08 /* bg_profile.png */,
+				5AF3E2DC15D9461700897A08 /* bg_profile2.png */,
+				5AF3E2D215D8B89500897A08 /* bg_teaminfo.png */,
 				5AF3E2B915D71BD500897A08 /* bg_dlg.png */,
 				5AA65FED15D480570041C7FE /* bg_task_content.png */,
 				5A646A7D156CFCF40040EECD /* playerview.gif */,
@@ -866,6 +888,7 @@
 				5ADF4D4C1546A93700D2D44F /* logo0012.png */,
 				5A8704E1157C62CE009436B2 /* logo57x57.png */,
 				5A8704E2157C62CE009436B2 /* logo72x72.png */,
+				5AF3E2D415D8BE9A00897A08 /* unknown2.jpg */,
 				5A646A8B156E967E0040EECD /* unknown.jpg */,
 				5AC06A1B152475080021B7FB /* star.png */,
 				5ACC6C0C15200FBC00C83551 /* eqslot.png */,
@@ -876,6 +899,7 @@
 				5AD2154C150EB63B008CD181 /* profile */,
 				5AFD8DF51502A2E90066ECBA /* slide.png */,
 				5AFD8DF61502A2EA0066ECBA /* slide@2x.png */,
+				5AF3E2DE15D9497000897A08 /* loading.png */,
 				5A61E7C01507922E008DE591 /* wait3.gif */,
 				5A61E7C2150799E3008DE591 /* wait_transparent.gif */,
 				5A25E2A3150545670046C67D /* armo_handweapon.jpg */,
@@ -1100,6 +1124,14 @@
 				5AF3E2C115D729FC00897A08 /* bg_profile.png in Resources */,
 				5AF3E2C515D7514700897A08 /* btn_reg.png in Resources */,
 				5AF3E2C715D753C500897A08 /* bg_reg2.jpg in Resources */,
+				5AF3E2CB15D8A61D00897A08 /* battleteam.png in Resources */,
+				5AF3E2CD15D8B03D00897A08 /* battleteam1.png in Resources */,
+				5AF3E2CF15D8B2E900897A08 /* battleteam3.png in Resources */,
+				5AF3E2D315D8B89600897A08 /* bg_teaminfo.png in Resources */,
+				5AF3E2D515D8BE9B00897A08 /* unknown2.jpg in Resources */,
+				5AF3E2D715D8DE0E00897A08 /* btn_reg2.png in Resources */,
+				5AF3E2DD15D9461700897A08 /* bg_profile2.png in Resources */,
+				5AF3E2DF15D9497000897A08 /* loading.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

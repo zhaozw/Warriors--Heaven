@@ -10,10 +10,13 @@
 #import "EGOImageView.h"
 #import "AppDelegate.h"
 
-@interface BossViewController : UIViewController{
+@interface BossViewController : UIViewController<UIWebViewDelegate>{
 //    EGOImageView* vBg;
     EGOImageView* vImage;
     NSString* hero;
+    UIActivityIndicatorView *activityIndicator;
+    UIAlertView* myAlert;
+    UIView* vWaitBG;
 }
 @property (strong, nonatomic) IBOutlet UILabel *lbRace;
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle2;
