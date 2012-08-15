@@ -224,7 +224,7 @@
     
     [vSummary setBackgroundColor:[UIColor clearColor]];
     [vSummary setOpaque:NO];
-
+    vSummary.delegate = self;
     [viewReport setUserInteractionEnabled:YES];
     [viewReport addSubview:vSummary];
     vSummary.frame = CGRectMake(26, 56, 269, 175);
@@ -596,6 +596,11 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [[wvMap scrollView] scrollRectToVisible:CGRectMake(299, 260, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
+    if (vSummary == webView){
+        ad.bSummarDidLoad = TRUE;
+        [ad hideWelcomeView];
+        [ad hideRegView];
+    }
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{

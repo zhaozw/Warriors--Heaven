@@ -76,6 +76,7 @@
 }
 
 - (void) loadPlayer:(id) data{
+    [self view].hidden = YES;
     if (!data)
         return;
     [LightView removeAllSubview:vEquipment];
@@ -171,7 +172,7 @@
     //  [aiv setAlpha:0.0f];
     NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
     [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0\" width='320' height='480' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"playerview" ofType:@"gif"] ] baseURL:Nil] ;
-     [self view].hidden = NO;
+//     [self view].hidden = NO;
 }
 - (void) loadEq:(NSArray*) eqs{
     
@@ -211,6 +212,7 @@
     vEquipment.frame = rect;
 }
 - (void) loadHero:(NSObject*) data{
+    [self view].hidden = YES;
     if (!data)
         return;
     [LightView removeAllSubview:vEquipment];
@@ -242,7 +244,7 @@
     [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
 
     [self loadEq:eqs];
-    [self view].hidden = NO;
+//    [self view].hidden = NO;
     
 }
 
@@ -291,7 +293,8 @@
     lbEq.hidden =       NO;
     btnClose.hidden =   NO;
     btnFight.hidden =   NO;
-    [wvFight loadHTMLString:@"" baseURL:nil];
+//    [wvFight loadHTMLString:@"" baseURL:nil];
+    [wvFight stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
     [ad updateUserext];
     ad.bUserEqNeedUpdated = YES;
 }
@@ -343,12 +346,13 @@
 }
 
 //开始加载数据
-- (void)webViewDidStartLoad:(UIWebView *)webView {    
-    [ad showWaiting:YES];
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    self.view.hidden = YES;
+//    [ad showWaiting:YES];
 //    return;
 //    vWaitBG.hidden = NO;
 //    [self.view bringSubviewToFront:vWaitBG];
-    self.view.hidden = YES;
+
 //    if (myAlert==nil){        
 //        myAlert = [[UIAlertView alloc] initWithTitle:nil 
 //                                             message: @"Loading"
@@ -365,7 +369,8 @@
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [ad showWaiting:NO];
+    
+//    [ad showWaiting:NO];
 //    return;
 //    vWaitBG.hidden = YES;
 

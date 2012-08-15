@@ -16,6 +16,7 @@
 	int currentSelectedIndex;
 	UIImageView *slideBg;
 	UIScrollView *tabBarScrollView;
+    UIViewController* oldvc;
 }
 
 @property (nonatomic, assign) int currentSelectedIndex;

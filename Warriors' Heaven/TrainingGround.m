@@ -962,6 +962,7 @@
 }
 - (void)onCloseSkillDetal:(id) btn{
     vSkillDetail.hidden = YES;
-    [wvSkillDetail loadHTMLString:@"" baseURL:nil];
+//    [wvSkillDetail loadHTMLString:@"" baseURL:nil];
+    [wvSkillDetail stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 @end

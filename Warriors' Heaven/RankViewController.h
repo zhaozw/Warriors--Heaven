@@ -12,7 +12,8 @@
 @interface RankViewController : UIViewController<UIWebViewDelegate>{
     UIActivityIndicatorView *activityIndicator;
     UIAlertView* myAlert;
-    BOOL anim;
+    BOOL anim;  // to prevent show loading view when navigating in webview
+    BOOL needUpdate;
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vRankWeb;
 

@@ -38,6 +38,8 @@
 - (void)viewDidLoad{
 	[super viewDidLoad];
 	firstTime = YES;
+//    [self.tabBar setDelegate:self];
+    self.delegate = self;
 
 }
 
@@ -62,11 +64,21 @@
 }
 
 - (void)selectTab:(int)tag{
-
     UIButton* btn = [tabBarView viewWithTag:tag];
     if (btn)
         [tabBarView selectedTab:btn];
     else
         NSLog(@"button not found, tag=%d", tag);
 }
+//- (void)tabBar:(UITabBar *)atabBar didSelectItem:(UITabBarItem *)item{
+//        NSLog(@"DFDF");
+//}
+//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+//    NSLog(@"DFDF");
+//    
+//}
+//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+//     NSLog(@"DFDF");
+//}
+
 @end

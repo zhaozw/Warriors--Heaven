@@ -15,6 +15,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize wvPreload;
 @synthesize wvLoadingPreface;
 @synthesize lbVersion;
 @synthesize lbBattleResultTitle;
@@ -59,6 +60,7 @@
 @synthesize vCompanyLogo;
 @synthesize bUserEqNeedUpdated;
 @synthesize floatMsg;
+@synthesize bSummarDidLoad;
 
 
 
@@ -89,7 +91,8 @@
 //    bUpadtingStatus = false;
     debug_reg = FALSE;
     debug = FALSE;
-
+    bSummarDidLoad = FALSE;
+    preloaded = FALSE;
     return self;
 }
 
@@ -104,7 +107,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-//    host = @"192.168.0.10";
+    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -126,7 +129,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -404,16 +407,9 @@
     
     if ([self initData]){
         // show welcome view
-        bShowingWelcome = TRUE;
-        vWelcome.backgroundColor = [UIColor whiteColor];
-        vWelcome.opaque = YES;
-        //        [vWelcome addSubview:vCompanyLogo];
-        //        [vWelcome addSubview:lbCompnayName];
-        [vWelcome addSubview:lbVersion];
-        [window bringSubviewToFront:vWelcome];
-        tabBarController.view.hidden = YES;
-        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
-    }
+
+        [self showWelcomeView];
+           }
     
     // get server list
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
@@ -429,7 +425,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
@@ -544,9 +540,21 @@
     
 }
 
+- (void) showWelcomeView{
+    bShowingWelcome = TRUE;
+    vWelcome.backgroundColor = [UIColor whiteColor];
+    vWelcome.opaque = YES;
+    //        [vWelcome addSubview:vCompanyLogo];
+    //        [vWelcome addSubview:lbCompnayName];
+    [vWelcome addSubview:lbVersion];
+    [window bringSubviewToFront:vWelcome];
+    tabBarController.view.hidden = YES;
+    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+
+}
 - (void) hideWelcomeView{
     bShowingWelcome = NO;
-    if (!bFirstCallReturn)
+    if (!bFirstCallReturn || !bSummarDidLoad || !preloaded) 
         return;
     vWelcome.hidden = YES;
     tabBarController.view.hidden = NO;
@@ -580,7 +588,8 @@
 
 - (void) closeHelpView:(UIButton*) btn{
     vHelp.hidden = YES;
-    [vHelpWebView loadHTMLString:@"" baseURL:nil];
+//    [vHelpWebView loadHTMLString:@"" baseURL:nil];
+    [vHelpWebView stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 
 - (void) updateUserext{
@@ -603,9 +612,19 @@
     }
     
 }
+
+- (void) preload{
+    wvPreload.delegate = self;
+    [wvPreload loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/preload.html", host, port]]]];
+    [window sendSubviewToBack:wvPreload];
+//    [window bringSubviewToFront:wvPreload];
+//    wvPreload.hidden = NO;
+}
 - (void) onReceiveStatus:(NSObject *) data{
-    if (!bFirstCallReturn)
+    if (!bFirstCallReturn){
          [self initUI];
+        [self preload];
+    }
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
@@ -827,7 +846,8 @@
 
 - (IBAction)closeFightMsg:(id)sender {
     vBattleMsgBg.hidden = YES;
-    [vBattleMsg loadHTMLString:@"" baseURL:nil];
+//    [vBattleMsg loadHTMLString:@"" baseURL:nil];
+    [vBattleMsg stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
       tabBarController.view.hidden = NO;
 }
 
@@ -1247,34 +1267,68 @@
 //    [activityIndicator startAnimating];       
 //    if (webView.tag == 1000)
 //        vHelp.hidden = YES;
-    if (myAlert==nil){        
-        myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"Loading"
-                                            delegate: self
-                                   cancelButtonTitle: nil
-                                   otherButtonTitles: nil];
-        
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
-        [myAlert addSubview:activityView];
-        [activityView startAnimating];
-        [myAlert show];
+//    NSString *surl = [webView.request.URL absoluteString];   
+//    if (surl != nil && [surl isEqualToString:@"about:blank"] ){
+//        return;
+//    }
+    if (webView.tag == 1000){
+//        
+//    if (myAlert==nil){        
+//        myAlert = [[UIAlertView alloc] initWithTitle:nil 
+//                                             message: @"Loading"
+//                                            delegate: self
+//                                   cancelButtonTitle: nil
+//                                   otherButtonTitles: nil];
+//        
+//        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+//        [myAlert addSubview:activityView];
+//        [activityView startAnimating];
+//        [myAlert show];
+//    }
+        [self showWaiting:YES];
     }
 //    [self showWaiting:YES];
 }
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (webView.loading == YES)
+        return;
 //    [activityIndicator stopAnimating];    
 //    UIView *view = (UIView *)[self.view viewWithTag:103];
 //    [view removeFromSuperview];
-    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    
+//    NSString *surl = [webView.request.URL absoluteString];
+//    NSLog(@"webViewDidFinishLoad %@", surl);
+    //         if (surl != nil && [surl isEqualToString:@"about:blank"] ){
+    //             return;
+    //         }
+    
+     if (webView.tag == 1000){
+
+//         
+//         [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+//         myAlert = NULL;
+         [self showWaiting:NO];
+     }
 //      [self showWaiting:NO];
 //    if (webView.tag == 1000)
 //        vHelp.hidden = NO;
 //    
+    // if webview == wvPreload
+    if (webView.tag == 2000){
+        preloaded = YES;
+        [self hideRegView];
+        [self hideWelcomeView];
+    }
+
 }
 -(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
     return NO;
+}
+
+-(void) hideRegView{
+    vReg.view.hidden = YES;
 }
 @end

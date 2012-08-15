@@ -127,7 +127,8 @@
 }
 - (IBAction)onClose:(id)sender {
     [self view ].hidden = YES;
-    [vwPurchase loadHTMLString:@"" baseURL:nil];
+//    [vwPurchase loadHTMLString:@"" baseURL:nil];
+    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    

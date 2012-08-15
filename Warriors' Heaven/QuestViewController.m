@@ -117,7 +117,8 @@
     // hide quest view
     vQuestContainer.hidden = YES;
     [ad showStatusView:YES];
-     [vQuestRoom loadHTMLString:@"" baseURL:nil];
+//     [vQuestRoom loadHTMLString:@"" baseURL:nil];
+    [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
  
     // reload quest list 
     [self retrieveQuests];
@@ -336,7 +337,8 @@
         // hide quest view
         vQuestContainer.hidden = YES;
         [ad showStatusView:YES];
-        [vQuestRoom loadHTMLString:@"" baseURL:nil];
+//        [vQuestRoom loadHTMLString:@"" baseURL:nil];
+        [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
         return false;
     }
     return TRUE;

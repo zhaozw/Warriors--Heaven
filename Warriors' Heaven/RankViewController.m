@@ -34,14 +34,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    vRankWeb.frame = CGRectMake(0, 0, 320, 480-49);
+    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
     vRankWeb.backgroundColor = [UIColor clearColor];
     [self view ].frame = CGRectMake(0, 0, 320, 480);
     vRankWeb.delegate = self;
     vRankWeb.opaque = NO;
     AppDelegate* ad = [UIApplication sharedApplication].delegate;
 
-    
+    needUpdate = YES;
     
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 //    [view setTag:103];
@@ -74,16 +74,38 @@
 - (void) viewDidAppear:(BOOL) animated{
         AppDelegate* ad = [UIApplication sharedApplication].delegate;
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"]];
-
-    NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
-      [ad showStatusView:FALSE];
-    [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
-//    vRankWeb.backgroundColor = [UIColor redColor];
-        vRankWeb.frame = CGRectMake(0, 0, 320, 480);
-    anim = YES;
+    [ad showStatusView:FALSE];
     
-}
+    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
+    
+    if (needUpdate){
+        NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
+        [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+        anim = YES;
+        [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
+        needUpdate = FALSE;
+        [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:180];
 
+    }
+    else{
+        CATransition *animation = [CATransition animation];
+        
+        animation.duration = 0.2f;
+        
+        //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.type = kCATransitionPush;//设置上面4种动画效果
+        //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+        
+        animation.subtype = kCATransitionFromRight;
+        
+        [self.view.layer addAnimation:animation forKey:@"animationID"];
+    }
+//    vRankWeb.backgroundColor = [UIColor redColor];
+
+}
+- (void) setNeedUpdate{
+    needUpdate  = TRUE;
+}
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
     if (!anim)
@@ -92,7 +114,7 @@
     self.view.hidden = YES;
     if (myAlert==nil){        
         myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"Loading Rank"
+                                             message: @"Loading"
                                             delegate: self
                                    cancelButtonTitle: nil
                                    otherButtonTitles: nil];

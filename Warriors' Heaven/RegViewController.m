@@ -140,10 +140,13 @@
         [ad setSessionId:sid];
         [ad saveDataUser];
         self.view.hidden = YES;
+   
         [ad setFirstCallReturn:YES];
-        [ad hideWelcomeView];
+//        [ad hideWelcomeView];
         [ad initUI];
-        
+//        [ad.window bringSubviewToFront:self.view];
+         [ad showWelcomeView];
+        [ad preload];
         [ad startRecover]; 
 //        [ad query_msg];
         [ad float_msg];

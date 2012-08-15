@@ -87,7 +87,9 @@ class Yezhu < Npcorc
     
     def homeImage
   #      "obj/npc/weizhangtianxin_home.gif"
-   "obj/npc/battle_player001.gif?v=2"
+    "obj/npc/battle_player001.gif"
+   #"obj/npc/playerview.gif"
+   
     end
     
     def legendImage
