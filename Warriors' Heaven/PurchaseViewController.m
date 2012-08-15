@@ -70,6 +70,7 @@
 }
 
 - (void) viewWillAppear:(BOOL) animated{
+    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
     NSString* surl = [NSString stringWithFormat:@"http://%@:%@/tradables/listProduct", ad.host, ad.port];
     
     [vwPurchase loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
