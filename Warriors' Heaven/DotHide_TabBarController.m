@@ -19,6 +19,9 @@
 	[self hideRealTabBar];
 	UIImage *bgImage = [UIImage imageNamed:@"TabBarGradient.png"];
 	if (firstTime) {
+        // preload for EGOButton
+        UIViewController* c = [self.viewControllers objectAtIndex:5];
+        c.view;
 		self.selectedIndex = 0;
 		firstTime = NO;
 	}
