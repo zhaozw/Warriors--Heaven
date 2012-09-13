@@ -101,13 +101,13 @@
 
 - (void) setTest{
 
-        debug = TRUE;
+//        debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 
 
 //    host = @"localhost";
 
-    host= @"192.168.0.10";
+//    host= @"192.168.0.10";
 
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
@@ -406,13 +406,14 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
     NSString* url=  [NSString stringWithFormat:@"http://%@:%@/", host, port];
     NSArray *cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
                         cookiesForURL:[NSURL URLWithString:url] ];
+    
     if (cookies)
         for (int i = 0; i < [cookies count]; i++)
             [[ NSHTTPCookieStorage sharedHTTPCookieStorage ] deleteCookie:[cookies objectAtIndex:i]];

@@ -32,7 +32,7 @@
     NSArray *products = response.products;
 //    proUpgradeProduct = [products count] == 1 ? [products objectAtIndex:0]: nil;
 //    proUpgradeProduct = [products objectAtIndex:0];
-    NSLog(@"---- %d products % invalid products ----", [products count], [response.invalidProductIdentifiers count]);
+    NSLog(@"---- %d products %d invalid products ----", [products count], [response.invalidProductIdentifiers count]);
     for (SKProduct* p in products){
         if (p)
         {
