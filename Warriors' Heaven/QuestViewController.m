@@ -338,6 +338,7 @@
         vQuestContainer.hidden = YES;
         [ad showStatusView:YES];
 //        [vQuestRoom loadHTMLString:@"" baseURL:nil];
+        // clean browser content
         [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
         return false;
     }

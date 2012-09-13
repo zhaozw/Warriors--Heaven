@@ -89,3 +89,7 @@ change to china app store
 武侠战棋
 猫俄罗斯方块
 烤串
+
+ui fix
+position of waiting icon should change in some occasion
+show loading when load home page.

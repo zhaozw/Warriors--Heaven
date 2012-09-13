@@ -75,8 +75,11 @@
     [vcPlayer view].hidden = YES;
     [vcPlayer setOnFight:nil sel:nil];
     
-    
-    
+    [btMyTeam setBackgroundImage:[UIImage imageNamed:@"battleteam1_0.png"] forState:UIControlStateHighlighted];
+    [btMyTeam setBackgroundImage:[UIImage imageNamed:@"battleteam1_1.png"] forState:UIControlStateNormal];
+    [btJoinTeam setBackgroundImage:[UIImage imageNamed:@"battleteam2_0.png"] forState:UIControlStateHighlighted];
+    [btJoinTeam setBackgroundImage:[UIImage imageNamed:@"battleteam2_1.png"] forState:UIControlStateNormal];
+    btMyTeam.highlighted = YES;
     
 }
 

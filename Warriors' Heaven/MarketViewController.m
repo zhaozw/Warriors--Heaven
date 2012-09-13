@@ -461,7 +461,7 @@
 - (void) selectItem:(UIButton*) btn{
     NSObject* o = [self getObjById:btn.tag];
     [vcObjDetail loadObjDetail:o];
-    [[self view] bringSubviewToFront:[vcObjDetail view]];
+    [[ad window] bringSubviewToFront:[vcObjDetail view]];
 }
 
 - (void) onBuyReturn:(NSObject*) data{

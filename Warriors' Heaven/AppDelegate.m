@@ -129,7 +129,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
+   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }
@@ -352,20 +352,20 @@
     // set waiting must be here, because isWaiting() depend on the value of waiting.hidden
     // create waiting view
     self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
-    [self->waiting setBackgroundColor:[UIColor blackColor]];
-    [self->waiting setAlpha:0.5f]; 
+    [self->waiting setBackgroundColor:[UIColor clearColor]];
+    [self->waiting setAlpha:0.8f]; 
     //  [self->waiting setUserInteractionEnabled:false];
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(125, 200, 50, 50 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(320-38, 480-38-49, 38, 38 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
     
     //  [aiv setAlpha:0.0f];
     NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
-    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='30' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
     //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
     //   [aiv startAnimating];  
     [self->waiting addSubview:aiv];  
@@ -425,7 +425,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie

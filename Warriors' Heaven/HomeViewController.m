@@ -299,12 +299,15 @@
 //    NSLog(@"cookies1 = %@", cookieHeaders);
 //    [ req setValue: [ cookieHeaders objectForKey: @"Cookie" ]    forHTTPHeaderField: @"Cookie" ];
 
+    // show summary
     [vSummary loadRequest:req];
+    
     // show map 
+    vSummary.hidden = YES;
     /* 
         use UIWebView
      */
-    /*
+    
     wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
     wvMap.userInteractionEnabled = TRUE;
     wvMap.delegate = self;
@@ -333,7 +336,7 @@
 //    wvMap.scrollView.contentSize = CGSizeMake(1000, 1000);
 //    [[wvMap scrollView] scrollRectToVisible:CGRectMake(600, 600, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
-     */
+     
     
 /*
     //

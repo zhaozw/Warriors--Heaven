@@ -273,6 +273,7 @@
         //[lbLevel setMinimumFontSize:8.0f];
         [lbStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbStatus setTextColor:[UIColor yellowColor]];
+//        [lbStatus setTextColor:[UIColor colorWithRed:0.3f green:0.3f blue:0.0f alpha:1]];
         [lbStatus setBackgroundColor:[UIColor clearColor]];
         NSString* status = [json valueForKey:@"status"];
         if ([status length] != 0)
