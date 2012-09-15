@@ -183,6 +183,29 @@
     vBasicSkillsList.hidden = YES;
     vCommonSkillsList.hidden = YES;
     vPremierSkillsList.hidden = YES;
+    
+    
+    vSkillDetail = [[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-65)];
+    vSkillDetail.backgroundColor = [UIColor clearColor];
+    vSkillDetail.opaque = NO;
+    [self.view addSubview:vSkillDetail];
+    vSkillDetail.hidden = YES;
+    
+    UIButton* closeSkillDetail = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeSkillDetail.frame = CGRectMake(320-39, 0, 39, 39);
+    [closeSkillDetail setBackgroundImage:[UIImage imageNamed:@"btn_close.png"] forState:UIControlStateNormal];
+    [closeSkillDetail addTarget:self action:@selector(onCloseSkillDetal:) forControlEvents:UIControlEventTouchUpInside];
+     [vSkillDetail addSubview:closeSkillDetail];
+    
+    wvSkillDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-65)];
+    wvSkillDetail.opaque = NO;
+    wvSkillDetail.backgroundColor = [UIColor clearColor];
+//    wvSkillDetail.hidden = YES;
+    
+    [vSkillDetail addSubview:wvSkillDetail];
+    [vSkillDetail bringSubviewToFront:closeSkillDetail];
+ 
+    
 
 }
 
@@ -370,13 +393,18 @@
         
         UIView* row = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, row_height)];
         
-        UILabel* lbSkillTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, row_height-10)];
+        UIButton* lbSkillTitle = [UIButton buttonWithType:UIButtonTypeCustom ];
+        lbSkillTitle.frame = CGRectMake(0, 0, 90, row_height-10);
         [lbSkillTitle setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
-        [lbSkillTitle setMinimumFontSize:8.0f];
-        [lbSkillTitle setTextColor:[UIColor whiteColor]];
+
+        [lbSkillTitle setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
         [lbSkillTitle setBackgroundColor:[UIColor clearColor]];
         [lbSkillTitle setOpaque:NO];
-        [lbSkillTitle setText:[o valueForKey:@"dname"]];
+        [lbSkillTitle setTitle:[o valueForKey:@"dname"] forState:UIControlStateNormal];
+        [lbSkillTitle addTarget:self action:@selector(onSelectSkill:) forControlEvents:UIControlEventTouchUpInside];
+        lbSkillTitle.tag = i;
+        
         [row addSubview:lbSkillTitle];
         
         if ([cat isEqualToString:@"premier"] ){
@@ -915,5 +943,28 @@
 //        UIScrollView* sv = [self view ].superview;
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];
     }
+}
+
+- (void) onSelectSkill:(UIButton*) button{
+    int i = button.tag;
+    NSArray* userskills = [ad getDataUserskills];
+    NSObject* skill = [[userskills objectAtIndex:i] valueForKey:@"userskill"];
+    NSLog(@"%@", skill);
+    NSString* name = [skill valueForKey:@"skname"];
+    NSLog(@"skillname is %@", name);
+    
+   
+
+    NSString* url = [[NSString alloc] initWithFormat:@"http://%@:%@/userskills/skilldetail?skill=%@", ad.host, ad.port, name];
+    [wvSkillDetail loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+  
+    [self.view bringSubviewToFront:vSkillDetail];
+//    wvSkillDetail.backgroundColor = [UIColor redColor];
+    vSkillDetail.hidden = NO;
+}
+- (void)onCloseSkillDetal:(id) btn{
+    vSkillDetail.hidden = YES;
+//    [wvSkillDetail loadHTMLString:@"" baseURL:nil];
+    [wvSkillDetail stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 @end

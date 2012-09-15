@@ -128,6 +128,7 @@
    
     vHeroList = [[UIView alloc] initWithFrame:CGRectMake(0, 39, 320, 480-66-39)];
     [vHeroes addSubview:vHeroList];
+    vHeroes.hidden = YES;
     
     [[self view] bringSubviewToFront:vTitleView];
     
@@ -158,7 +159,7 @@
 
 - (void) loadPlayers{
     int count = [playerList count]; 
-    int row_height = 70;
+    int row_height = 65;
     int row_margin = 1;
     int margin_top = 39;
     //    int y = 300;
@@ -201,6 +202,13 @@
          //        NSLog(@"error %@", [error description]);
          UIImageView *logo = [[UIImageView alloc] initWithImage:img];*/
    
+        if (i > 0){
+            // splitter line
+        UIImageView* vLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line1.png"]];
+        vLine.frame = CGRectMake(0, 0, 320, 2);
+            [row addSubview:vLine];
+        }
+        
           NSString* sProf = @"";
         if (profile > 5){
             sProf = [NSString stringWithFormat:@"http://%@:%@/game/profile/p_%d.png", ad.host, ad.port, profile];
@@ -209,7 +217,8 @@
         else 
             sProf = [NSString stringWithFormat:@"p_%d.png", profile];
 //            [logo setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"p_%d.png", profile]] forState:UIControlStateNormal];
-        EGOImageButton* logo = [LightView createEGOButton:CGRectMake(1, 5, 50, 50) parent:row  img:sProf text:@"" tag:[uid intValue]];
+        EGOImageButton* logo = [LightView createEGOButton:CGRectMake(1, 8, 50, 50) parent:row  img:sProf text:@"" tag:[uid intValue]];
+//        [logo setPlaceholderImage:[UIImage imageNamed:@"loading.png"]];
         
         [logo addTarget:self action:@selector(onSelectPlayer:) forControlEvents:UIControlEventTouchUpInside];
         //        UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"p_%d.png", i%6+1] ] ];
@@ -224,9 +233,14 @@
         //        lbInfo setContentMode:<#(UIViewContentMode)#>
         [lbInfo setAdjustsFontSizeToFitWidth:YES];
         [lbInfo setFont:[UIFont fontWithName:@"Helvetica" size:13.0f]];
-        [lbInfo setTextColor:[UIColor whiteColor]];
+//        [lbInfo setTextColor:[UIColor whiteColor]];
+        [lbInfo setTextColor:[UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.0f]];
+
         [lbInfo setBackgroundColor:[UIColor clearColor]];
         [lbInfo setText:[[NSString alloc] initWithFormat:@"%@", name]];
+        lbInfo.numberOfLines = 1;
+        lbInfo.lineBreakMode = UILineBreakModeCharacterWrap|UILineBreakModeTailTruncation;  
+        lbInfo.minimumFontSize = 9;
         [row addSubview:lbInfo];
         
         
@@ -235,7 +249,8 @@
        
         [lbTitle setAdjustsFontSizeToFitWidth:YES];
         [lbTitle setFont:[UIFont fontWithName:@"Heiti TC" size:12.0f]];
-        [lbTitle setTextColor:[UIColor greenColor]];
+//        [lbTitle setTextColor:[UIColor greenColor]];
+        [lbTitle setTextColor:[UIColor colorWithRed:0.9f green:0.3f blue:0.3f alpha:100.0f]];
         [lbTitle setBackgroundColor:[UIColor clearColor]];
         [lbTitle setText:[[NSString alloc] initWithFormat:@"%@", title]];
         [row addSubview:lbTitle];
@@ -246,7 +261,8 @@
         [lbLevel setAdjustsFontSizeToFitWidth:NO];
         //[lbLevel setMinimumFontSize:8.0f];
         [lbLevel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
-        [lbLevel setTextColor:[UIColor yellowColor]];
+//        [lbLevel setTextColor:[UIColor yellowColor]];
+        [lbLevel setTextColor:[UIColor colorWithRed:0.5f green:0.5f blue:0.1f alpha:1.0f]];
         [lbLevel setBackgroundColor:[UIColor clearColor]];
         [lbLevel setText:[[NSString alloc] initWithFormat:@"Level %@", level]];
         [row addSubview:lbLevel];
@@ -257,6 +273,7 @@
         //[lbLevel setMinimumFontSize:8.0f];
         [lbStatus setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [lbStatus setTextColor:[UIColor yellowColor]];
+//        [lbStatus setTextColor:[UIColor colorWithRed:0.3f green:0.3f blue:0.0f alpha:1]];
         [lbStatus setBackgroundColor:[UIColor clearColor]];
         NSString* status = [json valueForKey:@"status"];
         if ([status length] != 0)
@@ -274,6 +291,8 @@
         [btn setBackgroundImage:[UIImage imageNamed:@"button1.png"] forState:UIControlStateNormal];
         [btn setTag:[uid intValue]];
         [row addSubview:btn];   
+        
+       
         
         [vPlayers addSubview:row];
         [players addObject:row];
@@ -308,9 +327,12 @@
         NSString *filepath = [NSString stringWithFormat:@"http://%@:%@/game/%@", ad.host, ad.port, image];
         
         EGOImageView* v = [[EGOImageView alloc] initWithFrame:CGRectMake(0, y, 320, row_height)];
+        v.placeholderImage = [UIImage imageNamed:@"loading.png"];
         UIButton* b = [LightView createButton:CGRectMake(0, y, 320, row_height) parent:vHeroList text:@"" tag:i];
-        b.alpha = 0.1f;
-        b.opaque = YES;
+//        b.alpha = 0;
+        [b setBackgroundImage:NULL forState:UIControlStateNormal];
+        b.backgroundColor = [UIColor clearColor];
+//        b.opaque = NO;
         [b addTarget:self action:@selector(onShowBoss:) forControlEvents:UIControlEventTouchUpInside];
        
 //        EGOImageButton *btn = [[EGOImageButton alloc] initWithFrame:CGRectMake(0, margin_top+i*row_height, 320, row_height)];
@@ -327,9 +349,11 @@
 //            [btn setImage:[UIImage imageNamed:@"lock.png"] forState:UIControlStateNormal];
             [v setImage:[UIImage imageNamed:@"unknown.jpg"]];
             b.userInteractionEnabled = NO;
+            v.alpha = 0.5;
         }
         else {
               [v setImageURL:[NSURL URLWithString:filepath]];
+            v.alpha = 1;
         if (defeated){
             [LightView createImageView:@"defeated.png" frame:CGRectMake(250, y, 50, 50) parent:vHeroList];
             b.userInteractionEnabled = NO;
@@ -354,10 +378,12 @@
     [self loadPlayers];
     [self loadHeroes];
 
-    if (bFirstShow)
-        vPlayers .hidden = YES;
-    else
-        vHeroes .hidden = YES;
+//    if (bFirstShow)
+//        vPlayers .hidden = YES;
+//    else
+//        vHeroes .hidden = YES;
+    vHeroes.hidden = YES;
+    vPlayers.hidden = NO;
 }
 
 - (id) findPlayerById:(int) uid{
@@ -651,21 +677,25 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [ad showStatusView:YES];
-    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
+      [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+//     [ad setBgImg:[UIImage imageNamed:@"bg_task_content.png"]];
     
-    if ([ad readLocalProp:@"showBoss"] == NULL){
-        bFirstShow = TRUE;
-        WHHttpClient* client = [[WHHttpClient alloc] init:self];
-        NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
-        [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
-        [ad saveLocalProp:@"showBoss" v:@"1"];
-        vHeroes.hidden = NO;
-    }
-    else{
-        [vcBoss view ].hidden = YES;
-    }
+//    if ([ad readLocalProp:@"showBoss"] == NULL){
+//        vPlayers.hidden = YES;
+//        bFirstShow = TRUE;
+//        WHHttpClient* client = [[WHHttpClient alloc] init:self];
+//        NSString* url = [[NSString alloc] initWithFormat:@"/wh/hero"];
+//        [client sendHttpRequest:url selector:@selector(onHeroReturn:) json:YES showWaiting:YES];
+//        [ad saveLocalProp:@"showBoss" v:@"1"];
+//        vHeroes.hidden = NO;
+//    }
+//    else{
+//        [vcBoss view ].hidden = YES;
+//            vPlayers.hidden = NO;
+//    }
 
-
+    vPlayers.hidden = NO;
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }
@@ -677,5 +707,6 @@
 - (void) onCloseBossView:(UIButton*) bnt{
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listHeroes" selector:@selector(onListHeroesReturn:) json:YES showWaiting:YES];
+    vPlayers.hidden = NO;
 }
 @end

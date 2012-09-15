@@ -1,4 +1,6 @@
 require "utility.rb"
+require "rubyutility.rb"
+
 class UserskillsController < ApplicationController
     
     def index
@@ -18,6 +20,11 @@ class UserskillsController < ApplicationController
         return if !check_session or !user_data
         ret = user_data.query_all_skills
         render :text=>ret.to_json
+    end
+    def skilldetail
+        return if !check_session or !user_data
+        skillname = params[:skill]
+        @skill = player.query_skill(skillname)
     end
 =begin  
     # GET /userskills

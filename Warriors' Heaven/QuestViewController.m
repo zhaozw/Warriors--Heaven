@@ -83,11 +83,28 @@
     vQuestRoom.frame = CGRectMake(0,0, 320, 490);
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];
+    vQuestRoom.delegate = self;
     [wvLoadingQuest setBackgroundColor:[UIColor clearColor]];
     [wvLoadingQuest setOpaque:NO];
     [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
 //    [wvLoadingQuest setHidden: YES];
+    
     [self retrieveQuests];
+    
+    //
+    // init map
+    //
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49-65)];
+    wvMap.userInteractionEnabled = TRUE;
+//    [[self view] addSubview:wvMap];
+//    [ad.window addSubview:wvMap];
+    wvMap.backgroundColor = [UIColor whiteColor];
+    wvMap.opaque = NO;
+    NSString* html  = [NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"yangzhou_map" ofType:@"jpg"]];
+    [wvMap loadHTMLString:html baseURL:nil];
+//    wvMap.scrollView.showsVerticalScrollIndicator = NO;
+//    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+    wvMap.hidden = NO;
     
 }
 
@@ -97,10 +114,13 @@
 }
 
 - (void) closeQuest:(UIButton*) btn{
+    // hide quest view
     vQuestContainer.hidden = YES;
     [ad showStatusView:YES];
-     [vQuestRoom loadHTMLString:@"" baseURL:nil];
+//     [vQuestRoom loadHTMLString:@"" baseURL:nil];
+    [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
  
+    // reload quest list 
     [self retrieveQuests];
     [ad updateUserext];
     ad.bUserEqNeedUpdated = YES;
@@ -215,6 +235,7 @@
         
         UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
+        [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [row addSubview: btn_ask];
         [btn_ask setTitle:@"Ask" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];
@@ -296,6 +317,32 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSLog(@"%@", request);
+    NSString* url = [request.URL absoluteString];
+    NSString* path = [request.URL path];
+    if ( [url hasPrefix:@"map://"]){
+        NSString* map_name = [[request.URL absoluteString] substringFromIndex:6];
+        // load map
+        NSString* map_file = [NSString stringWithFormat:@"map_%@",map_name];
+        NSString* html  = [NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:map_file ofType:@"jpg"]];
+            [wvMap loadHTMLString:html baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@", ad.host, ad.port]]];
+//        [wvMap loadHTMLString:html baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@", ad.host, ad.port]]];
+        [wvMap loadHTMLString:html baseURL:nil];
+        NSLog(html);
+        wvMap.hidden = NO;
+        
+        // hide quest view
+        vQuestContainer.hidden = YES;
+        [ad showStatusView:YES];
+//        [vQuestRoom loadHTMLString:@"" baseURL:nil];
+        // clean browser content
+        [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+        return false;
+    }
+    return TRUE;
 }
 
 @end

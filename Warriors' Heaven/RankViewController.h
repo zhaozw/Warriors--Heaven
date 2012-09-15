@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-@interface RankViewController : UIViewController
+@interface RankViewController : UIViewController<UIWebViewDelegate>{
+    UIActivityIndicatorView *activityIndicator;
+    UIAlertView* myAlert;
+    BOOL anim;  // to prevent show loading view when navigating in webview
+    BOOL needUpdate;
+}
 @property (strong, nonatomic) IBOutlet UIWebView *vRankWeb;
 
 @end

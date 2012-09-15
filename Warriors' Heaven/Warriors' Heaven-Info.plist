@@ -31,7 +31,7 @@
 	<string>1.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile~iphone</key>
+	<key>NSMainNibFile</key>
 	<string>main</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>main</string>

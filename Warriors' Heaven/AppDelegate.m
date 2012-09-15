@@ -15,6 +15,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @implementation AppDelegate
+@synthesize wvPreload;
 @synthesize wvLoadingPreface;
 @synthesize lbVersion;
 @synthesize lbBattleResultTitle;
@@ -59,6 +60,7 @@
 @synthesize vCompanyLogo;
 @synthesize bUserEqNeedUpdated;
 @synthesize floatMsg;
+@synthesize bSummarDidLoad;
 
 
 
@@ -89,7 +91,8 @@
 //    bUpadtingStatus = false;
     debug_reg = FALSE;
     debug = FALSE;
-
+    bSummarDidLoad = FALSE;
+    preloaded = FALSE;
     return self;
 }
 
@@ -222,6 +225,7 @@
     // init help view
     vHelp.frame = CGRectMake(0, 0, 320, 480-60-49);
     vHelp.backgroundColor = [UIColor clearColor];
+    vHelpWebView.tag = 1000;
     vHelpWebView.frame = CGRectMake(0, 60, 320, 480-60-49);
     vHelpWebView.backgroundColor = [UIColor clearColor];
     [vHelpWebView setOpaque:NO];
@@ -237,26 +241,29 @@
 //    controller = [[MFMailComposeViewController alloc] init];
 //[window addSubview:controller.view];
 //    controller.view.hidden = YES;
-    
-    [window addSubview:[vcPurchase view]];
+
+//    [window addSubview:[vcPurchase view]];
     [vcPurchase view].hidden = YES;
     [window bringSubviewToFront:vAlert];
     [window bringSubviewToFront:waiting];
     
-    
+/*
     id intro = [self readLocalProp:@"introduced"];
     if (intro == NULL ){
-        // show Preface
+//    if (TRUE){
+    
+    // show Preface
     
   
     vPreface.backgroundColor = [UIColor clearColor];
     vPreface.opaque = NO;
     wvPreface.backgroundColor = [UIColor clearColor];
     wvPreface.opaque = NO;
+//    [wvLoadingPreface setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f]];
     [wvLoadingPreface setBackgroundColor:[UIColor clearColor]];
     [wvLoadingPreface setOpaque:NO];   
 
-//    wvLoadingPreface.hidden = YES;
+    wvLoadingPreface.hidden = YES;
    
 //        [wvLoadingPreface loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color:transparent;' ><div style='position:absolute;z-index:-1;left:0;top:0;width:320px;height:480px;background-color:black;opacity:0.6;'><img width='39' src = \"file://%@\" style='position:absolute;left:130px;top:162px;'></div></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
         
@@ -281,8 +288,34 @@
     }else{
         vPreface.hidden = YES;
     }
+   */
+ /*   
+    // show map
     
-    
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49-65)];
+    wvMap.userInteractionEnabled = TRUE;
+    wvMap.delegate = self;
+    //    [[self view] addSubview:wvMap];
+    [self.window addSubview:wvMap];
+    wvMap.backgroundColor = [UIColor whiteColor];
+    wvMap.opaque = NO;
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"jpg"];
+//    imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];  
+//    imagePath = [imagePath stringByReplacingOccurrencesOfString:@" " withString:@"%20"];  
+    imagePath = [imagePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//      imagePath = [imagePath stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];  
+    NSString* html  = [NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><!--script src='/javascripts/map.js' ></script--><img src = \"file://%@\" /></body></html>",imagePath];
+    NSLog(@"html=%@",html);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", host, port]];
+//    [wvMap loadHTMLString:html baseURL:url];
+        NSString *map_yangzhou_html = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"html"];
+    map_yangzhou_html = [map_yangzhou_html stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"html path=%@", map_yangzhou_html);
+    [wvMap loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://%@", map_yangzhou_html]]]];
+    //    wvMap.scrollView.showsVerticalScrollIndicator = NO;
+    //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+    wvMap.hidden = NO;
+    */
     
     [window makeKeyAndVisible];
     
@@ -328,20 +361,20 @@
     // set waiting must be here, because isWaiting() depend on the value of waiting.hidden
     // create waiting view
     self->waiting = [[UIView alloc] initWithFrame:[[UIScreen mainScreen]  bounds]];
-    [self->waiting setBackgroundColor:[UIColor blackColor]];
-    [self->waiting setAlpha:0.5f]; 
+    [self->waiting setBackgroundColor:[UIColor clearColor]];
+    [self->waiting setAlpha:0.8f]; 
     //  [self->waiting setUserInteractionEnabled:false];
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(120, 200, 50, 50 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(320-38, 480-38-49, 38, 38 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
     
     //  [aiv setAlpha:0.0f];
     NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
-    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
+    [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='30' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
     //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
     //   [aiv startAnimating];  
     [self->waiting addSubview:aiv];  
@@ -358,16 +391,18 @@
     [self->vAlert setBackgroundColor:[UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f]];
 //    [self->vAlert setAlpha:0.5f]; 
     [vNetworkStatus removeFromSuperview];
+    vNetworkStatus.image = [UIImage imageNamed:@"bg_dlg.png"];
+    vNetworkStatus.backgroundColor = [UIColor clearColor];
     [vAlert addSubview:vNetworkStatus];
     vAlert.hidden = YES;
     [window addSubview:vAlert];
     
     
-    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
+//    [vNetworkStatus setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     //    [lbAlertMsg setBackgroundColor:[UIColor colorWithRed:0.99f green:0.0f blue:0.0f alpha:0.3]];
     [lbAlertMsg setMinimumFontSize:0.1f];
     [lbAlertMsg setAdjustsFontSizeToFitWidth:YES];
-    [lbAlertMsg setNumberOfLines:3];
+    [lbAlertMsg setNumberOfLines:5];
     [btClose addTarget:self action:@selector(closeAlert:) forControlEvents:UIControlEventTouchUpInside];
     
     session_id = [self readSessionId];
@@ -381,16 +416,9 @@
     
     if ([self initData]){
         // show welcome view
-        bShowingWelcome = TRUE;
-        vWelcome.backgroundColor = [UIColor whiteColor];
-        vWelcome.opaque = YES;
-        //        [vWelcome addSubview:vCompanyLogo];
-        //        [vWelcome addSubview:lbCompnayName];
-        [vWelcome addSubview:lbVersion];
-        [window bringSubviewToFront:vWelcome];
-        tabBarController.view.hidden = YES;
-        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
-    }
+
+        [self showWelcomeView];
+           }
     
     // get server list
     WHHttpClient* client1 = [[WHHttpClient alloc] init:self];
@@ -522,9 +550,21 @@
     
 }
 
+- (void) showWelcomeView{
+    bShowingWelcome = TRUE;
+    vWelcome.backgroundColor = [UIColor whiteColor];
+    vWelcome.opaque = YES;
+    //        [vWelcome addSubview:vCompanyLogo];
+    //        [vWelcome addSubview:lbCompnayName];
+    [vWelcome addSubview:lbVersion];
+    [window bringSubviewToFront:vWelcome];
+    tabBarController.view.hidden = YES;
+    [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
+
+}
 - (void) hideWelcomeView{
     bShowingWelcome = NO;
-    if (!bFirstCallReturn)
+    if (!bFirstCallReturn || !bSummarDidLoad || !preloaded) 
         return;
     vWelcome.hidden = YES;
     tabBarController.view.hidden = NO;
@@ -558,7 +598,8 @@
 
 - (void) closeHelpView:(UIButton*) btn{
     vHelp.hidden = YES;
-    [vHelpWebView loadHTMLString:@"" baseURL:nil];
+//    [vHelpWebView loadHTMLString:@"" baseURL:nil];
+    [vHelpWebView stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 
 - (void) updateUserext{
@@ -581,9 +622,19 @@
     }
     
 }
+
+- (void) preload{
+    wvPreload.delegate = self;
+    [wvPreload loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/preload.html", host, port]]]];
+    [window sendSubviewToBack:wvPreload];
+//    [window bringSubviewToFront:wvPreload];
+//    wvPreload.hidden = NO;
+}
 - (void) onReceiveStatus:(NSObject *) data{
-    if (!bFirstCallReturn)
+    if (!bFirstCallReturn){
          [self initUI];
+        [self preload];
+    }
     bFirstCallReturn = TRUE;
     [self setDataUser:data save:YES];
     NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
@@ -805,7 +856,8 @@
 
 - (IBAction)closeFightMsg:(id)sender {
     vBattleMsgBg.hidden = YES;
-    [vBattleMsg loadHTMLString:@"" baseURL:nil];
+//    [vBattleMsg loadHTMLString:@"" baseURL:nil];
+    [vBattleMsg stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
       tabBarController.view.hidden = NO;
 }
 
@@ -1168,6 +1220,7 @@
 }
 
 - (void) showPurchaseView{
+    [window addSubview:[vcPurchase view]];
     [vcPurchase viewWillAppear:NO];
     [vcPurchase view].hidden = NO;
 }
@@ -1179,7 +1232,12 @@
     if ( [path isEqualToString:@"/clientaction/closeintro"]){
         vPreface.hidden = YES;
         return FALSE;
-    }else if ( [url hasPrefix:@"mailto://teamcode/"]){
+    }/*else if ( [path hasPrefix:@"/clientaction/gototab/"]){
+        NSString* tab = [path substringToIndex:22];
+        int iTab = [tab intValue];
+        [[self tabBarController] selectTab:iTab];
+    }*/
+    else if ( [url hasPrefix:@"mailto://teamcode/"]){
         NSString* tc = [[request.URL absoluteString] substringFromIndex:18] ;
         if ([MFMailComposeViewController canSendMail]){
    
@@ -1213,5 +1271,74 @@
 }
 - (IBAction)onClosePreface:(id)sender {
        vPreface.hidden = NO;
+}
+//开始加载数据
+- (void)webViewDidStartLoad:(UIWebView *)webView {    
+//    [activityIndicator startAnimating];       
+//    if (webView.tag == 1000)
+//        vHelp.hidden = YES;
+//    NSString *surl = [webView.request.URL absoluteString];   
+//    if (surl != nil && [surl isEqualToString:@"about:blank"] ){
+//        return;
+//    }
+    if (webView.tag == 1000){
+//        
+//    if (myAlert==nil){        
+//        myAlert = [[UIAlertView alloc] initWithTitle:nil 
+//                                             message: @"Loading"
+//                                            delegate: self
+//                                   cancelButtonTitle: nil
+//                                   otherButtonTitles: nil];
+//        
+//        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+//        [myAlert addSubview:activityView];
+//        [activityView startAnimating];
+//        [myAlert show];
+//    }
+        [self showWaiting:YES];
+    }
+//    [self showWaiting:YES];
+}
+
+//数据加载完
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (webView.loading == YES)
+        return;
+//    [activityIndicator stopAnimating];    
+//    UIView *view = (UIView *)[self.view viewWithTag:103];
+//    [view removeFromSuperview];
+    
+//    NSString *surl = [webView.request.URL absoluteString];
+//    NSLog(@"webViewDidFinishLoad %@", surl);
+    //         if (surl != nil && [surl isEqualToString:@"about:blank"] ){
+    //             return;
+    //         }
+    
+     if (webView.tag == 1000){
+
+//         
+//         [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+//         myAlert = NULL;
+         [self showWaiting:NO];
+     }
+//      [self showWaiting:NO];
+//    if (webView.tag == 1000)
+//        vHelp.hidden = NO;
+//    
+    // if webview == wvPreload
+    if (webView.tag == 2000){
+        preloaded = YES;
+        [self hideRegView];
+        [self hideWelcomeView];
+    }
+
+}
+-(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
+    return NO;
+}
+
+-(void) hideRegView{
+    vReg.view.hidden = YES;
 }
 @end

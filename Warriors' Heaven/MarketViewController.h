@@ -23,6 +23,7 @@
 //    NSArray* prem_list;
 }
 @property (strong, nonatomic) IBOutlet UIButton *btnCharge;
+@property (strong, nonatomic) IBOutlet UIImageView *vMenuBar;
 
 @property (strong, nonatomic) IBOutlet UIView *vSpecial;
 @property (strong, nonatomic) IBOutlet UIButton *btSpecial;

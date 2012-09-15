@@ -42,6 +42,13 @@
     [iapm setCallback:self sel:@selector(onPurchaseFinished)];
     [self view].backgroundColor = [UIColor clearColor];
     vwPurchase.backgroundColor = [UIColor clearColor];
+    vwPurchase.delegate = self;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+//    [activityIndicator setCenter:self.view.center];
+//    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+//    [self.view addSubview:activityIndicator];
 }
 
 - (void) onPurChaseFinished{
@@ -63,6 +70,7 @@
 }
 
 - (void) viewWillAppear:(BOOL) animated{
+    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
     NSString* surl = [NSString stringWithFormat:@"http://%@:%@/tradables/listProduct", ad.host, ad.port];
     
     [vwPurchase loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
@@ -120,6 +128,34 @@
 }
 - (IBAction)onClose:(id)sender {
     [self view ].hidden = YES;
-    [vwPurchase loadHTMLString:@"" baseURL:nil];
+//    [vwPurchase loadHTMLString:@"" baseURL:nil];
+    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+}
+//开始加载数据
+- (void)webViewDidStartLoad:(UIWebView *)webView {    
+//    [activityIndicator startAnimating];         
+    if (myAlert==nil){        
+        myAlert = [[UIAlertView alloc] initWithTitle:nil 
+                                             message: @"Loading"
+                                            delegate: self
+                                   cancelButtonTitle: nil
+                                   otherButtonTitles: nil];
+        
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+        [myAlert addSubview:activityView];
+      [activityView startAnimating];
+   
+    [myAlert show];
+     } 
+}
+
+//数据加载完
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+//    [activityIndicator stopAnimating];    
+    UIView *view = (UIView *)[self.view viewWithTag:103];
+    [view removeFromSuperview];
+    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
 }
 @end

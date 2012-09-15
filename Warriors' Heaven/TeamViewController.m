@@ -60,23 +60,27 @@
     currentSelectedList = 0;
     needReload =TRUE;
     
-    int margin_top = 70;
-    [LightView createLabel:CGRectMake(30, margin_top, 80, 20) parent:[self view] text:@"チーム Code" textColor:[UIColor yellowColor]];
-    lbTeamCode = [LightView createLabel:CGRectMake(110, margin_top, 60, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];    
+
+    int margin_top = 75;
+    [LightView createLabel:CGRectMake(30, margin_top, 60, 20) parent:[self view] text:@"チーム Code" textColor:[UIColor blackColor]];
+    lbTeamCode = [LightView createLabel:CGRectMake(90, margin_top, 60, 20) parent:[self view] text:@"" textColor:[UIColor redColor]];    
     
-    [LightView createLabel:CGRectMake(30, margin_top+20, 80, 20) parent:[self view] text:@"チームメンバー数" textColor:[UIColor yellowColor]];
-    lbMemberNumber = [LightView createLabel:CGRectMake(110, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
+    [LightView createLabel:CGRectMake(30, margin_top+20, 60, 20) parent:[self view] text:@"チームメンバー" textColor:[UIColor blackColor]];
+    lbMemberNumber = [LightView createLabel:CGRectMake(90, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor blackColor]];
     
-    [LightView createLabel:CGRectMake(150, margin_top+20, 30, 20) parent:[self view] text:@"戦力" textColor:[UIColor yellowColor]];
-    lbTeamPower = [LightView createLabel:CGRectMake(185, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor whiteColor]];
-    
+    [LightView createLabel:CGRectMake(120, margin_top+20, 30, 20) parent:[self view] text:@"戦力" textColor:[UIColor blackColor]];
+    lbTeamPower = [LightView createLabel:CGRectMake(155, margin_top+20, 30, 20) parent:[self view] text:@"" textColor:[UIColor blackColor]];
+
     
 
     [vcPlayer view].hidden = YES;
     [vcPlayer setOnFight:nil sel:nil];
     
-    
-    
+    [btMyTeam setBackgroundImage:[UIImage imageNamed:@"battleteam1_0.png"] forState:UIControlStateHighlighted];
+    [btMyTeam setBackgroundImage:[UIImage imageNamed:@"battleteam1_1.png"] forState:UIControlStateNormal];
+    [btJoinTeam setBackgroundImage:[UIImage imageNamed:@"battleteam2_0.png"] forState:UIControlStateHighlighted];
+    [btJoinTeam setBackgroundImage:[UIImage imageNamed:@"battleteam2_1.png"] forState:UIControlStateNormal];
+    btMyTeam.highlighted = YES;
     
 }
 
@@ -104,7 +108,8 @@
     NSLog(@"Team view will appear");
 //    if (!needReload)
 //        return;
-    [ad setBgImg:[UIImage imageNamed:@"bg25.jpg"] ];
+//    [ad setBgImg:[UIImage imageNamed:@"bg25.jpg"] ];
+    [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
 
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/team" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
@@ -123,8 +128,10 @@
     NSLog(@"TEAM:%@", team);
     
     UIImageView* banner = [vMyTeam createImageViewAsRow:@"" frame:CGRectMake(0, 2, 320, 30)];
-    UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 120, 20) parent:banner text:@"" textColor:[UIColor whiteColor]];
+
+    UILabel* lb = [LightView createLabel:CGRectMake(0, 0, 100, 20) parent:banner text:@"" textColor:[UIColor blackColor]];
     UIButton* bt = [LightView createButton:CGRectMake(120, 0, 110, 39) parent:banner text:@"戦友募集" tag:0];
+
 //    [bt.titleLabel setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:13.0f]];
 //    [bt.titleLabel setTextColor:[UIColor greenColor]];
     UIImage *imageNormal = [UIImage imageNamed:@"btn_green_light.png"];

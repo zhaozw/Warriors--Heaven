@@ -142,10 +142,13 @@ class TeamController < ApplicationController
     def invite
         return if !check_session or !user_data
         teams = Team.find_by_sql("select * from teams where owner='#{user_data.id}'")
+        p "==>teams = #{teams.inspect}"
         if teams && teams.size>0
             @team = teams[0]
         else
            @team =  _create_team(session[:uid])
+           user_data.ext.delete_prop("teamnotcreated")
+            user_data.check_save
         end
     end
     

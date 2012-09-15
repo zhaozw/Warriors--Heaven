@@ -72,6 +72,10 @@
         lbError.text = @"Name cannot be empty";
         return;
     }
+    if (name.length > 10){
+        lbError.text = @"Name is too long";
+        return;
+    }
     NSString * tc = lbTeamCode.text;
     if (tc == NULL || tc == [NSNull null])
         tc = @"";
@@ -136,10 +140,13 @@
         [ad setSessionId:sid];
         [ad saveDataUser];
         self.view.hidden = YES;
+   
         [ad setFirstCallReturn:YES];
-        [ad hideWelcomeView];
+//        [ad hideWelcomeView];
         [ad initUI];
-        
+//        [ad.window bringSubviewToFront:self.view];
+         [ad showWelcomeView];
+        [ad preload];
         [ad startRecover]; 
 //        [ad query_msg];
         [ad float_msg];
@@ -179,11 +186,11 @@
 }
 
 - (void) highlightButton:(UIButton*)bt{
-    bt.backgroundColor = [UIColor redColor];
-    [bt setImageEdgeInsets:UIEdgeInsetsMake(2.0f, 2.0f, 2.0f, 2.0f)];
+   // bt.backgroundColor = [UIColor redColor];
+    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 2.0f)];
     if (btSelectedSex){
-        btSelectedSex.backgroundColor = [UIColor clearColor];
-        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+ //       btSelectedSex.backgroundColor = [UIColor clearColor];
+        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 1, 1)];
     }
     btSelectedSex = bt;
 }
@@ -191,6 +198,18 @@
     UIButton* bt = sender;
     currentSelectedSex = bt.tag;
     [self performSelector:@selector(highlightButton:) withObject:bt afterDelay:0.0];
+    
+    // hide keyboard
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+	
+    CGRect rect = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height);
+    self.view.frame = rect;
+	
+    [UIView commitAnimations];
+    [tName resignFirstResponder];
+    [lbTeamCode resignFirstResponder];
 
 }
 

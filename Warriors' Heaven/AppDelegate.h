@@ -51,8 +51,12 @@
     BOOL debug;
     BOOL debug_reg;
     MFMailComposeViewController* controller ;
-}
+    UIWebView* wvMap;
+    UIAlertView* myAlert;
+    BOOL preloaded;
 
+}
+@property (nonatomic, assign)     BOOL bSummarDidLoad;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbVersion;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbBattleResultTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vPreface;
@@ -67,7 +71,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
 @property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
-@property (strong, nonatomic) IBOutlet UIView *vNetworkStatus;
+@property (strong, nonatomic) IBOutlet UIImageView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbAlertMsg;
@@ -103,7 +107,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *vBattleMsg;
 @property (strong, nonatomic) IBOutlet UIView *vBattleMsgBg;
 @property (unsafe_unretained, nonatomic) IBOutlet PurchaseViewController *vcPurchase;
-
+@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *wvPreload;
 - (IBAction)closeFightMsg:(id)sender;
 
 - (void)saveContext;
@@ -135,12 +139,13 @@
 
 - (void) startRecover;
 - (void) reloadStatus;
-
+- (void) showWelcomeView;
 - (void) hideWelcomeView;
 - (void) setFirstCallReturn:(BOOL) b;
 - (void) setUserBusy:(BOOL) busy;
 - (void) updateUserext;
 - (void) query_msg;
+
 
 - (void) saveLocalProp:(NSString*)n v:(NSObject*)d;
 - (NSObject*) readLocalProp:(NSString*)n;
@@ -152,4 +157,7 @@
 
 - (void) showPurchaseView;
 - (bool) initData;
+- (void) closeHelpView:(UIButton*) btn;
+-(void) hideRegView;
+- (void) preload;
 @end

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DHTabBar.h"
 
-@interface DotHide_TabBarController : UITabBarController {
+@interface DotHide_TabBarController : UITabBarController<UITabBarDelegate> {
 	DHTabBar *tabBarView;
 	BOOL firstTime;
 }

@@ -18,7 +18,8 @@
     InAppPurchaseManager* iapm;
 //    NSMutableArray* iapm_list;
     TestIap * iaptest;
-    
+    UIActivityIndicatorView *activityIndicator;
+    UIAlertView* myAlert;
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vwPurchase;
 - (IBAction)onClose:(id)sender;

@@ -9,6 +9,9 @@
 #import "DHTabBar.h"
 #import "DotHide_TabBarController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <QuartzCore/CAAnimation.h>
+#import "AppDelegate.h"
+
 @interface DHTabBar (Private)
 
 -(UIImage*) tabBarImage:(UIImage*)startImage size:(CGSize)targetSize backgroundImage:(UIImage*)backgroundImage;
@@ -130,12 +133,142 @@
 
 //切换tabbar
 - (void)selectedTab:(UIButton *)button{
+    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+    [ad closeHelpView:NULL];
+    int old_index = self.currentSelectedIndex;
 	self.currentSelectedIndex = button.tag;
-	viewController.selectedIndex = self.currentSelectedIndex;
+
+
+    // show animation
+        UIViewController* vc1 = [self.viewController.viewControllers objectAtIndex:old_index ]; 
+    UIViewController* vc2 = [self.viewController.viewControllers objectAtIndex:self.currentSelectedIndex ]; 
+    if (old_index != self.currentSelectedIndex){
+        
+        
+    //    if (old_index == 0){
+    //      /*  [UIView beginAnimations:@"curlup" context:nil];//开始一个动画块，第一个参数为动画块标识
+    ////         [UIView setAnimationDelegate:self];
+    //        [UIView setAnimationDuration:2.0f];//设置动画的持续时间
+    //        
+    ////        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//设置动画块中的动画属性变化的曲线，此方法必须在beginAnimations方法和commitAnimations，默认即为UIViewAnimationCurveEaseInOut效果。详细请参见UIViewAnimationCurve
+    //        
+    ////        [UIView setAnimationRepeatAutoreverses:NO];//设置是否自动反转当前的动画效果
+    //        
+    //        
+    //        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:vc1.view cache:YES];//设置过渡的动画效果，此处第一个参数可使用上面5种动画效果
+    //        
+    //        
+    ////        [vc2.view exchangeSubviewAtIndex:1 withSubviewAtIndex:0];//页面翻转
+    //        
+    //        [UIView commitAnimations];//提交动画
+    //       */
+    //        CATransition *animation  = [CATransition animation ];  
+    //        [animation  setDuration:0.3f];   
+    //        [animation  setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];   
+    //        [animation  setType :@"pageCurl"];  
+    //        [animation  setSubtype: kCATransitionFromBottom];  
+    //        [vc1.view.layer addAnimation:animation  forKey:@"Reveal" ]; 
+    
+        if (self.currentSelectedIndex == 3 || self.currentSelectedIndex==7){
+            viewController.selectedIndex = self.currentSelectedIndex;
+        }else{
+      /*      
+            
+            CATransition *animation2 = [CATransition animation];
+            animation2.delegate = self;
+
+            animation2.duration = 0.2f;
+            
+            //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+            animation2.type = kCATransitionPush;//设置上面4种动画效果
+            //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+            
+            if (old_index < self.currentSelectedIndex){     
+                animation2.subtype = kCATransitionFromLeft;
+            }else if (old_index > self.currentSelectedIndex) {
+                animation2.subtype = kCATransitionFromRight;
+            }
+            [vc1.view.layer addAnimation:animation2 forKey:@"animationID2"]; 
+            
+        CATransition *animation = [CATransition animation];
+            
+        animation.duration = 0.2f;
+            
+            animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        animation.type = kCATransitionPush;//设置上面4种动画效果
+        //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+
+          if (old_index < self.currentSelectedIndex){     
+              animation.subtype = kCATransitionFromRight;
+          }else if (old_index > self.currentSelectedIndex) {
+              animation.subtype = kCATransitionFromLeft;
+          }
+            animation.delegate = self;
+            UIView* sup = viewController.selectedViewController.view.superview;
+//            [sup addSubview:vc2.view];
+//            [vc2.view.layer addAnimation:animation forKey:@"animationID2"]; 
+        
+    
+            oldvc = vc1;
+       */
+            if (self.currentSelectedIndex == 1){
+                    [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
+            }else if (self.currentSelectedIndex == 6){
+                 [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
+            }else{
+                [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+            }
+            
+            UIView* fromView = vc1.view;
+            UIView* toView = vc2.view;
+            // Get the size of the view area.d
+            CGRect viewSize = fromView.frame;
+            BOOL scrollRight = self.currentSelectedIndex > old_index;
+            
+            // Add the to view to the tab bar view.
+            [fromView.superview addSubview:toView];
+            
+            // Position it off screen.
+            toView.frame = CGRectMake((scrollRight ? 320 : -320), viewSize.origin.y, 320, viewSize.size.height);
+            
+            [UIView animateWithDuration:0.2f
+                             animations: ^{
+                                 
+                                 // Animate the views on and off the screen. This will appear to slide.
+                                 fromView.frame =CGRectMake((scrollRight ? -320 : 320), viewSize.origin.y, 320, viewSize.size.height);
+                                 toView.frame =CGRectMake(0, viewSize.origin.y, 320, viewSize.size.height);
+                             }
+             
+                             completion:^(BOOL finished) {
+                                 if (finished) {
+                                     // Remove the old view from the tabbar view.
+                                     [fromView removeFromSuperview];
+                                     viewController.selectedIndex = self.currentSelectedIndex;
+                                 }
+                             }];
+        }
+    }
+
+
+//        viewController.selectedIndex = self.currentSelectedIndex;
+    // change tab button
 	[self performSelector:@selector(slideTabBg:) withObject:button];
 }
 
 
+///*
+// *动画结束后的委托函数，移除动画视图
+// */
+//- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+//    // do real view change
+//    if (flag && self.currentSelectedIndex != viewController.selectedIndex){
+//        viewController.selectedIndex = self.currentSelectedIndex;
+//        [oldvc.view removeFromSuperview];
+//    }
+//
+//    
+// 
+//}
 //切换滑块位置
 - (void)slideTabBg:(UIButton *)btn{
 	[UIView beginAnimations:nil context:nil];  

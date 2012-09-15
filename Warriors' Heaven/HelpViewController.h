@@ -13,6 +13,9 @@
     AppDelegate *ad;
     UIWebView* wvContent;
     
+    UIActivityIndicatorView *activityIndicator;
+    UIAlertView* myAlert;
+        BOOL anim;
 }
 
 @end

@@ -1,4 +1,39 @@
 <html>
+<style>
+.preloader {
+/* Images you want to preload*/
+/*background-image: url(/game/profile/p_0.png);
+background-image: url(/game/profile/p_0b.png);
+background-image: url(/game/profile/p_0m.png);
+
+background-image: url(/game/profile/p_1.png);
+background-image: url(/game/profile/p_1b.png);
+background-image: url(/game/profile/p_1m.png);
+
+background-image: url(/game/profile/p_2.png);
+background-image: url(/game/profile/p_2b.png);
+background-image: url(/game/profile/p_2m.png);
+
+background-image: url(/game/profile/p_3.png);
+background-image: url(/game/profile/p_3b.png);
+background-image: url(/game/profile/p_3m.png);
+
+background-image: url(/game/profile/p_4.png);
+background-image: url(/game/profile/p_4b.png);
+background-image: url(/game/profile/p_4m.png);
+
+background-image: url(/game/profile/p_5.png);
+background-image: url(/game/profile/p_5b.png);
+background-image: url(/game/profile/p_5m.png);
+
+background-image: url(/game/obj/npc/battle_player001.gif);*/
+/*background-image: url(/game/obj/npc/playerview.gif);*/
+
+width: 0px;
+height: 0px;
+display: inline;
+}
+</style>
 <body style="background-color: transparent; font-size:10pt;">
 	<div id="main" style="height:170px;overflow:scroll;">
 	<div>
@@ -12,11 +47,12 @@
 	</div-->
 	<% if @quest_count> 0 %>
 	<div>
-	また<%=@quest_count%>つの<a href="/quests">任務</a>,3つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">栄誉勲章</a>や2つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">肩書</a>きがあなたを待っているよ！!
+	また<%=@quest_count%>つの<a href="/quests">任務</a>
+	<!--,3つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">栄誉勲章</a>や2つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">肩書</a-->きがあなたを待っているよ！!
 	</div>
 	<% end %>
 	</div><!-- main -->
-	
+
 </body>
 </html>
 
