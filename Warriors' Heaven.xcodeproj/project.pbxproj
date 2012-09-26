@@ -596,7 +596,6 @@
 				5AF3E2C415D7514700897A08 /* btn_reg.png */,
 				5AF3E2BC15D7252200897A08 /* btn_stamp.png */,
 				5AF3E2BE15D725DB00897A08 /* btn_stamp1.png */,
-				5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */,
 				5A02741C151E98BA0083706E /* btn_01.png */,
 				5A027416151C271F0083706E /* btn_wood.png */,
 				5A02741A151E978C0083706E /* btn_03.png */,
@@ -885,6 +884,7 @@
 		5AFD8E031502CFC20066ECBA /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				5AFEF3BB16017D840088EB61 /* maps */,
 				5ADF4D4115468E8700D2D44F /* bg */,
 				5ADF4D281543BF0100D2D44F /* tabs */,
 				5A9C75AC1542B2F500275F04 /* buttons */,
@@ -928,6 +928,14 @@
 				5AA65FEB15D336E50041C7FE /* map_yangzhou.html */,
 			);
 			name = resources;
+			sourceTree = "<group>";
+		};
+		5AFEF3BB16017D840088EB61 /* maps */ = {
+			isa = PBXGroup;
+			children = (
+				5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */,
+			);
+			name = maps;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
