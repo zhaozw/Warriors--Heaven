@@ -8,6 +8,7 @@
 
 #import "HomeViewController.h"
 #import <Foundation/NSURLRequest.h>
+#import <QuartzCore/QuartzCore.h>
 #import "AppDelegate.h"
 #import "SBJson.h"
 #import "WHHttpClient.h"
@@ -23,9 +24,12 @@
 @synthesize vSummary;
 @synthesize lbStatus;
 @synthesize vcStatus;
+@synthesize btCloseFloat1;
 @synthesize lbTitle;
 @synthesize playerProfile;
 @synthesize bgView;
+@synthesize vHomeUnder;
+@synthesize vHome;
 @synthesize vBadge;
 @synthesize ad;
 @synthesize vSeasonImag;
@@ -208,9 +212,10 @@
     ad = [UIApplication sharedApplication].delegate;
     // set strechable image for report view
     UIImage *imageNormal = [UIImage imageNamed:@"reportboard.png"];
-    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:39];
+    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:20];
+    UIImage* rimage = [imageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(30, -1, 30, -1)];
     //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
-    [self->viewReport setImage:stretchableImageNormal  ];
+    [self->viewReport setImage:rimage  ];
 	
    // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
@@ -218,6 +223,11 @@
 //    [self addChildViewController:vcStatus];
 //    [self.view addSubview:vcStatus.view];
     
+//    viewReport.animationImages= [NSArray arrayWithObjects:
+//                                 [UIImage imageNamed:@"scroll1.png"],
+//                                 [UIImage imageNamed:@"scroll2.png"],
+//                                 [UIImage imageNamed:@"reportboard.png"],
+//                                 nil];
     
     [[self lbTitle ] setText:@""];
     [lbUserName setText:@""];
@@ -229,7 +239,8 @@
     [viewReport addSubview:vSummary];
     vSummary.frame = CGRectMake(26, 56, 269, 175);
     
-    int content_start_y = 68;
+//    int content_start_y = 68;
+    int content_start_y = 0;
     int margin_left = 8; // the left of vProfileBg
 //    [self recoverWebView];
 
@@ -243,14 +254,14 @@
     int height = 20;
     int width= 30;
     
-
+UIView* vMain = vHome;
     
     vSeasonImag = [[EGOImageView alloc] initWithFrame:CGRectMake(left_seasonimg, top_sessonimg, 50, 50)];
     vSeasonImag.alpha = 0.39f;
 //    [vProfileBg addSubview:vSeasonImag];
-    [[self view] addSubview:vSeasonImag];
+    [vMain addSubview:vSeasonImag];
     
-    UIView* vMain = [self view] ;
+    
     
     Lunar * lunar_day = [Lunar LunarForSolar:[NSDate date]];
     
@@ -303,11 +314,12 @@
     [vSummary loadRequest:req];
     
     // show map 
-    vSummary.hidden = YES;
+    vSummary.hidden = NO;
     /* 
         use UIWebView
      */
     
+
     wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
     wvMap.userInteractionEnabled = TRUE;
     wvMap.delegate = self;
@@ -331,9 +343,13 @@
     //    wvMap.scrollView.showsVerticalScrollIndicator = NO;
     //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
     wvMap.hidden = NO;
-    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
-    wvMap.scrollView.showsVerticalScrollIndicator = NO;
-//    wvMap.scrollView.contentSize = CGSizeMake(1000, 1000);
+    if ( [ [ [UIDevice currentDevice] systemVersion] floatValue] >= 5 ){
+        wvMap.scrollView.showsHorizontalScrollIndicator = NO;
+        wvMap.scrollView.showsVerticalScrollIndicator = NO;
+    }else{
+
+    }
+        //    wvMap.scrollView.contentSize = CGSizeMake(1000, 1000);
 //    [[wvMap scrollView] scrollRectToVisible:CGRectMake(600, 600, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
      
@@ -366,6 +382,20 @@
     [vMap addGestureRecognizer:singleTap];  
     
 */
+    vHomeUnder.backgroundColor = [UIColor clearColor];
+    vHome.backgroundColor = [UIColor clearColor];
+    [[self view]bringSubviewToFront:vHome];
+    [[self view] bringSubviewToFront:vHomeUnder];
+    [self.view bringSubviewToFront:btCloseFloat1];
+    
+    
+    vScrollAni = [[UIImageView alloc] initWithFrame:CGRectMake(0, 65, 50, 160)];
+    [[self view ] addSubview: vScrollAni];
+    vScrollAni.animationImages  = [NSArray arrayWithObjects:
+                                   [UIImage imageNamed:@"scroll2.png"],
+                                   [UIImage imageNamed:@"scroll3.png"],
+                                   nil];
+    [vHome bringSubviewToFront:vScrollAni];
 }
 
 - (void) recoverWebView{
@@ -417,6 +447,9 @@
     [self setVSummary:nil];
     [self setVBadge:nil];
     [self setVProfileBg:nil];
+    [self setVHome:nil];
+    [self setVHomeUnder:nil];
+    [self setBtCloseFloat1:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -509,6 +542,154 @@
 
 */
 
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+{
+    if ([animationID isEqualToString:@"closereport"]){
+         viewReport.hidden = YES;
+
+        vScrollAni.hidden = NO;
+        //vScrollAni.transform = CGAffineTransformIdentity;
+        [vScrollAni setAnimationDuration:1.0f];
+        [vScrollAni setAnimationRepeatCount:30];
+        [vScrollAni startAnimating];
+
+        
+        
+        
+//        vHome.transform = CGAffineTransformMakeScale(1, 1);
+//        vHome.layer.anchorPoint = CGPointMake(0.0f, 0.5f);
+//
+//        vHome.layer.position = CGPointMake(0, vHome.layer.position.y);
+        [UIView animateWithDuration:0.3f
+                              delay: 0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                          
+                             vScrollAni.transform = CGAffineTransformIdentity;
+//                             vHome.transform = CGAffineTransformMakeScale(0.1f,1.0f);
+//                             vHome.alpha = 0.0f;
+                             CGRect f = vHome.frame;
+                             f.size.width = 0;
+                             vHome.frame = f;
+                         }
+                         completion:^(BOOL finished){
+                             vHome.hidden = YES;
+                             [vScrollAni stopAnimating];
+                         }];
+  
+
+        
+      
+      
+
+
+       
+    }else{
+        
+        [vScrollAni stopAnimating];
+//        vScrollAni.hidden = YES;
+        
+//        viewReport.transform = CGAffineTransformMakeScale(1,0.1);
+//        viewReport.alpha = 0.0f;
+//        CGPoint point2 = viewReport.layer.position;
+//        point2.y = 0;
+//        viewReport.layer.position = point2;
+        [UIView beginAnimations:@"scroll2" context:nil];
+        [UIView setAnimationDuration:0.3];
+//        viewReport.layer.anchorPoint = CGPointMake(0.5f, 0.0f);
+//        viewReport.transform = CGAffineTransformMakeScale(1,1);
+//        
+//        viewReport.alpha = 1.0f;
+        CGRect f = viewReport.frame;
+        f.size.height = 200;
+        viewReport.frame = f;
+        [UIView commitAnimations];
+          viewReport.hidden = NO;
+    }
+}
+- (IBAction)onCloseFloat1:(id)sender {
+    if (vHome.hidden){
+        [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow2.png"] forState:UIControlStateNormal];
+        vHome.hidden = NO;
+        
+        
+        vScrollAni.hidden = NO;
+        vScrollAni.transform = CGAffineTransformIdentity;
+        [vScrollAni setAnimationDuration:1.0f];
+        [vScrollAni setAnimationRepeatCount:30];
+        [vScrollAni startAnimating];
+//        
+//        [UIView animateWithDuration:0.3
+//                              delay: 0.0
+//                            options: UIViewAnimationOptionCurveEaseIn
+//                         animations:^{
+//                          
+//                         }
+//                         completion:^(BOOL finished){
+//                     
+//                         }];
+
+      
+        
+       // vHome.transform = CGAffineTransformMakeScale(0.1, 1);
+//        vHome.alpha = 0.0f;
+    //    CGPoint point = vHome.layer.position;
+
+      //  vHome.layer.anchorPoint = CGPointMake(0.0f, 0.5f);
+//        point.x = 0;
+//        vHome.layer.position = point;
+        CGRect f = vHome.frame;
+        f.size.width = 0;
+        vHome.frame = f;
+        [UIView beginAnimations:@"scroll" context:nil];
+        
+        
+        
+        [UIView setAnimationDelegate:self];
+        //[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        [UIView setAnimationDuration:0.5];
+       // vHome.transform = CGAffineTransformMakeScale(1,1);
+
+        f.size.width = 320;
+        vHome.frame = f;
+//        vHome.alpha = 1.0f;
+        CGAffineTransform t = CGAffineTransformMakeTranslation(300, 0);
+        vScrollAni.transform = CGAffineTransformScale(t, 0.2, 1);
+        [UIView commitAnimations];
+  
+    
+//        viewReport.animationDuration= 1.0f;
+//        viewReport.animationRepeatCount = 1;
+//        
+//        [viewReport startAnimating];
+     
+  
+    }
+    else{
+     
+            [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow1.png"] forState:UIControlStateNormal];
+//        viewReport.transform = CGAffineTransformMakeScale(1,1);
+//        viewReport.alpha = 0.0f;
+//        CGPoint point2 = viewReport.layer.position;
+//        point2.y = 0;
+//        viewReport.layer.position = point2;
+        [UIView beginAnimations:@"closereport" context:nil];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+        [UIView setAnimationDuration:0.3];
+//        viewReport.layer.anchorPoint = CGPointMake(0.5f, 0.0f);
+//        viewReport.transform = CGAffineTransformMakeScale(1,0.1);
+        
+//        viewReport.alpha = 0.0f;
+        CGRect f = viewReport.frame;
+        f.size.height = 30;
+        viewReport.frame = f;
+        [UIView commitAnimations];
+        
+  
+    }
+}
+
 - (IBAction)onTouchFight:(id)sender {
     AppDelegate * ad = [UIApplication sharedApplication].delegate;
     [[ad tabBarController] selectTab:2];
@@ -597,8 +778,10 @@
 //}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+      if ( [ [ [UIDevice currentDevice] systemVersion] floatValue] >= 5 ){
     [[wvMap scrollView] scrollRectToVisible:CGRectMake(299, 260, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
+      }
     if (vSummary == webView){
         ad.bSummarDidLoad = TRUE;
         [ad hideWelcomeView];

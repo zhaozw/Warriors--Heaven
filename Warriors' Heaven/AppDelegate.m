@@ -42,7 +42,7 @@
 @synthesize vHelpWebView;
 @synthesize btCloseHelpView;
 @synthesize vcHome;
-@synthesize vNetworkStatus;
+@synthesize vNetworkStatus; 
 @synthesize vAlertImg;
 @synthesize btClose;
 @synthesize lbAlertMsg;
@@ -129,7 +129,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
+//   session_id = nil; // test register new user
 //    [self setSessionId:session_id];
 
 }

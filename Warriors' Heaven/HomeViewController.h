@@ -25,13 +25,17 @@
     int hideWebViewCount;
    UIWebView* wvMap;
     UIImageView* vMap;
+    UIImageView* vScrollAni;
 }
+@property (strong, nonatomic) IBOutlet UIView *vHomeUnder;
+@property (strong, nonatomic) IBOutlet UIView *vHome;
 @property (strong, nonatomic) IBOutlet UIScrollView *vBadge;
 @property (strong, retain) AppDelegate *ad;
 @property (strong, nonatomic) IBOutlet UIWebView *vSummary;
 @property (strong, nonatomic) IBOutlet UILabel *lbStatus;
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 - (IBAction)onTouchTeam:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *btCloseFloat1;
 
 @property (strong, nonatomic) IBOutlet UILabel *lbTitle;
 @property (strong, nonatomic) IBOutlet EGOImageView *playerProfile;
@@ -45,6 +49,7 @@
 @property (strong, nonatomic)  UILabel *lbTiming;
 @property (strong, nonatomic)  UILabel *lbTimingInfo;
 @property (strong, nonatomic) IBOutlet UIImageView *vProfileBg;
+- (IBAction)onCloseFloat1:(id)sender;
 
 - (IBAction)onTouchFight:(id)sender;
 
