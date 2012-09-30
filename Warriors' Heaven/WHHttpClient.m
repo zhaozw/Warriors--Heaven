@@ -319,7 +319,7 @@
     [[ad requests] setValue:@"0" forKey:self->_cmd];
 
     if (retry){
-        [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+        [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:5]; // less than 5 sec will cause screen flash because the alert window just close in 3 sec
     }
     
 }

@@ -11,7 +11,9 @@
 #import "AppDelegate.h"
 #import "EGOImageView.h"
 
+
 @class AppDelegate;
+//@class CharacterViewController;
 @interface HomeViewController : UIViewController<UIWebViewDelegate>{
     UIImageView * bgView;
     __unsafe_unretained IBOutlet UILabel *lbGold;
@@ -27,6 +29,9 @@
     UIImageView* vMap;
     UIImageView* vScrollAni;
 }
+//@property (strong, nonatomic) IBOutlet CharacterViewController *vcChar;
+- (IBAction)onTouchChar:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *btChar;
 @property (strong, nonatomic) IBOutlet UIView *vHomeUnder;
 @property (strong, nonatomic) IBOutlet UIView *vHome;
 @property (strong, nonatomic) IBOutlet UIScrollView *vBadge;

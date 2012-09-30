@@ -769,7 +769,7 @@
 //        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
         [self performSelector:@selector(hideNetworkStatus) withObject:nil afterDelay:3];
     
-      vNetworkStatus.hidden = NO;
+    vNetworkStatus.hidden = NO;
     vAlert.hidden = NO;
     
     [window bringSubviewToFront:vAlert];
