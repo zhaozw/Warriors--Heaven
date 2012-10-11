@@ -169,6 +169,9 @@
 		5ADA635F1626972B007E8AF2 /* reportboard640x235-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADA635E1626972B007E8AF2 /* reportboard640x235-2.png */; };
 		5ADA636116269802007E8AF2 /* reportboard640x235.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADA636016269802007E8AF2 /* reportboard640x235.png */; };
 		5ADA63631626A99C007E8AF2 /* reportboard640x235-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADA63621626A99C007E8AF2 /* reportboard640x235-3.png */; };
+		5ADACA641626DECE009F32C7 /* map_yangzhou3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA631626DECE009F32C7 /* map_yangzhou3.jpg */; };
+		5ADACA6716271C32009F32C7 /* moretab2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA6616271C32009F32C7 /* moretab2.png */; };
+		5ADACA69162722DD009F32C7 /* moretab3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA68162722DD009F32C7 /* moretab3.png */; };
 		5ADF4D1B1542B6F700D2D44F /* btn_blue_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D1A1542B6F700D2D44F /* btn_blue_light.png */; };
 		5ADF4D1F1542B76300D2D44F /* Lunar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF4D1E1542B76300D2D44F /* Lunar.m */; };
 		5ADF4D381543C1EF00D2D44F /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D371543C1ED00D2D44F /* bg1.jpg */; };
@@ -437,6 +440,9 @@
 		5ADA635E1626972B007E8AF2 /* reportboard640x235-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reportboard640x235-2.png"; sourceTree = "<group>"; };
 		5ADA636016269802007E8AF2 /* reportboard640x235.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reportboard640x235.png; sourceTree = "<group>"; };
 		5ADA63621626A99C007E8AF2 /* reportboard640x235-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reportboard640x235-3.png"; sourceTree = "<group>"; };
+		5ADACA631626DECE009F32C7 /* map_yangzhou3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map_yangzhou3.jpg; sourceTree = "<group>"; };
+		5ADACA6616271C32009F32C7 /* moretab2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moretab2.png; sourceTree = "<group>"; };
+		5ADACA68162722DD009F32C7 /* moretab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moretab3.png; sourceTree = "<group>"; };
 		5ADF4D1A1542B6F700D2D44F /* btn_blue_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_blue_light.png; sourceTree = "<group>"; };
 		5ADF4D1D1542B76300D2D44F /* Lunar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lunar.h; sourceTree = "<group>"; };
 		5ADF4D1E1542B76300D2D44F /* Lunar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lunar.m; sourceTree = "<group>"; };
@@ -929,6 +935,8 @@
 				5A8704E1157C62CE009436B2 /* logo57x57.png */,
 				5A8704E2157C62CE009436B2 /* logo72x72.png */,
 				5AF3E2D415D8BE9A00897A08 /* unknown2.jpg */,
+				5ADACA6616271C32009F32C7 /* moretab2.png */,
+				5ADACA68162722DD009F32C7 /* moretab3.png */,
 				5A646A8B156E967E0040EECD /* unknown.jpg */,
 				5AC06A1B152475080021B7FB /* star.png */,
 				5ACC6C0C15200FBC00C83551 /* eqslot.png */,
@@ -960,7 +968,6 @@
 				5A47AC511516DFD300C050FB /* traininggrd.jpg */,
 				5A47AC551516F08200C050FB /* traininggrd2.jpg */,
 				5A646A87156E61460040EECD /* defeated.png */,
-				5AA65FEB15D336E50041C7FE /* map_yangzhou.html */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -968,6 +975,8 @@
 		5AFEF3BB16017D840088EB61 /* maps */ = {
 			isa = PBXGroup;
 			children = (
+				5ADACA631626DECE009F32C7 /* map_yangzhou3.jpg */,
+				5AA65FEB15D336E50041C7FE /* map_yangzhou.html */,
 				5AAB84A81617E49300276578 /* map_yangzhou2.jpg */,
 				5AA65FE415D06F3B0041C7FE /* map_yangzhou.jpg */,
 			);
@@ -1196,6 +1205,9 @@
 				5ADA635F1626972B007E8AF2 /* reportboard640x235-2.png in Resources */,
 				5ADA636116269802007E8AF2 /* reportboard640x235.png in Resources */,
 				5ADA63631626A99C007E8AF2 /* reportboard640x235-3.png in Resources */,
+				5ADACA641626DECE009F32C7 /* map_yangzhou3.jpg in Resources */,
+				5ADACA6716271C32009F32C7 /* moretab2.png in Resources */,
+				5ADACA69162722DD009F32C7 /* moretab3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

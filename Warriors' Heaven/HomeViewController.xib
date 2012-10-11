@@ -148,6 +148,7 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{163, 512}, {121, 35}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -306,7 +307,7 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 67}, {320, 360}}</string>
+						<string key="NSFrame">{{0, 67}, {320, 160}}</string>
 						<reference key="NSSuperview" ref="842291567"/>
 						<reference key="NSNextKeyView" ref="1055349420"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="1026454324">
@@ -392,7 +393,7 @@
 								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{198, 19}, {72, 37}}</string>
 								<reference key="NSSuperview" ref="862489393"/>
-								<reference key="NSNextKeyView" ref="410270953"/>
+								<reference key="NSNextKeyView" ref="258565212"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -418,6 +419,28 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIDataDetectorTypes">1</int>
 								<bool key="IBUIDetectsPhoneNumbers">YES</bool>
+							</object>
+							<object class="IBUIButton" id="258565212">
+								<reference key="NSNextResponder" ref="862489393"/>
+								<int key="NSvFlags">-2147483356</int>
+								<string key="NSFrame">{{87, 90}, {146, 59}}</string>
+								<reference key="NSSuperview" ref="862489393"/>
+								<reference key="NSNextKeyView" ref="410270953"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<string key="IBUINormalTitle">给游戏提意见</string>
+								<reference key="IBUIHighlightedTitleColor" ref="403201099"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="698352367"/>
+								<reference key="IBUINormalBackgroundImage" ref="963022616"/>
+								<reference key="IBUIFontDescription" ref="481305268"/>
+								<reference key="IBUIFont" ref="34946646"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 224}, {320, 240}}</string>
@@ -633,6 +656,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">lbComment</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="258565212"/>
+					</object>
+					<int key="connectionID">94</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="842291567"/>
 						<reference key="destination" ref="372490531"/>
@@ -789,6 +820,7 @@
 							<reference ref="14809992"/>
 							<reference ref="767946291"/>
 							<reference ref="176030820"/>
+							<reference ref="258565212"/>
 						</array>
 						<reference key="parent" ref="842291567"/>
 					</object>
@@ -864,6 +896,11 @@
 						<reference key="object" ref="207663736"/>
 						<reference key="parent" ref="385792549"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">93</int>
+						<reference key="object" ref="258565212"/>
+						<reference key="parent" ref="862489393"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -896,12 +933,13 @@
 				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="89.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="93.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">92</int>
+			<int key="maxID">94</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

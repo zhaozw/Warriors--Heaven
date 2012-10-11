@@ -20,9 +20,11 @@
 	UIImage *bgImage = [UIImage imageNamed:@"TabBarGradient.png"];
 	if (firstTime) {
         // preload for EGOButton
-        UIViewController* c = [self.viewControllers objectAtIndex:5];
-        c.view;
-		self.selectedIndex = 0;
+        for (int i = 0; i < 9; i++){
+            UIViewController* c = [self.viewControllers objectAtIndex:i];
+            c.view;
+        }
+		//self.selectedIndex = 0; this will cause home view display on top of welcome view
 		firstTime = NO;
 	}
 	tabBarView = [[DHTabBar alloc] initWithBackgroundImage:bgImage
@@ -30,7 +32,7 @@
 											ViewController:self];
 	[self.view addSubview:tabBarView];
 	self.moreNavigationController.navigationBarHidden = YES;
-	[super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     NSLog(@"first view loaded");
 //    CGRect r = tabBarView.frame;
 //    CGRect rr = self.view.frame;

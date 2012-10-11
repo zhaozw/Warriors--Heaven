@@ -583,6 +583,8 @@
 }
 
 - (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot{
+    if (skillname == NULL)
+        return;
 //    practiseRate = 1;
     self->usepot = _usepot;
 

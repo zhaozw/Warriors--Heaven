@@ -27,7 +27,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize vcCharacter;
+//@synthesize vcCharacter;
 @synthesize vcStatus;
 @synthesize viewcontroller;
 @synthesize tabBarController;
@@ -41,8 +41,8 @@
 @synthesize vHelp;
 @synthesize vHelpWebView;
 @synthesize btCloseHelpView;
-@synthesize vcHome;
-@synthesize vNetworkStatus; 
+//@synthesize vcHome;
+@synthesize vNetworkStatus;
 @synthesize vAlertImg;
 @synthesize btClose;
 @synthesize lbAlertMsg;
@@ -63,6 +63,10 @@
 @synthesize bSummarDidLoad;
 
 @synthesize lbLoading;
+@synthesize screenSize;
+@synthesize bIsFirstRun;
+@synthesize vMoreTab;
+@synthesize vcTraining;
 
 - (id) init{
     /////////////////
@@ -188,7 +192,7 @@
     //    [bgView setAlpha:0.5f];
     
     [window addSubview:bgView];
-    [window addSubview:tabBarController.view];
+//    [window addSubview:tabBarController.view]; // move to onReceiveStatus, because this will show home view on top of welcome view
     
     // add create status view
     //    [window addChildViewController:vcStatus];
@@ -320,6 +324,8 @@
     return screenSize.height > 480;
 }
 
+
+
 - (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin{
     int h = screenSize.height;
     if (h>480 ){
@@ -363,6 +369,8 @@
     
     bUserSkillNeedUpdate = TRUE;
 
+//    vcHome = [tabBarController.viewControllers objectAtIndex:0];
+    
     floatMsg = [[NSMutableArray alloc] init];
     vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
     UIImage *imageNormal = [UIImage imageNamed:@"msgbg.png"];
@@ -392,7 +400,7 @@
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(320-38, 480-38-49, 38, 38 )];
+    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(screenSize.width-38, screenSize.height-38-49, 38, 38 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
@@ -434,8 +442,9 @@
     NSLog(@"load session id %@", session_id);
     
     
-
-    
+    NSString * sFirstRun = [self readLocalProp:@"firstRun"];
+    bIsFirstRun =  ((sFirstRun == NULL) || sFirstRun == [NSNull null]);
+  
 
 //[window bringSubviewToFront:vMsgFloat];
     
@@ -450,6 +459,9 @@
     [client1 setRetry:YES];  
     //    [client1 setResponseHandler:@selector(handleServerListError:)];
     [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/wh/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+    
+    
+
     
 //    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];
@@ -574,24 +586,42 @@
     
 }
 
+// needed because home view be on top  when it inited
+- (void) topWelcomeView{
+    [window bringSubviewToFront:vWelcome];
+}
 - (void) showWelcomeView{
     bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
+    [vWelcome addSubview:lbVersion];
+    [vWelcome addSubview:lbLoading];
+    [self checkRentina:lbVersion changeSize:NO changeOrigin:YES];
+    //[self checkRentina:lbLoading changeSize:NO changeOrigin:YES];
+    [self checkRentina:vWelcome changeSize:YES changeOrigin:NO];
+    if ([self isRetina4]){
+         CGRect r = lbLoading.frame;
+        r.origin.y += (568-480)/2;
+        lbLoading.frame = r;
+    }
+    
+    CGRect r = lbVersion.frame;
+    r.origin.y = screenSize.height - r.size.height;
+    lbVersion.frame = r;
+    
     lbLoading.hidden = NO;
     //        [vWelcome addSubview:vCompanyLogo];
     //        [vWelcome addSubview:lbCompnayName];
-    [vWelcome addSubview:lbVersion];
-    [vWelcome addSubview:lbLoading];
-    [window bringSubviewToFront:vWelcome];
+   [window bringSubviewToFront:vWelcome];
     tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
 
 }
 - (void) hideWelcomeView{
-    bShowingWelcome = NO;
+
     if (!bFirstCallReturn || !bSummarDidLoad || !preloaded) 
         return;
+        bShowingWelcome = NO;
     vWelcome.hidden = YES;
     tabBarController.view.hidden = NO;
 }
@@ -665,10 +695,12 @@
     [self setDataUser:data save:YES];
     NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
     bUserSkillNeedUpdate = FALSE;
-    if (!bShowingWelcome)
-        [self hideWelcomeView];
+ //   if (!bShowingWelcome)
+   //     [self hideWelcomeView]; // will be hidden after home view loading finished
     
-    [vcHome viewDidAppear:NO];
+    // show home view
+    [window addSubview:tabBarController.view];
+//    [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];
     
     // check pending task
@@ -676,8 +708,13 @@
     NSObject* prop = [str JSONValue];
     NSObject* pending = [prop valueForKey:@"pending"];
     if (pending){
-        TrainingGround *vc = (TrainingGround*)vcTraining;
-        [vc _startPractise:[pending valueForKey:@"skill"] _usepot:[pending valueForKey:@"usepot"]];
+//        TrainingGround *vc = (TrainingGround*)vcTraining;
+        NSString* skillName = [pending valueForKey:@"skill"];
+        if (skillName == NULL || skillName == [NSNull null]){
+            
+        }
+            else
+                [vcTraining _startPractise:skillName _usepot:[pending valueForKey:@"usepot"]];
     }
     
    
@@ -685,6 +722,32 @@
 //    [self query_msg];
     [self float_msg];
     
+    if (bIsFirstRun){
+        [self saveLocalProp:@"firstRun" v:@"1"];
+    }
+    
+//    [self performSelector:@selector(showTipMoreTab) withObject:NULL afterDelay:10];
+    
+
+}
+- (void) hideTipMoreTab{
+    vMoreTab.hidden = YES;
+}
+- (void) showTipMoreTab{
+    if (vMoreTab. hidden == NO)
+        return; // in case already triggered by HomeViewController
+    if (bShowingWelcome){
+        [self performSelector:@selector(showTipMoreTab) withObject:NULL afterDelay:6];
+        return;
+    }
+     vMoreTab.frame = CGRectMake(screenSize.width-80, screenSize.height-50-30, 80, 50);
+    vMoreTab. hidden  = NO;
+    [[self window] bringSubviewToFront:vMoreTab];
+    vMoreTab.animationDuration = 1;
+    vMoreTab.animationRepeatCount = 5;
+    vMoreTab.animationImages = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"moretab2.png"], [UIImage imageNamed:@"moretab3.png"], nil];
+    [vMoreTab startAnimating];
+    [self performSelector:@selector(hideTipMoreTab) withObject:NULL afterDelay:5];
 }
 
 - (void) float_msg{

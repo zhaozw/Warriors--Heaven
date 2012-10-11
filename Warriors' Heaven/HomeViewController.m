@@ -16,6 +16,7 @@
 #import "EGOImageView.h"
 #import "LightView.h"
 #import "Lunar.h"
+#import "TrainingGround.h"
 
 @implementation HomeViewController
 @synthesize lbUserName;
@@ -75,6 +76,7 @@
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+    [ad topWelcomeView];
 //    [self recoverWebView];
     
 }
@@ -227,8 +229,9 @@
         [self->viewReport setImage:rimage  ];
     }else
         [self->viewReport setImage:stretchableImageNormal  ];
-    viewReport.frame
-    = CGRectMake(0, 0, 320, 203);
+//    int h = [ad screenSize].height;
+//    int h1 = vHome.frame.size.height;
+    viewReport.frame = CGRectMake(0, 0, 320, [ad screenSize].height-49-65-vHome.frame.size.height);
 //       UIImage *stretchableImageNormal2 = [rimage stretchableImageWithLeftCapWidth:0 topCapHeight:0];
     //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
  	
@@ -252,8 +255,8 @@
     vSummary.delegate = self;
     [viewReport setUserInteractionEnabled:YES];
     [viewReport addSubview:vSummary];
-    vSummary.frame = CGRectMake(26, 56, 269, 130);
-    [ad checkRentina:viewReport changeSize:YES changeOrigin:NO];
+    vSummary.frame = CGRectMake(26, 36, 269, 130);
+//    [ad checkRentina:viewReport changeSize:YES changeOrigin:NO];
     [ad checkRentina:vSummary changeSize:YES changeOrigin:NO];
 //    int content_start_y = 68;
     int content_start_y = 0;
@@ -335,8 +338,9 @@
         use UIWebView
      */
     
-
-    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49)];
+  
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, [ad screenSize].height-49)];
+//      [ad checkRentina:wvMap changeSize:YES changeOrigin:NO];
     wvMap.userInteractionEnabled = TRUE;
     wvMap.delegate = self;
     //    [[self view] addSubview:wvMap];
@@ -477,6 +481,7 @@
     [self setBtCloseFloat1:nil];
     [self setBtChar:nil];
 //    [self setVcChar:nil];
+    [self setLbComment:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -646,7 +651,9 @@
                             options: UIViewAnimationOptionCurveEaseIn
                          animations:^{
                              CGRect f = viewReport.frame;
-                             f.size.height = [ad retinaHight:203];
+                    
+                                 f.size.height = [ad screenSize].height-49-65-vHome.frame.size.height;
+                  
                              viewReport.frame = f;
                          }
                          completion:^(BOOL finished){
@@ -803,8 +810,15 @@
     }else if ( [url hasPrefix:@"/clientaction/gototab/"]){
         NSString* tab = [url substringFromIndex:22];
         int iTab = [tab intValue];
-        if (iTab >0)
-            [[ad tabBarController] selectTab:iTab];
+        if (iTab >0){
+            if (iTab > 100){
+                if (iTab == 103) {// cang jin ge
+                    [[ad vcTraining] onSelectLibrary:NULL];
+                  [[ad tabBarController] selectTab:iTab];
+                }
+            }else
+                [[ad tabBarController] selectTab:iTab];
+        }
         return FALSE;
     }
         
@@ -843,6 +857,8 @@
         ad.bSummarDidLoad = TRUE;
         [ad hideWelcomeView];
         [ad hideRegView];
+//        if ([ad bIsFirstRun])
+            [ad showTipMoreTab];
     }
 }
 
@@ -856,17 +872,24 @@
 }
 
 
-- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint p = [gestureRecognizer locationInView:vMap];
     
     int cords[20][5] ={
-        {393,419,495,500,1}, 
-        {761,945,822,1012,7}
+        {44,129,126,214,3},
+        {126,91,212,163,2},
+        {252,52,332,114,6},
+        {439,70,510,132,4},
+        {126,91,212,163,2},
+        {126,91,212,163,2},
+        {126,91,212,163,2},
+        {126,91,212,163,2},
     };
     int t = 0;
     int i = 0;
-    int size =2;
+    int size =20;
     for ( i = 0; i< size; i++){
+        if (cords[i] != NULL)
         if (p.x > cords[i][0] && p.x < cords[i][2] && p.y >cords[i][1] && p.y < cords[i][3]){
             break;
         }

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "ResearchViewController.h"
 
+@class ResearchViewController;
 @interface TrainingGround : UIViewController{
     NSMutableArray* btn_practise_list; // list of progress view of tp
     int currentPractisingSkill;

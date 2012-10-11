@@ -30,6 +30,7 @@
     UIImageView* vScrollAni;
 }
 //@property (strong, nonatomic) IBOutlet CharacterViewController *vcChar;
+@property (strong, nonatomic) IBOutlet UIButton *lbComment;
 - (IBAction)onTouchChar:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *btChar;
 @property (strong, nonatomic) IBOutlet UIView *vHomeUnder;

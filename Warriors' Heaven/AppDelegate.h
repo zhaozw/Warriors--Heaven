@@ -13,11 +13,13 @@
 #import "HomeViewController.h"
 #import "PurchaseViewController.h"
 #import "CharacterViewController.h"
+#import "TrainingGround.h"
 
 
 @class HomeViewController;
 @class PurchaseViewController;
 @class CharacterViewController;
+@class TrainingGround;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIWebViewDelegate>{
     DotHide_TabBarController *tabBarController;
@@ -42,7 +44,7 @@
 
     NSObject* requests;
     BOOL bRecovering;
-    UIViewController* vcTraining;
+//    UIViewController* vcTraining;
 //    BOOL bUpadtingStatus;
     BOOL bUserBusy;
     UIImageView *vMsgFloat;
@@ -55,11 +57,15 @@
     UIAlertView* myAlert;
     BOOL preloaded;
     float deviceVersion;
-    CGSize screenSize;
-
+    
+    
 }
+@property (unsafe_unretained, nonatomic) IBOutlet TrainingGround *vcTraining;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vMoreTab;
+@property (nonatomic, assign) CGSize screenSize;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbLoading;
 @property (nonatomic, assign)     BOOL bSummarDidLoad;
+@property (nonatomic, assign)     BOOL bIsFirstRun;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbVersion;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbBattleResultTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vPreface;
@@ -73,7 +79,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *vHelp;
 @property (unsafe_unretained, nonatomic) IBOutlet UIWebView *vHelpWebView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btCloseHelpView;
-@property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
+//@property (strong, nonatomic) IBOutlet HomeViewController *vcHome;
 @property (strong, nonatomic) IBOutlet UIImageView *vNetworkStatus;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vAlertImg;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *btClose;
@@ -95,7 +101,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (unsafe_unretained, nonatomic) IBOutlet CharacterViewController *vcCharacter;
+//@property (unsafe_unretained, nonatomic) IBOutlet CharacterViewController *vcCharacter;
 
 @property (strong, nonatomic) IBOutlet StatusViewController *vcStatus;
 //@property (nonatomic, retain) UIImageView *bgView;
@@ -167,4 +173,6 @@
 - (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin;
 - (int) retinaHight:(int) height;
 - (BOOL) isRetina4;
+- (void) showTipMoreTab;
+- (void) topWelcomeView;
 @end
