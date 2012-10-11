@@ -82,6 +82,42 @@ Thank you very much !
 Best Regards,
 Ju Weihua
 
+Dear Sir/Madam,
+
+Thank you for your review and comments.
+
+I think there is something I need to explain.
+
+The image in screenshot is the loading screen of the game. The Chinese styles stamp at top-left corner is the Chinese game name. And the female warrior in the screen is the legend hero (level boss) whom user will challenge when he get to specified level.  And this female character is also on the game logo, which is like symbol of the game. 
+
+The content style of game - "武侠" is very oriental and actually hard to explain. It's like story of warriors but actually not warriors ... The background is based on the "武侠“ culture which was built by a lot of Chinese Favorite novels. And the "武侠“ game is the most favorite game style to Chinese, Japanese, and Korean.  Here are some popular "武侠“ games, please reference:
+
+http://qn.163.com/      － MMORPG by NetEase( Nasdaq: NTES), monthly income 80+million. Netease gained revenue of 1.7 billion for Q2 2012 by 3 online "武侠“ game. （The other 2 are http://tx3.163.com/ and http://xy3.163.com/ ）. 
+You can check its financial report here:http://phx.corporate-ir.net/External.File?item=UGFyZW50SUQ9MTUwMDg1fENoaWxkSUQ9LTF8VHlwZT0z&t=1
+
+http://zt2.ztgame.com/ －MMORPG by Giant(NYSE: GA),  ACU 50,0000, PCU 210,0000
+
+http://w2i.wanmei.com/  MMORPG by Perfect World Co. Ltd. (NASDAQ:PWRD)， gained 670 Million revenue on Q2 2012(http://www.pwrd.com/html/en/pdf/12_08_en_final.pdf)  ACU 730,000
+
+other popular "武侠" games:
+http://lx.9you.com/web_v5/index_top.html
+http://tl.changyou.com/
+http://rxjh.cdcgames.net/   from Korea
+http://dj.changyou.com/    from korea, run by Changyou
+http://bns.qq.com/main.shtml from Korea, run by qq
+...
+
+Please also the check meaning of "武侠" at following links, although the concept is not exactly same:
+http://en.wikipedia.org/wiki/Wuxia
+http://en.wikipedia.org/wiki/Kungfu
+
+Sorry for explaining so much. Actually I am not sure where did you mean it "mislead" to. So I think maybe you are not familiar with the game content style and background, because it's Chinese game. And I think the loading screen is quite fit and consistent with the game content style, and actually it belongs to the game content. I can guarantee, every Chinese can guarantee, that no one will be mislead by this screen. Every Chinese will immediately know the content style of my game from this screen. Please believe me !
+Please try to ask some Chinese guy around you. Please !
+
+Many many thanks !
+
+Best Regards
+
 
 change to china app store
 
@@ -93,3 +129,5 @@ change to china app store
 ui fix
 position of waiting icon should change in some occasion
 show loading when load home page.
+
+

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<int key="IBDocument.SystemTarget">1536</int>
+		<string key="IBDocument.SystemVersion">11G56</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">933</string>
+			<string key="NS.object.0">1926</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
-			<string>IBUIButton</string>
-			<string>IBUIWebView</string>
 			<string>IBUIScrollView</string>
 			<string>IBUIView</string>
+			<string>IBUIWebView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -48,7 +48,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{120, 152}, {200, 128}}</string>
 								<reference key="NSSuperview" ref="162948998"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="153792547"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="1059171266">
 									<int key="NSColorSpace">1</int>
@@ -63,7 +62,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{320, 430}</string>
 								<reference key="NSSuperview" ref="162948998"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="530272724"/>
 								<reference key="IBUIBackgroundColor" ref="1059171266"/>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -75,7 +73,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{281, 0}, {39, 39}}</string>
 								<reference key="NSSuperview" ref="162948998"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="641486745"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -110,7 +107,6 @@
 						</array>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="741580806"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -126,7 +122,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 80}, {320, 30}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="785718247"/>
 						<float key="IBUIAlpha">0.69999998807907104</float>
 						<int key="IBUIContentMode">2</int>
@@ -142,7 +137,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 200}, {320, 30}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="864695149"/>
 						<float key="IBUIAlpha">0.69999998807907104</float>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -154,7 +148,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 110}, {320, 90}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="890063203"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -168,8 +161,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 230}, {320, 300}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -182,7 +173,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{5, 84}, {85, 12}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="759190063"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -212,7 +202,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{5, 204}, {85, 12}}</string>
 						<reference key="NSSuperview" ref="170768186"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="366045087"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -233,7 +222,6 @@
 				</array>
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="162948998"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -445,72 +433,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">25</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">QuestViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btCloseQuestRoom">UIButton</string>
-						<string key="lbAskedQuestTitle">UILabel</string>
-						<string key="lbQuestTitle">UILabel</string>
-						<string key="vAskedQuest">UIView</string>
-						<string key="vAskedQuestTitle">UIImageView</string>
-						<string key="vQuestContainer">UIView</string>
-						<string key="vQuestRoom">UIWebView</string>
-						<string key="vQuestTitle">UIImageView</string>
-						<string key="vUnaskedQuest">UIView</string>
-						<string key="wvLoadingQuest">UIWebView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btCloseQuestRoom">
-							<string key="name">btCloseQuestRoom</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbAskedQuestTitle">
-							<string key="name">lbAskedQuestTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbQuestTitle">
-							<string key="name">lbQuestTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vAskedQuest">
-							<string key="name">vAskedQuest</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vAskedQuestTitle">
-							<string key="name">vAskedQuestTitle</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestContainer">
-							<string key="name">vQuestContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestRoom">
-							<string key="name">vQuestRoom</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestTitle">
-							<string key="name">vQuestTitle</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vUnaskedQuest">
-							<string key="name">vUnaskedQuest</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvLoadingQuest">
-							<string key="name">wvLoadingQuest</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QuestViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
@@ -519,6 +442,6 @@
 			<string key="bg_task_title.png">{320, 30}</string>
 			<string key="btn_close.png">{30, 30}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">933</string>
+		<string key="IBCocoaTouchPluginVersion">1926</string>
 	</data>
 </archive>

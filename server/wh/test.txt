@@ -1,0 +1,26 @@
+Smoke test:
+
+1. register new user
+2. home page
+3. quest
+ask
+enter
+leave & reload list
+4. fight
+list player-> fight
+challenge hero
+5. train
+train skill
+research skill
+6. shop & character
+item detail->buy -> go to character -> see detail -> wear->save-> unwear
+buy gold
+
+7. navigate between views with smooth and nice animation 
+
+8. rank & help
+click help to show help view
+9. network down
+down before launch
+down when reg
+down when playing

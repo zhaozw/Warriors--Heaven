@@ -62,7 +62,7 @@
 @synthesize floatMsg;
 @synthesize bSummarDidLoad;
 
-
+@synthesize lbLoading;
 
 - (id) init{
     /////////////////
@@ -183,7 +183,7 @@
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
     //[bgView1 setBackgroundColor:[UIColor redColor]];
 //    [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
-    [bgView setImage:[UIImage imageNamed:@"bg2.jpg"]];
+    [bgView setImage:[UIImage imageNamed:@"bg5.jpg"]];
     //[bgView setHidden:FALSE];
     //    [bgView setAlpha:0.5f];
     
@@ -311,6 +311,35 @@
     [window makeKeyAndVisible];
     
 }
+
+- (float) getDeviceVersion{
+    return deviceVersion;
+}
+
+- (BOOL) isRetina4{
+    return screenSize.height > 480;
+}
+
+- (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin{
+    int h = screenSize.height;
+    if (h>480 ){
+        
+        CGRect r = v.frame;
+        if (changeSize)
+            r.size.height = r.size.height*h/480;
+        if (changeOrigin)
+            r.origin.y = r.origin.y*h/480;
+        v.frame = r;
+    }
+}
+- (int) retinaHight:(int) height{
+    int h = screenSize.height;
+    if (h>480 ){
+        
+        return height * h /480;
+    }else
+        return height;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -324,7 +353,12 @@
     
     //self.window.backgroundColor = [UIColor whiteColor];
 //    [window setRootViewController: tabBarController];
+    deviceVersion= [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (deviceVersion>=6){
+        
+    }
     
+    screenSize = [[UIScreen mainScreen] bounds].size;
     requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     
     bUserSkillNeedUpdate = TRUE;
@@ -544,9 +578,11 @@
     bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
+    lbLoading.hidden = NO;
     //        [vWelcome addSubview:vCompanyLogo];
     //        [vWelcome addSubview:lbCompnayName];
     [vWelcome addSubview:lbVersion];
+    [vWelcome addSubview:lbLoading];
     [window bringSubviewToFront:vWelcome];
     tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	

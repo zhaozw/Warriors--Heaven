@@ -87,9 +87,9 @@
             else if (i == 3)
                 btnImage = [UIImage imageNamed:@"tab_train.png"];
             else if (i == 4)
-                btnImage = [UIImage imageNamed:@"tab_team.png"];
-            else if (i == 5)
                 btnImage = [UIImage imageNamed:@"tab_shop.png"];
+            else if (i == 5)
+                btnImage = [UIImage imageNamed:@"tab_team.png"];
             else if (i == 6)
                 btnImage = [UIImage imageNamed:@"tab_quest.png"];
             else if (i == 7)
@@ -169,7 +169,7 @@
     //        [animation  setSubtype: kCATransitionFromBottom];  
     //        [vc1.view.layer addAnimation:animation  forKey:@"Reveal" ]; 
     
-        if (self.currentSelectedIndex == 3 || self.currentSelectedIndex==7){
+        if (self.currentSelectedIndex == 3 || self.currentSelectedIndex==7){ // training or rank
             viewController.selectedIndex = self.currentSelectedIndex;
         }else{
       /*      
@@ -211,9 +211,9 @@
     
             oldvc = vc1;
        */
-            if (self.currentSelectedIndex == 1){
+            if (self.currentSelectedIndex == 1){ // character
                     [ad setBgImg:[UIImage imageNamed:@"bg8.jpg"] ];
-            }else if (self.currentSelectedIndex == 6){
+            }else if (self.currentSelectedIndex == 6){ // mission
                  [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
             }else{
                 [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];

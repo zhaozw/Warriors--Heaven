@@ -212,13 +212,26 @@
     hideWebViewCount = 0;
     ad = [UIApplication sharedApplication].delegate;
     // set strechable image for report view
-    UIImage *imageNormal = [UIImage imageNamed:@"reportboard640x235.png"];
-    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:37];
-    UIImage* rimage = [stretchableImageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(32, 640, 32, 0)];
+    UIImage *imageNormal = [UIImage imageNamed:@"reportboard640x235-3.png"];
+    if ([ad isRetina4])
+        imageNormal = [UIImage imageNamed:@"reportboard640x556.png"];
+
+    int capHeight = 37;
+    if ([ad isRetina4])
+        capHeight = 55;
+    UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:0 topCapHeight:capHeight];
+    if ( [ [ [UIDevice currentDevice] systemVersion] floatValue] >= 5 ){
+        UIImage* rimage = [imageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(30, 640, 20, 0)];
+        if ([ad isRetina4])
+            rimage = [stretchableImageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(20, 640, 55, 0)];
+        [self->viewReport setImage:rimage  ];
+    }else
+        [self->viewReport setImage:stretchableImageNormal  ];
+    viewReport.frame
+    = CGRectMake(0, 0, 320, 203);
 //       UIImage *stretchableImageNormal2 = [rimage stretchableImageWithLeftCapWidth:0 topCapHeight:0];
     //设置帽端为12px,也是就左边的12个像素不参与拉伸,有助于圆角图片美观
-    [self->viewReport setImage:rimage  ];
-	
+ 	
    // [playerProfile setBackgroundColor:[UIColor whiteColor]];
     
     // add status view
@@ -239,8 +252,9 @@
     vSummary.delegate = self;
     [viewReport setUserInteractionEnabled:YES];
     [viewReport addSubview:vSummary];
-    vSummary.frame = CGRectMake(26, 56, 269, 175);
-    
+    vSummary.frame = CGRectMake(26, 56, 269, 130);
+    [ad checkRentina:viewReport changeSize:YES changeOrigin:NO];
+    [ad checkRentina:vSummary changeSize:YES changeOrigin:NO];
 //    int content_start_y = 68;
     int content_start_y = 0;
     int margin_left = 8; // the left of vProfileBg
@@ -322,12 +336,13 @@
      */
     
 
-    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49)];
     wvMap.userInteractionEnabled = TRUE;
     wvMap.delegate = self;
     //    [[self view] addSubview:wvMap];
     [self.view addSubview:wvMap];
-    wvMap.backgroundColor = [UIColor whiteColor];
+//    wvMap.backgroundColor = [UIColor whiteColor];
+    wvMap.backgroundColor = [UIColor clearColor];
     wvMap.opaque = NO;
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"map_yangzhou" ofType:@"jpg"];
     //    imagePath = [imagePath stringByReplacingOccurrencesOfString:@"/" withString:@"//"];  
@@ -345,8 +360,9 @@
     //    wvMap.scrollView.showsVerticalScrollIndicator = NO;
     //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
     wvMap.hidden = NO;
-    wvMap.scrollView.scrollEnabled = YES;
+ 
     if ( [ [ [UIDevice currentDevice] systemVersion] floatValue] >= 5 ){
+           wvMap.scrollView.scrollEnabled = YES;
         wvMap.scrollView.showsHorizontalScrollIndicator = NO;
         wvMap.scrollView.showsVerticalScrollIndicator = NO;
     }else{
@@ -556,6 +572,8 @@
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
     if ([animationID isEqualToString:@"closereport"]){
+        
+        // hide bamboo board
          vHomeUnder.hidden = YES;
 
    
@@ -563,7 +581,7 @@
 //        sf.origin.x = 300;
 //        vScrollAni.frame = sf;
           CGAffineTransform t = CGAffineTransformMakeTranslation(300, 0);
-          vScrollAni.transform = CGAffineTransformScale(t, 0.2, 1);
+          vScrollAni.transform = CGAffineTransformScale(t, 0.3, 1);
 //        vScrollAni.transform = CGAffineTransformMakeScale(0.2, 1);
         [vScrollAni setAnimationDuration:1.0f];
         [vScrollAni setAnimationRepeatCount:30];
@@ -593,6 +611,8 @@
                          completion:^(BOOL finished){
                              vHome.hidden = YES;
                              [vScrollAni stopAnimating];
+                             
+                             [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow1.png"] forState:UIControlStateNormal];
                          }];
   
      
@@ -600,11 +620,13 @@
       
       
 
-        [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow1.png"] forState:UIControlStateNormal];
        
     }else{
         
+        // show scroll
         [vScrollAni stopAnimating];
+     
+        
 //        vScrollAni.hidden = YES;
         
 //        viewReport.transform = CGAffineTransformMakeScale(1,0.1);
@@ -614,21 +636,32 @@
 //        viewReport.layer.position = point2;
         [UIView beginAnimations:@"scroll2" context:nil];
         [UIView setAnimationDuration:0.3];
-//        viewReport.layer.anchorPoint = CGPointMake(0.5f, 0.0f);
-//        viewReport.transform = CGAffineTransformMakeScale(1,1);
-//        
-//        viewReport.alpha = 1.0f;
-        CGRect f = viewReport.frame;
-        f.size.height = 200;
-        viewReport.frame = f;
-        [UIView commitAnimations];
-          vHomeUnder.hidden = NO;
-        [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow2.png"] forState:UIControlStateNormal];
-    }
+        //        viewReport.layer.anchorPoint = CGPointMake(0.5f, 0.0f);
+        //        viewReport.transform = CGAffineTransformMakeScale(1,1);
+        //        
+        //        viewReport.alpha = 1.0f;
+        
+        [UIView animateWithDuration:0.3f
+                              delay: 0.0
+                            options: UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             CGRect f = viewReport.frame;
+                             f.size.height = [ad retinaHight:203];
+                             viewReport.frame = f;
+                         }
+                         completion:^(BOOL finished){
+                                  [btCloseFloat1 setBackgroundImage:[UIImage imageNamed:@"arrow2.png"] forState:UIControlStateNormal];
+                             vSummary.hidden = NO;
+
+                         }];
+
+    
+        vHomeUnder.hidden = NO;
+         }
 }
 - (IBAction)onCloseFloat1:(id)sender {
     if (vHome.hidden){
-        
+        // show bamboo board
         vHome.hidden = NO;
         
         
@@ -677,8 +710,9 @@
 //        vHome.alpha = 1.0f;
         CGAffineTransform t = CGAffineTransformMakeTranslation(300, 0);
         vScrollAni.transform = CGAffineTransformScale(t, 0.2, 1);
+
         [UIView commitAnimations];
-  
+        
     
 //        viewReport.animationDuration= 1.0f;
 //        viewReport.animationRepeatCount = 1;
@@ -688,7 +722,8 @@
 //        btChar.hidden = YES;
     }
     else{
-     
+     // hide scroll
+                vSummary.hidden = YES;
     
 //        viewReport.transform = CGAffineTransformMakeScale(1,1);
 //        viewReport.alpha = 0.0f;

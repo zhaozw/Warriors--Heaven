@@ -54,8 +54,11 @@
     UIWebView* wvMap;
     UIAlertView* myAlert;
     BOOL preloaded;
+    float deviceVersion;
+    CGSize screenSize;
 
 }
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbLoading;
 @property (nonatomic, assign)     BOOL bSummarDidLoad;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbVersion;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *lbBattleResultTitle;
@@ -160,4 +163,8 @@
 - (void) closeHelpView:(UIButton*) btn;
 -(void) hideRegView;
 - (void) preload;
+- (float) getDeviceVersion;
+- (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin;
+- (int) retinaHight:(int) height;
+- (BOOL) isRetina4;
 @end
