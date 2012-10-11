@@ -104,6 +104,8 @@
 		5A8704E0157C5D2A009436B2 /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8704DF157C5D2A009436B2 /* InAppPurchaseManager.m */; };
 		5A8704E3157C62CE009436B2 /* logo57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8704E1157C62CE009436B2 /* logo57x57.png */; };
 		5A8704E4157C62CE009436B2 /* logo72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8704E2157C62CE009436B2 /* logo72x72.png */; };
+		5A8AAC4E16275A30009812B6 /* back1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5A8AAC4D16275A30009812B6 /* back1.mp3 */; };
+		5A8AAC5016275BFF009812B6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8AAC4F16275BFF009812B6 /* AVFoundation.framework */; };
 		5A8F23F6158C58C400B4C041 /* TestIap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F23F5158C58C300B4C041 /* TestIap.m */; };
 		5A8F23F8158C6D4C00B4C041 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A8F23F7158C6D4A00B4C041 /* MessageUI.framework */; };
 		5A9C75A31542A9BF00275F04 /* p_4m.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A9C75A21542A9BF00275F04 /* p_4m.png */; };
@@ -352,6 +354,8 @@
 		5A8704DF157C5D2A009436B2 /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppPurchaseManager.m; sourceTree = "<group>"; };
 		5A8704E1157C62CE009436B2 /* logo57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo57x57.png; sourceTree = "<group>"; };
 		5A8704E2157C62CE009436B2 /* logo72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo72x72.png; sourceTree = "<group>"; };
+		5A8AAC4D16275A30009812B6 /* back1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = back1.mp3; sourceTree = "<group>"; };
+		5A8AAC4F16275BFF009812B6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5A8F23F4158C58C200B4C041 /* TestIap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestIap.h; sourceTree = "<group>"; };
 		5A8F23F5158C58C300B4C041 /* TestIap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestIap.m; sourceTree = "<group>"; };
 		5A8F23F7158C6D4A00B4C041 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -525,6 +529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8AAC5016275BFF009812B6 /* AVFoundation.framework in Frameworks */,
 				5A8F23F8158C6D4C00B4C041 /* MessageUI.framework in Frameworks */,
 				5A8704C1157C51DD009436B2 /* StoreKit.framework in Frameworks */,
 				5A0B7F76151998AB00FC0898 /* SystemConfiguration.framework in Frameworks */,
@@ -610,6 +615,14 @@
 				5AFAE617157FF681002C9905 /* HelpViewController.m */,
 			);
 			name = controller;
+			sourceTree = "<group>";
+		};
+		5A8AAC4B16275A25009812B6 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				5A8AAC4D16275A30009812B6 /* back1.mp3 */,
+			);
+			name = audio;
 			sourceTree = "<group>";
 		};
 		5A9C75AC1542B2F500275F04 /* buttons */ = {
@@ -834,6 +847,7 @@
 		5AFD8D541500E6ED0066ECBA = {
 			isa = PBXGroup;
 			children = (
+				5A8AAC4F16275BFF009812B6 /* AVFoundation.framework */,
 				5AAA6D5516257F8B005946D9 /* Default.png */,
 				5AAA6D5316257F86005946D9 /* Default@2x.png */,
 				5AAA6D5116257D8A005946D9 /* Default-568h@2x.png */,
@@ -923,6 +937,7 @@
 		5AFD8E031502CFC20066ECBA /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A8AAC4B16275A25009812B6 /* audio */,
 				5AFEF3BB16017D840088EB61 /* maps */,
 				5ADF4D4115468E8700D2D44F /* bg */,
 				5ADF4D281543BF0100D2D44F /* tabs */,
@@ -1208,6 +1223,7 @@
 				5ADACA641626DECE009F32C7 /* map_yangzhou3.jpg in Resources */,
 				5ADACA6716271C32009F32C7 /* moretab2.png in Resources */,
 				5ADACA69162722DD009F32C7 /* moretab3.png in Resources */,
+				5A8AAC4E16275A30009812B6 /* back1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,6 +1357,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1356,6 +1373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5164994B-2133-44E3-84BC-B8FE4F0FB83B";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

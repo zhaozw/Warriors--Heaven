@@ -14,14 +14,14 @@
 #import "PurchaseViewController.h"
 #import "CharacterViewController.h"
 #import "TrainingGround.h"
-
+#import <AVFoundation/AVFoundation.h>   
 
 @class HomeViewController;
 @class PurchaseViewController;
 @class CharacterViewController;
 @class TrainingGround;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIWebViewDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIWebViewDelegate, AVAudioPlayerDelegate>{
     DotHide_TabBarController *tabBarController;
     UIViewController *viewcontroller;
     UIWindow *window;
@@ -57,7 +57,7 @@
     UIAlertView* myAlert;
     BOOL preloaded;
     float deviceVersion;
-    
+    AVAudioPlayer *thePlayer;
     
 }
 @property (unsafe_unretained, nonatomic) IBOutlet TrainingGround *vcTraining;

@@ -811,10 +811,14 @@
         NSString* tab = [url substringFromIndex:22];
         int iTab = [tab intValue];
         if (iTab >0){
-            if (iTab > 100){
-                if (iTab == 103) {// cang jin ge
+            if (iTab >= 100){
+                if (iTab == 300) {// cang jin ge
+                    [[ad vcTraining] onSelectTrainingGround:NULL];
+                  [[ad tabBarController] selectTab:3];
+                }else if (iTab == 301) {
                     [[ad vcTraining] onSelectLibrary:NULL];
-                  [[ad tabBarController] selectTab:iTab];
+                    [[ad tabBarController] selectTab:3];
+
                 }
             }else
                 [[ad tabBarController] selectTab:iTab];
@@ -857,7 +861,7 @@
         ad.bSummarDidLoad = TRUE;
         [ad hideWelcomeView];
         [ad hideRegView];
-//        if ([ad bIsFirstRun])
+        if ([ad bIsFirstRun])
             [ad showTipMoreTab];
     }
 }

@@ -14,6 +14,7 @@
 #import "LightView.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
+
 @implementation AppDelegate
 @synthesize wvPreload;
 @synthesize wvLoadingPreface;
@@ -192,7 +193,7 @@
     //    [bgView setAlpha:0.5f];
     
     [window addSubview:bgView];
-//    [window addSubview:tabBarController.view]; // move to onReceiveStatus, because this will show home view on top of welcome view
+    [window addSubview:tabBarController.view]; // move to onReceiveStatus, because this will show home view on top of welcome view
     
     // add create status view
     //    [window addChildViewController:vcStatus];
@@ -311,7 +312,7 @@
     //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
     wvMap.hidden = NO;
     */
-    
+   
     [window makeKeyAndVisible];
     
 }
@@ -617,6 +618,44 @@
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
 
 }
+- (void)playBackMusic{
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"back1" ofType:@"mp3"];       //创建音乐文件路径
+    
+    NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
+    NSLog(@"%@",musicURL);
+    if (thePlayer == NULL){
+     thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+    
+    //创建播放器
+
+    if (thePlayer !=NULL){
+    [thePlayer setDelegate:self];
+    
+    [thePlayer prepareToPlay];
+    [thePlayer setVolume:0.1];   //设置音量大小
+    thePlayer.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
+
+//     thePlayer.currentTime = 15.0;//可以指定从任意位置开始播放  
+        [thePlayer  play];
+    }
+    }
+}
+- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player
+{
+    // perform any interruption handling here
+    printf("Interruption Detected\n");
+    [[NSUserDefaults standardUserDefaults] setFloat:[thePlayer currentTime] forKey:@"Interruption"];
+}
+
+- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player
+{
+    // resume playback at the end of the interruption
+    printf("Interruption ended\n");
+    [thePlayer play];
+    
+    // remove the interruption key. it won't be needed
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Interruption"];
+}
 - (void) hideWelcomeView{
 
     if (!bFirstCallReturn || !bSummarDidLoad || !preloaded) 
@@ -624,6 +663,8 @@
         bShowingWelcome = NO;
     vWelcome.hidden = YES;
     tabBarController.view.hidden = NO;
+    [self playBackMusic];
+    
 }
 
 - (void) showStatusView:(BOOL)bShow{
@@ -699,7 +740,7 @@
    //     [self hideWelcomeView]; // will be hidden after home view loading finished
     
     // show home view
-    [window addSubview:tabBarController.view];
+
 //    [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];
     

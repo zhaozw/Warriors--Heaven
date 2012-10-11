@@ -44,7 +44,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="944291880">
+					<object class="IBUIImageView" id="1067160421">
 						<reference key="NSNextResponder" ref="256857941"/>
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{40, 220}, {100, 60}}</string>
@@ -287,7 +287,7 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{94, 9}, {71, 67}}</string>
 								<reference key="NSSuperview" ref="673263083"/>
-								<reference key="NSNextKeyView" ref="944291880"/>
+								<reference key="NSNextKeyView" ref="1067160421"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -462,6 +462,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{295, 458}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -698,6 +699,7 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSNextKeyView"/>
 					<reference key="IBUIBackgroundColor" ref="220321152"/>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				</object>
@@ -909,7 +911,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">vMoreTab</string>
 						<reference key="source" ref="405405863"/>
-						<reference key="destination" ref="944291880"/>
+						<reference key="destination" ref="1067160421"/>
 					</object>
 					<int key="connectionID">112</int>
 				</object>
@@ -990,7 +992,7 @@
 							<reference ref="897372251"/>
 							<reference ref="286016823"/>
 							<reference ref="343115293"/>
-							<reference ref="944291880"/>
+							<reference ref="1067160421"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1285,7 +1287,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">111</int>
-						<reference key="object" ref="944291880"/>
+						<reference key="object" ref="1067160421"/>
 						<reference key="parent" ref="256857941"/>
 						<string key="objectName">moretab</string>
 					</object>
