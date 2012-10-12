@@ -134,8 +134,8 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-//   session_id = nil; // test register new user
-//    [self setSessionId:session_id];
+   session_id = nil; // test register new user
+    [self setSessionId:session_id];
 
 }
 - (NSString *) readSessionId{
@@ -182,7 +182,7 @@
     /////////////////
     
     
-    
+    aiv.frame = CGRectMake(screenSize.width-38, screenSize.height-38-49, 38, 38 );
     
     // CGRect rect = [[UIScreen mainScreen] bounds];
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
@@ -313,6 +313,8 @@
     wvMap.hidden = NO;
     */
    
+    if (bShowingWelcome)
+        [self topWelcomeView];
     [window makeKeyAndVisible];
     
 }
@@ -401,7 +403,7 @@
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(screenSize.width-38, screenSize.height-38-49, 38, 38 )];
+    aiv = [[UIWebView alloc] initWithFrame:CGRectMake(screenSize.width-38, screenSize.height-38-21, 38, 38 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
@@ -472,7 +474,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
@@ -591,6 +593,9 @@
 - (void) topWelcomeView{
     [window bringSubviewToFront:vWelcome];
 }
+- (BOOL) isShowingWelcome{
+    return bShowingWelcome;
+}
 - (void) showWelcomeView{
     bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
@@ -632,7 +637,7 @@
     [thePlayer setDelegate:self];
     
     [thePlayer prepareToPlay];
-    [thePlayer setVolume:0.1];   //设置音量大小
+    [thePlayer setVolume:0.05];   //设置音量大小
     thePlayer.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
 
 //     thePlayer.currentTime = 15.0;//可以指定从任意位置开始播放  

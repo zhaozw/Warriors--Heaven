@@ -40,6 +40,7 @@
 @synthesize lbMonth;
 @synthesize lbTiming;
 @synthesize lbTimingInfo;
+@synthesize btGotoCharView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,14 +76,18 @@
     */
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
-    [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
     [ad topWelcomeView];
+    [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
+
 //    [self recoverWebView];
     
 }
 - (void) viewDidAppear:(BOOL) animated{
     NSLog(@"viewDidAppear");
-    [ad showStatusView:YES];
+    
+    [ad topWelcomeView]; // if first time load
+//    [ad showStatusView:YES];
+    
     // setup season image and date time
     vSeasonImag.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/other/spring.png", ad.host, ad.port]];
     
@@ -420,6 +425,7 @@
                                    [UIImage imageNamed:@"scroll2.png"],
                                    [UIImage imageNamed:@"scroll3.png"],
                                    nil];
+    [vHome bringSubviewToFront:btGotoCharView];
     [vHome bringSubviewToFront:vScrollAni];
     
   
@@ -453,6 +459,10 @@
     hideWebViewCount++;
     [self performSelector:@selector(hideWebView) withObject:NULL afterDelay:3];
 }
+
+- (IBAction)onGotoCharView:(id)sender {
+        [[ad tabBarController] selectTab:1];
+}
 - (void) onReceiveStatus:(NSObject*) json{
     NSLog(@"HomeViewController receive data:%@", json);
     
@@ -482,6 +492,7 @@
     [self setBtChar:nil];
 //    [self setVcChar:nil];
     [self setLbComment:nil];
+    [self setBtGotoCharView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -825,8 +836,9 @@
         }
         return FALSE;
     }
-        
-    return YES;
+    
+    return [ad webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+//    return YES;
 }
 
 //- (void) reload{
@@ -861,8 +873,30 @@
         ad.bSummarDidLoad = TRUE;
         [ad hideWelcomeView];
         [ad hideRegView];
-        if ([ad bIsFirstRun])
-            [ad showTipMoreTab];
+        if ([ad bIsFirstRun]){
+          
+         
+            float alf = btCloseFloat1.alpha;
+               btCloseFloat1.alpha = 1;
+            [UIView animateWithDuration:1.0f
+                                  delay: 0.0
+                                options: UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 [UIView setAnimationRepeatCount:5];
+//                                 btCloseFloat1.hidden = YES;
+                     
+                                 btCloseFloat1.alpha = 0;
+                             }
+                             completion:^(BOOL finished){
+                                 
+                                 btCloseFloat1.alpha = alf;
+//                                 btCloseFloat1.hidden = NO;
+//                                   [ad showTipMoreTab];
+                                 [ad performSelector:@selector(showTipMoreTab) withObject:NULL afterDelay:2];
+
+                             }];
+
+        }
     }
 }
 

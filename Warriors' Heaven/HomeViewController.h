@@ -29,6 +29,7 @@
     UIImageView* vMap;
     UIImageView* vScrollAni;
 }
+@property (strong, nonatomic) IBOutlet UIButton *btGotoCharView;
 //@property (strong, nonatomic) IBOutlet CharacterViewController *vcChar;
 @property (strong, nonatomic) IBOutlet UIButton *lbComment;
 - (IBAction)onTouchChar:(id)sender;
@@ -81,5 +82,7 @@
 - (void) onReceiveStatus:(NSObject*) json;
 - (void) recoverWebView;
 - (void) floatWebView;
+- (IBAction)onGotoCharView:(id)sender;
+
 //- (void) reload;
 @end

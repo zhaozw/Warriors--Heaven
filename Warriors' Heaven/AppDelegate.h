@@ -58,7 +58,7 @@
     BOOL preloaded;
     float deviceVersion;
     AVAudioPlayer *thePlayer;
-    
+    UIWebView *aiv;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet TrainingGround *vcTraining;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vMoreTab;
@@ -175,4 +175,6 @@
 - (BOOL) isRetina4;
 - (void) showTipMoreTab;
 - (void) topWelcomeView;
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+- (BOOL) isShowingWelcome;
 @end

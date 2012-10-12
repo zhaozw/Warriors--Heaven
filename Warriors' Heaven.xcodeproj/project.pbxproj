@@ -85,7 +85,6 @@
 		5A646A88156E61510040EECD /* defeated.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A646A87156E61460040EECD /* defeated.png */; };
 		5A646A8C156E96880040EECD /* unknown.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A646A8B156E967E0040EECD /* unknown.jpg */; };
 		5A8139D9161353EB0005CB22 /* arrow2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8139D7161353EB0005CB22 /* arrow2.png */; };
-		5A8139DA161353EB0005CB22 /* arrow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8139D8161353EB0005CB22 /* arrow1.png */; };
 		5A8139EB161552570005CB22 /* scroll3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8139E9161552570005CB22 /* scroll3.png */; };
 		5A8139EC161552570005CB22 /* scroll2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A8139EA161552570005CB22 /* scroll2.png */; };
 		5A82AB2B15DB5B46009806FE /* battleteam1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A82AB2915DB5B46009806FE /* battleteam1_1.png */; };
@@ -164,6 +163,7 @@
 		5ACC6C06151EB84900C83551 /* EGOImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC6C02151EB84800C83551 /* EGOImageView.m */; };
 		5ACC6C0A151EB85B00C83551 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC6C09151EB85B00C83551 /* EGOCache.m */; };
 		5ACC6C0D15200FBD00C83551 /* eqslot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ACC6C0C15200FBC00C83551 /* eqslot.png */; };
+		5AD0440116289C3700B1DF78 /* arrow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD0440016289C3700B1DF78 /* arrow1.png */; };
 		5AD2154E150EB9D4008CD181 /* fight_result.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2154D150EB9D3008CD181 /* fight_result.png */; };
 		5AD21550150EBD67008CD181 /* fight_result_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD2154F150EBD65008CD181 /* fight_result_fail.png */; };
 		5AD81AEF1540101500F7D4AE /* LightRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD81AEE1540101500F7D4AE /* LightRowView.m */; };
@@ -334,7 +334,6 @@
 		5A646A87156E61460040EECD /* defeated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defeated.png; sourceTree = "<group>"; };
 		5A646A8B156E967E0040EECD /* unknown.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = unknown.jpg; sourceTree = "<group>"; };
 		5A8139D7161353EB0005CB22 /* arrow2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow2.png; sourceTree = "<group>"; };
-		5A8139D8161353EB0005CB22 /* arrow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow1.png; sourceTree = "<group>"; };
 		5A8139E9161552570005CB22 /* scroll3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scroll3.png; sourceTree = "<group>"; };
 		5A8139EA161552570005CB22 /* scroll2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scroll2.png; sourceTree = "<group>"; };
 		5A82AB2915DB5B46009806FE /* battleteam1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battleteam1_1.png; sourceTree = "<group>"; };
@@ -436,6 +435,7 @@
 		5ACC6C08151EB85B00C83551 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
 		5ACC6C09151EB85B00C83551 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
 		5ACC6C0C15200FBC00C83551 /* eqslot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eqslot.png; sourceTree = "<group>"; };
+		5AD0440016289C3700B1DF78 /* arrow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow1.png; sourceTree = "<group>"; };
 		5AD2154D150EB9D3008CD181 /* fight_result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fight_result.png; sourceTree = "<group>"; };
 		5AD2154F150EBD65008CD181 /* fight_result_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fight_result_fail.png; sourceTree = "<group>"; };
 		5AD81AED1540101500F7D4AE /* LightRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightRowView.h; sourceTree = "<group>"; };
@@ -628,8 +628,8 @@
 		5A9C75AC1542B2F500275F04 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				5AD0440016289C3700B1DF78 /* arrow1.png */,
 				5A8139D7161353EB0005CB22 /* arrow2.png */,
-				5A8139D8161353EB0005CB22 /* arrow1.png */,
 				5A82AB2D15DB5D11009806FE /* battleteam2_1.png */,
 				5A82AB2E15DB5D11009806FE /* battleteam2_0.png */,
 				5A82AB2915DB5B46009806FE /* battleteam1_1.png */,
@@ -1208,7 +1208,6 @@
 				5A82AB2F15DB5D11009806FE /* battleteam2_1.png in Resources */,
 				5A82AB3015DB5D11009806FE /* battleteam2_0.png in Resources */,
 				5A8139D9161353EB0005CB22 /* arrow2.png in Resources */,
-				5A8139DA161353EB0005CB22 /* arrow1.png in Resources */,
 				5A8139EB161552570005CB22 /* scroll3.png in Resources */,
 				5A8139EC161552570005CB22 /* scroll2.png in Resources */,
 				5AAB84A91617E49300276578 /* map_yangzhou2.jpg in Resources */,
@@ -1224,6 +1223,7 @@
 				5ADACA6716271C32009F32C7 /* moretab2.png in Resources */,
 				5ADACA69162722DD009F32C7 /* moretab3.png in Resources */,
 				5A8AAC4E16275A30009812B6 /* back1.mp3 in Resources */,
+				5AD0440116289C3700B1DF78 /* arrow1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
