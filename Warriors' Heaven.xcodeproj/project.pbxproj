@@ -175,6 +175,7 @@
 		5ADACA641626DECE009F32C7 /* map_yangzhou3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA631626DECE009F32C7 /* map_yangzhou3.jpg */; };
 		5ADACA6716271C32009F32C7 /* moretab2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA6616271C32009F32C7 /* moretab2.png */; };
 		5ADACA69162722DD009F32C7 /* moretab3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADACA68162722DD009F32C7 /* moretab3.png */; };
+		5ADE2D3F162CA2BE008513FF /* helpbg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADE2D3E162CA2BE008513FF /* helpbg2.png */; };
 		5ADF4D1B1542B6F700D2D44F /* btn_blue_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D1A1542B6F700D2D44F /* btn_blue_light.png */; };
 		5ADF4D1F1542B76300D2D44F /* Lunar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADF4D1E1542B76300D2D44F /* Lunar.m */; };
 		5ADF4D381543C1EF00D2D44F /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5ADF4D371543C1ED00D2D44F /* bg1.jpg */; };
@@ -449,6 +450,7 @@
 		5ADACA631626DECE009F32C7 /* map_yangzhou3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map_yangzhou3.jpg; sourceTree = "<group>"; };
 		5ADACA6616271C32009F32C7 /* moretab2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moretab2.png; sourceTree = "<group>"; };
 		5ADACA68162722DD009F32C7 /* moretab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moretab3.png; sourceTree = "<group>"; };
+		5ADE2D3E162CA2BE008513FF /* helpbg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpbg2.png; sourceTree = "<group>"; };
 		5ADF4D1A1542B6F700D2D44F /* btn_blue_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_blue_light.png; sourceTree = "<group>"; };
 		5ADF4D1D1542B76300D2D44F /* Lunar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lunar.h; sourceTree = "<group>"; };
 		5ADF4D1E1542B76300D2D44F /* Lunar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lunar.m; sourceTree = "<group>"; };
@@ -789,6 +791,7 @@
 			isa = PBXGroup;
 			children = (
 				5A6B10B01628CF9400080EB2 /* bg_reg_526x296.jpg */,
+				5ADE2D3E162CA2BE008513FF /* helpbg2.png */,
 				5AF3E2C015D729FC00897A08 /* bg_profile.png */,
 				5AF3E2DC15D9461700897A08 /* bg_profile2.png */,
 				5ADA635816268BDE007E8AF2 /* reportboard640x556.png */,
@@ -1228,6 +1231,7 @@
 				5A8AAC4E16275A30009812B6 /* back1.mp3 in Resources */,
 				5AD0440116289C3700B1DF78 /* arrow1.png in Resources */,
 				5A6B10B11628CF9400080EB2 /* bg_reg_526x296.jpg in Resources */,
+				5ADE2D3F162CA2BE008513FF /* helpbg2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

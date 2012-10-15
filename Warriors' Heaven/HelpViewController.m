@@ -35,7 +35,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, [ad screenSize].height-49)];
+    [ad fullScreen:self.view];
+    UIImageView * vBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helpbg2.png"]];
+    vBg.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
+    [self.view addSubview:vBg];
+    self.view.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
+    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
     wvContent.backgroundColor = [UIColor clearColor];
     wvContent.opaque = NO;
     [[self view ] addSubview:wvContent];
@@ -68,6 +73,9 @@
 
 - (void) viewDidAppear:(BOOL) animated{
     [ad showStatusView:FALSE];
+    if ([ad isRetina4])
+    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard_r4.html", ad.host, ad.port]]]];
+    else
     [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard.html", ad.host, ad.port]]]];
     
 }
