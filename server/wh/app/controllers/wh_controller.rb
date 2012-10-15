@@ -203,6 +203,14 @@ class WhController < ApplicationController
                   :expires => 1.year.from_now,
                   :domain => request.host
               }
+        p "==>cookie[:device]=#{cookies[:d]}"
+        if (cookies[:d])
+            cookies[:d] = {
+                :value=>cookies[:d],
+                  :expires => 1.year.from_now,
+                  :domain => request.host
+            }
+        end
         # session[:username] = params[:name]
       
         p "=====>>>#{session['_wh_session']}"
