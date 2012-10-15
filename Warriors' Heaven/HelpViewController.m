@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
-    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
+    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, [ad screenSize].height-49)];
     wvContent.backgroundColor = [UIColor clearColor];
     wvContent.opaque = NO;
     [[self view ] addSubview:wvContent];

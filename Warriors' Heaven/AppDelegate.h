@@ -169,10 +169,14 @@
 - (void) closeHelpView:(UIButton*) btn;
 -(void) hideRegView;
 - (void) preload;
+
 - (float) getDeviceVersion;
+
 - (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin;
 - (int) retinaHight:(int) height;
 - (BOOL) isRetina4;
+- (void) fullScreen:(UIView*)v;
+
 - (void) showTipMoreTab;
 - (void) topWelcomeView;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;

@@ -13,6 +13,7 @@
 @interface ObjDetailViewController : UIViewController{
     NSString* viewType;
 }
+@property (strong, nonatomic) IBOutlet UIImageView *vBG;
 @property (strong, nonatomic) NSObject* obj;
 @property (strong, nonatomic) IBOutlet UILabel *lbSellPrice;
 @property (strong, nonatomic) IBOutlet UILabel *lbRank;

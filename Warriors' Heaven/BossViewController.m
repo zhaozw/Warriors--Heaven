@@ -57,6 +57,7 @@
    // [[self view ]addSubview:vBg];
     [[self view ] addSubview:vImage];
 //    [[self view] sendSubviewToBack:vBg];
+    [ad fullScreen:vWebBG];
     [vWebBG setBackgroundColor:[UIColor clearColor]];
     [vWebBG setOpaque:NO];
     [[ad window] addSubview:[self view]];
@@ -73,6 +74,14 @@
     vWaitBG.backgroundColor = [UIColor blackColor];
     vWaitBG.hidden = YES;
     vWaitBG.alpha =0.9;
+    
+    CGRect r = vFightView.frame;
+    r.size.height = [ad screenSize].height - r.origin.y;
+    vFightView.frame = r;
+    
+    r = wvFight.frame;
+    r.size.height = vFightView.frame.size.height;
+    wvFight.frame = r;
 }
 
 - (void) loadPlayer:(id) data{
@@ -171,8 +180,9 @@
     
     //  [aiv setAlpha:0.0f];
     NSLog(@"%@", [NSString stringWithFormat:@"<html><body><img src = 'file://%@/button2.png'></body></html>", [[NSBundle mainBundle] bundlePath] ]);
-    [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0\" width='320' height='480' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"playerview" ofType:@"gif"] ] baseURL:Nil] ;
+    [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent'><img style=\"position:absolute;left:0;top:0;height:100%%;\" width='320' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"playerview" ofType:@"gif"] ] baseURL:Nil] ;
 //     [self view].hidden = NO;
+        [[ad window]bringSubviewToFront:[self view]];
 }
 - (void) loadEq:(NSArray*) eqs{
     
@@ -239,12 +249,13 @@
     }
    // [vBg setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]];
     NSString *sHomeImageUrl = [NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage];
-     [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0\" width='320' height='480' src = \"%@\"></body></html>", sHomeImageUrl] baseURL:Nil] ;
+     [vWebBG loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img style=\"position:absolute;left:0;top:0;height:100%%\" width='320' src = \"%@\"></body></html>", sHomeImageUrl] baseURL:Nil] ;
 //    [vWebBG loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], homeImage]]]];
     [vImage setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/%@", [ad host], [ad port], image]]];
 
     [self loadEq:eqs];
 //    [self view].hidden = NO;
+    [[ad window]bringSubviewToFront:[self view]];
     
 }
 

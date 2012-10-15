@@ -695,6 +695,7 @@
 //            vPlayers.hidden = NO;
 //    }
 
+    vHeroes.hidden =YES;
     vPlayers.hidden = NO;
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];

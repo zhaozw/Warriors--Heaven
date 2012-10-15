@@ -92,7 +92,8 @@
 
 //     [self addChildViewController:vcObjDetail];
     [[ad window] addSubview:[vcObjDetail view]];
-    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+//    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+    [ad fullScreen:vcObjDetail.view];
     [vcObjDetail setViewType:@"buy"];
    [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
 //    [self updateData];

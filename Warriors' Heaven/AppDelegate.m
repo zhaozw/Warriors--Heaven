@@ -211,8 +211,8 @@
     
      
     
-
-    
+    [self fullScreen:vBattleMsgBg];
+    vBattleMsg. frame = CGRectMake(0, 60, screenSize.width, screenSize.height-60);
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
     
@@ -328,6 +328,12 @@
 }
 
 
+- (void) fullScreen:(UIView*)v{
+    if (v == NULL)
+        return;
+    v.frame = CGRectMake(0, 0, screenSize.width, screenSize.height);
+}
+
 
 - (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin{
     int h = screenSize.height;
@@ -375,7 +381,7 @@
 //    vcHome = [tabBarController.viewControllers objectAtIndex:0];
     
     floatMsg = [[NSMutableArray alloc] init];
-    vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
+    vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-49-30, screenSize.width, 30)];
     UIImage *imageNormal = [UIImage imageNamed:@"msgbg.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
     [vMsgFloat setImage:stretchableImageNormal];
@@ -474,7 +480,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie

@@ -68,19 +68,26 @@
     rect.origin.y = 2;
     lbQuestTitle.frame = rect;
     
-    [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
+
     vQuestContainer.hidden = YES;
     vQuestContainer.backgroundColor = [UIColor clearColor];
 //    vQuestContainer.alpha = 0.5f;
     
 //    [self view].alpha = 0.5f;
     vQuestContainer.opaque = NO;
-    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
+//    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
+    vQuestContainer.frame = CGRectMake(0,-9, 320, [ad screenSize].height+10);
+  
+//    [ad checkRentina:vQuestContainer changeSize:YES changeOrigin:YES];
+ 
+    [vQuestContainer removeFromSuperview];
     [[ad window] addSubview:vQuestContainer];
+       [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
 //    [[UIApplication sharedApplication].keyWindow addSubview:vQuestContainer];
     vQuestContainer.userInteractionEnabled = YES;
     vQuestRoom.userInteractionEnabled = YES;
-    vQuestRoom.frame = CGRectMake(0,0, 320, 490);
+    vQuestRoom.frame = CGRectMake(0,0, 320, [ad screenSize].height+10);
+//     [ad checkRentina:vQuestRoom changeSize:YES changeOrigin:NO];
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];
     vQuestRoom.delegate = self;
@@ -264,7 +271,8 @@
     [vQuestRoom loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [self view].hidden = YES;
       vQuestContainer.hidden = NO;
-   
+    [[ad window] bringSubviewToFront:vQuestContainer];
+    [vQuestContainer bringSubviewToFront:btCloseQuestRoom];
      [ad showStatusView:NO];
 //    [[ad window] makeKeyAndVisible];
 //    [vQuestRoom becomeFirstResponder];
@@ -341,7 +349,10 @@
         // clean browser content
         [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
         return false;
-    }
+    }else if ( [path hasPrefix:@"/clientaction/closequest/"]){
+        [self closeQuest:NULL];
+    }else
+        return [ad webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     return TRUE;
 }
 

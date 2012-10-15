@@ -595,11 +595,12 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 
 //    [self addChildViewController:vcObjDetail];
     [ad.window addSubview:[vcObjDetail view]];
+    [ad fullScreen:vcObjDetail.view];
     [vcObjDetail hideDetailView];
     [vcObjDetail setViewType:@"sell"];
     [vcObjDetail setOnTrade:self sel:@selector(onSell1:)];
     [vcObjDetail setOnUse:self sel:@selector(onUse:)];
-    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+//    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
 
 }
 - (void)viewDidLoad
@@ -616,7 +617,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     NSObject* o = [eqs objectAtIndex:[self findEpById:btn.tag]];
     [vcObjDetail loadObjDetail:o];
     itemOnDetail = btn.tag;
-    [[self view] bringSubviewToFront: [vcObjDetail view]];
+//    [[self view] bringSubviewToFront: [vcObjDetail view]];
+    [[ad window] bringSubviewToFront:vcObjDetail.view];
 }
 - (void) onUseReturn:(NSObject*)data{
     [ad showMsg:[data valueForKey:@"OK"] type:0 hasCloseButton:YES]; 
@@ -682,7 +684,8 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
 //    UIScrollView* v = (UIScrollView* )self.view;
 //    r.origin.y = v.contentOffset.y+60;
 //    vcObjDetail.view.frame = r;
-    [[self view] bringSubviewToFront: [vcObjDetail view]];
+//    [[self view] bringSubviewToFront: [vcObjDetail view]];
+    [[ad window] bringSubviewToFront:vcObjDetail.view];
 }
 
 - (void)viewDidUnload

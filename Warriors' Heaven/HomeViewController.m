@@ -86,7 +86,7 @@
     NSLog(@"viewDidAppear");
     
     [ad topWelcomeView]; // if first time load
-//    [ad showStatusView:YES];
+    [ad showStatusView:YES];
     
     // setup season image and date time
     vSeasonImag.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/other/spring.png", ad.host, ad.port]];
@@ -814,10 +814,12 @@
 //         NSLog(surl);
 //            NSLog(@"%d", [aurl count]);
 //        NSLog(@"%@",request.URL);
+        return YES;
     }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:help//"]){
         NSString* surl = [[request.URL absoluteString] substringFromIndex:19];
         surl = [surl stringByReplacingOccurrencesOfString:@":://" withString:@"://"];
         [ad showHelpView:surl frame:CGRectMake(0, 0, 320, 480-49)];
+          return YES;
     }else if ( [url hasPrefix:@"/clientaction/gototab/"]){
         NSString* tab = [url substringFromIndex:22];
         int iTab = [tab intValue];
