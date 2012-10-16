@@ -33,10 +33,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+      ad = [UIApplication sharedApplication].delegate;
     // Do any additional setup after loading the view from its nib.
-    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
+    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
     vRankWeb.backgroundColor = [UIColor clearColor];
-    [self view ].frame = CGRectMake(0, 0, 320, 480);
+    [ad fullScreen:self.view];
+    
     vRankWeb.delegate = self;
     vRankWeb.opaque = NO;
     AppDelegate* ad = [UIApplication sharedApplication].delegate;

@@ -267,7 +267,12 @@
     int i = btn.tag;
    
     NSObject* q = [askedQuests objectAtIndex:i];
-    NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"]];
+    NSString* device = @"3";
+    if ([ad isRetina4]){
+        device =@"r4";
+    }
+
+    NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@&device=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"], device];
     [vQuestRoom loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [self view].hidden = YES;
       vQuestContainer.hidden = NO;

@@ -696,7 +696,7 @@
 
 - (void) showHelpView:(NSString*) url frame:(CGRect)frame{       
     vHelpWebView.frame = frame;
-    btCloseHelpView.frame = CGRectMake(frame.origin.x+frame.size.width-30, frame.origin.y, 30, 30);
+    btCloseHelpView.frame = CGRectMake(frame.origin.x+frame.size.width-40, frame.origin.y, 40, 40);
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     [vHelpWebView loadRequest:req];
     

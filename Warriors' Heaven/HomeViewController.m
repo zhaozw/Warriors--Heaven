@@ -76,9 +76,10 @@
     */
 //    AppDelegate * ad = [UIApplication sharedApplication].delegate;
 //    [ad setBgImg:[UIImage imageNamed:@"background.PNG"] ];
-    [ad topWelcomeView];
+        [ad showStatusView:YES];
+   
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
-
+ [ad topWelcomeView];
 //    [self recoverWebView];
     
 }
@@ -86,7 +87,7 @@
     NSLog(@"viewDidAppear");
     
     [ad topWelcomeView]; // if first time load
-    [ad showStatusView:YES];
+
     
     // setup season image and date time
     vSeasonImag.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/game/other/spring.png", ad.host, ad.port]];

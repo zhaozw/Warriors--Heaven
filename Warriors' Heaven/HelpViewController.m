@@ -43,6 +43,7 @@
     wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
     wvContent.backgroundColor = [UIColor clearColor];
     wvContent.opaque = NO;
+    wvContent.scrollView.scrollEnabled = NO;
     [[self view ] addSubview:wvContent];
     wvContent.delegate = self;
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];

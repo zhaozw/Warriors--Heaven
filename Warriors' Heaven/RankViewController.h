@@ -14,6 +14,7 @@
     UIAlertView* myAlert;
     BOOL anim;  // to prevent show loading view when navigating in webview
     BOOL needUpdate;
+    AppDelegate* ad;
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vRankWeb;
 
