@@ -82,12 +82,15 @@
     vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
     
     if (needUpdate){
-        NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
-        [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
-        anim = YES;
-        [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
+        if ([ad checkNetworkStatus] == 0){
+            [ad showNetworkDown];
+        }else{
+            NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
+            [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+         
+            [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
    
-   
+        }
 
     }
     else{
@@ -112,21 +115,23 @@
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
     if (!anim)
-        return;
-//    [activityIndicator startAnimating];    
-    self.view.hidden = YES;
-    if (myAlert==nil){        
-        myAlert = [[UIAlertView alloc] initWithTitle:nil 
-                                             message: @"Loading"
-                                            delegate: self
-                                   cancelButtonTitle: nil
-                                   otherButtonTitles: nil];
-        
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
-        [myAlert addSubview:activityView];
-        [activityView startAnimating];
-        [myAlert show];
+    {
+    //    [activityIndicator startAnimating];
+        self.view.hidden = YES;
+        if (myAlert==nil){        
+            myAlert = [[UIAlertView alloc] initWithTitle:nil 
+                                                 message: @"Loading"
+                                                delegate: self
+                                       cancelButtonTitle: nil
+                                       otherButtonTitles: nil];
+            
+            UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            activityView.frame = CGRectMake(120.f, 48.0f, 37.0f, 37.0f);
+            [myAlert addSubview:activityView];
+            [activityView startAnimating];
+            [myAlert show];
+        }
+       anim = YES;
     }
 }
 
@@ -144,7 +149,7 @@
     anim = NO;
     self.view.hidden = NO;
     
-    CATransition *animation = [CATransition animation];
+  /*  CATransition *animation = [CATransition animation];
     
     animation.duration = 0.2f;
     
@@ -155,12 +160,13 @@
         animation.subtype = kCATransitionFromRight;
  
     [self.view.layer addAnimation:animation forKey:@"animationID"];
+   */
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [ad showNetworkDown];
-    if (!anim)
-        return;
+
+    if (anim){
+        
     //    [activityIndicator stopAnimating];
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
@@ -169,7 +175,7 @@
     anim = NO;
     self.view.hidden = NO;
     
-    CATransition *animation = [CATransition animation];
+  /*  CATransition *animation = [CATransition animation];
     
     animation.duration = 0.2f;
     
@@ -180,6 +186,8 @@
     animation.subtype = kCATransitionFromRight;
     
     [self.view.layer addAnimation:animation forKey:@"animationID"];
-    
+   */
+    }
+    [ad showNetworkDown];
 }
 @end

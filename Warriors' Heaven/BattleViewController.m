@@ -157,7 +157,7 @@
         bFirstShow = FALSE;
 }
 
-- (void) loadPlayers{
+- (void) loadPlayers:(BOOL) bShow{
     int count = [playerList count]; 
     int row_height = 65;
     int row_margin = 1;
@@ -301,13 +301,13 @@
     CGRect rect = vPlayers.frame;
     rect.size.height = h;
     vPlayers.frame = rect;
-    vPlayers.hidden = NO;
+    vPlayers.hidden = !bShow;
 //    vPlayers.backgroundColor = [UIColor redColor];
     if (rect.size.height+60 > [ad screenSize].height)
         ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+60-[ad screenSize].height);
 }
 
-- (void) loadHeroes{
+- (void) loadHeroes:(BOOL) bShow{
     int count = [heroList count];
     int row_height = 50;
     int row_margin = 1;
@@ -363,7 +363,8 @@
         y += margin+row_height;
         
     }
-    vHeroes.hidden = NO;
+    
+    vHeroes.hidden = !bShow;
     CGRect rect = vHeroes.frame;
     rect.size.height = margin_top+ (row_height+margin)*[heroList count];
     vHeroes.frame = rect;
@@ -372,18 +373,19 @@
     vHeroList.frame = rect;
 }
 - (void) onReceiveStatus:(NSObject*) data{
-    
+//    vHeroes.hidden = YES;
+//    vPlayers.hidden = NO;
     playerList = [data valueForKey:@"player"];
     heroList = [data valueForKey:@"hero"];
-    [self loadPlayers];
-    [self loadHeroes];
+    [self loadPlayers:YES];
+    [self loadHeroes:NO];
 
 //    if (bFirstShow)
 //        vPlayers .hidden = YES;
 //    else
 //        vHeroes .hidden = YES;
-    vHeroes.hidden = YES;
-    vPlayers.hidden = NO;
+//    vHeroes.hidden = YES;
+//    vPlayers.hidden = NO;
 }
 
 - (id) findPlayerById:(int) uid{
@@ -674,8 +676,16 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+- (void)viewDidDisappear:(BOOL)animated{
+//    vPlayers.hidden = YES;
+    vHeroes.hidden =YES;
+    for (int j = 0; j < [players count]; j++){
+        [[players objectAtIndex:j] setHidden:YES];
+    }
+}
 - (void)viewWillAppear:(BOOL)animated {
+//    vPlayers.hidden = YES;
+    vHeroes.hidden =YES;
     [ad showStatusView:YES];
 //    [ad setBgImg:[UIImage imageNamed:@"bg9-2.jpg"] ];
       [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"] ];
@@ -695,15 +705,14 @@
 //            vPlayers.hidden = NO;
 //    }
 
-    vHeroes.hidden =YES;
-    vPlayers.hidden = NO;
+  
     WHHttpClient* client = [[WHHttpClient alloc] init:self];
     [client sendHttpRequest:@"/wh/listPlayerToFight" selector:@selector(onReceiveStatus:) json:YES showWaiting:YES];
 }
 
 - (void) onListHeroesReturn:(NSObject*) data{
     heroList = data;
-    [self loadPlayers];
+    [self loadPlayers:YES];
 }
 - (void) onCloseBossView:(UIButton*) bnt{
     WHHttpClient* client = [[WHHttpClient alloc] init:self];

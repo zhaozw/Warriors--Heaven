@@ -22,6 +22,7 @@ buy gold
 
 8. rank & help
 click help to show help view
+
 9. network down
 down before launch
 down when reg

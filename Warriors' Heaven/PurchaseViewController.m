@@ -77,6 +77,7 @@
 }
 - (void) viewDidAppear:(BOOL) animated{
 }
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSLog(@"%@", request);
     NSString* url = [request.URL path];
@@ -157,5 +158,15 @@
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [ad showNetworkDown];
+    UIView *view = (UIView *)[self.view viewWithTag:103];
+    [view removeFromSuperview];
+    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
+    [self view ].hidden = YES;
+    //    [vwPurchase loadHTMLString:@"" baseURL:nil];
+    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 @end

@@ -375,7 +375,7 @@ class WhController < ApplicationController
                    
                rr[:status] = ""
                # p "=>last act=#{rr[:lastact]}"
-               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 # in one minute
+               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 && rr[:lastact] # in one minute
                    if (rr[:lastact] == "fight")
                        rr[:status] = "战斗中"
                    elsif (rr[:lastact] == "practise")

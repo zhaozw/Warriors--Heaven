@@ -125,7 +125,7 @@
 - (BOOL) isWaiting;
 - (void) setBgImg:(UIImage*) img;
 - (void) showNetworkDown;
-- (void) checkNetworkStatus;
+- (int) checkNetworkStatus; // 0: not reachable
 - (void) showFightMsg:(NSString*) msg;
 - (void) updateUserData;
 - (NSObject*) getDataUser;

@@ -15,6 +15,9 @@
 @property (nonatomic, strong) NSString* sShuXiang;
 @property (nonatomic, strong) NSString* sYear;
 @property (nonatomic, strong) NSString* sJieqi;
+@property (nonatomic, assign) int iJieqi;
 +(id)LunarForSolar:(NSDate *)solarDate;
-+(NSString*)jieqiFromDate:(NSDate*) date;
+//+(NSString*)jieqiFromDate:(NSDate*) date;
++(int)iJieqiFromDate:(NSDate*) date;
++(NSString*)sJieqiFromDate:(NSDate*) date;
 @end

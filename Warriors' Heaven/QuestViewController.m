@@ -76,17 +76,20 @@
 //    [self view].alpha = 0.5f;
     vQuestContainer.opaque = NO;
 //    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
-    vQuestContainer.frame = CGRectMake(0,-9, 320, [ad screenSize].height+10);
+//    vQuestContainer.frame = CGRectMake(0,-9, 320, [ad screenSize].height+10);
+    [ad fullScreen:vQuestContainer];
   
 //    [ad checkRentina:vQuestContainer changeSize:YES changeOrigin:YES];
  
     [vQuestContainer removeFromSuperview];
     [[ad window] addSubview:vQuestContainer];
+    btCloseQuestRoom.frame = CGRectMake(279, 0, 42, 42);
        [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
 //    [[UIApplication sharedApplication].keyWindow addSubview:vQuestContainer];
     vQuestContainer.userInteractionEnabled = YES;
     vQuestRoom.userInteractionEnabled = YES;
-    vQuestRoom.frame = CGRectMake(0,0, 320, [ad screenSize].height+10);
+//    vQuestRoom.frame = CGRectMake(0,0, 320, [ad screenSize].height+10);
+    [ad fullScreen:vQuestRoom];
 //     [ad checkRentina:vQuestRoom changeSize:YES changeOrigin:NO];
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];

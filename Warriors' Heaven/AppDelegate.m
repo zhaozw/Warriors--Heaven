@@ -112,7 +112,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-//    host = @"192.168.0.10";
+    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -134,8 +134,8 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-   session_id = nil; // test register new user
-    [self setSessionId:session_id];
+    //session_id = nil; // test register new user
+    //[self setSessionId:session_id];
 
 }
 - (NSString *) readSessionId{
@@ -480,7 +480,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie
@@ -928,7 +928,7 @@
         
 }
 
-- (void) checkNetworkStatus{
+- (int) checkNetworkStatus{
     Reachability *r = [Reachability reachabilityWithHostName:host];
     switch ([r currentReachabilityStatus]) {
         case ReachableViaWWAN:
@@ -948,8 +948,10 @@
 //                networkStatus = 0;
 //                [self showNetworkDown];
 //            }
+            networkStatus = 0;
             break;
     }
+    return networkStatus;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
