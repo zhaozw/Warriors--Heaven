@@ -112,7 +112,7 @@
 //    debug = TRUE;
 //      host = @"homeserver.joyqom.com";
 //    host = @"localhost";
-    host = @"192.168.0.10";
+//    host = @"192.168.0.10";
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
     //    [self setSessionId:@"cd675b8e71076136c6d07becdc6daa3e"];
@@ -480,7 +480,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
@@ -739,13 +739,14 @@
 //    wvPreload.hidden = NO;
 }
 - (void) onReceiveStatus:(NSObject *) data{
+    [self setDataUser:data save:YES];
+    NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
     if (!bFirstCallReturn){
          [self initUI];
         [self preload];
     }
     bFirstCallReturn = TRUE;
-    [self setDataUser:data save:YES];
-    NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
+
     bUserSkillNeedUpdate = FALSE;
  //   if (!bShowingWelcome)
    //     [self hideWelcomeView]; // will be hidden after home view loading finished
@@ -1468,12 +1469,18 @@
 //        vHelp.hidden = NO;
 //    
     // if webview == wvPreload
-    if (webView.tag == 2000){
+    if (webView.tag == 2000){ // preload
         preloaded = YES;
         [self hideRegView];
         [self hideWelcomeView];
     }
 
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if (webView.tag == 2000){ // preload
+        [self showNetworkDown];
+        [self performSelector:@selector(preload) withObject:NULL afterDelay:1];
+    }
 }
 -(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
     return NO;

@@ -52,7 +52,7 @@
     
      ad = [UIApplication sharedApplication].delegate;
 
-    
+    needUpdate = YES;
     [vAskedQuest setUserInteractionEnabled:YES];
     [vUnaskedQuest setUserInteractionEnabled:YES];
     [vAskedQuest setBackgroundColor:[UIColor clearColor]];
@@ -96,7 +96,7 @@
     [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
 //    [wvLoadingQuest setHidden: YES];
     
-    [self retrieveQuests];
+ 
     
     //
     // init map
@@ -137,6 +137,7 @@
 
 
 - (void) onReceiveStatus:(NSObject* )data{
+    needUpdate = NO;
     NSArray* unasked = [data valueForKey:@"unasked"];
     NSArray* asked = [data valueForKey:@"asked"];
     askedQuests  = asked;
@@ -144,6 +145,7 @@
     [self reloadQuests];
 }
 
+// realod UI from local data
 - (void) reloadQuests{
     for(UIView *v in [vAskedQuest subviews])
     {
@@ -307,6 +309,12 @@
 - (void)viewWillAppear:(BOOL)animated {
         [ad showStatusView:YES];
     [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (needUpdate)
+        [self retrieveQuests];
 }
 
 - (void)viewDidUnload

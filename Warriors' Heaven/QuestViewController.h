@@ -12,6 +12,7 @@
 @interface QuestViewController : UIViewController<UIWebViewDelegate>{
 //    int currentWorkingQuest;
     UIWebView* wvMap;
+    BOOL needUpdate;
 }
 @property (strong, nonatomic) IBOutlet UIView *vAskedQuest;
 @property (strong, nonatomic) IBOutlet UIView *vUnaskedQuest;

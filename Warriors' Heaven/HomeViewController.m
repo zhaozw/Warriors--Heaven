@@ -209,6 +209,28 @@
     [[[UIApplication sharedApplication].delegate window] bringSubviewToFront:self->waiting];
 }
 */
+
+- (void) loadSummary{
+    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
+    //    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary", ad.host, ad.port, ad.session_id];
+    NSLog(url);
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    //    NSArray                 *cookies;
+    //    NSDictionary            *cookieHeaders;
+    //     cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
+    //               cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", ad.host, ad.port]]];
+    //
+    //    if (!cookies){
+    //
+    //    }
+    //    NSLog(@"cookies = %@", cookies);
+    //    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
+    //    NSLog(@"cookies1 = %@", cookieHeaders);
+    //    [ req setValue: [ cookieHeaders objectForKey: @"Cookie" ]    forHTTPHeaderField: @"Cookie" ];
+    
+    // show summary
+    [vSummary loadRequest:req];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -318,25 +340,7 @@
     //WHHttpClient* client = [[WHHttpClient alloc] init:self];
   //  [client sendHttpRequest:@"/" selector:@selector(onReceiveStatus:) showWaiting:YES];
     
-    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary?sid=%@", ad.host, ad.port, ad.session_id];
-//    NSString* url =[NSString stringWithFormat:@"http://%@:%@/wh/summary", ad.host, ad.port, ad.session_id];
-    NSLog(url);
-    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-//    NSArray                 *cookies;
-//    NSDictionary            *cookieHeaders;
-//     cookies = [[ NSHTTPCookieStorage sharedHTTPCookieStorage ]
-//               cookiesForURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/", ad.host, ad.port]]];
-//
-//    if (!cookies){
-//        
-//    }
-//    NSLog(@"cookies = %@", cookies);
-//    cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
-//    NSLog(@"cookies1 = %@", cookieHeaders);
-//    [ req setValue: [ cookieHeaders objectForKey: @"Cookie" ]    forHTTPHeaderField: @"Cookie" ];
-
-    // show summary
-    [vSummary loadRequest:req];
+    [self loadSummary];
     
     // show map 
     vSummary.hidden = NO;
@@ -866,7 +870,12 @@
 //        
 //    }
 //}
-
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+        if (vSummary == webView){
+            [ad showNetworkDown];
+            [self performSelector:@selector(loadSummary) withObject:NULL afterDelay:3];
+        }
+}
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
       if ( [ [ [UIDevice currentDevice] systemVersion] floatValue] >= 5 ){
     [[wvMap scrollView] scrollRectToVisible:CGRectMake(299, 260, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];

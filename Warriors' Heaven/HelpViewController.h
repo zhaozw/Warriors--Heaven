@@ -12,10 +12,11 @@
 @interface HelpViewController : UIViewController{
     AppDelegate *ad;
     UIWebView* wvContent;
-    
+     BOOL needUpdate;
     UIActivityIndicatorView *activityIndicator;
     UIAlertView* myAlert;
         BOOL anim;
+    UIImageView * vBg ;
 }
 
 @end

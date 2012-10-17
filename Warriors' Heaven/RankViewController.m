@@ -86,8 +86,8 @@
         [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
         anim = YES;
         [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
-        needUpdate = FALSE;
-        [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:180];
+   
+   
 
     }
     else{
@@ -132,6 +132,8 @@
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+     needUpdate = FALSE;
+     [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:180];
     if (!anim)
         return;
 //    [activityIndicator stopAnimating];    
@@ -153,5 +155,31 @@
         animation.subtype = kCATransitionFromRight;
  
     [self.view.layer addAnimation:animation forKey:@"animationID"];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [ad showNetworkDown];
+    if (!anim)
+        return;
+    //    [activityIndicator stopAnimating];
+    UIView *view = (UIView *)[self.view viewWithTag:103];
+    [view removeFromSuperview];
+    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
+    anim = NO;
+    self.view.hidden = NO;
+    
+    CATransition *animation = [CATransition animation];
+    
+    animation.duration = 0.2f;
+    
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionPush;//设置上面4种动画效果
+    //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+    
+    animation.subtype = kCATransitionFromRight;
+    
+    [self.view.layer addAnimation:animation forKey:@"animationID"];
+    
 }
 @end

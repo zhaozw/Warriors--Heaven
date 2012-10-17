@@ -34,10 +34,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    needUpdate = YES;
     ad = [UIApplication sharedApplication].delegate;
     [ad fullScreen:self.view];
-    UIImageView * vBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helpbg2.png"]];
+    vBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"helpbg2.png"]];
     vBg.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
+    vBg.hidden = YES;
     [self.view addSubview:vBg];
     self.view.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
     wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
@@ -71,14 +73,20 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+- (void) viewWillAppear:(BOOL)animated{
 
+}
 - (void) viewDidAppear:(BOOL) animated{
     [ad showStatusView:FALSE];
-    if ([ad isRetina4])
-    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard_r4.html", ad.host, ad.port]]]];
-    else
-    [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard.html", ad.host, ad.port]]]];
-    
+    if (needUpdate){
+//        vBg.hidden = YES;
+        if ([ad isRetina4])
+            [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard_r4.html", ad.host, ad.port]]]];
+        else
+            [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard.html", ad.host, ad.port]]]];
+    }
+
+
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
@@ -100,18 +108,24 @@
         [myAlert show];
     }
 }
-
+- (void) setNeedUpdate{
+    needUpdate  = TRUE;
+}
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
+    needUpdate = NO;
+     [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:1800];
+    [ad showNetworkDown];
+    vBg.hidden = NO;
     if (!anim)
         return;
-//    [activityIndicator stopAnimating];    
+//    [activityIndicator stopAnimating];
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
       myAlert = NULL;
         self.view.hidden = NO;
+    
     CATransition *animation = [CATransition animation];
     
     animation.duration = 0.2f;
@@ -125,6 +139,34 @@
     [self.view.layer addAnimation:animation forKey:@"animationID"];
     
     anim = NO;
+    
+   
 
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    vBg.hidden = NO;
+    if (!anim)
+        return;
+    //    [activityIndicator stopAnimating];
+    UIView *view = (UIView *)[self.view viewWithTag:103];
+    [view removeFromSuperview];
+    [myAlert dismissWithClickedButtonIndex:0 animated:YES];
+    myAlert = NULL;
+    self.view.hidden = NO;
+    CATransition *animation = [CATransition animation];
+    
+    animation.duration = 0.2f;
+    
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionPush;//设置上面4种动画效果
+    //设置动画的方向，有四种，分别为kCATransitionFromRight、kCATransitionFromLeft、kCATransitionFromTop、kCATransitionFromBottom
+    
+    animation.subtype = kCATransitionFromRight;
+    
+    [self.view.layer addAnimation:animation forKey:@"animationID"];
+    
+    anim = NO;
+    
 }
 @end
