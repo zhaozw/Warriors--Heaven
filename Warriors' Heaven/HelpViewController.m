@@ -115,7 +115,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     needUpdate = NO;
      [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:1800];
-    [ad showNetworkDown];
+ 
     vBg.hidden = NO;
     if (!anim)
         return;
@@ -145,6 +145,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+       [ad showNetworkDown];
     vBg.hidden = NO;
     if (!anim)
         return;
