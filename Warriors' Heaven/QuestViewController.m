@@ -101,7 +101,7 @@
     //
     // init map
     //
-    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49-65)];
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, [ad screenSize].height-49-65)];
     wvMap.userInteractionEnabled = TRUE;
 //    [[self view] addSubview:wvMap];
 //    [ad.window addSubview:wvMap];
@@ -257,7 +257,7 @@
     vUnaskedQuest.frame = rect2;
     
     UIScrollView* usv = (UIScrollView*)[self view];
-    int offset =  rect2.origin.y + rect2.size.height - 480;
+    int offset =  rect2.origin.y + rect2.size.height - [ad screenSize].height;
     if (offset > 0)
         usv.contentSize = CGSizeMake(0, rect2.origin.y + rect2.size.height);
     

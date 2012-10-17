@@ -24,6 +24,10 @@ def launch_jobs
         while(1)
 
             # p "."
+             p "**************************"
+             p "=====> round start   <===="
+             p "**************************"
+             
             Process.detach fork{
                 Globalquest.connection.reconnect! 
 
@@ -131,7 +135,9 @@ def launch_jobs
                  p e.inspect
             end
             sleep(1)            
-            
+             p "**************************"
+             p "=====> round finish  <===="
+             p "**************************"
             # test
             # break
             

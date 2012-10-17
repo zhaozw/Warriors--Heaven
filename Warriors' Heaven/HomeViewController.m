@@ -454,7 +454,7 @@
     [[ad window] addSubview:viewReport];
     [[ad window] bringSubviewToFront:viewReport];
     viewReport.hidden = NO;
-    viewReport.frame = CGRectMake(0, 480-49-30-30, 320, 60);
+    viewReport.frame = CGRectMake(0, [ad screenSize].height-49-30-30, 320, 60);
     vSummary.frame = CGRectMake(26, 10, 269, 30);
 //    viewReport.alpha = 0.8f;
     hideWebViewCount++;
@@ -819,7 +819,7 @@
     }else if ([[request.URL absoluteString] hasPrefix:@"myspecialurl:help//"]){
         NSString* surl = [[request.URL absoluteString] substringFromIndex:19];
         surl = [surl stringByReplacingOccurrencesOfString:@":://" withString:@"://"];
-        [ad showHelpView:surl frame:CGRectMake(0, 0, 320, 480-49)];
+        [ad showHelpView:surl frame:CGRectMake(0, 0, 320, [ad screenSize].height-49)];
           return YES;
     }else if ( [url hasPrefix:@"/clientaction/gototab/"]){
         NSString* tab = [url substringFromIndex:22];

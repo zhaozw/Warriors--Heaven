@@ -69,7 +69,7 @@
 //    [v addSubview:lbEq];
 //    [v addSubview:btnClose];
     
-    vWaitBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    vWaitBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, [ad screenSize].height)];
     [self.view addSubview:vWaitBG];
     vWaitBG.backgroundColor = [UIColor blackColor];
     vWaitBG.hidden = YES;

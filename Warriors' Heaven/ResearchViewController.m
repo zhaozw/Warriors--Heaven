@@ -204,10 +204,10 @@
     [self view].frame = rect3;
 //    [self view].backgroundColor = [UIColor redColor];
     
-    int scrollSize = rect3.size.height+200 - 480;
+    int scrollSize = rect3.size.height+200 - [ad screenSize].height;
     if (scrollSize > 0 ){
         UIScrollView* sv = [self view ].superview;
-        [sv setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];
+        [sv setContentSize:CGSizeMake(0, 200+rect3.size.height-[ad screenSize].height)];
     }
     
 }

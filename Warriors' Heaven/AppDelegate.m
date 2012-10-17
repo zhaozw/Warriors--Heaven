@@ -480,7 +480,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie

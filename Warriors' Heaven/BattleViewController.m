@@ -58,10 +58,10 @@
     
     ad = [UIApplication sharedApplication].delegate;
     
-    vPlayers = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 480-66)];
+    vPlayers = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, [ad screenSize].height-66)];
     [[self view] addSubview:vPlayers];
 //    vPlayers.backgroundColor = [UIColor redColor];
-    vHeroes = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, 480-66)];
+    vHeroes = [[UIView alloc] initWithFrame:CGRectMake(0, 66, 320, [ad screenSize].height-66)];
     [[self view]  addSubview:vHeroes];
     vHeroes.backgroundColor = [UIColor clearColor];
     vHeroes.hidden = YES;
@@ -126,7 +126,7 @@
     btBoss.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
   */
    
-    vHeroList = [[UIView alloc] initWithFrame:CGRectMake(0, 39, 320, 480-66-39)];
+    vHeroList = [[UIView alloc] initWithFrame:CGRectMake(0, 39, 320, [ad screenSize].height-66-39)];
     [vHeroes addSubview:vHeroList];
     vHeroes.hidden = YES;
     
@@ -303,8 +303,8 @@
     vPlayers.frame = rect;
     vPlayers.hidden = NO;
 //    vPlayers.backgroundColor = [UIColor redColor];
-    if (rect.size.height+60 > 480)
-        ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+60-480);
+    if (rect.size.height+60 > [ad screenSize].height)
+        ((UIScrollView* )[self view]).contentSize = CGSizeMake(0, rect.size.height+60-[ad screenSize].height);
 }
 
 - (void) loadHeroes{

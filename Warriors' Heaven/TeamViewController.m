@@ -180,7 +180,7 @@
 }
 - (void) onInvite:(UIButton*)btn{
     NSString* helpUrl = [NSString stringWithFormat:@"http://%@:%@/help_invite.html", ad.host, ad.port];
-    [ad showHelpView:helpUrl frame:CGRectMake(0, 0, 320, 480-49)];
+    [ad showHelpView:helpUrl frame:CGRectMake(0, 0, 320, [ad screenSize].height-49)];
 }
 - (void) onDelMemberReturn:(NSObject*)data{
     

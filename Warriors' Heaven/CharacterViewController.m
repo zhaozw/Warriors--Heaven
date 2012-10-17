@@ -332,7 +332,7 @@ UILabel* createLabel(CGRect frame, UIView* parent,NSString* text, UIColor* textC
     UIScrollView* vv = ( UIScrollView* )self.view;
     int t = r_last.origin.y+r_last.size.height;
     NSLog(@"set content size to %d, %d", 320, t);
-    vv.contentSize = CGSizeMake(0, t-480);
+    vv.contentSize = CGSizeMake(0, t-[ad screenSize].height);
     //    self.view.frame = CGRectMake(0,0,320,480);
     
     

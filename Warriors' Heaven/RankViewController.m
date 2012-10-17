@@ -78,7 +78,8 @@
     [ad setBgImg:[UIImage imageNamed:@"bg5.jpg"]];
     [ad showStatusView:FALSE];
     
-    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
+//    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
+    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
     
     if (needUpdate){
         NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];

@@ -182,9 +182,9 @@
     CGRect r = v.frame;
     
     
-    if (r.size.height+130 > 480){
+    if (r.size.height+130 > [ad screenSize].height){
         UIScrollView* scv = [self view];
-        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+        scv.contentSize = CGSizeMake(0, r.size.height+130-[ad screenSize].height);
     }
 
     
@@ -444,9 +444,9 @@
     
      r = vEquipment.frame;
     
-    if (r.size.height+130 > 480){
+    if (r.size.height+130 > [ad screenSize].height){
         UIScrollView* scv = [self view];
-        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+        scv.contentSize = CGSizeMake(0, r.size.height+130-[ad screenSize].height);
     }
     
 //    v.hidden = NO;

@@ -1,9 +1,7 @@
 class RankController < ApplicationController
     def index
-        if !check_session
-            render :text=>"session not exist"
-            return
-        end
+        return if !check_session
+           
         
     end
     def rankmoney
