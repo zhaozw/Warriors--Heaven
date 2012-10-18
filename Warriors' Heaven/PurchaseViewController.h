@@ -23,6 +23,6 @@
 }
 @property (strong, nonatomic) IBOutlet UIWebView *vwPurchase;
 - (IBAction)onClose:(id)sender;
-
+- (void) loadPage;
 
 @end

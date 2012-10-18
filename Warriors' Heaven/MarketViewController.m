@@ -398,7 +398,7 @@
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         [btn setFrame:CGRectMake(240, 10, 70, 35)];
-        [btn setTitle:@"Buy" forState: UIControlStateNormal];
+        [btn setTitle:@"购买" forState: UIControlStateNormal];
         [btn addTarget:self action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
         [btn.titleLabel setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [btn setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];

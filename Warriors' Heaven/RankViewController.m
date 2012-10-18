@@ -35,16 +35,11 @@
     [super viewDidLoad];
       ad = [UIApplication sharedApplication].delegate;
     // Do any additional setup after loading the view from its nib.
-    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
-    vRankWeb.backgroundColor = [UIColor clearColor];
-    [ad fullScreen:self.view];
-    
-    vRankWeb.delegate = self;
-    vRankWeb.opaque = NO;
-    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+//    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
+       AppDelegate* ad = [UIApplication sharedApplication].delegate;
 
     needUpdate = YES;
-    
+    vRankWeb.hidden = YES;
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 //    [view setTag:103];
 //    [view setBackgroundColor:[UIColor blackColor]];
@@ -56,7 +51,7 @@
 //    [activityIndicator setCenter:view.center];
 //    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
 //    [view addSubview:activityIndicator];
-    anim = YES;
+    anim = NO;
 }
 
 - (void)viewDidUnload
@@ -79,14 +74,25 @@
     [ad showStatusView:FALSE];
     
 //    vRankWeb.frame = CGRectMake(0, 0, 320, 480);
-    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
+//    vRankWeb.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
     
     if (needUpdate){
         if ([ad checkNetworkStatus] == 0){
             [ad showNetworkDown];
         }else{
+            if (vRankWeb != NULL){
+                [vRankWeb removeFromSuperview];
+                vRankWeb = NULL;
+            }
+            vRankWeb  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
+            vRankWeb.backgroundColor = [UIColor clearColor];
+            [ad fullScreen:self.view];            
+            vRankWeb.delegate = self;
+            vRankWeb.opaque = NO;
+            [[self view] addSubview:vRankWeb];
+
             NSString *surl = [NSString stringWithFormat:@"http://%@:%@/rank?sid=%@", ad.host, ad.port, ad.session_id];
-            [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+//            [vRankWeb stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
          
             [vRankWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
    
@@ -113,11 +119,14 @@
     needUpdate  = TRUE;
 }
 //开始加载数据
-- (void)webViewDidStartLoad:(UIWebView *)webView {    
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [ad showWaiting:YES];
+    self.view.hidden = YES;
+/*
     if (!anim)
     {
     //    [activityIndicator startAnimating];
-        self.view.hidden = YES;
+  
         if (myAlert==nil){        
             myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                                  message: @"Loading"
@@ -133,21 +142,25 @@
         }
        anim = YES;
     }
+ */
 }
 
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [ad showWaiting:NO];
      needUpdate = FALSE;
      [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:180];
-    if (!anim)
-        return;
+    self.view.hidden = NO;
+    vRankWeb.hidden  = NO;
+/*    if (anim){
 //    [activityIndicator stopAnimating];    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
      [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
     anim = NO;
-    self.view.hidden = NO;
+    }*/
+
     
   /*  CATransition *animation = [CATransition animation];
     
@@ -164,7 +177,12 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-
+//    if ([webView isLoading])
+//        [webView stopLoading];
+//    [webView  stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+ [ad showWaiting:NO];
+    self.view.hidden = NO;
+#if 0
     if (anim){
         
     //    [activityIndicator stopAnimating];
@@ -173,7 +191,7 @@
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
     anim = NO;
-    self.view.hidden = NO;
+    
     
   /*  CATransition *animation = [CATransition animation];
     
@@ -188,6 +206,7 @@
     [self.view.layer addAnimation:animation forKey:@"animationID"];
    */
     }
+#endif
     [ad showNetworkDown];
 }
 @end

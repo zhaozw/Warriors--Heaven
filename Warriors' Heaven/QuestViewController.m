@@ -197,7 +197,7 @@
         UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
         [row addSubview: btn_ask];
-        [btn_ask setTitle:@"Enter" forState:UIControlStateNormal];
+        [btn_ask setTitle:@"进入" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];
         [btn_ask addTarget:self action:@selector(onEnterQuest:) forControlEvents:UIControlEventTouchUpInside];
         [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -249,7 +249,7 @@
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
         [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [row addSubview: btn_ask];
-        [btn_ask setTitle:@"Ask" forState:UIControlStateNormal];
+        [btn_ask setTitle:@"领取" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];
         btn_ask.tag = i;
         [btn_ask addTarget:self action:@selector(askQuest:) forControlEvents:UIControlEventTouchUpInside];
@@ -367,6 +367,7 @@
         return false;
     }else if ( [path hasPrefix:@"/clientaction/closequest/"]){
         [self closeQuest:NULL];
+        return FALSE;
     }else
         return [ad webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     return TRUE;

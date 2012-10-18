@@ -70,14 +70,17 @@
 }
 
 - (void) viewWillAppear:(BOOL) animated{
-    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
-    NSString* surl = [NSString stringWithFormat:@"http://%@:%@/tradables/listProduct", ad.host, ad.port];
-    
-    [vwPurchase loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
+
 }
 - (void) viewDidAppear:(BOOL) animated{
 }
 
+- (void) loadPage{
+    //    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+    NSString* surl = [NSString stringWithFormat:@"http://%@:%@/tradables/listProduct", ad.host, ad.port];
+    
+    [vwPurchase loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:surl]]];
+}
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSLog(@"%@", request);
     NSString* url = [request.URL path];
@@ -123,6 +126,7 @@
         //         NSLog(surl);
         //            NSLog(@"%d", [aurl count]);
         //        NSLog(@"%@",request.URL);
+        return FALSE;
     }
     
     return YES;
@@ -160,13 +164,16 @@
     myAlert = NULL;
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [ad showNetworkDown];
+    
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
     [self view ].hidden = YES;
+    NSLog(@"error:%@ %@", error.description,error.debugDescription);
+    
+    [ad showNetworkDown];
     //    [vwPurchase loadHTMLString:@"" baseURL:nil];
-    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+//    [vwPurchase stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
 }
 @end

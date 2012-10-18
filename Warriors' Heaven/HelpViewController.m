@@ -42,13 +42,7 @@
     vBg.hidden = YES;
     [self.view addSubview:vBg];
     self.view.frame = CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49);
-    wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
-    wvContent.backgroundColor = [UIColor clearColor];
-    wvContent.opaque = NO;
-    if ([ad getDeviceVersion] >=5)
-    wvContent.scrollView.scrollEnabled = NO;
-    [[self view ] addSubview:wvContent];
-    wvContent.delegate = self;
+
 //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 //    [view setTag:103];
 //    [view setBackgroundColor:[UIColor blackColor]];
@@ -58,7 +52,7 @@
 //    [activityIndicator setCenter:self.view.center];
 //    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
 //    [self.view addSubview:activityIndicator];
-    anim = YES;
+    anim = NO;
 }
 
 
@@ -83,6 +77,19 @@
         if ([ad checkNetworkStatus] == 0){
             [ad showNetworkDown];
         }else{
+            if (wvContent != NULL){
+                [wvContent removeFromSuperview];
+                wvContent = NULL;
+            }
+            wvContent = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, [ad screenSize].width, [ad screenSize].height-49)];
+            wvContent.backgroundColor = [UIColor clearColor];
+            wvContent.opaque = NO;
+            if ([ad getDeviceVersion] >=5)
+                wvContent.scrollView.scrollEnabled = NO;
+            [[self view ] addSubview:wvContent];
+            
+            wvContent.delegate = self;
+            wvContent.hidden = YES;
     //        vBg.hidden = YES;
             if ([ad isRetina4])
                 [wvContent loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:%@/helpboard_r4.html", ad.host, ad.port]]]];
@@ -96,10 +103,11 @@
 }
 //开始加载数据
 - (void)webViewDidStartLoad:(UIWebView *)webView {    
-//    [activityIndicator startAnimating];  
-    if (!anim){
+//    [activityIndicator startAnimating];
+    // self.view.hidden = YES;
+   /* if (!anim){
         
-        self.view.hidden = YES;
+       
         if (myAlert==nil){        
             myAlert = [[UIAlertView alloc] initWithTitle:nil 
                                                  message: @"Loading Data"
@@ -115,24 +123,30 @@
         }
          anim = YES;
     }
+    */
+     [ad showWaiting:YES];
 }
 - (void) setNeedUpdate{
     needUpdate  = TRUE;
 }
 //数据加载完
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+     [ad showWaiting:NO];
     needUpdate = NO;
      [self performSelector:@selector(setNeedUpdate) withObject:NULL afterDelay:1800];
  
     vBg.hidden = NO;
-    if (!anim)
-        return;
+    wvContent.hidden = NO;
+      self.view.hidden = NO;
+#if 0
+    if (anim){
 //    [activityIndicator stopAnimating];
     UIView *view = (UIView *)[self.view viewWithTag:103];
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
       myAlert = NULL;
-        self.view.hidden = NO;
+      
+    
     /*
     CATransition *animation = [CATransition animation];
     
@@ -147,14 +161,21 @@
     [self.view.layer addAnimation:animation forKey:@"animationID"];*/
     
     anim = NO;
-    
-   
+    }
+#endif
 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-      
+//    if ([webView isLoading])
+//        [webView stopLoading];
+//    [webView  stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
+    
+    [ad showWaiting:NO];
+    
     vBg.hidden = NO;
+    self.view.hidden = NO;
+#if 0
     if (anim){
         
     //    [activityIndicator stopAnimating];
@@ -162,7 +183,7 @@
     [view removeFromSuperview];
     [myAlert dismissWithClickedButtonIndex:0 animated:YES];
     myAlert = NULL;
-    self.view.hidden = NO;
+   
 /*    CATransition *animation = [CATransition animation];
     
     animation.duration = 0.2f;
@@ -177,6 +198,7 @@
     */
     anim = NO;
     }
+#endif
      [ad showNetworkDown];
 }
 @end

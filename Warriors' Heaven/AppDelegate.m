@@ -480,7 +480,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie
@@ -1365,7 +1365,8 @@
 
 - (void) showPurchaseView{
     [window addSubview:[vcPurchase view]];
-    [vcPurchase viewWillAppear:NO];
+//    [vcPurchase viewWillAppear:NO];
+    [vcPurchase loadPage];
     [vcPurchase view].hidden = NO;
 }
 
@@ -1481,7 +1482,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     if (webView.tag == 2000){ // preload
         [self showNetworkDown];
-        [self performSelector:@selector(preload) withObject:NULL afterDelay:1];
+        [self performSelector:@selector(preload) withObject:NULL afterDelay:3];
     }
 }
 -(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
