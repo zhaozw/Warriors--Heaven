@@ -307,7 +307,7 @@
     /* 
         use UIWebView
      */
-    
+  /*  
     wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-49)];
     wvMap.userInteractionEnabled = TRUE;
     wvMap.delegate = self;
@@ -337,7 +337,7 @@
 //    [[wvMap scrollView] scrollRectToVisible:CGRectMake(600, 600, wvMap.scrollView.frame.size.width, wvMap.scrollView.frame.size.height) animated:NO];
 //    [wvMap.scrollView setContentOffset:CGPointMake(600, 600) animated:NO];
      
-    
+    */
 /*
     //
     //    USE UIImageView
