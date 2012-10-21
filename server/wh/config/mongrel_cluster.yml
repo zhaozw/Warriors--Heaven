@@ -1,7 +1,7 @@
 --- 
 log_file: log/mongrel.log
-port: "6630"
+port: "6620"
 environment: production
-pid_file: tmp/pids/mongrel_whj.pid
+pid_file: tmp/pids/mongrel_wh.pid
 servers: 3
 
