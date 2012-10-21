@@ -30,4 +30,5 @@
 +(id) createButton:(CGRect)frame parent:(UIView*)parent text:(NSString*) text tag:(int)tag;
 - (void) deleteRow:(UIView*) r;
 + (void) removeAllSubview:(UIView*)v;
++ (void) resizeLabelToText:(UILabel*)label;
 @end

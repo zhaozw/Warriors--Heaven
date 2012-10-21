@@ -206,6 +206,14 @@ class WhController < ApplicationController
                   :expires => 1.year.from_now,
                   :domain => request.host
               }
+        p "==>cookie[:device]=#{cookies[:d]}"
+        if (cookies[:d])
+            cookies[:d] = {
+                :value=>cookies[:d],
+                  :expires => 1.year.from_now,
+                  :domain => request.host
+            }
+        end
         # session[:username] = params[:name]
       
         p "=====>>>#{session['_wh_session']}"
@@ -370,7 +378,7 @@ class WhController < ApplicationController
                    
                rr[:status] = ""
                # p "=>last act=#{rr[:lastact]}"
-               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 # in one minute
+               if rr[:updated_at] && (Time.now - rr[:updated_at]) < 60 && rr[:lastact] # in one minute
                    if (rr[:lastact] == "fight")
                        rr[:status] = "戦い中"
                    elsif (rr[:lastact] == "practise")

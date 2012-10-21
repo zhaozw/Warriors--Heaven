@@ -143,8 +143,8 @@ function apply(){
 
 </script>
 <body style="background:transparent;background-color:transparent;width:320px;margin:0;padding:0;border:0px solid red;">
-<div id="bg" style="z-index:-1;position:absolute;left:0;top:0;width:320px;height: 430px;">
-	<img id="bg" src="<%=@quest.bgimage%>" style="margin:10 0;height:480px;"/>
+<div id="bg" style="z-index:-1;position:absolute;left:0;top:0;width:320px;">
+	<img id="bg" src="<%=@quest.bgimage%>" style="margin:0 0;height:100%;width:100%;"/>
 </div>
 <div id="waitingbg" style="display:none;z-index:100;position:absolute;left:0;top:0;width:320px;height:480px;">
 	<img src="/images/wait3.gif" style="width:50px;margin-left:135px;margin-top:230px;"/>
@@ -195,8 +195,13 @@ function apply(){
 	<div style="z-index:1;border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
 		<p><img src="/images/line1.png"></p>
 	</div>
-	<div id="result" style="margin-top:-10px;z-index:10;height:170px;overflow-y:auto;font-size:10pt;">
+	<%if @device == "r4"%>
+	<div id="result" style="border:0px solid red;margin-top:-10px;z-index:10;height:306px;overflow-y:auto;font-size:10pt;">
+	<%else%>
+	<div id="result" style="border:0px solid red;margin-top:-10px;z-index:10;height:219px;overflow-y:auto;font-size:10pt;">
+	<%end%>
 	<%=@quest.room_welcome if @quest.room_welcome %>
+
 	</div>
 </div>
 
@@ -219,4 +224,5 @@ function proccess(){
 }
 		// $("#pro_left").css("width", <%=@quest.data[:process] %>+"px");
 // alert("dfs");
+$("#bg").height(window.screen.height);
 </script>

@@ -15,6 +15,10 @@
 @synthesize lbError;
 @synthesize tName;
 @synthesize lbTeamCode;
+@synthesize vBG;
+@synthesize lbVersion;
+//@synthesize vBgBottom;
+@synthesize vReg;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,7 +44,21 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    
+    AppDelegate* ad = [UIApplication sharedApplication].delegate;
+   // vBG.frame = CGRectMake(0, ([ad screenSize].height-480)/2, 320,480);
+  //  vBgBottom.frame = CGRectMake(0, [ad screenSize].height-480, 320, 480);
+    if ([ad isRetina4]){
+        vBG.image = [UIImage imageNamed:@"bg_reg_526x296.jpg"];
+        vBG.frame = CGRectMake(0, 0, 320,[ad screenSize].height);
+        CGRect r = vReg.frame;
+        r.origin.y = 100;
+        vReg.frame = r;
+    }
+//    [ad checkRentina:vReg changeSize:NO changeOrigin:YES];
+    CGRect r = lbVersion.frame;
+    r.origin.y = [ad screenSize].height - r.size.height;
+    lbVersion.frame = r;
+
     currentSelectedSex = -1;
 }
 
@@ -49,6 +67,11 @@
     [self setTName:nil];
     [self setLbError:nil];
     [self setLbTeamCode:nil];
+    [self setVBG:nil];
+    [self setLbVersion:nil];
+    [self setVBgTop:nil];
+    [self setVBgBottom:nil];
+    [self setVReg:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -187,15 +210,17 @@
 
 - (void) highlightButton:(UIButton*)bt{
    // bt.backgroundColor = [UIColor redColor];
-    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 2.0f)];
+    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 3.0f)];
     if (btSelectedSex){
  //       btSelectedSex.backgroundColor = [UIColor clearColor];
-        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 1, 1)];
+        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
     }
     btSelectedSex = bt;
 }
 - (IBAction)onSelectSex:(id)sender {
     UIButton* bt = sender;
+    if (bt.tag == currentSelectedSex)
+        return;
     currentSelectedSex = bt.tag;
     [self performSelector:@selector(highlightButton:) withObject:bt afterDelay:0.0];
     

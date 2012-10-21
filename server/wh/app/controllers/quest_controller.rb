@@ -102,6 +102,7 @@ class QuestController < ApplicationController
     def show
         return if !check_session or !user_data
         @sid = params[:sid]
+        @device = device
         @quest_name = params[:name]
         @quest = load_quest(@quest_name)
         @quest.setPlayer(player)

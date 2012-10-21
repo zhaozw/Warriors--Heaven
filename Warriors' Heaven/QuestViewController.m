@@ -52,7 +52,7 @@
     
      ad = [UIApplication sharedApplication].delegate;
 
-    
+    needUpdate = YES;
     [vAskedQuest setUserInteractionEnabled:YES];
     [vUnaskedQuest setUserInteractionEnabled:YES];
     [vAskedQuest setBackgroundColor:[UIColor clearColor]];
@@ -68,19 +68,29 @@
     rect.origin.y = 2;
     lbQuestTitle.frame = rect;
     
-    [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
+
     vQuestContainer.hidden = YES;
     vQuestContainer.backgroundColor = [UIColor clearColor];
 //    vQuestContainer.alpha = 0.5f;
     
 //    [self view].alpha = 0.5f;
     vQuestContainer.opaque = NO;
-    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
+//    vQuestContainer.frame = CGRectMake(0,-9, 320, 490);
+//    vQuestContainer.frame = CGRectMake(0,-9, 320, [ad screenSize].height+10);
+    [ad fullScreen:vQuestContainer];
+  
+//    [ad checkRentina:vQuestContainer changeSize:YES changeOrigin:YES];
+ 
+    [vQuestContainer removeFromSuperview];
     [[ad window] addSubview:vQuestContainer];
+    btCloseQuestRoom.frame = CGRectMake(279, 0, 42, 42);
+       [btCloseQuestRoom addTarget:self action:@selector(closeQuest:) forControlEvents:UIControlEventTouchUpInside];
 //    [[UIApplication sharedApplication].keyWindow addSubview:vQuestContainer];
     vQuestContainer.userInteractionEnabled = YES;
     vQuestRoom.userInteractionEnabled = YES;
-    vQuestRoom.frame = CGRectMake(0,0, 320, 490);
+//    vQuestRoom.frame = CGRectMake(0,0, 320, [ad screenSize].height+10);
+    [ad fullScreen:vQuestRoom];
+//     [ad checkRentina:vQuestRoom changeSize:YES changeOrigin:NO];
     [vQuestRoom setBackgroundColor:[UIColor clearColor]];
     [vQuestRoom setOpaque:NO];
     vQuestRoom.delegate = self;
@@ -89,12 +99,12 @@
     [wvLoadingQuest loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='39' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
 //    [wvLoadingQuest setHidden: YES];
     
-    [self retrieveQuests];
+ 
     
     //
     // init map
     //
-    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-49-65)];
+    wvMap =  [[UIWebView alloc] initWithFrame:CGRectMake(0, 65, 320, [ad screenSize].height-49-65)];
     wvMap.userInteractionEnabled = TRUE;
 //    [[self view] addSubview:wvMap];
 //    [ad.window addSubview:wvMap];
@@ -130,6 +140,7 @@
 
 
 - (void) onReceiveStatus:(NSObject* )data{
+    needUpdate = NO;
     NSArray* unasked = [data valueForKey:@"unasked"];
     NSArray* asked = [data valueForKey:@"asked"];
     askedQuests  = asked;
@@ -137,6 +148,7 @@
     [self reloadQuests];
 }
 
+// realod UI from local data
 - (void) reloadQuests{
     for(UIView *v in [vAskedQuest subviews])
     {
@@ -185,7 +197,7 @@
         UIButton* btn_ask = [UIButton buttonWithType:UIButtonTypeCustom];
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
         [row addSubview: btn_ask];
-        [btn_ask setTitle:@"Enter" forState:UIControlStateNormal];
+        [btn_ask setTitle:@"进入" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];
         [btn_ask addTarget:self action:@selector(onEnterQuest:) forControlEvents:UIControlEventTouchUpInside];
         [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
@@ -237,7 +249,7 @@
         btn_ask.frame = CGRectMake(250, 20, 60, 30);
         [btn_ask.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:12.0f]];
         [row addSubview: btn_ask];
-        [btn_ask setTitle:@"Ask" forState:UIControlStateNormal];
+        [btn_ask setTitle:@"领取" forState:UIControlStateNormal];
         [btn_ask setBackgroundImage:[UIImage imageNamed:@"btn_green_light.png"] forState:UIControlStateNormal];
         btn_ask.tag = i;
         [btn_ask addTarget:self action:@selector(askQuest:) forControlEvents:UIControlEventTouchUpInside];
@@ -250,7 +262,7 @@
     vUnaskedQuest.frame = rect2;
     
     UIScrollView* usv = (UIScrollView*)[self view];
-    int offset =  rect2.origin.y + rect2.size.height - 480;
+    int offset =  rect2.origin.y + rect2.size.height - [ad screenSize].height;
     if (offset > 0)
         usv.contentSize = CGSizeMake(0, rect2.origin.y + rect2.size.height);
     
@@ -260,11 +272,17 @@
     int i = btn.tag;
    
     NSObject* q = [askedQuests objectAtIndex:i];
-    NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"]];
+    NSString* device = @"3";
+    if ([ad isRetina4]){
+        device =@"r4";
+    }
+
+    NSString * url = [NSString stringWithFormat:@"http://%@:%@/quest/show?sid=%@&name=%@&device=%@", ad.host, ad.port, ad.session_id, [q valueForKey:@"name"], device];
     [vQuestRoom loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [self view].hidden = YES;
       vQuestContainer.hidden = NO;
-   
+    [[ad window] bringSubviewToFront:vQuestContainer];
+    [vQuestContainer bringSubviewToFront:btCloseQuestRoom];
      [ad showStatusView:NO];
 //    [[ad window] makeKeyAndVisible];
 //    [vQuestRoom becomeFirstResponder];
@@ -294,6 +312,12 @@
 - (void)viewWillAppear:(BOOL)animated {
         [ad showStatusView:YES];
     [ad setBgImg:[UIImage imageNamed:@"bg6.jpg"] ];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    if (needUpdate)
+        [self retrieveQuests];
 }
 
 - (void)viewDidUnload
@@ -341,7 +365,11 @@
         // clean browser content
         [vQuestRoom stringByEvaluatingJavaScriptFromString:@"document.open();document.close()"];
         return false;
-    }
+    }else if ( [path hasPrefix:@"/clientaction/closequest/"]){
+        [self closeQuest:NULL];
+        return FALSE;
+    }else
+        return [ad webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
     return TRUE;
 }
 

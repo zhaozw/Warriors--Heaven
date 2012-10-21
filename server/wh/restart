@@ -4,7 +4,7 @@ killall memcached
 #./stop
 #mongrel_rails cluster::start --clean
 mongrel_rails cluster::restart
-
 memcached -d -u root -m 512 -p 11212
-ln -sf /var/ftproot/whj/public .
+#ln -sf /var/ftproot/whj/public .
+
 ps -ef | grep ruby

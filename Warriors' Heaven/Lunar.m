@@ -15,34 +15,48 @@
 @synthesize sYear;
 @synthesize sShuXiang;
 @synthesize sJieqi;
-
-+(NSString*)jieqiFromDate:(NSDate*) date{
+@synthesize iJieqi;
++ (NSArray*) jieqiList{
     // 节气
     NSArray* cJieqi = [NSArray arrayWithObjects:
-                      @"立春",
-                      @"雨水",
-                      @"惊蛰",
-                      @"春分",
-                      @"清明",
-                      @"谷雨",
-                      @"立夏",
-                      @"小满",
-                      @"芒种",
-                      @"夏至",
-                      @"小暑",
-                      @"大暑",
-                      @"立秋",
-                      @"处暑",
-                      @"白露",
-                      @"秋分",
-                      @"寒露",
-                      @"霜降",
-                      @"立冬",
-                      @"小雪",
-                      @"大雪",
-                      @"冬至",
-                      @"小寒",
-                      @"大寒", nil];
+                       @"立春",
+                       @"雨水",
+                       @"惊蛰",
+                       @"春分",
+                       @"清明",
+                       @"谷雨",
+                       @"立夏",
+                       @"小满",
+                       @"芒种",
+                       @"夏至",
+                       @"小暑",
+                       @"大暑",
+                       @"立秋",
+                       @"处暑",
+                       @"白露",
+                       @"秋分",
+                       @"寒露",
+                       @"霜降",
+                       @"立冬",
+                       @"小雪",
+                       @"大雪",
+                       @"冬至",
+                       @"小寒",
+                       @"大寒", nil];
+    return cJieqi;
+}
++(NSString*) sJieqi:(int) i{
+    if (i < 0 || i >= 24)
+        i = 0;
+    return [[Lunar jieqiList] objectAtIndex:i];
+}
++(NSString*)sJieqiFromDate:(NSDate*) date{
+    if (date == NULL || date == [NSNull null])
+        return @"";
+    return [Lunar sJieqi:[Lunar iJieqiFromDate:date]];
+}
++(int)iJieqiFromDate:(NSDate*) date{
+    
     NSArray *cJieqiStartDay = [NSArray arrayWithObjects:
                                @"",@"",@"",@"",@"",
                               @"2012-04-20 00:00:00", 
@@ -67,17 +81,19 @@
     
     NSDateFormatter *nsdf2=[[NSDateFormatter alloc] init];
     
-    [nsdf2 setDateStyle:NSDateFormatterShortStyle];
+//    [nsdf2 setDateStyle:NSDateFormatterShortStyle];
     
-    [nsdf2 setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [nsdf2 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     for (int i = 5; i< [cJieqiStartDay count]; i++){
         NSDate* d = [nsdf2 dateFromString:[cJieqiStartDay objectAtIndex:i]];
         if ( [date compare:d] == NSOrderedAscending) // earlier than d
-            return [cJieqi objectAtIndex:(i-1)%24];
+           // return [cJieqi objectAtIndex:(i-1)%24];
+            return (i-1)%24;
     }
     
-    return @"";
+//    return @"";
+    return 0;
 
 }
 
@@ -193,7 +209,8 @@
     l.sDayname = (NSString*)[cDayName objectAtIndex:wCurDay];
     l.sYear = [NSString stringWithFormat:@"%@%@",  (NSString *)[cTianGan objectAtIndex:((wCurYear - 4) % 60) % 10],(NSString *)[cDiZhi objectAtIndex:((wCurYear - 4) % 60) %12] ];
     l.sShuXiang = szShuXiang;
-    l.sJieqi = [Lunar jieqiFromDate:solarDate];
+    l.sJieqi = [Lunar sJieqiFromDate:solarDate];
+    l.iJieqi = [Lunar iJieqiFromDate:solarDate];
     
     NSString *lunarDate = [NSString stringWithFormat:@"%@ %@月 %@ %@",szNongli,szNongliDay,(NSString*)[cDayName objectAtIndex:wCurDay], l.sJieqi];
    NSLog(lunarDate);

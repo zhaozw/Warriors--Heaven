@@ -14,6 +14,7 @@
 #import "LightView.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
+
 @implementation AppDelegate
 @synthesize wvPreload;
 @synthesize wvLoadingPreface;
@@ -27,7 +28,7 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-@synthesize vcCharacter;
+//@synthesize vcCharacter;
 @synthesize vcStatus;
 @synthesize viewcontroller;
 @synthesize tabBarController;
@@ -41,7 +42,7 @@
 @synthesize vHelp;
 @synthesize vHelpWebView;
 @synthesize btCloseHelpView;
-@synthesize vcHome;
+//@synthesize vcHome;
 @synthesize vNetworkStatus;
 @synthesize vAlertImg;
 @synthesize btClose;
@@ -62,7 +63,11 @@
 @synthesize floatMsg;
 @synthesize bSummarDidLoad;
 
-
+@synthesize lbLoading;
+@synthesize screenSize;
+@synthesize bIsFirstRun;
+@synthesize vMoreTab;
+@synthesize vcTraining;
 
 - (id) init{
     /////////////////
@@ -110,7 +115,7 @@
 
 //    host = @"localhost";
 
-//    host= @"192.168.0.10";
+    host= @"192.168.0.10";
 
         port = @"80";
     //    session_id = @"cd675b8e71076136c6d07becdc6daa3e";// user 'hh' on product server
@@ -134,11 +139,8 @@
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
 
-
-
-
-  session_id = nil; // test register new user
-
+    session_id = nil; // test register new user
+    [self setSessionId:session_id];
 
 
 }
@@ -186,18 +188,18 @@
     /////////////////
     
     
-    
+    aiv.frame = CGRectMake(screenSize.width-38, screenSize.height-38-49, 38, 38 );
     
     // CGRect rect = [[UIScreen mainScreen] bounds];
     bgView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];  
     //[bgView1 setBackgroundColor:[UIColor redColor]];
 //    [bgView setImage:[UIImage imageNamed:@"background.PNG"]];
-    [bgView setImage:[UIImage imageNamed:@"bg2.jpg"]];
+    [bgView setImage:[UIImage imageNamed:@"bg5.jpg"]];
     //[bgView setHidden:FALSE];
     //    [bgView setAlpha:0.5f];
     
     [window addSubview:bgView];
-    [window addSubview:tabBarController.view];
+    [window addSubview:tabBarController.view]; // move to onReceiveStatus, because this will show home view on top of welcome view
     
     // add create status view
     //    [window addChildViewController:vcStatus];
@@ -215,8 +217,8 @@
     
      
     
-
-    
+    [self fullScreen:vBattleMsgBg];
+    vBattleMsg. frame = CGRectMake(0, 60, screenSize.width, screenSize.height-60);
     [vBattleMsgBg setBackgroundColor:[UIColor blackColor]];
     [vBattleMsg setBackgroundColor:[UIColor blackColor]];
     
@@ -316,9 +318,48 @@
     //    wvMap.scrollView.showsHorizontalScrollIndicator = NO;
     wvMap.hidden = NO;
     */
-    
+   
+    if (bShowingWelcome)
+        [self topWelcomeView];
     [window makeKeyAndVisible];
     
+}
+
+- (float) getDeviceVersion{
+    return deviceVersion;
+}
+
+- (BOOL) isRetina4{
+    return screenSize.height > 480;
+}
+
+
+- (void) fullScreen:(UIView*)v{
+    if (v == NULL)
+        return;
+    v.frame = CGRectMake(0, 0, screenSize.width, screenSize.height);
+}
+
+
+- (void) checkRentina:(UIView*)v changeSize:(BOOL)changeSize changeOrigin:(BOOL)changeOrigin{
+    int h = screenSize.height;
+    if (h>480 ){
+        
+        CGRect r = v.frame;
+        if (changeSize)
+            r.size.height = r.size.height*h/480;
+        if (changeOrigin)
+            r.origin.y = r.origin.y*h/480;
+        v.frame = r;
+    }
+}
+- (int) retinaHight:(int) height{
+    int h = screenSize.height;
+    if (h>480 ){
+        
+        return height * h /480;
+    }else
+        return height;
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -333,13 +374,20 @@
     
     //self.window.backgroundColor = [UIColor whiteColor];
 //    [window setRootViewController: tabBarController];
+    deviceVersion= [[[UIDevice currentDevice] systemVersion] floatValue];
+    if (deviceVersion>=6){
+        
+    }
     
+    screenSize = [[UIScreen mainScreen] bounds].size;
     requests = [[NSString stringWithFormat:@"{}"] JSONValue];
     
     bUserSkillNeedUpdate = TRUE;
 
+//    vcHome = [tabBarController.viewControllers objectAtIndex:0];
+    
     floatMsg = [[NSMutableArray alloc] init];
-    vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, 480-49-30, 320, 30)];
+    vMsgFloat = [[UIImageView alloc] initWithFrame:CGRectMake(0, screenSize.height-49-30, screenSize.width, 30)];
     UIImage *imageNormal = [UIImage imageNamed:@"msgbg.png"];
     UIImage *stretchableImageNormal = [imageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
     [vMsgFloat setImage:stretchableImageNormal];
@@ -367,7 +415,7 @@
     //[self->waiting setOpaque:TRUE];
     // Create and add the activity indicator  
     //  UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(waiting.bounds.size.width/2.0f - 234, waiting.bounds.size.height/2.0f-130, 468, 260 )];
-    UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(320-38, 480-38-49, 38, 38 )];
+    aiv = [[UIWebView alloc] initWithFrame:CGRectMake(screenSize.width-38, screenSize.height-38-21, 38, 38 )];
     //   UIWebView *aiv = [[UIWebView alloc] initWithFrame:CGRectMake(0, (480-260)/2, 468, 260 )];
     [aiv setBackgroundColor:[UIColor clearColor]];
     [aiv setOpaque:NO];
@@ -409,8 +457,9 @@
     NSLog(@"load session id %@", session_id);
     
     
-
-    
+    NSString * sFirstRun = [self readLocalProp:@"firstRun"];
+    bIsFirstRun =  ((sFirstRun == NULL) || sFirstRun == [NSNull null]);
+  
 
 //[window bringSubviewToFront:vMsgFloat];
     
@@ -425,6 +474,9 @@
     [client1 setRetry:YES];  
     //    [client1 setResponseHandler:@selector(handleServerListError:)];
     [client1 sendHttpRequest:@"http://leaksmarket.heroku.com/whj/index.txt" selector:@selector(onServerListReturn:) json:NO showWaiting:NO];
+    
+    
+
     
 //    [self.window makeKeyWindow];
     [self.window makeKeyAndVisible];
@@ -550,24 +602,87 @@
     
 }
 
+// needed because home view be on top  when it inited
+- (void) topWelcomeView{
+    [window bringSubviewToFront:vWelcome];
+}
+- (BOOL) isShowingWelcome{
+    return bShowingWelcome;
+}
 - (void) showWelcomeView{
     bShowingWelcome = TRUE;
     vWelcome.backgroundColor = [UIColor whiteColor];
     vWelcome.opaque = YES;
+    [vWelcome addSubview:lbVersion];
+    [vWelcome addSubview:lbLoading];
+    [self checkRentina:lbVersion changeSize:NO changeOrigin:YES];
+    //[self checkRentina:lbLoading changeSize:NO changeOrigin:YES];
+    [self checkRentina:vWelcome changeSize:YES changeOrigin:NO];
+    if ([self isRetina4]){
+         CGRect r = lbLoading.frame;
+        r.origin.y += (568-480)/2;
+        lbLoading.frame = r;
+    }
+    
+    CGRect r = lbVersion.frame;
+    r.origin.y = screenSize.height - r.size.height;
+    lbVersion.frame = r;
+    
+    lbLoading.hidden = NO;
     //        [vWelcome addSubview:vCompanyLogo];
     //        [vWelcome addSubview:lbCompnayName];
-    [vWelcome addSubview:lbVersion];
-    [window bringSubviewToFront:vWelcome];
+   [window bringSubviewToFront:vWelcome];
     tabBarController.view.hidden = YES;
     [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideWelcomeView) userInfo:nil repeats:NO];	
 
 }
+- (void)playBackMusic{
+    NSString *musicFilePath = [[NSBundle mainBundle] pathForResource:@"back1" ofType:@"mp3"];       //创建音乐文件路径
+    
+    NSURL *musicURL = [[NSURL alloc] initFileURLWithPath:musicFilePath];
+    NSLog(@"%@",musicURL);
+    if (thePlayer == NULL){
+     thePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:musicURL error:nil];
+    
+    //创建播放器
+
+    if (thePlayer !=NULL){
+    [thePlayer setDelegate:self];
+    
+    [thePlayer prepareToPlay];
+    [thePlayer setVolume:0.05];   //设置音量大小
+    thePlayer.numberOfLoops = -1;//设置音乐播放次数  -1为一直循环
+
+//     thePlayer.currentTime = 15.0;//可以指定从任意位置开始播放  
+        [thePlayer  play];
+    }
+    }
+}
+- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player
+{
+    // perform any interruption handling here
+    printf("Interruption Detected\n");
+    [[NSUserDefaults standardUserDefaults] setFloat:[thePlayer currentTime] forKey:@"Interruption"];
+}
+
+- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player
+{
+    // resume playback at the end of the interruption
+    printf("Interruption ended\n");
+    [thePlayer play];
+    
+    // remove the interruption key. it won't be needed
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Interruption"];
+}
 - (void) hideWelcomeView{
-    bShowingWelcome = NO;
+
     if (!bFirstCallReturn || !bSummarDidLoad || !preloaded) 
         return;
+        bShowingWelcome = NO;
     vWelcome.hidden = YES;
     tabBarController.view.hidden = NO;
+    [self playBackMusic];
+    
 }
 
 - (void) showStatusView:(BOOL)bShow{
@@ -588,7 +703,7 @@
 
 - (void) showHelpView:(NSString*) url frame:(CGRect)frame{       
     vHelpWebView.frame = frame;
-    btCloseHelpView.frame = CGRectMake(frame.origin.x+frame.size.width-30, frame.origin.y, 30, 30);
+    btCloseHelpView.frame = CGRectMake(frame.origin.x+frame.size.width-40, frame.origin.y, 40, 40);
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     [vHelpWebView loadRequest:req];
     
@@ -631,18 +746,21 @@
 //    wvPreload.hidden = NO;
 }
 - (void) onReceiveStatus:(NSObject *) data{
+    [self setDataUser:data save:YES];
+    NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
     if (!bFirstCallReturn){
          [self initUI];
         [self preload];
     }
     bFirstCallReturn = TRUE;
-    [self setDataUser:data save:YES];
-    NSLog(@"onReceiveStatus data_user %@", [data_user JSONRepresentation]);
+
     bUserSkillNeedUpdate = FALSE;
-    if (!bShowingWelcome)
-        [self hideWelcomeView];
+ //   if (!bShowingWelcome)
+   //     [self hideWelcomeView]; // will be hidden after home view loading finished
     
-    [vcHome viewDidAppear:NO];
+    // show home view
+
+//    [vcHome viewDidAppear:NO];
     [vcStatus viewDidAppear:NO];
     
     // check pending task
@@ -650,8 +768,13 @@
     NSObject* prop = [str JSONValue];
     NSObject* pending = [prop valueForKey:@"pending"];
     if (pending){
-        TrainingGround *vc = (TrainingGround*)vcTraining;
-        [vc _startPractise:[pending valueForKey:@"skill"] _usepot:[pending valueForKey:@"usepot"]];
+//        TrainingGround *vc = (TrainingGround*)vcTraining;
+        NSString* skillName = [pending valueForKey:@"skill"];
+        if (skillName == NULL || skillName == [NSNull null]){
+            
+        }
+            else
+                [vcTraining _startPractise:skillName _usepot:[pending valueForKey:@"usepot"]];
     }
     
    
@@ -659,6 +782,32 @@
 //    [self query_msg];
     [self float_msg];
     
+    if (bIsFirstRun){
+        [self saveLocalProp:@"firstRun" v:@"1"];
+    }
+    
+//    [self performSelector:@selector(showTipMoreTab) withObject:NULL afterDelay:10];
+    
+
+}
+- (void) hideTipMoreTab{
+    vMoreTab.hidden = YES;
+}
+- (void) showTipMoreTab{
+    if (vMoreTab. hidden == NO)
+        return; // in case already triggered by HomeViewController
+    if (bShowingWelcome){
+        [self performSelector:@selector(showTipMoreTab) withObject:NULL afterDelay:6];
+        return;
+    }
+     vMoreTab.frame = CGRectMake(screenSize.width-80, screenSize.height-50-30, 80, 50);
+    vMoreTab. hidden  = NO;
+    [[self window] bringSubviewToFront:vMoreTab];
+    vMoreTab.animationDuration = 1;
+    vMoreTab.animationRepeatCount = 5;
+    vMoreTab.animationImages = [[NSArray alloc] initWithObjects:[UIImage imageNamed:@"moretab2.png"], [UIImage imageNamed:@"moretab3.png"], nil];
+    [vMoreTab startAnimating];
+    [self performSelector:@selector(hideTipMoreTab) withObject:NULL afterDelay:5];
 }
 
 - (void) float_msg{
@@ -760,33 +909,84 @@
 }
 
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt{
-    if (type == 0){
+//    lbAlertMsg.backgroundColor = [UIColor grayColor];
+//    lbAlertMsg.textAlignment = UITextAlignmentCenter;
+    CGSize constraintSize= CGSizeMake(240, MAXFLOAT);
+    CGSize expectedSize = [msg sizeWithFont:lbAlertMsg.font constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+
+    if (type == 0){ // info
 //        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
-        lbAlertMsg.frame = CGRectMake(20, 20, 240, 73);
+        if (expectedSize.height > 73)
+            lbAlertMsg.frame = CGRectMake(20, 20, 240, expectedSize.height);
+        else
+            lbAlertMsg.frame = CGRectMake(20, 20, 240, 73);
+        vNetworkStatus.frame = CGRectMake(vNetworkStatus.frame.origin.x
+                                          ,vNetworkStatus.frame.origin.y, vNetworkStatus.frame.size.width, lbAlertMsg.frame.size.height+40);
+//        lbAlertMsg.contentMode = UIControlContentVerticalAlignmentCenter;
         vAlertImg.hidden = YES;
+        if (expectedSize.height < 73){
+            int y = (vNetworkStatus.frame.size.height - expectedSize.height)/2;
+            lbAlertMsg.frame = CGRectMake(20, y, 240, expectedSize.height);
+        }
     }
-    else if (type == 1){
+    else if (type == 1){ // warning
         [vAlertImg setImage:[UIImage imageNamed:@"warning.png"]];
-        lbAlertMsg.frame = CGRectMake(20, 62, 240, 73);
+        if (expectedSize.height > 73)
+            lbAlertMsg.frame = CGRectMake(20, 20+46, 240, expectedSize.height);
+        else
+            lbAlertMsg.frame = CGRectMake(20, 20+46, 240, 73);
+        vNetworkStatus.frame = CGRectMake(vNetworkStatus.frame.origin.x
+                                          ,vNetworkStatus.frame.origin.y, vNetworkStatus.frame.size.width, lbAlertMsg.frame.size.height+46+40);
         vAlertImg.hidden = NO;
+//         lbAlertMsg.contentMode = UIControlContentVerticalAlignmentCenter;
     }
-        
-    lbAlertMsg.text = msg;
     
+//    if ( vNetworkStatus.frame .size.height < 113){
+//        vNetworkStatus.frame = CGRectMake(vNetworkStatus.frame.origin.x
+//                                          ,vNetworkStatus.frame.origin.y, vNetworkStatus.frame.size.width, 113);
+//    }
+//    int y = (vNetworkStatus.frame.size.height - lbAlertMsg.frame.size.height)/2;
+//    
+//
+//    if (type == 0){
+//       
+//    }else if (type == 1){
+//        y += vAlertImg.frame.size.height;
+//    }
+//    if (y < 20)
+//        y = 20;
+//    lbAlertMsg.frame = CGRectMake(20, y, 240, lbAlertMsg.frame.size.height);
+    
+
+    
+ lbAlertMsg.text = msg;
+
+/*
+    
+    [LightView resizeLabelToText:lbAlertMsg];
+    int offset = lbAlertMsg.frame.size.height - 57;
+    
+//    lbAlertMsg.backgroundColor = [UIColor greenColor];
+    if (offset > 0){
+       CGRect r =  vNetworkStatus.frame;
+        r.size.height = 127 + offset;
+        vNetworkStatus.frame = r;
+    }
+*/    
     if (bCloseBt){
         btClose.hidden = NO;
     }else
 //        [NSTimer scheduledTimerWithTimeInterval:(3.0)target:self selector:@selector(hideNetworkStatus) userInfo:nil repeats:NO];	
         [self performSelector:@selector(hideNetworkStatus) withObject:nil afterDelay:3];
     
-      vNetworkStatus.hidden = NO;
+    vNetworkStatus.hidden = NO;
     vAlert.hidden = NO;
     
     [window bringSubviewToFront:vAlert];
         
 }
 
-- (void) checkNetworkStatus{
+- (int) checkNetworkStatus{
     Reachability *r = [Reachability reachabilityWithHostName:host];
     switch ([r currentReachabilityStatus]) {
         case ReachableViaWWAN:
@@ -806,8 +1006,10 @@
 //                networkStatus = 0;
 //                [self showNetworkDown];
 //            }
+            networkStatus = 0;
             break;
     }
+    return networkStatus;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -1221,7 +1423,8 @@
 
 - (void) showPurchaseView{
     [window addSubview:[vcPurchase view]];
-    [vcPurchase viewWillAppear:NO];
+//    [vcPurchase viewWillAppear:NO];
+    [vcPurchase loadPage];
     [vcPurchase view].hidden = NO;
 }
 
@@ -1327,12 +1530,18 @@
 //        vHelp.hidden = NO;
 //    
     // if webview == wvPreload
-    if (webView.tag == 2000){
+    if (webView.tag == 2000){ // preload
         preloaded = YES;
         [self hideRegView];
         [self hideWelcomeView];
     }
 
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if (webView.tag == 2000){ // preload
+        [self showNetworkDown];
+        [self performSelector:@selector(preload) withObject:NULL afterDelay:3];
+    }
 }
 -(BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
     return NO;

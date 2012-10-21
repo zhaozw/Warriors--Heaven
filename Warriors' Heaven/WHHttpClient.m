@@ -99,7 +99,12 @@
         [request addValue:cookie forHTTPHeaderField:@"Cookie"];
     else{ // first request, set session id in cookie
         if (ad.session_id != nil){
-            NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;", ad.session_id];
+            NSString* device = @"3";
+            if ([ad isRetina4]){
+                device =@"r4";
+            }
+
+            NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;d=%@", ad.session_id, device];
             NSLog(@"First request cookie:%@", c);
             [request addValue:c forHTTPHeaderField:@"Cookie"];
         }
@@ -196,16 +201,28 @@
 
 //        NSLog(@"%@ cookies = %@", request.URL, cookies);
     cookieHeaders = [ NSHTTPCookie requestHeaderFieldsWithCookies: cookies ];
-    NSString* cookie = [ cookieHeaders objectForKey: @"Cookie" ];   
-    if (cookie)
-        [request addValue:cookie forHTTPHeaderField:@"Cookie"];
-    else{ // first request
-        if (ad.session_id != nil){
-            NSString * c = [[NSString alloc] initWithFormat:@"_wh_session=%@;", ad.session_id];
-            NSLog(@"First request cookie:%@", c);
-            [request addValue:c forHTTPHeaderField:@"Cookie"];
-        }
+    NSString* cookie = [ cookieHeaders objectForKey: @"Cookie" ];
+    NSString* device = @"3";
+    if ([ad isRetina4]){
+        device =@"r4";
     }
+
+    if (cookie){
+     //   cookie = [NSString stringWithFormat:@"device=%@;%@", device, cookie];
+        [request addValue:cookie forHTTPHeaderField:@"Cookie"];
+      NSLog(@" request cookie1:%@", cookie);
+    }else{ // first request
+        NSString * c = [[NSString alloc] initWithFormat:@"d=%@;", device];
+        if (ad.session_id != nil){
+             c = [[NSString alloc] initWithFormat:@"%@_wh_session=%@;", c, ad.session_id];
+            NSLog(@"First request cookie:%@", c);
+           
+        }
+        
+        [request addValue:c forHTTPHeaderField:@"Cookie"];
+          NSLog(@" request cookie:%@", c);
+    }
+  
 
     
     // display waiting dialog
@@ -319,7 +336,7 @@
     [[ad requests] setValue:@"0" forKey:self->_cmd];
 
     if (retry){
-        [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:3];
+        [self performSelector:@selector(retryRequest) withObject:NULL afterDelay:5]; // less than 5 sec will cause screen flash because the alert window just close in 3 sec
     }
     
 }

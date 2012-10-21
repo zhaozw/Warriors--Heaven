@@ -72,6 +72,9 @@ class ApplicationController < ActionController::Base
         render :text=>ret.to_json
         
     end
+    def device
+         cookies[:d]
+    end
     
     def check_session
        p "===>session id=#{session[:sid]} session uid = #{session[:uid]}"

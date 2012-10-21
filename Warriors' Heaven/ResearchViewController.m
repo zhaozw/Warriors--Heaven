@@ -121,7 +121,7 @@
             [row setValue:buttons forKey:@"buttons"];
             NSObject* button = [[NSMutableDictionary alloc] init];
             [button setValue:@"onResearchRead:" forKey:@"callback"];
-            [button setValue:@"Research" forKey:@"text"];
+            [button setValue:@"研究" forKey:@"text"];
             [button setValue:[NSNumber numberWithInt:i] forKey:@"tag"];
             [button setValue:@"btn_green_light" forKey:@"bgImage"];
             [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
@@ -178,7 +178,7 @@
                 [row setValue:buttons forKey:@"buttons"];
                 NSObject* button = [[NSMutableDictionary alloc] init];
                 [button setValue:@"onResearchUnread:" forKey:@"callback"];
-                [button setValue:@"Research" forKey:@"text"];
+                [button setValue:@"研究" forKey:@"text"];
                 [button setValue:[NSNumber numberWithInt:index] forKey:@"tag"];
                 [button setValue:@"btn_green_light" forKey:@"bgImage"];
                 [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
@@ -204,10 +204,10 @@
     [self view].frame = rect3;
 //    [self view].backgroundColor = [UIColor redColor];
     
-    int scrollSize = rect3.size.height+200 - 480;
+    int scrollSize = rect3.size.height+200 - [ad screenSize].height;
     if (scrollSize > 0 ){
         UIScrollView* sv = [self view ].superview;
-        [sv setContentSize:CGSizeMake(0, 200+rect3.size.height-480)];
+        [sv setContentSize:CGSizeMake(0, 200+rect3.size.height-[ad screenSize].height)];
     }
     
 }

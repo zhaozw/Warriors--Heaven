@@ -1,12 +1,22 @@
 <html>
-<body style='background:transparent;background-color: transparent' >
+<body style='background:transparent;background-color: transparent;margin:0;padding:0;' >
 <script >
-    _cords =  [
+  /*  _cords =  [
                ["Home", [393,419,495,500], 0 ],
                ["铁匠铺", [761,945,822,1012],1],
                ["茶馆", [534,233,615,435],2],
                ["海边", [6,396,81,478],2]
-               ];
+               ];*/
+    _cords = [
+              ["",[44,129,126,214],301],
+              ["",[126,91,212,163],2],
+              ["",[252,52,332,114],6],
+              ["",[439,70,510,132],4],
+              ["",[560,130,650,184],300],
+              ["",[579,348,664,418],8],
+              ["",[399,318,491,386],5],
+              ["",[236,291,292,343],7],
+    ]
     function c(event){
 //        alert(event.pageY);
      //   alert(inspect(event));
@@ -24,8 +34,10 @@
 //        document.getElementById('mp_x').innerHTML = x + 'px';
 //        document.getElementById('mp_y').innerHTML = y + 'px';
         
+        // debug
+        // alert("x="+x+", y="+y);
+        //
         
-        alert("x="+x+", y="+y);
         for (i = 0;i<_cords.length;i++){
             if (x>_cords[i][1][0] && y>_cords[i][1][1] && x<_cords[i][1][2]&& y<_cords[i][1][3]){ 
 //                tooltips = cords[i][0];
@@ -56,6 +68,6 @@
 
 </script>
 
-<img src = "map_yangzhou.jpg" onclick="c(event)" />
+<img src = "map_yangzhou3.jpg" onclick="c(event)" style="margin:0;" height="500" />
 </body>
 </html>

@@ -23,6 +23,7 @@
 @synthesize lbHp;
 @synthesize ad;
 @synthesize obj;
+@synthesize vBG;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,6 +50,9 @@
     // Do any additional setup after loading the view from its nib.
     ad = [UIApplication sharedApplication].delegate;
     [self view ].hidden = YES;
+    [ad fullScreen:[self view]];
+    [ad fullScreen:vBG];
+
 }
 
 - (void)viewDidUnload
@@ -64,6 +68,7 @@
     [self setSlbPrice:nil];
     [self setBtTrade:nil];
     [self setLbHp:nil];
+    [self setVBG:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

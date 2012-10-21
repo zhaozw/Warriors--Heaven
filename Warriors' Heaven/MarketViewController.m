@@ -92,7 +92,8 @@
 
 //     [self addChildViewController:vcObjDetail];
     [[ad window] addSubview:[vcObjDetail view]];
-    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+//    vcObjDetail.view.frame=CGRectMake(0, 60, 320, 420);
+    [ad fullScreen:vcObjDetail.view];
     [vcObjDetail setViewType:@"buy"];
    [vcObjDetail setOnTrade:self sel:@selector(onBuy:)];
 //    [self updateData];
@@ -181,9 +182,9 @@
     CGRect r = v.frame;
     
     
-    if (r.size.height+130 > 480){
+    if (r.size.height+130 > [ad screenSize].height){
         UIScrollView* scv = [self view];
-        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+        scv.contentSize = CGSizeMake(0, r.size.height+130-[ad screenSize].height);
     }
 
     
@@ -397,7 +398,7 @@
         UIButton * btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         
         [btn setFrame:CGRectMake(240, 10, 70, 35)];
-        [btn setTitle:@"Buy" forState: UIControlStateNormal];
+        [btn setTitle:@"购买" forState: UIControlStateNormal];
         [btn addTarget:self action:@selector(onBuy:) forControlEvents:UIControlEventTouchUpInside];
         [btn.titleLabel setFont:[UIFont fontWithName:@"System Bold" size:12.0f]];
         [btn setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
@@ -443,9 +444,9 @@
     
      r = vEquipment.frame;
     
-    if (r.size.height+130 > 480){
+    if (r.size.height+130 > [ad screenSize].height){
         UIScrollView* scv = [self view];
-        scv.contentSize = CGSizeMake(0, r.size.height+130-480);
+        scv.contentSize = CGSizeMake(0, r.size.height+130-[ad screenSize].height);
     }
     
 //    v.hidden = NO;

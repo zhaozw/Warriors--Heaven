@@ -557,7 +557,7 @@
     rect =  skillsView.frame;
     rect.size.height = row_height*(count_b+count_c+count_p)+90;
     skillsView.frame = rect;
-    if (rect.size.height+200-480 >0)
+    if (rect.size.height+200-[ad screenSize].height >0)
         [(UIScrollView*)[self view] setContentSize:CGSizeMake(0, 200+rect.size.height-480)];
     
     
@@ -585,6 +585,8 @@
 }
 
 - (void) _startPractise:(NSString *)skillname _usepot:(int)_usepot{
+    if (skillname == NULL)
+        return;
 //    practiseRate = 1;
     self->usepot = _usepot;
 
