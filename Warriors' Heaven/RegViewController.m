@@ -86,17 +86,17 @@
 - (IBAction)onCreate:(id)sender {
     NSString * name = tName.text;
     if (name == NULL || name.length == 0){
-        lbError.text = @"Name cannot be empty";
+        lbError.text = @"名前は空にすることはできません";
         return;
     }
         
     name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ( name.length == 0){
-        lbError.text = @"Name cannot be empty";
+        lbError.text = @"名前は空にすることはできません";
         return;
     }
     if (name.length > 10){
-        lbError.text = @"Name is too long";
+        lbError.text = @"名前が長すぎます";
         return;
     }
     NSString * tc = lbTeamCode.text;
@@ -108,7 +108,7 @@
     
     
     if (currentSelectedSex <0){
-        lbError.text = @"Please choose your character.";
+        lbError.text = @"あなたのキャラクターを選択してください";
         return;
     }
    
