@@ -1004,6 +1004,45 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">HomeViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="onClickStatus:">id</string>
+						<string key="onCloseFloat1:">id</string>
+						<string key="onGotoCharView:">id</string>
+						<string key="onTouchChar:">id</string>
+						<string key="onTouchFight:">id</string>
+						<string key="onTouchSkill:">id</string>
+						<string key="onTouchTeam:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="onClickStatus:">
+							<string key="name">onClickStatus:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onCloseFloat1:">
+							<string key="name">onCloseFloat1:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onGotoCharView:">
+							<string key="name">onGotoCharView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onTouchChar:">
+							<string key="name">onTouchChar:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onTouchFight:">
+							<string key="name">onTouchFight:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onTouchSkill:">
+							<string key="name">onTouchSkill:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onTouchTeam:">
+							<string key="name">onTouchTeam:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="btChar">UIButton</string>
 						<string key="btCloseFloat1">UIButton</string>

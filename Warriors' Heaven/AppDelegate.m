@@ -134,7 +134,7 @@
     //    session_id = @"dce21c64f8788afce3960cf88734048b"; // user 'linsanity'
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
-    //session_id = nil; // test register new user
+    session_id = nil; // test register new user
     //[self setSessionId:session_id];
 
 }
@@ -480,7 +480,7 @@
 
 
 - (BOOL) initData{
-//      [self setTest];
+      [self setTest];
     
     
     // clear cookie
@@ -902,17 +902,34 @@
 }
 
 - (void) showMsg:(NSString*)msg type:(int)type hasCloseButton:(BOOL)bCloseBt{
-    if (type == 0){
-//        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
-        lbAlertMsg.frame = CGRectMake(20, 20, 240, 73);
+    CGSize constraintSize= CGSizeMake(240, MAXFLOAT);
+    CGSize expectedSize = [msg sizeWithFont:lbAlertMsg.font constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    
+    if (type == 0){ // info
+        //        [vAlertImg setImage:[UIImage imageNamed:@"success.png"]];
+        if (expectedSize.height > 73)
+            lbAlertMsg.frame = CGRectMake(20, 20, 240, expectedSize.height);
+        else
+            lbAlertMsg.frame = CGRectMake(20, 20, 240, 73);
+        vNetworkStatus.frame = CGRectMake(vNetworkStatus.frame.origin.x
+                                          ,vNetworkStatus.frame.origin.y, vNetworkStatus.frame.size.width, lbAlertMsg.frame.size.height+40);
         vAlertImg.hidden = YES;
+        if (expectedSize.height < 73){
+            int y = (vNetworkStatus.frame.size.height - expectedSize.height)/2;
+            lbAlertMsg.frame = CGRectMake(20, y, 240, expectedSize.height);
+        }
     }
-    else if (type == 1){
+    else if (type == 1){ // warning
         [vAlertImg setImage:[UIImage imageNamed:@"warning.png"]];
-        lbAlertMsg.frame = CGRectMake(20, 62, 240, 73);
+        if (expectedSize.height > 73)
+            lbAlertMsg.frame = CGRectMake(20, 20+46, 240, expectedSize.height);
+        else
+            lbAlertMsg.frame = CGRectMake(20, 20+46, 240, 73);
+        vNetworkStatus.frame = CGRectMake(vNetworkStatus.frame.origin.x
+                                          ,vNetworkStatus.frame.origin.y, vNetworkStatus.frame.size.width, lbAlertMsg.frame.size.height+46+40);
         vAlertImg.hidden = NO;
     }
-        
+    
     lbAlertMsg.text = msg;
     
     if (bCloseBt){

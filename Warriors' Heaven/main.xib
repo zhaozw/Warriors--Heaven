@@ -312,7 +312,7 @@
 							<object class="IBUILabel" id="457591730">
 								<reference key="NSNextResponder" ref="673263083"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 62}, {240, 73}}</string>
+								<string key="NSFrame">{{20, 66}, {240, 73}}</string>
 								<reference key="NSSuperview" ref="673263083"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="121884477"/>
@@ -371,6 +371,7 @@
 							<reference key="NSCustomColorSpace" ref="85209174"/>
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUIWebView" id="286016823">
@@ -594,7 +595,6 @@
 					<object class="IBUITabBarItem" key="IBUITabBarItem" id="996342085">
 						<string key="IBUITitle">Item</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<reference key="IBUITabBar" ref="70112101"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="282489272"/>
 					<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -610,7 +610,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="917066384">
 							<string key="IBUITitle">Item 1</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -624,7 +623,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="397997218">
 							<string key="IBUITitle">Item 2</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -638,7 +636,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1066428909">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -654,7 +651,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="838710736">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -669,7 +665,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="408171630">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -684,7 +679,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1039075372">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -699,7 +693,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="302924097">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -714,7 +707,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="192079034">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -731,21 +723,9 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView"/>
 					<reference key="IBUIBackgroundColor" ref="220321152"/>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					<array class="NSMutableArray" key="IBUIItems">
-						<reference ref="917066384"/>
-						<reference ref="397997218"/>
-						<reference ref="1066428909"/>
-						<reference ref="996342085"/>
-						<reference ref="838710736"/>
-						<reference ref="408171630"/>
-						<reference ref="1039075372"/>
-						<reference ref="302924097"/>
-						<reference ref="192079034"/>
-					</array>
-					<reference key="IBUISelectedItem" ref="996342085"/>
 				</object>
 			</object>
 		</array>

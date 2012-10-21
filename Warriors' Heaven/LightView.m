@@ -401,4 +401,11 @@
         [v removeFromSuperview];
     }
 }
+
++ (void) resizeLabelToText:(UILabel*)label{
+    CGSize constraintSize= CGSizeMake(label.frame.size.width,MAXFLOAT);
+    CGSize expectedSize = [label.text sizeWithFont:label.font constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    
+    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, expectedSize.width, expectedSize.height);
+}
 @end

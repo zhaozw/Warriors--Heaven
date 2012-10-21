@@ -210,16 +210,19 @@
 
 - (void) highlightButton:(UIButton*)bt{
    // bt.backgroundColor = [UIColor redColor];
-    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 2.0f)];
+    [bt setImageEdgeInsets:UIEdgeInsetsMake(1.0f, 2.0f, 2.0f, 3.0f)];
     if (btSelectedSex){
  //       btSelectedSex.backgroundColor = [UIColor clearColor];
-        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 1, 1)];
+        [btSelectedSex setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
     }
     btSelectedSex = bt;
 }
 - (IBAction)onSelectSex:(id)sender {
     UIButton* bt = sender;
+    if (bt.tag == currentSelectedSex)
+        return;
     currentSelectedSex = bt.tag;
+ 
     [self performSelector:@selector(highlightButton:) withObject:bt afterDelay:0.0];
     
     // hide keyboard

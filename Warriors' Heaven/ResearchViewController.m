@@ -121,7 +121,7 @@
             [row setValue:buttons forKey:@"buttons"];
             NSObject* button = [[NSMutableDictionary alloc] init];
             [button setValue:@"onResearchRead:" forKey:@"callback"];
-            [button setValue:@"Research" forKey:@"text"];
+            [button setValue:@"研究" forKey:@"text"];
             [button setValue:[NSNumber numberWithInt:i] forKey:@"tag"];
             [button setValue:@"btn_green_light" forKey:@"bgImage"];
             [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
@@ -178,7 +178,7 @@
                 [row setValue:buttons forKey:@"buttons"];
                 NSObject* button = [[NSMutableDictionary alloc] init];
                 [button setValue:@"onResearchUnread:" forKey:@"callback"];
-                [button setValue:@"Research" forKey:@"text"];
+                [button setValue:@"研究" forKey:@"text"];
                 [button setValue:[NSNumber numberWithInt:index] forKey:@"tag"];
                 [button setValue:@"btn_green_light" forKey:@"bgImage"];
                 [button setValue:[NSNumber numberWithInt:70] forKey:@"width"];
