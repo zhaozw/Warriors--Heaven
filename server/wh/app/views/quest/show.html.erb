@@ -149,19 +149,19 @@ function apply(){
 <div id="waitingbg" style="display:none;z-index:100;position:absolute;left:0;top:0;width:320px;height:480px;">
 	<img src="/images/wait3.gif" style="width:50px;margin-left:135px;margin-top:230px;"/>
 </div>
-<div id="main" style="display:none;background:transparent;background-color: transparent;margin:25px;">
-	<div >
+<div id="main" style="display:none;background:transparent;background-color:transparent;margin:25px;height:100%;border:0px solid green;">
+	<div id="page_title">
 		<span style="font-weight:bold;font-size:18pt;">
 			クエスト
 		</span>
 		<img src="/images/line1.png">
 	</div>
-	<div id="title" style="margin-top:10px;">
+	<div id="title" style="margin-top:10px;height:65px;overflow:scroll;">
 		<img src="<%=@quest.logo %>" style="border:0px;width:60px;float:left;" />
 		
 		<div id="desc" style="vertical-align:bottom;margin-left:65px;padding-top:0px;border:0px solid red;">
 			<span><%=@quest.dname %></span><br/>
-			<span style="font-color:yellow; font-size:9pt;height:10px;">
+			<span style="font-size:9pt;height:10px;overflow:scroll;">
 				<%=@quest.desc%>
 			</span>
 		</div>
@@ -169,11 +169,11 @@ function apply(){
 	<div style="clear:both"></div>
 	<!-- progress -->
 	<div>
-	<div style="float:left;font-size:9pt;">达成度:</div>
-	<div style="overflow:hidde;margin-top:6;float:left;border:1px solid #333333;width:100px;background:#999999;">
-		<div id="pro_left" style="float:left;background:green;height:6px;width:<%=@quest.data[:progress] %>px;"></div>
-		<div id="pro_right" style="background:transparent;height:6px;width:<%=100-@quest.data[:progress].to_i %>px;"></div>
-	</div>
+	<div id="progress" style="float:left;font-size:9pt;">达成度:</div>
+		<div style="overflow:hidden;margin-top:6;float:left;border:1px solid #333333;width:100px;background:#999999;">
+			<div id="pro_left" style="float:left;background:green;height:6px;width:<%=@quest.data[:progress] %>px;"></div>
+			<div id="pro_right" style="background:transparent;height:6px;width:<%=100-@quest.data[:progress].to_i %>px;"></div>
+		</div>
 	</div>
 	<div style="clear:both"></div>
 	<div id="room" style="background:transparent;background-color:transparent;overflow:auto;max-height:70px;">
@@ -192,7 +192,7 @@ function apply(){
 		%>
 		
 	</div>
-	<div style="z-index:1;border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
+	<div id="sp" style="z-index:1;border:0px solid green;margin-left:-10px;margin-top:-10px;"> 
 		<p><img src="/images/line1.png"></p>
 	</div>
 	<%if @device == "r4"%>
@@ -225,4 +225,7 @@ function proccess(){
 		// $("#pro_left").css("width", <%=@quest.data[:process] %>+"px");
 // alert("dfs");
 $("#bg").height(window.screen.height);
+var rh = $("#main").height() - $("#sp").height() - $("#action_list").height()- $("#progress").height()- $("#title").height()- $("#page_title").height()-$("#room").height()-25*2-10;
+//alert("rh="+$("#main").height() +","+ $("#sp").height()  +","+ $("#action_list").height() +","+ $("#progress").height() +","+ $("#title").height() +","+ $("#page_title").height());
+$("#result").height(rh);
 </script>

@@ -41,7 +41,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIWindow" id="256857941">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="240737820">
@@ -49,7 +49,6 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{110, 210}, {100, 60}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="214711419"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<float key="IBUIAlpha">0.60000002384185791</float>
@@ -69,7 +68,6 @@
 								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{40, 176}, {240, 128}}</string>
 								<reference key="NSSuperview" ref="88111708"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="534025076"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="735217951">
 									<int key="NSColorSpace">1</int>
@@ -84,7 +82,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 480}</string>
 								<reference key="NSSuperview" ref="88111708"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="631416441"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="919193196">
 									<int key="NSColorSpace">3</int>
@@ -100,7 +97,6 @@
 								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{252, 324}, {64, 39}}</string>
 								<reference key="NSSuperview" ref="88111708"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1027779286"/>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -134,7 +130,6 @@
 						</array>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="498066852"/>
 						<reference key="IBUIBackgroundColor" ref="919193196"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -148,7 +143,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{160, 240}</string>
 								<reference key="NSSuperview" ref="992761348"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="17460649"/>
 								<reference key="IBUIBackgroundColor" ref="735217951"/>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -160,7 +154,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{44, 102}, {72, 37}}</string>
 								<reference key="NSSuperview" ref="992761348"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="240737820"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -185,7 +178,6 @@
 						</array>
 						<string key="NSFrame">{{80, 120}, {160, 240}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="188879931"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -205,7 +197,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{0, 60}, {320, 430}}</string>
 								<reference key="NSSuperview" ref="1027779286"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="735134876"/>
 								<reference key="IBUIBackgroundColor" ref="735217951"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -216,7 +207,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 60}</string>
 								<reference key="NSSuperview" ref="1027779286"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="12494280"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -230,7 +220,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{240, 14}, {72, 35}}</string>
 								<reference key="NSSuperview" ref="1027779286"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="920637478"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -252,7 +241,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{89, 21}, {68, 21}}</string>
 								<reference key="NSSuperview" ref="1027779286"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="764618880"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -281,7 +269,6 @@
 						</array>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="870969991"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -299,7 +286,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{94, 9}, {71, 67}}</string>
 								<reference key="NSSuperview" ref="673263083"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="992761348"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -313,7 +299,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 68}, {240, 73}}</string>
 								<reference key="NSSuperview" ref="673263083"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="121884477"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -343,7 +328,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{288, 127}</string>
 								<reference key="NSSuperview" ref="673263083"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="457591730"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUIContentMode">1</int>
@@ -362,7 +346,6 @@
 						</array>
 						<string key="NSFrame">{{20, 183}, {280, 127}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="528630690"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -378,7 +361,6 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1042609738"/>
 						<reference key="IBUIBackgroundColor" ref="735217951"/>
 						<float key="IBUIAlpha">0.5</float>
@@ -392,7 +374,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="673263083"/>
 						<reference key="IBUIBackgroundColor" ref="649784347"/>
 						<int key="IBUIContentMode">1</int>
@@ -408,7 +389,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{217, 460}, {100, 18}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="134591892"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -422,7 +402,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{204, 459}, {120, 21}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="266325989"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -452,7 +431,6 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{209, 398}, {108, 21}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="886145416"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -484,7 +462,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{295, 458}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -507,8 +484,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 568}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="88111708"/>
 				<reference key="IBUIBackgroundColor" ref="735217951"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -594,7 +569,6 @@
 					<object class="IBUITabBarItem" key="IBUITabBarItem" id="838710736">
 						<string key="IBUITitle">Item</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<reference key="IBUITabBar" ref="70112101"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="282489272"/>
 					<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -610,7 +584,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="917066384">
 							<string key="IBUITitle">Item 1</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -624,7 +597,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="397997218">
 							<string key="IBUITitle">Item 2</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -638,7 +610,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1066428909">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -653,7 +624,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="996342085">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -669,7 +639,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="408171630">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -684,7 +653,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1039075372">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -699,7 +667,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="302924097">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -714,7 +681,6 @@
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="192079034">
 							<string key="IBUITitle">Item</string>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-							<reference key="IBUITabBar" ref="70112101"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="282489272"/>
 						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -734,18 +700,6 @@
 					<reference key="NSNextKeyView"/>
 					<reference key="IBUIBackgroundColor" ref="919193196"/>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					<array class="NSMutableArray" key="IBUIItems">
-						<reference ref="917066384"/>
-						<reference ref="397997218"/>
-						<reference ref="1066428909"/>
-						<reference ref="996342085"/>
-						<reference ref="838710736"/>
-						<reference ref="408171630"/>
-						<reference ref="1039075372"/>
-						<reference ref="302924097"/>
-						<reference ref="192079034"/>
-					</array>
-					<reference key="IBUISelectedItem" ref="838710736"/>
 				</object>
 			</object>
 		</array>
@@ -1388,1194 +1342,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">105</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">AppDelegate</string>
-					<string key="superclassName">UIResponder</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="closeFightMsg:">id</string>
-						<string key="onClosePreface:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="closeFightMsg:">
-							<string key="name">closeFightMsg:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onClosePreface:">
-							<string key="name">onClosePreface:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="bgView">UIImageView</string>
-						<string key="btClose">UIButton</string>
-						<string key="btCloseHelpView">UIButton</string>
-						<string key="lbAlertMsg">UILabel</string>
-						<string key="lbBattleResultTitle">UILabel</string>
-						<string key="lbCompnayName">UILabel</string>
-						<string key="lbLoading">UILabel</string>
-						<string key="lbVersion">UILabel</string>
-						<string key="tabBarController">DotHide_TabBarController</string>
-						<string key="vAlertImg">UIImageView</string>
-						<string key="vBattleMsg">UIWebView</string>
-						<string key="vBattleMsgBg">UIView</string>
-						<string key="vCompanyLogo">UIImageView</string>
-						<string key="vHelp">UIView</string>
-						<string key="vHelpWebView">UIWebView</string>
-						<string key="vMoreTab">UIImageView</string>
-						<string key="vNetworkStatus">UIImageView</string>
-						<string key="vPreface">UIView</string>
-						<string key="vReg">UIViewController</string>
-						<string key="vWelcome">UIImageView</string>
-						<string key="vcPurchase">PurchaseViewController</string>
-						<string key="vcStatus">StatusViewController</string>
-						<string key="vcTraining">TrainingGround</string>
-						<string key="viewcontroller">UIViewController</string>
-						<string key="window">UIWindow</string>
-						<string key="wvLoadingPreface">UIWebView</string>
-						<string key="wvPreface">UIWebView</string>
-						<string key="wvPreload">UIWebView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="bgView">
-							<string key="name">bgView</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btClose">
-							<string key="name">btClose</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btCloseHelpView">
-							<string key="name">btCloseHelpView</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbAlertMsg">
-							<string key="name">lbAlertMsg</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbBattleResultTitle">
-							<string key="name">lbBattleResultTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbCompnayName">
-							<string key="name">lbCompnayName</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbLoading">
-							<string key="name">lbLoading</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbVersion">
-							<string key="name">lbVersion</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tabBarController">
-							<string key="name">tabBarController</string>
-							<string key="candidateClassName">DotHide_TabBarController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vAlertImg">
-							<string key="name">vAlertImg</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBattleMsg">
-							<string key="name">vBattleMsg</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBattleMsgBg">
-							<string key="name">vBattleMsgBg</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vCompanyLogo">
-							<string key="name">vCompanyLogo</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vHelp">
-							<string key="name">vHelp</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vHelpWebView">
-							<string key="name">vHelpWebView</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vMoreTab">
-							<string key="name">vMoreTab</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vNetworkStatus">
-							<string key="name">vNetworkStatus</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vPreface">
-							<string key="name">vPreface</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vReg">
-							<string key="name">vReg</string>
-							<string key="candidateClassName">UIViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vWelcome">
-							<string key="name">vWelcome</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcPurchase">
-							<string key="name">vcPurchase</string>
-							<string key="candidateClassName">PurchaseViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcStatus">
-							<string key="name">vcStatus</string>
-							<string key="candidateClassName">StatusViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcTraining">
-							<string key="name">vcTraining</string>
-							<string key="candidateClassName">TrainingGround</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="viewcontroller">
-							<string key="name">viewcontroller</string>
-							<string key="candidateClassName">UIViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="window">
-							<string key="name">window</string>
-							<string key="candidateClassName">UIWindow</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvLoadingPreface">
-							<string key="name">wvLoadingPreface</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvPreface">
-							<string key="name">wvPreface</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvPreload">
-							<string key="name">wvPreload</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AppDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BattleViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="vcBoss">BossViewController</string>
-						<string key="vcPlayer">BossViewController</string>
-						<string key="vcStatus">StatusViewController</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="vcBoss">
-							<string key="name">vcBoss</string>
-							<string key="candidateClassName">BossViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcPlayer">
-							<string key="name">vcPlayer</string>
-							<string key="candidateClassName">BossViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcStatus">
-							<string key="name">vcStatus</string>
-							<string key="candidateClassName">StatusViewController</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BattleViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">BossViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onCloseFightView:">id</string>
-						<string key="onFight:">id</string>
-						<string key="onTouchClose:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onCloseFightView:">
-							<string key="name">onCloseFightView:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onFight:">
-							<string key="name">onFight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onTouchClose:">
-							<string key="name">onTouchClose:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btnClose">UIButton</string>
-						<string key="btnFight">UIButton</string>
-						<string key="lbDesc">UILabel</string>
-						<string key="lbEq">UILabel</string>
-						<string key="lbLevel">UILabel</string>
-						<string key="lbRace">UILabel</string>
-						<string key="lbTitle">UILabel</string>
-						<string key="lbTitle2">UILabel</string>
-						<string key="vEquipment">UIView</string>
-						<string key="vFightView">UIView</string>
-						<string key="vWebBG">UIWebView</string>
-						<string key="wvFight">UIWebView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btnClose">
-							<string key="name">btnClose</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btnFight">
-							<string key="name">btnFight</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbDesc">
-							<string key="name">lbDesc</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbEq">
-							<string key="name">lbEq</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbLevel">
-							<string key="name">lbLevel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbRace">
-							<string key="name">lbRace</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbTitle">
-							<string key="name">lbTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbTitle2">
-							<string key="name">lbTitle2</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEquipment">
-							<string key="name">vEquipment</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vFightView">
-							<string key="name">vFightView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vWebBG">
-							<string key="name">vWebBG</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvFight">
-							<string key="name">wvFight</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/BossViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">CharacterViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">onSave:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">onSave:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">onSave:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="lbStatus">UILabel</string>
-						<string key="vEqInfoView">UIView</string>
-						<string key="vEq_arm">UIImageView</string>
-						<string key="vEq_armo">UIImageView</string>
-						<string key="vEq_boots">UIImageView</string>
-						<string key="vEq_cap">UIImageView</string>
-						<string key="vEq_fingersRight">UIImageView</string>
-						<string key="vEq_fingersleft">UIImageView</string>
-						<string key="vEq_handleft">UIImageView</string>
-						<string key="vEq_handright">UIImageView</string>
-						<string key="vEq_neck">UIImageView</string>
-						<string key="vEq_trousers">UIImageView</string>
-						<string key="vEqbtn_arm">EGOImageButton</string>
-						<string key="vEqbtn_armo">EGOImageButton</string>
-						<string key="vEqbtn_boots">EGOImageButton</string>
-						<string key="vEqbtn_cap">EGOImageButton</string>
-						<string key="vEqbtn_fingersRight">EGOImageButton</string>
-						<string key="vEqbtn_fingersleft">EGOImageButton</string>
-						<string key="vEqbtn_handleft">EGOImageButton</string>
-						<string key="vEqbtn_handright">EGOImageButton</string>
-						<string key="vEqbtn_neck">EGOImageButton</string>
-						<string key="vEqbtn_trousers">EGOImageButton</string>
-						<string key="vEquipment">UIImageView</string>
-						<string key="vItemBg">UIImageView</string>
-						<string key="vProfile">EGOImageView</string>
-						<string key="vcObjDetail">ObjDetailViewController</string>
-						<string key="vcStatus">StatusViewController</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="lbStatus">
-							<string key="name">lbStatus</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqInfoView">
-							<string key="name">vEqInfoView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_arm">
-							<string key="name">vEq_arm</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_armo">
-							<string key="name">vEq_armo</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_boots">
-							<string key="name">vEq_boots</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_cap">
-							<string key="name">vEq_cap</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_fingersRight">
-							<string key="name">vEq_fingersRight</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_fingersleft">
-							<string key="name">vEq_fingersleft</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_handleft">
-							<string key="name">vEq_handleft</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_handright">
-							<string key="name">vEq_handright</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_neck">
-							<string key="name">vEq_neck</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEq_trousers">
-							<string key="name">vEq_trousers</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_arm">
-							<string key="name">vEqbtn_arm</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_armo">
-							<string key="name">vEqbtn_armo</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_boots">
-							<string key="name">vEqbtn_boots</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_cap">
-							<string key="name">vEqbtn_cap</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_fingersRight">
-							<string key="name">vEqbtn_fingersRight</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_fingersleft">
-							<string key="name">vEqbtn_fingersleft</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_handleft">
-							<string key="name">vEqbtn_handleft</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_handright">
-							<string key="name">vEqbtn_handright</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_neck">
-							<string key="name">vEqbtn_neck</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEqbtn_trousers">
-							<string key="name">vEqbtn_trousers</string>
-							<string key="candidateClassName">EGOImageButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEquipment">
-							<string key="name">vEquipment</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vItemBg">
-							<string key="name">vItemBg</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vProfile">
-							<string key="name">vProfile</string>
-							<string key="candidateClassName">EGOImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcObjDetail">
-							<string key="name">vcObjDetail</string>
-							<string key="candidateClassName">ObjDetailViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcStatus">
-							<string key="name">vcStatus</string>
-							<string key="candidateClassName">StatusViewController</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/CharacterViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">DotHide_TabBarController</string>
-					<string key="superclassName">UITabBarController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/DotHide_TabBarController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">EGOImageButton</string>
-					<string key="superclassName">UIButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/EGOImageButton.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">EGOImageView</string>
-					<string key="superclassName">UIImageView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/EGOImageView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">HelpViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/HelpViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">HomeViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onClickStatus:">id</string>
-						<string key="onCloseFloat1:">id</string>
-						<string key="onGotoCharView:">id</string>
-						<string key="onTouchChar:">id</string>
-						<string key="onTouchFight:">id</string>
-						<string key="onTouchSkill:">id</string>
-						<string key="onTouchTeam:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onClickStatus:">
-							<string key="name">onClickStatus:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onCloseFloat1:">
-							<string key="name">onCloseFloat1:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onGotoCharView:">
-							<string key="name">onGotoCharView:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onTouchChar:">
-							<string key="name">onTouchChar:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onTouchFight:">
-							<string key="name">onTouchFight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onTouchSkill:">
-							<string key="name">onTouchSkill:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onTouchTeam:">
-							<string key="name">onTouchTeam:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btChar">UIButton</string>
-						<string key="btCloseFloat1">UIButton</string>
-						<string key="btGotoCharView">UIButton</string>
-						<string key="lbComment">UIButton</string>
-						<string key="lbStatus">UILabel</string>
-						<string key="lbTitle">UILabel</string>
-						<string key="lbUserName">UILabel</string>
-						<string key="playerProfile">EGOImageView</string>
-						<string key="vBadge">UIScrollView</string>
-						<string key="vHome">UIView</string>
-						<string key="vHomeUnder">UIView</string>
-						<string key="vProfileBg">UIImageView</string>
-						<string key="vSummary">UIWebView</string>
-						<string key="vcStatus">StatusViewController</string>
-						<string key="viewReport">UIImageView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btChar">
-							<string key="name">btChar</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btCloseFloat1">
-							<string key="name">btCloseFloat1</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btGotoCharView">
-							<string key="name">btGotoCharView</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbComment">
-							<string key="name">lbComment</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbStatus">
-							<string key="name">lbStatus</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbTitle">
-							<string key="name">lbTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbUserName">
-							<string key="name">lbUserName</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="playerProfile">
-							<string key="name">playerProfile</string>
-							<string key="candidateClassName">EGOImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBadge">
-							<string key="name">vBadge</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vHome">
-							<string key="name">vHome</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vHomeUnder">
-							<string key="name">vHomeUnder</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vProfileBg">
-							<string key="name">vProfileBg</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vSummary">
-							<string key="name">vSummary</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcStatus">
-							<string key="name">vcStatus</string>
-							<string key="candidateClassName">StatusViewController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="viewReport">
-							<string key="name">viewReport</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/HomeViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LightView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LightView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">MarketViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btEquipment">UIButton</string>
-						<string key="btFixure">UIButton</string>
-						<string key="btPremierEq">UIButton</string>
-						<string key="btSpecial">UIButton</string>
-						<string key="btnCharge">UIButton</string>
-						<string key="vEquipment">UIView</string>
-						<string key="vFixure">UIView</string>
-						<string key="vMenuBar">UIImageView</string>
-						<string key="vPremierEq">UIView</string>
-						<string key="vSpecial">UIView</string>
-						<string key="vcObjDetail">ObjDetailViewController</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btEquipment">
-							<string key="name">btEquipment</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btFixure">
-							<string key="name">btFixure</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btPremierEq">
-							<string key="name">btPremierEq</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btSpecial">
-							<string key="name">btSpecial</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btnCharge">
-							<string key="name">btnCharge</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vEquipment">
-							<string key="name">vEquipment</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vFixure">
-							<string key="name">vFixure</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vMenuBar">
-							<string key="name">vMenuBar</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vPremierEq">
-							<string key="name">vPremierEq</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vSpecial">
-							<string key="name">vSpecial</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcObjDetail">
-							<string key="name">vcObjDetail</string>
-							<string key="candidateClassName">ObjDetailViewController</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/MarketViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ObjDetailViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onClose:">id</string>
-						<string key="onUse:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onClose:">
-							<string key="name">onClose:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onUse:">
-							<string key="name">onUse:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btTrade">UIButton</string>
-						<string key="btnUse">UIButton</string>
-						<string key="lbDesc">UILabel</string>
-						<string key="lbEffect">UILabel</string>
-						<string key="lbHp">UILabel</string>
-						<string key="lbPrice">UILabel</string>
-						<string key="lbRank">UILabel</string>
-						<string key="lbSellPrice">UILabel</string>
-						<string key="lbTitle">UILabel</string>
-						<string key="slbPrice">UILabel</string>
-						<string key="vBG">UIImageView</string>
-						<string key="vImage">EGOImageView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btTrade">
-							<string key="name">btTrade</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btnUse">
-							<string key="name">btnUse</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbDesc">
-							<string key="name">lbDesc</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbEffect">
-							<string key="name">lbEffect</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbHp">
-							<string key="name">lbHp</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbPrice">
-							<string key="name">lbPrice</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbRank">
-							<string key="name">lbRank</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbSellPrice">
-							<string key="name">lbSellPrice</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbTitle">
-							<string key="name">lbTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="slbPrice">
-							<string key="name">slbPrice</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBG">
-							<string key="name">vBG</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vImage">
-							<string key="name">vImage</string>
-							<string key="candidateClassName">EGOImageView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ObjDetailViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PurchaseViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">onClose:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">onClose:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">onClose:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">vwPurchase</string>
-						<string key="NS.object.0">UIWebView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">vwPurchase</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">vwPurchase</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/PurchaseViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QuestViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btCloseQuestRoom">UIButton</string>
-						<string key="lbAskedQuestTitle">UILabel</string>
-						<string key="lbQuestTitle">UILabel</string>
-						<string key="vAskedQuest">UIView</string>
-						<string key="vAskedQuestTitle">UIImageView</string>
-						<string key="vQuestContainer">UIView</string>
-						<string key="vQuestRoom">UIWebView</string>
-						<string key="vQuestTitle">UIImageView</string>
-						<string key="vUnaskedQuest">UIView</string>
-						<string key="wvLoadingQuest">UIWebView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btCloseQuestRoom">
-							<string key="name">btCloseQuestRoom</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbAskedQuestTitle">
-							<string key="name">lbAskedQuestTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbQuestTitle">
-							<string key="name">lbQuestTitle</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vAskedQuest">
-							<string key="name">vAskedQuest</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vAskedQuestTitle">
-							<string key="name">vAskedQuestTitle</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestContainer">
-							<string key="name">vQuestContainer</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestRoom">
-							<string key="name">vQuestRoom</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vQuestTitle">
-							<string key="name">vQuestTitle</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vUnaskedQuest">
-							<string key="name">vUnaskedQuest</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="wvLoadingQuest">
-							<string key="name">wvLoadingQuest</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QuestViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">RankViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">vRankWeb</string>
-						<string key="NS.object.0">UIWebView</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">vRankWeb</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">vRankWeb</string>
-							<string key="candidateClassName">UIWebView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/RankViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">RegViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onCreate:">id</string>
-						<string key="onSelectSex:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onCreate:">
-							<string key="name">onCreate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectSex:">
-							<string key="name">onSelectSex:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="lbError">UILabel</string>
-						<string key="lbTeamCode">UITextField</string>
-						<string key="lbVersion">UILabel</string>
-						<string key="tName">UITextField</string>
-						<string key="vBG">UIImageView</string>
-						<string key="vBgBottom">UIImageView</string>
-						<string key="vBgTop">UIImageView</string>
-						<string key="vReg">UIView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="lbError">
-							<string key="name">lbError</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbTeamCode">
-							<string key="name">lbTeamCode</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbVersion">
-							<string key="name">lbVersion</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tName">
-							<string key="name">tName</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBG">
-							<string key="name">vBG</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBgBottom">
-							<string key="name">vBgBottom</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBgTop">
-							<string key="name">vBgTop</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vReg">
-							<string key="name">vReg</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/RegViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ResearchViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="vRead">LightView</string>
-						<string key="vUnRead">LightView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="vRead">
-							<string key="name">vRead</string>
-							<string key="candidateClassName">LightView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vUnRead">
-							<string key="name">vUnRead</string>
-							<string key="candidateClassName">LightView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ResearchViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">StatusViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="lbExp">UILabel</string>
-						<string key="lbGold">UILabel</string>
-						<string key="lbHP">UILabel</string>
-						<string key="lbJingli">UILabel</string>
-						<string key="lbLevel">UILabel</string>
-						<string key="lbStam">UILabel</string>
-						<string key="pvHP">UIProgressView</string>
-						<string key="pvJingli">UIProgressView</string>
-						<string key="pvStam">UIProgressView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="lbExp">
-							<string key="name">lbExp</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbGold">
-							<string key="name">lbGold</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbHP">
-							<string key="name">lbHP</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbJingli">
-							<string key="name">lbJingli</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbLevel">
-							<string key="name">lbLevel</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbStam">
-							<string key="name">lbStam</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pvHP">
-							<string key="name">pvHP</string>
-							<string key="candidateClassName">UIProgressView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pvJingli">
-							<string key="name">pvJingli</string>
-							<string key="candidateClassName">UIProgressView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pvStam">
-							<string key="name">pvStam</string>
-							<string key="candidateClassName">UIProgressView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/StatusViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TeamViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onHelpTeamCode:">id</string>
-						<string key="onJoinTeam:">id</string>
-						<string key="onSelectTab1:">id</string>
-						<string key="onSelectTab2:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onHelpTeamCode:">
-							<string key="name">onHelpTeamCode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onJoinTeam:">
-							<string key="name">onJoinTeam:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectTab1:">
-							<string key="name">onSelectTab1:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectTab2:">
-							<string key="name">onSelectTab2:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="btJoinTeam">UIButton</string>
-						<string key="btMyTeam">UIButton</string>
-						<string key="tfTeamCode">UITextField</string>
-						<string key="vJoinedTeams">LightView</string>
-						<string key="vMyTeam">LightView</string>
-						<string key="vcPlayer">BossViewController</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="btJoinTeam">
-							<string key="name">btJoinTeam</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="btMyTeam">
-							<string key="name">btMyTeam</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tfTeamCode">
-							<string key="name">tfTeamCode</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vJoinedTeams">
-							<string key="name">vJoinedTeams</string>
-							<string key="candidateClassName">LightView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vMyTeam">
-							<string key="name">vMyTeam</string>
-							<string key="candidateClassName">LightView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcPlayer">
-							<string key="name">vcPlayer</string>
-							<string key="candidateClassName">BossViewController</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TeamViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TrainingGround</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="onSelectLibrary:">id</string>
-						<string key="onSelectStatus:">id</string>
-						<string key="onSelectTrainingGround:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="onSelectLibrary:">
-							<string key="name">onSelectLibrary:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectStatus:">
-							<string key="name">onSelectStatus:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectTrainingGround:">
-							<string key="name">onSelectTrainingGround:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="bt_basic_skill">UIButton</string>
-						<string key="bt_common_skill">UIButton</string>
-						<string key="bt_premier_skill">UIButton</string>
-						<string key="lbPotential">UILabel</string>
-						<string key="lbUsername">UILabel</string>
-						<string key="skillsView">UIView</string>
-						<string key="vBasicSkill">UIView</string>
-						<string key="vBasicSkillsList">UIView</string>
-						<string key="vCommonSkill">UIView</string>
-						<string key="vCommonSkillsList">UIView</string>
-						<string key="vPremierSkill">UIView</string>
-						<string key="vPremierSkillsList">UIView</string>
-						<string key="vProfile">EGOImageView</string>
-						<string key="vcResearch">ResearchViewController</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="bt_basic_skill">
-							<string key="name">bt_basic_skill</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="bt_common_skill">
-							<string key="name">bt_common_skill</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="bt_premier_skill">
-							<string key="name">bt_premier_skill</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbPotential">
-							<string key="name">lbPotential</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="lbUsername">
-							<string key="name">lbUsername</string>
-							<string key="candidateClassName">UILabel</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="skillsView">
-							<string key="name">skillsView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBasicSkill">
-							<string key="name">vBasicSkill</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vBasicSkillsList">
-							<string key="name">vBasicSkillsList</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vCommonSkill">
-							<string key="name">vCommonSkill</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vCommonSkillsList">
-							<string key="name">vCommonSkillsList</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vPremierSkill">
-							<string key="name">vPremierSkill</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vPremierSkillsList">
-							<string key="name">vPremierSkillsList</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vProfile">
-							<string key="name">vProfile</string>
-							<string key="candidateClassName">EGOImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="vcResearch">
-							<string key="name">vcResearch</string>
-							<string key="candidateClassName">ResearchViewController</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TrainingGround.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
