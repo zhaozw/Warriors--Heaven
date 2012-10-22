@@ -9,4 +9,4 @@ memcached -d -u root -m 512
 ps -ef | grep ruby
 ps -ef | grep mem
 
-ECHO Please check whether memcached owned by other process was killed. You should relaunch them if YES.
+echo Please check whether memcached owned by other process was killed. You should relaunch them if YES.
