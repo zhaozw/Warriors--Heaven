@@ -134,7 +134,8 @@
     [self retrieveQuests];
     [ad updateUserext];
     ad.bUserEqNeedUpdated = YES;
-    [self view].hidden = NO;
+   // [self view].hidden = NO;
+    needUpdate = YES;
  
 }
 
@@ -146,6 +147,7 @@
     askedQuests  = asked;
     unaskedQuests = unasked;
     [self reloadQuests];
+    [self view].hidden = NO;
 }
 
 // realod UI from local data
