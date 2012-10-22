@@ -413,8 +413,13 @@ class User < ActiveRecord::Base
         return r if r
         
         p "not found in cache!"
-        r = User.find(id)
-        r.cache
+        begin
+            r = User.find(id)
+            r.cache
+        rescue Exception=>e
+                p e
+        end
+      
         delete_flag(id, "db_changed") if flag
         return r
     end
