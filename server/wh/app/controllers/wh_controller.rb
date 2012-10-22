@@ -1330,7 +1330,7 @@ class WhController < ApplicationController
         if ( user_data.ext[:pot] <= 0)
             # p "ext=#{user_data.inspect}"
             user_data.check_save
-            error("你的潜能不够, 无法提高", {:user=>user_data})
+            error("潜在能力が無いので、アップできない", {:user=>user_data})
             return
         end
         

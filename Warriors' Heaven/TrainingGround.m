@@ -185,7 +185,7 @@
     vPremierSkillsList.hidden = YES;
     
     
-    vSkillDetail = [[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, 480-65)];
+    vSkillDetail = [[UIView alloc] initWithFrame:CGRectMake(0, 65, 320, [ad screenSize].height-65-49)];
     vSkillDetail.backgroundColor = [UIColor clearColor];
     vSkillDetail.opaque = NO;
     [self.view addSubview:vSkillDetail];
@@ -197,7 +197,7 @@
     [closeSkillDetail addTarget:self action:@selector(onCloseSkillDetal:) forControlEvents:UIControlEventTouchUpInside];
      [vSkillDetail addSubview:closeSkillDetail];
     
-    wvSkillDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480-65)];
+    wvSkillDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, [ad screenSize].height-65-49)];
     wvSkillDetail.opaque = NO;
     wvSkillDetail.backgroundColor = [UIColor clearColor];
 //    wvSkillDetail.hidden = YES;

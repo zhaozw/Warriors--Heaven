@@ -24,7 +24,7 @@ class Chilianshenzhang < Unarmed
    end
    
    def researchConditionDesc
-       "基本拳脚>10级"
+       "基本拳法レベル>10"
    end
    
    def mengpai
@@ -38,7 +38,7 @@ class Chilianshenzhang < Unarmed
        skill = user.query_skill("unarmed")
       
        if (!skill or skill.data[:level] <=10 )
-           context[:msg] += "你的基本拳脚功夫还不够，无法参悟书中奥义"
+           context[:msg] += "あなたの基本拳法の工夫はまだ足りないので、本の奥義を理解できない。"
            return false
        end
        return true

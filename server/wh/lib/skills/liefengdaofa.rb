@@ -24,7 +24,7 @@ class Liefengdaofa < Daofa
    end
    
    def researchConditionDesc
-       "基本刀法>10级"
+       "基本刀法レベル>10"
    end
    
    def mengpai
@@ -36,7 +36,7 @@ class Liefengdaofa < Daofa
        skill = user.query_skill("blade")
 
        if (!skill or skill.data[:level] <= 10 )
-           context[:msg] += "你的基本刀法功夫还不够，无法参悟书中奥义"
+           context[:msg] += "あなたの基本刀法の工夫はまだ足りないので、本の奥義を理解できない。"
            return false
        end
        return true

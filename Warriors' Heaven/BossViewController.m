@@ -324,11 +324,11 @@
         int hp = [[ext valueForKey:@"hp"] intValue];
         int stam = [[ext valueForKey:@"stam"] intValue];
         if (hp < 0 ){
-            [ad showMsg:@"你的hp不够，好好休息吧" type:1 hasCloseButton:YES];   
+            [ad showMsg:@"あなたのHPが足りないので、ゆっくり休めてね。" type:1 hasCloseButton:YES];   
             return;
         }
         if (stam <0){
-            [ad showMsg:@"你的体力不够，好好休息吧" type:1 hasCloseButton:YES];   
+            [ad showMsg:@"あなたの体力が足りないので、ゆっくり休めてね。" type:1 hasCloseButton:YES];   
             return;
         }
         

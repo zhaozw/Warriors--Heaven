@@ -24,7 +24,7 @@ class Qishangquan < Game::Skill
    end
    
    def researchConditionDesc
-       "基本拳脚>10级"
+       "基本拳法レベル>10"
    end
    
    def mengpai
@@ -50,7 +50,7 @@ class Qishangquan < Game::Skill
        user = context[:user]
        a = getAction
        d = a[:damage] + user.tmp[:str]
-      
+      t
    end
     
 
