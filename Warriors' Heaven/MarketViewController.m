@@ -181,13 +181,22 @@
     v.hidden = NO;
     CGRect r = v.frame;
     
-    
     if (r.size.height+130 > [ad screenSize].height){
         UIScrollView* scv = [self view];
         scv.contentSize = CGSizeMake(0, r.size.height+130-[ad screenSize].height);
     }
+    v.frame = CGRectMake(r.origin.x, r.origin.y-r.size.height, r.size.width, r.size.height);
+    [UIView animateWithDuration:0.3f
+                      delay: 0.0
+                    options: UIViewAnimationOptionCurveEaseIn
+                 animations:^{
+                     v.frame = r;
+                 }
+                 completion:^(BOOL finished){
+              
+                     
+                 }];
 
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

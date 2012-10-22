@@ -7,6 +7,7 @@ play music
 3. quest
 ask
 enter
+caiyao and at least get one caoyao -> char view-> use caoyao
 leave & reload list
 4. fight
 list player-> fight
@@ -14,6 +15,7 @@ challenge hero
 5. train
 train skill
 research skill
+skill detail
 6. shop & character
 item detail->buy -> go to character -> see detail -> wear->save-> unwear
 buy gold
@@ -28,3 +30,7 @@ down before launch
 down when reg
 down when playing
 
+10 team
+join team
+list team member
+help for team code
