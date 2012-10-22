@@ -139,8 +139,8 @@
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
 
-    session_id = nil; // test register new user
-    [self setSessionId:session_id];
+   // session_id = nil; // test register new user
+    //[self setSessionId:session_id];
 
 
 }

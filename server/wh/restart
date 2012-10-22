@@ -1,4 +1,4 @@
-killall memcached
+#killall memcached
 #mongrel_rails cluster::stop -f
 #sleep 10
 #./stop
@@ -8,3 +8,4 @@ memcached -d -u root -m 512 -p 11212
 #ln -sf /var/ftproot/whj/public .
 
 ps -ef | grep ruby
+ps -ef | grep memcached
