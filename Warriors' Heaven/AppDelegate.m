@@ -135,7 +135,7 @@
     //    session_id = @"c630a00633734cf4f5ff4c0de5e6e8b2"; // user '张三疯'
     
     session_id = nil; // test register new user
-    //[self setSessionId:session_id];
+    [self setSessionId:session_id];
 
 }
 - (NSString *) readSessionId{
@@ -419,7 +419,8 @@
     [aiv loadHTMLString:[NSString stringWithFormat:@"<html><body style='background:transparent;background-color: transparent' ><img width='30' src = \"file://%@\"></body></html>", [[NSBundle mainBundle] pathForResource:@"wait3" ofType:@"gif"] ] baseURL:Nil] ;
     //aiv.center = CGPointMake(waiting.bounds.size.width / 2.0f, waiting.bounds.size.height - 40.0f);  
     //   [aiv startAnimating];  
-    [self->waiting addSubview:aiv];  
+    [self->waiting addSubview:aiv];
+    aiv.userInteractionEnabled = NO;
     //[aiv release];  
 
     // Auto dismiss after 3 seconds  
@@ -480,7 +481,7 @@
 
 
 - (BOOL) initData{
-      [self setTest];
+//      [self setTest];
     
     
     // clear cookie

@@ -1,4 +1,4 @@
-killall memcached
+#killall memcached
 #mongrel_rails cluster::stop -f
 #sleep 10
 #./stop
@@ -7,3 +7,6 @@ mongrel_rails cluster::restart
 memcached -d -u root -m 512
 #ln -sf /var/ftproot/whj/public .
 ps -ef | grep ruby
+ps -ef | grep mem
+
+ECHO Please check whether memcached owned by other process was killed. You should relaunch them if YES.
