@@ -59,6 +59,7 @@
     float deviceVersion;
     AVAudioPlayer *thePlayer;
     UIWebView *aiv;
+    UIWebView *wvPreload;
 }
 @property (unsafe_unretained, nonatomic) IBOutlet TrainingGround *vcTraining;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *vMoreTab;
@@ -116,7 +117,7 @@
 @property (strong, nonatomic) IBOutlet UIWebView *vBattleMsg;
 @property (strong, nonatomic) IBOutlet UIView *vBattleMsgBg;
 @property (unsafe_unretained, nonatomic) IBOutlet PurchaseViewController *vcPurchase;
-@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *wvPreload;
+//@property (unsafe_unretained, nonatomic) IBOutlet UIWebView *wvPreload;
 - (IBAction)closeFightMsg:(id)sender;
 
 - (void)saveContext;

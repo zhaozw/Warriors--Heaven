@@ -16,7 +16,7 @@
 
 
 @implementation AppDelegate
-@synthesize wvPreload;
+//@synthesize wvPreload;
 @synthesize wvLoadingPreface;
 @synthesize lbVersion;
 @synthesize lbBattleResultTitle;
@@ -319,8 +319,18 @@
     wvMap.hidden = NO;
     */
    
+    // create preload webview
+    wvPreload = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    [[self window] addSubview:wvPreload];
+    [self fullScreen:wvPreload];
+    [window sendSubviewToBack:wvPreload];
+    wvPreload.hidden = YES;
+    wvPreload.tag = 2000;
+
+    
     if (bShowingWelcome)
         [self topWelcomeView];
+    
     [window makeKeyAndVisible];
     
 }
@@ -1538,8 +1548,20 @@
 
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"webview error %@", error);
     if (webView.tag == 2000){ // preload
         [self showNetworkDown];
+        
+        [wvPreload removeFromSuperview];
+        wvPreload = NULL;
+        
+        wvPreload = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        [[self window] addSubview:wvPreload];
+        [self fullScreen:wvPreload];
+        [window sendSubviewToBack:wvPreload];
+        wvPreload.hidden = YES;
+        wvPreload.tag = 2000;
+       
         [self performSelector:@selector(preload) withObject:NULL afterDelay:3];
     }
 }

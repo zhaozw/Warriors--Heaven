@@ -41,7 +41,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIWindow" id="256857941">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="240737820">
@@ -197,7 +197,7 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{0, 60}, {320, 430}}</string>
 								<reference key="NSSuperview" ref="1027779286"/>
-								<reference key="NSNextKeyView" ref="735134876"/>
+								<reference key="NSNextKeyView"/>
 								<reference key="IBUIBackgroundColor" ref="735217951"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -356,19 +356,6 @@
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIWebView" id="735134876">
-						<reference key="NSNextResponder" ref="256857941"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrameSize">{320, 480}</string>
-						<reference key="NSSuperview" ref="256857941"/>
-						<reference key="NSNextKeyView" ref="1042609738"/>
-						<reference key="IBUIBackgroundColor" ref="735217951"/>
-						<float key="IBUIAlpha">0.5</float>
-						<int key="IBUITag">2000</int>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIDataDetectorTypes">1</int>
-						<bool key="IBUIDetectsPhoneNumbers">YES</bool>
-					</object>
 					<object class="IBUIImageView" id="1042609738">
 						<reference key="NSNextResponder" ref="256857941"/>
 						<int key="NSvFlags">292</int>
@@ -484,6 +471,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 568}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="88111708"/>
 				<reference key="IBUIBackgroundColor" ref="735217951"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -697,7 +685,6 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSNextKeyView"/>
 					<reference key="IBUIBackgroundColor" ref="919193196"/>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				</object>
@@ -891,14 +878,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">wvPreload</string>
-						<reference key="source" ref="405405863"/>
-						<reference key="destination" ref="735134876"/>
-					</object>
-					<int key="connectionID">104</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lbVersion</string>
 						<reference key="source" ref="405405863"/>
 						<reference key="destination" ref="134591892"/>
@@ -963,7 +942,6 @@
 							<reference ref="266325989"/>
 							<reference ref="886145416"/>
 							<reference ref="88111708"/>
-							<reference ref="735134876"/>
 							<reference ref="134591892"/>
 							<reference ref="240737820"/>
 							<reference ref="214711419"/>
@@ -1245,11 +1223,6 @@
 						<reference key="parent" ref="88111708"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">96</int>
-						<reference key="object" ref="735134876"/>
-						<reference key="parent" ref="256857941"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
 						<reference key="object" ref="134591892"/>
 						<reference key="parent" ref="256857941"/>
@@ -1332,7 +1305,6 @@
 				<string key="90.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="91.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="96.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="98.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="99.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
