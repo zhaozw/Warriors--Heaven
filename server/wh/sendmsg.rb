@@ -1,4 +1,5 @@
 require "fileutils"
+require "lib/gamesettings.rb"
 require "lib/utility.rb"
 
 #p $*.inspect

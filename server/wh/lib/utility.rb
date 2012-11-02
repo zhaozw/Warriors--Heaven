@@ -1,5 +1,6 @@
-require "gamesettings.rb"
-
+def p(m)
+    Rails.logger.debug(m)
+end
 def create_npc(path)
     o = loadGameObject(path)
     return o
@@ -355,7 +356,7 @@ end
              aFile.close
          rescue Exception=>e
              # logger.error e
-             p e.inspect
+             p "exception occur:" + e.inspect
          end
     end
     def get_msg_file(ch)
@@ -364,6 +365,7 @@ end
             if id < 0 
                 dir = "chat" if id == -1 
                 dir = "rumor" if id == -2 
+                dir = "sys" if id==-3
             else
                 dir = id/100
             end
@@ -371,6 +373,7 @@ end
             dir = ch
             id=-1 if ch == "chat"
             id=-2 if ch == "rumor"
+            id=-3 if ch == "sys"
         end
  
         dir = "#{g_FILEROOT}/message/#{dir.to_s}"  
@@ -429,7 +432,7 @@ end
 
             c = {:time=>t}
             # p "ttt=>#{t.inspect}, ch=#{ch.inspect}, pch=#{public_channel.inspect}"
-            if public_channel.include?ch
+            if system_channel.include?ch
       
                 r = get_public_msg(ch, c)
                 d += r[:data]
@@ -446,10 +449,12 @@ end
             end
         }
         # p "=>lastread=#{lastread}"
-        set_prop(data, "lastread", lastread)
-        save_filedata(uid, data)
+        if delete
+            set_prop(data, "lastread", lastread)
+            save_filedata(uid, data)
+        end
         # delete_msg(ch)
-        # p "===>d=#{d}"
+         p "===>d=#{d}"
         return d
     end
     def take_msg(uid,ch_array, t)
@@ -499,28 +504,31 @@ end
                     end
                     ar.reverse!
                     if ar.size >0
-                        md = /^\[(.*?)\](.*)$/.match(ar[0])
+                        md = /<span class=\"t\">\[(.*?)\]<\/span>(.*)$/.match(ar[0])
+                        p "==>2221#{md}"
                        if md && md[1] 
                         _t =  Time.parse(md[1]) 
                         ret[:time] = _t if (_t <=> time) >0
                         end
+                         p "==>2223#{md}"
                     end
                     ar.each{|line|
                         # p "line = #{line}"
-                        md = /^\[(.*?)\](.*)$/.match(line)
+                        md = /<span class=\"t\">\[(.*?)\]<\/span>(.*)$/.match(line)
                         t = Time.parse(md[1])
                         # p "==>msg time=#{ret[:time].inspect} #{ret[:time].to_f}"
                         # p "context time #{time.to_f}"
                          # p "md1=#{md[1].inspect}==>md2=#{md[2].inspect}"
                         # p t <=> time
-                         p "sys_msg=#{sys_msg},#{md[1].to(15)} "
+                             p "sys_msg=#{sys_msg},#{md[1].to(15)} , #{time}, #{t}"
                    
                         if ( time && t&& (t <=> time) > 0 ) or time==nil
                             # p "=====>111"
                             #                              p "[#{md[1].to(15)}]#{md[2]}\n"+ret[:data] 
                             if sys_msg
                                 
-                                ret[:data] = "[#{md[1].to(15)}]#{md[2]}\n#{ret[:data]}"
+                                # ret[:data] = "[#{md[1].to(15)}]#{md[2]}\n#{ret[:data]}"
+                                ret[:data] = line
                                 # p ret[:data]
                             else
                                 ret[:data] = "#{md[2]}\n"+ret[:data] 
@@ -547,21 +555,34 @@ end
     def send_msg(ch, m, type='')
         fname = get_msg_file(ch)
         stype=""
+        css_class=""
         case ch
-        when -1:stype="[聊天]"
-        when "chat":stype="[聊天]"
-        when -2:stype="[江湖传闻]" 
-        when "rumor":stype="[江湖传闻]"
+        when -1:stype="Chat"
+            css_class = "chat"
+        when "chat":stype="Chat"
+             css_class = "chat"
+        when -2:stype="蜚語" 
+             css_class = "rumor"
+        when "rumor":stype="蜚語"
+             css_class = "rumor"
+         when -3:stype="放送"
+             css_class = "system"
+        when "system":stype="放送"
+             css_class = "system"
         end
         
+        if stype != ""
+            stype = "[#{stype}]"
+        end 
+        
         case type
-        when "task":stype+="[任务]"
+        when "task":stype+="タスク"
         end
         
         time = Time.now
         st =  "#{time.strftime("%Y-%m-%d %H:%M:%S")}.#{time.usec.to_s[0,2]}"
-        msg = "[#{st}]#{stype}#{m}<br/>"
-  p "==>send msg #{msg}"
+        msg = "<span class='#{css_class}'><span class=\"t\">[#{st}]</span>#{stype}#{m}</span><br/>"
+  p "==>send msg #{msg} to file <#{fname}>"
         append_file(fname, msg)               
     end
     
