@@ -77,6 +77,7 @@ class ApplicationController < ActionController::Base
     end
     
     def check_session
+        @device = device
        p "===>session id=#{session[:sid]} session uid = #{session[:uid]}"
        p "cookies[:_wh_session] = #{cookies[:_wh_session] }"
        
