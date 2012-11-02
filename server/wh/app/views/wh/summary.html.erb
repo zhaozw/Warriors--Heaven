@@ -1,4 +1,11 @@
 <html>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META HTTP-EQUIV="expires" CONTENT="0">
+<!-- <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT"> -->
+
+</head>
 <style>
 .preloader {
 /* Images you want to preload*/
@@ -33,9 +40,13 @@ width: 0px;
 height: 0px;
 display: inline;
 }
+a {text-decoration:none}
+.rumor {color:blue;}
+.system {color:red;}
+.t{display:none;}
 </style>
 <body style="background-color: transparent; font-size:10pt;">
-	<div id="main" style="height:170px;overflow:scroll;">
+	<div id="main" style="height:160px;overflow:scroll;">
 	<div>
 	昨日、あなたは<%=@battle_count_last_day %>回挑戦を受けた。勝<span style="color:red" ><%=@win_count_last_day %></span>、負<span style="color:blue"><%=@battle_count_last_day - @win_count_last_day %></span>。
 	</div>
@@ -51,6 +62,8 @@ display: inline;
 	<!--,3つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">栄誉勲章</a>や2つの<a href="myspecialurl:help//http://wh.joyqom.com/help?cat=badge&name=badge1">肩書</a-->きがあなたを待っているよ！!
 	</div>
 	<% end %>
+	<div id="annmt" style="color:red;display:none;">12月1日の前に<a href="/clientaction/gototab/4">、購入金</a>は50％dicountです。</div>
+	<!-- <%=@msg%> -->
 	</div><!-- main -->
 	
 	<div id="bottom_float_bar" style="position:fixed;left:0px;z-index:1000;width:269px;bottom:0;right:0;">
@@ -64,11 +77,11 @@ display: inline;
 
 <script src="/javascripts/jquery-1.3.2.js"></script>
 <script>
-function query_msg(){
-//	alert(action_name);
+function query_msg(f){
+	// alert("action_name");
 	$.ajax({
 			type: "get",
-			url: "/message/get?type=html&type2=text&delete=1"+"?t="+ new Date().getTime(),
+			url: "/message/get?type=html&type2=text&delete="+f+"?t="+ new Date().getTime(),
 
 			success: function(data, textStatus){
 				  // alert( "Data Saved: " + data +","+ textStatus);
@@ -77,7 +90,8 @@ function query_msg(){
 				// alert(data);
 			  $("#main").html( $("#main").html()+data);
 			 $("#main").attr("scrollTop",$("#main").attr('scrollHeight'));
-					 window.location = "myspecialurl:foo"+"//"+encodeURIComponent(data);
+				 if (!f)
+				 		window.location = "myspecialurl:foo"+"//"+encodeURIComponent(data);
 			}
 	
 			// g_data = data;
@@ -97,7 +111,13 @@ function query_msg(){
 			}
 	});
 }
-	 timer = setInterval('query_msg();', 30000+30000*Math.random());
+function showAnnouncement(){
+	$("#annmt").css("display", "block");
+}
+	// query_msg(1);
+	timer = setInterval('query_msg(1);', 10000+10000*Math.random());
+	timer2 = setInterval('showAnnouncement();', 1);
 	// timer = setInterval('query_msg();', 3000);
 	// alert("dsf");
+	$("#main").attr("scrollTop",$("#main").attr('scrollHeight'));
 </script>
