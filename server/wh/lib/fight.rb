@@ -1510,7 +1510,7 @@ end
                 if p2_hp_delta > 0
                     p1.tmp[:contrib][:score] += calc_zhanli(p2)*p2_hp_delta
                 end
-                  context[:msg] += "<div><span class='user'>#{p2.name}稍作休息，体力有所恢复...</span></div>"
+                  context[:msg] += "<div><span class='user'>#{p2.name}がちょっと休んで、体力はある程度戻ってきた..</span></div>"
                 p2.tmp[:hp] += p2_hp_delta/3
                 p2.tmp[:stam] += p2_hp_delta/2
                 index_player_team1 += 1
