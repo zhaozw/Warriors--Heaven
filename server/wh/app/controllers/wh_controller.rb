@@ -1293,6 +1293,9 @@ class WhController < ApplicationController
        r = ActiveRecord::Base.connection.execute("select count(*) from userquests where uid=#{session[:uid]}")
        @quest_count = QuestController.list2.size - r.fetch_row[0].to_i
         
+         # @msg = query_msg(user_data.id, system_channel+[user_data[:id]], true).strip!
+ 
+   
     end
     
     def startPractise
@@ -1512,7 +1515,7 @@ class WhController < ApplicationController
     def teamfight
         id = params[:id].to_i
             dir = id/100
-            dir = "/var/wh/globalquest/"+dir.to_s+"/"
+            dir = "/var/whj/globalquest/"+dir.to_s+"/"
     path = dir + id.to_s
     r = ""
        # logger.info("$$$$$$$$$$:#{path}$$$")
