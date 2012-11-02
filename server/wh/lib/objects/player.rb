@@ -492,12 +492,12 @@ include Pc
              
              if !pass
                  ext[:exp] = exp_next_level-1 if ext[:exp]< exp_next_level-1
-                 send_msg(id, "<div>你的等级无法提升，你需要打败#{hero.name}才能升至#{ext[:level]+levelup}级</div>")
+                 send_msg(id, "<div>あなたは、レベルをアップグレードすることはできません，あなたはレベル#{ext[:level]+levelup}にアップグレードする“#{hero.name}”を倒さなければなりません を倒さなければなりません.</div>")
              else
                  ext[:level] += 1
                  ext[:exp] = 0
                  ext[:title] = update_title1(self)
-                 send_msg(id, "<div>你的江湖称号已改为“#{ext[:title]}”</div>")
+                 send_msg(id, "<div>おめでとう！あなたのタイトルは、“#{ext[:title]}”に変更されました.</div>")
                  # improve maxhp, max jingli, max_stam
                  srand(Time.now.to_i)
                  mh_bonus = rand(ext[:level]/2 )
