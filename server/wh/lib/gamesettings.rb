@@ -77,7 +77,7 @@ def title_from_skill(skill, level)
         if level < 5
             t = "児童薬師"
         elsif level < 10
-            t = "薬師"
+            t = "薬師従者"
         elsif level < 20
             t = "初級薬師"
         elsif level < 30
@@ -101,7 +101,7 @@ def skill_for_title(title)
     case title
     when "児童薬師"
         r = "caoyao"
-        when "薬師"
+        when "薬師従者"
         r = "caoyao"
             when "初級薬師"
         r = "caoyao"
