@@ -15,7 +15,7 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
-
+=begin
 
 #每天切分一次日志文件
 
@@ -28,3 +28,4 @@ config.logger = Logger.new("#{Rails.root}/log/#{Rails.env}#{Date.today.to_s}.log
 config.logger.level = Logger::INFO 
 #！注意： config.logger = Logger.new("#{Rails.root}/log/#{Rails.env}1.log", 2, 51200000)  中
 #{Rails.env}1.log  这句代码，即找到当前启动模式的日志文件，若写成#{Rails.env}.log时，会报错，提示无权限修改
+=end

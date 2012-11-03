@@ -186,6 +186,7 @@ end
 #           Title system       #
 #==============================#
     # set first title
+    # params: c:player object
 def update_title1(c)
     # p "===>update_title1 #{c.tmp.inspect}"
     title = c.var[:title]
@@ -505,12 +506,12 @@ end
                     ar.reverse!
                     if ar.size >0
                         md = /<span class=\"t\">\[(.*?)\]<\/span>(.*)$/.match(ar[0])
-                        p "==>2221#{md}"
+                        # p "==>2221#{md}"
                        if md && md[1] 
                         _t =  Time.parse(md[1]) 
                         ret[:time] = _t if (_t <=> time) >0
                         end
-                         p "==>2223#{md}"
+                         # p "==>2223#{md}"
                     end
                     ar.each{|line|
                         # p "line = #{line}"
