@@ -551,8 +551,14 @@ include Pc
                 if v == t
                     return
                 end
+                
+                if skill_for_title(t) == skill_for_title(v)
+                    ar.deletev(v)
+                end
             }
-            s += " #{t}"
+            ar.push(t)
+            # s = " #{t}"
+            s = ar.join(" ")
         else
             s = "#{t}"
         end

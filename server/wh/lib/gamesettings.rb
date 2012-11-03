@@ -95,6 +95,29 @@ def title_from_skill(skill, level)
             
     return t
 end
+
+def skill_for_title(title)
+    r = ""
+    case title
+    when "児童薬師"
+        r = "caoyao"
+        when "薬師"
+        r = "caoyao"
+            when "初級薬師"
+        r = "caoyao"
+            when "薬師"
+        r = "caoyao"
+            when "有名医者"
+        r = "caoyao"
+            when "大国医"
+        r = "caoyao"
+            when "薬王"
+        r = "caoyao"
+             when "高級医者"
+        r = "caoyao"
+    end
+    return r;
+end
 # # set first title
 # def setTitle1(c)
 #     title = c.tmp[:title]
