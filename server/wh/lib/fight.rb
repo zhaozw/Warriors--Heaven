@@ -474,7 +474,7 @@ end
            return (total_exp/20.0 * (jingli_bonus/10) ).to_i
        end
 
-       p 
+      
         p =level**3/3 
         str  = player.tmp[:str]
         dext = player.tmp[:dext]
