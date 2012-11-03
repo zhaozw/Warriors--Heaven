@@ -38,7 +38,7 @@ class MessageController < ApplicationController
         end
         # c = {:time => @t}
         # p "==>lastreadtime=#{@t.inspect}"
-        @msg = query_msg(user_data.id, public_channel+[user_data[:id]], @delete ==1)
+        @msg = query_msg(user_data.id, system_channel+[user_data[:id]], @delete ==1)
         # p "msg=#{@msg}"
         if (@type == "plain")
             @msg = ret.gsub(/<.*?>/,"")
